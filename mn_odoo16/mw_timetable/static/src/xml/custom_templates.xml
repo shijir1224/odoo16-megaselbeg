@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id='mw_timetable'>
+    <t t-name="mw_timetable.HrTimetable" owl="1">
+        <div id="hr_timetable" t-att-class="'oe_hr_time_schedule'" style="width:100%;height:100%">
+            <div id="table_header_freeze" style="width:100%;
+                                            height:100%;
+                                            border-radius: 1px;
+                                            border: 1px solid #888888;
+                                            box-shadow: 3px 3px 2px #888888;">
+                <table border="1"  class="o_list_table" style="width:80%">
+                    <thead style="position:sticky ;top:0; width:100% ;height:100px">
+                        <th>
+                            <div>
+                                №
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Албан тушаал
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Ажилтны код
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Ажилтан
+                            </div>
+                        </th>
+                        <t t-if="times" >
+                            <t t-foreach="times" t-as="time" t-key="time_index">
+                                <th> <t t-esc="time"/></th>
+                            </t>
+                        </t> 
+                    </thead>
+                    <tbody class="ui-sortable">
+                        <t>
+                            <tr t-foreach="lines" t-as="item" t-key="item_index">
+                                 <td t-att-data-id="item"  class="oe_no_emplo_col_number">
+                                    <div t-att-data-id="item" class="oe_no_emplo_col">
+                                        <t t-esc="item.data.sequence"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="item"  class="oe_no_emplo_col_number">
+                                    <div t-att-data-id="item" class="oe_no_emplo_job">
+                                        <t t-esc="item.data.job_id['1']"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="item"  class="oe_no_emplo_col_number">
+                                    <div t-att-data-id="item" class="oe_no_emplo_ident">
+                                        <t t-esc="item.data.identification_id"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="item"  class="oe_no_emplo_col_number">
+                                    <div t-att-data-id="item" class="oe_no_emplo_col">
+                                        <t t-esc="item.data.employee_id['1']"/>
+                                    </div>
+                                </td>
+                               
+                                <t t-foreach="item.data.line_ids.records" t-as="line" t-key="line_index">
+                                    <td  t-if="line.data" class="oe_three">
+                                        <!-- <i t-if="line.data.display_name == 'И160.0'" class="fa fa-bus  oe-account_followup-trust"  style="color: green; font-size: 0.8em;" t-esc="line.data.display_name"></i>
+                                        <i t-if="line.data.display_name != 'И160.0'" t-esc="line.data.display_name"></i> -->
+                                        <t t-esc="line.data.display_name"/>
+                                    </td>
+                                    <!-- <td t-if="line.data.color == '3'" class="oe_three">
+                                        <t t-esc="line.data.name"/>
+                                    </td> -->
+                                    <!-- <td t-if="line.data.color == '10'" class="oe_ten">
+                                        <t t-esc="line.data.name"/>
+                                    </td> -->
+                                    <!-- t-if="line.data" -->
+                                     <!-- <td  t-if="line.data.color == '4'" class="oe_four">
+                                        <t t-esc="line.data.name"/>
+                                    </td>
+                                     <td  t-if="line.data.color == '5'" class="oe_five">
+                                        <t t-esc="line.data.name"/>
+                                    </td>
+                                    <td  t-if="line.data.color == '6'" class="oe_six">
+                                        <t t-esc="line.data.name"/>
+                                    </td>
+                                    <td  t-if="line.data.color == '7'" class="oe_seven">
+                                        <t t-esc="line.data.name"/>
+                                    </td>
+                                    <td  t-if="line.data.color == '8'" class="oe_eigth">
+                                        <t t-esc="line.data.name"/>
+                                    </td>
+                                     <td  t-if="line.data.color == '9'" class="oe_nine">
+                                        <t t-esc="line.data.name"/>
+                                    </td>
+                                     <td  t-if="line.data.color == '11'" class="oe_eleven">
+                                        <t t-esc="line.data.name"/>
+                                    </td>
+                                     <td  t-if="line.data.color == '0'" class="oe_shift1">
+                                        <t t-esc="line.data.name"/>
+                                    </td> -->
+    
+                                </t>
+                                <!-- <td t-att-data-id="item"  class="oe_no_description_col">
+                                    <div t-att-data-id="item" class="oe_no_description_col">
+                                        <t t-esc="item.data.description"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="item"  class="oe_no_description_col">
+                                    <div t-att-data-id="item" class="oe_no_description_col" >
+                                        <t t-esc="item.data.description"/>
+                                    </div>
+                                </td> -->
+                            </td>
+                        </t>    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

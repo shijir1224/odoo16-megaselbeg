@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="group_mw_purchase_cost_view" model="res.groups">
+			<field name="name">View purchase costs</field>
+			<field name="category_id" ref="base.module_category_inventory_purchase"/>
+		</record>
+	</data>
+</odoo>

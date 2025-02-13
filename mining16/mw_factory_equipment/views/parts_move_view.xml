@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="parts_move_form_view" model="ir.ui.view">
+		<field name="name">parts.move.form</field>
+		<field name="model">parts.move</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        groups="base.group_no_one" />
+                    <button name="action_planner" class="oe_highlight"
+                        string="Засварын төлөвлөгч хянасан"
+                        states="draft" type="object"
+                        groups="mw_technic_maintenance.group_maintenance_planner"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                        statusbar_visible="draft,confirmed" />
+                </header>
+           		<sheet>
+                   <div name="button_box" class="oe_button_box oe_right"/>
+           			<group col="4">
+                        <field name="branch_id"
+                                options="{'no_create':True}"/>
+                        <field name="company_id"/>
+
+                        <field name="date"/>
+                        <field name="date_required"/>
+                        
+                        <field name="is_create_pr"/>
+                        <!-- <field name="request_id" attrs="{'invisible':[('is_create_pr','=','False')]}"/> -->
+                    </group>
+                    <group col="4" string="Шилжилтийн мэдээлэл">
+                        <field name="from_equipment_id" options="{'no_create': True}" />
+                        <field name="to_equipment_id" options="{'no_create': True}" />
+
+                        <field name="description" nolabel="1" colspan="4" placeholder="Тайлбар..."/>
+
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="Lines" editable="bottom">
+                                <field name="product_id" options="{'no_create':True}"/>
+                                <field name="qty"/>
+                                <field name="uom_id"/>
+                            </tree>
+                        </field>
+
+                        <field name="repairman_id" options="{'no_create': True}" />
+                        <field name="user_id"/>
+
+                        <field name="planner_id"/>
+                        <field name="manager_id"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="parts_move_tree_view" model="ir.ui.view">
+        <field name="name">parts.move.tree</field>
+        <field name="model">parts.move</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='confirmed'">
+                <field name="description"/>
+                <field name="date_required"/>
+                <field name="from_equipment_id"/>
+                <field name="to_equipment_id"/>
+                <field name="manager_id"/>
+                <!-- <field name="partsman_id"/> -->
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_parts_move'>
+        <field name="name">parts.move.action</field>
+        <field name="res_model">parts.move</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+mw_mobile_user,mw.mobile,model_mw_mobile,base.group_user,1,1,1,1
+res_user_location_user,res.user.location,model_res_user_location,base.group_user,1,1,1,1

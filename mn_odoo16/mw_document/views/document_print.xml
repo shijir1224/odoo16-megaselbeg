@@ -1,0 +1,41 @@
+<odoo>
+<template id="print_employee_badge">
+        <t t-value="null">
+        </t>
+    </template>
+    <record id="received_doc_print" model="ir.actions.report">
+        <field name="name">Ирсэн бичиг</field>
+        <field name="model">received.document</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.received_document</field>
+        <field name="report_file">hr.received_document</field>
+        <field name="print_report_name">'Ирсэн бичиг'</field>
+        <field name="binding_model_id" ref="model_received_document"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- <template id="document_project">
+        <t t-value="null">
+        </t>
+    </template> -->
+
+    <template id="print_employee_badge">
+        <t t-value="null">
+        </t>
+    </template>
+    <record id="send_document_print" model="ir.actions.report">
+        <field name="name">Явсан бичиг</field>
+        <field name="model">send.document</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.send_document</field>
+        <field name="report_file">hr.send_document</field>
+        <field name="print_report_name">'Явсан бичиг'</field>
+        <field name="binding_model_id" ref="model_send_document"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="send_document">
+        <t t-value="null">
+        </t>
+    </template>
+</odoo>

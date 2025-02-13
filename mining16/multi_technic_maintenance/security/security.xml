@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Domains -->
+    <!-- Technic inspection -->
+    <record model="ir.rule" id="all_technic_inspection">
+        <field name="name">Бүх техникийн үзлэг харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_inspection"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_technic_inspection">
+        <field name="name">Өөрийн компаны техникийн үзлэг харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_inspection"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_technic_module_user'))]"/>
+    </record>
+
+    <!-- Technic tire -->
+    <record model="ir.rule" id="all_technic_tire">
+        <field name="name">Бүх дугуй харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_tire"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_technic_tire">
+        <field name="name">Өөрийн компаны дугуй харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_tire"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_technic_module_user'))]"/>
+    </record>
+
+    <!-- Technic tire inspection -->
+    <record model="ir.rule" id="all_tire_inspection">
+        <field name="name">Бүх дугуйн үзлэг харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_tire"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_tire_inspection">
+        <field name="name">Өөрийн компаны дугуйн үзлэг харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_tire_inspection"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_technic_module_user'))]"/>
+    </record>
+
+    <!-- Technic technic tire install -->
+    <record model="ir.rule" id="all_technic_tire_install">
+        <field name="name">Бүх дугуйн ажил харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_tire_install"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_technic_tire_install">
+        <field name="name">Өөрийн компаны дугуйн ажил харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_tire_install"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_technic_module_user'))]"/>
+    </record>
+
+    <!-- Technic component -->
+    <record model="ir.rule" id="all_technic_component_part">
+        <field name="name">Бүх component харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_component_part"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_technic_component_part">
+        <field name="name">Өөрийн компаны component харах</field>
+        <field name="model_id" ref="mw_technic_equipment.model_technic_component_part"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_technic_module_user'))]"/>
+    </record>
+
+    <!-- *********** MAINTENANCE ************** -->
+    <!-- DEMS -->
+    <record model="ir.rule" id="all_maintenance_dems_info">
+        <field name="name">Бүх DEMS info харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_dems_info"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_technic_component_part">
+        <field name="name">Өөрийн DEMS info харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_dems_info"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+
+    <!-- OIL -->
+    <record model="ir.rule" id="all_maintenance_oil_sample">
+        <field name="name">Бүх OIL харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_oil_sample"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_oil_sample">
+        <field name="name">Өөрийн OIL харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_oil_sample"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Сэлбэг шилжилт -->
+    <record model="ir.rule" id="all_maintenance_parts_move">
+        <field name="name">Бүх Сэлбэг шилжилт харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_parts_move"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_parts_move">
+        <field name="name">Өөрийн Сэлбэг шилжилт харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_parts_move"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Сэлбэг хүлээлт -->
+    <record model="ir.rule" id="all_maintenance_parts_waiting">
+        <field name="name">Бүх Сэлбэг хүлээлт харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_parts_waiting"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_parts_waiting">
+        <field name="name">Өөрийн Сэлбэг хүлээлт харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_parts_waiting"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Дуудлага -->
+    <record model="ir.rule" id="all_maintenance_call">
+        <field name="name">Бүх Дуудлага харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_call"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_">
+        <field name="name">Өөрийн Дуудлага харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_call"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Long term -->
+    <record model="ir.rule" id="all_maintenance_long_term">
+        <field name="name">Бүх Long term харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_long_term"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_long_term">
+        <field name="name">Өөрийн Long term харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_long_term"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Parent төлөвлөлгөө -->
+    <record model="ir.rule" id="all_maintenance_plan">
+        <field name="name">Бүх Parent төлөвлөлгөө харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_plan">
+        <field name="name">Өөрийн Parent төлөвлөлгөө харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Техникийн төлөвлөгөө -->
+    <record model="ir.rule" id="all_maintenance_plan_line">
+        <field name="name">Бүх  харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan_line"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_plan_line">
+        <field name="name">Өөрийн Техникийн төлөвлөгөө харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan_line"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Forecast -->
+    <record model="ir.rule" id="all_maintenance_plan_generator">
+        <field name="name">Бүх Forecast харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan_generator"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_plan_generator">
+        <field name="name">Өөрийн Forecast харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan_generator"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- PM material forecast -->
+    <record model="ir.rule" id="all_maintenance_pm_material_generator">
+        <field name="name">Бүх PM material forecast харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_pm_material_generator"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_pm_material_generator">
+        <field name="name">Өөрийн PM material forecast харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_pm_material_generator"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Үзлэгийн тохиргоо -->
+    <record model="ir.rule" id="all_maintenance_inspection_config">
+        <field name="name">Бүх Үзлэгийн тохиргоо харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_inspection_config"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_inspection_config">
+        <field name="name">Өөрийн Үзлэгийн тохиргоо харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_inspection_config"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Туршлагын сан -->
+    <record model="ir.rule" id="all_maintenance_experience_library">
+        <field name="name">Бүх Туршлагын сан харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_experience_library"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_experience_library">
+        <field name="name">Өөрийн Туршлагын сан харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_experience_library"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+    <!-- Workorder -->
+    <record model="ir.rule" id="all_maintenance_workorder">
+        <field name="name">Бүх Workorder харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_workorder"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_equipment.group_all_technic_user'))]"/>
+    </record>
+    <record model="ir.rule" id="own_maintenance_workorder">
+        <field name="name">Өөрийн Workorder харах</field>
+        <field name="model_id" ref="mw_technic_maintenance.model_maintenance_workorder"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field>
+        <field name="groups" eval="[(4,ref('mw_technic_maintenance.group_maintenance_user'))]"/>
+    </record>
+</odoo>

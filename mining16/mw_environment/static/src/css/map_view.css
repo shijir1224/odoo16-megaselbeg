@@ -1,0 +1,44 @@
+.map_overlay {
+    position: absolute;
+    display: none;
+    background: white;
+    opacity: 0.9;
+    border: 2px solid black;
+    z-index: 3000;
+    padding: 5px 0;
+}
+
+/* Button style */
+.openerp .oe_view_manager .oe_view_manager_switch .oe_vm_switch_gmaps:after {
+    content: "2";
+}
+
+.marker-label {
+    background-color:#f00;
+    display:inline-block;
+    border-radius:50%;
+    padding:5px;
+}
+
+.firstHeading{
+    font-size:20px;
+    margin-bottom:5px;
+}
+
+.bodyContent table{
+    border-collapse:collapse;
+    border: 1px solid #999;
+}
+.bodyContent table th{
+    font-size:12px;
+    font-weight:bold;
+    height:30px;
+    text-align:center;
+    vertical-align:middle;
+    border: 1px solid #CCC;
+}
+.bodyContent table td{
+    font-size:12px;
+    padding:5px 10px;
+    border: 1px solid #CCC;
+}

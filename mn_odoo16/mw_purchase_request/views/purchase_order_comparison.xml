@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="purchase_order_comparison_view_form_inherit_request" model="ir.ui.view">
+			<field name="name">purchase.order.comparison.form.inherit.request</field>
+			<field name="model">purchase.order.comparison</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="mw_purchase_comparison.purchase_order_comparison_view_form"/>
+			<field name="arch" type="xml">
+				<page name="related_po" position="inside">
+					<separator string="Хүсэлт"/>
+					<field name="request_ids" readonly="1" force_save="1" nolabel="1"/>
+				</page>
+			</field>
+		</record>
+	</data>
+</odoo>

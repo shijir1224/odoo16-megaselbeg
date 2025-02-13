@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="technic_equipment_setting_form" model="ir.ui.view">
+        <field name="name">technic.equipment.setting.form.inherit</field>
+        <field name="model">technic.equipment.setting</field>
+        <field name="inherit_id" ref="mw_technic_equipment.technic_equipment_setting_form"/>
+        <field name="arch" type="xml">
+            
+                <xpath expr='//form/sheet/group/field[@name="technic_type"]' position="after">
+                    <field name="drill_product_id"  attrs="{'invisible': [('technic_type', '!=', 'drill')]}"/>
+                </xpath>
+            
+        </field>
+    </record>
+    
+</odoo>

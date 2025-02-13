@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<menuitem id="purchase_create_stock_parent_menu" parent="stock.menu_stock_root" name="Салбарын захиалга" sequence="20"/>
+		<menuitem id="purchase_create_stock_menu" parent="purchase_create_stock_parent_menu" name="Барааны хөдөлгөөн" sequence="20" action="mw_purchase_create_stock.purchase_create_stock_move_action"/>
+		<menuitem id="purchase_create_stock_move1_menu" parent="purchase_create_stock_parent_menu" name="Нэгтгэлийн Дэлгэрэнгүй Тайлан" sequence="24" action="mw_purchase_create_stock.action_purchase_create_stock_move_report"/>
+	</data>
+</odoo>

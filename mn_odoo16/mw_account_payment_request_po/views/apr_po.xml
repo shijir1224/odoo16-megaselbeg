@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="purchase_order_form_pre_payment" model="ir.ui.view">
+		<field name="name">purchase.order.formw.mw.pre.payment</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<div name="button_box" position="inside">
+				<button type="object" name="view_pay" class="oe_stat_button" icon="fa-money" attrs="{'invisible':[('pay_count', '=', 0)]}">
+					<field name="pay_count" widget="statinfo" string="Төлбөрийн хүсэлт"/>
+				</button>
+			</div>
+			<xpath expr="//group//group[2]" position="after">
+				<div>
+				</div>
+				<div>
+					<!-- <button type="object" name="create_tulbur_tootsoo" class="btn-primary" icon="fa-money" string="Төлбөрийн хүсэлт үүсгэх"/> -->
+				</div>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_payment_request_form_my_po" model="ir.ui.view">
+		<field name="name">payment.request.form.my</field>
+		<field name="model">payment.request</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_payment_request_form_my"/>
+		<field name="arch" type="xml">
+			<div name="button_box" position="inside">
+				<button type="object" name="view_po" class="oe_stat_button" icon="fa-shopping-cart" attrs="{'invisible':[('po_count', '=', 0)]}">
+					<field name="po_count" widget="statinfo" string="Худалдан авалт харах"/>
+				</button>
+			</div>
+			<notebook position="before">
+				<group>
+					<field name="import_po" invisible="1"/>
+				</group>
+			</notebook>
+			<notebook position="inside">
+				<page string="Оруулах Худалдан Авалтууд" name="po" attrs="{'invisible':[('import_po','=',False)]}">
+					<field name="purchase_ids" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+					<field name="po_count" groups="base.group_no_one"/>
+				</page>
+			</notebook>
+		</field>
+	</record>
+
+	<record id="view_payment_request_confirm_tree" model="ir.ui.view">
+		<field name="name">payment.request.confirm.tree</field>
+		<field name="model">payment.request</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_payment_request_confirm_tree"/>
+		<field name="arch" type="xml">
+			<tree position="inside">
+				<field name="purchase_ids" widget="many2many_tags" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_payment_request_tree" model="ir.ui.view">
+		<field name="name">payment.request.tree</field>
+		<field name="model">payment.request</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_payment_request_tree"/>
+		<field name="arch" type="xml">
+			<tree position="inside">
+				<field name="purchase_ids" widget="many2many_tags" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_payment_request_search_my" model="ir.ui.view">
+		<field name="name">payment.request.search.my</field>
+		<field name="model">payment.request</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_payment_request_search_my"/>
+		<field name="arch" type="xml">
+			<search position="inside">
+				<field name="purchase_ids"/>
+				<filter name="ok_purchase_ids" string="Худалдан авалтаас" domain="[('purchase_ids','!=',False)]"/>
+				<filter name="gr_import_po" string="Худалдан авалтаас" context="{'group_by':'import_po'}"/>
+			</search>
+		</field>
+	</record>
+
+</odoo>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="first_balance_view" model="ir.ui.view">
+        <field name="name">first.balance.wizard</field>
+        <field name="model">first.balance</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_price_unit" states="draft" string="Нэгж өртөг батлах" class="oe_highlight" type="object"/>
+                    <button name="action_price_unit_average" states="draft" string="Нэгж өртөг бодох /дундаж/" class="oe_highlight" type="object"/>
+                    <button name="action_done" states="price_unit,draft" string="Үлдэгдэл батлах" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="done,price_unit" string="Ноороглох" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                                name="view_line_edit_move"
+                                string="Дэл Засах"
+                                class="oe_stat_button" icon="fa-arrow">
+                        </button>
+                    
+                        <button type="object"
+                            name="view_stock_move"
+                           
+                            class="oe_stat_button" icon="fa-refresh">
+                            <field name="count_move" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="desc"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="name" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="type" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="company_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        </group>
+                        <group>
+                            <field name="date" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="is_technic" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="is_picking" attrs="{'readonly':[('state','=','done')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="total_qty" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="import_data"/>
+                            <button name="remove_line" string="Мөр устгах" type="object" icon="fa-delete" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <button name="update_date" string="Агуулах санхүү бичилтийн огноог өөрчлөх" type="object" icon="fa-date" attrs="{'invisible':[('state','=','draft')]}"/>
+                            <button name="action_import" string="Импорлох" type="object" icon="fa-arrow-circle-down" attrs="{'readonly':[('state','=','done')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="result"/>
+                    </group>
+                    <notebook>
+                        <page string="Бараанууд">
+                            <group>
+                                <group>
+                                    <button name="update_lot_serial" string="1. Лоттой барааг Tracking-ийг Лот болгох" type="object"  class="btn-danger"/>
+                                </group>
+                                <group>
+                                    <button name="update_lot_serial_date" string="2. Лотыг огноог өөрчлөх" type="object"  class="btn-warning"/>
+                                </group>
+                                <group>
+                                    <button name="action_not_create_account_move" string="3. Санхүү бичилт үүсээгүйг үүсгэх" type="object" icon="fa-create" class="btn-success"/>
+                                </group>
+                            </group>
+                            <field name="line_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                <tree editable="bottom">
+                                    <field name="location_id"/>
+                                    <field name="product_id"/>
+                                    <field name="product_qty" sum="sum"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_unit_average"/>
+                                    <field name="subtotal" sum="sum"/>
+                                    <field name="partner_id"/>
+                                    <field name="ser_and_lot"/>
+                                    <field name="ser_end_date"/>
+                                    <!-- <field name="lot_id"/> -->
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="first_balance_search_view" model="ir.ui.view">
+        <field name="name">first.balance.search</field>
+        <field name="model">first.balance</field>
+        <field name="arch" type="xml">
+            <search string="Journal Items">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="total_qty"/>
+                <field name="total_amount"/>
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="name" string="Бараанд" filter_domain="[('line_ids.product_id','like',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="first_balance_line_search_view" model="ir.ui.view">
+        <field name="name">first.balance.line.search</field>
+        <field name="model">first.balance.line</field>
+        <field name="arch" type="xml">
+            <search string="Journal Items">
+                    <field name="product_id"/>
+                    <field name="location_id"/>
+                    <field name="product_qty" sum="sum"/>
+                    <field name="price_unit"/>
+                    <field name="subtotal" sum="sum"/>
+                    <field name="ser_and_lot"/>
+                    <field name="ser_end_date"/>
+                    <field name="lot_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="first_balance_line_tree_view" model="ir.ui.view">
+        <field name="name">first.balance.line.tree</field>
+        <field name="model">first.balance.line</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="location_id"/>
+                <field name="product_id"/>
+                <field name="product_qty" sum="sum"/>
+                <field name="price_unit"/>
+                <field name="subtotal" sum="sum"/>
+                <field name="ser_and_lot"/>
+                <field name="ser_end_date" readonly="0"/>
+                <field name="lot_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="first_balance_tree_view" model="ir.ui.view">
+        <field name="name">first.balance.tree</field>
+        <field name="model">first.balance</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="total_qty"/>
+                <field name="total_amount"/>
+                <field name="company_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_first_balance" model="ir.actions.act_window">
+        <field name="name">Эхний үлдэгдэл оруулах</field>
+        <field name="res_model">first.balance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_first_balance" id="menu_first_balance" parent="stock.menu_stock_inventory_control" groups="base.group_erp_manager" sequence="100"/>
+
+</odoo>

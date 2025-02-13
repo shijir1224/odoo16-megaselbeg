@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+          <data>
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="auto_generated_from_sale" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='move_line_ids_without_package']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|', '|', '|', ('show_operations', '=', False), ('state', '=', 'cancel'), '&amp;', ('state', '=', 'done'), ('is_locked', '=', True), ('auto_generated_from_sale', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_ids_without_package']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|', '|', '&amp;', ('show_operations', '=', True), '|', ('is_locked', '=', True), ('state', '=', 'done'), '&amp;', ('state', '=', 'done'), ('is_locked', '=', True), ('auto_generated_from_sale', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_show_details']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('show_details_visible', '=', False), ('parent.auto_generated_from_sale', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_assign_serial']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('display_assign_serial', '=', False), ('show_operations', '=', False), ('parent.auto_generated_from_sale', '=', True)]}</attribute>
+                </xpath>
+          </data>
+        </field>
+    </record>
+
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="mw_stock.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+          <data>
+                <xpath expr="//button[@name='copy_qty_to_done']" position="before">
+                    <field name="auto_generated_from_sale" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='copy_qty_to_done']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('auto_generated_from_sale', '=', True)]}</attribute>
+                </xpath>
+          </data>
+        </field>
+    </record>
+    
+</odoo>

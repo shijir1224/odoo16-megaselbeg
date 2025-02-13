@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="sequencehse_employee_daily_instruction" model="ir.sequence">
+        <field name="name">HSE employee daily instruction</field>
+        <field name="code">hse.employee.daily.instruction</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+    <!-- Hse Employee daily instruction-->
+    <record id="view_hse_employee_daily_instruction_form" model="ir.ui.view">
+		<field name="name">hse.employee.daily.instruction.form</field>
+		<field name="model">hse.employee.daily.instruction</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+                    <button name="action_to_download" string="Ажилтан татах" type="object" class="btn-warning" attrs="{'invisible': [('state','=','done')]}"/>
+					<button name="action_to_draft" states="done" string="Буцаах" type="object" class="btn-danger" groups="mw_hse.group_hse_manager"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" groups="mw_hse.group_hse_manager"/>                   
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+						<h1>
+							<field name="name" force_save="1"/>
+						</h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="branch_id" options="{'no_create':True}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="employee_id"/>
+                        </group>
+                        <group>
+                            <field name="search_company_id"/>
+                            <field name="search_sector_ids" widget='many2many_tags'/>
+                            <field name="part" widget="selection"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                    <div>
+                        <span>
+                            <button name="export_template" string="Темплати Экспортлох" type="object" class="btn-success" icon="fa-download"/>
+                        </span>
+                        <span style = "margin-left: 10px">
+                            <field name="excel_data"/>
+                        </span>
+                        <span style = "margin-left: 10px">
+                            <button name="import_from_excel" string="Импортлох" type="object" class="btn-warning" icon="fa-download" attrs="{'invisible': [('state','=','done')]}"/>
+                        </span>
+                        <span style = "margin-left: 10px">
+                            <button name="delete_line" string="Мөр устгах" type="object" class="btn-danger" icon="fa-times-circle" attrs="{'invisible': [('state','=','done')]}"/>
+                        </span>
+                    </div>
+                    <field name="daily_instruction_line" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="employee_id" options="{'no_create':True}"/>
+                            <field name="employee_lastname"/>
+                            <field name="employee_name"/>
+                            <field name="company_id" options="{'no_create':True}"/>
+                            <field name="job_id" options="{'no_create':True}"/>
+                            <field name="date"/>
+                            <field name="is_instruction"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+    <record id="view_hse_employee_daily_instruction_tree" model="ir.ui.view">
+		<field name="name">hse.employee.daily.instruction.tree</field>
+		<field name="model">hse.employee.daily.instruction</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+                <field name="date"/>
+				<field name="employee_id"/>
+                <field name="state"/>
+			</tree>
+		</field>
+    </record>
+
+    <record id="view_hse_employee_daily_instruction_filter" model="ir.ui.view">
+		<field name="name">hse.employee.daily.instruction.filter</field>
+		<field name="model">hse.employee.daily.instruction</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+                <field name="date"/>
+				<field name="employee_id"/>
+                <field name="state"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_employee_daily_instruction" model="ir.actions.act_window">
+		<field name="name">ХАБ-Өдөр тутмын зааварчилгаа</field>
+		<field name="res_model">hse.employee.daily.instruction</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="hse_employee_daily_instruction_line_pivot_view">
+        <field name="name">hse.employee.daily.instruction.line.pivot</field>
+        <field name="model">hse.employee.daily.instruction.line</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="employee_id" type="row"/>
+                <field name="date" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+	<record model="ir.ui.view" id="hse_employee_daily_instruction_line_form_view">
+        <field name="name">hse.employee.daily.instruction.line.form</field>
+        <field name="model">hse.employee.daily.instruction.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <shee>
+                    <group>
+                        <field name="employee_id" options="{'no_create':True}"/>
+                        <field name="employee_lastname"/>
+                        <field name="employee_name"/>
+                        <field name="company_id" options="{'no_create':True}"/>
+                        <field name="job_id" options="{'no_create':True}"/>
+                        <field name="date"/>
+                        <field name="is_instruction"/>
+                    </group>
+                </shee>
+                <div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hse_employee_daily_instruction_line_tree_view">
+        <field name="name">hse.employee.daily.instruction.line.tree</field>
+        <field name="model">hse.employee.daily.instruction.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id" options="{'no_create':True}"/>
+                <field name="employee_lastname"/>
+                <field name="employee_name"/>
+                <field name="company_id" options="{'no_create':True}"/>
+                <field name="job_id" options="{'no_create':True}"/>
+                <field name="date"/>
+                <field name="is_instruction"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hse_employee_daily_instruction_line_filter" model="ir.ui.view">
+        <field name="name">hse.employee.daily.instruction.line.filter</field>
+        <field name="model">hse.employee.daily.instruction.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id" options="{'no_create':True}"/>
+                <field name="employee_lastname"/>
+                <field name="employee_name"/>
+                <field name="company_id" options="{'no_create':True}"/>
+                <field name="job_id" options="{'no_create':True}"/>
+                <field name="date"/>
+                <field name="is_instruction"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_hse_employee_daily_instruction_line">
+        <field name="name">ХАБ-Өдөр тутмын зааварчилгаа</field>
+        <field name="res_model">hse.employee.daily.instruction.line</field>
+        <field name="context">{ 'create':False,'delete':False,'edit':False}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_employee_daily_instruction_inherit_form" model="ir.ui.view">
+		<field name="name">hr.employee.training.inherit.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Өдөр тутмын зааварчилгаа хамрагдсан түүх" name='daily'>
+                    <field name="daily_instruction_employee_ids" nolabel="1" colspan="4">
+                        <tree>
+                            <field name="date"/>
+                            <field name="job_id"/>
+                            <field name="is_instruction"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+		</field>
+	</record>
+</odoo>

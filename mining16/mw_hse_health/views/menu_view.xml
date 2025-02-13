@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="menu_hse_health" name="Эрүүл мэнд" parent="mw_hse.main_menu_hse" sequence="4"/>
+		<menuitem id="menu_medical_examination_before_work" name="Ажлын өмнөх эрүүл мэндийн үзлэг" parent="menu_hse_health" action="action_view_medical_examination_before_work" sequence="1"/>
+		<menuitem id="menu_hse_ambulance" name="Амбулаторийн үзлэг" parent="menu_hse_health" action="action_hse_ambulance" sequence="2"/>
+		<menuitem id="menu_hse_health_analysis" name="Эрүүл мэндийн шинжилгээ" parent="menu_hse_health" action="action_hse_health_analysis_view" sequence="3"/>
+		<menuitem id="menu_hse_health_all" name="Эрүүл мэндийн хуудас" parent="menu_hse_health" action="action_hse_health_view" sequence="4"/>
+		<menuitem id="menu_hse_health_reference" name="Эрүүл мэндийн лавлагаа" parent="menu_hse_health" action="action_hse_health_reference" sequence="5"/>
+
+		<menuitem id="menu_hse_drug" name="Эмийн бүртгэл" parent="menu_hse_health" sequence="6"/>
+			<!-- <menuitem id="menu_hse_drug_registration" name="Эмийн бүртгэл" parent="menu_hse_drug" action="action_drug_registration_view" sequence="1" invisible="1"/> -->
+			<!-- <menuitem id="menu_hse_drug_revenue" name="Эмийн бүртгэл/Орлого/" parent="menu_hse_drug" action="action_hse_drug_revenue_view" sequence="2" invisible="1"/> -->
+			<!-- <menuitem id="menu_hse_drug_expenditure" name="Эмийн бүртгэл/Зарлага/" parent="menu_hse_drug" action="action_hse_drug_expenditure_view" sequence="3"/> -->
+		<!-- <menuitem id="menu_health_treatment" name="Эмчилгээний дэлгэрэнгүй" parent="menu_hse_health" action="action_health_treatment_view" sequence="7" invisible="1"/>
+		<menuitem id="menu_hse_ambulance_line" name="Үзлэгийн тайлан" parent="menu_hse_health" action="action_hse_ambulance_line" sequence="8" invisible="1"/> -->
+		<menuitem id="menu_hse_health_config" name="Тохиргоо" parent="menu_hse_health" sequence="10"/>
+			<menuitem id="menu_type_treatment" name="Эмчилгээний төрөл" parent="menu_hse_health_config" action="action_type_treatment" sequence="1"/>
+			<menuitem id="menu_patient_diagnosis" name="Онош төрөл" parent="menu_hse_health_config" action="action_patient_diagnosis" sequence="2"/>
+			<menuitem id="menu_disease_category" name="Өвчлөл төрөл" parent="menu_hse_health_config" action="action_disease_category" sequence="3"/>
+			<!-- <menuitem id="menu_specialist_doctor_type_line" name="Эмч төрөл" parent="menu_hse_health_config" action="action_specialist_doctor_type_line" sequence="4"/> -->
+</odoo>

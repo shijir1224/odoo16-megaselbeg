@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="sequencehse_employee_training" model="ir.sequence">
+		<field name="name">HSE employee training</field>
+		<field name="code">hse.employee.training</field>
+		<field name="prefix">%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+	<record id="hse_training_table" model="ir.actions.report">
+        <field name="name">ХАБ Сургалтын хуудас</field>
+        <field name="model">hse.employee.training</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">training_file</field>
+        <field name="report_file">training_file</field>
+        <field name="print_report_name">'Сургалтын хүснэгт'</field>
+        <field name="binding_model_id" ref="model_hse_employee_training"/>
+        <field name="binding_type">report</field>
+    </record>
+
+	<!-- Hse Employee training -->
+	<record id="view_hse_employee_training_form" model="ir.ui.view">
+		<field name="name">hse.employee.training.form</field>
+		<field name="model">hse.employee.training</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах" type="object" class="btn-danger" groups="mw_hse.group_hse_manager"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" groups="mw_hse.group_hse_manager"/>                   
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<div class="pull-left">
+						<label for="name" class="oe_inline"/>
+						<h1>
+							<field name="name" force_save="1"/>
+						</h1>
+					</div>
+					<group>
+						<group>
+							<field name="date"/>
+							<field name="employee_ids" widget="many2many_tags" options="{'no_create':True}" attrs="{'invisible': [('training_type','=','foreign')], 'required': [('training_type','=','internal')]}"/>
+							<field name="partner_id" options="{'no_create':True}" attrs="{'invisible': [('training_type','=','internal')], 'required': [('training_type','=','foreign')]}"/>
+					   </group>
+						<group>
+							<field name="training_type" widget='selection'/>
+							<field name="branch_id" options="{'no_create':True}"/>
+							<field name="company_id" options="{'no_create':True}"/>
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="type"/>
+						</group>
+						<group>
+							<field name="title_ids" widget="many2many_tags" options="{'no_create':True}"/>
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="mail_send_user_ids" widget="many2many_tags" options="{'no_create':True}"/>
+						</group>
+						<group>
+							<field name="is_sent"/>
+							<field name="review" attrs="{'invisible': [('type','not in',['contracted','guest'])]}"/>
+						</group>
+					</group>
+					<group name="attach">
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+					<div>
+						<span>
+							<button name="export_template" string="Темплати Экспортлох" type="object" class="btn-success" icon="fa-download"/>
+						</span>
+						<span style = "margin-left: 10px">
+							<field name="excel_data"/>
+						</span>
+						<span style = "margin-left: 10px">
+							<button name="import_from_excel" string="Импортлох" type="object" class="btn-warning" icon="fa-download"/>
+						</span>
+						<span style = "margin-left: 10px">
+							<button name="delete_line" string="Мөр устгах" type="object" class="btn-danger" icon="fa-times-circle" attrs="{'invisible': [('training_line','=',[])]}"/>
+						</span>
+					</div>
+					<group>
+						<field name="search_company_id" options="{'no_create':True}"/>
+						<field name="search_sector_ids" widget="many2many_tags" options="{'no_create':True}"/>
+						<!-- <field name="search_department_ids" widget="many2many_tags" options="{'no_create':True}"/> -->
+						<button name='employee_import' string='Ажилтан импортлох' type='object' class='btn-warning'/>
+					</group>
+					<notebook>
+						<page string='Харилцагчын Зааварчилгаа' attrs="{'invisible': [('type','in',['contracted','guest'])]}">
+							<field name="training_line" nolabel="1">
+								<tree editable="bottom">
+									<field name="employee_id" options="{'no_create':True}"/>
+									<field name="employee_lastname"/>
+									<field name="employee_name"/>
+									<field name="employee_vat"/>
+									<field name="department_id" options="{'no_create':True}"/>
+									<field name="branch_id" options="{'no_create':True}"/>
+									<field name="company_id" options="{'no_create':True}" optional="hide"/>
+									<field name="job_id" options="{'no_create':True}"/>
+									<field name="date"/>
+									<field name="is_instruction"/>
+									<field name="score"/>
+									<field name="is_passed"/>
+									<field name="is_repeated"/> 
+									<field name="is_archived" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+						<page string='Гадны Зааварчилгаа' attrs="{'invisible': [('type','not in',['contracted','guest'])]}">
+							<field name="training_partner_line" nolabel="1" >
+								<tree editable="bottom">
+									<field name="partner_name" />
+									<field name="partner_vat" />
+									<field name="partner_job" />
+									<field name="date"/>
+									<field name="is_instruction"/>
+									<field name="score"/>
+									<field name="is_passed"/>
+									<field name="is_repeated"/>
+									<field name="is_archived" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_employee_training_read_form" model="ir.ui.view">
+		<field name="name">hse.employee.training.form</field>
+		<field name="model">hse.employee.training</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>                 
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<div class="pull-left">
+						<label for="name" class="oe_inline"/>
+						<h1>
+							<field name="name" force_save="1"/>
+						</h1>
+					</div>
+					<group>
+						<group>
+							<field name="date" readonly="1"/>
+						</group>
+						<group>
+							<field name="branch_id" options="{'no_create':True}" widget="selection"/>
+							<field name="employee_ids" options="{'no_create':True}" widget="many2many_tags" readonly="1"/>
+						</group>
+					</group>
+					<group>
+						<field name="title_ids" widget="many2many_tags" options="{'no_create':True}" readonly="1"/>
+					</group>
+					<group>
+						<group>
+							<field name="mail_send_user_ids" widget="many2many_tags" options="{'no_create':True}" readonly="1"/>
+						</group>
+						<group>
+							<field name="is_sent"/>
+							<field name="review" attrs="{'invisible': [('type','not in',['contracted','guest'])]}"/>
+						</group>
+					</group>
+					<group>
+						<field name="type" invisible="1"/>
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+					<notebook>
+						<page string="Харилцагчын Зааварчилгаа" attrs="{'invisible': [('type','in',['contracted','guest'])]}">
+							<field name="training_line" nolabel="1">
+								<tree editable="bottom">
+									<field name="employee_id" options="{'no_create':True}"/>
+									<field name="employee_lastname"/>
+									<field name="employee_name"/>
+									<field name="employee_vat"/>
+									<field name="department_id" options="{'no_create':True}"/>
+									<field name="branch_id" options="{'no_create':True}"/>
+									<field name="company_id" options="{'no_create':True}" optional="hide"/>
+									<field name="job_id" options="{'no_create':True}"/>
+									<field name="date"/>
+									<field name="is_instruction"/>
+									<field name="score"/>
+									<field name="is_passed"/>
+									<field name="is_repeated"/> 
+									<field name="is_archived" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Гадны Зааварчилгаа" attrs="{'invisible': [('type','not in',['contracted','guest'])]}">
+							<field name="training_partner_line" nolabel="1">
+								<tree editable="bottom">
+									<field name="partner_name"/>
+									<field name="partner_vat"/>
+									<field name="partner_job"/>
+									<field name="date"/>
+									<field name="is_instruction"/>
+									<field name="score"/>
+									<field name="is_passed"/>
+									<field name="is_repeated"/>
+									<field name="is_archived" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_employee_training_tree" model="ir.ui.view">
+		<field name="name">hse.employee.training.tree</field>
+		<field name="model">hse.employee.training</field>
+		<field name="arch" type="xml">
+			<tree decoration-success="state=='done'">
+				<field name="name"/>
+				<field name="date"/>
+				<field name="employee_ids" widget="many2many_tags"/>
+				<field name="state"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="review" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_employee_training_tree_all" model="ir.ui.view">
+		<field name="name">hse.employee.training.tree</field>
+		<field name="model">hse.employee.training</field>
+		<field name="arch" type="xml">
+			<tree decoration-success="state=='done'">
+				<field name="name"/>
+				<field name="date"/>
+				<field name="type"/>
+				<field name="training_type"/>
+				<field name="title_ids" widget="many2many_tags"/>
+				<field name="employee_ids" widget="many2many_tags"/>
+				<field name="state"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="review" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_employee_training_filter" model="ir.ui.view">
+		<field name="name">hse.employee.training.filter</field>
+		<field name="model">hse.employee.training</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="date"/>
+				<field name="employee_ids"/>
+				<field name="state"/>
+				<filter name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+				<filter name="is_done" string="Батлагдсан" domain="[('state','=',('done'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Төлөв" name="group_state" domain="[]" context="{'group_by':'state'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hse_employee_training_line_pivot_view">
+		<field name="name">hse.employee.training.line.pivot</field>
+		<field name="model">hse.employee.training.line</field>
+		<field name="arch" type="xml">
+			<pivot>
+				<field name="employee_id" type="row"/>
+				<field name="date" type="col"/>
+			</pivot>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hse_employee_training_line_form_view">
+		<field name="name">hse.employee.training.line.form</field>
+		<field name="model">hse.employee.training.line</field>
+		<field name="arch" type="xml">
+			<form>
+				<shee>
+					<group>
+						<field name="employee_id" options="{'no_create':True}"/>
+						<field name="employee_lastname"/>
+						<field name="employee_name"/>
+						<field name="employee_vat"/>
+						<field name="department_id" options="{'no_create':True}"/>
+						<field name="branch_id" options="{'no_create':True}"/>
+						<field name="company_id" options="{'no_create':True}"/>
+						<field name="job_id" options="{'no_create':True}"/>
+						<field name="date"/>
+						<field name="is_instruction"/>
+						<field name="score"/>
+						<field name="is_passed"/>
+						<field name="is_repeated"/>
+						<field name="is_archived"/>
+					</group>
+				</shee>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hse_employee_training_line_tree_view">
+		<field name="name">hse.employee.training.line.tree</field>
+		<field name="model">hse.employee.training.line</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="employee_id" options="{'no_create':True}"/>
+				<field name="employee_lastname"/>
+				<field name="employee_name"/>
+				<field name="employee_vat"/>
+				<field name="department_id" options="{'no_create':True}"/>
+				<field name="company_id" options="{'no_create':True}"/>
+				<field name="job_id" options="{'no_create':True}"/>
+				<field name="date"/>
+				<field name="is_instruction"/>
+				<field name="score"/>
+				<field name="is_passed"/>
+				<field name="is_repeated"/>
+				<field name="is_archived"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_employee_training_line_filter" model="ir.ui.view">
+		<field name="name">hse.employee.training.line.filter</field>
+		<field name="model">hse.employee.training.line</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="employee_id" options="{'no_create':True}"/>
+				<field name="employee_lastname"/>
+				<field name="employee_name"/>
+				<field name="employee_vat"/>
+				<field name="department_id" options="{'no_create':True}"/>
+				<field name="company_id" options="{'no_create':True}"/>
+				<field name="job_id" options="{'no_create':True}"/>
+				<field name="date"/>
+				<field name="is_instruction"/>
+				<field name="score"/>
+				<field name="is_passed"/>
+				<field name="is_repeated"/>
+				<field name="is_archived"/>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_hse_employee_training_line">
+		<field name="name">ХАБ Сургалтын мөр</field>
+		<field name="res_model">hse.employee.training.line</field>
+		<field name="context">{ 'create':False,'delete':False,'edit':False}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_employee_training_inherit_form" model="ir.ui.view">
+		<field name="name">hr.employee.training.inherit.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<notebook position="inside">
+				<page string="ХАБ сургалтанд хамрагдсан түүх" name='training'>
+					<field name="training_employee_ids" nolabel="1" colspan="4">
+						<tree>
+							<field name="date"/>
+							<field name="job_id"/>
+							<field name="is_instruction"/>
+							<field name="score"/>
+							<field name="is_passed"/>
+							<field name="is_repeated"/>
+							<field name="is_archived"/>
+						</tree>
+					</field>
+				</page>
+			</notebook>
+		</field>
+	</record>
+
+	<!-- ХАБ Сургалт Бүгд -->
+	<record id="action_hse_employee_training_core" model="ir.actions.act_window">
+		<field name="name">ХАБ Сургалт Бүгд</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[]</field>
+		<field name="context">{'search_default_group_state': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_ids" eval="[(5,0,0),
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree_all')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_form')})]"/>
+	</record>
+
+	<!-- Урьдчилсан зааварчилгаа -->
+	<record model='ir.actions.act_window' id='action_hse_advance_training'>
+		<field name="name">Урьдчилсан зааварчилгаа</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[('type','in',['advance'])]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="view_ids" eval="[(5,0,0),
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_read_form')})]"/>
+
+	</record>
+
+	<!-- Анхан шатны зааварчилгаа -->
+	<record model='ir.actions.act_window' id='action_hse_elementary_training'>
+		<field name="name">Анхан шатны зааварчилгаа</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[('type','in',['elementary'])]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="view_ids" eval="[(5, 0, 0), 
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_read_form')})]"/>
+	</record>
+
+	<!-- Ээлжит зааварчилгаа -->
+	<record model='ir.actions.act_window' id='action_hse_regularly_training'>
+		<field name="name">Ээлжит зааварчилгаа</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[('type','in',['regularly'])]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_read_form')})]"/>
+	</record>
+
+	<!-- Ээлжит бус зааварчилгаа -->
+	<record model='ir.actions.act_window' id='action_hse_not_regularly_training'>
+		<field name="name">Ээлжит бус зааварчилгаа</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[('type','in',['not_regularly'])]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_read_form')})]"/>
+	</record>
+
+	<!-- Ээлжит бус зааварчилгаа -->
+	<record model='ir.actions.act_window' id='action_hse_planned_training'>
+		<field name="name">Төлөвлөгөөт сургалт</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[('type','in',['planned'])]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_read_form')})]"/>
+	</record>
+
+	<!-- Гэрээт ажилтны зааварчилгаа -->
+	<record model='ir.actions.act_window' id='action_hse_contracted_training'>
+		<field name="name">Гэрээт ажилтны зааварчилгаа</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[('type','in',['contracted'])]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_read_form')})]"/>
+	</record>
+
+	<!-- Зочидын зааварчилга -->
+	<record model='ir.actions.act_window' id='action_hse_guest_training'>
+		<field name="name">Зочидын зааварчилгаа</field>
+		<field name="res_model">hse.employee.training</field>
+		<field name="search_view_id" ref="view_hse_employee_training_filter"/>
+		<field name="domain">[('type','in',['guest'])]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+		(0,0,{'view_mode':'tree','view_id': ref('view_hse_employee_training_tree')}),
+		(0,0,{'view_mode':'form','view_id': ref('view_hse_employee_training_read_form')})]"/>
+	</record>
+
+	<record id="view_hse_training_title_form" model="ir.ui.view">
+		<field name="name">hse.training.title.form</field>
+		<field name="model">hse.training.title</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group >
+						<field name="name"/>
+						<field name="company_id"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_training_title_tree" model="ir.ui.view">
+		<field name="name">hse.training.title.tree</field>
+		<field name="model">hse.training.title</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_training_title_search" model="ir.ui.view">
+		<field name="name">hse.training.title.search</field>
+		<field name="model">hse.training.title</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_training_title" model="ir.actions.act_window">
+		<field name="name">Сургалтын сэдэв</field>
+		<field name="res_model">hse.training.title</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

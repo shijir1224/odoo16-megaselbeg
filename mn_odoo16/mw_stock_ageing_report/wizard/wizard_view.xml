@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="stock_ageing_wizard_view" model="ir.ui.view">
+			<field name="name">stock.ageing.wizard.wizard</field>
+			<field name="model">stock.ageing.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+			   <form>
+					<group col="4" colspan="4">
+						<field name="date"/>
+						<field name="day_interval"/>
+					</group>
+					<group col="4" >
+						<field name="import_wh" widget="boolean_toggle"/>
+					</group>
+					
+					<group col="4">
+						<field name="warehouse_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}" />
+						<field name="location_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"
+							domain="[('usage','=','internal'),('set_warehouse_id','in',warehouse_ids)]" invisible="1"/>
+					</group>
+					<group col="4">
+						<field name="product_ids" widget="many2many_tags" colspan="4" options="{'no_create': True}"/>
+						<field name="categ_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+					   <field name="product_tmpl_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+					</group>
+					<footer>
+						<group col="6">
+							<button icon="fa-times" special="cancel" string="Хаах" class="btn-danger"/>
+							<button name="open_analyze_view" string="Харах" type="object"  icon="fa-eye" class="btn-success"/>
+							<button name="export_report" string="Татах" type="object"  icon="fa-file-excel-o" class="btn-success"/>
+						</group>
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_stock_ageing_wizard" model="ir.actions.act_window">
+			<field name="name">Насжилтийн Тайлан</field>
+			<field name="res_model">stock.ageing.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="stock_ageing_wizard_view"/>
+			<field name="target">new</field>
+		</record>
+
+	<record id="stock_turn_wizard_view" model="ir.ui.view">
+			<field name="name">stock.ageing.wizard.wizard</field>
+			<field name="model">stock.ageing.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+			   <form>
+					<group col="4" colspan="4">
+						<field name="date" string="Эхлэх огноо"/>
+						<field name="date_end" string="Дуусах огноо"/>
+					</group>
+					<group col="4" >
+						<field name="import_wh" widget="boolean_toggle"/>
+					</group>
+					
+					<group col="4">
+						<field name="warehouse_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}" />
+						<field name="location_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"
+							domain="[('usage','=','internal'),('set_warehouse_id','in',warehouse_ids)]" invisible="1"/>
+					</group>
+					<group col="4">
+						<field name="product_ids" widget="many2many_tags" colspan="4" options="{'no_create': True}"/>
+						<field name="categ_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+						<field name="product_tmpl_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+					</group>
+					<footer>
+						<group col="6">
+							<button icon="fa-times" special="cancel" string="Хаах" class="btn-danger"/>
+							<!-- <button name="open_stock_turn_view" string="Харах" type="object"  icon="fa-eye" class="btn-success"/> -->
+							<button name="open_stock_turn_download" string="Татах" type="object"  icon="fa-file-excel-o" class="btn-success"/>
+						</group>
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_stock_turn_wizard" model="ir.actions.act_window">
+			<field name="name">Нөөцийн эргэц</field>
+			<field name="res_model">stock.ageing.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="stock_turn_wizard_view"/>
+			<field name="target">new</field>
+		</record>
+
+</odoo>

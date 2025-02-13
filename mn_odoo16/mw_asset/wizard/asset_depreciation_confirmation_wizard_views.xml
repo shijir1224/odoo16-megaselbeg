@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_asset_depreciation_confirmation_wizard" model="ir.ui.view">
+        <field name="name">asset.depreciation.confirmation.wizard</field>
+        <field name="model">asset.depreciation.confirmation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Compute Asset">
+                <div>
+                    <p>
+                        Сонгосон огноон дахь хөрөнгийн элэгдлийн бичилт батлагдах болно. 
+                    </p> 
+                </div>
+                <group>
+                    <field name="date" string='Огноо'/>
+                    <field name="company_id" readonly='1'/>
+                    <field name="is_all_types" widget="boolean_toggle"/>
+                    <field name="asset_types" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button string="Элэгдэл балтах" name="asset_compute" type="object" class="btn-primary"/>
+                    <button string="Цуцлах" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+         </field>
+    </record>
+
+    <record id="action_asset_depreciation_confirmation_wizard" model="ir.actions.act_window">
+        <field name="name">Элэгдлийн бичилт батлах</field>
+        <field name="res_model">asset.depreciation.confirmation.wizard</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_asset_depreciation_confirmation_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

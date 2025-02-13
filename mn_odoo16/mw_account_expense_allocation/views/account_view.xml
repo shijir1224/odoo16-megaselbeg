@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_allocation_expense_conf_form" model="ir.ui.view">
+            <field name="name">account.allocation.expense.conf.form</field>
+            <field name="model">account.allocation.expense.conf</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="config">
+                    <group>
+                        <group>
+                            <field name="name" select="1"/>
+                            <field name="journal_ids" widget="many2many_tags"/>
+
+                        </group>
+                        <group>
+                            <field name="expense_type"/>
+                        </group>
+                    </group>
+                        <notebook>
+                            <page id="line_tab" name="line_tab" string="Lines">                    
+	                        <field name="line_ids" nolabel="1">
+	                            <tree editable="bottom">
+	                                <field name="name"/>
+	                                <field name="amount" sum="Amount"/>
+	                                <field name="account_id"/>
+	                                <!-- <field name="analytic_account_id"/> -->
+                                    <field name="analytic_distribution" widget="analytic_distribution"
+                                           optional="hide"
+                                           groups="analytic.group_analytic_accounting"/>
+	                                <field name="branch_id"/>
+	                            </tree>
+	                        </field>
+	                        </page>
+	                        </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_allocation_expense_conf_tree" model="ir.ui.view">
+            <field name="name">account.allocation.expense.conf.tree</field>
+            <field name="model">account.allocation.expense.conf</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="config">
+                    <field name="name"/>
+                    <field name="journal_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_allocation_conf_search" model="ir.ui.view">
+            <field name="name">account.allocation.expense.conf.search.account</field>
+            <field name="model">account.allocation.expense.conf</field>
+            <field name="arch" type="xml">
+                <search string="Conf">
+                    <field name="name" string="Name"/>
+                    <field name="journal_ids" string="Journal"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_account_allocation_expense_conf" model="ir.actions.act_window">
+            <field name="name">Зардал хуваарилах тохиргоо</field>
+            <field name="res_model">account.allocation.expense.conf</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_account_allocation_conf_search"/>
+            <field name="view_id" ref="view_account_allocation_expense_conf_tree"/>
+        </record>
+
+
+        <record id="view_account_allocation_expense_form" model="ir.ui.view">
+            <field name="name">account.allocation.expense.form</field>
+            <field name="model">account.allocation.expense</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="config">
+                    <header>
+                        <button name="compute" type="object" class="oe_highlight" string="Тооцоолох" states="draft"/>
+                        <button name="set_draft" type="object" class="oe_highlight" string="Ноороглох"
+                                states="computed"/>
+                        <button name="create_move" type="object" class="oe_highlight" string="Гүйлгээ үүсгэх"
+                                states="computed"/>
+                        <field widget="statusbar" options="{'clickable': '1'}" name="state"/>
+                    </header>
+                    <group>
+                        <field name="name" select="1"/>
+                        <field name="is_move" select="1"/>
+                        <field name="ref_move_id" attrs="{'invisible': [('is_move','!=',True)]}"
+                               domain="[('debit', '>', 0)]"/>
+                        <field name="is_change_move" attrs="{'invisible': [('is_move','=',True)]}"/>
+                        <field name="change_move_id" attrs="{'invisible': [('is_change_move','!=',True)]}"
+                               domain="[('debit', '>', 0)]"/>
+                        <field name="amount" string="Хуваарилах зардал" select="1"/>
+                        <field name="date" select="1"/>
+                        <field name="journal_id" select="1"/>
+                        <field name="conf_id" select="1" domain="[('journal_ids', 'in', journal_id)]"/>
+                        <field name="account_id" select="1"/>
+                        <field name="move_id" select="1"/>
+                    </group>
+                        <notebook>
+                           <page id="line_tab" name="line_tab" string="Lines">                    
+	                        <field name="line_ids" nolabel="1">
+	                            <tree editable="bottom">
+	                                <field name="name"/>
+	                                <field name="amount" sum="Amount"/>
+	                                <field name="account_id"/>
+                                    <field name="analytic_distribution" widget="analytic_distribution"
+                                           optional="hide"
+                                           groups="analytic.group_analytic_accounting"/>
+
+	                                <field name="branch_id"/>
+	                            </tree>
+	                        </field>
+                        </page>
+                       </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_allocation_expense_tree" model="ir.ui.view">
+            <field name="name">account.allocation.expense.tree</field>
+            <field name="model">account.allocation.expense</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="config">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--         <record id="view_account_cash_move_search" model="ir.ui.view">
+                    <field name="name">account.allocation.expense.search.account</field>
+                    <field name="model">account.allocation.expense</field>
+                    <field name="arch" type="xml">
+                        <search string="Conf">
+                            <field name="name" filter_domain="['|', ('name','ilike',self), ('number','=like','%'+str(self)+'%')]" string="Type"/>
+                        </search>
+                    </field>
+                </record>
+                 -->
+        <record id="action_account_allocation_expense" model="ir.actions.act_window">
+            <field name="name">Зардал хуваарилах</field>
+            <field name="res_model">account.allocation.expense</field>
+            <field name="view_mode">tree,form</field>
+            <!--             <field name="search_view_id" ref="view_account_cash_move_search"/>
+                        <field name="view_id" ref="view_account_allocation_expense_tree"/>-->
+        </record>
+
+        <menuitem id="menu_action_account_expense_allocation_root" parent="account.menu_finance_entries"
+                  name="Зардал хуваарилах">
+            <menuitem action="action_account_allocation_expense_conf" id="menu_action_account_allocation_expense_conf"
+                      sequence="1"/>
+            <menuitem action="action_account_allocation_expense" id="menu_action_account_allocation_expense"
+                      sequence="2"/>
+        </menuitem>
+        <!--
+                <menuitem id="menu_action_account_expense_allocation_root" parent="account.account_account_menu" name="Зардал хуваарилах ">
+                    <menuitem action="action_account_allocation_expense_conf" id="menu_action_account_allocation_expense_conf" sequence="1" />
+                    <menuitem action="action_account_allocation_expense" id="menu_action_account_allocation_expense" sequence="2"/>
+                </menuitem>        		 -->
+
+    </data>
+</odoo>

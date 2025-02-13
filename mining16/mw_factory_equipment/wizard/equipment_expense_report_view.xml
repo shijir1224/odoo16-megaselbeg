@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Maintenance Plan material Expense report -->
+    <record id="equipment_expense_report_tree_view" model="ir.ui.view">
+        <field name="name">equipment.expense.report.tree.view</field>
+        <field name="model">equipment.expense.report</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" invisible="1" />
+                <field name="date" />
+                <field name="maintenance_type" />
+                <field name="equipment_id" />
+                <field name="work_time" />
+                <field name="contractor_type" />
+                <field name="qty" sum="Нийт" />
+                <field name="price_unit" optional="hide" />
+                <field name="amount" sum="Нийт" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="equipment_expense_report_form_view" model="ir.ui.view">
+        <field name="name">equipment.expense.report.form.view</field>
+        <field name="model">equipment.expense.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="date" />
+                        <field name="mpl_id" />
+                        <field name="maintenance_type" />
+                        <field name="equipment_id" />
+                        <field name="product_id" />
+                        <field name="work_time" />
+                        <field name="contractor_type" />
+                        <field name="qty" sum="Нийт" />
+                        <field name="amount" sum="Нийт" />
+                        <field name="state" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="equipment_expense_report_pivot" model="ir.ui.view">
+        <field name="name">equipment.expense.report.pivot</field>
+        <field name="model">equipment.expense.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Analysis">
+                <field name="equipment_id" type="row" />
+                <field name="qty" type="measure" />
+                <field name="amount" type="measure" />
+                <field name="work_time" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="equipment_expense_report_search" model="ir.ui.view">
+        <field name="name">equipment.expense.report.search</field>
+        <field name="model">equipment.expense.report</field>
+        <field name="arch" type="xml">
+            <search string="Analysis">
+                <field name="date" />
+                <filter name="today" string="Өнөөдөр"
+                    domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]" />
+                <filter name="this_month" string="Энэ сар"
+                    domain="[('date','like',time.strftime('%%Y-%%m'))]" />
+                <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]" />
+                <separator />
+                <filter string="Confirmed" domain="[('state','=','confirmed')]" name="confirmed" />
+                <filter string="Дууссан" domain="[('state','=','done')]" name="done" />
+                <separator />
+                <filter name="january" string="January"
+                    domain="[('date','like',time.strftime('%%Y-01'))]" />
+                <filter name="february" string="February"
+                    domain="[('date','like',time.strftime('%%Y-02'))]" />
+                <filter name="march" string="March"
+                    domain="[('date','like',time.strftime('%%Y-03'))]" />
+                <filter name="April" string="April"
+                    domain="[('date','like',time.strftime('%%Y-04'))]" />
+                <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]" />
+                <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]" />
+                <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]" />
+                <filter name="august" string="August"
+                    domain="[('date','like',time.strftime('%%Y-08'))]" />
+                <filter name="september" string="September"
+                    domain="[('date','like',time.strftime('%%Y-09'))]" />
+                <filter name="octomber" string="October"
+                    domain="[('date','like',time.strftime('%%Y-10'))]" />
+                <filter name="november" string="November"
+                    domain="[('date','like',time.strftime('%%Y-11'))]" />
+                <filter name="december" string="December"
+                    domain="[('date','like',time.strftime('%%Y-12'))]" />
+                <field name="equipment_id" />
+                <field name="branch_id" />
+                <field name="product_id" />
+                <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]" />
+                <group expand="0" string="Group By">
+                    <filter string="Салбар" context="{'group_by':'branch_id'}" name="branch_id" />
+                    <filter string="Product" name="Product" context="{'group_by':'product_id'}" />
+                    <filter string="Category" name="Category" context="{'group_by':'categ_id'}" />
+                    <filter string="Тоног төхөөрөмж" context="{'group_by':'equipment_id'}" name="gr_equipment_id" />
+                    <filter string="State" context="{'group_by':'state'}" name="state" />
+                    <separator />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- WO expense -->
+    <record id="equipment_wo_expense_report_tree_view" model="ir.ui.view">
+        <field name="name">equipment.wo.expense.report.tree.view</field>
+        <field name="model">equipment.wo.expense.report</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" invisible="1" />
+                <field name="maintenance_type" optional="hide" />
+
+                <field name="equipment_id" />
+                <field name="date" optional="show" />
+                <field name="wo_id" optional="show" />
+                <field name="picking_id" optional="show" />
+                <field name="product_id" />
+                <field name="qty" sum="Нийт" />
+                <field name="uom_id" />
+                <field name="price_unit" optional="show" />
+                <field name="amount" sum="Нийт" />
+
+                <field name="technic_type" optional="hide" />
+                <field name="categ_id" optional="hide" />
+                <field name="work_time" optional="hide" />
+                <field name="contractor_type" optional="hide" />
+
+                <field name="parts_user_id" optional="hide" />
+                <field name="senior_user_id" optional="hide" />
+                <field name="engineer_user_id" optional="hide" />
+                <field name="chief_user_id" optional="hide" />
+                <field name="state" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="equipment_wo_expense_report_form_view" model="ir.ui.view">
+        <field name="name">equipment.wo.expense.report.form.view</field>
+        <field name="model">equipment.wo.expense.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="wo_id" />
+                        <field name="picking_id" />
+                        <field name="date" />
+                        <field name="maintenance_type" />
+                        <field name="equipment_id" />
+                        <field name="work_time" />
+                        <field name="contractor_type" />
+                        <field name="qty" sum="Нийт" />
+                        <field name="amount" sum="Нийт" />
+                        <field name="state" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="equipment_wo_expense_report_pivot" model="ir.ui.view">
+        <field name="name">equipment.wo.expense.report.pivot</field>
+        <field name="model">equipment.wo.expense.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Analysis">
+                <field name="equipment_id" type="row" />
+                <field name="qty" type="measure" />
+                <field name="amount" type="measure" />
+                <field name="work_time" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="equipment_wo_expense_report_search" model="ir.ui.view">
+        <field name="name">equipment.wo.expense.report.search</field>
+        <field name="model">equipment.wo.expense.report</field>
+        <field name="arch" type="xml">
+            <search string="Analysis">
+                <field name="date" />
+                <filter string="Толгой систем" domain="[('parent_system_id','!=',False)]"
+                    name="parent_system_id" />
+
+                <filter name="today" string="Өнөөдөр"
+                    domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]" />
+                <filter name="this_month" string="Энэ сар"
+                    domain="[('date','like',time.strftime('%%Y-%%m'))]" />
+                <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]" />
+                <separator />
+                <filter string="Confirmed" domain="[('state','=','confirmed')]" name="confirmed" />
+                <filter string="Дууссан" domain="[('state','=','done')]" name="done" />
+                <separator />
+                <filter name="january" string="January"
+                    domain="[('date','like',time.strftime('%%Y-01'))]" />
+                <filter name="february" string="February"
+                    domain="[('date','like',time.strftime('%%Y-02'))]" />
+                <filter name="march" string="March"
+                    domain="[('date','like',time.strftime('%%Y-03'))]" />
+                <filter name="April" string="April"
+                    domain="[('date','like',time.strftime('%%Y-04'))]" />
+                <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]" />
+                <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]" />
+                <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]" />
+                <filter name="august" string="August"
+                    domain="[('date','like',time.strftime('%%Y-08'))]" />
+                <filter name="september" string="September"
+                    domain="[('date','like',time.strftime('%%Y-09'))]" />
+                <filter name="octomber" string="October"
+                    domain="[('date','like',time.strftime('%%Y-10'))]" />
+                <filter name="november" string="November"
+                    domain="[('date','like',time.strftime('%%Y-11'))]" />
+                <filter name="december" string="December"
+                    domain="[('date','like',time.strftime('%%Y-12'))]" />
+                <field name="branch_id" />
+                <field name="equipment_id" />
+                <field name="product_id" />
+                <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]" />
+                <group expand="0" string="Group By">
+                    <filter string="Салбар" name="Branch" context="{'group_by':'branch_id'}" />
+                    <filter string="Product" name="Product" context="{'group_by':'product_id'}" />
+                    <filter string="Category" name="Category" context="{'group_by':'categ_id'}" />
+                    <filter string="State" name="state" context="{'group_by':'state'}" />
+                    <filter string="Зарлагын баримт" name="Picking_id"
+                        context="{'group_by':'picking_id'}" />
+                    <filter string="Тоног төхөөрөмж" name="equipment_id" context="{'group_by':'equipment_id'}" />
+                    <filter string="Техникийн төрөл" name="Technic_type"
+                        context="{'group_by':'technic_type'}" />
+                    <filter string="Агуулах" name="Warehouse_id"
+                        context="{'group_by':'warehouse_id'}" />
+                    <filter string="Систем" name="System_id" context="{'group_by':'system_id'}" />
+                    <filter string="Толгой систем" name="Parent_system_id"
+                        context="{'group_by':'parent_system_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="equipment_wo_report_tree_view" model="ir.ui.view">
+            <field name="name">equipment.wo.report.tree.view</field>
+            <field name="model">equipment.wo.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id" invisible="1"/>
+                    <field name="date" />
+                    <field name="maintenance_type" />
+                    <field name="equipment_id" />
+                    <field name="technic_type" />
+                    <field name="model_id" optional="show"/>
+                    <field name="workorder_rate" optional="show"/>
+                    <field name="total_spend_time" />
+                    <field name="contractor_type" optional="show"/>
+                    <field name="total_amount_spare" sum="Нийт"/>
+                    <field name="state" optional="hide"/>
+                    <field name="damaged_reason_id" optional="hide"/>
+                    <field name="damaged_type_id" optional="hide"/>
+                    <field name="state" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="equipmentt_wo_report_form_view" model="ir.ui.view">
+            <field name="name">equipment.wo.report.form.view</field>
+            <field name="model">equipment.wo.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group col="4">
+                        <field name="date" />
+                        <field name="wo_id" />
+                        <field name="maintenance_type" />
+                        <field name="equipment_id" />
+                        <field name="total_spend_time" />
+                        <field name="contractor_type" />
+                        <field name="total_amount_spare" sum="Нийт"/>
+                        <field name="state" />
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="equipment_wo_report_pivot" model="ir.ui.view">
+             <field name="name">equipment.wo.report.pivot</field>
+             <field name="model">equipment.wo.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                     <field name="equipment_id" type="row"/>
+                     <field name="total_amount_spare" type="measure"/>
+                     <field name="total_spend_time" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="equipment_wo_report_search" model="ir.ui.view">
+            <field name="name">equipment.wo.report.search</field>
+            <field name="model">equipment.wo.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="date"/>
+                    <field name="description"/>
+                    <field name="performance_description"/>
+                    <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter string="Confirmed" domain="[('state','=','confirmed')]" name="confirmed"/>
+                    <filter string="Дууссан" domain="[('state','=','done')]" name="done"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <field name="branch_id"/>
+                    <field name="equipment_id"/>
+                    <field name="plan_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Салбар" name="Branch_id" context="{'group_by':'branch_id'}"/>
+                        <filter string="Product" name="Equipment" context="{'group_by':'equipment_id'}"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <record id="action_equipment_wo_report" model="ir.actions.act_window">
+            <field name="name">Түүхий эд бэлтгэлийн тайлан</field>
+            <field name="res_model">equipment.wo.report</field>
+            <!-- <field name="view_mode">form</field> -->
+            <field name="view_id" ref="equipment_wo_report_pivot"/>
+            <field name="target">current</field>
+            <field name="search_view_id" ref="equipment_wo_report_search"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('equipment_wo_report_pivot')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('equipmentt_wo_report_form_view')}),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('equipment_wo_report_tree_view')})]" />
+        </record>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_request_import_view" model="ir.ui.view">
+		<field name="name">purchase.request.form</field>
+		<field name="model">purchase.request</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='line_ids']" position="before">
+				<div style="margin-bottom: 10px">
+					<span>
+						<button name="action_export" string="Экспортлох" type="object" icon="fa-file-excel-o" class="btn-warning" attrs="{'invisible': [('state_type', '!=', 'draft')]}"/>
+					</span>
+					<span style="margin-left: 10px">
+						<field name="import_data" attrs="{'invisible': [('state_type', '!=', 'draft')]}" nolabel="1"/>
+					</span>
+					<span style="margin-left: 10px">
+						<button name="action_import_line" string="Импортлох" type="object" class="btn btn-success fa fa-download" attrs="{'invisible': [('state_type', '!=', 'draft')]}"/>
+					</span>
+				</div>
+			</xpath>
+		</field>
+	</record>
+</odoo>

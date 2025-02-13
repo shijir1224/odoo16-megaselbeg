@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem name="Salesman routes" parent="mw_sales_master_plan.sales_plan_root_menu" 
+		id="salesman_route_menu" sequence="20" action="action_salesman_route_planner"/>
+
+	<menuitem name="Salesman routes performace" parent="mw_sales_master_plan.sales_plan_root_menu"
+		id="salesman_route_performance_menu" sequence="21" action="action_salesman_route_performance"/>
+
+	<menuitem name="Salesman route report" parent="sale.menu_sale_report" 
+		id="salesman_route_report_menu" sequence="30" action="action_wizard_salesman_route_report"/>
+
+	<menuitem name="Борлуулагчийн явсан чиглал" parent="sale.menu_sale_report" 
+		id="salesman_route_map_report_menu" sequence="31" action="action_salesman_route_map_report"/>
+
+	<menuitem name="Борлуулагчийн маршрутын тайлан" parent="sale.menu_sale_report" 
+		id="salesman_route_excel_report_menu" sequence="32" action="action_wizard_salesman_route_excel_report"/>
+
+</odoo>

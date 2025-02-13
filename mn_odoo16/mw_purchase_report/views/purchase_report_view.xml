@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_stock_report_report_view_tree" model="ir.ui.view">
+		<field name="name">purchase.stock.report.tree</field>
+		<field name="model">purchase.stock.report</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="order_id"/>
+				<field name="partner_id" optional="show"/>
+				<field name="picking_id" optional="show"/>
+				<field name="product_id" optional="show"/>
+				<field name="default_code" optional="show"/>
+				<field name="product_qty" sum="SUM" optional="show"/>
+				<field name="currency_id" optional="show"/>
+				<field name="price_unit" sum="SUM" optional="show"/>
+				<field name="sub_total" sum="SUM" optional="show"/>
+				<field name="date" optional="show"/>
+				<field name="doned_user_id" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="purchase_stock_report_report_view_pivot" model="ir.ui.view">
+		<field name="name">purchase.stock.report.pivot</field>
+		<field name="model">purchase.stock.report</field>
+		<field name="arch" type="xml">
+			<pivot>
+				<field name="partner_id" type="row"/>
+				<field name="product_qty" type="measure"/>
+				<field name="price_unit" type="measure"/>
+			</pivot>
+		</field>
+	</record>
+
+	<record id="purchase_stock_report_report_view_search" model="ir.ui.view">
+		<field name="name">purchase.stock.report.search</field>
+		<field name="model">purchase.stock.report</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="order_id"/>
+				<field name="product_id"/>
+				<field name="partner_id"/>
+				<field name="default_code"/>
+				<field name="doned_user_id"/>
+				<field name="picking_id"/>
+				<filter name="today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+				<filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+				<filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+				<separator/>
+				<filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+				<filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+				<filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+				<filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+				<filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+				<filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+				<filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+				<filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+				<filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+				<filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+				<filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+				<filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+				<group expand="0" string="Group By">
+					<filter string="Огноо" name='year' context="{'group_by':'date'}"/>
+					<filter string="Бараа" name='gr_product_id' context="{'group_by':'product_id'}"/>
+					<filter string="Захиалга" name='gr_order_id' context="{'group_by':'order_id'}"/>
+					<filter string="Харилцагч" name='gr_po_partner_id' context="{'group_by':'partner_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="purchase_stock_report_report_action" model="ir.actions.act_window">
+		<field name="name">Орлогод авсан барааны тайлан</field>
+		<field name="res_model">purchase.stock.report</field>
+		<field name="view_mode">tree,pivot</field>
+		<field name="context">{'search_default_this_month': True}</field>
+		<field name="domain">[]</field>
+	</record>
+
+		<record id="purchase_report_invoice_report_view_tree" model="ir.ui.view">
+		<field name="name">purchase.report.invoice.tree</field>
+		<field name="model">purchase.report.invoice</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="order_id"/>
+				<field name="partner_id"/>
+				<field name="date"/>
+				<field name="due_date"/>
+				<field name="currency_id"/>
+				<field name="amount" sum="SUM"/>
+				<field name="amount_residual" sum="SUM" optional="show"/>
+				<field name="amount_paid" sum="SUM" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+
+
+	<record id="purchase_report_invoice_report_view_pivot" model="ir.ui.view">
+		<field name="name">purchase.report.invoice.pivot</field>
+		<field name="model">purchase.report.invoice</field>
+		<field name="arch" type="xml">
+			<pivot>
+				<field name="partner_id" type="row"/>
+				<field name="amount" type="measure"/>
+			</pivot>
+		</field>
+	</record>
+
+	<record id="purchase_report_invoice_report_view_search" model="ir.ui.view">
+		<field name="name">purchase.report.invoice.search</field>
+		<field name="model">purchase.report.invoice</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="order_id"/>
+				<field name="partner_id"/>
+				<field name="date"/>
+				<field name="due_date"/>
+				<filter name="today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+				<filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+				<filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+				<separator/>
+				<filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+				<filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+				<filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+				<filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+				<filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+				<filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+				<filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+				<filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+				<filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+				<filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+				<filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+				<filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+				<group expand="0" string="Group By">
+					<filter string="Огноо" name='year' context="{'group_by':'date'}"/>
+					<filter string="Захиалга" name='gr_order_id' context="{'group_by':'order_id'}"/>
+					<filter string="Харилцагч" name='gr_po_partner_id' context="{'group_by':'partner_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="purchase_report_invoice_report_action" model="ir.actions.act_window">
+		<field name="name">Харилцагчийн Нэхэмжлэхийн тайлан</field>
+		<field name="res_model">purchase.report.invoice</field>
+		<field name="view_mode">tree,pivot</field>
+		<field name="context">{'search_default_this_month': True}</field>
+		<field name="domain">[]</field>
+	</record>
+</odoo>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+		<!-- Sequences for  -->
+		<record id="sequence_hse_preliminary_notice" model="ir.sequence">
+		<field name="name">HSE Preliminary Notice</field>
+		<field name="code">preliminary.notice</field>
+		<field name="prefix">УМ%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+	<!-- Preliminary notice -->
+	<record id="view_hse_preliminary_notice_form" model="ir.ui.view">
+		<field name="name">preliminary.notice.form</field>
+		<field name="model">preliminary.notice</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Ноороглох" type="object" class="btn-danger"/>
+					<button name="action_to_done" states="sent" string="Дуусгах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<button name="action_to_sent" states="draft" string="Илгээх" type="object" class="btn-warning" icon="fa-arrow-right"/>
+					<!-- <button name="send_sms_sent" string="СМС Илгээх" type="object" class="btn-warning"/> -->
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent,done"/>
+				</header>
+				<sheet>
+					<separator string="Урьдчилсан мэдэгдэл" colspan="2"/>
+					<group col="4">
+						<field name="date"/>
+						<field name="part"/>
+					</group>
+					<group>
+						<field name="branch_id" options="{'no_create':True}"/>
+						<field name="company_id" options="{'no_create':True}" readonly="1"/>
+						<field name="injury_desc"/>
+					</group>
+					<separator string="Дахин давтагдахаас сэргийлж газар дээр авсан арга хэмжээ" colspan="2"/>
+					<group col="4">
+						<field name="action_ids" widget="many2many_tags"/>
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+					<group>
+						<field name="notf_type" widget="selection"/>
+						<field name="template_id" attrs="{'required':[('notf_type','!=','email')], 'invisible':[('notf_type','!=','sms')]}" options="{'no_create':True}"/>
+						<field name="employee_ids" widget="many2many_tags" attrs="{'required':[('notf_type','!=','email')], 'invisible':[('notf_type','!=','sms')]}" options="{'no_create':True}"/>
+						<field name="mail_send_user_ids" widget="many2many_tags" attrs="{'required':[('notf_type','!=','sms')], 'readonly':[('state','!=','draft')], 'invisible':[('notf_type','!=','email')]}" options="{'no_create':True}"/>
+						<field name="sms_text" invisible="1"/>
+					</group>
+					<group col="6">
+						<field name="approved_by" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="approved_position" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="approved_by_date" attrs="{'invisible':[('state','=','draft')]}"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_preliminary_notice_tree" model="ir.ui.view">
+		<field name="name">preliminary.notice.tree</field>
+		<field name="model">preliminary.notice</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="date"/>
+				<field name="part"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="company_id" optional="hide"/>
+				<field name="action_ids"/>
+				<field name="injury_desc"/>
+				<field name="approved_by"/>
+				<field name="approved_by_date"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_preliminary_notice_filter" model="ir.ui.view">
+		<field name="name">preliminary.notice.filter</field>
+		<field name="model">preliminary.notice</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+				<filter string="Компани" name="group_company_id" domain="[]" context="{'group_by':'company_id'}"/>
+				<filter name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+				<filter name="is_sent" string="Илгээсэн" domain="[('state','=',('sent'))]"/>
+				<filter name="is_done" string="Дууссан" domain="[('state','=',('done'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Ээлж" name="group_part" domain="[]" context="{'group_by':'part'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+				</group>
+				<field name="date"/>
+				<field name="part"/>
+				<field name="action_ids"/>
+				<field name="injury_desc"/>
+				<field name="approved_by"/>
+				<field name="approved_by_date"/>
+				<field name="state"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_preliminary_notice_action" model="ir.actions.act_window">
+		<field name="name">Урьдчилсан мэдэгдэл</field>
+		<field name="res_model">preliminary.notice</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

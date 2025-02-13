@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="mining_plan_view_form_view">
+        <field name="name">Dashboard 03</field>
+        <field name="model">mining.plan.view</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard" create="false" write="false">
+                <div>
+                    <group col="6">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="branch_id" options="{'no_create':True}"/>
+                        <field name="group_type" widget="radio"/>
+                        <button name="view_plan" icon="fa-search" string='Харах' type="object" class="btn-success"/>
+                        <button name="export_report" string='Эксел татах' type='object' class="btn btn-success fa fa-download"/>
+                        <field name="view_type" groups="base.group_no_one"/>
+                        <field name="plan_type" groups="base.group_no_one"/>
+                    </group>
+                    <!-- <group col="4">
+                        <widget name="mining_plan_view"/>
+                    </group> -->
+                </div>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_mining_plan_buteel_dump_view">
+        <field name="name">Автосомалвалуудын бүтээлийн төлөвлөгөө</field>
+        <field name="res_model">mining.plan.view</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="target">inline</field>
+        <field name="context">{'view_type_exca_dump': 'dump','plan_type': 'buteel'}</field>
+        <field name="view_id" ref="mining_plan_view_form_view"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_mining_plan_buteel_exca_view">
+        <field name="name">Экскаваторуудын бүтээлийн төлөвлөгөө</field>
+        <field name="res_model">mining.plan.view</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="target">inline</field>
+        <field name="context">{'view_type_exca_dump': 'exca','plan_type': 'buteel'}</field>
+        <field name="view_id" ref="mining_plan_view_form_view"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_mining_plan_time_dump_view">
+        <field name="name">Автосомалвалуудын ажиллах цагийн төлөвлөгөө</field>
+        <field name="res_model">mining.plan.view</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="target">inline</field>
+        <field name="context">{'view_type_exca_dump': 'dump','plan_type': 'ajillah_tsag'}</field>
+        <field name="view_id" ref="mining_plan_view_form_view"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_mining_plan_time_exca_view">
+        <field name="name">Экскаваторуудын ажиллах цагийн төлөвлөгөө</field>
+        <field name="res_model">mining.plan.view</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="target">inline</field>
+        <field name="context">{'view_type_exca_dump': 'exca','plan_type': 'ajillah_tsag'}</field>
+        <field name="view_id" ref="mining_plan_view_form_view"/>
+    </record>
+
+
+    
+    <record model="ir.actions.act_window" id="action_mining_plan_time_ashiglalt_dump_view">
+        <field name="name">Автосомалвалуудын цаг ашиглалт</field>
+        <field name="res_model">mining.plan.view</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="target">inline</field>
+        <field name="context">{'view_type_exca_dump': 'dump','plan_type': 'tsag_ashiglalt'}</field>
+        <field name="view_id" ref="mining_plan_view_form_view"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_mining_plan_time_ashiglalt_exca_view">
+        <field name="name">Экскаваторуудын цаг ашиглалт</field>
+        <field name="res_model">mining.plan.view</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="target">inline</field>
+        <field name="context">{'view_type_exca_dump': 'exca','plan_type': 'tsag_ashiglalt'}</field>
+        <field name="view_id" ref="mining_plan_view_form_view"/>
+    </record>
+</odoo>

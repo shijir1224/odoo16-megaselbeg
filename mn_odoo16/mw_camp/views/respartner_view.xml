@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_lexus" model="ir.ui.view">
+        <field name="name">res.partner.form.lexus</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='function']" position="after">
+                <field name="camp_department_id" />
+                <field name="gender" />
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

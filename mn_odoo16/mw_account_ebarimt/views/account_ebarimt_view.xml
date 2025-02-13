@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+        <!-- Fiscal Year -->
+        <record id="view_account_ebarimt_calculation_form" model="ir.ui.view">
+            <field name="name">account.ebarimt.calculation.form</field>
+            <field name="model">account.ebarimt.calculation</field>
+            <field name="arch" type="xml">
+                <form string="Fiscal year">
+	               <header>
+	                   <button name="create_period" type="object" states="draft" string="Ажил гүйлгээ үүсгэх" class="oe_highlight" context="{'interval': 1}"/>
+	                   <button name="action_import" type="object" states="draft" string="Импортлох" class="oe_highlight" context="{'interval': 1}"/>
+	                   <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,done"/>
+	               </header>
+                   <group>
+                        <group>
+                            <field name="name" widget="field_flow_chart"/>
+                            <field name="company_id" required="1"/>
+                            <field name="account_id" required="1"/>
+                            <field name="from_account_id" required="1"/>
+                            <field name="journal_id" required="1"/>
+                            <field name="move_id" />
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="is_postpone"/>
+                        </group>
+                   </group>
+                   <notebook>
+	                   <page string="Ebarimt">
+	                        <field widget="binary" height="64" name="import_data" filename="file_fname"/>
+                    		<field name="file_fname" invisible="1" />
+		                   <button name="calculate_group" type="object" states="draft" string="нэгтгэх" class="oe_highlight" context="{'interval': 1}" attrs="{'invisible':[('is_postpone','!=',True)]}"/>
+		                    <field colspan="4" name="line_ids" nolabel="1" widget="one2many_list">
+		                        <tree editable="bottom">
+		                                <field name="name"/>
+		                                <field name="date"/>
+		                                <field name="amount" sum="Дүн"/>
+		                                <field name="nuat" sum="Дүн"/>
+		                                <field name="noattai" sum="Дүн"/>
+		                                <field name="partner_id" required="1"/>
+		                                <field name="regno"/>
+		                        </tree>
+		                    </field>
+	                   </page>
+	                   <page string="Нэгтгэсэн" attrs="{'invisible':[('is_postpone','!=',True)]}">
+		                    <field colspan="4" name="group_line_ids" nolabel="1" widget="one2many_list">
+		                        <tree editable="bottom">
+		                                <field name="name"/>
+		                                <field name="date"/>
+		                                <field name="amount" sum="Дүн"/>
+		                                <field name="nuat" sum="Дүн"/>
+		                                <field name="noattai" sum="Дүн"/>
+		                                <field name="partner_id" required="1"/>
+		                                <field name="regno"/>
+		                        </tree>
+		                    </field>
+		                   <button name="calculate_account" type="object" states="draft" string="Тооцоолох" class="oe_highlight" context="{'interval': 1}" attrs="{'invisible':[('is_postpone','!=',True)]}"/>
+		                    <field colspan="4" name="account_line_ids" nolabel="1" widget="one2many_list">
+		                        <tree editable="bottom">
+		                                <field name="name"/>
+		                                <field name="date"/>
+		                                <field name="amount"/>
+		                                <field name="residual"/>
+		                                <field name="zuruu"/>
+		                                <field name="partner_id" required="1"/>
+		                                <field name="regno"/>
+		                        </tree>
+		                    </field>		                    
+	                   </page>	                   
+                   </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="view_account_ebarimt_calculation_tree" model="ir.ui.view">
+            <field name="name">account.ebarimt.calculation.tree</field>
+            <field name="model">account.ebarimt.calculation</field>
+            <field name="arch" type="xml">
+                <tree string="Fiscalyear">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_account_ebarimt_calculation" model="ir.actions.act_window">
+            <field name="name">Ebarimt calculation</field>
+            <field name="res_model">account.ebarimt.calculation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to start a new ebarimt.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_account_ebarimt_calculation" action="action_account_ebarimt_calculation"  parent="mw_account.menu_cash_bank_statement_tree" groups="mw_account_ebarimt.group_mn_account_ebarimt"/>
+	  
+</odoo>        

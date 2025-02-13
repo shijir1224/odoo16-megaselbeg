@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="view_mw_account_report_pivot" model="ir.ui.view">
+         <field name="name">mw.account.report.pivot</field>
+         <field name="model">mw.account.report</field>
+         <field name="arch" type="xml">
+             <pivot string="ACCOUNT Analysis" sample="1">
+                 <field name="account_id" type="col"/>
+                 <field name="date" type="row"/>
+                 <field name="debit" type="measure"/>
+                 <field name="credit" type="measure"/>                 
+             </pivot>
+         </field>
+    </record>
+
+    <record id="view_mw_account_report_graph" model="ir.ui.view">
+         <field name="name">mw.account.report.graph</field>
+         <field name="model">mw.account.report</field>
+         <field name="arch" type="xml">
+             <graph string="Invoices Analysis" type="line" sample="1">
+                 <field name="account_id" />
+                 <field name="balance" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+     <record id="mw_account_report_view_tree" model="ir.ui.view">
+         <field name="name">mw.account.report.view.tree</field>
+         <field name="model">mw.account.report</field>
+         <field name="arch" type="xml">
+             <tree string="Account Analysis">
+                <field name="move_id" string="Move"/>
+                <field name="journal_id" optional="hide"/>
+                <field name="partner_id" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="product_id" optional="show"/>
+                <field name="debit" optional="show" sum="Total"/>
+                <field name="credit" optional="show" sum="Total"/>
+                <field name="balance" optional="show" sum="Total"/>
+                <field name="state" optional="hide"/>
+                <field name="amount_currency" optional="hide"/>
+                <field name="account_id" optional="hide"/>
+             </tree>
+         </field>
+     </record>
+
+
+    <record id="view_mw_account_report_search" model="ir.ui.view">
+        <field name="name">mw.account.report.search</field>
+        <field name="model">mw.account.report</field>
+        <field name="arch" type="xml">
+            <search string="Account Analysis">
+                <field name="date"/>
+                <separator/>
+                <filter string="Draft" name="toinvoice" domain="[('state','=','draft')]" help = "Draft Invoices"/>
+                <filter string="Posted" name="current" domain="[('state','not in', ('draft','cancel'))]"/>
+                <separator/>
+                <filter name="Date" date="date"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="account_id" />
+                <field name="product_id" />
+                <group expand="1" string="Group By">
+                    <filter string="Partner" name="partner_id" context="{'group_by':'partner_id','residual_visible':True}"/>
+                    <filter string="Status" name="status" context="{'group_by':'state'}"/>
+                    <separator orientation="vertical" />
+                    <filter string="Date" name="date" context="{'group_by':'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mw_account_report" model="ir.actions.act_window">
+        <field name="name">Account Analysis</field>
+        <field name="res_model">mw.account.report</field>
+        <field name="view_mode">graph,pivot</field>
+<!--         <field name="context">{'search_default_current':1, 'search_default_supplier': 1, 'group_by':['invoice_date'], 'group_by_no_leaf':1}</field> -->
+        <field name="search_view_id" ref="view_mw_account_report_search"/>
+    </record>
+
+
+        <menuitem 
+                name="Гүйлгээнүүд"
+                action="action_mw_account_report"
+                id="menu_action_mw_account_report"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="200"/>
+                
+</data>
+</odoo>

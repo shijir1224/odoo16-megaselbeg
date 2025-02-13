@@ -1,0 +1,639 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase_expense_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0-20220525\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-29 04:26+0000\n"
+"PO-Revision-Date: 2022-07-29 04:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_purchase_expense_custom
+#: code:addons/mw_purchase_expense_custom/models/add_cost.py:0
+#, python-format
+msgid ""
+"<div class=\"o_mail_notification\">created <a href=\"#\" "
+"class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__account_id
+msgid "Account"
+msgstr "Данс"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_stock_picking__add_cost_id
+msgid "Add Cost"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Add Costs"
+msgstr "Зардал Нэмэх"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_bank_statement_line__nemegdel_zardaluud
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_move__nemegdel_zardaluud
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_payment__nemegdel_zardaluud
+msgid "Add costs"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.actions.act_window,name:mw_purchase_expense_custom.action_purchase_expense_line_product_tree
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order_line__add_cost_ids
+#: model:ir.ui.menu,name:mw_purchase_expense_custom.menu_purchase_add_cost
+msgid "Additional Costs"
+msgstr "Нэмэгдэл Зардал"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__amount_expenses_in
+msgid "Allocation of Total Costs"
+msgstr "Нийт Зардлын Дүн Хуваарилагдах"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order_line__qty_received_future
+msgid "Arrival number"
+msgstr "Ирэх тоо"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__company_id
+msgid "Company"
+msgstr "Компани"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Confirm"
+msgstr "Батлах"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_res_partner
+msgid "Contact"
+msgstr "Харилцах хаяг"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Cost Allocation"
+msgstr "Зардал Хуваарилах"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Create invoice of expenses"
+msgstr "Зардлын Нэхэмжлэл Үүсгэх"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__create_uid
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost_am_view__create_uid
+msgid "Created by"
+msgstr "Үүсгэсэн этгээд"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__create_date
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost_am_view__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__credit
+msgid "Credit"
+msgstr "Кредит"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__company_currency_id
+msgid "Currency"
+msgstr "Валют"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__date
+msgid "Date /Rate/"
+msgstr "Огнооо /Ханш/"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__debit
+msgid "Debit"
+msgstr "Дебет"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Delete row"
+msgstr "Мөр Устгах"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__display_name
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__display_name
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost_am_view__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__expenses_line
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_res_partner__partner_po_ids
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_res_users__partner_po_ids
+msgid "Expenses line"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__acc_date
+msgid "Financial Record Date"
+msgstr "Санхүү Бичилт Огноо"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__account_move_line_id
+msgid "Financial Records"
+msgstr "Санхүү Бичилт"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__acc_state
+msgid "Financial Statements"
+msgstr "Санхүү Бичилт Төлөв"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__id
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__id
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost_am_view__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__message_needaction
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__message_has_error
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Import Purchase Lines"
+msgstr "Худалдан Авалтын Мөр Импортлох"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__import_po_id
+msgid "Import Purchases"
+msgstr "Оруулж Ирэх Худалдан Авалт"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_account_move
+msgid "Journal Entry"
+msgstr "Ажил гүйлгээ"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_account_move_line
+msgid "Journal Item"
+msgstr "Журналын бичилт"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.view_move_line_pivot_custom_po
+msgid "Journal Items"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add____last_update
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost____last_update
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost_am_view____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__write_uid
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost_am_view__write_uid
+msgid "Last Updated by"
+msgstr "Сүүлд зассан этгээд"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__write_date
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost_am_view__write_date
+msgid "Last Updated on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_form_add_cost_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_line_form2_add
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_line_tree2_add
+msgid "More edit"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__name
+msgid "Name"
+msgstr "Дугаар"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_product_product__is_without_cost
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_product_template__is_without_cost
+msgid "Not included in the cost /VAT../"
+msgstr "Өртөгд оруулахгүй /НӨАТ../"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__qty_received_future_ok
+msgid "Number of arrivals is 0"
+msgstr "Ирэх тоо 0"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order_line__add_cost_id_one
+msgid "One Additional Cost"
+msgstr "Нэг Нэмэгдэл зардал"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order__is_add_cost_custom
+msgid "Optional Additional Costs"
+msgstr "Сонголтой Нэмэгдэл Зардалтай"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_bank_statement_line__add_cost_id
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_move__add_cost_id
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_move_line__add_cost_id
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_payment__add_cost_id
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order_expenses__add_cost_id
+msgid "Order id"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_account_move_line__po_id
+msgid "PO"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__company_id
+msgid "PO Company"
+msgstr "PO Компани"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_acc_view_add__partner_id
+msgid "PO Partner"
+msgstr "PO Харилцагч"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_search
+msgid "PO-partner"
+msgstr "PO-д харилцагч хайх"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_search
+msgid "PO-product"
+msgstr "PO-ны Бараанд"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_search
+msgid "PO-search"
+msgstr "PO-хайх"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.view_account_move_line_filter_mw_pur
+msgid "PO-нд хайх"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__import_po_partner_id
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__po_count
+msgid "Po count"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__pol_count
+msgid "Pol count"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_product_template
+msgid "Product Template"
+msgstr "Барааны загвар"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_purchase_order_expenses
+msgid "Purchase Expenses Mapping"
+msgstr "Худалдан авалтын нэмэлт зардал"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Purchase Line"
+msgstr "Худалдан Авалтын Мөр"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__po_line_ids
+msgid "Purchase Lines"
+msgstr "Худалдан Авалтын Мөрүүд"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_purchase_order
+msgid "Purchase Order"
+msgstr "Худалдан авалтын захиалга"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_purchase_order_line
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_line_form2_add_custom
+msgid "Purchase Order Line"
+msgstr "Худалдан авалтын захиалгын мөр"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order_line__is_qty_received
+msgid "Re-Income"
+msgstr "Дахин Орлого Авах"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Reviewed"
+msgstr "Хянасан"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order_line__sm_ids
+msgid "SM ids"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_line_form2_add_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.view_account_move_line_filter_mw_tree
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.view_purchase_acc_view_add_tree
+msgid "SUM"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_search
+msgid "Search customs number"
+msgstr "Гаалийн Дугаарт Хайх"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_search
+msgid "Search expense product"
+msgstr "Зардлын Бараанд Хайх"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__product_id
+msgid "Search for product"
+msgstr "Бараа Хайх"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Send to supervisor"
+msgstr "Хянагчид илгээх"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__state
+msgid "State"
+msgstr "Төлөв"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__product_template__portion_method__subtotal
+msgid "SubTotal"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__amount_expenses_po_tot2
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_order__amount_expenses_po_tot2
+msgid "Total Cost PO"
+msgstr "Нийт Зардал PO"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__amount_expenses
+msgid "Total Expenses"
+msgstr "Нийт Зардлын Дүн"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__po_niit_dun
+msgid "Total PO amount"
+msgstr "Нийт PO-ны дүн"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_stock_picking
+msgid "Transfer"
+msgstr "Шилжүүлэг"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__product_template__portion_method__price
+msgid "Unit Price"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__product_template__portion_method__qty
+msgid "Unit Quantity"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.stock_picking_form_branch_extended2
+msgid "Update the expired number with the incoming number"
+msgstr "Дууссан тоог ирэх тоогоор шинэчлэх"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_form_add_cost_custom
+msgid "View Additional Costs"
+msgstr "Харах Нэмэгдэл Зардал"
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "View Invoice"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "View PO"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "View Total Financial Records"
+msgstr "Нийт Санхүү Бичилт Харах"
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__product_template__portion_method__volume
+msgid "Volume"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_purchase_add_cost__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,help:mw_purchase_expense_custom.field_purchase_add_cost__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__product_template__portion_method__weight
+msgid "Weight"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_purchase_acc_view
+msgid "purchase acc view"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_purchase_acc_view_add
+msgid "purchase acc view add"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_purchase_add_cost
+msgid "purchase add cost"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model,name:mw_purchase_expense_custom.model_purchase_add_cost_am_view
+msgid "purchase.add.cost.am.view"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__purchase_add_cost__state__done
+msgid "Дууссан"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_line_form2_add_custom
+msgid "Ирэх тоогоор Задлах"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_order_line_form2_add_custom
+msgid "Мөр Задлах"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__purchase_add_cost__state__draft
+msgid "Ноорог"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_form_form
+msgid "Ноороглох"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:res.groups,name:mw_purchase_expense_custom.group_add_custom_checker
+msgid "Нэмэгдэл Зардал хянагч"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.view_account_move_line_filter_mw_pur
+msgid "Нэмэгдэл зардалд хайх"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.actions.act_window,name:mw_purchase_expense_custom.action_purchase_acc_view_add_form
+#: model:ir.actions.act_window,name:mw_purchase_expense_custom.action_purchase_acc_view_add_form_am
+#: model:ir.actions.act_window,name:mw_purchase_expense_custom.action_purchase_add_cost_am_view
+#: model:ir.ui.menu,name:mw_purchase_expense_custom.menu_purchase_acc_view_add
+msgid "Санхүү Бичилт Тулгалт Нэмэгдэл"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense_custom.purchase_add_cost_am_view_form
+msgid "Харах"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_product_product__portion_method
+#: model:ir.model.fields,field_description:mw_purchase_expense_custom.field_product_template__portion_method
+msgid "Хуваарилах Арга"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__purchase_add_cost__state__sent
+msgid "Хянагчид илгээсэн"
+msgstr ""
+
+#. module: mw_purchase_expense_custom
+#: model:ir.model.fields.selection,name:mw_purchase_expense_custom.selection__purchase_add_cost__state__checked
+msgid "Хянасан"
+msgstr ""

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="account_partner_ledger_sale_view" model="ir.ui.view">
+            <field name="name">account.partner.ledger2.sale.view</field>
+            <field name="model">account.partner.ledger2</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+	                <group name="main_info">
+	                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+	                </group>
+                    <group colspan="4" col="4" >
+                    		<group colspan="4" >
+		 	                   <field name="account_id" colspan="2" />
+			                   <field name="partner_id" colspan="2" />
+			                   <field name="type" colspan="4" readonly="1" />
+			                   <field name="target_move" />
+			                   <field name="is_currency" />
+		                   </group>
+		                   <group>
+		                    <field name="branch_id"                                    
+		                    		domain="[('main_user_ids', 'in', [uid])]" 
+		                    		required="1" 
+		                    		options="{'no_create': True}"
+				                    />
+		                     </group>
+<!-- 		                   <field name="warehouse_id" string="Салбар агуулах"/> -->
+		                   <group colspan="2" col="2" attrs="{'invisible':[('partner_id','&lt;&gt;',False)]}">
+		                       <field name="condition" invisible="'hide_account' not in context"/>
+		                   </group>
+                    		<group colspan="4" >
+                                <separator string="Огноо" colspan="4"/>
+                                <field name="date_from" colspan="4" string="Эхлэх"/>
+                                <field name="date_to" colspan="4" string="Дуусах"/>
+							</group>
+		                   
+<!-- 	                   <group col="2" colspan="4">
+	                        <notebook colspan="4">
+	                            <page string="Filters">
+	                            	<group>
+	                                <separator string="Огноо" colspan="4"/>
+	                                <field name="date_from" colspan="4" string="Эхлэх"/>
+	                                <field name="date_to" colspan="4" string="Дуусах"/>
+								</group>
+                            </page>
+	                        </notebook>
+	                   </group>
+	                   <separator colspan="4"/> -->
+<!-- 	                   <group colspan="4">
+	                        <button icon="gtk-cancel" special="cancel" string="Болих" colspan="2"/>
+	                        <button icon="gtk-print" name="check_report" string="Хэвлэх" type="object" colspan="2" default_focus="1" />
+	                   </group>
+ -->
+ 						<footer col="3" class="oe_right">
+	                        <button icon="fa-times" special="cancel" string="Cancel" colspan="2"/>
+	                        <button icon="fa-print" name="check_report" string="Print" type="object" colspan="2" default_focus="1" />
+        			       </footer>
+ 	                </group>
+               	</form>
+            </field>
+        </record>
+
+
+        <record id="action_account_partner_ledger_sale_view" model="ir.actions.act_window">
+            <field name="name">Харилцагч тайлан</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.partner.ledger2</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_partner_ledger_sale_view"/>
+            <field name="domain">[('branch_id.main_user_ids', 'in', [uid])]</field>
+            
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new cash log.
+              </p><p>
+                A Cash Register allows you to manage cash entries in your cash
+                journals. This feature provides an easy way to follow up cash
+                payments on a daily basis. You can enter the coins that are in
+                your cash box, and then post entries when money comes in or
+                goes out of the cash box.
+              </p>
+            </field>
+        </record>
+
+		<menuitem
+            parent="mw_account.sales_cash_root_menu"
+            action="action_account_partner_ledger_sale_view"
+            id="menu_action_account_partner_ledger_sale_view"
+            sequence="7"
+            groups= "mw_account.group_mn_sale_cash_and_bank"/> 
+    </data>
+</openerp>

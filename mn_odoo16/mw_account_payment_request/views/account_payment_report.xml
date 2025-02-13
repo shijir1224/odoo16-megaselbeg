@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!--         <report 
+            id="print_payment_request"
+            model="payment.request"
+            name="account.payment.request"
+            rml="l10n_mn_account_payment/report/print_payment_request.rml"
+            string="Print Request"
+            menu="False"
+        />
+        <report 
+            auto="False"
+            multi="False"
+            id="report_account_cash_statement_paymaster" 
+            model="account.bank.statement" 
+            name="account.cash.statement.paymaster"
+            string="Cash Transaction Statement"
+        /> -->
+    </data>
+</openerp>

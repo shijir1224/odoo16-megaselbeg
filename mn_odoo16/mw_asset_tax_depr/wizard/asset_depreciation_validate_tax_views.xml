@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_asset_depreciation_confirmation_tax" model="ir.ui.view">
+        <field name="name">asset.depreciation.confirmation.tax</field>
+        <field name="model">asset.depreciation.confirmation.tax</field>
+        <field name="arch" type="xml">
+            <form string="Compute Asset">
+                <div>
+                    <p>
+                        Сонгосон огноон дахь хөрөнгийн элэгдлийн бичилт батлагдах болно. 
+                    </p> 
+                </div>
+                <group>
+                    <field name="date" string='Огноо'/>
+                </group>
+                <footer>
+                    <button string="Элэгдэл балтах" name="asset_compute" type="object" class="btn-primary"/>
+                    <button string="Цуцлах" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+         </field>
+    </record>
+
+    <record id="action_asset_depreciation_confirmation_tax" model="ir.actions.act_window">
+        <field name="name">Татварын зорилгоорх элэгдлийн бичилт батлах</field>
+        <field name="res_model">asset.depreciation.confirmation.tax</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_asset_depreciation_confirmation_tax"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_asset_depreciation_confirmation_wizard_tax"
+              name="Татварын элэгдэл батлах"
+              action="action_asset_depreciation_confirmation_tax"
+              parent="mw_asset.account_asset_configuration"
+              sequence="112"
+              />
+
+</odoo>

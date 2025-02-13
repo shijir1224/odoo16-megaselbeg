@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+	
+	<record model="ir.ui.view" id="hse_fire_signal_system_view">
+		<field name="name">hse.fire.signalsystem.form</field>
+		<field name="model">hse.fire.signal.system</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах" type="object" class="btn-danger" groups="mw_hse.group_hse_admin"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="branch_id" options="{'no_create': True}"/>
+						<field name="company_id" options="{'no_create': True}"/>
+						<field name="employee_ids" options="{'no_create': True}" widget="many2many_tags"/>
+						<field name="check_employee_id" options="{'no_create': True}"/>
+					</group>
+					<notebook>
+						<page string='Гал унтрааагуур' name="extinguisher">
+							<field name="fire_extinguisher_signal_ids"  nolabel="1">
+								<tree editable="bottom">
+									<field name="switch_id" options="{'no_create': True}" required="1"/>
+									<field name="switch_where_type"/>
+									<field name="technic_id" attrs="{'readonly':[('switch_where_type','=','switch_place')]}"/>
+									<field name="place" attrs="{'readonly':[('switch_where_type','=','switch_technic')]}"/>
+									<field name="quantity" sum="Нийт"/>
+								</tree>
+								<form>
+									<group>
+										<field name="signal_id" readonly="1"/>
+										<field name="switch_id" options="{'no_create': True}"/>
+										<field name="switch_where_type"/>
+										<field name="technic_id"/>
+										<field name="place"/>
+										<field name="quantity" sum="Нийт"/>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string="Дохиололын систем" name="signal">
+							<field name="signal_system_ids" nolabel="1">
+								<tree editable="bottom">
+									<field name="signal_id" options="{'no_create': True}" required="1"/>
+									<field name="place"/>
+									<field name="quantity" sum="Нийт"/>
+								</tree>
+								<form>
+									<group>
+										<field name="parent_id" readonly="1"/>
+										<field name="signal_id" options="{'no_create': True}"/>
+										<field name="place"/>
+										<field name="quantity" sum="Нийт"/>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+					<group>
+						<field name="desc"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_fire_signal_system_tree" model="ir.ui.view">
+		<field name="name">hse.fire.signal.system.tree</field>
+		<field name="model">hse.fire.signal.system</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="company_id"/>
+				<field name="branch_id"/>
+				<field name="employee_ids" widget="many2many_tags"/>
+				<field name="check_employee_id"/>
+				<field name="desc"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_fire_signal_system_filter" model="ir.ui.view">
+		<field name="name">hse.fire.signal.system.filter</field>
+		<field name="model">hse.fire.signal.system</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="company_id"/>
+				<field name="branch_id"/>
+				<field name="employee_ids" widget="many2many_tags"/>
+				<field name="check_employee_id"/>
+				<field name="desc"/>
+			</search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_fire_signal_system">
+		<field name="name">Галын системийн бүртгэл</field>
+		<field name="res_model">hse.fire.signal.system</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="camp_registere_view">
+		<field name="name">camp.register.form</field>
+		<field name="model">camp.register</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="number"/>
+					<field name="company_id"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_camp_register_tree" model="ir.ui.view">
+		<field name="name">camp.register.tree</field>
+		<field name="model">camp.register</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="number"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_camp_register_filter" model="ir.ui.view">
+		<field name="name">camp.register.filter</field>
+		<field name="model">camp.register</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="number"/>
+			</search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_camp_register">
+		<field name="name">Гэрийн мэдээлэл</field>
+		<field name="res_model">camp.register</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="signal_system_view">
+		<field name="name">signal.system.form</field>
+		<field name="model">signal.system</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="serial"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_signal_system_tree" model="ir.ui.view">
+		<field name="name">signal.system.tree</field>
+		<field name="model">signal.system</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="serial"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_signal_system_filter" model="ir.ui.view">
+		<field name="name">signal.system.filter</field>
+		<field name="model">signal.system</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="serial"/>
+				<field name="company_id"/>
+			</search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_signal_system">
+		<field name="name">Дохиолллын бүртгэл</field>
+		<field name="res_model">signal.system</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

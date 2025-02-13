@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="wizard_set_tire_odometer_view" model="ir.ui.view">
+            <field name="name">Засварчны ажлын тайлан</field>
+            <field name="model">wizard.set.tire.odometer</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4">
+                        <label string="Template COLUMNs: (Serial number; Мото цаг; Огноо; Хээний гүн; Элэгдэл %)" for="excel_data"
+                            colspan="4" style="color: red;"/>
+                        <field name="excel_data" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                   </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                        <button name="import_data" string="Импорт хийх" 
+                            type="object" colspan="1"
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_set_tire_odometer" model="ir.actions.act_window">
+            <field name="name">Set tire odometer</field>
+            <field name="res_model">wizard.set.tire.odometer</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_set_tire_odometer_view"/>
+            <field name="target">new</field>
+        </record>
+
+    
+</odoo>

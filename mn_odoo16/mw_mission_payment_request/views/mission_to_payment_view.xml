@@ -1,0 +1,26 @@
+<odoo>
+    <record id ="view_hr_mission_payment_form" model = "ir.ui.view">
+        <field name="name">hr.mission.form</field>
+        <field name="model">hr.mission</field>
+        <field name="inherit_id" ref="mw_hr.view_hr_mission_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='confirm_user_ids']" position="after">
+                <field name="request_id"/>
+                <!-- <field name="amount"/> -->
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_mission_payment_request_form">
+        <field name="name">payment.request.form.my</field>
+        <field name="inherit_id" ref="mw_account_payment_request.view_payment_request_form_my"/>
+        <field name="model">payment.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='narration_id']" position="after">
+                <field name='mission_id' attrs="{'invisible': [('mission_id', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

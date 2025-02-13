@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_power_plan_tree" model="ir.ui.view">
+        <field name="name">power.plan.tree</field>
+        <field name="model">power.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="type" groups="base.group_no_one"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="attachment_ids" widget="many2many_binary"/>
+                <field name="attachment_actual_ids" widget="many2many_binary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_plan_search" model="ir.ui.view">
+        <field name="name">power.plan.search</field>
+        <field name="model">power.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <filter name="gr_date" string="Огноо" context="{'group_by':'start_date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_plan_form" model="ir.ui.view">
+        <field name="name">power.plan.form</field>
+        <field name="model">power.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="type" groups="base.group_no_one" force_save="1" readonly="1"/>
+                    </group>
+                    <group col="2">
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                        <field name="attachment_actual_ids" widget="many2many_binary"/>
+                    </group>
+                    <notebook>
+                        <page string="Төлөвлөгөөний Мөр">
+                            <group>
+                                <field name="lines" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="date"/>
+                                        <field name="implement_id"/>
+                                        <field name="category_id"/>
+                                        <field name="desc"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_plan_week_tree" model="ir.actions.act_window">
+        <field name="name">Долоо Хоногийн Төлөвлөгөө</field>
+        <field name="res_model">power.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=','week')]</field>
+        <field name="context">{'main_type':'week'}</field>
+    </record>
+    
+    <record id="action_power_plan_month_tree" model="ir.actions.act_window">
+        <field name="name">Сарын Төлөвлөгөө</field>
+        <field name="res_model">power.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=','month')]</field>
+        <field name="context">{'main_type':'month'}</field>
+    </record>
+
+    <record id="action_power_plan_year_tree" model="ir.actions.act_window">
+        <field name="name">Жилийн Төлөвлөгөө</field>
+        <field name="res_model">power.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=','year')]</field>
+        <field name="context">{'main_type':'year'}</field>
+    </record>
+
+    <record id="view_power_plan_line_tree" model="ir.ui.view">
+        <field name="name">power.plan.line.tree</field>
+        <field name="model">power.plan.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="implement_id"/>
+                <field name="category_id"/>
+                <field name="desc"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_plan_line_search" model="ir.ui.view">
+        <field name="name">power.plan.line.search</field>
+        <field name="model">power.plan.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="implement_id"/>
+                <field name="category_id"/>
+                <field name="desc"/>
+                <filter name="gr_day" string="Өдөр" context="{'group_by':'date:day'}"/>
+                <filter name="gr_month" string="Сар" context="{'group_by':'date:month'}"/>
+                <filter name="gr_year" string="Жил" context="{'group_by':'date:year'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_plan_line_form" model="ir.ui.view">
+        <field name="name">power.plan.line.form</field>
+        <field name="model">power.plan.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="date"/>
+                        <field name="implement_id"/>
+                        <field name="category_id"/>
+                        <field name="desc"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

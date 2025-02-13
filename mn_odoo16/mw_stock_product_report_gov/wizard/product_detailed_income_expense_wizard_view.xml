@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_detailed_income_expense_view_inh" model="ir.ui.view">
+        <field name="name">product.detailed.income.expense wizard</field>
+        <field name="model">product.detailed.income.expense</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_detailed_income_expense_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <button name="export_report" position="after">
+                    <button name="export_report_delgerengui" attrs="{'invisible': [('move_type', '!=', 'income_expense')]}" string="Дэлгэрэнгүй бүртгэл БМ-1" type="object"  icon="fa-file-excel-o" class="btn-success"/>
+                    <!-- <button name="export_report_tovchoo" string="Дэлгэрэнгүй бүртгэл БМ-2" type="object"  icon="fa-file-excel-o" class="btn-success" invisible="1"/> -->
+                </button>
+            </data>
+        </field>
+    </record>
+</odoo>

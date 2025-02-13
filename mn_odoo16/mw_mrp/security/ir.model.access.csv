@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_product_standart_cost,mrp_product_standart_cost,mw_mrp.model_mrp_product_standart_cost,group_mrp_standart_price_mw,1,1,1,1
+access_mrp_product_standart_cost_line,mrp_product_standart_cost_line,mw_mrp.model_mrp_product_standart_cost_line,group_mrp_standart_price_mw,1,1,1,1
+,,,,,,,
+access_mrp_standart_cost_calc,mrp_standart_cost_calc,mw_mrp.model_mrp_standart_cost_calc,group_mrp_standart_price_mw,1,1,1,1
+access_mrp_standart_cost_calc_line,mrp_standart_cost_calc_line,mw_mrp.model_mrp_standart_cost_calc_line,group_mrp_standart_price_mw,1,1,1,1
+,,,,,,,
+,,,,,,,
+access_mrp_product_standart_cost_history,mrp_product_standart_cost_history,mw_mrp.model_mrp_product_standart_cost_history,,1,1,1,
+,,,,,,,
+access_mrp_standart_cost_calc_bom_line,mrp_standart_cost_calc_bom_line,mw_mrp.model_mrp_standart_cost_calc_bom_line,group_mrp_standart_price_mw,1,1,1,1
+
+access_mrp_production_import,mrp_production_import,mw_mrp.model_mrp_production_import,group_mrp_standart_price_mw,1,1,1,1

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="purchase_order_inherit" model="ir.ui.view">
+		<field name="name">purchase.order.form.inherit</field>
+		<field name="model">purchase.order</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<field name="partner_ref" position="after">
+				<field name="for_partner_id" />
+			</field>
+		</field>
+	</record>
+
+   <record id="purchase_order_tree" model="ir.ui.view">
+		<field name="name">purchase.order.tree</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_tree"/>
+		<field name="arch" type="xml">
+			<field name="state" position="after">
+				<field name="for_partner_id"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="purchase_order_filter" model="ir.ui.view">
+		<field name="name">purchase.order.filter</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+		<field name="arch" type="xml">
+			<search position="inside">
+				<filter string="Зориулж авах харилцагч" name="for_partner_id" domain="[]" context="{'group_by':'for_partner_id'}"/>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="stock_quant_set_search_view">
+		<field name="name">stock.quant.set.search</field>
+		<field name="model">stock.quant</field>
+		<field name="inherit_id" ref="stock.quant_search_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search" position="inside">
+				<field name="owner_id"/>
+				<filter name="owner_id_ok" string="Эзэмшигчтэй" domain="[('owner_id', '!=', False)]"/>
+				<filter name="gr_owner_id" string="Эзэмшигчээр" context="{'group_by':'owner_id'}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_stock_quant_set_tree_editable">
+		<field name="name">stock.quant.set.tree.editable</field>
+		<field name="model">stock.quant</field>
+		<field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+		<field name="arch" type="xml">
+			<tree position="inside">
+				<field name="owner_id" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_picking_tree_request_inherit_mw" model="ir.ui.view">
+		<field name="name">stock.picking.tree.view.mw.purchase</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.vpicktree"/>
+		<field name="arch" type="xml">
+			<tree position="inside">
+				<field name="owner_id" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_picking_internal_search_inherit_mw_purchase" model="ir.ui.view">
+		<field name="name">stock.picking.internal.search.inherit.mn.purchase</field>
+		<field name="inherit_id" ref="stock.view_picking_internal_search"/>
+		<field name="model">stock.picking</field>
+		<field name="arch" type="xml">
+			<xpath expr="//search" position="inside">
+				<field name="owner_id"/>
+				<filter name="owner_id_ok" string="Эзэмшигчтэй" domain="[('owner_id', '!=', False)]"/>
+				<filter name="gr_owner_id" string="Эзэмшигчээр" context="{'group_by':'owner_id'}"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

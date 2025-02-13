@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Урьдчилсан төлөвлөгөөний материал -->
+        <record id="camp_order_report_pivot" model="ir.ui.view">
+            <field name="name">camp.order.report.report</field>
+            <field name="model">camp.order.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Analysis">
+                    <field name="name" type="row" />
+                    <field name="amount" type="measure" />
+                </pivot>
+            </field>
+        </record>
+
+        <record id="camp_order_report_search" model="ir.ui.view">
+            <field name="name">camp.order.report.report.search</field>
+            <field name="model">camp.order.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="name" />
+                    <filter string="date" name="today"
+                        domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]" />
+                    <filter string="Энэ сар" name="this_month"
+                        domain="[('date','like',time.strftime('%%Y-%%m'))]" />
+                    <filter string="Энэ жил" name="this_year"
+                        domain="[('date','like',time.strftime('%%Y'))]" />
+                    <separator />
+                    <filter name="january" string="January"
+                        domain="[('date','like',time.strftime('%%Y-01'))]" />
+                    <filter name="february" string="February"
+                        domain="[('date','like',time.strftime('%%Y-02'))]" />
+                    <filter name="march" string="March"
+                        domain="[('date','like',time.strftime('%%Y-03'))]" />
+                    <filter name="April" string="April"
+                        domain="[('date','like',time.strftime('%%Y-04'))]" />
+                    <filter name="may" string="May"
+                        domain="[('date','like',time.strftime('%%Y-05'))]" />
+                    <filter name="june" string="June"
+                        domain="[('date','like',time.strftime('%%Y-06'))]" />
+                    <filter name="july" string="July"
+                        domain="[('date','like',time.strftime('%%Y-07'))]" />
+                    <filter name="august" string="August"
+                        domain="[('date','like',time.strftime('%%Y-08'))]" />
+                    <filter name="september" string="September"
+                        domain="[('date','like',time.strftime('%%Y-09'))]" />
+                    <filter name="octomber" string="October"
+                        domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November"
+                        domain="[('date','like',time.strftime('%%Y-11'))]" />
+                    <filter name="december" string="December"
+                        domain="[('date','like',time.strftime('%%Y-12'))]" />
+                    <field name="partner_id" />
+                    <field name="invoice_id" />
+                </search>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='action_camp_order_report'>
+            <field name="name">Camp order report</field>
+            <field name="res_model">camp.order.report</field>
+            <field name="view_mode">pivot,tree</field>
+            <field name="context">{"search_default_this_month":True}</field>
+        </record>
+    </data>
+</openerp>

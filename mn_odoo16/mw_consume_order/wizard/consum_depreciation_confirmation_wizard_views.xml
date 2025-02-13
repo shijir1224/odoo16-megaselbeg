@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_consum_depreciation_confirmation_wizard" model="ir.ui.view">
+        <field name="name">consum.depreciation.confirmation.wizard</field>
+        <field name="model">consum.depreciation.confirmation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Compute consum">
+                <div>
+                    <p>
+                        Энэ дэлгэцээр хөрөнгийг шүүлтүүрээр элэгдүүлж болох ба тухайн сонгосон огнооны тухай сараас өмнөх бүх элэгдээгүй сарыг элэгдүүлэнэ.<br/>
+                        Хөрөнгө дээрх шүүлтүүр хоосон бол бүх хөрөнгийг элэгдүүлэнэ. Огноогоо зөв сонгоно уу!!!
+                    </p> 
+                </div>
+                <group>
+                    <field name="date" string="огноо"/>
+                </group>
+                <group>
+                	<field name="consum_ids" string="Хөрөнгө"/>
+                </group>
+                <footer>
+                    <button string="Элэгдлийн Самбар үүсгэх" name="consum_compute_create" type="object" class="btn-primary"/>
+                    <button string="Элэгдүүлэх" name="consum_compute" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+         </field>
+    </record>
+
+    <record id="action_consum_depreciation_confirmation_wizard" model="ir.actions.act_window">
+        <field name="name">АБХМ шүүж элэгдүүлэх</field>
+        <field name="res_model">consum.depreciation.confirmation.wizard</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_consum_depreciation_confirmation_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="АБХМ шүүж элэгдүүлэх" action="action_consum_depreciation_confirmation_wizard"
+        id="menu_consum_depreciation_confirmation_wizard"
+        parent="menu_finance_consumable_material" sequence="111" />
+
+</odoo>

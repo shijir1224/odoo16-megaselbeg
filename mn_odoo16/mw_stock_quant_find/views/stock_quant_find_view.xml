@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_quant_find_view" model="ir.ui.view">
+        <field name="name">stock.quant.find.wizard</field>
+        <field name="model">stock.quant.find</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" states="draft" string="Үлдэгдэл шинэчлэх" confirm="Are you sure?" class="btn-success" type="object"/>
+                    <button name="action_no_stock_move_line_update" states="draft" string="Stock move-гүй үлдэгдэл шинэчлэх" confirm="Are you sure?" class="btn-success" type="object"/>
+                    <button name="action_done_dup" states="draft" string="Үлдэгдэл Засах" confirm="Are you sure?" class="oe_highlight" type="object"/>
+                    
+                    <!-- <button name="action_draft" states="done" string="Ноороглох" type="object"/> -->
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <!-- <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                                name="view_line_edit_move"
+                                string="Дэл Засах"
+                                class="oe_stat_button" icon="fa-arrow">
+                        </button>
+                    </div> -->
+                    <group>
+                    	<group>
+	                        <field name="name" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+	                    </group>
+	                    <group>
+	                        <field name="location_ids" widget="many2many_tags" attrs="{'readonly':[('state','=','done')]}"/>
+	                    </group>
+                    </group>
+                    <notebook>
+                        <page string="Бараанууд">
+                            <group>
+                                <button name="action_import" string="Татах" type="object" icon="fa-arrow-circle-down" attrs="{'invisible':[('state','=','done')]}"/>
+                                <button name="remove_line" string="Мөр устгах" type="object" icon="fa-delete" attrs="{'invisible':[('state','!=','draft')]}"/>
+                            </group>
+                                <field name="line_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                    <tree editable="bottom">
+                                        <field name="location_id"/>
+                                        <field name="product_id"/>
+                                        <!-- <field name="lot_id" groups="base.group_no_one"/> -->
+                                        <field name="quantity" sum="sum"/>
+                                        <field name="quantity_move" sum="sum"/>
+                                        <field name="diff_qty" sum="sum"/>
+                                        <field name="update_quant" sum="sum"/>
+                                    </tree>
+                                </field>
+                        </page>
+                        <page string="Stock move-гүй бараанууд">
+                            <group>
+                                <button name="action_no_stock_move_import" string="Мөр татах" type="object" attrs="{'invisible':[('state','=','done')]}" confirm="Бараанууд page дээрх ТАТАХ товчийг дарсан биздээ тэ?"/>
+                                <button name="remove_no_stock_move_line" string="Мөр устгах" type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
+                            </group>
+                            <field name="no_move_line_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                <tree editable="bottom">
+                                    <field name="location_id"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity" sum="sum"/>
+                                    <field name="update_quant"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Stock davhardsan">
+                            <group>
+                                <button name="action_import_dup" string="Татах Засах" type="object" icon="fa-arrow-circle-down" attrs="{'readonly':[('state','=','done')]}"/>
+                                <button name="remove_line_dup" string="Мөр устгах" type="object" icon="fa-delete" attrs="{'invisible':[('state','!=','draft')]}"/>
+                            </group>
+                                <field name="line_dup_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="location_id"/>
+                                        <field name="product_id"/>
+                                        <!-- <field name="lot_id" groups="base.group_no_one"/> -->
+                                        <field name="quantity" sum="sum"/>
+                                        <field name="quantity_move" sum="sum"/>
+                                        <field name="diff_qty" sum="sum"/>
+                                        <field name="update_quant" sum="sum"/>
+                                    </tree>
+                                </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_quant_find_search_view" model="ir.ui.view">
+        <field name="name">stock.quant.find.search</field>
+        <field name="model">stock.quant.find</field>
+        <field name="arch" type="xml">
+            <search string="Journal Items">
+                <field name="name"/>
+                <field name="location_ids"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="stock_quant_find_tree_view" model="ir.ui.view">
+        <field name="name">stock.quant.find.tree</field>
+        <field name="model">stock.quant.find</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="location_ids"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_stock_quant_find" model="ir.actions.act_window">
+        <field name="name">Барааны үлдэгдэл ЗӨРҮҮ</field>
+        <field name="res_model">stock.quant.find</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_stock_quant_find" id="menu_stock_quant_find" parent="stock.menu_stock_inventory_control" groups="group_stock_quant_find" sequence="777"/>
+
+</odoo>

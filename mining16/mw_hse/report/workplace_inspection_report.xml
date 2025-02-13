@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="workplace_inspection_report_view" model="ir.ui.view">
+		<field name="name">workplace.inspection.report.form</field>
+		<field name="model">workplace.inspection.report</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group string='Огноо'>
+					<field name="date_start"/>
+					<field name="date_end"/>
+				</group>
+				<group string='Шүүлтүүр'>
+					<field name="branch_ids" widget="many2many_tags" options="{'no_create':True}"/>
+				</group>
+				<footer>
+					<button name="download_report" string="Татах" type="object" colspan="2" class="oe_highlight" icon="fa-file-excel-o"/>
+					<button icon="fa-times" special="cancel" string="Хаах" colspan="2"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_workplace_inspection_report" model="ir.actions.act_window">
+		<field name="name">Ажлын байрны үзлэг тайлан</field>
+		<field name="res_model">workplace.inspection.report</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="workplace_inspection_report_view"/>
+		<field name="target">new</field>
+	</record>
+
+</odoo>

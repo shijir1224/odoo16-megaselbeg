@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="employee_turnover_report_view" model="ir.ui.view">
+            <field name="name">employee.turnover.report.wizard</field>
+            <field name="model">employee.turnover.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="4" colspan="4">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="company_id" options="{'no_create':True}"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_employee_turnover_report" model="ir.actions.act_window">
+            <field name="name">Эргэцийн тайлан</field>
+            <field name="res_model">employee.turnover.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="employee_turnover_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_employee_turnover_report" action="action_employee_turnover_report" parent="mw_hr.menu_human_recource_report" sequence="9" groups = 'mw_hr.group_hr_report' />
+    </data>
+</odoo>

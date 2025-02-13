@@ -1,0 +1,72 @@
+<odoo>
+    <record model="ir.module.category" id="module_evaluation">
+            <field name="name">Үнэлгээ</field>
+            <field name="sequence">20</field>
+    </record>
+    <record id="group_evaluation_user" model="res.groups">
+        <field name="name">Үнэлгээ хэрэглэгч</field>
+        <field name="category_id" ref="module_evaluation"/>
+    </record>
+    <record id="group_evaluation_manager" model="res.groups">
+        <field name="name">Үнэлгээ менежер</field>
+        <field name="implied_ids" eval="[(4, ref('group_evaluation_user'))]"/>
+        <field name="category_id" ref="module_evaluation"/>
+    </record>
+
+<!-- Domain -->
+
+    <record model="ir.rule" id="domain_mw_hr_evaluation_department_manager">
+        <field name="name">Үнэлгээ /Өөрийн хэлтэс/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation"/>
+        <field name="domain_force">[('department_id.manager_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_user'))]"/>
+    </record>
+   
+    <record model="ir.rule" id="domain_mw_hr_evaluation_all">
+        <field name="name">Үнэлгээ /Бүгд/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_manager'))]"/>
+    </record>
+
+
+    <record model="ir.rule" id="domain_mw_hr_evaluation_line_my_user">
+        <field name="name">Үнэлгээ өгөх/Өөрийн/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation_line"/>
+        <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_user'))]"/>
+    </record>
+   
+    <record model="ir.rule" id="domain_mw_hr_evaluation_line_all">
+        <field name="name">Үнэлгээний өгөх/Бүгд/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation_line"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_manager'))]"/>
+    </record>
+
+    <record model="ir.rule" id="domain_mw_hr_evaluation_line_line_user">
+        <field name="name">Үнэлгээний мөр/Өөрийн үнэлэх/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation_line_line"/>
+        <field name="domain_force">[('give_employee_ids.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_user'))]"/>
+    </record>
+     <record model="ir.rule" id="domain_mw_hr_evaluation_line_user">
+        <field name="name">Үнэлгээ мөр өгөх/Өөрийн үнэлэх/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation_line"/>
+        <field name="domain_force">[('line_line_ids.give_employee_ids.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_user'))]"/>
+    </record>
+    <!-- Админ бүгдийг харна -->
+    <record model="ir.rule" id="domain_mw_hr_evaluation_line_line_all">
+        <field name="name">Үнэлгээний мөр/Бүгд/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation_line_line"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_manager'))]"/>
+    </record>
+    <record model="ir.rule" id="domain_mw_hr_evaluation_line_line_mine">
+        <field name="name">Үнэлгээний мөр/өөрийн/</field>
+        <field name="model_id" ref="mw_hr_evaluation.model_hr_evaluation_line_line"/>
+        <field name="domain_force">[('line_parent_id.employee_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('mw_hr_evaluation.group_evaluation_user'))]"/>
+    </record>
+</odoo>

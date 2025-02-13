@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="new_action_bank_statement_line" model="ir.actions.act_window">
+                <field name="name">Касс Харилцахын хуулга</field>
+                <field name="res_model">account.bank.statement.line</field>
+                <field name="view_mode">tree,kanban</field>
+                <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                A bank statement line is a financial transaction on a bank account
+                </p><p>
+                Odoo allows you to reconcile a statement line directly with
+                the related sale or purchase invoice(s).
+                </p>
+                </field>
+        </record>
+        <record id="new_action_bank_statement_line_bank" model="ir.actions.act_window">
+                <field name="name">Харилцахын хуулга</field>
+                <field name="res_model">account.bank.statement.line</field>
+                <field name="view_mode">tree,kanban</field>
+                <field name="domain">[('journal_id.type', '=', 'bank')]</field>
+                <field name="context">{'journal_type':'bank'}</field>
+                <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                A bank statement line is a financial transaction on a bank account
+                </p><p>
+                Odoo allows you to reconcile a statement line directly with
+                the related sale or purchase invoice(s).
+                </p>
+                </field>
+        </record>
+        <record id="new_action_bank_statement_line_cash" model="ir.actions.act_window">
+                <field name="name">Кассын хуулга</field>
+                <field name="res_model">account.bank.statement.line</field>
+                <field name="view_mode">tree,kanban</field>
+                <field name="domain">[('journal_id.type', '=', 'cash')]</field>
+                <field name="context">{'journal_type':'cash'}</field>
+                <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                A bank statement line is a financial transaction on a bank account
+                </p><p>
+                Odoo allows you to reconcile a statement line directly with
+                the related sale or purchase invoice(s).
+                </p>
+                </field>
+        </record>
+
+        <record id="view_bank_statement_line_mw_bank_form_" model="ir.ui.view">
+            <field name="name">account.bank.statement.line.mw.bank</field>
+            <field name="model">account.bank.statement.line</field>
+            <field name="inherit_id" ref="account_accountant.view_bank_statement_line_tree_bank_rec_widget"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-danger">is_reconciled==False</attribute>
+                    <attribute name="create">true</attribute>
+                </xpath> 
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-info">move_state=='draft'</attribute>
+                </xpath> 
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="account_id" />
+                    <field name="branch_id" string='Салбар' optional="hide" attrs="{'readonly': [('move_state', '!=', 'draft')]}"/>
+                    <field name="res_bank"  optional="hide"  options="{'no_open': True, 'no_create': True}"/>
+                    <field name="amount_str_mw" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_ref']" position="after">
+                    <field name="bank_ref" attrs="{'readonly': [('move_state', '!=', 'draft')]}"/>
+                    <!-- <field name="amount_mnt"/> -->
+                </xpath>
+                <xpath expr="//field[@name='amount']" position="attributes">
+                    <attribute name="sum">SUM</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount']" position="after">
+                    <!-- <field name="bank_ref" attrs="{'readonly': [('move_state', '!=', 'draft')]}"/> -->
+                    <field name="amount_mnt" optional="hide"/>
+                    <field name="amount_abs" invisible='1'/>
+                </xpath>
+                <xpath expr="//field[@name='id']" position="before">
+                    <button name="button_validate_line" string="Батлах" type="object" icon="fa-bars" attrs="{'invisible': [('move_state','=','posted')]}"/>
+                    <button name="button_draft_line" string="Ноороглох" type="object" icon="fa-bars" attrs="{'invisible': [('move_state','=','draft')]}"/>
+                    <button name="print_bank_order" type="object" icon="fa-print"/>
+                    <!-- <button name="print_mw_statement" type="object" icon="fa-print" class="oe_highlight"/> -->
+                    <field name="move_state" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='account_id']" position="replace">
+                    <field name="account_id" attrs="{'readonly': [('move_state', '!=', 'draft')]}"/>
+                    <field name="analytic_distribution" string="Шинжилгээ"  widget="analytic_distribution" attrs="{'readonly': [('move_state', '!=', 'draft')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_ref']" position="replace">
+                    <field name="payment_ref" attrs="{'readonly': [('move_state', '!=', 'draft')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" attrs="{'readonly': [('move_state', '!=', 'draft')]}" options="{'no_open': True, 'no_create': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='transaction_type']" position="replace">
+                    <field name="transaction_type" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='account_number']" position="replace">
+                    <field name="account_number" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='statement_id']" position="replace">
+                    <field name="statement_id" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='narration']" position="replace">
+                    <field name="narration" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_currency']" position="replace">
+                    <field name="amount_currency" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='foreign_currency_id']" position="replace">
+                    <field name="foreign_currency_id" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='move_id']" position="replace">
+                    <field name="move_id" readonly='1' optional="show" required="0"/>
+                    <field name="import_aml_ids" readonly='1' optional="hide"/>
+                </xpath>
+            </field> 
+        </record>
+        <!-- <record id="view_bank_statement_line_mw_bank_search" model="ir.ui.view">
+            <field name="name">view_bank_statement_line_search_bank_rec_widget_mw</field>
+            <field name="model">account.bank.statement.line</field>
+            <field name="inherit_id" ref="account_accountant.view_bank_statement_line_search_bank_rec_widget"/>
+            <field name="arch" type="xml">
+                <search>
+                    <xpath expr="//field[@name='statement_id']" position="after">
+                        <field name="account_id" string="Данс" filter_domain="['|', ('account_id.name', 'ilike', self), ('account_id.code', 'ilike', self)]"/>
+                    </xpath>
+                </search>
+            </field>
+        </record> -->
+        <record id="view_bank_statement_line_search_bank_rec_widget_inherit" model="ir.ui.view">
+            <field name="name">account.bank.statement.line.search.bank_rec_widget.inherit</field>
+            <field name="model">account.bank.statement.line</field>
+            <field name="inherit_id" ref="account_accountant.view_bank_statement_line_search_bank_rec_widget"/>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <search position='inside'>
+                    <field name="account_id" string="Данс" filter_domain="['|','|', ('account_id.name', 'ilike', self), ('account_id.display_name', 'ilike', self), ('account_id.code', 'ilike', self)]"/>
+                </search>
+                <xpath expr="//filter[@name='date_group']" position="after">
+                    <filter name="group_cash_type" string="Мөнгөн гүйлгээний төрөл"  context="{'group_by': 'cash_type_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="view_account_statement_mw_form" model="ir.ui.view">
+		    <field name="name">account.bank.statement.form</field>
+		    <field name="model">account.bank.statement</field>
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+		        <form string="Cash Move Type">
+					<group>
+						<group>
+		                    <field name="name"/>
+		                    <field name="date"/>
+		                    <field name="journal_id" readonly="0"/>
+		                    <field name="company_id" groups="base.group_multi_company"/>
+		                    <field name="balance_start"/>
+		                    <field name="balance_end_real"/>
+						</group>			      
+						<field name="line_ids" nolabel="1"/>
+					</group>    
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="view_account_statement_mw_tree" model="ir.ui.view">
+		    <field name="name">account.bank.statement.tree</field>
+		    <field name="model">account.bank.statement</field>
+		    <field name="arch" type="xml">
+		        <tree string="Cash Move Type">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="journal_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="balance_start"/>
+                    <field name="balance_end_real"/>
+		        </tree>
+		    </field>
+		</record>
+		
+		<record id="action_account_statement_mw" model="ir.actions.act_window">
+		    <field name="name">Банкны хуулга</field>
+		    <field name="res_model">account.bank.statement</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="view_id" ref="view_account_statement_mw_tree"/>
+		</record>
+
+        <menuitem id="menu_cash_bank_statement_tree" name="Касс Харилцах" parent="account_accountant.menu_accounting" sequence="3" groups="mw_account.group_mn_account_bank_statement_user"/>
+
+        <menuitem id="menu_action_account_statement_mw" action="action_account_statement_mw"  name="Банкны хуулга" parent="menu_cash_bank_statement_tree" sequence="30" groups="mw_account.group_mn_account_bank_statement_user"/>
+        <menuitem id="menu_action_bank_statement_tree" action="new_action_bank_statement_line_bank" name="Харилцах" parent="menu_cash_bank_statement_tree" sequence="1" />
+        <menuitem id="menu_action_view_bank_statement_tree" action="new_action_bank_statement_line_cash" name="Касс" parent="menu_cash_bank_statement_tree" sequence="1" />
+
+        <menuitem id="menu_action_bank_statement_line" action="new_action_bank_statement_line" name="Гүйлгээнүүд" parent="menu_cash_bank_statement_tree" sequence="3" />
+
+
+</odoo>

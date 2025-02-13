@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_production_lot_inherit_tree" model="ir.ui.view">
+        <field name="name">stock.inventory.line.tree.inherit</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="inherit_id" ref="mw_stock.stock_inventory_line_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">product_id, theoretical_qty</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

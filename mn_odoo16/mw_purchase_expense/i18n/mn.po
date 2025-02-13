@@ -1,0 +1,554 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase_expense
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0-20220525\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-28 09:55+0000\n"
+"PO-Revision-Date: 2022-07-28 09:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_product_product__expense_count
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_product_template__expense_count
+msgid "# Expenses"
+msgstr "# Зардлууд"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__cost_unit
+msgid "Absorbed Cost Unit"
+msgstr "Шингэсэн Зардал Нэгж"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_account_bank_statement_line__purchase_order_expenses
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_account_move__purchase_order_expenses
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_account_payment__purchase_order_expenses
+msgid "Additional"
+msgstr "Нэмэгдэл"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__purchase_lines
+msgid "Allocate lines"
+msgstr "Хуваарилагдах мөрүүд"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__portion_method
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__portion_method
+msgid "Allocation Method"
+msgstr "Хуваарилах Арга"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__amount
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_line__cost_unit
+msgid "Amount of expenses"
+msgstr "Зардлын дүн"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__amount
+msgid "Amount of expenses Currency"
+msgstr "Зардлын дүн Валют"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "April"
+msgstr "4 сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "August"
+msgstr "8 сар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_line__price_unit_product
+msgid "Basic cost of product"
+msgstr "Барааны үндсэн Өртөг"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__current_amount
+msgid "Basic total"
+msgstr "Үндсэн нийт"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_line__price_unit_stock_move
+msgid "Cost"
+msgstr "Өртөг"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__current_amount
+msgid "Cost ₮"
+msgstr "Зардлын дүн ₮"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__in_cost
+msgid "Costing /Foreign Transport../"
+msgstr "Өртөгд оруулж бодох /Гадаад Тээвэр../"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__create_uid
+msgid "Created by"
+msgstr "Үүсгэгч"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__currency_id
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order__company_currency_id
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__currency_id
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_line__company_currency_id
+msgid "Currency"
+msgstr "Валют"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order__date_currency
+msgid "Currency rate date"
+msgstr "Ханш бодох огноо"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order__current_rate
+msgid "Current rate"
+msgstr "Бодогдох ханш"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__partner_id
+msgid "Customer Cost"
+msgstr "Харилцагч Зардлын"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__expense_type__customs
+msgid "Customs"
+msgstr "Гааль"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "December"
+msgstr "12 сар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__display_name
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__display_name
+msgid "Display Name"
+msgstr "Дэлгэрэнгүй нэр"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__current_cur
+msgid "Estimated exchange rate"
+msgstr "Бодогдож байгаа ханш"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_report__current_rate
+msgid "Exchange Rate"
+msgstr "Бодогдох Ханш"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__date_cur
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__date_cur
+msgid "Exchange rate date"
+msgstr "Ханш бодох огноо"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__out_cost
+msgid "Exclude those included in the cost /Customs tax../"
+msgstr "Өртөгд оруулсануудыг гадна гаргах /Гаалийн татвар../"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_product_product__expense_line_ids
+msgid "Expense"
+msgstr "Зардал"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__expense_type
+msgid "Expense type"
+msgstr "Зардалын төрөл"
+
+#. module: mw_purchase_expense
+#: model:ir.actions.act_window,name:mw_purchase_expense.action_purchase_expense_line_product_tree
+msgid "Expenses"
+msgstr "Зардлууд"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order__expenses_line
+msgid "Expenses line"
+msgstr "Зардлын мөр"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "February"
+msgstr "2 сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "Group By"
+msgstr "Бүлэглэх"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__id
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__invoice_id
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__invoice_id
+msgid "Invoice"
+msgstr "Нэхэмжлэх"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__invoice_ref
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__invoice_ref
+msgid "Invoice number"
+msgstr "Нэхэмжлэхийн дугаар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "January"
+msgstr "1 сар"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_account_move
+msgid "Journal Entry"
+msgstr "Ажил гүйлгээ"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "July"
+msgstr "7 сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "June"
+msgstr "6 сар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report____last_update
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses____last_update
+msgid "Last Modified on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__write_uid
+msgid "Last Updated by"
+msgstr "Сүүлд зассан этгээд"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__write_date
+msgid "Last Updated on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "March"
+msgstr "3 сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "May"
+msgstr "5 сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "Month"
+msgstr "Сар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__is_without_cost
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__is_without_cost
+msgid "Not included in the cost /VAT../"
+msgstr "Өртөгд оруулахгүй /НӨАТ../"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__notes
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__notes
+msgid "Notes"
+msgstr "Тэмдэглэл"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "November"
+msgstr "11 сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "October"
+msgstr "10 сар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__date
+msgid "Order Date"
+msgstr "Захиалгын Огноо"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__order_id
+msgid "Order id"
+msgstr "Захиалга"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__qty_ordered
+msgid "Ordered quantity"
+msgstr "Захиалсан Тоо"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__expense_type__other
+msgid "Other"
+msgstr "Бусад"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__po_amount
+msgid "PO Total amount currency"
+msgstr "PO Нийт дүн Валют"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__po_product_id
+msgid "PO product"
+msgstr "PO Бараа"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__po_current_amount
+msgid "PO total amount ₮"
+msgstr "PO Нийт дүн ₮"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__product_uom
+msgid "PO unit of measure"
+msgstr "PO Хэмжих Нэгж"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.view_account_move_filter_mw_pur
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.view_account_move_line_filter_mw_pur
+msgid "PO нэмэгдэл зардлын бичилт"
+msgstr ""
+
+#. module: mw_purchase_expense
+#: model:res.groups,name:mw_purchase_expense.group_purchase_add_cost_user
+msgid "PO нэмэгдэл зардлын хэрэглэгч"
+msgstr ""
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__partner_id
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__po_partner_id
+msgid "Partner PO"
+msgstr "Харилцагч PO"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_po_expenses_report
+msgid "Po expense report"
+msgstr "ХА нэмэлт зардлын тайлан"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_product_product
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__product_id
+msgid "Product"
+msgstr "Бараа"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_product_template
+msgid "Product Template"
+msgstr "Барааны загвар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__product_id
+msgid "Product of expenses"
+msgstr "Зардлын Бараа"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_purchase_order_expenses
+msgid "Purchase Expenses Mapping"
+msgstr "Худалдан авалтын нэмэлт зардал"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_purchase_order
+msgid "Purchase Order"
+msgstr "Худалдан авалтын захиалга"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Худалдан авалтын захиалгын мөр"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_purchase_report
+msgid "Purchase Report"
+msgstr "Худалдан авалтын тайлан"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__order_id
+msgid "Purchase order"
+msgstr ""
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.purchase_order_form_mw_inherit
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.purchase_order_line_tree_inh_mw_add_cost
+msgid "SUM"
+msgstr "НИЙТ"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "September"
+msgstr "9 сар"
+
+#. module: mw_purchase_expense
+#: model:ir.model,name:mw_purchase_expense.model_stock_move
+msgid "Stock Move"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__po_expenses_report__portion_method__subtotal
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__portion_method__subtotal
+msgid "Total"
+msgstr "Нийт дүн"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_expenses__taxes_id
+msgid "Taxes"
+msgstr "Татвар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,help:mw_purchase_expense.field_stock_move__price_unit
+msgid ""
+"Technical field used to record the product cost set by the user during a "
+"picking confirmation (when costing method used is 'average price' or "
+"'real'). Value given in company currency and in product uom."
+msgstr ""
+"Бэлтгэх баримтыг батлахад (өртөг тооцох арга нь 'дундаж өртөг' эсвэл 'бодит'"
+" байхад) барааны өртөгийг хөтлөхөд хэрэглэгддэг техник талбар. Утга нь "
+"компанийн валютаар, барааны үндсэн хэмжих нэгжээр өгөгдөнө."
+
+#. module: mw_purchase_expense
+#: code:addons/mw_purchase_expense/models/purchase_order.py:0
+#: code:addons/mw_purchase_expense/models/purchase_order.py:0
+#, python-format
+msgid "There is no purchase journal defined for this company: \"%s\" (id:%d)"
+msgstr "%s компанид Худалдан авалтын журнал тохируулагдаагүй байна: (id:%d)"
+
+#. module: mw_purchase_expense
+#: code:addons/mw_purchase_expense/models/purchase_order.py:0
+#, python-format
+msgid "There isn't any payable account defined in this partner. %s(id:%s)"
+msgstr "%s харилцагчид өглөгийн данс тохируулагдаагүй байн: (id:%s)"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "This Month"
+msgstr "Энэ сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "This Year"
+msgstr "Энэ сар"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "Today"
+msgstr "Өнөөдөр"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order_line__total_cost_unit
+msgid "Total Expenses"
+msgstr "Нийт Зардлын Дүн"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_po_expenses_report__total_cost_unit
+msgid "Total cost unit"
+msgstr "Шингэсэн Зардал Нийт"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order__amount_expenses
+msgid "Total expenses"
+msgstr "Нийт зардлууд"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order__amount_expenses_in
+msgid "Total expenses allocated"
+msgstr "Хуваарилагдсан нийт зардлууд"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__expense_type__transport
+msgid "Transport"
+msgstr "Тээвэрлэлт"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_stock_move__price_unit
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__po_expenses_report__portion_method__price
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__portion_method__price
+msgid "Unit Price"
+msgstr "Нэгж үнэ"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__portion_method__qty
+msgid "Unit Quantity"
+msgstr ""
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,help:mw_purchase_expense.field_purchase_order__company_currency_id
+#: model:ir.model.fields,help:mw_purchase_expense.field_purchase_order_line__company_currency_id
+msgid "Utility field to express amount currency"
+msgstr "Валютаар дүнг илэрхийлэхэд туслах талбар"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__po_expenses_report__portion_method__volume
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__portion_method__volume
+msgid "Volume"
+msgstr "Эзэлхүүн"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__po_expenses_report__portion_method__weight
+#: model:ir.model.fields.selection,name:mw_purchase_expense.selection__purchase_order_expenses__portion_method__weight
+msgid "Weight"
+msgstr "Жин"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.po_expenses_report_report_view_search
+msgid "Year"
+msgstr "Жил"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.purchase_order_form_mw_inherit
+msgid "Add costs"
+msgstr "Зардал Нэмэх"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.purchase_order_form_mw_inherit
+msgid "Cost Allocation"
+msgstr "Зардал Хуваарилах"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.purchase_order_form_mw_inherit
+msgid "Create invoice of expenses"
+msgstr "Зардлын Нэхэмжлэл Үүсгэх"
+
+#. module: mw_purchase_expense
+#: model:ir.model.fields,field_description:mw_purchase_expense.field_purchase_order__amount_expenses_po_tot2
+msgid "Нийт Зардал PO"
+msgstr "Total Cost PO"
+
+#. module: mw_purchase_expense
+#: model_terms:ir.ui.view,arch_db:mw_purchase_expense.view_product_template_mw_purchase_buttons_from
+msgid "Additional Costs"
+msgstr "Нэмэгдэл Зардалд"
+
+#. module: mw_purchase_expense
+#: model:ir.actions.act_window,name:mw_purchase_expense.po_expenses_report_report_action
+#: model:ir.ui.menu,name:mw_purchase_expense.purchase_report_expenses
+msgid "Additional Expenditure Report"
+msgstr "Нэмэгдэл Зардлын Тайлан"
+
+#. module: mw_purchase_expense
+#: code:addons/mw_purchase_expense/models/purchase_order.py:0
+#, python-format
+msgid ""
+"Өөр ангилалын барааг орлого авахад замд яваа бараа данснуудад өртөг салж "
+"хуваарилагдах ёстой [%s]"
+msgstr ""

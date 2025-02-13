@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="main_brand" model="technic.model.brand">
+            <field name="name">Brand #1</field>
+        </record>
+
+        <record id="main_model" model="technic.model.model">
+            <field name="modelname">Model #1</field>
+            <field name="brand_id" ref="mw_technic_equipment.main_brand"/>
+        </record>
+        <!-- <record id="main_inspection" model="technic.inspection.item">
+            <field name="name">Inspection #1</field>
+            <field name="category">ground</field>
+        </record> -->
+        <record id="main_inspection_setting" model="technic.inspection.setting">
+            <field name="name">Main Inspection Setting</field>
+            <field name="item_line" eval="[Command.clear(), Command.create({'name': 'Inspection #1', 'category': 'ground'})]"/>
+        </record>
+
+        <record id="main_technic_setting" model="technic.equipment.setting">
+            <field name="name">Main Inspection Setting</field>
+            <field name="technic_type">dump</field>
+            <field name="odometer_unit">motoh</field>
+            <field name="model_id" ref="main_model"/>
+            <field name="inspection_config_id" ref="main_inspection_setting"/>
+            <field name="rubber_tired" >True</field>
+            <field name="position_format">1-2,2-4</field>
+            <field name="tire_counts" >6</field>
+            <field name="rpm_min">0.0</field>
+            <field name="rpm_max">0.0</field>
+            <field name="rpm_ave">0.0</field>
+            <field name="pic_width">0.0</field>
+            <field name="pic_height">0.0</field>
+            <field name="fuel_high_idle">0.0</field>
+            <field name="fuel_low_idle">0.0</field>
+            <field name="fuel_medium_idle">0.0</field>
+            <field name="is_tbb_report">0.0</field>
+        </record>
+
+        <!-- <record id="main_technic" model="technic.equipment">
+            <field name="pakr_number">MD#01</field>
+            <field name="technic_type">dump</field>
+            <field name="model_id" ref="mw_technic_equipment.main_model"/>
+            <field name="inspection_config_id" ref="mw_technic_equipment.main_inspection_setting"/>
+            <field name="rubber_tired">True</field>
+            <field name="position_format">1-2,2-4</field>
+            <field name="tire_counts">6</field>
+        </record> -->
+
+    </data>
+</odoo>

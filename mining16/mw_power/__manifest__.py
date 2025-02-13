@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+{
+    'name': 'MW Power',
+    'version': '1.0.1',
+    'category': 'Power',
+    'sequence': 20,
+    'author': 'Managewall LLC',
+    'summary': 'Mining Power ',
+    'description': "",
+    'depends': ['branch','mw_technic_equipment','mw_technic_maintenance'],
+    'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'views/power_config_view.xml',
+        'views/power_down_view.xml',
+        'views/power_portable_view.xml',
+        'views/power_notes_view.xml',
+        'views/power_product_view.xml',
+        'views/power_workorder_view.xml',
+        'views/power_relay_view.xml',
+        'views/power_hats_view.xml',
+        'views/power_plan_view.xml',
+        'views/power_cabel_view.xml',
+        'views/stock_view.xml',
+        'views/maintenance_call_view.xml',
+        'wizard/eo_print_view.xml',
+        'report/power_report.xml',
+        'views/menu_view.xml',
+    ],
+    'qweb': [],
+    'website': 'http://managewall.mn',
+    'installable': True,
+    'auto_install': False,
+}

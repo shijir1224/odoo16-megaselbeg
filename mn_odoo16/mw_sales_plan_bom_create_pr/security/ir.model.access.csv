@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_plan_pr_month,sale.plan.pr.month,model_sale_plan_pr_month,group_sale_plan_pr_create_from_bom,1,1,1,1
+access_sale_plan_pr,sale.plan.pr,model_sale_plan_pr,group_sale_plan_pr_create_from_bom,1,1,1,1
+access_sale_plan_pr_line,sale.plan.pr.line,model_sale_plan_pr_line,group_sale_plan_pr_create_from_bom,1,1,1,1
+access_sale_plan_pr_report,sale.plan.pr.report,model_sale_plan_pr_report,group_sale_plan_pr_create_from_bom,1,1,1,1
+

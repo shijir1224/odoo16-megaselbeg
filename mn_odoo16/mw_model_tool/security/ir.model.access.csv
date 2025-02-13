@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access__model_tool_user,model.tool,model_model_tool,mw_model_tool.group_model_index_tool_user,1,1,1,1
+access__model_tool_line_user,model.tool.line,model_model_tool_line,mw_model_tool.group_model_index_tool_user,1,1,1,1

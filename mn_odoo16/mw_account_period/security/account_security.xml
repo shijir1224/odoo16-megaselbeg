@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    
+        <record id="group_mn_account_period_read" model="res.groups">
+            <field name="name">Санхүүгийн мөчлөг харах</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_user'))]"/>
+        </record>
+
+
+        <record id="group_mn_account_period_open_close" model="res.groups">
+            <field name="name">Санхүүгийн мөчлөг нээх/Хаах</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+        </record>
+
+        <record id="group_mn_account_period_write" model="res.groups">
+            <field name="name">Санхүүгийн мөчлөг засах</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+        </record>
+        
+        <record id="group_remove_period_reconcile" model="res.groups">
+            <field name="name">Мөчлөг хаагдсан ч тулгалт салгах эрх</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+        </record>                   
+
+    <record model="ir.rule" id="account_fy_rule">
+        <field name="name">Санхүүгийн жил multi-company</field>
+        <field name="model_id" ref="model_account_fiscalyear"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="account_period_rule">
+        <field name="name">Санхүүгийн мөчлөг multi-company</field>
+        <field name="model_id" ref="model_account_period"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="account_account_close_rule">
+        <field name="name">Данс хаах multi-company</field>
+        <field name="model_id" ref="model_account_account_close"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    </data>
+</odoo>

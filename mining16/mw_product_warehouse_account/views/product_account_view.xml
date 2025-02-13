@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_warehouse_form_mining_extended" model="ir.ui.view">
+        <field name="name">stock.warehouse.form.mining.extended</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_bbo" />
+                <field name="bo_account_id" attrs="{'invisible':[('is_bbo','=',False)]}"/>
+                <field name="bbo_account_id" attrs="{'invisible':[('is_bbo','=',False)],'required':[('is_bbo','!=',False)]}"/>
+            </field>
+        </field>
+    </record>
+    
+    
+    <!-- Account product conf -->
+    <record id="view_account_product_form" model="ir.ui.view">
+        <field name="name">product.account.config.form</field>
+        <field name="model">product.account.config</field>
+        <field name="arch" type="xml">
+            <form string="Account">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="account_id" required="1"/>
+                            <field name="company_id" required="1"/>
+                            <!-- <field name="account_analytic_id" /> -->
+                            <field name="analytic_distribution" widget="analytic_distribution"/>
+                            <field name="depend_technic" />
+                            <field name="is_branch" />
+                        </group>
+                        <newline/>
+	                    <notebook>
+	                        <page string="Тооцооллууд">
+                            <separator string="Category"/>
+                            <field name="category_ids" required="1" nolabel="1"/>
+                        <newline/>
+                            <separator string="Technic" attrs="{'invisible':[('depend_technic','=',False)]}"/>
+                            <field name="technic_ids" required="1" nolabel="1" attrs="{'invisible':[('depend_technic','=',False)]}">
+                                <tree string="Vehicle" decoration-bf="state=='draft'" decoration-warning="state=='stopped'" decoration-muted="state=='inactive'" decoration-info="state=='parking'" decoration-danger="state=='repairing'" decoration-success="state=='working'" create="true" delete="true">
+                                    <field name="name" />
+					            	<field name="state_number"/>
+                                    <field name="branch_id"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="technic_type"/>
+                                    <!-- <field name="technic_sub_type" /> -->
+                                    <field name="total_odometer" />
+                                    <field name="total_km" />
+                                    <field name="odometer_unit" />
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        <newline/>
+                            <separator string="Branch" attrs="{'invisible':[('is_branch','=',False)]}"/>
+                            <field name="branch_ids" required="1" nolabel="1" attrs="{'invisible':[('is_branch','=',False)]}"/>
+                            </page>
+                            </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_account_product_tree" model="ir.ui.view">
+        <field name="name">product.account.config.tree</field>
+        <field name="model">product.account.config</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <tree string="Account product">
+                <field name="name"/>
+                <field name="account_id"/>
+                <field name="category_ids" optional="hide"/>
+                <field name="technic_ids" required="1" nolabel="1" attrs="{'invisible':[('depend_technic','=',False)]}"  optional="hide"/>
+                <field name="depend_technic" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_account_product_conf_filter" model="ir.ui.view">
+        <field name="name">product.account.config.select</field>
+        <field name="model">product.account.config</field>
+        <field name="arch" type="xml">
+            <search string="Search CONF">
+                <field name="name" string="Conf" filter_domain="[('name','ilike',self)]"/>
+                <field name="technic_ids" />
+                <field name="category_ids" />
+                <field name="account_id" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_product_tree" model="ir.actions.act_window">
+        <field name="name">Product Accounts</field>
+        <field name="res_model">product.account.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_product_tree"/>
+        <field name="search_view_id" ref="view_account_product_conf_filter"/>
+    </record>
+    
+    <menuitem
+        name="Product Account"
+        id="menu_account_product_conf_view"
+        parent="account.menu_finance_configuration"
+    />
+    <menuitem action="action_account_product_tree" id="menuitem_action_account_product_tree" parent="menu_account_product_conf_view" sequence="1"/>
+</odoo>

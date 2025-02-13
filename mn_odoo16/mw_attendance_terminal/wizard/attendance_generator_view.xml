@@ -1,0 +1,52 @@
+<odoo>
+
+    <record id="view_attendance_generator" model="ir.ui.view">
+        <field name="name">attendance.generator.form</field>
+        <field name="model">attendance.generator</field>
+        <field name="arch" type="xml">
+            <form string="Action back">
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="department_id"/>
+                    </group>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="work_location_id"/>
+                        <field name="employee_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Ирц хөрвүүлэх" name='create_attendance' type="object" class="oe_highlight"/>
+                    or
+                    <button string="Хаах" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_attendance_generator" model="ir.actions.act_window">
+        <field name="name">Ирц хөрвүүлэгч</field>
+        <field name="res_model">attendance.generator</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_attendance_generator"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="attendance_generator_menu_id" 
+        action="action_attendance_generator" 
+        parent="menu_attendance_parent" sequence="6"/>
+
+    <record id="ir_cron_attendance_generator" model="ir.cron">
+        <field name="name">Ирц хөрвүүлэх крон</field>
+        <field name="model_id" ref="model_attendance_generator"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model.cron_create_hr_attendance()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_disclosure_report_form" model="ir.ui.view">
+		<field name="name">account.disclosure.report.main.form</field>
+		<field name="model">account.disclosure.report.main</field>
+		<field name="arch" type="xml">
+			<form string="Account Period">
+				<sheet>
+					<group>
+						<group>
+							<field name="name" />
+						</group>
+						<group>
+							<field name="company_id" />
+						</group>
+					</group>
+					<notebook>
+						<page>
+							<label for="report_table1_ids"
+								string="1.МӨНГӨ БА ТҮҮНТЭЙ АДИЛТГАХ ХӨРӨНГӨ" />
+							<field name="report_table1_ids">
+								<tree editable="top" create="false">
+									<field name="table1_1" />
+									<field name="table1_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table2_ids"
+								string="2. ДАНСНЫ БОЛОН БУСАД АВЛАГА" />
+							<field name="report_table2_ids">
+								<tree editable="top">
+									<field name="table2_1" />
+									<field name="table2_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table3_ids"
+								string="3. БУСАД САНХҮҮГИЙН ХӨРӨНГӨ" />
+							<field name="report_table3_ids">
+								<tree editable="top">
+									<field name="table3_1" />
+									<field name="table3_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table4_ids" string="4. БАРАА МАТЕРИАЛ" />
+							<field name="report_table4_ids">
+								<tree editable="top" create="false">
+									<field name="table4_1" />
+									<field name="table4_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table5_ids"
+								string="5. УРЬДЧИЛЖ ТӨЛСӨН ЗАРДАЛ/ТООЦОО" />
+							<field name="report_table5_ids">
+								<tree editable="top">
+									<field name="table5_1" />
+									<field name="table5_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table6_1_ids"
+								string="6. ҮНДСЭН ХӨРӨНГӨ " />
+							<field name="report_table6_1_ids">
+								<tree editable="top" create="false">
+									<field name="table6_1_1" />
+									<field name="table6_1_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table6_2_ids">
+								<tree editable="top" create="false">
+									<field name="table6_2_1" />
+									<field name="table6_2_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table7_1_ids"
+								string="7. БИЕТ БУС ХӨРӨНГӨ " />
+							<field name="report_table7_1_ids">
+								<tree editable="top" create="false">
+									<field name="table7_1_1" />
+									<field name="table7_1_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table7_2_ids">
+								<tree editable="top" create="false">
+									<field name="table7_2_1" />
+									<field name="table7_2_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table8_1_ids" string="8. ӨР ТӨЛБӨР" />
+							<field name="report_table8_1_ids">
+								<tree editable="top" create="false">
+									<field name="table8_1_1" />
+									<field name="table8_1_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table8_2_ids">
+								<tree editable="top" create="false">
+									<field name="table8_2_1" />
+									<field name="table8_2_2" />
+								</tree>
+							</field>
+							<field name="report_table8_3_ids">
+								<tree editable="top" create="false">
+									<field name="table8_3_1" />
+									<field name="table8_3_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table8_4_ids">
+								<tree editable="top">
+									<field name="table8_4_1" />
+									<field name="table8_4_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table8_5_ids">
+								<tree editable="top">
+									<field name="table8_5_1" />
+									<field name="table8_5_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table9_1_ids" />
+							<field name="report_table9_1_ids">
+								<tree editable="top">
+									<field name="table9_1_1" />
+									<field name="table9_1_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table9_2_ids">
+								<tree editable="top">
+									<field name="table9_2_1" />
+									<field name="table9_2_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table9_3_ids">
+								<tree editable="top">
+									<field name="table9_3_1" />
+									<field name="table9_3_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table9_4_ids">
+								<tree editable="top">
+									<field name="table9_4_1" />
+									<field name="table9_4_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<field name="report_table9_5_ids">
+								<tree editable="top">
+									<field name="table9_5_1" />
+									<field name="table9_5_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table10_ids" />
+							<field name="report_table10_ids">
+								<tree editable="top">
+									<field name="table10_1" />
+									<field name="table10_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table11_1_ids" />
+							<field name="report_table11_1_ids">
+								<tree editable="top">
+									<field name="table11_1_1" />
+									<field name="table11_1_2" widget="many2many_tags" />
+<!-- 									<field name="table11_1_3" widget="many2many_tags" /> -->
+								</tree>
+							</field>
+							<field name="report_table11_2_ids">
+								<tree editable="top" create="false">
+									<field name="table11_2_1" />
+									<field name="table11_2_2" widget="many2many_tags" />
+								</tree>
+							</field>
+							<label for="report_table12_ids" />
+							<field name="report_table12_ids">
+								<tree editable="top" create="false">
+									<field name="table12_1" />
+									<field name="table12_2" widget="many2many_tags" />
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_disclosure_report_tree" model="ir.ui.view">
+		<field name="name">account.disclosure.report.main.tree</field>
+		<field name="model">account.disclosure.report.main</field>
+		<field name="arch" type="xml">
+			<tree string="Period">
+				<field name="name" />
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+	<record id="action_disclosure_report"
+		model="ir.actions.act_window">
+		<field name="name">Санхүүгийн тайлангийн тодруулга тайлангийн тохиргоо
+		</field>
+		<field name="res_model">account.disclosure.report.main</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_disclosure_report_report_action"
+		action="action_disclosure_report"
+		parent="mw_account.menu_finance_legal_statement_xls"
+		sequence="70" groups="account.group_account_manager"/>
+</odoo>

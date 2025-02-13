@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- New product request -->
+
+	<!-- Sequences for  -->
+	<record id="seq_new_product_request" model="ir.sequence">
+		<field name="name">new.product.request</field>
+		<field name="code">new.product.request</field>
+		<field name="prefix">NPR%(year)s%(month)s-</field>
+		<field name="padding">3</field>
+		<field name="company_id" eval='False'/>
+	</record>
+
+	<record id="new_product_request_form_view" model="ir.ui.view">
+		<field name="name">new.product.request.form</field>
+		<field name="model">new.product.request</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<!-- <button name="action_to_draft" string="Draft" type="object" /> -->
+					<button name="action_to_draft" class="oe_highlight" string="Ноороглох"
+						states="sent,created" type="object" />
+					<button name="action_to_send" class="oe_highlight" string="Илгээх"
+						states="draft" type="object" />
+					<button name="action_to_created" class="oe_highlight"
+						string="Бараа үүсгэсэн" states="sent" type="object"
+						groups="mw_product.group_stock_product_creating" />
+					<button name="action_to_cancel"
+						string="Цуцлах" states="sent" type="object"
+						groups="mw_product.group_stock_product_creating" class="btn-danger"/>
+					<button name="action_to_done" class="oe_highlight"
+						string="Дуусгах" states="created" type="object"
+						groups="mw_product.group_stock_product_creating" />
+					<button name="set_old" class="oe_highlight" string="Мөр оноох" type="object" groups="base.group_no_one" invisible="1"/>
+					<button name='chech_eq_number' type='object' class='oe_highligt' string='Эдийн дугаар шалгах' states='sent'/> 
+					<field name="state" widget="statusbar"
+						statusbar_visible="draft,sent,created,done" readonly="1" />
+				</header>
+				<sheet>
+					<group>
+						<group string="Хүсэлт">
+							<field name="name" string='Хүсэлтийн дугаар'/>
+							<field name="description" placeholder="Хүсэлтийн тайлбар"/>
+							<field name="user_id"/>
+							<field name="to_user_ids" widget="many2many_tags" options="{'no_create':True}"/>
+							<field name="date_sent"/>
+						</group>
+						<group string="Гүйцэтгэл">
+							<field name="date"/>
+							<field name="done_description"
+								attrs="{'required':[('state','in',['sent','created'])]}"/>
+
+							<field name="new_product_id" options="{'no_create':True}" invisible="1"/>
+							<field name="create_user_id"/>
+							<field name="date_done"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Барааны мэдээлэл">
+							<field name="line_ids" nolabel='1' attrs="{'readonly': [('state','=','done')]}">
+								<tree editable="top">
+									<field name="name" required='1' placeholder='Барааны нэршил'/>
+									<field name="part_number" placeholder="0000044501 etc."/>
+									<field name="converted_part_number"/>
+									<field name='uom_id' options="{'no_create': True}"/>
+									<field name='category_id' options="{'no_create': True}" required="1"/>
+									<field name="description" placeholder="Тухайн барааны нэмэлт тайлбар"/>
+									<field name="product_id" options="{'no_create': True}" attrs="{'required':[('parent.state','=','created')],'invisible':[('parent.state','=','draft')]}"/>
+								</tree>
+								<form>
+									<group>
+										<group string="Хүсэлт">
+											<field name="name"/>
+											<field name="part_number"/>
+											<field name="description"/>
+											<field name="converted_part_number"/>
+										</group>
+										<group string="Үүссэн бараа">
+											<field name="product_id"/>
+											<field name="created_default_code"/>
+										</group>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+					<div style="margin-bottom: 10px">
+						<span>
+							<button name="remove_product_line" states="draft" string="Мөрүүд устгах" type="object" class="btn-danger" attrs="{'invisible': [('state','!=','draft')]}"/>
+						</span>
+						<span style="margin-left: 10px">
+							<field name="import_data_id" widget="many2many_binary" invisible="1"/>
+						</span>
+						<span style="margin-left: 10px">
+							<button name="action_export" string="Темплате Экспортлох" type="object" icon="fa-file-excel-o" class="btn-warning" attrs="{'invisible': [('state','not in',['draft','sent'])]}"/>
+						</span>
+						<span style="margin-left: 10px">
+							<field name="import_data" attrs="{'invisible': [('state','not in',['draft','sent'])]}"/>
+						</span>
+						<span style="margin-left: 10px">
+							<button name="action_import_line" string="Импортлох" type="object" class="btn btn-success fa fa-download" attrs="{'invisible': [('state','not in',['draft','sent'])]}"/>
+						</span>
+					</div>
+				</sheet>
+
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="new_product_request_tree_view" model="ir.ui.view">
+		<field name="name">new.product.request.tree</field>
+		<field name="model">new.product.request</field>
+		<field name="arch" type="xml">
+			<tree decoration-info="state=='created'"
+				  decoration-danger="state =='sent'" decoration-muted="state =='done'">
+				<field name="name"/>
+				<field name="description"/>
+				<field name="date_sent"/>
+				<field name="date_done"/>
+				<field name="new_product_id"/>
+				<field name="user_id"/>
+				<field name="create_user_id"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="new_product_request_filter_view" model="ir.ui.view">
+		<field name="name">new.product.request.filter</field>
+		<field name="model">new.product.request</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="description"/>
+				<field name="done_description"/>
+				<field name="new_product_id"/>
+				<group expand="0" string="Group By">
+					<filter name="state" context="{'group_by' : 'state'}" string="State"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_new_product_request'>
+		<field name="name">Шинэ барааны хүсэлт</field>
+		<field name="res_model">new.product.request</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="Шинэ барааны хүсэлт" parent="stock.menu_stock_inventory_control"
+		id="new_product_request_menu" sequence="50"
+		action="action_new_product_request" />
+	
+	<!-- <menuitem id="menu_purchase_product_request" 
+			name="Барааны хүсэлт" 
+			parent="mw_purchase_request.purchase_request_root_menu" sequence="3" 
+			action='action_new_product_request'/> -->
+
+</odoo>

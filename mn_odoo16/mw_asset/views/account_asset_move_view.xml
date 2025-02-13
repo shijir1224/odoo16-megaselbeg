@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_asset_move_line_form" model="ir.ui.view">
+    	<field name="name">account.asset.move.line.form</field>
+        <field name="model">account.asset.move.line</field>
+        <field name="arch" type="xml">
+            <form string="Asset Move Line">
+				<sheet>
+					<group>
+						<group>
+							<field name="move_id" readonly="1"/>
+							<field name="asset_id" readonly="1"/>
+							<field name="asset_code" readonly="1"/>
+							<field name="asset_name" readonly="1"/>
+							<field name="asset_commissioned_date" readonly="1"/>
+							<field name="old_owner_id" readonly="1"/>
+							<!-- <field name="old_branch_id" readonly="1"/> -->
+							<field name="old_category_id" readonly="1"/>
+							<!-- <field name="old_analytic_account_id" readonly="1"/> -->
+							<field name="purchase_date" readonly="1"></field>
+						</group>
+						<group>
+							<field name="new_owner_id" readonly="1"/>
+							<!-- <field name="new_branch_id" readonly="1"/> -->
+							<field name="new_category_id" readonly="1"/>
+							<field name="analytic_distribution" widget='analytic_distribution'/>
+							<field name="move_goal" readonly="1"/>
+							<field name="account_move_id" readonly="1"/>
+							<field name="state" readonly="1"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_asset_move_line_tree" model="ir.ui.view">
+    	<field name="name">account.asset.move.line.tree</field>
+        <field name="model">account.asset.move.line</field>
+        <field name="arch" type="xml">
+            <tree string="Asset Move Line" >
+				<field name="move_date"/>
+				<field name="receipt_date"/>
+           		<field name="old_owner_id"/>
+           		<field name="new_owner_id" />
+           		<!-- <field name="old_branch_id"/>
+           		<field name="new_branch_id" /> -->
+           		<field name="old_category_id"/>
+           		<field name="new_category_id" groups="account.group_account_manager"/>
+				<!-- <field name="old_analytic_account_id" options="{'no_create': True}"/>
+           		<field name="new_analytic_account_id" options="{'no_create': True}"/> -->
+           		<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_asset_move_form" model="ir.ui.view">
+    	<field name="name">account.asset.move.form</field>
+        <field name="model">account.asset.move</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Asset Move">
+            	<header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object"
+                            attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"
+                            confirm="Та итгэлтэй байна уу?"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object"
+                            attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in', ['done','cancel'])]}"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object"
+                            attrs="{'invisible': ['|',('state_type', 'in',['done','cancel']),('flow_id','=',False)]}"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object"
+                            attrs="{'invisible': ['|',('state_type', 'not in', ['cancel','done']),('flow_id','=',False)]}"/>
+                    <button
+                        name="create_lines"
+                        string="Compute"
+                        type="object"
+						attrs="{'invisible': ['|',('state_type', '!=', 'draft'),('flow_id','=',False)]}"/>
+					<button name="request_print" string="Хэвлэх" class="btn-success" type="object" icon="fa-print" />
+					<field name="flow_line_id" widget="statusbar"/>
+            	</header>
+                <sheet>
+					<div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="open_assets"  type="object" icon="fa-pencil">
+                            <field string="Assets" name="asset_count" widget="statinfo" />
+                        </button>
+                    </div>
+                	<h1 class="hidden-xs">
+                        <field name="name" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                    </h1>
+	                <group>
+	                    <group>
+	                        <field name="flow_id" options="{'no_create':True}"
+                               attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+	                        <field name="move_date"  required="1"/><!-- attrs="{'readonly': [('state','!=','draft')]}" -->
+							<field name="owner_emp_id"></field>
+							<field name="is_creator" invisible="1"/>
+	                        <field name="state_type" invisible="1"/>
+	                        <field name="next_state_type" invisible="1"/>
+	                        <field name="flow_line_next_id" invisible="1"/>
+	
+	                        <field name="flow_line_back_id" invisible="1"/>
+	                        <field name="is_not_edit" invisible="1"/>
+							
+							<field name="new_owner_id"  options="{'no_create': True}"/><!-- attrs="{'readonly': [('state','!=','draft')]}" -->
+							<!-- <field name="new_analytic_account_id" options="{'no_create': True}"/>attrs="{'readonly': [('state','!=','draft')]}"  -->
+	                    </group>
+	                    <group>
+	                    	<field name="receipt_date"/>
+							<field name="company_id" readonly="1" groups="base.group_multi_company"  options="{'no_create': True}"/><!-- attrs="{'readonly': [('state','!=','draft')]}"  -->
+							<!-- <field name="new_branch_id" options="{'no_create': True}"/>attrs="{'readonly': [('state','!=','draft')]}"  -->
+							<field name="move_goal"/>
+	                    </group>
+	                </group>
+                    <notebook>
+                       	<page string="Assets">
+		                    <field name="line_ids" widget="one2many_list">
+		                    	<tree editable="bottom" string="Asset Items">
+									<field name="asset_id" options="{'no_create': True}" domain="[('id','!=',parent.avail_asset_ids)]"/><!-- attrs="{'readonly': [('state','!=','draft')]}"  -->
+									<field name="asset_code" readonly="1" optional="show"/>
+									<field name="depreciated_value" invisible="1" optional="hide"/>
+									<field name="asset_bar_code" invisible="1" optional="hide"></field>
+									<field name="asset_name" readonly="1" optional="hide"/>
+									<field name="asset_commissioned_date" readonly="1" optional="hide"/>
+		                    		<field name="old_owner_id" readonly="1" optional="hide"/>
+									<field name="old_department_id" readonly="1" optional="hide"/>
+								    <field name="old_branch_id" readonly="1" optional="hide"/>
+								    <field name="old_category_id" invisible="1" readonly="1"/>
+									<field name="old_location_id" readonly="1" optional="hide"/>
+									<field name="old_asset_type" readonly="1" optional="hide"/>
+									<field name="avail_asset_ids" optional="hide"/>
+								    <!-- <field name="old_analytic_account_id" readonly="1"/> -->
+									<field name="purchase_date" readonly="1"></field>
+									<field name="old_account_id" optional="hide"></field>
+									<field name="analytic_distribution" widget='analytic_distribution'/>
+									<!-- <field name="is_expense_split"></field> -->
+									<field name="company_id" invisible="1"></field>
+								    <field name="new_owner_id" options="{'no_create': True}" /><!-- 'readonly': [('state','!=','draft')],  -->
+									<field name="new_department_id" options="{'no_create': True}"/>
+									<field name="new_branch_id" options="{'no_create': True}" />'readonly': [('state','!=','draft')], 
+								    <field name="new_category_id" invisible="1" options="{'no_create': True}"  groups="account.group_account_manager"/><!-- 'readonly': [('state','!=','draft')],  -->
+								    <field name="new_location_id" options="{'no_create': True}"  groups="account.group_account_manager"/>
+									<field name="new_asset_type" options="{'no_create': True}"/>
+								   <!-- <field name="new_analytic_account_id" options="{'no_create': True}" />attrs="{'readonly': [('state','!=','draft')]}" -->
+									<field name="new_account_id"></field>
+									<!-- <field name="new_allocation_id"></field> -->
+									<field name="move_goal" optional="hide"/>
+								    <field name="state" readonly="1" optional="hide"/>
+									<!-- <button name="asset_move_line_letter" string="Print" type="object" class="oe_inline"/> -->
+		                    	</tree>
+								<form>
+									<sheet>
+										<group>
+											<group>
+												<field name="asset_id"  options="{'no_create': True}" style="max-width:600px" class="text-wrap"/><!-- 'readonly': [('state','!=','draft')],  -->
+												<field name="asset_code" readonly="1"/>
+												<field name="asset_name" readonly="1"/>
+												<field name="asset_commissioned_date" readonly="1"/>
+												<field name="old_owner_id" readonly="1"/>
+												<field name="old_department_id" readonly="1"/>
+												<field name="old_location_id" readonly="1"/>
+												<!-- <field name="old_branch_id" readonly="1"/> -->
+												<field name="old_category_id" readonly="1"/>
+												<!-- <field name="old_analytic_account_id" readonly="1"/> -->
+												<field name="purchase_date" readonly="1"></field>
+												<field name="analytic_distribution" widget="analytic_distribution"/>
+											</group>
+											<group>
+												<field name="new_owner_id" attrs="{'required': [('state','=','draft')]}"/><!-- 'readonly': [('state','!=','draft')],  -->
+												<field name="new_department_id" attrs="{'required': [('state','=','draft')]}"/>
+												<!-- <field name="new_branch_id" attrs="{'required': [('state','=','draft')]}"/>'readonly': [('state','!=','draft')],  -->
+												<field name="new_location_id" attrs="{'required': [('state','=','draft')]}"/><!-- 'readonly': [('state','!=','draft')],  -->
+												<field name="new_category_id" attrs="{'required': [('state','=','draft')]}" groups="account.group_account_manager"/><!-- 'readonly': [('state','!=','draft')],  -->
+												<!-- <field name="new_analytic_account_id" options="{'no_create': True}" /> -->
+												<field name="move_goal"/>
+												<field name="account_move_id" readonly="1"/>
+												<field name="state" readonly="1"/>
+											</group>
+										</group>
+									</sheet>
+								</form>
+		                    </field>
+							<field name="avail_asset_ids" widget="many2many_tags" invisible="1"/>
+		            	</page>
+						<page string="Validations">
+							<field name="history_line_ids" readonly="1"/>
+						</page>
+		            </notebook>
+                    <group>
+                    	<field name="description" /><!-- attrs="{'readonly': [('state','!=','draft')]}" -->
+                    </group>
+                </sheet>
+				<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+         	</form>
+         </field>
+    </record>
+
+    <record id="view_asset_move_tree" model="ir.ui.view">
+        <field name="name">account.asset.move.tree</field>
+        <field name="model">account.asset.move</field>
+        <field name="arch" type="xml">
+        	<tree string="Asset Move">
+				<field name="move_date"/>
+        		<field name="name"/>
+				<field name="owner_emp_id"></field>
+				<field name="new_owner_id" />
+				<!-- <field name="new_owner_id" /> -->
+		    	<!-- <field name="move_date"/>
+		    	<field name="receipt_date"/> -->
+		    	<field name="move_goal"/>
+				<field name="create_uid"/>
+				<field name="company_id" groups="base.group_multi_company" optional="hide"/>
+		        <field name="flow_line_id"/>
+		    </tree>
+    	</field>
+    </record>
+
+	<record id="asset_move_search" model="ir.ui.view">
+		<field name="name">account.asset.move.search</field>
+		<field name="model">account.asset.move</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="asset_id"/>
+				<group expand="0" string="Group by...">
+					<filter string="Company" name="company_id" domain="" context="{'group_by' : 'company_id'}" groups="base.group_multi_company"/>
+					<filter string="State" name="state" domain="" context="{'group_by':'flow_line_id'}"/>
+					<filter string="Move Date" name="move_date" domain="" context="{'group_by' : 'move_date'}"/>
+					<filter string="Receipt Date" name="receipt_date" domain="" context="{'group_by' : 'receipt_date'}"/>
+				</group>
+		   </search>
+		</field>
+	</record>
+
+    <record id="action_asset_move" model="ir.actions.act_window">
+        <field name="name">Asset Move</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.move</field>
+        <field name="view_mode">tree,form</field>
+       	<field name="view_id" ref="view_asset_move_tree"/>
+		<field name="search_view_id" ref="asset_move_search"/>
+    </record>
+	 <record id="action_asset_move_two" model="ir.actions.act_window">
+        <field name="name">Хөрөнгө Шилжүүлэг</field>
+        <field name="res_model">account.asset.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_asset_move_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_account_asset"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+</odoo>

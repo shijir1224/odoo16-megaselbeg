@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="env_tree_report_template">
+        <!--<link rel='stylesheet' type="text/css" href="'%s/mw_environment/static/src/css/report.css' % base_url" />-->
+        <style type="text/css">
+            table{
+                width:100%;
+                border-collapse:collapse;
+                page-break-inside:avoid;
+                border: 1px solid #999;
+                table-layout: fixed;
+            }
+            table th{
+                font-size:12px;
+                font-weight:bold;
+                height:40px;
+                text-align:center;
+                vertical-align:middle;
+                border: 1px solid #CCC;
+            }
+            table td{
+                font-size:12px;
+                padding:5px 10px;
+                border: 1px solid #CCC;
+            }
+            table caption{
+                font-size:16px;
+                font-weight:bold;
+                padding:50px 0px 10px;
+            }
+            .right{
+                text-align:right;
+            }
+            .center{
+                text-align:center;
+            }
+            .strong{
+                font-weight:bold;
+            }
+            img{
+                display:inline-block;
+                float:right;
+            }
+        </style>
+
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <div class="oe_structure" />
+
+                    <div>
+                        <img t-att-src="'%s/mw_environment/static/src/img/mw_logo.png' % base_url" width="150" />
+
+                        <h3>Байгаль орчны алба</h3>
+                        <p>Үйлдвэр, уурхай: <strong><t t-esc="mining" /></strong></p>
+                        <p>Тайлант хугацаа: <strong><t t-esc="year" /></strong></p>
+                    </div>
+
+                    <table border="1">
+                        <caption>Мод бутны ургалтын үеийн бүртгэлийн нэгтгэл</caption>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" style="width:5%;">№</th>
+                                <th rowspan="2" style="width:15%;" >Мод бутны нэр</th>
+                                <th rowspan="2">Өмнөх оны намрын тооллогын дүн</th>
+                                <th colspan="3">Хаврын тооллого</th>
+                                <th rowspan="2">Хаврын тооллогын дүн</th>
+                                <th colspan="3">Намрын тооллого</th>
+                            </tr>
+                            <tr>
+                                <th>Ширхэг</th>
+                                <th>Ургалтын хувь</th>
+                                <th>Шинээр тарьсан</th>
+                                <th>Ширхэг</th>
+                                <th>Ургалтын хувь</th>
+                                <th>Шинээр тарьсан</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="merge" t-value="False"/>
+                        <t t-set="lastyear" t-value="0"/>
+                        <t t-set="spring" t-value="0"/>
+                        <t t-set="fall" t-value="0"/>
+                        <t t-set="nspring" t-value="0"/>
+                        <t t-set="nfall" t-value="0"/>
+                        <tbody>
+                            <t t-foreach="rows" t-as="doc">
+                                    <t t-if="doc['location_name'] != merge">
+                                        <t t-if="i != 1">
+                                            <tr>
+                                                <td colspan="2" class="center strong">Нийт</td>
+                                                <td class="right strong"><span t-esc="lastyear"/></td>
+                                                <td class="right strong"><span t-esc="spring"/></td>
+                                                <t t-if="lastyear == 0">
+                                                <td class="right strong">0 %</td>
+                                                </t>
+                                                <t t-if="lastyear != 0">
+                                                <td class="right strong"><span t-esc="spring*100/lastyear"/> %</td>
+                                                </t>
+                                                <td class="right strong"><span t-esc="nspring"/></td>
+                                                <td class="right strong"><span t-esc="spring+nspring"/></td>
+                                                <td class="right strong"><span t-esc="fall"/></td>
+                                                <t t-if="spring+nspring == 0">
+                                                <td class="right strong">0 %</td>
+                                                </t>
+                                                <t t-if="spring+nspring != 0">
+                                                <td class="right strong"><span t-esc="fall*100/(spring+nspring)"/> %</td>
+                                                </t>
+                                                <td class="right strong"><span t-esc="nfall"/></td>
+                                            </tr>
+                                        </t>
+                                        <tr><td colspan="10" class="center strong"><span t-esc="doc['location_name']"/></td></tr>
+                                        <t t-set="lastyear" t-value="0"/>
+                                        <t t-set="spring" t-value="0"/>
+                                        <t t-set="fall" t-value="0"/>
+                                        <t t-set="nspring" t-value="0"/>
+                                        <t t-set="nfall" t-value="0"/>
+                                    </t>
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <td><span t-esc="doc['tree_name']"/></td>
+                                        <td class="right"><span t-esc="doc['lastyear']"/></td>
+                                        <td class="right"><span t-esc="doc['spring']"/></td>
+                                        <td class="right"><span t-esc="doc['spercent']"/> %</td>
+                                        <td class="right"><span t-esc="doc['nspring']"/></td>
+                                        <td class="right"><span t-esc="doc['tspring']"/></td>
+                                        <td class="right"><span t-esc="doc['fall']"/></td>
+                                        <td class="right"><span t-esc="doc['fpercent']"/> %</td>
+                                        <td class="right"><span t-esc="doc['nfall']"/></td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-set="merge" t-value="doc['location_name']"/>
+                                    <t t-set="lastyear" t-value="lastyear+doc['lastyear']"/>
+                                    <t t-set="spring" t-value="spring+doc['spring']"/>
+                                    <t t-set="fall" t-value="fall+doc['fall']"/>
+                                    <t t-set="nspring" t-value="nspring+doc['nspring']"/>
+                                    <t t-set="nfall" t-value="nfall+doc['nfall']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="2" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="lastyear"/></td>
+                                    <td class="right strong"><span t-esc="spring"/></td>
+                                    <t t-if="lastyear == 0">
+                                    <td class="right strong">0 %</td>
+                                    </t>
+                                    <t t-if="lastyear != 0">
+                                    <td class="right strong"><span t-esc="spring*100/lastyear"/> %</td>
+                                    </t>
+                                    <td class="right strong"><span t-esc="nspring"/></td>
+                                    <td class="right strong"><span t-esc="spring+nspring"/></td>
+                                    <td class="right strong"><span t-esc="fall"/></td>
+                                    <t t-if="spring+nspring == 0">
+                                    <td class="right strong">0 %</td>
+                                    </t>
+                                    <t t-if="spring+nspring != 0">
+                                    <td class="right strong"><span t-esc="fall*100/(spring+nspring)"/> %</td>
+                                    </t>
+                                    <td class="right strong"><span t-esc="nfall"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- <record id="action_env_tree_report_template"
+        model="env.tree.report"
+        string="Tree Report" 
+        report_type="qweb-pdf"
+        name="env_tree_report_template"
+        file="env_tree_report_template"
+        attachment_use="False"
+        menu="False"/> -->
+
+    <!-- <record id="action_env_tree_report_template" model="ir.actions.report">
+        <field name="paperformat_id"/>
+        <field name="binding_model_id" ref="env_report_portrait_paperformat"/>
+    </record> -->
+
+    <record id="action_env_tree_report_template" model="ir.actions.report">
+        <field name="name">Tree Report</field>
+        <field name="model">env.tree.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mw_environment.env_tree_report_template</field>
+        <field name="report_file">mw_environment.env_tree_report_template</field>
+        <field name="print_report_name">'Tree Report'</field>
+        <field name="binding_model_id" ref="model_env_tree_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

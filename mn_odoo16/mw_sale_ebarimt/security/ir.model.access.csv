@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ebarimt_send_data_log_manager,ebarimt.send.data.log,mw_sale_ebarimt.model_ebarimt_send_data_log,,1,1,1,0
+
+
+

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<record id="view_account_move_mw_account_asset_vat_form" model="ir.ui.view">
+	       <field name="name">account.move.asset vat</field>
+	       <field name="model">account.move</field>
+	       <field name="inherit_id" ref="account.view_move_form"/>
+	       <field name="arch" type="xml">
+	            <xpath expr="//field[@name='currency_id']" position="after">
+	                  <field name="is_move_asset" attrs="{'invisible': [('move_type', 'not in', ( 'in_invoice', 'in_refund'))]}"/>
+	                  <field name="asset_vat_id" 
+	                                attrs="{'invisible': [('is_move_asset', '=', False)]}"/>
+	           </xpath>
+	       </field>
+	   </record>
+
+        <record id="view_account_asset_vat_conf_form" model="ir.ui.view">
+		    <field name="name">account.asset.vat.conf.form</field>
+		    <field name="model">account.asset.vat.conf</field>
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+		        <form string="config">
+					<group>
+			            <field name="name" select="1"/>
+					</group>			      
+					<group>
+			            <field name="long_account_id" string="Урт хугацаат НӨАТ данс"/>
+			            <field name="short_account_id" string="Богино хугацаат НӨАТ данс"/>
+			            <field name="month"/>
+<!-- 					<field name="line_ids" nolabel="1">
+						<tree>
+				            <field name="name"/>
+				            <field name="amount" sum="Amount"/>
+				            <field name="account_id"/>
+				            <field name="analytic_account_id"/>
+				            <field name="branch_id"/>
+						</tree>
+					</field> -->
+					</group>      
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="view_account_asset_vat_conf_tree" model="ir.ui.view">
+		    <field name="name">account.asset.vat.conf.tree</field>
+		    <field name="model">account.asset.vat.conf</field>
+		    <field name="type">tree</field>
+		    <field name="arch" type="xml">
+		        <tree string="config">
+		            <field name="name"/>
+		        </tree>
+		    </field>
+		</record>
+
+		<record id="action_account_asset_vat_conf" model="ir.actions.act_window">
+		    <field name="name">НӨАТ хасагдуулах тохиргоо</field>
+		    <field name="res_model">account.asset.vat.conf</field>
+		    <field name="view_mode">tree,form</field>
+<!--             <field name="search_view_id" ref="view_account_cash_move_search"/> -->
+            <field name="view_id" ref="view_account_asset_vat_conf_tree"/>
+		</record>
+		
+
+        <record id="view_account_asset_vat_form" model="ir.ui.view">
+		    <field name="name">account.asset.vat.form</field>
+		    <field name="model">account.asset.vat</field>
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+		        <form string="config">
+					 <header>
+				      <button name="compute" type="object" class="oe_highlight" string="Тооцоолох" states="draft"/>
+				      <button name="draft_set" type="object" class="oe_highlight" string="Ноороглох" states="computed"/>
+				      <button name="create_move" type="object" class="oe_highlight" string="Урт хугацаат гүйлгээ үүсгэх" states="computed"/>
+				      <button name="create_short_move" type="object" class="oe_highlight" string="Хэрэгжсэн гүйлгээ үүсгэх" states="computed"/>
+				      <field widget="statusbar" options="{'clickable': '1'}" name="state"/>
+				    </header>	
+					<group>				        
+						<group >
+							<field name="name" select="1"/>
+							<field name="amount" string="Хуваарилах дүн" select="1"/>
+							<field name="date" select="1"/>
+							<field name="last_long_date" select="1"/>
+							<field name="conf_id" select="1"/>
+							<field name="last_short_date" select="1"/>
+						</group>
+						<group>
+							<field name="account_id" select="1" string="НӨАТ данс"/> 
+							<field name="move_id" select="1"/>
+							<field name="month" select="1"/>
+							<field name="long_account_id" string="Урт хугацаат НӨАТ данс"/>
+							<field name="short_account_id" string="Богино хугацаат НӨАТ данс"/>
+						</group>
+					</group>
+					<field name="line_ids" nolabel="1">
+						<tree decoration-info="state == 'draft'" decoration-dunger="state == 'short'" decoration-sucess="state == 'done'" decoration-muted="state == 'long'">
+							<field name="name"/>
+							<field name="date"/>
+							<field name="amount" sum="Amount"/>
+							<field name="account_id"/>
+							<field name="short_move_id" string="Богино хугацаат"/>
+							<field name="long_move_id" string="Урт хугацаат"/>
+							<field name="state"/>
+						</tree>
+					</field>
+		            <field name="asset_ids" nolabel="1"/>
+		            <field name="short_move_ids" nolabel="1"/>
+		            <field name="long_move_ids" nolabel="1"/>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="view_account_asset_vat_tree" model="ir.ui.view">
+		    <field name="name">account.asset.vat.tree</field>
+		    <field name="model">account.asset.vat</field>
+		    <field name="type">tree</field>
+		    <field name="arch" type="xml">
+		        <tree string="config">
+		            <field name="name"/>
+		        </tree>
+		    </field>
+		</record>
+		<record id="action_account_asset_vat" model="ir.actions.act_window">
+		    <field name="name">НӨАТ хасагдуулах</field>
+		    <field name="res_model">account.asset.vat</field>
+		    <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_account_asset_vat_tree"/>
+		</record>
+		
+
+		<menuitem id="menu_account_asset_vat_root" parent="account.menu_finance_entries_management" name="НӨАТ хасагдуулах"/>
+		<menuitem action="action_account_asset_vat_conf" id="menu_action_account_allocation_conf" parent="menu_account_asset_vat_root" />
+        				
+		<menuitem action="action_account_asset_vat" id="menu_action_account_allocation" parent="menu_account_asset_vat_root" />
+        				
+</odoo>

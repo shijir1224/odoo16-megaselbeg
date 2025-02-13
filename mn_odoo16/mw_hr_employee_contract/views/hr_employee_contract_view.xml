@@ -1,0 +1,205 @@
+<odoo> 
+		<record id="seq_contract_number_secret" model="ir.sequence">
+			<field name="name">employee contract number</field>
+			<field name="code">employee.document.secret</field>
+			<field name="prefix">НГ%(y)s/</field>
+			<field name="padding">3</field>
+		</record>
+		<record id="seq_contract_number_asset" model="ir.sequence">
+			<field name="name">employee contract number</field>
+			<field name="code">employee.document.asset</field>
+			<field name="prefix">ЭХБХГ%(y)s/</field>
+			<field name="padding">3</field>
+		</record>
+		<record id="seq_contract_number_work" model="ir.sequence">
+			<field name="name">employee contract number</field>
+			<field name="code">employee.document.working</field>
+			<field name="prefix">ХГ%(y)s/</field>
+			<field name="padding">3</field>
+		</record>
+		<record id="seq_contract_number_period" model="ir.sequence">
+			<field name="name">employee contract number</field>
+			<field name="code">employee.document.period</field>
+			<field name="prefix">ТГ%(y)s/</field>
+			<field name="padding">3</field>
+		</record>
+		<record model="ir.ui.view" id="employee_contract_search_view">
+			<field name="name">hr.employee.contract.search</field>
+			<field name="model">hr.employee.contract</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="punishment document search">
+					<field name="number" string='Гэрээний дугаар..'/>
+					<field name="employee_id" string='Ажилтанд..'/>
+					<field name="create_employee_id" string='Бүртгэсэн ажилтанд..'/>
+				
+					<group expand="0" string="Group By">
+						<filter string="Компани" name="company_id" domain="[]"  context="{'group_by': 'company_id'}"/>
+						<filter name="Жил" domain="[]"  context="{'group_by': 'date:year'}"/>
+						<filter string="Төрөл" name="type" domain="[]"  context="{'group_by': 'type'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="employee_contract_form_view">
+			<field name="name">hr.employee.contract.form</field>
+			<field name="model">hr.employee.contract</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="form">
+                <header>
+                    <button string="Илгээх" name="action_sent" type="object"  states='draft' class="oe_highlight" />
+                    <button string="Батлах" name="action_done" type="object" states='check'  class="oe_highlight" groups='mw_hr_employee_contract.group_employee_contract_manager'/>
+					<button string="Хянах" name="action_check" type="object" states='sent'  class="oe_highlight" groups='mw_hr_employee_contract.group_employee_contract_manager'/>
+                    <button string="Ноороглох" name="action_draft" type="object" states='sent,check,done'  class="oe_highlight" groups='mw_hr_employee_contract.group_employee_contract_manager'/>
+					<!-- <button string="Цaлингийн мэдээлэл оруулах" name="create_hr_contract" type="object" class="btn btn-sm btn-info" groups="hr.group_hr_manager"/> -->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,check,done"
+                        statusbar_colors='{"draft":"gray","sent":"blue","done":"blue"}'/>
+                </header>
+				<sheet>
+					<group  string='Ажилтан'>
+						<group>
+						   	<field name="employee_id"  attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+						   	<field name="department_id"  attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+						   	<field name="job_id"  attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+							<field name="job_degree"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+						   	<field name="home_address"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="company_id"  attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+							<field name="work_location_id"  attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+						</group>
+						<group>
+						   	<field name="type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+						   	<field name="work_condition"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="wage_s"  attrs="{'invisible': [('type', 'in', ['asset','secret'])],'readonly': [('state', '!=', 'draft')]}"/>
+							
+						</group>
+					</group>
+					<group string='Гэрээний мэдээлэл'>
+						<group>
+							<field name="number" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+							<field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+						</group>
+						<group>
+							<field name="months"  attrs="{'invisible': [('type', '!=', 'period')],'readonly': [('state', '!=', 'draft')]}" />
+							<field name="c_e_date"  attrs="{'invisible': [('type', '!=', 'period')],'readonly': [('state', '!=', 'draft')],'required': [('type', '=', 'period')]}"/>
+						</group>
+					</group>
+                    <group name='hresourse' string='Хүний нөөц'>
+					<group>
+						<field name="create_employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+						<field name="create_job_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+						<field name="create_department_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+					</group>
+					<group>
+						<field name="hr_employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+						<field name="hr_job_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+						<field name="hr_department_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+					</group>
+					</group>
+					<group>
+						<field name='contract_id' force_save='1' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+						<field name='working_contract' attrs="{'invisible': [('type', '!=', 'secret')]}"/>
+						<field name='working_date' attrs="{'invisible': [('type', '!=', 'secret')]}"/>
+					</group>
+					<group  col='4' invisible='1'>
+						<field name="hr_melen" />
+						<field name="work_condition_ch" />
+						<field name="month_ch" />
+						<field name="day_ch" />
+						<field name="e_month_ch" />
+						<field name="e_day_ch" />
+						<field name="wage_s_ch"  />
+						<field name="wage_str"  />
+						<field name="emp_name_melen"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="employee_contract_tree_view">
+			<field name="name">hr.employee.contract.tree</field>
+			<field name="model">hr.employee.contract</field>
+			<field name="arch" type="xml">
+				<tree>
+				   	<field name="number"/>
+					<field name="type" />
+				   	<field name="employee_id"/>
+					<field name="job_id"/>
+				   	<field name="date"/>
+					<field name="wage_s" optional='hide'/>
+					<field name="work_condition" optional='hide'/>
+					<field name="months" optional='hide'/>
+					<field name="department_id" optional='hide'/>
+					<field name="c_e_date" optional='hide'/>
+					<field name="home_address" optional='hide'/>
+                    <field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+	<record model="ir.ui.view" id="employee_contract_pivot_view">
+		<field name="name">hr.employee.contract.pivot</field>
+		<field name="model">hr.employee.contract</field>
+		<field name="arch" type="xml">
+			<pivot string="Received document pivot">
+				<field name="number" type="row"/>
+				<field name="date" type="col"/>
+			</pivot>
+		</field>
+	</record>
+		<record  id="employee_contract_calendar_view" model="ir.ui.view">
+			<field name="name">hr.employee.contract.calendar</field>
+			<field name="model">hr.employee.contract</field>
+			<field name="priority" eval="2"/>
+			<field name="arch" type="xml">
+				<calendar 
+						date_start="date"
+						mode="month"
+						quick_add="False">
+					<field name="number"/>
+					<field name="date"/>
+				</calendar>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_employee_contract_view">
+			<field name="name">Ажилтны гэрээ</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.employee.contract</field>
+			<field name="view_mode">tree,form,pivot,calendar</field>
+			<field name="context">{'search_default_company_id': 1,'search_default_date': 1,'search_default_type': 1}</field>
+			<field name="search_view_id" ref="employee_contract_search_view"/>
+		 	<field name="view_id" ref="employee_contract_tree_view"/>
+		</record>
+
+		<record id="hr_employee_view_form2_inherit" model="ir.ui.view">
+			<field name="name">hr.hr.employee.view.form2.mw</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_user']" position="after">
+				<button name="action_hr_contract" type="object" class="oe_stat_button" icon="fa-book">
+					<field string="Гэрээ" widget="statinfo" name ='contract_count'/>
+				</button>
+			</xpath>
+		</field>
+	</record>
+	<record id="view_employee_form_mine_contract" model="ir.ui.view">
+		<field name="name">hr.employee.extension.mine</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mine_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//div[@name='button_box']" position="inside">
+				<button name="action_hr_contract" type="object" class="oe_stat_button" icon="fa-book">
+					<field string="Гэрээ" widget="statinfo" name ='contract_count'/>
+				</button>
+			</xpath>
+		</field>
+    </record>
+		<menuitem id="employee_contract_menu" parent="mw_hr.hr_labor_relations_menu" action="action_employee_contract_view" sequence="2"/> 
+</odoo>

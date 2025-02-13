@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+access_routing_slip_admin,routing.slip.hr,mw_hr_routing_slip.model_routing_slip_hr,mw_hr_routing_slip.group_routing_slip_hr_admin,1,1,1,1
+access_routing_slip_hr_user,routing.slip.hr,mw_hr_routing_slip.model_routing_slip_hr,mw_hr_routing_slip.group_routing_slip_hr_user,1,1,1,0
+
+
+access_routing_slip_hr_line_admin,routing.slip.hr.line,mw_hr_routing_slip.model_routing_slip_hr_line,mw_hr_routing_slip.group_routing_slip_hr_admin,1,1,1,1
+access_routing_slip_hr_line_user,routing.slip.hr.line,mw_hr_routing_slip.model_routing_slip_hr_line,mw_hr_routing_slip.group_routing_slip_hr_user,1,1,1,0
+
+access_routing_slip_hr_line_item_admin,routing.slip.hr.line.item,mw_hr_routing_slip.model_routing_slip_hr_line_item,mw_hr_routing_slip.group_routing_slip_hr_admin,1,1,1,1
+access_routing_slip_hr_line_item_user,routing.slip.hr.line.item,mw_hr_routing_slip.model_routing_slip_hr_line_item,mw_hr_routing_slip.group_routing_slip_hr_user,1,1,1,0
+

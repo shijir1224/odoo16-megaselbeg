@@ -1,0 +1,67 @@
+.ContenedorTabla {
+  margin: 0 auto;
+  overflow: hidden;
+  /*position: relative;*/
+}
+
+#talbeid {
+  position: relative;
+  display: block;
+  /*background-color: white;*/
+  /*overflow: auto;*/
+  border-collapse: collapse;
+}
+
+/*thead*/
+#thead {
+  position: relative;
+  display: block;
+  /*seperates the header from the body allowing it to be positioned*/
+  /*width: 700px;*/
+  /*overflow: hidden;*/
+}
+
+#thead th {
+  /*background-color: gray;*/
+  /*min-width: 120px;*/
+  text-align: center;
+  height: 40px;
+  border: 1px solid #222;
+}
+
+#thead th:nth-child(1) {
+  /*first cell in the header*/
+  position: relative;
+  display: block;
+  /*seperates the first cell in the header from the header*/
+  background-color: black;
+}
+
+
+/*tbody*/
+#tbody {
+  position: relative;
+  display: block;
+  /*seperates the tbody from the header*/
+  /*width: 700px;*/
+  height: 500px;
+  overflow: scroll;
+}
+
+#tbody td {
+  /*background-color: white;*/
+  text-align: center;
+  vertical-align: center;
+  /*min-width: 120px;*/
+  border: 2px solid #222 !important;
+}
+
+#tbody tr td:nth-child(1) {
+  /*the first cell in each tr*/
+  position: relative;
+  display: block;
+  /*seperates the first column from the tbody*/
+  height: 40px;
+  /*background-color: white;*/
+  padding: 10px 0px 10px 0px;
+}

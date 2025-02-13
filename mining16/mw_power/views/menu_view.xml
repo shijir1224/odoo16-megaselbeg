@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="main_menu_power" name="Цахилгаан" sequence="77" groups="mw_power.group_power_user" web_icon="mw_power,static/icon.png"/>
+    <menuitem id="menu_power_category" name="Үндсэн Хөрөнгө"
+            parent="main_menu_power" sequence="10"/>
+        <menuitem action="action_power_category_tree_group" id="menu_power_category_group" 
+            parent="mw_power.menu_power_category" sequence="10"/>
+        <menuitem action="action_power_category_tree_categ" id="menu_power_category_categ" 
+            parent="mw_power.menu_power_category" sequence="20"/>
+        <menuitem action="action_power_category_tree_asset" id="menu_power_category_asset" 
+            parent="mw_power.menu_power_category" sequence="30"/>
+    <menuitem id="menu_power_plan" name="Төлөвлөгөө"
+            parent="main_menu_power" sequence="13"/>
+        <menuitem action="action_power_plan_week_tree" id="menu_power_plan_week" 
+            parent="mw_power.menu_power_plan" sequence="10"/>
+        <menuitem action="action_power_plan_month_tree" id="menu_power_plan_month" 
+            parent="mw_power.menu_power_plan" sequence="20"/>
+        <menuitem action="action_power_plan_year_tree" id="menu_power_plan_year" 
+            parent="mw_power.menu_power_plan" sequence="30"/>
+    <menuitem id="menu_power_hats_root" name="ХАЦ" parent="main_menu_power" sequence="14"/>
+        <menuitem action="action_power_hats_total_tree" id="menu_power_hats_total" parent="mw_power.menu_power_hats_root" sequence="5"/>
+        <menuitem action="action_power_hats_total_month_tree" id="menu_power_hats_total_month" parent="mw_power.menu_power_hats_root" sequence="7"/>
+        <menuitem action="action_power_hats_tree" id="menu_power_hats" parent="mw_power.menu_power_hats_root" sequence="10"/>
+        <menuitem action="action_power_hats_line_tree" id="menu_power_hats_line" parent="mw_power.menu_power_hats_root" sequence="20"/>
+    <menuitem id="menu_power_action" name="Үйл Ажиллагаа" parent="main_menu_power" sequence="15"/>
+        <menuitem action="action_power_notes_tree" id="menu_power_notes" 
+            parent="mw_power.menu_power_action" sequence="10"/>
+        <menuitem action="action_eo_print_wizard" id="menu_power_eo_print" 
+            parent="mw_power.menu_power_action" sequence="15"/>
+        <menuitem action="action_power_down_down" id="menu_power_down_down" 
+            parent="mw_power.menu_power_action" sequence="20"/>
+        <menuitem action="action_power_down_order" id="menu_power_down_order" 
+            parent="mw_power.menu_power_action" sequence="24"/>
+        <menuitem action="action_power_down_plan" id="menu_power_down_plan" 
+            parent="mw_power.menu_power_action" sequence="30"/>
+        <menuitem action="action_power_down_call" id="menu_power_down_call" 
+            parent="mw_power.menu_power_action" sequence="40"/>
+        <menuitem action="action_power_down_daily" id="menu_power_down_daily" 
+            parent="mw_power.menu_power_action" sequence="50"/>
+        <menuitem action="action_power_portable" id="menu_power_portable" 
+            parent="mw_power.menu_power_action" sequence="60"/>
+    
+    <menuitem action="action_power_implements_tree" id="menu_power_implements" 
+            parent="main_menu_power" sequence="60"/>
+    <menuitem action="action_power_relay_tree" id="menu_power_relay" 
+            parent="main_menu_power" sequence="65"/>
+
+    <menuitem id="menu_power_product" 
+            parent="main_menu_power" sequence="70" name="Зарцуулсан БМ"/>
+        <menuitem id="menu_power_product_bm" action="action_power_product_tree"
+            parent="menu_power_product" sequence="10"/>
+        <menuitem action="action_power_product_tree_cabel" id="menu_power_cabel_product" 
+            parent="menu_power_product" sequence="20" groups="mw_power.group_power_cost,mw_power.group_power_engineer"/>
+
+        <menuitem action="action_power_cabel_tree" id="menu_power_cabel_product_cab" 
+            parent="menu_power_product" sequence="90" groups="base.group_no_one"/>
+        
+    <menuitem action="action_power_workorder_tree" id="menu_power_workorder" 
+            parent="main_menu_power" sequence="80"/>
+
+    <menuitem id="menu_power_report" name="Тайлан" parent="main_menu_power" sequence="88"/>
+        <menuitem action="action_power_relay_line_tree" id="menu_power_relay_line" 
+            parent="menu_power_report" sequence="10"/>
+        <menuitem action="action_power_product_report_tree" id="menu_power_product_report" 
+            parent="menu_power_report" sequence="20"/>
+        <menuitem action="action_power_report_exca_tree" id="menu_power_report_exca" 
+            parent="menu_power_report" sequence="99"/>
+    <menuitem id="menu_power_configuration" name="Тохиргоо" parent="main_menu_power" sequence="99"/>
+        <menuitem action="action_power_selection_tree" id="menu_power_selection" 
+            parent="mw_power.menu_power_configuration" sequence="12"/>
+        <menuitem action="action_power_warehouse_config_tree" id="menu_power_warehouse_config" 
+            parent="mw_power.menu_power_configuration" sequence="16"/>
+        <menuitem action="action_power_eo_user_tree" id="menu_power_eo_user" 
+            parent="mw_power.menu_power_configuration" groups="base.group_no_one" sequence="46"/>
+        <menuitem action="action_power_product_config_tree" id="menu_power_product_config" 
+            parent="mw_power.menu_power_configuration" sequence="56"/>
+        <menuitem action="action_power_portable_cause" id="menu_power_portable_cause" 
+            parent="mw_power.menu_power_configuration" sequence="90"/>
+        
+
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pos_config_view_form_inherit_pos_cache" model="ir.ui.view">
+            <field name="name">pos.config.form.inherit.pos.cache</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='accounting_section']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="qpay_api_key" class="col-lg-3 o_light_label"/>
+                                    <field name="qpay_api_key"/>
+                                </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="qpay_token_user" class="col-lg-3 o_light_label"/>
+                                        <field name="qpay_token_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

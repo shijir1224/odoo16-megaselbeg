@@ -1,0 +1,235 @@
+@charset "utf-8";
+.oe_form div.oe_mining_history_line {
+  height: 200px;
+  overflow-y: scroll;
+}
+/* Fixed Headers */
+
+.table_header_freeze_mining thead {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: aliceblue;
+}
+
+.table_header_freeze_mining thead[scope=row] {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.table_header_freeze_mining thead[scope=row] {
+  vertical-align: top;
+  color: inherit;
+  background-color: inherit;
+  background: linear-gradient(90deg, transparent 0%, transparent calc(100% - .05em), #d6d6d6 calc(100% - .05em), #d6d6d6 100%);
+}
+
+.table_header_freeze_mining table:nth-of-type(2) th:not([scope=row]):first-child {
+  left: 0;
+  z-index: 3;
+  background: linear-gradient(90deg, #666 0%, #666 calc(100% - .05em), #ccc calc(100% - .05em), #ccc 100%);
+}
+
+/* Strictly for making the scrolling happen. */
+
+.table_header_freeze_mining thead[scope=row] + td {
+  min-width: 24em;
+}
+
+.table_header_freeze_mining thead[scope=row] {
+  min-width: 20em;
+}
+
+.mining_plan_view_plan {
+  background-color: #d6d5ff;
+  text-align: right;
+  font-size: 10px !important;
+}
+
+.mining_plan_view_plan td{
+  font-size: 10px !important;
+}
+.mining_plan_view_plan:hover {
+  background-color: rgba(189, 183, 183, 0.5);
+}
+
+.mining_plan_view_actual {
+  text-align: right;
+  font-size: 10px !important;
+}
+.mining_plan_view_actual td{
+  font-size: 10px !important;
+}
+.mining_plan_view_actual:hover {
+  background-color: rgba(189, 183, 183, 0.5);
+}
+
+.mining_plan_view_total{
+  text-align: right;
+  font-size: 10px !important;
+  font-weight: bold;
+}
+.oe_technic_motohour {
+  overflow-x: none;
+  width: 100%;
+}
+.oe_technic_motohour table {
+  width: 100%;
+  border-collapse: collapse;  
+}
+.oe_technic_motohour td {
+  text-align: left;
+  vertical-align: text-bottom;
+  border-bottom: 1px solid #e1e3e6;
+  height: 29px;
+  background: white;
+}
+.oe_technic_motohour .oe_technic_motohour_timeline{
+  width: 720px;
+  font-size: 14px;
+  position: relative;
+  margin-top: -14px;
+}
+.oe_technic_motohour .oe_technic_motohour_timeline .oe_technic_motohour_timeline_cause{
+  float:left;
+  position: absolute;
+  font-size: 10px;
+  vertical-align: center;
+  text-align: left;
+  border-bottom: 1px solid #e1e3e6;
+}
+.oe_technic_motohour .oe_technic_motohour_timeline .oe_technic_motohour_timeline_cause span{
+  font-size: 9px;
+  padding-top: -5px;
+}
+.oe_technic_motohour th {
+  background-color: #3465aa;
+  text-align: center;  
+  padding: 0px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #e2e4e7;
+}
+.oe_technic_motohour .oe_technic_motohour_timeline_head_cause{
+  float: left;
+}
+.oe_technic_motohour .oe_technic_motohour_timeline_head_cause .oe_technic_motohour_timeline_head_cause_details{
+  float: left;
+  width:35px;
+  height: 25px;
+  cursor: pointer;
+  margin-left: 1px;
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.oe_technic_motohour .oe_technic_motohour_timeline_head {
+  width: 720px;
+  font-size: 14px;
+  position: relative;
+  height: 37px;
+}
+.oe_technic_motohour .oe_technic_motohour_timeline_head .oe_technic_motohour_timeline_head_time{
+  color: #e2e4e7;
+  float:left;
+  font-size: 14px;
+  width: 60px;
+  text-align: left;
+}
+.oe_technic_motohour .oe_technic_motohour_technic {
+  padding: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: left;
+}
+.oe_technic_motohour .oe_technic_motohour_technic a{
+  color: black;
+}
+.oe_technic_motohour .oe_technic_motohour_row {
+    text-align: center;  
+    width: 50px;
+}
+.oe_technic_motohour .oe_technic_motohour_row_technic {
+    text-align: left;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.oe_technic_motohour .oe_technic_row{    
+    cursor: pointer;
+}
+
+.oe_technic_motohour .oe_technic_motohour_row_operator {
+    text-align: left;
+    /*white-space: nowrap;*/
+    /*width: 90px;*/
+}
+.oe_technic_motohour .oe_technic_motohour_technic_col {
+  font-weight: bold;
+
+  width: 50px;
+  /*display: inline-table;*/
+}
+.oe_technic_motohour .oe_technic_motohour_title_technic {
+  font-weight: bold;
+  width: 70px;
+}
+.oe_technic_motohour .oe_technic_motohour_title_operator {
+  font-weight: bold;
+  width: 70px;
+}
+.oe_technic_motohour_cursor{
+    width: 42px;
+    position: absolute;
+    height: 15px;
+    top: 18px;
+}
+
+.oe_technic_motohour_fullscreen  .fs_button{  
+    position: relative;
+    cursor: pointer;
+    margin: 5px;
+}
+.oe_technic_motohour_refresh  .fs_refresh{  
+    position: relative;
+    cursor: pointer;
+    margin: 5px;
+}
+.oe_technic_motohour_fullscreen img:hover{  
+    opacity: 0.5;
+}
+.oe_technic_motohour_refresh img:hover{  
+    opacity: 0.5;
+}
+.oe_technic_motohour_cursor_body {
+    width: 100%;
+    height: 100%;
+    background-color: #dc0030;
+}
+.oe_technic_motohour_cursor_arrow {
+    border-left: 21px solid transparent;
+    border-right: 21px solid transparent;
+    border-top: 4px solid #dc0030;
+}
+.oe_technic_motohour_cursor_indicator {
+    width: 100%;
+    vertical-align: top;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+.oe_technic_motohour_cursor_line{
+    position: absolute;
+    width: 1px;
+    background-color: #dc0030;
+    top: 33px;
+    z-index: 1;
+}
+
+

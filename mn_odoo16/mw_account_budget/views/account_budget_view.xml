@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+Budgets
+-->
+          
+    <record id="view_mw_budget_search" model="ir.ui.view">
+        <field name="name">mw.account.budget.search</field>
+        <field name="model">mw.account.budget</field>
+        <field name="arch" type="xml">
+            <search string="Budgetary Position">
+                <field name="name" filter_domain="[('name','ilike',self)]" string="Configuration"/>
+                <field name="department_id" />
+                 <field name="root_dep_id" />    
+                <field name="budget_id" />
+                <field name="state" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <group expand="0" string="Group By">
+                    <filter string="Жил" name="by_year" domain="[]" context="{'group_by': 'date_from:year'}" />
+                    <filter string="Төсөв" name="budget" domain="[]" context="{'group_by': 'budget_id'}"/>
+                    <filter string="Хэлтэс" name="department" domain="[]" context="{'group_by': 'department_id'}"/>
+                    <filter string="Толгой хэлтэс" name="root_department" domain="[]" context="{'group_by': 'root_dep_id'}"/>
+                    <filter string="Төлөв" name="status" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter string="Огноо" name="by_date" domain="[]" context="{'group_by': 'date_from'}" />
+                    <filter string="Компани" name="by_company" domain="[]" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>                
+            </search>
+        </field>
+    </record>
+
+    <record id="view_mw_budget_tree" model="ir.ui.view">
+        <field name="name">mw.account.budget.tree</field>
+        <field name="model">mw.account.budget</field>
+        <field name="arch" type="xml">
+            <tree string="Budgetary Position">
+                <field name="name"/>
+                <field name="state" invisible="1"/>
+                 <field name="department_id"/>    
+                 <field name="root_dep_id" invisible="1"/>    
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="budget_total"/>
+                <field name="real_total"/>	    
+                <field name="close_state" string="Хаах төлөв"/>
+                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="open_mw_budget_form" model="ir.actions.act_window">
+        <field name="name">Хэлтсийн жилийн төсөв</field>
+        <field name="res_model">mw.account.budget</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_mw_budget_tree"/>
+        <field name="search_view_id" ref="view_mw_budget_search"/>
+        <field name="context">{'search_default_by_year':1,'search_default_budget':1,'search_default_root_department':1}</field>
+        <field name="domain">['|',('confirm_user_ids', 'in', [uid]),('create_uid', '=', uid)]</field>
+    </record>
+    
+    <menuitem id="menu_budget_root" name="Мөнгөн төсвийн хяналт"
+              parent="menu_mw_budget_root" sequence="1"/>
+
+    <menuitem action="open_mw_budget_form" id="menu_mw_budget_form"
+              parent="menu_budget_root" sequence="1"/>
+
+    <record id="open_mn_budget_all" model="ir.actions.act_window">
+        <field name="name">Хэлтсийн жилийн төсөв /Бүгд/</field>
+        <field name="res_model">mw.account.budget</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_mw_budget_tree"/>
+        <field name="search_view_id" ref="view_mw_budget_search"/>
+        <field name="context">{'search_default_by_year':1,'search_default_budget':1,'search_default_root_department':1}</field>
+    </record>
+    
+    <menuitem action="open_mn_budget_all" id="menu_mw_budget_all_form"
+              parent="menu_budget_root" sequence="2" groups="mw_account_budget.group_mn_budget_all"/>
+
+    <record model="ir.ui.view" id="view_mw_budget_form">
+        <field name="name">mw.account.budget.form</field>
+        <field name="model">mw.account.budget</field>
+        <field name="arch" type="xml">
+            <form string="Budgetary Position">
+			 <header>
+<!--                     <button
+                        name="action_draft"
+                        string="Set draft"
+                        type="object"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
+                    <button
+                        name="action_confirm"
+                        string="Confirm"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        attrs="{'invisible': [('state', '=', 'cancelled')]}"
+                    /> -->
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': ['|',('state','=','done'),('flow_line_next_id', '=', False)]}"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+                    <field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+                    
+<!--                     <button
+                        name="create_lines"
+                        string="Compute"
+                        type="object"
+                    /> -->
+                </header>            
+           	<sheet>
+			    <div name="button_box" class="oe_button_box">           	
+	        		<button class="oe_inline oe_stat_button" name="%(action_account_budget_import_file)d"
+			                string="Файл импортлох" type="action"
+			                 widget="statinfo" icon="fa-pencil-square-o"/><!-- attrs="{'invisible':[('state','=','confirm')]}" -->
+           	
+           		</div>
+<!--                     <div class="oe_title">
+                        <h1> -->
+	               <group col="2">
+                            <field name="name" placeholder="жнь: 2021 төсөв - 07 - Санхүүгийн хэлтэс"/>
+	                        <field name="state" invisible="1"/>
+	                        <field name="flow_line_next_id" invisible="1"/>
+	                        <field name="flow_line_back_id" invisible="1"/>
+	                        <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+	                        <field name="is_not_edit" invisible="1"/>
+	              </group>
+<!--                         </h1>
+                    </div> -->
+                <group col="4">
+                   <field name="flow_id" options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state', 'in',['done','cancel'])]}"/>
+                    <field name="flow_ids" invisible="1"/>
+<!--                     <field name="name"/> -->
+                   <field name="budget_id"/>    
+                <field name="close_state" string="Хаах төлөв" groups="mw_account_budget.group_mn_company_budget_set_state"/>
+                   <field name="analytic_account_id"/>    
+                   <field name="department_id" groups="mw_account_budget.group_mn_budget_department"/>    
+<!--                     <field name="conf_id"/>
+                    <field name="type"/> -->
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                </group>
+				<group name="dates"  col="4">
+                        <field name="date_range_id" />
+		                 <field name="budget_total"/>
+                        <field name="date_from" />
+		                 <field name="real_total"/>	    
+                        <field name="date_to" />
+		                 <field name="balance"/>	                                 	                 	                                         
+                </group>                
+                <notebook>
+                    <page string="Мөрүүд" name="lines">
+                        <field name="line_ids"/>
+                    </page>
+                    <page string="Тайлбар" >
+	                    <field name="description"/>
+                    </page>
+                    <page string="Түүх" >
+	                    <field name="history_ids" nolabel="1" colspan="4"/>
+                    </page>
+                    
+                    <page string="Батлагчид">
+                    	<group>
+      		                <field name="confirm_user_ids" readonly="1" widget="many2many_tags" />
+<!-- 		    		          <field name="confirm_my_ids" readonly="1" widget="many2many_tags" />
+			                    <field name="assigned_ids" >
+			                    	<tree string="Line" readonly="1">
+					                     <field name="user_id" widget="selection" string="Нягтлан бодогч"/>
+					                     <field name="type" string="Төлбөрийн хэлбэр"/>
+					                     <field name="amount" sum="Дүн"/>
+					                     <field name="paid_amount" sum="Дүн"/>
+					                     <field name="is_paid" />
+					                     <field name="paid_date" />
+					                     <field name="statement_line_id" />
+				                     </tree>
+			                    </field> -->
+                    	</group>
+                    </page>                    
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_mw_budget_line_form">
+        <field name="name">mw.account.budget.line.form</field>
+        <field name="model">mw.account.budget.line</field>
+        <field name="arch" type="xml">
+            <form string="Budgetary conf">
+            <sheet>
+                <group col="4">
+	                 <field name="name"/>
+	                 <field name="code"/>
+	                 <field name="year" class="text-success"
+                                       style="font-weight:bold;font-size:11pt;"/>
+	                 <field name="analytic_account_id"/>
+<!-- 	                 <field name="conf_line_id"/> -->
+<!-- 	                 <field name="analytic_account_id"/> -->
+<!-- 	                 <field name="date_from"/>
+	                 <field name="date_to"/>
+	                 <field name="budget_amount"/>
+	                 <field name="real_amount"/> -->
+                     <field name="budget_01"/>
+	                 <field name="real_01"/>
+	                 <field name="budget_02"/>
+	                 <field name="real_02"/>
+	                 <field name="budget_03"/>
+	                 <field name="real_03"/>
+	                 <field name="budget_04"/>
+	                 <field name="real_04"/>
+	                 <field name="budget_05"/>
+	                 <field name="real_05"/>
+	                 <field name="budget_06"/>
+	                 <field name="real_06"/>
+	                 <field name="budget_07"/>
+	                 <field name="real_07"/>
+	                 <field name="budget_08"/>
+	                 <field name="real_08"/>
+	                 <field name="budget_09"/>
+	                 <field name="real_09"/>
+	                 <field name="budget_10"/>
+	                 <field name="real_10"/>
+	                 <field name="budget_11"/>
+	                 <field name="real_11"/>
+	                 <field name="budget_12"/>
+	                 <field name="real_12"/>  
+	                 <field name="budget_total"/>
+	                 <field name="real_total"/>	    
+	                 <field name="balance"/>	                                 	                 	                 
+               </group>
+                <group col="2">
+	                 <field name="period_line_ids" nolabel="1"/>
+              </group>
+            </sheet>
+            </form>
+        </field>
+    </record>    
+        
+    <record id="view_mw_budget_line_tree" model="ir.ui.view">
+        <field name="name">mw.account.budget.line.tree</field>
+        <field name="model">mw.account.budget.line</field>
+        <field name="arch" type="xml">
+            <tree string="Budgetary Position">
+                 <field name="name"/>
+                 <field name="code"/>                 
+<!--                  <field name="conf_line_id"/> -->
+<!--                  <field name="analytic_account_id"/> -->
+<!--                  <field name="date_from"/>
+                 <field name="date_to"/>
+                 <field name="budget_amount"/>
+                 <field name="real_amount"/> -->
+                 <field name="budget_total" sum="Total"/>
+                 <field name="real_total" sum="Total"/>	    
+                 <field name="balance" sum="Total"/>	                                 
+                  <field name="budget_01" sum="Total"/>
+                 <field name="real_01" sum="Total"/>
+                 <field name="budget_02" sum="Total"/>
+                 <field name="real_02" sum="Total"/>
+                 <field name="budget_03" sum="Total"/>
+                 <field name="real_03" sum="Total"/>
+                 <field name="budget_04" sum="Total"/>
+                 <field name="real_04" sum="Total"/>
+                 <field name="budget_05" sum="Total"/>
+                 <field name="real_05" sum="Total"/>
+                 <field name="budget_06" sum="Total"/>
+                 <field name="real_06" sum="Total"/>
+                 <field name="budget_07" sum="Total"/>
+                 <field name="real_07" sum="Total"/>
+                 <field name="budget_08" sum="Total"/>
+                 <field name="real_08" sum="Total"/>
+                 <field name="budget_09" sum="Total"/>
+                 <field name="real_09" sum="Total"/>
+                 <field name="budget_10" sum="Total"/>
+                 <field name="real_10" sum="Total"/>
+                 <field name="budget_11" sum="Total"/>
+                 <field name="real_11" sum="Total"/>
+                 <field name="budget_12" sum="Total"/>
+                 <field name="real_12" sum="Total"/>     
+             </tree>
+        </field>
+    </record>
+
+    <record id="open_mw_budget_line_form" model="ir.actions.act_window">
+        <field name="name">Budget line from</field>
+        <field name="res_model">mw.account.budget.line</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_mw_budget_line_tree"/>
+    </record>
+
+    <record id="view_mw_budget_period_line_tree" model="ir.ui.view">
+        <field name="name">mw.account.budget.period.line.tree</field>
+        <field name="model">mw.account.budget.period.line</field>
+        <field name="arch" type="xml">
+            <tree string="Budgetary Position">
+                 <field name="name"/>
+                 <field name="code"/>
+                 <field name="items_id"/>
+<!--                  <field name="date_from"/>
+                 <field name="date_to"/>
+                 <field name="budget_amount"/>
+                 <field name="real_amount"/> -->
+                 <field name="budget_total"/>
+                 <field name="real_total"/>	    
+                 <field name="balance"/>	    
+                  <field name="budget_01"/>
+                 <field name="real_01"/>
+                 <field name="budget_02"/>
+                 <field name="real_02"/>
+                 <field name="budget_03"/>
+                 <field name="real_03"/>
+                 <field name="budget_04"/>
+                 <field name="real_04"/>
+                 <field name="budget_05"/>
+                 <field name="real_05"/>
+                 <field name="budget_06"/>
+                 <field name="real_06"/>
+                 <field name="budget_07"/>
+                 <field name="real_07"/>
+                 <field name="budget_08"/>
+                 <field name="real_08"/>
+                 <field name="budget_09"/>
+                 <field name="real_09"/>
+                 <field name="budget_10"/>
+                 <field name="real_10"/>
+                 <field name="budget_11"/>
+                 <field name="real_11"/>
+                 <field name="budget_12"/>
+                 <field name="real_12"/>
+             </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_mw_budget_period_line_form">
+        <field name="name">mw.account.budget.period.line.form</field>
+        <field name="model">mw.account.budget.period.line</field>
+        <field name="arch" type="xml">
+            <form string="Budgetary line">
+            <sheet>
+                <group col="4">
+	                 <field name="name"/>
+	                 <field name="code"/>
+	                 <field name="year" class="text-success"
+                                       style="font-weight:bold;font-size:11pt;"/>
+ 	                 <field name="items_id"/>
+<!-- 	                 <field name="note"/> -->
+<!--	                 <field name="date_to"/>
+	                 <field name="budget_amount"/>
+	                 <field name="real_amount"/> -->
+	                 <field name="budget_01"/>
+	                 <field name="real_01"/>
+	                 <field name="budget_02"/>
+	                 <field name="real_02"/>
+	                 <field name="budget_03"/>
+	                 <field name="real_03"/>
+	                 <field name="budget_04"/>
+	                 <field name="real_04"/>
+	                 <field name="budget_05"/>
+	                 <field name="real_05"/>
+	                 <field name="budget_06"/>
+	                 <field name="real_06"/>
+	                 <field name="budget_07"/>
+	                 <field name="real_07"/>
+	                 <field name="budget_08"/>
+	                 <field name="real_08"/>
+	                 <field name="budget_09"/>
+	                 <field name="real_09"/>
+	                 <field name="budget_10"/>
+	                 <field name="real_10"/>
+	                 <field name="budget_11"/>
+	                 <field name="real_11"/>
+	                 <field name="budget_12"/>
+	                 <field name="real_12"/>	                 
+	                 <field name="budget_total"/>
+	                 <field name="real_total"/>	    
+	                 <field name="balance"/>	    
+	              </group>
+                <group col="2">
+	                 <field name="period_line_line_ids" nolabel="1" />
+              </group>
+
+            </sheet>
+            </form>
+        </field>
+    </record>    
+        
+    <record id="open_mw_budget_period_line_form" model="ir.actions.act_window">
+        <field name="name">mw.account.budget.period.line.form</field>
+        <field name="res_model">mw.account.budget.period.line</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_mw_budget_period_line_tree"/>
+    </record>
+    
+<!--  -->    
+    <record model="ir.ui.view" id="view_mw_budget_period_line_line_form">
+        <field name="name">mw.account.budget.period.line.line.form</field>
+        <field name="model">mw.account.budget.period.line.line</field>
+        <field name="arch" type="xml">
+            <form string="Budgetary conf">
+            <sheet>
+                <group col="4" >
+	                 <field name="name"/>
+	                 <field name="code"/>
+	                 <field name="year" class="text-success"
+                                       style="font-weight:bold;font-size:11pt;"/>
+	                 <field name="balance"/>	    
+<!-- 	                 <field name="date_from"/>
+	                 <field name="date_to"/>
+	                 <field name="budget_amount"/>
+	                 <field name="real_amount"/> -->
+	                 <field name="budget_01" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_01"/>
+	                 <field name="budget_02" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_02"/>
+	                 <field name="budget_03" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_03"/>
+	                 <field name="budget_04" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_04"/>
+	                 <field name="budget_05" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_05"/>
+	                 <field name="budget_06" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_06"/>
+	                 <field name="budget_07" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_07"/>
+	                 <field name="budget_08" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_08"/>
+	                 <field name="budget_09" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_09"/>
+	                 <field name="budget_10" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_10"/>
+	                 <field name="budget_11" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_11"/>
+	                 <field name="budget_12" attrs="{'readonly':[('can_edit_group','=', False)]}"/>
+	                 <field name="real_12"/>	    
+	                 <field name="budget_total"/>
+	                 <field name="real_total"/>	    
+	                 <field name="all_balance"/>	    
+	                 <field name="real_all_total"/>	    
+<!-- 	                 <field name="balance"/>	     -->
+	                 <field name="can_edit_group" invisible="1"/>
+               </group>
+                <group col="2">
+	                 <field name="payment_ids" nolabel="1" />
+              </group>
+                <group col="2" string="Шилжиж ирсэн">
+	                 <field name="to_change_ids" nolabel="1" />
+              </group >
+                <group col="2" string="Шилжиж гарсан">
+	                 <field name="from_change_ids" nolabel="1" />
+              </group>              
+            </sheet>
+            </form>
+        </field>
+    </record>    
+        
+    <record id="view_mw_budget_period_line_line_tree" model="ir.ui.view">
+        <field name="name">mw.account.budget.period.line.line.tree</field>
+        <field name="model">mw.account.budget.period.line.line</field>
+        <field name="arch" type="xml">
+            <tree string="Budgetary Position" ><!-- editable="bottom" -->
+                 <field name="name"/>
+                 <field name="code"/>
+<!--                  <field name="date_from"/>
+                 <field name="date_to"/>
+                 <field name="budget_amount"/>
+                 <field name="real_amount"/> -->
+                 <field name="budget_total"/>
+                 <field name="real_total"/>	    
+                 <field name="balance"/>	    
+                 <field name="budget_01"/>
+                 <field name="real_01"/>
+                 <field name="budget_02"/>
+                 <field name="real_02"/>
+                 <field name="budget_03"/>
+                 <field name="real_03"/>
+                 <field name="budget_04"/>
+                 <field name="real_04"/>
+                 <field name="budget_05"/>
+                 <field name="real_05"/>
+                 <field name="budget_06"/>
+                 <field name="real_06"/>
+                 <field name="budget_07"/>
+                 <field name="real_07"/>
+                 <field name="budget_08"/>
+                 <field name="real_08"/>
+                 <field name="budget_09"/>
+                 <field name="real_09"/>
+                 <field name="budget_10"/>
+                 <field name="real_10"/>
+                 <field name="budget_11"/>
+                 <field name="real_11"/>
+                 <field name="budget_12"/>
+                 <field name="real_12"/>
+             </tree>
+        </field>
+    </record>
+
+    <record id="open_mw_budget_period_line_line_form" model="ir.actions.act_window">
+        <field name="name">Budget period line from</field>
+        <field name="res_model">mw.account.budget.period.line.line</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_mw_budget_period_line_line_tree"/>
+    </record>
+    
+
+        <record id="view_budget_flow_history_tree" model="ir.ui.view">
+            <field name="name">budget.flow.history.tree</field>
+            <field name="model">budget.flow.history</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Workflow History">
+                    <field name="name" string="Дугаар"/>
+                    <field name="user_id" string="Хүсэлт үүсгэсэн"/>
+                    <field name="date" string="Огноо"/>
+                    <field name="action" string="Үйлдэл"/>
+                    <field name="flow_line_id"/>
+                    <field name="notes" string="Тэмдэглэл"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_budget_flow_history_form" model="ir.ui.view">
+            <field name="name">budget.flow.history.form</field>
+            <field name="model">budget.flow.history</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Workflow History">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="action"/>
+                    <field name="notes" nolabel="1" colspan="4"/>
+                </form>
+            </field>
+        </record>    
+        
+        <!-- change -->
+        
+
+    <record id="view_mw_budget_change_tree" model="ir.ui.view">
+        <field name="name">mw.account.budget.change.tree</field>
+        <field name="model">mw.account.budget.change</field>
+        <field name="arch" type="xml">
+            <tree string="Budgetary Position">
+                 <field name="name"/>
+<!--                  <field name="items_id"/> -->
+<!--                  <field name="date_from"/>
+                 <field name="date_to"/>
+                 <field name="budget_amount"/>
+                 <field name="real_amount"/> -->
+                 <field name="budget_total"/>
+                 <field name="real_total"/>	    
+             </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_mw_budget_change_form">
+        <field name="name">mw.account.budget.change.form</field>
+        <field name="model">mw.account.budget.change</field>
+        <field name="arch" type="xml">
+            <form string="Budgetary line">
+			 <header>
+                     <button
+                        name="action_draft"
+                        string="Илгээх"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'send')]}"
+                    />
+                    <button
+                        name="action_confirm"
+                        string="Гүйцэтгэх"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'receive')]}"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'receive')]}"
+                    /> 
+                    <field name="state" widget="statusbar" />
+                </header>              
+            <sheet>
+                <group col="4">
+	                 <field name="name"/>
+  	                 <field name="department_id" required="1"/>
+<!--   	                 <field name="to_budget_id" /> -->
+	                  <field name="budget_year" class="text-success"
+                                       style="font-weight:bold;font-size:11pt;"/>
+                                       
+ 	                 <field name="selection_month"/> 
+<!--	                 <field name="date_to"/>
+	                 <field name="budget_amount"/>
+	                 <field name="real_amount"/> 
+	                 <field name="budget_total"/>
+	                 <field name="real_total"/>	    -->
+	              </group>
+                <group col="2">
+<!-- 	                 <field name="period_line_line_ids" nolabel="1" /> -->
+	                 <field name="line_ids" nolabel="1">
+			                    	<tree string="Line" editable="bottom">
+					                     <field name="name" required="1"/>
+					                     <field name="amount"  sum="Дүн"/>
+					  	                 <field name="to_dep_budget_id"  options="{'no_create': True}" required="1"/>
+  	                 					 <field name="to_budget_id" options="{'no_create': True}"/>
+					                     <field name="budget_id" required="1" options="{'no_create': True}"/>
+					                     <field name="department_id" invisible="1" options="{'no_create': True}"/>
+					                     <field name="budget_year" invisible="1"/>
+					                     <field name="budget_ids" invisible="1"/>
+				                     </tree>
+			                    </field>
+              </group>
+            </sheet>
+            </form>
+        </field>
+    </record>    
+        
+    <record id="open_mw_budget_change_form" model="ir.actions.act_window">
+        <field name="name">Төсөв шилжүүлж өгөх</field>
+        <field name="res_model">mw.account.budget.change</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_mw_budget_change_tree"/>
+    </record>
+            
+    
+    <menuitem action="open_mw_budget_change_form" id="menu_open_mw_budget_change_form"
+              parent="menu_budget_root" sequence="4" groups="mw_account_budget.group_mn_budget_change_all"/>
+            
+
+</odoo>

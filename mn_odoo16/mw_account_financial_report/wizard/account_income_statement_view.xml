@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="account_income_statement_report_view" model="ir.ui.view">
+            <field name="name">income statement</field>
+            <field name="model">account.income.statement.report.new</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group colspan="4" col="2" expand="1">
+                   		<group>
+	                   <field name="company_id" widget='selection' string='Компани'/>
+	                   <field name="report_id" widget='selection' domain="[('report_type', '=', 'is')]" string='Тайлан'/>
+	                   <field name="target_move"/>
+	                   <field name="lang_type" string='Хэл'/>
+	                   <field name="branch_ids" widget='many2many_tags' domain="[('company_id', '=', company_id)]" string='Салбар'/>
+	                   <field name="is_year"/>
+	                   <field name="is_split_branch" string='Салбараар'/>
+	                   <field name="analytic_account_ids" widget='many2many_tags' domain="[('company_id', '=', company_id)]" string='Шинжилгээний данс'/>
+	                   <field name="is_split_analytic" string='Шинжилгээгээр'/>
+	                   <field name="is_detail" string='Дэлгэрэнгүй'/>
+	                   </group>
+						<notebook tabpos="up">
+							<page string="Хайлтууд">
+								<group name='Хайлтууд'>
+		                            <field name="date_range_id" string='Огнооны хязгаар'/>
+									<field name="date_from"  string='Эхлэх огноо'/>
+									<field name="date_to" string='Дуусах огноо'/>
+								</group>
+								<group>
+								</group>
+							</page>
+						</notebook>
+	                    <separator colspan="2"/>
+<!-- 	                    <group colspan="2">
+	                        <button icon="gtk-cancel" special="cancel" string="Cancel" colspan="2"/>
+	                        <button icon="gtk-print" name="check_report" string="Print" type="object" colspan="2" default_focus="1" />
+	                    </group>
+ -->
+  						<footer col="3" class="oe_right">
+	                        <button icon="fa-times" special="cancel" string="Цуцлах" colspan="2"/>
+	                        <button icon="fa-print" name="check_report" string="Татах" type="object" colspan="2" default_focus="1" />
+        			       </footer>
+ 	                </group>
+               	</form>
+            </field>
+        </record>
+
+        <record id="action_account_income_statement_report" model="ir.actions.act_window">
+            <field name="name">Орлогын тайлан</field>
+            <field name="res_model">account.income.statement.report.new</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_income_statement_report_view"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem 
+                name="Орлогын тайлан"
+                action="action_account_income_statement_report"
+                id="menu_action_account_income_statement_report"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="3"/>
+                
+                
+    </data>
+</openerp>

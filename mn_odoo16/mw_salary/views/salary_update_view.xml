@@ -1,0 +1,93 @@
+<odoo>
+    <!-- reward цалин -->
+    <record id="salary_update_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">salary.update</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="salary_update_form" model="ir.ui.view">
+        <field name="name">salary.update.form</field>
+        <field name="model">salary.update</field>
+        <field name="arch" type="xml">
+            <form string='kpi'>
+                <header>
+                    <button string="Батлах" name="action_confirm_hr_director" confirm="Доорх ажилчдын цалинг өөрчлөхдөө итгэлтэй байна уу?" type="object" attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
+
+                    <!-- <button string="Буцаах" name="action_cancel" type="object" attrs="{'invisible': [('state', '!=', 'confirm_hr_director')]}" class="oe_highlight"/> -->
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm_hr_director"
+                        statusbar_colors='{"draft":"gray","confirm_hr_director":"blue"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="work_location_id"/>
+                        </group>
+                    </group>
+                    <button string="Тушаал татах" name="create_update_line" type="object"  class="btn-success"/>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="order_id"/>
+                                    <field name="employee_id"/>
+                                    <field name="department_id" optional='hide'/>
+                                    <field name="job_id" optional='hide'/>
+                                    <field name="date" optional='hide'/>
+                                    <field name="old_wage" sum='Sum'/>
+                                    <field name="new_wage" sum='Sum'/>
+                                </tree>
+                                <form>
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id" />
+                                    <field name="old_wage"/>
+                                    <field name="new_wage"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="salary_update_tree" model="ir.ui.view">
+        <field name="name">salary.update.tree</field>
+        <field name="model">salary.update</field>
+        <field name="arch" type="xml">
+            <tree string="kpi">
+                <field name="work_location_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="salary_update_actions" model="ir.actions.act_window">
+        <field name="name">Цалин өөрчлөлт</field>
+        <field name="res_model">salary.update</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="salary_update_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="salary_update_menu_id" parent="menu_other_parent_salary" action="salary_update_actions" sequence="8"/>
+
+</odoo>

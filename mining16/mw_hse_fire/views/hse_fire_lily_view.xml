@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<record model="ir.ui.view" id="hse_fire_lily_view">
+		<field name="name">hse.fire.lily.form</field>
+		<field name="model">hse.fire.lily</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" options="{'no_create': True}"/>
+							<field name="branch_id" options="{'no_create': True}"/>
+							<field name="company_id" options="{'no_create': True}"/>
+							<field name="user_company_id"/>
+							<field name="employee_id" options="{'no_create': True}"/>
+						</group>
+						<group>
+							<field name="location_id" options="{'no_create': True}"/>
+							<field name="quantity" options="{'no_create': True}"/>
+							<field name="date" options="{'no_create': True}"/>
+						</group>
+					</group>
+					<group>
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+					<field name="line_ids" nolabel="1">
+						<tree editable="bottom">
+							<field name="name"/>
+							<field name="quantity"/>
+						</tree>
+						<form>
+							<group>
+								<field name="lily_id"/>
+								<field name="name"/>
+								<field name="quantity"/>
+							</group>
+						</form>
+					</field>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_fire_lily_tree" model="ir.ui.view">
+		<field name="name">hse.fire.lily.tree</field>
+		<field name="model">hse.fire.lily</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="quantity"/>
+				<field name="date"/>
+				<field name="location_id"/>
+				<field name="company_id"/>
+				<field name="branch_id"/>
+				<field name="employee_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_fire_lily_filter" model="ir.ui.view">
+		<field name="name">hse.fire.lily.filter</field>
+		<field name="model">hse.fire.lily</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="quantity"/>
+				<field name="date"/>
+				<field name="location_id"/>
+				<field name="company_id"/>
+				<field name="branch_id"/>
+				<field name="employee_id"/>
+            </search>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_hse_fire_lily">
+		<field name="name">Сарааны иж бүрэн байдал</field>
+		<field name="res_model">hse.fire.lily</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="fire_lily_number_view">
+		<field name="name">fire.lily.number.form</field>
+		<field name="model">fire.lily.number</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="quantity"/>
+					<field name="company_id"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_fire_lily_number_tree" model="ir.ui.view">
+		<field name="name">fire.lily.number.tree</field>
+		<field name="model">fire.lily.number</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="quantity"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_fire_lily_number_filter" model="ir.ui.view">
+		<field name="name">fire.lily.number.filter</field>
+		<field name="model">fire.lily.number</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="quantity"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_fire_lily_number">
+		<field name="name">Сарааны бүртгэл</field>
+		<field name="res_model">fire.lily.number</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

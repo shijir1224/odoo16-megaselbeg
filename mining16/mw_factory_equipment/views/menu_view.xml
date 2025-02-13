@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem name="Тоног төхөөрөмж" web_icon="mw_factory_equipment,static/icon.png"
+		groups="mw_technic_equipment.group_technic_module_user"
+		id="root_factory_equipment_menu" sequence="30" />
+	<menuitem name="Тоног төхөөрөмжийн менежмент" parent="root_factory_equipment_menu"
+		id="factory_equipment_menu" sequence="5" />
+
+	<menuitem name="Тоног төхөөрөмж" parent="factory_equipment_menu"
+		id="factory_equipments_menu" sequence="1" action="action_factory_equipment" />
+	<menuitem name="Компонент эд анги" parent="factory_equipment_menu" sequence="5"
+				id="equipment_component_parts_menu" action="action_equipment_component_part" />
+	<menuitem name="Тоног төхөөрөмж үзлэг" parent="factory_equipment_menu" 
+		groups="mw_technic_equipment.group_technic_module_employee,mw_technic_equipment.group_technic_inspection_user"
+		id="equipment_inspection_menu" sequence="7" action="mw_factory_equipment.action_equipment_inspection" />
+
+	<menuitem name="Төлөвлөгөө" parent="root_factory_equipment_menu"
+		id="maintenance_plan_root_menu" sequence="6" />
+	<menuitem name="Урьдчилсан төлөвлөлт" parent="maintenance_plan_root_menu"
+		id="equipment_plan_generator_menu" sequence="2"
+		action="mw_factory_equipment.action_equipment_plan_generator" />
+	<menuitem name="Тоног төхөөрөмжийн төлөвлөгөө" parent="maintenance_plan_root_menu"
+		id="equipment_plan_menu" sequence="5"
+		action="mw_factory_equipment.action_equipment_maintenance_plan_line" />
+
+	<menuitem name="Засвар менежмент" parent="root_factory_equipment_menu"
+		id="factory_maintenance_menu" sequence="9" />
+	<menuitem name="Workorder" parent="factory_maintenance_menu"
+		id="factory_wo_menu" sequence="7" action="action_maintenance_workorder_factory" />
+	<menuitem name="Ажил хүсэлтийн дуудлага" parent="factory_maintenance_menu"
+		id="factory_call_menu" sequence="8" action="action_factory_maintenance_call" />
+	<menuitem name="Хэвийн бус үзлэгүүд" parent="factory_maintenance_menu"
+		id="inspection_work_menu" sequence="9" action="mw_technic_maintenance.action_technic_inspection_work" />
+	<menuitem name="Сэлбэг хүлээлтийн бүртгэл" parent="factory_maintenance_menu"
+		id="factory_parts_waiting_menu" sequence="10" action="action_parts_waiting" />
+	<menuitem name="Сэлбэг шилжилтийн бүртгэл" parent="factory_maintenance_menu"
+		id="factory_parts_move_menu" sequence="11" action="action_parts_move" />
+	<menuitem name="Засварчны бусад ажил" parent="factory_maintenance_menu"
+		id="other_job_menu" sequence="12"
+		action="action_maintenance_employee_timesheet_line_factory" />
+	<menuitem name="Засварчны бусад ажил бүртгэл" parent="factory_maintenance_menu"
+		id="maintenance_other_job_menu" sequence="13"
+		action="action_maintenance_employee_other_timesheet_factory" />
+
+	<menuitem name="Тайлан" parent="root_factory_equipment_menu"
+		id="equipment_report_menu" sequence="10" />
+	<menuitem name="Засварын ажлын тайлан" parent="equipment_report_menu"
+		id="equipment_workorder_material_menu" sequence="2" action="mw_factory_equipment.action_wizard_equipment_workorder" />
+	<menuitem name="Засварын материалын тайлан" parent="equipment_report_menu"
+		id="equipment_expense_plan_menu" sequence="3" action="mw_factory_equipment.action_wizard_equipment_expense" />
+	<menuitem name="Тоног төхөөрөмж засварын ажлын төрлөөр" parent="equipment_report_menu"
+		id="worktime_reason_report_menu" sequence="4" action="mw_factory_equipment.action_equipment_worktime_reason_report" />
+	<menuitem name="Засварчны тайлан" parent="equipment_report_menu"
+		id="repairman_report_menu" sequence="5" action="mw_technic_maintenance.action_repairman_report" />
+
+	<menuitem name="Тохиргоо" parent="root_factory_equipment_menu"
+		id="equipment_configuration_menu" sequence="11" />
+	<menuitem name="Үйлдвэрлэгч" parent="equipment_configuration_menu"
+		id="equipment_brand_menu" sequence="9"
+		action="mw_technic_equipment.action_technic_model_brand" />
+	<menuitem name="Модель загвар" parent="equipment_configuration_menu"
+		id="equipment_model_menu" sequence="10"
+		action="mw_technic_equipment.action_technic_model_model" />
+
+	<menuitem name="Тоног төхөөрөмжийн тохиргоо" parent="equipment_configuration_menu"
+		id="factory_equipments_configuration" action="action_factory_equipment_setting" />
+
+	<menuitem name="Байгууламжын жагсаалт" parent="equipment_configuration_menu"
+		id="factory_facility_menu" sequence="15" action="action_factory_facility" />
+
+	<menuitem name="Үзлэгийн жагсаалт" parent="equipment_configuration_menu"
+		id="technic_inspection_item_menu" sequence="16"
+		action="mw_technic_equipment.action_technic_inspection_item" />
+
+	<menuitem name="Үзлэгийн багц" parent="equipment_configuration_menu"
+		id="technic_inspection_package_menu" sequence="18"
+		action="mw_technic_equipment.action_technic_inspection_package" />
+
+	<menuitem name="Үзлэгийн тохиргоо" parent="equipment_configuration_menu"
+		id="technic_inspection_setting_menu" sequence="20"
+		action="mw_technic_equipment.action_technic_inspection_setting" />
+</odoo>

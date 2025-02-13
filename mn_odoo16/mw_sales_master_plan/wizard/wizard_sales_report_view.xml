@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="wizard_sales_report_view" model="ir.ui.view">
+            <field name="name">wizard.sales.report wizard</field>
+            <field name="model">wizard.sales.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <span class="o_form_label" string="Эхлэх, дуусах хоёр өдөр тайлант хугацаанд орно!" colspan="4"/>
+                        <newline/>
+                        <field name="date_start" />
+                        <field name="date_end" />
+                        <field name="is_validity_date" />
+                    </group>
+                    <group>
+                        <field name="warehouse_id" options="{'no_create': True}" widget="many2many_tags" colspan="4"/>
+                        <field name="branch_ids" widget="many2many_tags" colspan="4" 
+                            options="{'no_create': True}"/>
+                        <field name="user_ids" widget="many2many_tags" colspan="4" 
+                            options="{'no_create': True}"/>
+                        <field name="partner_ids" widget="many2many_tags" colspan="4" options="{'no_create': True}"/>
+                        <field name="partner_category_ids" colspan="4" widget="many2many_tags" 
+                            options="{'no_create': True}"/>
+                        <field name="product_ids" widget="many2many_tags" colspan="4" options="{'no_create': True}"/>
+                        <field name="categ_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+                   </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" colspan="2"/>
+                        <button name="open_analyze_view" string="Харах" type="object" colspan="2"
+                            class="oe_highlight" icon="fa-file-excel-o"/>
+                        <!-- <button name="see_amount_pivot" string="Нэхэмжлэх тулгах" type="object" colspan="2"/> -->
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_sales_report" model="ir.actions.act_window">
+            <field name="name">Борлуулалтын тайлан</field>
+            <field name="res_model">wizard.sales.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_sales_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

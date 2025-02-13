@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="mw_dash_data_oil_fuel_orlogo_uld_view_pivot" model="ir.ui.view">
+            <field name="name">mw.dash.data.oil.fuel.orlogo.uld.pivot</field>
+            <field name="model">mw.dash.data.oil.fuel.orlogo.uld</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="product_id" type="row"/>
+                    <field name="product_qty_in" type="measure"/>
+                    <field name="product_qty_out" type="measure"/>
+                    <field name="uldegdel" type="measure"/>
+                    
+                </pivot>
+            </field>
+        </record>
+        
+        <record id="mw_dash_data_oil_fuel_orlogo_uld_view_action" model="ir.actions.act_window">
+            <field name="name">Түлшний үлдэгдэл</field>
+            <field name="res_model">mw.dash.data.oil.fuel.orlogo.uld</field>
+            <field name="view_mode">pivot</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem id="menu_mw_dash_data_fuelЕorlogo_uld" sequence="20" parent="mw_dash_data.menu_mw_dash_data_root" action="mw_dash_data_oil_fuel_orlogo_uld_view_action"/>
+
+
+
+    <record id="mw_dash_data_fuel_view_pivot" model="ir.ui.view">
+            <field name="name">mw.dash.data.fuelpivot</field>
+            <field name="model">mw.dash.data.fuel</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="technic_id" type="row"/>
+                    <field name="avg_epx_niit" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <record id="mw_dash_data_fuel_view_action" model="ir.actions.act_window">
+            <field name="name">Түлшний</field>
+            <field name="res_model">mw.dash.data.fuel</field>
+            <field name="view_mode">pivot</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem id="menu_mw_dash_data_fuel" sequence="30" parent="mw_dash_data.menu_mw_dash_data_root" action="mw_dash_data_fuel_view_action"/>
+
+</odoo>

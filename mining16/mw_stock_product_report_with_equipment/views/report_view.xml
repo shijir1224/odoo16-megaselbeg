@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="stock_report_detail_tree_view" model="ir.ui.view">
+        <field name="name">stock.report.detail.tree.view</field>
+        <field name="model">stock.report.detail</field>
+        <field name="inherit_id" ref="mw_stock_product_report.stock_report_detail_tree_view"/>
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field name="technic_id"/>
+                <field name="technic_type" optional="hide"/>
+                <field name="technic_setting_id" optional="hide"/>
+                <field name="owner_type" optional="hide"/>
+                <field name="vin_number" optional="hide"/>
+                <field name="t_partner_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_both_income_expense_report_search_fil" model="ir.ui.view">
+        <field name="name">product.both.income.expense.report.search.fil</field>
+        <field name="model">product.both.income.expense.report</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_both_income_expense_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="technic_id" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="technic_type" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="technic_setting_id" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="owner_type" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="vin_number" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="t_partner_id" groups="mw_technic_equipment.group_technic_module_user"/>
+				<filter name="gr_technic_id" string="Техникээр" context="{'group_by':'technic_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+                <filter name="gr_technic_setting_id" string="Техникээр тохиргоо" context="{'group_by':'technic_setting_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_income_expense_report_tree_view" model="ir.ui.view">
+        <field name="name">product.income.expense.report.view</field>
+        <field name="model">product.income.expense.report</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_income_expense_report_tree_view"/>
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field name="technic_id"/>
+                <field name="technic_type" optional="hide"/>
+                <field name="technic_setting_id" optional="hide"/>
+                <field name="owner_type" optional="hide"/>
+                <field name="vin_number" optional="hide"/>
+                <field name="t_partner_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_income_expense_report_search" model="ir.ui.view">
+        <field name="name">product.income.expense.report.search</field>
+        <field name="model">product.income.expense.report</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_income_expense_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="technic_id" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="technic_type" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="technic_setting_id" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="owner_type" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="vin_number" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="t_partner_id" groups="mw_technic_equipment.group_technic_module_user"/>
+				<filter name="gr_technic_id" string="Техникээр" context="{'group_by':'technic_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+                <filter name="gr_technic_setting_id" string="Техникээр тохиргоо" context="{'group_by':'technic_setting_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_income_expense_report_tree_view" model="ir.ui.view">
+        <field name="name">product.income.expense.report.tree.view</field>
+        <field name="model">product.income.expense.report</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_income_expense_report_tree_view"/>
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field name="technic_id"/>
+                <field name="technic_type" optional="hide"/>
+                <field name="technic_setting_id" optional="hide"/>
+                <field name="owner_type" optional="hide"/>
+                <field name="vin_number" optional="hide"/>
+                <field name="t_partner_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_report_detail_search_filter" model="ir.ui.view">
+        <field name="name">stock.report.detail.search.filter</field>
+        <field name="inherit_id" ref="mw_stock_product_report.stock_report_detail_search"/>
+        <field name="model">stock.report.detail</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="technic_id" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="technic_type" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="technic_setting_id" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="owner_type" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="vin_number" groups="mw_technic_equipment.group_technic_module_user"/>
+                <field name="t_partner_id" groups="mw_technic_equipment.group_technic_module_user"/>
+				<filter name="gr_technic_id" string="Техникээр" context="{'group_by':'technic_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+                <filter name="gr_technic_setting_id" string="Техникээр тохиргоо" context="{'group_by':'technic_setting_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="view_move_search_mw_fil" model="ir.ui.view">
+        <field name="name">stock.move.search.mw.fil</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="equipment_id" groups="mw_technic_equipment.group_technic_module_user"/>
+				<filter name="gr_equipment_id" string="Тоног төхөөрөмжөөр" context="{'group_by':'equipment_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search_inherit_mw_stock_fil" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search.inherit.mn.stock.fil</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="equipment_id" groups="mw_technic_equipment.group_technic_module_user"/>
+				<filter name="gr_equipment_id" string="Тоног төхөөрөмжөөр" context="{'group_by':'equipment_id'}" groups="mw_technic_equipment.group_technic_module_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    
+
+    <record id="view_factory_equipment_inherit_form" model="ir.ui.view">
+        <field name="name">factory.equipment.inherit.form</field>
+        <field name="model">factory.equipment</field>
+        <field name="inherit_id" ref="mw_factory_equipment.factory_equipment_form"/>
+        <field name="arch" type="xml">
+            <button name="see_inspections" position="before">
+                <button type="object" class="oe_stat_button" icon="fa-money" name="see_stock_move" groups="mw_stock_account.group_stock_view_cost">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="all_cost"/>
+                        </span>
+                        <span class="o_stat_text">COST STOCK</span>
+                    </div>
+                </button>
+                <button type="object" class="oe_stat_button" icon="fa-money" name="see_account_move" groups="mw_stock_account.group_stock_view_cost">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="all_cost_am"/>
+                        </span>
+                        <span class="o_stat_text">COST ACCOUNT</span>
+                    </div>
+                </button>
+                <button
+                    name="see_parts"
+                    type="object" class="oe_stat_button oe_right"
+                    icon="fa-list-ol" string="Parts">
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="view_equipment_stock_move_tree" model="ir.ui.view">
+        <field name="name">stock.move.tree</field>
+        <field name="model">stock.move</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Moves" delete="false" edit="false" create="false">
+                <field name="company_id" invisible="1"/>
+                <field name="picking_id" string="Reference"/>
+                <field name="product_id"/>
+                <field name="product_uom_qty"/>
+                <field name="price_unit" groups="mw_stock_account.group_stock_view_cost"/>
+                <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                <field name="date"/>
+                <field name="state" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="equipment_stock_move_action" model="ir.actions.act_window">
+        <field name="name">Equipment Parts</field>
+        <field name="res_model">stock.move</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_id" ref="view_equipment_stock_move_tree"/>
+        <field name="search_view_id" ref="stock.view_move_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            No parts found
+            </p>
+        </field>
+    </record>
+
+</odoo>

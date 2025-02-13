@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem name="Contract and Promotion" parent="sale.sale_menu_root" 
+		id="contract_promotion_root_menu" sequence="15" />	
+		<menuitem name="Sales contract" parent="contract_promotion_root_menu" 
+			id="sales_contract_menu" sequence="9" action="action_sales_contract"
+			groups="mw_sales_contract_promotion.group_sale_contract_manager"/>	
+		
+		<menuitem name="Sales promotion" parent="contract_promotion_root_menu" 
+			groups="mw_sales_contract_promotion.group_promotion_manager"
+			id="sales_promotion_menu" sequence="10" action="action_sales_promotion"/>
+		<menuitem name="POS promotion" parent="contract_promotion_root_menu" 
+			groups="mw_sales_contract_promotion.group_promotion_manager"
+			id="sales_pos_promotion_menu" sequence="11" action="action_sales_pos_promotion"/>	
+		<menuitem name="Planned sales contract" parent="contract_promotion_root_menu" 
+			groups="mw_sales_contract_promotion.group_sale_contract_accountant"
+			id="planned_sales_compute_menu" sequence="15" action="action_planned_sales_compute"/>
+		<menuitem name="Gift, Эрхийн бичиг" parent="contract_promotion_root_menu" 
+			id="sales_gift_cart_menu" sequence="16" action="action_sales_gift_cart"/>
+
+		<menuitem name="Sales payment" parent="contract_promotion_root_menu" 
+			id="sales_payment_info_menu" sequence="20" action="sales_payment_info"/>
+
+		<menuitem name="Pricelist lines" parent="sale.product_menu_catalog" 
+			groups="sales_team.group_sale_manager" 
+			id="pricelist_lines_menu" sequence="20" action="action_pricelist_lines"/>
+
+</odoo>

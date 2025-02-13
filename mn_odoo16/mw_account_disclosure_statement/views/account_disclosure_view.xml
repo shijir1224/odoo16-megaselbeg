@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_disclosure_form" model="ir.ui.view">
+		<field name="name">account.disclosure.main.form</field>
+		<field name="model">account.disclosure.main</field>
+		<field name="arch" type="xml">
+			<form string="Account Period">
+				<header>
+					<button name="action_export" string="Хэвлэх" type="object"
+						groups="account.group_account_manager" />
+					<button name="compute" string="Тооцоолох" type="object"
+						groups="account.group_account_manager" />
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" />
+							<field name="type_n" />
+						</group>
+						<group>
+							<field name="company_id" />
+							<field name="fiscalyear_id" />
+						</group>
+					</group>
+					<notebook>
+						<page string="1-2">
+							<label for="intro1" />
+							<field name="intro1" />
+							<label for="intro2" />
+							<field name="intro2" />
+							<label for="page1_1_ids" />
+							<field name="page1_1_ids">
+								<tree editable="top">
+									<field name="name" />
+								</tree>
+							</field>
+							<label for="page1_2_ids" />
+							<field name="page1_2_ids">
+								<tree editable="top">
+									<field name="name" />
+								</tree>
+							</field>
+							<label for="page1_3_ids" />
+							<field name="page1_3_ids">
+								<tree editable="top">
+									<field name="name" />
+								</tree>
+							</field>
+						</page>
+						<page string="3-4">
+							<label for="page3_ids" />
+							<field name="page3_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="income" />
+									<field name="expense" />
+								</tree>
+							</field>
+							<label for="page4_1_ids" />
+							<field name="page4_1_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="income" />
+									<field name="expense" />
+								</tree>
+							</field>
+							<label for="page4_2_ids" />
+							<field name="page4_2_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="income" />
+									<field name="expense" />
+								</tree>
+							</field>
+							<label for="page4_3_ids" />
+							<field name="page4_3_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="income" />
+									<field name="expense" />
+								</tree>
+							</field>
+							<label for="page4_describe" />
+							<field name="page4_describe" />
+						</page>
+						<page string="5-8">
+							<label for="page5_ids" />
+							<field name="page5_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="income" />
+									<field name="expense" />
+								</tree>
+							</field>
+							<label for="page6_ids" />
+							<field name="page6_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="raw_materials" />
+									<field name="mrp" />
+									<field name="production" />
+									<field name="product" />
+									<field name="supply_materials" />
+									<field name="amount" />
+								</tree>
+							</field>
+							<label for="page7_describe" />
+							<field name="page7_describe" />
+							<label for="page8_ids" />
+							<field name="page8_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="first_amount" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+						</page>
+
+						<page string="9">
+							<label for="page9_1_ids" />
+							<field name="page9_1_ids">
+								<tree editable="top">
+									<field name="name"/>
+									<field name="gazriin_saijruulalt" />
+									<field name="barilga" />
+									<field name="mashin_totu" />
+									<field name="teevriin" />
+									<field name="tavilga" />
+									<field name="computer" />
+									<field name="busad" />
+								</tree>
+							</field>
+							<field name="page9_2_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="gazriin_saijruulalt" />
+									<field name="barilga" />
+									<field name="mashin_totu" />
+									<field name="teevriin" />
+									<field name="tavilga" />
+									<field name="computer" />
+									<field name="busad" />
+								</tree>
+							</field>
+							<label for="page9_describe" />
+							<field name="page9_describe" />
+						</page>
+						<page string="10">
+							<label for="page10_ids" />
+							<field name="page10_ids">
+								<tree editable="top" create="false">
+									<field name="name" readonly="1" force_save="1" />
+									<field name="zohiogchiin_erh" />
+									<field name="computer" />
+									<field name="patent" />
+									<field name="baraanii_temdeg" />
+									<field name="tusgai_zovshoorol" />
+									<field name="gazar" />
+									<field name="biet_bus_horongo" />
+									<field name="total" />
+								</tree>
+							</field>
+							<label for="page10_describe" />
+							<field name="page10_describe" />
+						</page>
+						<page string="11-14">
+							<label for="page11_ids" />
+							<field name="page11_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="ehelsen_ognoo" />
+									<field name="duusgalin_huvi" />
+									<field name="niit_tosovt_ortog" />
+									<field name="etssiin_hugatsaa" />
+								</tree>
+							</field>
+							<label for="page12_ids" />
+							<field name="page12_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="age" />
+									<field name="gender" />
+									<field name="first_qty" />
+									<field name="first_amount" />
+									<field name="last_qty" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+							<label for="page12_describe" />
+							<field name="page12_describe" />
+							<label for="page13_ids" />
+							<field name="page13_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_percent" />
+									<field name="first_amount" />
+									<field name="last_percent" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+							<label for="page13_describe" />
+							<field name="page13_describe" />
+							<label for="page14_describe" />
+							<field name="page14_describe" />
+						</page>
+						<page string="15-16">
+							<label for="page15_ids" />
+							<field name="page15_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_amount" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+							<label for="page16_1_ids" />
+							<field name="page16_1_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_amount" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+							<label for="page16_2_ids" />
+							<field name="page16_2_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_amount" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+							<label for="page16_3_ids" />
+							<field name="page16_3_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_amount" />
+									<field name="first_amount_curr" />
+									<field name="last_amount" />
+									<field name="last_amount_curr" />
+								</tree>
+							</field>
+							<label for="page16_4_ids" />
+							<field name="page16_4_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_amount" />
+									<field name="add" />
+									<field name="sub" />
+									<field name="useless" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+						</page>
+						<page string="16-17">
+							<label for="page16_5_ids" />
+							<field name="page16_5_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_amount" />
+									<field name="last_amount" />
+								</tree>
+							</field>
+							<label for="page16_6_ids" />
+							<field name="page16_6_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="first_amount" />
+									<field name="first_amount_curr" />
+									<field name="last_amount" />
+									<field name="last_amount_curr" />
+								</tree>
+							</field>
+							<label for="page17_1_ids" />
+							<field name="page17_1_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="qty_1" />
+									<field name="amount_1" />
+									<field name="qty_2" />
+									<field name="amount_2" />
+								</tree>
+							</field>
+							<label for="page17_2_ids" />
+							<field name="page17_2_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="undsen_hurungiin_dun" />
+									<field name="biet_bus_hurungiin_dun" />
+								</tree>
+							</field>
+						</page>
+                        <page string="17-19">
+                            <label for="page17_3_ids" />
+							<field name="page17_3_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="initial_balance" />
+                                    <field name="nemegdsen" />
+                                    <field name="hasagdsan" />
+								</tree>
+							</field>
+                            <label for="ezdiin_omchiin_busad_heseg" />
+							<field name="ezdiin_omchiin_busad_heseg"/>
+                            <label for="page18_1_ids" />
+							<field name="page18_1_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                            <field name="page18_2_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                            <field name="page18_3_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                            <field name="page18_4_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                            <label for="page19_1_ids" />
+							<field name="page19_1_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                            <label for="page19_2_ids" />
+							<field name="page19_2_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                        </page>
+                        <page string="19-20">
+                            <label for="page19_3_ids" />
+							<field name="page19_3_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                            <label for="page20_1_ids" />
+							<field name="page20_1_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="last_year_sale_amount" />
+                                    <field name="last_year_management_amount" />
+                                    <field name="this_year_sale_amount" />
+                                    <field name="this_year_management_amount" />
+								</tree>
+							</field>
+                            <label for="page20_2_ids" />
+							<field name="page20_2_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                        </page>
+                        <page string="20-22">
+                            <label for="page20_3_ids" />
+							<field name="page20_3_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="avarage_employees" />
+									<field name="last_year_amount" />
+                                    <field name="this_year_amount" />
+								</tree>
+							</field>
+                            <label for="page21_ids" />
+							<field name="page21_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="last_year_amount" />
+									<field name="this_year_amount" />
+								</tree>
+							</field>
+                            <label for="page22_1_ids" />
+							<field name="page22_1_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="head_company" />
+									<field name="hamgiin_deed_hyanalt_tavigch_tolgoi_company" />
+									<field name="hamgiin_deed_hyanalt_tavigch_huvi_hun" />
+									<field name="description" />
+								</tree>
+							</field>
+                            <label for="page22_2_ids" />
+							<field name="page22_2_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="initial_balance" />
+									<field name="end_balance" />
+								</tree>
+							</field>
+                            <label for="page22_3_ids" />
+							<field name="page22_3_ids">
+								<tree editable="top">
+									<field name="name" />
+									<field name="transaction_description" />
+									<field name="amount" />
+                                    <field name="description" />
+								</tree>
+							</field>
+						</page>
+                        <page string="23-24">
+                            <label for="bolzoshgui_horongo_ba_or_tolbor" />
+							<field name="bolzoshgui_horongo_ba_or_tolbor" />
+                            <label for="tailagnaliin_uyiin_daraah_uil_yavts" />
+							<field name="tailagnaliin_uyiin_daraah_uil_yavts" />
+						</page>
+						<page string="25">
+							<label for="page25_ids" />
+							<field name="page25_ids">
+								<tree editable="top" create="false">
+									<field name="name" />
+									<field name="initial_balance" />
+									<field name="aj_ahui_negjiin_ooriin_horongoor" />
+									<field name="ulsiin_tosviin_horongoor" />
+									<field name="oron_nutgiin_tosviin_horongoor" />
+									<field name="banknii_zeel" />
+									<field name="gadaadiin_shuud_horongo_oruulalt" />
+									<field name="gadaadiin_zeel" />
+									<field name="gadaadiin_butsaltgui_tuslamj" />
+									<field name="tosol_hotolbor_handiv" />
+									<field name="busad_eh_uusver" />
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_disclosure_tree" model="ir.ui.view">
+		<field name="name">account.disclosure.main.tree</field>
+		<field name="model">account.disclosure.main</field>
+		<field name="arch" type="xml">
+			<tree string="Period">
+				<field name="name" />
+				<field name="company_id" />
+				<field name="type_n" />
+				<field name="fiscalyear_id" />
+			</tree>
+		</field>
+	</record>
+	<record id="action_disclosure" model="ir.actions.act_window">
+		<field name="name">Санхүүгийн тайлангийн тодруулга тайлан
+		</field>
+		<field name="res_model">account.disclosure.main</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_disclosure_report_action"
+		action="action_disclosure"
+		parent="mw_account.menu_finance_legal_statement_xls"
+		sequence="71" groups="account.group_account_manager"/>
+</odoo>

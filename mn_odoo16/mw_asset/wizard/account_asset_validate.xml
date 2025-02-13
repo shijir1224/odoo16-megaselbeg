@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- Validate selected Asset -->
+	<record id="view_validate_account_asset_asset_form1" model="ir.ui.view">
+        <field name="name">view.account.asset.validate.form.1</field>
+        <field name="model">account.asset.validate.all</field>
+        <field name="arch" type="xml">
+            <form string="Validate selected asset">
+                <group col="4">
+                    <field name="account_id" />
+                    <!-- attrs="{'required': [('not_aml', '!=', True)]}" -->
+                    
+                    <field name="purchase_date" required="1"/>
+                    <field name="not_aml" />
+                </group>
+                <footer>
+					<button name="validate_all" string="Validate All" type="object"
+						class="btn-primary" />
+					<button name="validate_all_onlys" string="validate_all_onlys" type="object"
+						class="btn-primary" groups='base.group_no_one'/>
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+           </form>
+        </field>
+    </record>
+    <record id="action_view_validate_account_asset_asset1" model="ir.actions.act_window">
+        <field name="name">Validate selected asset</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.validate.all</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_validate_account_asset_asset_form1"/>
+        <field name="target">new</field>
+    </record>
+    
+    <act_window id="action_validate_selected_asset"
+		 name="Validate selected asset"
+         res_model="account.asset.validate.all" 
+         view_mode="form" 
+         binding_model="account.asset"
+         view_id="view_validate_account_asset_asset_form1"
+         target="new" />                
+    
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_asset_tax_depreciation_line_user,mw_asset.account_asset_tax_depreciation_line_user,model_account_asset_tax_depreciation_line,mw_asset.group_mn_asset_accountant,1,1,1,1
+access_asset.depreciation.confirmation.tax,asset.depreciation.confirmation.tax,model_asset_depreciation_confirmation_tax,mw_asset.group_mn_asset_accountant,1,1,1,1

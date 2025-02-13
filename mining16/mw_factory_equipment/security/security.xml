@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+        <!-- <record id="mw_technic_component_user_rule" model="ir.rule">
+            <field name="name">mw technic component user</field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_component_part"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="mw_technic_component_config_user_rule" model="ir.rule">
+            <field name="name">mw technic component config user</field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_component_config"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="mw_technic_user_rule" model="ir.rule">
+            <field name="name">mw technic equipment</field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_equipment"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="mw_technic_brand_user_rule" model="ir.rule">
+            <field name="name">mw technic model</field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_model_model"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="mw_technic_model_user_rule" model="ir.rule">
+            <field name="name">mw technic brand</field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_model_brand"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field> 
+        </record>
+        <record id="mw_technic_insp_user_rule" model="ir.rule">
+            <field name="name">mw technic inspection</field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_inspection_item"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="mw_technic_ins_set_user_rule" model="ir.rule">
+            <field name="name">mw technic inspection settings</field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_inspection_setting"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="mw_technic_tech_set_user_rule" model="ir.rule">
+            <field name="name">mw technic equipment setting </field>
+            <field name="model_id" ref="mw_technic_equipment.model_technic_equipment_setting"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record> -->
+        <record id="mw_factory_equipment_rule" model="ir.rule">
+            <field name="name">equipment company rule</field>
+            <field name="model_id" ref="mw_factory_equipment.model_factory_equipment"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="mw_factory_equipment_rule_branch" model="ir.rule">
+            <field name="name">equipment branch rule</field>
+            <field name="model_id" ref="mw_factory_equipment.model_factory_equipment"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('branch_id','in', user.branch_ids.ids),('branch_id','=', False)]</field>
+        </record>
+        <!-- Группын ангилал -->
+        <!-- <record model="ir.module.category" id="technic_maintenance_module_category">
+                <field name="name">Техник and Засварын модуль</field>
+                <field name="sequence">19</field>
+        </record> -->
+
+        <!-- Групп нэр -->
+        <!-- <record id="group_technic_module_user" model="res.groups">
+            <field name="name">Техникийн модуль хэрэглэгч</field>
+            <field name="comment">Техник засварын бичлэгүүдийг харах эрхтэй хэрэглэгчид</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_technic_inspection_user" model="res.groups">
+            <field name="name">Техникийн үзлэгийн хэрэглэгч</field>
+            <field name="comment">Үзлэгийн бүртгэл хийх хэрэглэгч</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record>
+
+        <record id="group_technic_module_odometer_user" model="res.groups">
+            <field name="name">Гүйлт оруулах хэрэглэгч</field>
+            <field name="comment">Техник мото/цаг, км нэмэгдүүлэх эрх</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record>
+
+        <record id="group_technic_module_tire_amount_user" model="res.groups">
+            <field name="name">Дугуйчин, өртөг харах хэрэглэгч</field>
+            <field name="comment">Дугуйн өртөг, үнэ, үлдэгдэл харах эрх</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record>
+
+        <record id="group_technic_module_tire_import_user" model="res.groups">
+            <field name="name">Дугуй импортлох нэмэлт эрх</field>
+            <field name="comment">Дугуйн өртөг, үнэ, үлдэгдэл харах эрх</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_tire_amount_user'))]"/>
+        </record>
+
+        <record id="group_technic_module_employee" model="res.groups">
+            <field name="name">Техникийн ажилтан</field>
+            <field name="comment">Техникийн ажилтан</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record>
+
+        <record id="group_technic_insurance_user" model="res.groups">
+            <field name="name">Даатгалын ажилтан</field>
+            <field name="comment">Даатгалын ажилтан</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+        </record>
+
+        <record id="group_all_technic_user" model="res.groups">
+            <field name="name">Бүх техник харах</field>
+            <field name="comment">Бүх техникийн мэдээллийг харах</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record>
+
+        <record id="group_komponent_edit_user" model="res.groups">
+            <field name="name">Компонент онцгой хэрэглэгч</field>
+            <field name="comment">Компонент засах эрхтэй хэрэглэгчид</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record>
+
+        <record id="group_technic_module_admin" model="res.groups">
+            <field name="name">Модулийн админ</field>
+            <field name="comment">Техник засварын бичлэгүүдийг засах эрхтэй хэрэглэгчид</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record> -->
+
+</odoo>

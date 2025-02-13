@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Risk Assessment/workplace/ action -->
+	<record id="sequence_hse_risk_assessment_workplace_action" model="ir.sequence">
+		<field name="name">HSE Эрсдэлийн үнэлгээ Ажлын байр</field>
+		<field name="code">hse.risk.assessment.workplace</field>
+		<field name="prefix">ЭҮАБ%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+	<!-- Risk Assessment/workplace/ -->
+	<record id="view_hse_risk_assessment_workplace_form" model="ir.ui.view">
+		<field name="name">hse.risk.assessment.workplace.form</field>
+		<field name="model">hse.risk.assessment.workplace</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_done" states="draft" string="Дуусгах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<button name="action_to_draft" states="done" string="Буцах" type="object" class="btn-danger"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"  attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="branch_id" options="{'no_create':True}" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="department_id" options="{'no_create':True}" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="workplace_type" attrs="{'readonly':[('state','=','done')]}" options="{'no_create':True}"/>
+							<field name="check_user_id" attrs="{'readonly':[('state','=','done')]}" options="{'no_create':True}"/>
+						</group>
+						<group>
+							<field name="user_company_id" readonly="1" attrs="{'readonly':[('state','=','done')]}" invisible="1"/>
+							<field name="company_id" options="{'no_create':True}" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="risk_estimate_scope" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="create_date" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="check_date" attrs="{'readonly':[('state','=','done')]}"/>
+						</group>
+					</group>
+					<group>
+						<group string="Хохиролын үнэлгээ" >
+							<field name="category_id" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="risk_consequences" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="result_1" force_save="1" attrs="{'readonly':[('state','=','done')]}"/>
+						</group>
+						<group string="Эрсдлийг хянах" >
+							<field name="risk_probability" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="risk_consequences_1" attrs="{'readonly':[('state','=','done')]}"/>
+						</group>
+					</group>
+					<group attrs="{'readonly':[('state','=','done')]}">
+						<field name="result_4" force_save="1"/>
+						<field name="result_3" force_save="1"/>
+						<field name="result_2" force_save="1"/>
+					</group>
+					<notebook>
+						<page string="Эрсдэлийн үзүүлэлт">
+							<field name="hse_risk_assessment_workplace_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+								<tree editable="bottom">
+									<field name="danger_type"/>
+									<field name="danger"/>
+									<field name="risk"/>
+									<field name="rnow_control"/>
+									<field name="risk_probability"/>
+									<field name="risk_consequences"/>
+									<field name="rnow_risk_level"/>
+									<field name="corr_action"/>
+									<field name="risk_probability_decrease"/>
+									<field name="risk_consequences_decrease"/>
+									<field name="rnow_risk_level_decrease"/>
+									<field name="employee_ids" widget="many2many_tags"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Эрсдэлийн үнэлгээ хийсэн багийн гишүүд">
+							<group>
+								<group>
+									<field name="leader_employee_id" options="{'no_create':True}" attrs="{'readonly':[('state','=','done')]}"/>
+									<field name="leader_employee_pos" attrs="{'readonly':[('state','=','done')]}"/>
+								</group>
+								<group>
+									<field name="leader_employee_date" attrs="{'readonly':[('state','=','done')]}"/>
+								</group>
+							</group>
+							<field name="hse_risk_estiamte_workplace_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+								<tree editable="bottom">
+									<field name="employee_id" options="{'no_create':True}"/>
+									<field name="employee_position"/>
+									<field name="datetime"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					<group>
+						<field name="additional_explanation" attrs="{'readonly':[('state','=','done')]}"/>
+						<field name="attachment_ids" widget="many2many_binary" attrs="{'readonly':[('state','=','done')]}"/>
+					</group>	
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_risk_assessment_workplace_tree" model="ir.ui.view">
+		<field name="name">hse.risk.assessment.workplace.tree</field>
+		<field name="model">hse.risk.assessment.workplace</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="branch_id"/>
+				<field name="workplace_type"/>
+				<field name="department_id" optional="hide"/>
+				<field name="company_id"/>
+				<field name="check_user_id"/>
+				<field name="create_date"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_risk_assessment_workplace_filter" model="ir.ui.view">
+		<field name="name">hse.risk.assessment.workplace.filter</field>
+		<field name="model">hse.risk.assessment.workplace</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter name="is_draft" string="Draft" domain="[('state','=',('draft'))]"/>
+				<filter name="is_done" string="Done" domain="[('state','=',('done'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id"/>
+					<filter string="Жилээр" name='group_year'/>
+					<filter string="Сараар" name='group_month'/>
+					<filter string="Өдөрөөр" name='group_day'/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_risk_assessment_workplace" model="ir.actions.act_window">
+		<field name="name">Эрсдэлийн үнэлгээ/Ажилбар/</field>
+		<field name="res_model">hse.risk.assessment.workplace</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

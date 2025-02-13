@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mrp_cost_structure_standard_prices" inherit_id="mrp_account_enterprise.mrp_cost_structure">
+        <xpath expr="//t[@name='operations']" position="after">
+            <t t-if="line.get('standard_prices')">
+                <h3 class="o_mrp_header o_mrp_table_header">Cost of Standard price</h3>
+                <table class="table table-sm o_mrp_report_table">
+                    <thead>
+                        <tr class="o_mrp_report_header">
+                            <th class="o_mrp_report_line_header"><span>Standard price</span></th>
+                            <th class="text-end o_mrp_report_line_header"><span>Quantity</span></th>
+                            <th class="text-end o_mrp_report_line_header"><span>Unit Cost</span></th>
+                            <th class="text-end o_mrp_report_line_header"><span>Total Cost</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="line['standard_prices']" t-as="row" class="text-muted">
+                            <td>
+                                <span t-esc="row['name']"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-esc="row['qty']"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-esc="row['unit_cost']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            </td>
+                            <td class="text-end">
+                                <span t-esc="row['cost']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end">
+                                <strong>Total Cost of standard_prices</strong>
+                            </td>
+                            <td class="text-end">
+                                <strong t-esc="line['standard_prices_total_cost']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </xpath>
+    </template>
+</odoo>

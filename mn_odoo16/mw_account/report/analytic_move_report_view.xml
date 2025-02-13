@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mw_analytic_move_report" model="ir.ui.view">
+        <field name="name">Шинжилгээний бичилтийн тайлан</field>
+        <field name="model">analytic.move.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <!-- <field name="date_start" /> -->
+                    <group>
+                        <field name="date_start" />
+                        <field name="date_end" />
+                    </group>
+                    <group>
+                        <field name="company_id" />
+                        <field name="move_type" />
+                    </group>
+                </group>
+                <footer>
+                    <button name="export_report" string="Татах"
+                        type="object" colspan="1" class="oe_highlight" />
+                    <button icon="fa-times" special="cancel" string="Хаах" colspan="1" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mw_analytic_move_report" model="ir.actions.act_window">
+        <field name="name">Шинжилгээний бичилтийн тайлан</field>
+        <field name="res_model">analytic.move.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="mw_analytic_move_report" />
+        <field name="target">new</field>
+    </record>
+
+    <menuitem 
+            name="Шинжилгээний бичилтийн тайлан"
+            action="action_mw_analytic_move_report"
+            id="menu_action_mw_analytic_move_report"
+            parent="mw_account.menu_finance_legal_statement_xls"
+            sequence="10"/> 
+                
+
+</odoo>

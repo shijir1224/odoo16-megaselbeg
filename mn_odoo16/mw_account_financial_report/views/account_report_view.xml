@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Account Reports Configuration -->
+        <record id="view_account_financial_report_line_form" model="ir.ui.view">
+            <field name="name">account.financial.report.line.form</field>
+            <field name="model">account.financial.report.line</field>
+            <field name="arch" type="xml">
+                <form string="Account Report">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="number"/>
+                        <field name="name_en"/>
+                        <field name="seq"/>
+                        <field name="is_bold"/>
+	                    <field name="acc_code"/>
+                        <field name="is_number"/>
+                        <field name="is_line"/>
+                        <field name="is_formula"/>
+                        <field name="is_equity_date"/>
+                        <field name="account_type"/>
+                     </group>
+                     <group string="Formula" attrs="{'invisible': [('is_formula', '!=', True)]}">
+                     	<field name="formula_txt"/>
+                     </group>
+	                    <notebook >
+	                        <page string="Report" attrs="{'invisible': [('is_formula', '=', True)]}">
+<!-- 		                        <field name="account_ids"/> -->
+				                    <field name="account_ids" attrs="{'invisible': [('is_line', '=', True)]}">
+				                    	<tree delete="true" create="true" colors="blue:type == 'view';black:type in ('other','receivable','payable','consolidation');gray:type == 'closed'">
+				                            <field name="code" />
+				                            <field name="name" />
+<!-- 				                             <field name="internal_type" />
+				                             <field name="user_type_id"  /> -->
+				                    	</tree>
+				                    </field>
+				                    <field name="line_ids" attrs="{'invisible': [('is_line', '!=', True)]}">
+				                    	<tree delete="true" create="true" >
+					                       <field name="name"/>
+					                       <field name="name_en"/>
+					                       <field name="number"/>
+					                       <field name="seq"/>
+					                       <field name="is_bold"/>
+					                       <field name="is_number"/>
+				                    	</tree>
+				                    </field>
+		                       </page>
+		                 </notebook>
+                </form>
+            </field>
+        </record>
+                    
+        <record id="view_account_financial_report_line_tree" model="ir.ui.view">
+            <field name="name">account.financial.report.line.tree</field>
+            <field name="model">account.financial.report.line</field>
+            <field name="arch" type="xml">
+                <tree string="Account Report line">
+                    <field name="name"/>
+                    <field name="name_en"/>
+                    <field name="number" />
+                    <field name="acc_code" />
+                    <field name="seq"/>
+                </tree>
+            </field>
+        </record>        
+        <record id="view_account_financial_report_form" model="ir.ui.view">
+            <field name="name">account.financial.html.report.form</field>
+            <field name="model">account.financial.html.report</field>
+            <field name="arch" type="xml">
+                <form string="Account Report">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" placeholder="Report Name"/></h1>
+                            <field name="company_id" placeholder="Related Company" groups="base.group_multi_company"/>
+                        </div>
+                        <group string="Report Definition">
+                            <group>
+                                <field name="date_range"/>
+                                <field name="tax_report"/>
+                            </group>
+                            <group>
+			                	<field name="active"/>
+			                	<field name="is_mw"/>
+			                	<field name="report_type" string="Тайлангийн төрөл"/>
+                            </group>
+                        </group>
+                        <group string="Report Lines">
+	                 		<button name="set_accounts" string="Данс оноох" type="object" class="oe_inline"/>
+	                 		 <group col="4" attrs="{'invisible': [('is_mw', '=', True),('report_type', '!=', 'equity')]}">
+	                 		 	<field name="equity_account_ids" widget="many2many_tags"/>
+	                 		 	<field name="hh_account_ids" widget="many2many_tags"/>
+	                 		 	<field name="nt_account_ids" widget="many2many_tags"/>
+	                 		 	<field name="du_account_ids" widget="many2many_tags"/>
+	                 		 	<field name="gv_account_ids" widget="many2many_tags"/>
+	                 		 	<field name="other_account_ids" widget="many2many_tags"/>
+	                 		 	<field name="ha_account_ids" widget="many2many_tags"/>
+						  	</group>
+	                       <field name="account_line_ids" attrs="{'invisible': [('is_mw', '!=', True)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_account_financial_report_tree" model="ir.ui.view">
+            <field name="name">account.financial.html.report.tree</field>
+            <field name="model">account.financial.html.report</field>
+            <field name="arch" type="xml">
+                <tree string="Account Report">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_account_financial_report_tree" model="ir.actions.act_window">
+            <field name="name">Financial Reports</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.financial.html.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'account_core_reports.usr_created': True}</field>
+            <field name="view_id" ref="view_account_financial_report_tree"/>
+        </record>
+
+        <menuitem id="menu_account_financial_reports_tree" name="Financial Reports" sequence="6" parent="account.account_management_menu" action="action_account_financial_report_tree" />
+	    <!-- <menuitem id="menu_action_account_report_tree" name="Accounting Reports" sequence="6" parent="account.account_management_menu" action="action_account_report_tree" groups="base.group_no_one"/> -->
+
+<!--         <record id="view_account_coa" model="ir.ui.view">
+            <field name="name">account.view.coa</field>
+            <field name="model">account.account</field>
+            <field name="arch" type="xml">
+                <tree editable="top" create="1" delete="1">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="user_type_id" widget="account_hierarchy_selection"/>
+                    <field name="current_balance"/>
+                    <field name="tax_ids" optional="hide" widget="many2many_tags"/>
+                    <field name="tag_ids" optional="hide" widget="many2many_tags"/>
+                    <field name="allowed_journal_ids" optional="hide" widget="many2many_tags"/>
+                    <button name="action_read_account" type="object" string="Setup" class="float-right btn-secondary"/>
+                </tree>
+            </field>
+        </record>
+ -->
+
+        <record id="view_account_mw_report_report_tree" model="ir.ui.view">
+            <field name="name">account.account.mw_report.tree</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>   
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='currency_id']" position="after">
+	                <field name="report_line_ids" widget="many2many_tags" optional="show"/>
+                 </xpath>
+            </field>
+        </record> 
+
+        <record id="view_account_mw_report_form" model="ir.ui.view">
+            <field name="name">account.account.mw_report.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>   
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='currency_id']" position="after">
+	                <field name="is_recpay"/>
+	                <field name="report_line_ids" widget="many2many_tags" readonly="1"/>
+                 </xpath>
+            </field>
+        </record> 
+    </data>
+</odoo>

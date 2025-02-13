@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+	<!-- account group -->
+        <record id="view_account_account_group_form" model="ir.ui.view">
+		    <field name="name">account.code.type.form</field>
+		    <field name="model">account.code.type</field>
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+		        <form string="Cash Move Type">
+					<group>
+			            <field name="name" select="1"/>
+			            <field name="code"/>
+			            <field name="sequence"/>
+			            <field name="parent_id"/>
+					</group>			      
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="view_account_account_group_tree" model="ir.ui.view">
+		    <field name="name">account.code.type.tree</field>
+		    <field name="model">account.code.type</field>
+		    <field name="arch" type="xml">
+		        <tree string="Cash Move Type">
+		            <field name="name"/>
+ 		            <field name="code"/> 
+		            <field name="sequence"/>
+		            <field name="parent_id"/>
+		        </tree>
+		    </field>
+		</record>
+		
+        <record id="view_account_cash_move_search" model="ir.ui.view">
+            <field name="name">account.code.type.search.account</field>
+            <field name="model">account.code.type</field>
+            <field name="arch" type="xml">
+                <search string="Account group">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('code','=like','%'+str(self)+'%')]" string="Name"/>
+                    <field name="code"/>
+                    <group expand="0" string="Group By">
+                        <filter string="parent_id" name="parent_id" domain="" context="{'group_by':'parent_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="root_id"  icon="fa-filter" limit="0"/>
+                        <field name="parent_id" string="Parent" enable_counters="1" icon="fa-filter" limit="0"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>		 
+		<record id="action_account_account_group" model="ir.actions.act_window">
+		    <field name="name">Account group</field>
+		    <field name="res_model">account.code.type</field>
+		    <field name="view_mode">tree,form</field>
+		</record>
+	
+    	<menuitem id="menu_action_account_account_group" parent="account.account_account_menu"  sequence="10" action="action_account_account_group"/>
+		    
+        <record id="view_account_mn_form" model="ir.ui.view">
+            <field name="name">account.account.mn.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>   
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='group_id']" position="after">
+	                <field name="code_group_id"/>
+                 </xpath>
+            </field>
+        </record>
+        		 
+
+        <record id="view_account_mn_search" model="ir.ui.view">
+            <field name="name">account.account.mn.search</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_search"/>   
+            <field name="arch" type="xml">
+                 <xpath expr="//filter[@name='accounttype']" position="after">
+                        <filter string="Account Group" name="account_group" domain="" context="{'group_by':'code_group_id'}"/>
+                </xpath>
+                 <xpath expr="//field[@name='account_type']" position="after">
+	                <field name="code_group_id"/>
+                 </xpath>
+            </field>
+        </record>
+        <record id="view_account_mn_invoice_search" model="ir.ui.view">
+            <field name="name">account.invoice.mn.search</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>   
+            <field name="arch" type="xml">
+                 <xpath expr="//filter[@name='duedate']" position="after">
+                    <filter name="today" string="Өнөөдөр" domain="[('invoice_date_due','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="Энэ Долоо Хоног" name="this_week" domain="[
+                    ('invoice_date_due', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                    ('invoice_date_due', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter string="Дараа Долоо Хоног" name="next_week" domain="[
+                    ('invoice_date_due', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-2,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                    ('invoice_date_due', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                </xpath>
+            </field>
+        </record>
+    
+	</data>
+    
+</odoo>

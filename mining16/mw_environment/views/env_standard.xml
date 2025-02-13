@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+         <record model="ir.ui.view" id="env_standard_tree">
+            <field name="name">env.standard.tree</field>
+             <field name="model">env.standard</field>
+             <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Бодисын бүртгэл">
+                    <field name="category" />
+                    <field name="name"/>
+                    <field name="uom"/>
+                    <field name="normal_start"/>
+                    <field name="normal_end"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="env_standard_form">
+            <field name="name">env.standard.form</field>
+            <field name="model">env.standard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                        <group col="4">
+                            <field name="category"/>
+                            <field name="normal_start" />
+                            <field name="name"/>
+                            <field name="normal_end" />
+                            <field name="uom" />
+                            <field name="is_active" widget="radio"  />
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="env_standard_search" model="ir.ui.view">
+            <field name="name">env.standard.search</field>
+            <field name="model">env.standard</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group>
+                        <field name="name"/>
+                    </group>
+
+                    <group expand="0" string="Бүлэглэх">
+                        <filter name="category" string="Төрөл" context="{'group_by':'category'}"/>
+                    </group>
+                    <filter name="active" string="Идэвхтэй төлөв" domain="[('is_active','=', 'active')]" />
+                    <filter name="monitor1" string="Ундны ус" domain="[('category','=', 'monitor1')]" />
+                    <filter name="monitor6" string="Бохир ус" domain="[('category','=', 'monitor6')]" />
+                    <filter name="monitor3" string="Агаар" domain="[('category','=', 'monitor3')]" />
+                    <filter name="monitor2" string="Хөрс" domain="[('category','=', 'monitor2')]" />
+                    <filter name="monitor4" string="Амьтан" domain="[('category','=', 'monitor4')]" />
+                    <filter name="monitor5" string="Ургамал" domain="[('category','=', 'monitor5')]" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_env_standard" model="ir.actions.act_window">
+                <field name="name">Бодисын бүртгэл</field>
+                <field name="res_model">env.standard</field>
+                <field name="context">{'search_default_active': 1}</field>
+                <field name="view_mode">tree,form</field>
+                <field name="search_view_id" ref="env_standard_search"/>
+                <field name="help" type="html">
+                      <p class="oe_view_nocontent_create">
+                        Энд дарж сарын стандартын мэдээллээ оруулна уу.
+                      </p>
+                </field>
+        </record>
+    
+</odoo>

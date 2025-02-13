@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+Budgets
+-->
+
+    <record id="view_mw_budget_company_search" model="ir.ui.view">
+        <field name="name">mw.account.company.budget.search</field>
+        <field name="model">mw.account.company.budget</field>
+        <field name="arch" type="xml">
+            <search string="Budgetary Position">
+                <field name="name" filter_domain="[('name','ilike',self)]" string="Configuration"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_mw_budget_company_tree" model="ir.ui.view">
+        <field name="name">mw.account.company.budget.tree</field>
+        <field name="model">mw.account.company.budget</field>
+        <field name="arch" type="xml">
+            <tree string="Budgetary Position">
+                <field name="name"/>
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="budget_total"/>
+                <field name="real_total"/>
+                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="open_mw_budget_company_form" model="ir.actions.act_window">
+        <field name="name">Компанийн жилийн төсөв</field>
+        <field name="res_model">mw.account.company.budget</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_mw_budget_company_tree"/>
+        <field name="search_view_id" ref="view_mw_budget_company_search"/>
+    </record>
+
+    <menuitem action="open_mw_budget_company_form" id="menu_mw_budget_company_form"
+              parent="menu_budget_root" sequence="1" groups="mw_account_budget.group_mn_company_budget_admin"/>
+
+    <record model="ir.ui.view" id="view_mw_budget_company_form">
+        <field name="name">mw.account.company.budget.form</field>
+        <field name="model">mw.account.company.budget</field>
+        <field name="arch" type="xml">
+            <form string="Budgetary Position">
+			 <header>
+<!--                     <button
+                        name="action_draft"
+                        string="Set draft"
+                        type="object"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
+                    <button
+                        name="action_confirm"
+                        string="Confirm"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        attrs="{'invisible': [('state', '=', 'cancelled')]}"
+                    />
+                    <button
+                        name="create_lines"
+                        string="Compute"
+                        type="object"
+                    />
+                    <field name="state" widget="statusbar" /> -->
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': ['|',('state','=','done'),('flow_line_next_id', '=', False)]}"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+                    <field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+                </header>
+           	<sheet>
+<!-- 			    <div name="button_box" class="oe_button_box">
+	        		<button class="oe_inline oe_stat_button" name="%(action_account_budget_import_file)d"
+			                string="Import File" type="action"
+			                 widget="statinfo" icon="fa-pencil-square-o"/>attrs="{'invisible':[('state','=','confirm')]}"
+
+           		</div>
+ -->                <group col="4">
+                    <field name="name"/>
+<!--                     <field name="conf_id"/>
+                    <field name="type"/> -->
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                      <field name="state" invisible="1"/>
+                      <field name="flow_line_next_id" invisible="1"/>
+                      <field name="flow_line_back_id" invisible="1"/>
+                      <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+                      <field name="is_not_edit" invisible="1"/>
+                </group>
+				<group name="dates"  col="4">
+                   <field name="flow_id" options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state', 'in',['done','cancel'])]}"/>
+                        <field name="date_range_id" />
+		                 <field name="budget_total"/>
+                        <field name="date_from" />
+		                 <field name="real_total"/>
+                        <field name="date_to" />
+		                 <field name="balance"/>
+		                 <field name="close_state" string="Хаах төрөл" groups="mw_account_budget.group_mn_company_budget_set_state"/>
+	                    <button name="action_change_stage" string="Хаах төлөв өөрчлөх" class="btn-success" type="object" groups="mw_account_budget.group_mn_company_budget_set_state"/>
+                </group>
+                <notebook>
+                    <page string="Мөрүүд" name="lines">
+                         <button
+		                        name="action_print"
+		                        string="Хэвлэх"
+		                        type="object"
+		                    />
+                        <field name="line_ids"/>
+                    </page>
+                    <page string="Тайлбар" >
+	                    <field name="description"/>
+                    </page>
+                    <page string="Түүх" >
+	                    <field name="history_ids" nolabel="1" colspan="4"/>
+                    </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+
+        <record id="view_payment_request_form_budget" model="ir.ui.view">
+            <field name="name">payment.request.form.budget</field>
+            <field name="model">payment.request</field>
+            <field name="inherit_id" ref="mw_account_payment_request.view_payment_request_form_my"/>
+            <field name="arch" type="xml">
+		        	<xpath expr='//field[@name="narration_id"]' position="after">
+						<field name="is_budget" />
+						<field name="budget_year" attrs="{'nolabel':[('state','=','draft')],'invisible':[('is_budget','!=',True)],'required':[('is_budget','=',True)]}" />
+						<field name="budget_id" attrs="{'nolabel':[('state','=','draft')],'invisible':[('is_budget','!=',True)]}" options="{'no_create': True}"/>
+						<field name="budget_ids" readonly="1"  widget="many2many_tags" invisible="1"/>
+					</xpath>
+				</field>
+		</record>
+		
+		
+		
+ </odoo>

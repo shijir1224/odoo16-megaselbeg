@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ########  Техникийн STATUS бүртгэл ######## -->
+    <record model='ir.ui.view' id='technic_equipment_log_status_form'>
+        <field name="name">Technic component form</field>
+        <field name="model">technic.equipment.log.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" type="object"  
+                        string="Draft" groups="base.group_no_one"/>
+                    <button name="action_to_confirm" states="draft" type="object" 
+                        string="Батлах" class="oe_highlight" icon="fa-check"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="4">
+                        <field name="technic_id" options="{'no_create':True}"/>
+                        <field name="odometer"/>
+
+                        <field name="date_time"/>
+                        <field name="user_id"/>
+
+                        <field name="status_type"/>
+                        <field name="note"/>
+
+                        <field name="spend_time"/>
+                        <field name="work_time"
+                            attrs="{'invisible':[('status_type','!=','working')]}"/>
+                        <field name="before_id" groups="base.group_no_one"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model='ir.ui.view' id='technic_equipment_log_status_tree'>
+        <field name="name">Technic equipment log status tree</field>
+        <field name="model">technic.equipment.log.status</field>
+        <field name="arch" type="xml">
+            <tree 
+                decoration-success="state=='confirmed'">
+                <field name="date_time"/>
+                <field name="technic_id"/>
+                <field name="status_type"/>
+                <field name="spend_time"/>
+                <field name="note" /> 
+                <field name="user_id"/>
+                <field name="state"/>
+                <field name="report_order" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="asset_technic_equipment_log_status_search">
+        <field name="name">technic component</field>
+        <field name="model">technic.equipment.log.status</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="technic_id"/>
+                <field name="note"/>
+                <group expand="1" string="Шүүлт">
+                    <filter name="confirmed" string="Баталсан" 
+                        domain="[('state','=','confirmed')]"/>
+                </group>    
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'technic_id'}" 
+                        string="Техникээр" name="technic_id"/>
+                    <filter context="{'group_by':'date_time:day'}" string="Өдрөөр" name="day"/>
+                    <filter name="groupby_status" context="{'group_by':'status_type'}" 
+                        string="Төлөв"/>
+                </group>
+           </search>
+        </field>
+    </record>
+    <record model='ir.actions.act_window' id='action_technic_equipment_log_status'>
+        <field name="name">Техникийн статус бүртгэл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">technic.equipment.log.status</field>
+        <field name="context">{'search_default_confirmed':1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="technic_equipment_log_status_tree"/>
+    </record>
+
+</odoo>

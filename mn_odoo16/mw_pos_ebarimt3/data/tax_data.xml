@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data >
+        <!--
+        Resource: ebarimt.tax.type
+            You must not change following code values. Because they're set according to Pos API 2.1.2 User Guide.
+        -->
+        <record id="tax_type_vat_included" model="ebarimt.tax.type">
+            <field name="name">VAT</field>
+            <field name="code">TAX_TYPE_VAT</field>
+        </record>
+        <record id="tax_type_vat_free" model="ebarimt.tax.type">
+            <field name="name">VAT free</field>
+            <field name="code">TAX_TYPE_VAT_FREE</field>
+        </record>
+        <record id="tax_type_vat_zero" model="ebarimt.tax.type">
+            <field name="name">VAT 0</field>
+            <field name="code">TAX_TYPE_VAT_ZERO</field>
+        </record>
+        <record id="tax_type_city" model="ebarimt.tax.type">
+            <field name="name">City Tax</field>
+            <field name="code">TAX_TYPE_CITY</field>
+        </record>
+    </data>
+</odoo>

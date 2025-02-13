@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+		<!-- Motohour -->
+        <record id="view_mining_motohour_report_graph" model="ir.ui.view">
+            <field name="name">report.mining.motohour.graph</field>
+            <field name="model">report.mining.motohour</field>
+            <field name="arch" type="xml">
+                <graph string="Motohour entry Analysis">
+                     <field name="technic_id" type="row"/>
+                     <field name="cause_id" type="col"/>
+                     <field name="diff_time" type="measure"/>
+                </graph>
+             </field>
+        </record>
+        <record id="view_mining_motohour_tree" model="ir.ui.view">
+        <field name="name">report.mining.motohour.tree</field>
+        <field name="model">report.mining.motohour</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="technic_id"/>
+                <field name="shift"/>
+                <field name="cause_id"/>
+                <field name="diff_time"/>
+                <field name="technic_type"/>
+                <field name="location_id"/>
+                <field name="part"/>
+                <field name="owner_type"/>
+                <field name="percentage"/>
+				<field name="cause_name"/>
+                <field name="description"/>
+                <field name="repair_system_id"/>
+            </tree>
+        </field>
+    	</record>
+    	<record id="view_mining_motohour_pivot" model="ir.ui.view">
+        <field name="name">report.mining.motohour.pivot</field>
+        <field name="model">report.mining.motohour</field>
+        <field name="arch" type="xml">
+            <pivot>
+                 <field name="technic_id" type="row"/>
+                 <field name="cause_id" type="col"/>
+                 <field name="diff_time" type="measure"/>
+            </pivot>
+        </field>
+    	</record>
+        <record id="view_mining_motohour_report_search" model="ir.ui.view">
+            <field name="name">report.mining.motohour.search</field>
+            <field name="model">report.mining.motohour</field>
+            <field name="arch" type="xml">
+                <search string="Motohour Entry Analysis">
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="shift"/>
+                    <field name="part"/>
+                    <field name="technic_id"/>
+                    <field name="technic_type"/>
+                    <field name="owner_type"/>
+                    <field name="cause_id"/>
+                    <field name="description"/>
+                    <field name="repair_system_id"/>
+                    <field name="percentage"/>
+                    <filter name="yesterday" string="Yesterday" domain="[('date','=',(context_today()-datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                    <filter name="cause_id_is" string="Засварын цаг" domain="[('cause_id.is_repair', '=', True)]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator />
+                    <group expand="1" string="Group By...">
+                        <filter string="Project" name="project" context="{'group_by':'branch_id'}"/>
+                        <filter string="Date (day)" name="gr_day" context="{'group_by':'date:day'}"/>
+                        <filter string="Date (week)" name="gr_week" context="{'group_by':'date:week'}"/>
+                        <filter string="Date (month)" name="gr_month" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (quarter)" name="gr_quarter"  context="{'group_by':'date:quarter'}"/>
+                        <filter string="Date (year)" name="gr_year" context="{'group_by':'date:year'}"/>
+                        <filter string="Shift" name="gr_shift" context="{'group_by':'shift'}"/>
+                        <filter string="Part" name="gr_part" context="{'group_by':'part'}"/>
+                        <filter string="Technic" name="gr_technic" context="{'group_by':'technic_id'}"/>
+                        <filter string="Technic Type" name="gr_tech_type" context="{'group_by':'technic_type'}"/>
+                        <filter string="Owner Type" name="gr_owner_type" context="{'group_by':'owner_type'}"/>
+                        <filter string="Cause" name="gr_cause" context="{'group_by':'cause_id'}"/>
+                        <filter string="Cause Name" name="gr_cause_name" context="{'group_by':'cause_name'}"/>
+                        <filter string="Location" name="location" context="{'group_by':'location_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_motohour_report_tree" model="ir.actions.act_window">
+            <field name="name">Motohour Entry Analysis</field>
+            <field name="res_model">report.mining.motohour</field>
+            <field name="view_mode">pivot,graph,form,tree</field>
+            <field name="search_view_id" ref="view_mining_motohour_report_search"/>
+            <field name="context">{"search_default_yesterday":1, "search_default_cause_id_is":1}</field>
+        </record>
+	
+
+</odoo>

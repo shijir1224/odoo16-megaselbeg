@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="0">
+	<record model="ir.module.category" id="categ_parent_hse">
+		<field name="name">ХАБ</field>
+		<field name="sequence">100</field>
+	</record>
+	<record model="ir.module.category" id="module_category_hse">
+			<field name="name">ХАБ</field>
+			<field name="parent_id" ref="categ_parent_hse"/>
+	</record>
+	<record id="group_hse_user" model="res.groups">
+		<field name="name">ХАБ хэрэглэгч</field>
+		<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		<field name="category_id" ref="mw_hse.module_category_hse"/>
+	</record>
+
+	<record id="group_hse_manager" model="res.groups">
+		<field name="name">ХАБ менежер</field>
+		<field name="category_id" ref="mw_hse.module_category_hse"/>
+		<field name="implied_ids" eval="[(4, ref('group_hse_user'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+
+	<record id="group_hse_admin" model="res.groups">
+		<field name="name">ХАБ админ</field> 
+		<field name="category_id" ref="mw_hse.module_category_hse"/>
+		<field name="implied_ids" eval="[(4, ref('group_hse_manager'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+
+</odoo>

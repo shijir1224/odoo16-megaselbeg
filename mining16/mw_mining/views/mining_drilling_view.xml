@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- mining.drilling -->
+    <record id="mining_drilling_tree" model="ir.ui.view">
+        <field name="name">mining.drilling.tree</field>
+        <field name="model">mining.drilling</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="state=='draft'" decoration-danger="state=='draft'" decoration-muted="state=='done'">
+                <field name="date"/>
+                <field name="shift"/>
+                <field name="employee_id"/>
+                <field name="employee_sub_id"/>
+                <field name="branch_id"/>
+                <field name="drill_technic_id"/>
+                <field name="sum_count_tsoonog" sum="Нийт"/>
+                <field name="sum_drill_m" sum="Нийт"/>
+                <field name="sum_count_utg" sum="Нийт"/>
+
+                <field name="stone_type"/>
+                <field name="fuel"  sum="Нийт"/>
+                <field name="start_motoh"/>
+                <field name="end_motoh"/>
+                <field name="work_motoh" sum="Нийт"/>
+                <field name="is_area"/>
+                <field name="location_id"/>
+                <field name="desc"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_drilling_form" model="ir.ui.view">
+        <field name="name">mining.drilling.form</field>
+        <field name="model">mining.drilling</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" states="draft" string="Done" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="done" string="To Draft" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group col="4">
+                            <field name="date" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="branch_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="analytic_account_id" options="{'no_create':True}" required="1"/>
+                            <field name="shift" attrs="{'readonly':[('state','=','done')]}" required="1"/>
+                            <field name="user_id" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+
+                            <field name="company_id" readonly="1"/>
+                        </group>
+                        <group col="4">
+                            <field name="location_id" domain="[('branch_id','=',branch_id),('is_drilling','=',True)]" options="{'no_create':True, 'no_open':True}" attrs="{'required':[('is_area','=',False)]}"/>
+                            <field name="is_area" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="stone_type" required="1"/>
+                            <field name="desc" attrs="{'readonly':[('state','=','done')], 'required':[('is_area','=',True)],}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group col="4">
+                            <field name="drill_technic_id" domain="[('technic_type','=','drill'),('branch_id','=',branch_id)]" options="{'no_create':True, 'no_open':True}" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="drill_diameter_mm" required="1"  attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="employee_id" required="1"  attrs="{'readonly':[('state','=','done')]}" options="{'no_create':True, 'no_open':True}"/>
+                            <!-- <field name="employee_sub_id"  attrs="{'readonly':[('state','=','done')]}" options="{'no_create':True, 'no_open':True}"/> -->
+                            <!-- <field name="fuel" attrs="{'readonly':[('state','=','done')]}"/> -->
+                            <field name="start_motoh" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="end_motoh" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="work_motoh" readonly="1"/>
+                        </group>
+                        <group col="4">
+                            <field name="sum_tusliin_gun_m" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_drill_m" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_count_tsoonog" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_count_water" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_count_baarsan" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_count_coal" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_count_utg" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook >
+                        <!-- <page string="Drilling Line">
+                                <button name="action_export" string="Темплате Экспортлох" type="object" icon="fa-file-excel-o"/>
+                                <field name="import_data" states="draft" class="oe_edit_only"/>
+                                <button name="action_import_hole" states="draft" class="btn btn-primary fa fa-download" string="Импортлох" type="object"/>
+                            <group col="4" states="draft" string="Мөрд Оруулах Цооног">
+                                <group>
+                                    <field name="from_hole" class="oe_inline" />
+                                    <field name="for_hole" class="oe_inline"/>
+                                </group>
+                                <group>
+                                    <button name="action_create_line"  class="btn btn-primary fa fa-plus" string="Мөр Үүсгэх" type="object"/>
+                                </group>
+                            </group>
+                            <field name="drilling_line_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                <tree editable="bottom">
+                                    <field name="hole"/>
+                                    <field name="tusliin_gun_m" sum="Нийт"/>
+                                    <field name="bodit_urumdsun_gun_m" sum="Нийт"/>
+                                    <field name="urtaashd_tootsoh_gun_m" sum="Нийт"/>
+                                    <field name="is_production"/>
+                                    <field name="hatuu_chuluulag_ehelsen_gun_m"/>
+                                    <field name="hatuu_chuluulag_duussan_gun_m"/>
+                                    <field name="nuurs_ehelsen_gun_m"/>
+                                    <field name="nuurs_duussan_gun_m"/>
+                                    <field name="is_water"/>
+                                    <field name="is_baarah"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_highlight oe_right">
+                                <field name="sum_tusliin_gun_m"/>
+                                <field name="sum_count_tsoonog"/>
+                                <field name="sum_count_water"/>
+                                <field name="sum_count_baarsan"/>
+                                <field name="sum_count_coal"/>
+                                <field name="sum_count_utg"/>
+                            </group>
+                        </page> -->
+                        <page string="Consumed products">
+                            <field name="expense_line_ids" nolabel="1"  attrs="{'readonly':[('state','=','done')]}">
+                                <form>
+                                    <group >
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                    </group>
+                                </form>
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity" sum="Нийт"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mining_drilling_pivot_view" model="ir.ui.view">
+        <field name="name">mining.drilling.pivot</field>
+        <field name="model">mining.drilling</field>
+        <field name="arch" type="xml">
+            <pivot string="Drilling" display_quantity="true">
+                <field name="drill_technic_id" type="row"/>
+                <field name="sum_count_tsoonog" type="measure"/>
+                <field name="sum_drill_m" type="measure"/>
+                <field name="fuel"  type="measure"/>
+                <field name="work_motoh" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="mining_drilling_view" model="ir.ui.view">
+        <field name="name">mining.drillinggraph</field>
+        <field name="model">mining.drilling</field>
+        <field name="arch" type="xml">
+            <graph string="Drilling" type="pie">
+                <field name="drill_technic_id" type="row"/>
+                <field name="sum_drill_m" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="mining_drilling_search" model="ir.ui.view">
+            <field name="name">mining.drilling.search</field>
+            <field name="model">mining.drilling</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <field name="drill_technic_id"/>
+                    <field name="sum_drill_m"/>
+                    <field name="fuel"/>
+                    <field name="start_motoh"/>
+                    <field name="end_motoh"/>
+                    <field name="work_motoh"/>
+                    <field name="desc"/>
+                    <field name="state"/>
+                    <filter name="no_area" string="Талбайгүй" domain="[('is_area','=',True)]"/>
+                    <filter name="yes_area" string="Талбайтай" domain="[('is_area','=',False)]"/>
+                    <separator/>
+                    <filter name="today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Өрмийн машин" name="drill_technic" context="{'group_by':'drill_technic_id'}"/>
+                        <filter string="Branch" name="branch_id" context="{'group_by':'branch_id'}"/>
+                        <filter string="Аналитик" name="analytic_account_id" context="{'group_by':'analytic_account_id'}"/>
+                        <separator/>
+                        <filter string="Өдөрөөр" name='day' context="{'group_by':'date:day'}"/>
+                        <filter string="Month" name='month' context="{'group_by':'date:month'}"/>
+                        <filter string="Year" name='year' context="{'group_by':'date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    <record id="action_mining_drilling" model="ir.actions.act_window">
+        <field name="name">Drilling</field>
+        <field name="res_model">mining.drilling</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="context">{'search_default_this_month': 1, 'search_default_drill_technic': 1, 'search_default_day': 1}</field>
+    </record>
+
+
+</odoo>

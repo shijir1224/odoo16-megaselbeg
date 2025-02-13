@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_quotation_tree_with_onboarding_inherit">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="priority" optional="show" widget="priority" nolabel="1"/>
+                </xpath>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">priority desc, id desc</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   
+    <record id="product_pricelist_view_inherit" model="ir.ui.view">
+        <field name="name">product.pricelist.form.inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='item_ids']/tree/field[@name='name']" position="before">
+                <field name="product_barcode"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="product_pricelist_view_inheriddddt" model="ir.ui.view">
+        <field name="name">product.pricelist.form.inheritddd</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <div name="button_box" class="oe_button_box">
+                    <button 
+                        name="view_line" 
+                        type="object" class="oe_stat_button oe_right"
+                        icon="fa-list" string="Мөр харах">
+                    </button>
+                </div>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

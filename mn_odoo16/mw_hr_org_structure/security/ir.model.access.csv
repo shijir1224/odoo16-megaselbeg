@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_hr_org_structure_manager,hr.org.structure,mw_hr_org_structure.model_hr_org_structure,mw_hr_org_structure.group_org_structure_manager,1,1,1,1
+access_hr_org_structure,hr.org.structure,mw_hr_org_structure.model_hr_org_structure,mw_hr_org_structure.group_org_structure_user,1,1,1,0
+
+access_hr_org_structure_dep_line_manager,hr.org.structure.dep.line,mw_hr_org_structure.model_hr_org_structure_dep_line,mw_hr_org_structure.group_org_structure_manager,1,1,1,1
+access_hr_org_structure_dep_line,hr.org.structure.dep.line,mw_hr_org_structure.model_hr_org_structure_dep_line,mw_hr_org_structure.group_org_structure_user,1,1,1,0
+
+access_hr_org_structure_position_line_manager,hr.org.structure.position.line,mw_hr_org_structure.model_hr_org_structure_position_line,mw_hr_org_structure.group_org_structure_manager,1,1,1,1
+access_hr_org_structure_position_line,hr.org.structure.position.line,mw_hr_org_structure.model_hr_org_structure_position_line,mw_hr_org_structure.group_org_structure_user,1,1,1,0

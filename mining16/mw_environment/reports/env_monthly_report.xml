@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <!-- WIZARD -->
+        <record model="ir.ui.view" id="env_monthly_report_form">
+            <field name="name">env.monthly.report.form</field>
+            <field name="model">env.monthly.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Сарын мэдээний тайлан">
+                    <script>
+                        $(document).ready(function(){
+                            $('.modal-dialog').css({'max-width': '800px'});
+                            $('.modal-content').css({'max-height': '600px'});
+                        });
+                    </script>
+                    <group>
+                        <field name="mining_location" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="year"/>
+                        <field name="month"/>
+                    </group>
+                    <footer>
+                        <button string="Татах" name="action_monthly_report" type="object" icon="fa-print" class="oe_highlight" />
+                        <button string="Цуцлах" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_env_monthly_report" model="ir.actions.act_window">
+            <field name="name">Сарын мэдээний тайлан</field>
+            <field name="res_model">env.monthly.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+</odoo>

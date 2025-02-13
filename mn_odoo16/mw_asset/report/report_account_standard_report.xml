@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_asset_report_pivot" model="ir.ui.view">
+            <field name="name">account.asset.report.data.pivot</field>
+            <field name="model">account.asset.report.data</field>
+            <field name="arch" type="xml">
+                <pivot string="Asset items">
+                    <field name="asset_id" type="row"/>
+<!--                     <field name="date" type="col"/> -->
+                    <field name="initial_value" type="measure"/>
+                    <field name="income_value" type="measure"/>
+                    <field name="capital_value" type="measure"/>
+                    <field name="expense_value" type="measure"/>
+                    <field name="final_value" type="measure"/>
+                    <field name="initial_depr" type="measure"/>
+                    <field name="income_depr" type="measure"/>
+                    <field name="expense_depr" type="measure"/>
+                    <field name="final_depr" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record id="view_account_asset_report_tree" model="ir.ui.view">
+            <field name="name">account.asset.report.data.tree</field>
+            <field name="model">account.asset.report.data</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Asset Items" create="false">
+                    <field name="asset_id" />
+                    <field name="date" />
+                    <field name="initial_value" />
+                    <field name="capital_value" />
+                    <field name="expense_value" />
+                    <field name="final_value" />
+                    <field name="initial_depr" />
+                    <field name="income_depr" />
+                    <field name="expense_depr" />
+                    <field name="final_depr" />
+                    <field name="location"></field>
+                    <field name="first_value" />
+                    <field name="last_value" />
+                    <field name="asset_acquisition_date"></field>
+                    <!-- <field name="first_depr_date" invisible="1"></field>
+                    <field name="owner" invisible="1"></field>
+                    <field name="branch" invisible="1"></field>
+                    <field name="serial" invisible="1"></field>
+                    <field name="number" invisible="1"></field> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_asset_report_data_graph_date_cash_basis" model="ir.ui.view">
+            <field name="name">account.asset.report.data.graph</field>
+            <field name="model">account.asset.report.data</field>
+            <field name="arch" type="xml">
+                <graph string="Account Statistics" type="bar">
+                    <field name="date"/>
+                    <field name="initial_value" operator="+" type='measure'/>
+                </graph>
+            </field>
+        </record>
+        
+        <record id="view_account_asset_report_filter" model="ir.ui.view">
+            <field name="name">Asset Items</field>
+            <field name="model">account.asset.report.data</field>
+            <field name="arch" type="xml">
+                <search string="Search asset Items">
+                    <field name="asset_id"/>
+<!--                     <field name="category_id"/> -->
+                    <group expand="0" string="Group By">
+<!--                         <filter string="Caterogy" domain="[]" context="{'group_by':'category_id'}"/> -->
+                    </group>
+                </search>
+            </field>
+        </record>       
+    </data> 
+</odoo>

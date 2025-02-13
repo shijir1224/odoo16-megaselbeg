@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_mw_dash_data_root" name="Dash Data" sequence="90" groups="mw_dash_data.group_mw_dashboard_user" web_icon="mw_dash_data_mining,static/dashboard_1.png"/>
+
+</odoo>

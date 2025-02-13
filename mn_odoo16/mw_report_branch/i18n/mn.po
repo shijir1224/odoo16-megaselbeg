@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_report_branch
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-01 06:36+0000\n"
+"PO-Revision-Date: 2024-03-01 06:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Account"
+msgstr "Данс"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Amount cur."
+msgstr "Валютаар дүн"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Analytic Distribution"
+msgstr "Шинжилгээний данс"
+
+#. module: mw_report_branch
+#: model:ir.model.fields,field_description:mw_report_branch.field_general_ledger_report_wizard__branch_id
+#: model:ir.model.fields,field_description:mw_report_branch.field_report_account_financial_report_general_ledger__branch_id
+msgid "Branch"
+msgstr "Салбар"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Credit"
+msgstr "Кредит"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Cumul cur."
+msgstr "Валютаарх үлд"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Cumul. Bal."
+msgstr "Үлдэгдэл"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Date"
+msgstr "Огноо"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Debit"
+msgstr "Дебит"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Entry"
+msgstr "Дугаар"
+
+#. module: mw_report_branch
+#: model:ir.model,name:mw_report_branch.model_report_account_financial_report_general_ledger
+msgid "General Ledger Report"
+msgstr "Ерөнхий дэвтэрийн тайлан"
+
+#. module: mw_report_branch
+#: model:ir.model,name:mw_report_branch.model_general_ledger_report_wizard
+msgid "General Ledger Report Wizard"
+msgstr "Ерөнхий дэвтэрийн тайлан харагдац"
+
+#. module: mw_report_branch
+#: model:ir.model,name:mw_report_branch.model_report_a_f_r_report_general_ledger_xlsx
+msgid "General Ledger XLSL Report"
+msgstr "Ерөнхий дэвтэрийн XLSLтайлан"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Journal"
+msgstr "Журнал"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Rec."
+msgstr "Тааруулах"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Ref - Label"
+msgstr "Гүйлгээний утга"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Taxes"
+msgstr "Татвар"
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Сүүлд зассан ажилтан"
+msgstr ""
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Харьцсан данс"
+msgstr ""
+
+#. module: mw_report_branch
+#. odoo-python
+#: code:addons/mw_report_branch/report/general_ledger_xlsx.py:0
+#, python-format
+msgid "Үүсгэсэн огноо"
+msgstr ""

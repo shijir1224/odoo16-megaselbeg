@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+
+{
+    'name': 'Multi company technic maintenance v13',
+    'version': '2.0',
+    'license': 'LGPL-3',
+    'sequence': 33,
+    'category': 'Repair',
+    'website': 'http://manangewall.mn',
+    'author': 'Managewall LLC amaraa',
+    'description': """
+        Multi company technic and maintenance """,
+    'depends': ['mw_technic_equipment','mw_technic_maintenance'],
+    'summary': '',
+    'data': [
+        'security/security.xml',
+        'views/technic_inspection_view.xml',
+        'views/technic_model_brand_view.xml',
+        'views/technic_equipment_view.xml',
+        'views/technic_tire_view.xml',
+        'views/tire_inspection_view.xml',
+        'views/tire_install_view.xml',
+        'views/technic_component_part_view.xml',
+        'views/tire_plan_generator_view.xml',
+
+        'views/maintenance_call_view.xml',
+        'views/maintenance_dems_info_view.xml',
+        'views/maintenance_long_term_view.xml',
+        'views/maintenance_oil_sample_view.xml',
+        'views/maintenance_parts_move_view.xml',
+        'views/maintenance_parts_waiting_view.xml',
+        'views/maintenance_plan_generator_view.xml',
+        'views/maintenance_plan_view.xml',
+        'views/maintenance_pm_material_generator_view.xml',
+        'views/maintenance_settings_view.xml',
+        'views/maintenance_workorder_view.xml',
+    ],
+    'installable': True,
+    'application': False,
+}

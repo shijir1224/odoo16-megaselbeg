@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_mining_coal_report_tree" model="ir.ui.view">
+        <field name="name">mining.coal.report.tree</field>
+        <field name="model">mining.coal.report</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="sum_sales_amount_m3"/>
+                <field name="sum_sales_amount_tn"/>
+                <field name="sum_res_count"/>
+                <field name="type"/>
+                <field name="partner_id"/>
+                <field name="pile_id"/>
+                <field name="pile_material_id"/>
+                <field name="sales_amount_m3"/>
+                <field name="sales_amount_tn"/>
+				<field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mining_coal_report_pivot" model="ir.ui.view">
+        <field name="name">mining.coal.report.pivot</field>
+        <field name="model">mining.coal.report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                 <field name="branch_id" type="row"/>
+                 <field name="date" type="col"/>
+                 <field name="sum_sales_amount_m3" type="measure"/>
+                 <field name="sum_sales_amount_tn" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="mining_coal_report_form" model="ir.ui.view">
+        <field name="name">mining.coal.report.form</field>
+        <field name="model">mining.coal.report</field>
+        <field name="arch" type="xml">
+            <form>
+                 <field name="description"/>
+                 <field name="date"/>
+                 <field name="sum_sales_amount_m3"/>
+                 <!-- <field name="mining_coal_sales_id"/> -->
+            </form>
+        </field>
+    </record>
+    <record id="action_mining_coal_report_tree" model="ir.actions.act_window">
+        <field name="name">Coal sales report</field>
+        <field name="res_model">mining.coal.report</field>
+        <field name="view_mode">form,tree,pivot</field>
+        <field name="view_id" ref="mining_coal_report_pivot"/>
+    </record>
+
+</odoo>

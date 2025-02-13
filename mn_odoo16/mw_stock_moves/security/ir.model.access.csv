@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_stock_product_other_expense_user,stock.product.other.expense,model_stock_product_other_expense,mw_stock_moves.group_stock_other_expence_user,1,1,1,1
+access_stock_product_other_expense_line_user,stock.product.other.expense.line,model_stock_product_other_expense_line,mw_stock_moves.group_stock_other_expence_user,1,1,1,1
+access_stock_product_other_expense_history_user,stock.product.other.expense.history,model_stock_product_other_expense_history,mw_stock_moves.group_stock_other_expence_user,1,1,1,1
+
+access_mn_transaction_value_user,mn.transaction.value,model_mn_transaction_value,stock.group_stock_user,1,0,0,0
+access_mn_transaction_value_manager,mn.transaction.value,model_mn_transaction_value,stock.group_stock_manager,1,1,1,0
+
+access_stock_product_other_expense_report_user,product.expense.report,model_product_expense_report,mw_stock_moves.group_stock_other_expence_user,1,1,1,1
+access_sselected_other_expense_next_user,selected.other.expense.next,model_selected_other_expense_next,mw_stock_moves.group_stock_other_expence_user,1,1,1,1

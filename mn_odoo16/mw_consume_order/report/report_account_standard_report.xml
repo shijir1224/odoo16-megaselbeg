@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="view_consumable_standard_data_pivot" model="ir.ui.view">
+			<field name="name">consumable.standard.data.pivot</field>
+			<field name="model">consumable.standard.data</field>
+			<field name="arch" type="xml">
+				<pivot string="Asset items">
+					<field name="asset_id" type="row"/>
+					<field name="initial_value" type="measure"/>
+					<field name="income_value" type="measure"/>
+					<field name="capital_value" type="measure"/>
+					<field name="expense_value" type="measure"/>
+					<field name="final_value" type="measure"/>
+					<field name="initial_depr" type="measure"/>
+					<field name="income_depr" type="measure"/>
+					<field name="expense_depr" type="measure"/>
+					<field name="final_depr" type="measure"/>
+				</pivot>
+			</field>
+		</record>
+		<record id="view_consumable_standard_data_tree" model="ir.ui.view">
+			<field name="name">consumable.standard.data.tree</field>
+			<field name="model">consumable.standard.data</field>
+			<field eval="1" name="priority"/>
+			<field name="arch" type="xml">
+				<tree string="Asset Items" create="false">
+					<field name="asset_id" />
+					<field name="date" />
+					<field name="initial_value" />
+					<field name="capital_value" />
+					<field name="expense_value" />
+					<field name="final_value" />
+					<field name="initial_depr" />
+					<field name="income_depr" />
+					<field name="expense_depr" />
+					<field name="final_depr" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="consumable_standard_data_graph" model="ir.ui.view">
+			<field name="name">consumable.standard.data.graph</field>
+			<field name="model">consumable.standard.data</field>
+			<field name="arch" type="xml">
+				<graph string="Account Statistics" type="bar">
+					<field name="date"/>
+					<field name="initial_value" operator="+" type='measure'/>
+				</graph>
+			</field>
+		</record>
+
+		<record id="view_consumable_standard_data_filter" model="ir.ui.view">
+			<field name="name">Consumable Items</field>
+			<field name="model">consumable.standard.data</field>
+			<field name="arch" type="xml">
+				<search string="Search consumable Items">
+					<field name="asset_id"/>
+					<field name="category"/>
+					<group expand="0" string="Group By">
+						<filter string="Caterogy" domain="[]" context="{'group_by':'category'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+</odoo>

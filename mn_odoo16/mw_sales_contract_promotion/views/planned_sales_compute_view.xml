@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Planned Sales Compute -->
+	<record id="planned_sales_compute_filter_view" model="ir.ui.view">
+        <field name="name">planned.sales.compute.filter</field>
+        <field name="model">planned.sales.compute</field>
+        <field name="arch" type="xml">
+            <search string="Planned sales compute">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contract_id"/>
+                <filter string="Confirmed" domain="[('state','in',['confirmed'])]" name="confirmed"/>
+                <filter string="Done" domain="[('state','=','done')]" name="draft"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by' : 'partner_id'}" string="Partner" name="partner"/>
+                    <filter context="{'group_by':'state'}" string="State" name="state"/>
+                    <filter string="Contract" context="{'group_by':'contract_id'}" name="contract"/>
+                    <filter string="Сараар" context="{'group_by':'date_start:month'}" help="Сараар бүлэглэх" name="month"/>
+        	</group>
+            </search>
+        </field>
+    </record>
+
+    <!-- MAIN FORM -->
+	<record id="planned_sales_compute_form_view" model="ir.ui.view">
+		<field name="name">planned.sales.compute.form</field>
+		<field name="model">planned.sales.compute</field>
+		<field name="arch" type="xml">
+            <form string="Sales plan">
+                <header>
+                    <button name="action_to_draft" string="Draft"  
+                        type="object" groups="base.group_no_one"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Confirm"  
+                        states="draft" type="object"
+                        groups="sales_team.group_sale_manager" />
+                    <button name="action_to_done" class="oe_highlight" string="Discount approve"  
+                        states="confirmed" type="object" 
+                        groups="mw_sales_contract_promotion.group_sale_contract_accountant"/>
+                    <button name="action_to_account" class="oe_highlight" string="Create account move"  
+                        states="done" type="object" 
+                        groups="mw_sales_contract_promotion.group_sale_contract_accountant"/>
+                    <button name="action_to_cancel" string="Cancel"  
+                        states="confirmed" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" readonly="1" />
+                </header>
+       		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                    </div>
+                    <div name="button_box" class="oe_button_box">
+                        <button 
+                            name="compute_contract_total_sales" states="draft"
+                            type="object" class="oe_stat_button"
+                            icon="fa-calculator" string="Compute discount"/>
+                    </div>
+                    <group col="4">
+                        <field name="partner_id" options="{'no_create': True}"/>
+                        <newline/>
+
+                        <field name="contract_id"/>
+                        <field name="contract_type"/>
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+
+                        <field name="description" />
+                        <field name="discount_percent"/>
+
+                        <field name="total_amount"/>
+                        <field name="total_discount_amount"/>
+
+                        <field name="total_payment"/>
+                        <field name="is_include_percent"/>
+                    </group>
+                    <group col="4">
+                        <field name="user_id" />
+                        <field name="sale_manager_id" />
+                        <field name="accountant_id" />
+<!--                         <field name="account_id" /> -->
+                        <field name="account_debit_id" />
+                        <field name="journal_id" />
+                        <field name="move_id" />
+                    </group>
+                    <group col="4">
+                        <field name="line_ids" nolabel="1" widget="one2many_list" 
+                            mode="tree" >
+                            <tree string="Lines" class="table_header_freeze">
+                                <field name="so_id"/>
+                                <!-- <field name="warehouse_id"/> -->
+                                <field name="discount_percent"/>
+                                <field name="amount" sum="Total"/>
+                                <field name="payment_amount" sum="Total"/>
+                                <field name="discount_amount" sum="Total"/>
+                            </tree>
+                        </field>
+                    </group>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="planned_sales_compute_tree_view" model="ir.ui.view">
+        <field name="name">planned.sales.compute.tree</field>
+        <field name="model">planned.sales.compute</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state=='done'"
+                  decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="contract_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="total_amount"/>
+                <field name="discount_percent"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_planned_sales_compute'>
+        <field name="name">Planned sales compute</field>
+        <field name="res_model">planned.sales.compute</field>
+        <field name="context">{'search_default_confirmed': 1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('planned_sales_compute_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('planned_sales_compute_form_view')})]"/>
+    </record>
+
+</odoo>

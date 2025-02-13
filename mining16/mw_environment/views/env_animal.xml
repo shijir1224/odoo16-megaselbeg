@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record model="ir.ui.view" id="env_animal_tree">
+            <field name="name">env.animal.tree</field>
+            <field name="model">env.animal</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Animal" >
+                    <field name="mining_location"/>
+                    <field name="date"/>
+                    <field name="animal" />
+                    <field name="number" sum="Нийт"/>
+                    <field name="gender"/>
+                    <field name="create_uid" string='Бүртгэсэн'/>
+                    <field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="env_animal_form">
+            <field name="name">env.animal.form</field>
+            <field name="model">env.animal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+                        <button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar m-0" force_save="1"/>
+                        <group col="2">
+                            <group>
+                                <field name="mining_location" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="animal" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="gender" widget="selection"/>
+                                <field name="location_id"  domain="[('mining_id','=',mining_location),('is_active','=', 'active') ,('monitor_category','=', 'monitor4')]" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="year" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="number"/>
+                                <field name="animal_category"/>
+                                <field name="location"/>                                
+                            </group>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </sheet>
+                   <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="env_animal_pivot" model="ir.ui.view">
+            <field name="name">env.animal.pivot</field>
+            <field name="model">env.animal</field>
+            <field name="type">graph</field>
+            <field name="arch" type="xml">
+                <graph string="Animal Summary">
+                    <field name="animal" type="row"/>
+                    <field name="date" type="col"/>
+                    <field name="number" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="env_animal_search" model="ir.ui.view">
+            <field name="name">env.animal.search</field>
+            <field name="model">env.animal</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group>
+                        <field name="mining_location"/>
+                        <field name="animal"/>
+                    </group>
+                    <group expand="0" string="Бүлэглэх">
+                        <filter name="mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+                        <!-- <filter string="Он" widget="date" context="{'group_by':'date:year'}"/> -->
+                        <filter name="animal" string="Ан амьтан" context="{'group_by':'animal'}"/>
+                        <filter name="gender"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_env_animal" model="ir.actions.act_window">
+                <field name="name">Ан амьтан</field>
+                <field name="res_model">env.animal</field>
+                <field name="view_mode">tree,form,graph</field>
+                <field name="view_id" ref="env_animal_tree"/>
+                <field name="search_view_id" ref="env_animal_search"/>
+                <field name="help" type="html">
+                      <p class="oe_view_nocontent_create">
+                        Энд дарж амьтны үзэгдсэн тоог бүртгэлээ хийнэ үү.
+                      </p>
+                </field>
+        </record>
+    
+</odoo>

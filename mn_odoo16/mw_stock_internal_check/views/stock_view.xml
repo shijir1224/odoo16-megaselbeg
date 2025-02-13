@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_withcarrier_out_form_checker" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view.checker</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//form/sheet/group[1]' position="before">
+                <field name="check_is" invisible="1"/>
+                <group col="8" attrs="{'invisible':[('check_is','=',False)]}">
+                    <field name="check_ok" widget="boolean_toggle" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                    <field name="checked_user_id" force_save="1"/>
+                    <field name="checked_date" force_save="1"/>
+                    <button name="send_chat_checker" type="object" icon="fa-comment" class="btn-warning" string="Батлагчруу чат"/>
+                    <button name="send_chat_checker" type="object" icon="fa-mail-reply" class="btn-warning" string="Батлагчид Майл илгээх" invisible="1"/>
+                    <field name="check_ok2" widget="boolean_toggle" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                    <field name="checked_user_id2" force_save="1"/>
+                    <field name="checked_date2" force_save="1"/>
+                    <button name="send_chat_checker2" type="object" icon="fa-comment" class="btn-warning" string="Батлагч 2 руу чат"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search_inherit_checkerk" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search.inherit.checker</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <filter string="Батлагч батласан" name="checked_is_ok_ok" domain="[('check_ok', '=', True)]"/>
+                <filter string="Батлагч батлаагүй" name="checked_is_ok_not" domain="[('check_ok', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="stock_location_form_inherit_checker" model="ir.ui.view">
+        <field name="name">stock.location.form.inherit.checker</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+        	<field name="usage" position="after">
+        		<field name="check_user_ids" widget="many2many_tags" groups="mw_stock_internal_check.group_stock_picking_checker_loc"/>
+                <field name="check_user_ids2" widget="many2many_tags" groups="mw_stock_internal_check.group_stock_picking_checker_loc"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="stock_location_tree_inherit_checker" model="ir.ui.view">
+        <field name="name">stock.location.tree.inherit.checker</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+        	<field name="usage" position="after">
+        		<field name="check_user_ids" widget="many2many_tags"/>
+                <field name="check_user_ids2" widget="many2many_tags" groups="mw_stock_internal_check.group_stock_picking_checker_loc"/>
+			</field>
+		</field>
+	</record>
+</odoo>

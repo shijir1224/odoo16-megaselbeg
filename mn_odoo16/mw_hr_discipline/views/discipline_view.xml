@@ -1,0 +1,402 @@
+<odoo>
+	<menuitem id="menu_discipline_main" name="Зөрчил" parent = "hr.menu_hr_root" sequence="10" groups="hr.group_hr_manager"/>
+	<menuitem id="menu_discipline_conf" name="Тохиргоо" parent="menu_discipline_main" sequence="3"/>
+	
+ 
+<!-- СШ хуудас -->
+		<record model="ir.ui.view" id="discipline_document_search_view">
+	        <field name="name">discipline.document.search</field>
+	        <field name="model">discipline.document</field>
+	        <field name="type">search</field>
+	        <field name="arch" type="xml">
+	            <search string="discipline document search">
+	            	<field name="number"/>
+	                <!-- <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/> -->
+					<filter string="Компани" name="company_id"  context="{'group_by':'company_id'}"/>
+	            </search>
+	        </field>
+	    </record>
+
+    	<record model="ir.ui.view" id="discipline_document_form_view">
+	        <field name="name">discipline.document.form</field>
+	        <field name="model">discipline.document</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="discipline document form" version="7.0">
+					<header>
+						<button name="action_done" states="approve" string="Батлах" class="oe_highlight" type="object"/>
+						<button name="action_sent" states="draft" string="Батлах" class="oe_highlight" type="object"/>
+						<button name="action_approve" states="sent" string="Батлах" class="oe_highlight" type="object"/>
+						<button name="action_draft" states="done" string="Ноороглох" type="object"/> 
+						<field name="state" widget="statusbar" statusbar_visible="draft,sent,approve,done"/>
+					</header>
+					<sheet>  
+						<field name="active" invisible="1"/>
+						<group>
+							<field name="number" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="registered_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+						<group>
+							<group string="Зөрчил гаргасан ажилтан">
+								<field name="employee_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="department_id"  options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="job_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="company_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+							<group string="СШ хуудас бичсэн" >
+								<field name="discipline_employee_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="discipline_department_id"  options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="discipline_job_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+						</group>
+						<group name='discipline'>
+							<group string="Гарсан зөрчлийн мэдээлэл">
+								<field name="type"  options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="caption" colspan="2" placeholder="Зөрчил гарсан үндэслэл бичнэ үү!" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="fond" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+						</group>
+						<group>
+							<field name="before_discipline_ids" >
+								<tree string="discipline document tree">
+									<field name="date"/>
+									<field name="number"/>
+									<field name="type" />
+								</tree>
+							</field>
+						</group>
+						<group name='meeting' string="Хурлын тэмдэглэл бүртгэл" >
+							<field name="meet_start_date" attrs="{'readonly':[('state','!=','draft')]}" />
+							<field name='meet_start_time'  widget="float_time" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="num_employee_ids" widget="many2many_tags" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+						<notebook name='meet'>
+							<page string="Хурлын тэмдэглэл" >
+								<field name="memo"/>
+							</page>
+							<page string="Мэдэгдэх ажилчид" >
+								<field name="employee_ids" context="{'id2':id}" string="Мэдэгдэх ажилчид" >
+									<tree string="Мэдэгдэх ажилчид" >
+										<field name="name"/>
+										<field name="work_email"/>
+									</tree>                             
+								</field>
+							</page>
+						</notebook>
+						<group string="Хурлын шийдвэр" name ='meet_decision'>
+							<field name="meet_summary" />
+							<field name="salary_procent"  attrs="{'invisible':[('meet_summary','not in',('salary','salary2','salary3'))]}"/>
+							<field name="salary_date_drom" attrs="{'invisible':[('meet_summary','not in',('salary','salary2','salary3'))]}"/>
+							<field name="salary_date_to" attrs="{'invisible':[('meet_summary','not in',('salary','salary2','salary3'))]}"/>
+						</group>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+					</sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="discipline_document_tree_view">
+	        <field name="name">discipline.document.tree</field>
+	        <field name="model">discipline.document</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree >
+	               	<field name="registered_date"/>
+	               	<field name="number"/>
+					<field name="employee_id"/>
+					<field name="department_id"/>
+					<field name="company_id"/>
+					<field name="type" />
+					<field name="meet_summary"/>
+	            </tree>
+	        </field>
+	    </record>
+
+		<record model="ir.ui.view" id="disciplineЕdocument_pivot_view">
+			<field name="name">discipline.document.pivot</field>
+			<field name="model">discipline.document</field>
+			<field name="arch" type="xml">
+				<pivot string="Received document pivot">
+					<field name="number" type="row"/>
+					<field name="registered_date" type="col"/>
+				</pivot>
+			</field>
+		</record>
+        <record model="ir.ui.view" id="discipline_document_graph_view">
+            <field name="name">discipline.document.graph</field>
+            <field name="model">discipline.document</field>
+            <field name="arch" type="xml">
+                <graph string="discipline document graph">
+                    <field name="number"/>
+                    <field name="registered_date"/>
+                </graph>
+            </field>
+        </record>
+        <record  id="discipline_document_calendar_view" model="ir.ui.view">
+            <field name="name">discipline.document.calendar</field>
+            <field name="model">discipline.document</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar 
+                        date_start="registered_date"
+                        mode="month"
+                        quick_add="False">
+                    <field name="number"/>
+                    <field name="registered_date"/>
+					<field name="employee_id"/>
+					<field name="type" />
+					<field name="meet_summary"/>
+                </calendar>
+            </field>
+        </record>
+	    <record model="ir.actions.act_window" id="action_discipline_document_tree_view">
+	        <field name="name">Сахилгын зөрчлийн хуудас</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">discipline.document</field>
+	        <field name="view_mode">tree,form,pivot,calendar,graph</field>
+	        <field name="context">{'search_default_company_id': 1}</field>
+	        <field name="search_view_id" ref="discipline_document_search_view"/>
+	     	<field name="view_id" ref="discipline_document_tree_view"/>
+	    </record>
+	    <menuitem id="discipline_document_menu" parent="menu_discipline_main" action="action_discipline_document_tree_view" sequence="2"/> 
+	  
+<!-- Анхааруулах хуудас -->
+		<record model="ir.ui.view" id="warning_document_search_view">
+	        <field name="name">warning.document.search</field>
+	        <field name="model">warning.document</field>
+	        <field name="type">search</field>
+	        <field name="arch" type="xml">
+	            <search string="warning document search">
+	            	<field name="number"/>
+	                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+					<filter string="Компани" name="company_id"  context="{'group_by':'company_id'}"/>
+	            </search>
+	        </field>
+	    </record>
+
+    	<record model="ir.ui.view" id="warning_document_form_view">
+	        <field name="name">warning.document.form</field>
+	        <field name="model">warning.document</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="warning document form" version="7.0">
+					<header>
+						<button name="action_done" states="sent" string="Батлах" class="oe_highlight" type="object"/>
+						<button name="action_sent" states="draft" string="Батлах" class="oe_highlight" type="object"/>
+						<button name="action_draft" states="done" string="Ноороглох" type="object"/> 
+						<field name="state" widget="statusbar" statusbar_visible="draft,sent,done"/>	
+					</header>
+					<sheet>
+						<field name="active" invisible="1"/>
+						<group col="4" >
+							<field name="number" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="registered_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+						<group col="2" colspan="4">
+							<group string="Сануулга өгсөн ажилтан">
+								<field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="department_id"  options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="job_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="company_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="type"  options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="caption" colspan="2" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="fond" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="is_warning" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="answer" colspan="2" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+							<group string="Сануулга хуудас бичсэн ажилтан">
+								<field name="warning_employee_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="warning_department_id"  options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="warning_job_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</group>
+						</group>
+						<group >
+							<field name="before_warning_ids" attrs="{'invisible': [('is_warning', '!=', True)], 'readonly':[('state','!=','draft')]}" >
+									<tree string="warning document tree">
+										<field name="date" />
+										<field name="number" />
+										<field name="type" />
+									</tree>
+							</field>
+						</group>
+						<group>
+							<field name="employee_ids" context="{'id2':id}" string="Мэдэгдэх ажилчид" attrs="{'readonly':[('state','!=','draft')]}">
+								<tree string="Мэдэгдэх ажилчид">
+									<field name="name" />
+									<field name="work_email" />
+								</tree>                             
+							</field>
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+	            </form>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="warning_document_tree_view">
+	        <field name="name">warning.document.tree</field>
+	        <field name="model">warning.document</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree >
+	               	<field name="date"/>
+	               	<field name="number"/>
+					<field name="employee_id"/>
+					<field name="type" />
+	            </tree>
+	        </field>
+	    </record>
+
+
+	<record model="ir.ui.view" id="warning_document_pivot_view">
+        <field name="name">warning.document.pivot</field>
+        <field name="model">warning.document</field>
+        <field name="arch" type="xml">
+            <pivot string="Received document pivot">
+                <field name="number" type="row"/>
+                <field name="registered_date" type="col"/>
+            </pivot>
+        </field>
+    </record>
+        <record model="ir.ui.view" id="warning_document_graph_view">
+            <field name="name">warning.document.graph</field>
+            <field name="model">warning.document</field>
+            <field name="arch" type="xml">
+                <graph string="warning document graph">
+                    <field name="number" type="measure"/>
+                    <field name="registered_date" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record  id="warning_document_calendar_view" model="ir.ui.view">
+            <field name="name">warning.document.calendar</field>
+            <field name="model">warning.document</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar 
+                        date_start="registered_date"
+                        mode="month"
+                        quick_add="False">
+                    <field name="number"/>
+                    <field name="registered_date"/>
+                </calendar>
+            </field>
+        </record>
+	    <record model="ir.actions.act_window" id="action_warning_document_tree_view">
+	        <field name="name">Анхааруулах хуудас</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">warning.document</field>
+	        <field name="view_mode">tree,form,pivot,calendar,graph</field>
+	        <field name="context">{'search_default_company_id': 1}</field>
+	        <field name="search_view_id" ref="warning_document_search_view"/>
+	     	<field name="view_id" ref="warning_document_tree_view"/>
+	    </record>
+
+	    <menuitem id="warning_document_menu" parent="menu_discipline_main" action="action_warning_document_tree_view" sequence="1"/> 
+
+
+<!-- Configuration -->
+    <record id="warning_type_form" model="ir.ui.view">
+        <field name="name">warning.type.form</field>
+        <field name="model">warning.type</field>
+        <field name="arch" type="xml">
+            <form string="Rule direction">
+            <sheet>
+                <group >
+                    <field name="name" required="1"/>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="warning_type_tree" model="ir.ui.view">
+        <field name="name">warning.type.tree</field>
+        <field name="model">warning.type</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+   
+    <record id="warning_type_action" model="ir.actions.act_window">
+        <field name="name">Зөрчлийн төрөл</field>
+        <field name="res_model">warning.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_warning_type" action="warning_type_action" parent="menu_discipline_conf"  sequence="10"/>
+
+
+    <record id="discipline_meeting_conclusion" model="ir.ui.view">
+        <field name="name">discipline.meeting.conclusion.form</field>
+        <field name="model">discipline.meeting.conclusion</field>
+        <field name="arch" type="xml">
+            <form string="Punishment meeting conclusion">
+            <sheet>
+                <group >
+                    <field name="name" required="1"/>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+    
+
+    <record id="discipline_meeting_conclusion_tree" model="ir.ui.view">
+        <field name="name">discipline.meeting.conclusion.tree</field>
+        <field name="model">discipline.meeting.conclusion</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+   
+    <record id="discipline_meeting_conclusion_action" model="ir.actions.act_window">
+        <field name="name">Хурлын дүгнэлт</field>
+        <field name="res_model">discipline.meeting.conclusion</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+	 <menuitem id="discipline_meeting_conclusion_menu" action="discipline_meeting_conclusion_action" parent="menu_discipline_conf"  sequence="10"/>
+
+
+<!-- Ir sequence -->
+	<record id="seq_discipline_note_request" model="ir.sequence">
+		<field name="name"> СШ хуудас </field>
+		<field name="code">discipline.document</field>
+		<field name="prefix">№%(month)s/</field>
+		<field name="padding">2</field>
+		<field name="company_id" eval="False"/>
+	</record>
+	<record id="seq_warning_note_request" model="ir.sequence">
+		<field name="name"> Анхааруулах хуудас </field>
+		<field name="code">warning.document</field>
+		<field name="prefix">№%(month)s/</field>
+		<field name="padding">2</field>
+		<field name="company_id" eval="False"/>
+	</record>
+
+	<record id="hr_employee_view_form2_disc" model="ir.ui.view">
+			<field name="name">hr.hr.employee.view.form2.mw</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_user']" position="after">
+				<button name="action_hr_discipline" type="object" class="oe_stat_button" icon="fa-exclamation">
+					<field string="Зөрчил" widget="statinfo" name ='discipline_count'/>
+				</button>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

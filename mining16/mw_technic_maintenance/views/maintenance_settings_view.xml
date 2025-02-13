@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Maintenance incpection config -->
+    <record id="maintenance_inspection_config_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.inspection.config.filter</field>
+        <field name="model">maintenance.inspection.config</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="branch_id"/>
+                <field name="validator_id"/>
+                <field name="planned_time"/>
+                <field name="planned_mans"/>
+                <field name="technic_ids"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="maintenance_inspection_config_form_view" model="ir.ui.view">
+        <field name="name">maintenance.inspection.config.form</field>
+        <field name="model">maintenance.inspection.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="branch_id" options="{'no_create':True}"/>
+
+                        <field name="config_type"/>
+                        <field name="planned_time"/>
+
+                        <field name="validator_id" options="{'no_create':True}"/>
+                        <field name="planned_mans"/>
+
+                        <field name="shift"/>
+                        <newline/>
+
+                        <field name="technic_ids" colspan="4" nolabel="1"
+                            widget="many2many_tags" options="{'no_create':True}"
+                            attrs="{'required':[('config_type','=','daily_inspection')]}"/>
+
+                        <field name="reason_id" options="{'no_create':True}"
+                            required="1"/>
+                        <field name="system_id" options="{'no_create':True}"
+                            required="1"/>
+                    </group>
+                    <group col="4">
+                        <field name="date_type"/>
+                        <button name="test_create_inspection_wo" string="Manual"
+                            type="object" class="btn-primary"/>
+                    </group>
+                    <group attrs="{'invisible':[('date_type','!=','weekly')]}" col="4">
+                        <field name="monday"/>
+                        <field name="tuesday"/>
+                        <field name="wednesday"/>
+                        <field name="thursday"/>
+                        <field name="friday"/>
+                        <field name="saturday"/>
+                        <field name="sunday"/>
+                    </group>
+                    <group attrs="{'invisible':[('date_type','!=','monthly')]}" col="4">
+                        <field name="monthly_days" colspan="4"
+                            placeholder="ЖШ: 1,4,7,10,13,16,19,22,25,28,31 гэх мэт"
+                            attrs="{'required':[('date_type','=','monthly')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_inspection_config_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.inspection.config.tree</field>
+        <field name="model">maintenance.inspection.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="shift"/>
+                <field name="date_type"/>
+                <field name="config_type"/>
+                <field name="branch_id"/>
+                <field name="technic_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_inspection_config'>
+        <field name="name">maintenance.inspection.config.action</field>
+        <field name="res_model">maintenance.inspection.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Inspection CRON -->
+    <record id="cron_maintenance_inspection_view" model="ir.cron">
+        <field name="name">Өдөр тутмын үзлэгийн - КРОН</field>
+        <field name="model_id" ref="model_maintenance_inspection_config"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._auto_create_inspection_wo()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <!-- Maintenance type -->
+    <record id="workorder_rate_description_filter_view" model="ir.ui.view">
+        <field name="name">workorder.rate.description.filter</field>
+        <field name="model">workorder.rate.description</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="workorder_rate_description_form_view" model="ir.ui.view">
+        <field name="name">workorder.rate.description.form</field>
+        <field name="model">workorder.rate.description</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="workorder_rate_description_tree_view" model="ir.ui.view">
+        <field name="name">workorder.rate.description.tree</field>
+        <field name="model">workorder.rate.description</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_workorder_rate_description'>
+        <field name="name">workorder.rate.description.action</field>
+        <field name="res_model">workorder.rate.description</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Maintenance type -->
+    <record id="maintenance_type_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.type.filter</field>
+        <field name="model">maintenance.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="maintenance_type_form_view" model="ir.ui.view">
+        <field name="name">maintenance.type.form</field>
+        <field name="model">maintenance.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="is_pm"/>
+                        <field name="is_waiting_part"/>
+                        <field name="is_waiting_tire"/>
+                        <field name="color" widget="colorpicker"/>
+                        <field name="description" nolabel="1"
+                            colspan="4" placeholder="Тайлбар..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_type_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.type.tree</field>
+        <field name="model">maintenance.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="color" widget="colorpicker"/>
+                <field name="is_pm"/>
+                <field name="is_waiting_part"/>
+                <field name="is_waiting_tire"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_type'>
+        <field name="name">maintenance.type.action</field>
+        <field name="res_model">maintenance.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<!-- Delay reason -->
+	<record id="maintenance_delay_reason_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.delay.reason.filter</field>
+        <field name="model">maintenance.delay.reason</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
+	<record id="maintenance_delay_reason_form_view" model="ir.ui.view">
+		<field name="name">maintenance.delay.reason.form</field>
+		<field name="model">maintenance.delay.reason</field>
+		<field name="arch" type="xml">
+            <form>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+           			<group col="4">
+                        <field name="code"/>
+                        <field name="color" widget="colorpicker"/>
+                        <field name="is_maintenance_reason"/>
+                    </group>
+                    <group col="4">
+                        <field name="description" nolabel="1"
+                            colspan="4" placeholder="Тайлбар..."/>
+                    </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_delay_reason_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.delay.reason.tree</field>
+        <field name="model">maintenance.delay.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="color" widget="colorpicker"/>
+                <field name="is_maintenance_reason"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_delay_reason'>
+        <field name="name">maintenance.delay.reason.action</field>
+        <field name="res_model">maintenance.delay.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- damaged type -->
+    <record id="maintenance_damaged_type_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.damaged.type.filter</field>
+        <field name="model">maintenance.damaged.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="description"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by' : 'parent_id'}" string="Толгой систем" name="parent_id"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="maintenance_damaged_type_form_view" model="ir.ui.view">
+        <field name="name">maintenance.damaged.type.form</field>
+        <field name="model">maintenance.damaged.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="code"/>
+                        <field name="parent_id" options="{'no_create':True}"/>
+                        <field name="description" placeholder="Тайлбар..."/>
+                        <field name="is_oil_sample"/>
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_damaged_type_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.damaged.type.tree</field>
+        <field name="model">maintenance.damaged.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="parent_id" />
+                <field name="description"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_damaged_type'>
+        <field name="name">maintenance.damaged.type.action</field>
+        <field name="res_model">maintenance.damaged.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="maintenance_damaged_type_filter_view"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('maintenance_damaged_type_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('maintenance_damaged_type_form_view')})]"/>
+    </record>
+
+    <!-- Child tree -->
+    <record id="maintenance_damaged_type_tree_child_view" model="ir.ui.view">
+        <field name="name">maintenance.damaged.type.tree</field>
+        <field name="model">maintenance.damaged.type</field>
+        <field name="field_parent">child_id</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="parent_id" />
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_damaged_type_child'>
+        <field name="name">maintenance.damaged.type.action.child</field>
+        <field name="res_model">maintenance.damaged.type</field>
+        <field name="view_id" ref="maintenance_damaged_type_tree_child_view"/>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('parent_id','=',False)]</field>
+    </record>
+
+    <!-- Damaged reason -->
+    <record id="maintenance_damaged_reason_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.damaged.reason.filter</field>
+        <field name="model">maintenance.damaged.reason</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="maintenance_damaged_reason_form_view" model="ir.ui.view">
+        <field name="name">maintenance.damaged.reason.form</field>
+        <field name="model">maintenance.damaged.reason</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col="2">
+                        <group>
+                            <field name="code" colspan="2"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <group col="4">
+                        <field name="description" nolabel="1"
+                            colspan="4" placeholder="Тайлбар..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_damaged_reason_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.damaged.reason.tree</field>
+        <field name="model">maintenance.damaged.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="description"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_damaged_reason'>
+        <field name="name">maintenance.damaged.reason.action</field>
+        <field name="res_model">maintenance.damaged.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Experience library -->
+    <record id="maintenance_experience_library_form_view" model="ir.ui.view">
+        <field name="name">maintenance.experience.library.form</field>
+        <field name="model">maintenance.experience.library</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="damaged_type_id" options="{'no_create': True}" required="1"/>
+                        <field name="damaged_reason_id" options="{'no_create': True}" required="1"/>
+
+                        <label for="description" colspan="2" />
+                        <label for="performance_description" colspan="2" />
+
+                        <field name="description" nolabel="1" colspan="2" placeholder="Тайлбар..."
+                            help="Эвдрэл гэмтэлтэй холбоотой мэдээлэл"/>
+
+                        <field name="performance_description" nolabel="1" colspan="2"
+                            placeholder="Гүйцэтгэлийн тайлбар..."/>
+
+                        <field name="workorder_id"/>
+                        <field name="user_id"/>
+                        <field name="warehouse_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_experience_library_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.experience.library.filter</field>
+        <field name="model">maintenance.experience.library</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="damaged_reason_id"/>
+                <field name="damaged_type_id"/>
+                <field name="user_id"/>
+                <field name="workorder_id"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by' : 'damaged_reason_id'}" string="Эвдрэлийн шалтгаан" name="damaged_reason_id"/>
+                    <filter context="{'group_by' : 'damaged_type_id'}" string="Техникийн систем"
+                        name="damaged_type_id"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="maintenance_experience_library_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.experience.library.tree</field>
+        <field name="model">maintenance.experience.library</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="damaged_type_id"/>
+                <field name="damaged_reason_id"/>
+                <field name="performance_description"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_experience_library'>
+        <field name="name">maintenance.experience.library.action</field>
+        <field name="res_model">maintenance.experience.library</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

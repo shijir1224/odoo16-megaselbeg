@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_only_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="see_mobile"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- ==================================================== -->
+    <record id="sale_order_form_inherit_view" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="driver_id" options="{'no_create':True}"/>
+                <field name="mobile_id" groups="base.group_no_one"/>
+            </xpath>
+            <xpath expr="//field[@name='validity_date']" position="after">
+                <field name="picking_date"
+                    required="1" 
+                    attrs="{'readonly':[('state','in',['sale','done'])]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']//form//div[@name='delivered_qty']" position="after">
+                <label for="return_qty" string="Буцаалт"/>
+                <div name="return_qty">
+                    <field name="return_qty"/>
+                </div>
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']//form//field[@name='analytic_tag_ids']" 
+                position="after">
+                <field name="return_reason" readonly="1"/>
+            </xpath> -->
+        </field>
+    </record>
+
+    <record id="sale_order_form_inherit_2_view" model="ir.ui.view">
+        <field name="name">sale.order.form.2.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="mw_sale_ebarimt.sale_order_form_inherit_ebarimt"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='create_ebarimt']" position="before">
+                <field name="with_e_tax"/>
+            </xpath>
+            <xpath expr="//button[@name='create_ebarimt']" position="attributes">
+                <attribute name="attrs">{'invisible':[('with_e_tax','=',False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

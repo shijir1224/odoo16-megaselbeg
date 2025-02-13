@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>        
+
+    <record id="account_general_journal_view" model="ir.ui.view">
+        <field name="name">General Ledger</field>
+        <field name="model">account.general.journal</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main_info">
+                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                </group>
+                <div>
+                    <group name="filters">
+				<group colspan="4" >
+		 	                   <field name="account_id" colspan="2" />
+			                   <field name="target_move" />
+		                   </group>
+                    		<group colspan="4" >
+                                <field name="date_from" colspan="4" string="Эхлэх"/>
+                                <field name="date_to" colspan="4" string="Дуусах"/>
+							</group>
+                    </group>
+                </div>
+                <footer>
+                    <div>
+	                        <button icon="fa-times" special="cancel" string="Cancel" colspan="2"/>
+	                        <button icon="fa-print" name="print_report" string="Print" type="object" colspan="2" default_focus="1" />
+                    </div>
+                </footer>
+            </form>
+        </field>
+    </record>        
+
+        <record id="action_account_general_journal2" model="ir.actions.act_window">
+            <field name="name">Ерөнхий журнал</field>
+            <field name="res_model">account.general.journal</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_general_journal_view"/>
+            <field name="target">new</field>
+        </record>
+        
+        
+        <menuitem 
+                id="menu_action_account_general_journal2"
+                action="action_account_general_journal2"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="10"
+                />
+                
+</odoo>

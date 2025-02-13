@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zarlaga_import_view" model="ir.ui.view">
+        <field name="name">zarlaga.import.wizard</field>
+        <field name="model">zarlaga.import</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create" states="draft" string="Зарлагын хөдөлгөөн үүсгэх" class="oe_highlight" type="object"/>
+                    <button name="action_done" states="create" string="Зарлага батлах" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="done,create" string="Ноороглох" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    <button type="object"
+                            name="view_stock_move"
+                            class="oe_stat_button" icon="fa-refresh">
+                            <field name="count_move" widget="statinfo"/>
+                        </button>
+                </div>
+                    <group col="4">
+                        <field name="name" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="type" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="import_type" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="is_technic" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        
+                    </group>
+                    <group col="4">
+                        <field name="total_qty" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="import_data" attrs="{'readonly':[('state','=','done')]}"/>
+                        <button name="action_import" string="Импорлох" type="object" icon="fa-arrow-circle-down" attrs="{'readonly':[('state','=','done')]}"/>
+                        <button name="remove_line" string="Мөр устгах" type="object" icon="fa-delete" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        <button name="update_date" string="Агуулах болон санхүү бичилтийн огноог өөрчлөх" type="object" icon="fa-date" attrs="{'invisible':[('state','=','draft')]}"/>
+                        <field name="result"/>
+                    </group>
+                    <notebook>
+                        <page string="Бараанууд">
+                            <group>
+                                <field name="line_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                    <tree editable="bottom">
+                                        <field name="date"/>
+                                        <field name="location_id"/>
+                                        <field name="to_location_id"/>
+                                        <field name="account_id"/>
+                                        <field name="analytic_account_id"/>
+                                        <field name="product_id"/>
+                                        <field name="product_qty" sum="sum"/>
+                                        <field name="desc"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="zarlaga_import_tree_view" model="ir.ui.view">
+        <field name="name">zarlaga.import.tree</field>
+        <field name="model">zarlaga.import</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="import_type"/>
+                <field name="total_qty"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_zarlaga_import" model="ir.actions.act_window">
+        <field name="name">Зарлага оруулах</field>
+        <field name="res_model">zarlaga.import</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_zarlaga_import" id="menu_zarlaga_import" parent="stock.menu_stock_inventory_control" groups="base.group_erp_manager" sequence="101"/>
+</odoo>

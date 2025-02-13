@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for  -->
+	 <record id="sequence_food_check" model="ir.sequence">
+        <field name="name">Food Check</field>
+        <field name="code">food.check</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="view_food_check_form" model="ir.ui.view">
+        <field name="name">food.check.form</field>
+        <field name="model">food.check</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+					<button name="action_draft" string="Буцааж ноороглох" states="done" type="object" class="btn-danger" groups="mw_hse_hygiene.group_hse_hygiene_manager"/>
+					<button name="action_done" class="btn-success" string="Батлах" states="draft" type="object"  icon="fa-check-square-o"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done" readonly="1"/>
+				</header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                        <field name="description"/>
+                        <field name="attachment_ids" widget="many2many_binary" options="{'no_create':True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="view_food_check_tree" model="ir.ui.view">
+        <field name="name">food.check.tree</field>
+        <field name="model">food.check</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'"
+                  decoration-success="state == 'done'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="description"/>
+                <field name="attachment_ids" optional="hide"/>
+                <field name="company_id" optional="hide"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_food_check_search" model="ir.ui.view">
+        <field name="name">food.check.search</field>
+        <field name="model">food.check</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="description"/>
+                <field name="company_id"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_food_check" model="ir.actions.act_window">
+        <field name="name">Хоолны хяналт</field>
+        <field name="res_model">food.check</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

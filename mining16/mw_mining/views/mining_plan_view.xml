@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <record id="view_mining_plan_tree" model="ir.ui.view">
+            <field name="name">mining.plan.tree</field>
+            <field name="model">mining.plan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Plan">
+                    <field name="date"/>
+                    <field name="state"/>
+                    <!-- <field name="sum_budget_m3"/> -->
+                    <field name="sum_forecast_m3"/>
+                    <field name="sum_forecast_tn" groups="mw_mining.group_mining_mineral_coal"/>
+                    <field name="sum_forecast_mineral_m3"/>
+                    <field name="progress_rate" widget="progressbar"/>
+                    <field name="actual_m3"/>
+                    <field name="sum_production"/>
+                    <field name="sum_production_ok"/>
+                    <field name="sum_production_exca"/>
+                    <field name="sum_production_dump"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_mining_plan_form" model="ir.ui.view">
+            <field name="name">mining.plan.form</field>
+            <field name="model">mining.plan</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Mining Plan"  >
+                    <header>
+                        <button name="action_to_approved" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="action_to_draft" states="approved" string="Draft" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="branch_id" widget="selection"/>
+                            </group>
+                            <group>
+                                <field name="actual_m3"/>
+                                <field name="progress_rate" widget="progressbar"/>
+                            </group>
+                        </group>
+                        <separator string="Plan" colspan="2"/>
+                        <notebook>
+                            <page string="Plan Line">
+
+                            <field name="plan_line" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="material_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="level"/>
+                                    <field name="location_id" domain="[('branch_id','=',parent.branch_id)]" options="{'no_create': True}"/>
+                                    <field name="forecast_m3" sum="SUM" force_save="1"/>
+                                    <field name="is_reclamation"/>
+                                    <field name="budget_tn" invisible="1"/>
+                                    <field name="forecast_tn" sum="SUM"/>
+                                    <!-- <field name="budget_m3"/> -->
+                                </tree>
+                            </field>
+                            </page>
+                            <page string="Technics Plan Line">
+                                <button name="import_technic" string="Import Technic" type="object" colspan="1" class=" btn-warning" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                <button name="remove_technic" string="Remove Technic" type="object" colspan="1" class=" btn-danger" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                <button name="update_technic" string="Upgrade Plan" type="object" colspan="1" class="btn-success" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                <field name="type" invisible="1"/>
+                                <field name="plan_technic_line" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="technic_id" domain="[('branch_id','=',parent.branch_id)]"/>
+                                        <field name="repair_hour" widget="float_time" attrs="{'readonly': [('parent.type','!=','master')]}"/>
+                                        <field name="run_hour" widget="float_time" force_save="1"/>
+                                        <field name="run_hour_util" widget="float_time" force_save="1"/>
+                                        <field name="is_production" readonly="0"/>
+                                        <field name="production" sum="SUM"/>
+                                        <field name="hour_prod" sum="SUM"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="sum_budget_m3"/>
+                            <field name="sum_forecast_m3"/>
+                            <field name="sum_budget_tn" groups="mw_mining.group_mining_mineral_coal"/>
+                            <field name="sum_forecast_tn" groups="mw_mining.group_mining_mineral_coal"/>
+                            <!-- <field name="sum_budget_mineral_m3"/> -->
+                            <field name="sum_forecast_mineral_m3"/>
+                            <field name="sum_production"/>
+                            <field name="sum_production_ok"/>
+                            <field name="sum_production_exca"/>
+                            <field name="sum_production_dump"/>
+                        </group>
+                        <div class="oe_clear"/>
+                        <separator string="Description"/>
+                        <field name="description" placeholder="Terms and conditions..."/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mining_plan_filter" model="ir.ui.view">
+        <field name="name">mining.plan.filter</field>
+        <field name="model">mining.plan</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <filter icon="terp-approved" name="is_approved" string="Approved" domain="[('state','=',('approved'))]" help="Approved Production Data"/>
+                <filter icon="terp-draft" name="is_draft" string="Draft" domain="[('state','=',('draft'))]" help="Draft Production Data"/>
+                <separator/>
+                <group expand="0" string="Group By...">
+                    <filter string="Салбар" name="group_branch_id" icon="terp-go-project" domain="[]" context="{'group_by':'branch_id'}"/>
+                    <filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+                    <filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+                    <filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+                </group>
+            </search>
+        </field>
+        </record>
+
+        <record model="ir.ui.view" id="mining_plan_calendar">
+            <field name="name">mining.plan.calendar</field>
+            <field name="model">mining.plan</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" color="branch_id">
+                    <field name="branch_id"/>
+                    <field name="sum_budget_m3"/>
+                       <field name="sum_forecast_m3"/>
+                </calendar>
+            </field>
+        </record>
+        <!-- <record id="action_mining_plan" model="ir.actions.act_window">
+            <field name="name">Mining Plan</field>
+            <field name="res_model">mining.plan</field>
+            <field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record> -->
+        <record id="action_master" model="ir.actions.act_window">
+            <field name="name">Master plan</field>
+            <field name="res_model">mining.plan</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1, 'type': 'master'}</field>
+            <field name="domain">[('type', '=', 'master')]</field>
+        </record>
+        <record id="action_plan" model="ir.actions.act_window">
+            <field name="name">Monthly Plan</field>
+            <field name="res_model">mining.plan</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1, 'type': 'plan'}</field>
+            <field name="domain">[('type', '=', 'plan')]</field>
+        </record>
+        <record id="action_plan_weekly" model="ir.actions.act_window">
+            <field name="name">Weekly Plan</field>
+            <field name="res_model">mining.plan</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1, 'type': 'weekly'}</field>
+            <field name="domain">[('type', '=', 'weekly')]</field>
+        </record>
+
+        <record id="action_selected_mining_plan_customer" model="ir.actions.server">
+			<field name="name">Олноор нь батлах</field>
+			<field name="model_id" ref="mw_mining.model_mining_plan_customer"/>
+			<field name="groups_id" eval="[(4, ref('mw_mining.group_mining_dispatcher'))]"/>
+			<field name="binding_model_id" ref="mw_mining.model_mining_plan_customer"/>
+			<field name="state">code</field>
+			<field name="code">records.action_to_approved()</field>
+		</record>
+
+        <!-- From contract -->
+        <record id="mining_plan_customer_filter" model="ir.ui.view">
+            <field name="name">mining.plan.customer.filter</field>
+            <field name="model">mining.plan.customer</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="branch_id"/>
+                    <separator/>
+                    <filter name="this_today" string="Today" domain="[('date_start','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="This Month" domain="[('date_start','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="this_year" string="This Year" domain="[('date_start','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date_start','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date_start','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date_start','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date_start','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date_start','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date_start','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date_start','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date_start','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date_start','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date_start','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date_start','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date_start','like',time.strftime('%%Y-12'))]"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Салбар" name="gr_branch_id"  domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Материал" name="gr_material_id"  domain="[]" context="{'group_by':'material_id'}"/>
+                        <filter string="Year" name='gr_year' context="{'group_by':'date_start:year'}"/>
+                        <filter string="Month" name='gr_month' context="{'group_by':'date_start:month'}"/>
+                        <filter string="Week" name='gr_week' context="{'group_by':'date_start:week'}"/>
+                        <filter string="Day" name='gr_day' context="{'group_by':'date_start:day'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="mining_plan_customer_pivot" model="ir.ui.view">
+            <field name="name">mining.plan.customer.pivot</field>
+            <field name="model">mining.plan.customer</field>
+            <field name="arch" type="xml">
+                <pivot string="Pit update">
+                    <field name="branch_id" type="row"/>
+                    <field name="total_amount_m3" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="mining_plan_customer_tree" model="ir.ui.view">
+            <field name="name">mining.plan.customer.tree</field>
+            <field name="model">mining.plan.customer</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Plan" decoration-danger="state=='draft'" decoration-success="state=='approved'">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="branch_id"/>
+                    <field name="material_id" optional="show"/>
+                    <field name="total_amount_m3"/>
+                    <field name="total_amount_tn"/>
+                    <field name="actual_per_dpr" widget="progressbar" optional="show"/>
+                    <field name="actual_dpr" sum="SUM" optional="show"/>
+                    <field name="actual_per_sur" widget="progressbar" optional="show"/>
+                    <field name="actual_sur" sum="SUM" optional="show"/>
+                    <field name="state"/>
+                    <button name="update_dummy" string="Update" type="object" class="btn-success" icon="fa-refresh"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="mining_plan_customer_form" model="ir.ui.view">
+            <field name="name">mining.plan.customer.form</field>
+            <field name="model">mining.plan.customer</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_to_approved" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="action_to_draft" states="approved" string="Draft" type="object"/>
+                        <button name="compute_actual" states="draft" string="Гүйцэтгэл бодуулах" type="object" icon="fa-refresh" class="btn-success"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                        <button name="update_dummy" string="Update" type="object" class="btn-success" icon="fa-refresh"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="date_start"/>
+                            <field name="branch_id"/>
+                            <field name="material_id"/>
+                            <field name="date_end" groups="base.group_no_one"/>
+                        </group>
+                        <!-- <separator string="Plan" colspan="2"/>
+                        <group>
+                            <field name="plan_line" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="material_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="forecast_m3" sum="SUM" force_save="1"/>
+                                </tree>
+                            </field>
+                        </group> -->
+                        <separator string="Total" colspan="2"/>
+                        <group col="4">
+                            <field name="total_amount_m3"/>
+                            <field name="total_amount_tn" force_save="1"/>
+                            <field name="actual_per_dpr" widget="progressbar" optional="show"/>
+                            <field name="actual_dpr" sum="SUM" optional="show"/>
+                            <field name="actual_per_sur" widget="progressbar" optional="show"/>
+                            <field name="actual_sur" sum="SUM" optional="show"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_mining_plan_customer" model="ir.actions.act_window">
+            <field name="name">Contract work plan</field>
+            <field name="res_model">mining.plan.customer</field>
+            <field name="view_mode">tree,pivot,form</field>
+            <!-- <field name="view_mode">tree,pivot,grid,gantt,form</field> -->
+            <field name="context">{'search_default_group_branch_id': 1}</field>
+        </record>
+
+        <!-- Mining plan concentrator -->
+        <record id="view_mining_plan_concentrator_tree" model="ir.ui.view">
+            <field name="name">mining.plan.concentrator.tree</field>
+            <field name="model">mining.plan.concentrator</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Plan">
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="sum_metal_kg"/>
+                    <field name="sum_plan_m3"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_mining_plan_concentrator_form" model="ir.ui.view">
+            <field name="name">mining.plan.concentrator.form</field>
+            <field name="model">mining.plan.concentrator</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Mining Plan Concentrator"  >
+                    <header>
+                        <button name="action_to_approved" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="action_to_draft" states="approved" string="Draft" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="branch_id" widget="selection"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                        <separator string="Plan" colspan="2"/>
+                        <group>
+                            <field name="plan_concentrator_line" nolabel="1">
+                                <tree   editable="bottom">
+                                    <field name="concentrator_id" widget="selection" />
+                                    <field name="material_id" widget="selection"/>
+                                    <field name="location_id" domain="[('branch_id','=',parent.branch_id)]" widget="selection"/>
+                                    <field name="plan_m3"/>
+                                    <field name="average_content"/>
+                                    <field name="metal_capture"/>
+                                    <field name="metal_kg"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <div class="oe_clear"/>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="sum_metal_kg"/>
+                            <field name="sum_plan_m3"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mining_plan_concentrator_filter" model="ir.ui.view">
+            <field name="name">mining.plan.concentrator.filter</field>
+            <field name="model">mining.plan.concentrator</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <filter icon="terp-approved" name="is_approved" string="Батлагдсан" domain="[('state','=',('approved'))]" help="Approved Production Data"/>
+                    <filter icon="terp-draft" name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]" help="Draft Production Data"/>
+                    <separator/>
+                    <group expand="0" string="Group By...">
+                            <filter string="Салбар" name="group_branch_id" icon="terp-go-project" domain="[]" context="{'group_by':'branch_id'}"/>
+                            <filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+                            <filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+                            <filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mining_plan_concentrator_calendar">
+            <field name="name">mining.plan.concentrator.calendar</field>
+            <field name="model">mining.plan.concentrator</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="date" color="date">
+                    <field name="date"/>
+                    <field name="sum_metal_kg"/>
+                    <field name="sum_plan_m3"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="action_mining_plan_concentrator" model="ir.actions.act_window">
+            <field name="name">Mining Plan Concentrator</field>
+            <field name="res_model">mining.plan.concentrator</field>
+            <field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+
+        <!-- mining.plan.exca.hour.prod -->
+        <record id="view_mining_plan_exca_hour_prod_tree" model="ir.ui.view">
+            <field name="name">mining.plan.exca.hour.prod.tree</field>
+            <field name="model">mining.plan.exca.hour.prod</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="state == 'draft'" decoration-muted="state == 'approved'">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="branch_id" widget="selection"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_mining_plan_exca_hour_prod_form" model="ir.ui.view">
+            <field name="name">mining.plan.exca.hour.prod.form</field>
+            <field name="model">mining.plan.exca.hour.prod</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_to_approved" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="action_to_draft" states="approved" string="Draft" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                                <field name="date_start" required="1" attrs="{'readonly':[('state','=','approved')]}"/>
+                                <field name="date_end" required="1" attrs="{'readonly':[('state','=','approved')]}"/>
+                                <field name="branch_id" widget="selection" attrs="{'readonly':[('state','=','approved')]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Plan Line">
+                                <field name="line_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="material_id" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="excavator_id" domain="[('branch_id','=',parent.branch_id),('technic_type', 'in', ['excavator','wheel_excavator','loader', 'dump', 'drill'])]" options="{'no_create': True}"/>
+                                        <field name="hour_prod"/>
+                                        <field name="run_hour_util_hasagdah"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>
+                        <separator string="Description"/>
+                        <field name="description"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="mining_plan_exca_hour_prod_filter" model="ir.ui.view">
+        <field name="name">mining.plan.exca.hour.prod.filter</field>
+        <field name="model">mining.plan.exca.hour.prod</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <filter icon="terp-approved" name="is_approved" string="Батлагдсан" domain="[('state','=',('approved'))]"/>
+                <filter icon="terp-draft" name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+                <separator/>
+                <group expand="0" string="Group By...">
+                        <filter string="Салбар" name="group_branch_id" icon="terp-go-project" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Өдөрөөр" name='group_day' context="{'group_by':'date_start:day'}"/>
+                        <filter string="Жилээр" name='group_year' context="{'group_by':'date_start:year'}"/>
+                        <filter string="Сараар" name='group_month' context="{'group_by':'date_start:month'}"/>
+                </group>
+               </search>
+        </field>
+        </record>
+
+        <record id="action_mining_plan_exca_hour_prod" model="ir.actions.act_window">
+            <field name="name">Төлөвлөгөөнд Техникийн Цагийн Бүтээл</field>
+            <field name="res_model">mining.plan.exca.hour.prod</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_group_branch_id': 1}</field>
+        </record>
+
+        <!-- mining.plan.technic.run.hour -->
+        <record id="view_mining_plan_technic_run_hour_tree" model="ir.ui.view">
+            <field name="name">mining.plan.technic.run.hour.tree</field>
+            <field name="model">mining.plan.technic.run.hour</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top" multi_edit="1">
+                    <field name="sequence" widget="handle"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="branch_id"/>
+                    <field name="run_hour_util" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_mining_plan_technic_run_hour_form" model="ir.ui.view">
+            <field name="name">mining.plan.technic.run.hour.form</field>
+            <field name="model">mining.plan.technic.run.hour</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="sequence"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="branch_id"/>
+                            <field name="run_hour_util" widget="float_time"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="mining_plan_technic_run_hour_filter" model="ir.ui.view">
+        <field name="name">mining.plan.technic.run.hour.filter</field>
+        <field name="model">mining.plan.technic.run.hour</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="branch_id"/>
+                <separator/>
+                <group expand="0" string="Group By...">
+                    <filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+                </group>
+               </search>
+        </field>
+        </record>
+
+        <record id="action_mining_plan_technic_run_hour" model="ir.actions.act_window">
+            <field name="name">Техникийн төлөвлөгөө хасагдах цаг</field>
+            <field name="res_model">mining.plan.technic.run.hour</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+        
+        <record id="action_selected_mining_plan_technic_line" model="ir.actions.server">
+			<field name="name">Олноор нь батлах</field>
+			<field name="model_id" ref="mw_mining.model_mining_plan_technic_line"/>
+			<field name="groups_id" eval="[(4, ref('mw_mining.group_mining_dispatcher'))]"/>
+			<field name="binding_model_id" ref="mw_mining.model_mining_plan_technic_line"/>
+			<field name="state">code</field>
+			<field name="code">records.action_to_approved()</field>
+		</record>
+
+        <record id="mining_plan_technic_line_search" model="ir.ui.view">
+            <field name="name">mining.plan.technic.line.search</field>
+            <field name="model">mining.plan.technic.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="technic_id"/>
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <filter name="monthly_plan_ok" string="Monthly plan" domain="[('line_type','=','plan')]"/>
+                    <filter name="weekly_plan_ok" string="Weekly plan" domain="[('line_type','=','weekly')]"/>
+                    <separator/>
+                    <filter name="this_today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="this_year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" name="gr_branch_id"  domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Plan type" name='gr_line_type' context="{'group_by':'line_type'}"/>
+                        <filter string="Technic" name="gr_technic_id"  domain="[]" context="{'group_by':'technic_id'}"/>
+                        <filter string="Material" name="gr_material_id"  domain="[]" context="{'group_by':'material_id'}"/>
+                        <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                        <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                        <filter string="Өдрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="mining_plan_technic_line_tree" model="ir.ui.view">
+            <field name="name">mining.plan.technic.line.tree</field>
+            <field name="model">mining.plan.technic.line</field>
+            <field name="mode">primary</field>
+            <field name="priority">1</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Plan" decoration-success="run_hour_util>0" default_order="date desc">
+                    <field name="technic_id" optional="show"/>
+                    <field name="material_id" optional="hide"/>
+                    <field name="date" optional="show"/>
+                    <field name="branch_id" optional="show"/>
+                    <field name="maint_plan_ids" widget="many2many_tags" optional="hide"/>
+                    <field name="repair_hour" sum="SUM" widget="float_time" optional="show"/>
+                    <field name="run_hour" sum="SUM" widget="float_time" optional="show"/>
+                    <field name="run_hour_util" sum="SUM" widget="float_time" optional="show"/>
+                    <field name="production" sum="SUM"/>
+                    <field name="actual_per_dpr" widget="progressbar" optional="show"/>
+                    <field name="actual_dpr" sum="SUM" optional="show"/>
+                    <field name="actual_per_sur" widget="progressbar" optional="show"/>
+                    <field name="actual_sur" sum="SUM" optional="show"/>
+                    <field name="hour_prod" optional="hide"/>
+                    <field name="is_production" optional="hide"/>
+                    <field name="state" optional="hide"/>
+                    <button name="update_dummy" string="Update" type="object" class="btn-success" icon="fa-refresh"/>
+                    <button name="update_dummy_force" string="Update force" type="object" class="btn-danger" icon="fa-refresh"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="mining_plan_technic_line_calendar" model="ir.ui.view">
+            <field name="name">mining.plan.technic.line.calendar</field>
+            <field name="model">mining.plan.technic.line</field>
+            <field name="arch" type="xml">
+                <calendar string="Mining Plan" date_start="date" mode="month" color="technic_id" hide_time="true" event_limit="5">
+                    <field name="branch_id"/>
+                    <field name="technic_id"/>
+                    <field name="repair_hour" widget="float_time"/>
+                    <field name="run_hour" widget="float_time"/>
+                    <field name="run_hour_util" widget="float_time"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="mining_plan_technic_line_pivot" model="ir.ui.view">
+            <field name="name">mining.plan.technic.line.pivot</field>
+            <field name="model">mining.plan.technic.line</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="date" type="col"/>
+                    <field name="technic_id" type="row"/>
+                    <field name="run_hour" widget="float_time" type="measure"/>
+                    <field name="run_hour_util" widget="float_time" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record id="mining_plan_technic_line_form" model="ir.ui.view">
+            <field name="name">mining.plan.technic.line.form</field>
+            <field name="model">mining.plan.technic.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_to_approved" states="draft" string="Confirm" type="object" class="btn-success"/>
+                        <button name="action_to_draft" states="approved" string="Draft" type="object" class="btn-danger"/>
+                        <button name="compute_actual_mining_plan" string="Гүйцэтгэл бодуулах" type="object" class="btn-warning" icon="fa-refresh"/>
+                        <button name="compute_actual_mining_plan_month" string="Гүйцэтгэл бодуулах Сараар" type="object" class="btn-warning" icon="fa-refresh"/>
+                        <button name="import_down_maintenance" string="Засварийн төлөвлөгөө сараар татах" type="object" class="btn-success" icon="fa-download" states="draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                        <button name="update_dummy_m" type="object" class="btn-success" icon="fa-refresh" string="Update by Month"/>
+                        <button name="update_dummy_force_m" type="object" class="btn-danger" icon="fa-refresh" string="Update by Month Force"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="view_maint_plan_ids" icon="fa-dollar" type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Засварын төлөвлөгөө</span>
+                            </div>
+                        </button>
+                    </div>
+                        <group col="6">
+                            <field name="branch_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+                            <field name="technic_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+                            <field name="date" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="repair_hour" widget="float_time"/>
+                            <field name="run_hour" widget="float_time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            
+                            <field name="run_hour_util" widget="float_time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="is_production"/>
+                            <field name="production"/>
+                            <field name="hour_prod"/>
+                        </group>
+                        <group col="7">
+                            
+                            <field name="maint_plan_ids" widget="many2many_tags"/>
+                            <field name="line_type" groups="base.group_no_one"/>
+                            <field name="material_id" options="{'no_create':True}"/>
+                        </group>
+                        <group col="4">
+                            <field name="actual_per_dpr" widget="progressbar"/>
+                            <field name="actual_dpr" sum="SUM"/>
+                            <field name="actual_per_sur" widget="progressbar"/>
+                            <field name="actual_sur" sum="SUM"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_mining_plan_technic_line_availability" model="ir.actions.act_window">
+            <field name="name">Availability</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="domain">[('line_type','=','plan')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'plan'}</field>
+        </record>
+
+        <record id="action_mining_plan_technic_line_utilization" model="ir.actions.act_window">
+            <field name="name">Utilization</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="domain">[('line_type','=','plan')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'plan'}</field>
+        </record>
+        <record id="action_mining_plan_technic_line_diggers" model="ir.actions.act_window">
+            <field name="name">Diggers</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="domain">[('digg_or_dump','=','digger'),('line_type','=','plan')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'plan'}</field>
+        </record>
+        <record id="action_mining_plan_technic_line_dumptrucks" model="ir.actions.act_window">
+            <field name="name">Dumptrucks</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="domain">[('digg_or_dump','=','dump'),('line_type','=','plan')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'plan'}</field>
+        </record>
+
+        <record id="action_mining_plan_technic_line_availability_weekly" model="ir.actions.act_window">
+            <field name="name">Availability weekly</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="domain">[('line_type','=','weekly')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'weekly'}</field>
+        </record>
+        <record id="action_mining_plan_technic_line_utilization_weekly" model="ir.actions.act_window">
+            <field name="name">Utilization weekly</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="domain">[('line_type','=','weekly')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'weekly'}</field>
+        </record>
+        <record id="action_mining_plan_technic_line_diggers_weekly" model="ir.actions.act_window">
+            <field name="name">Diggers weekly</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="domain">[('digg_or_dump','=','digger'),('line_type','=','weekly')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'weekly'}</field>
+        </record>
+        <record id="action_mining_plan_technic_line_dumptrucks_weekly" model="ir.actions.act_window">
+            <field name="name">Dumptrucks weekly</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="domain">[('digg_or_dump','=','dump'),('line_type','=','weekly')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1, 'line_type': 'weekly'}</field>
+        </record>
+
+        <record id="action_mining_plan_technic_line_all" model="ir.actions.act_window">
+            <field name="name">Mining PLAN ALL</field>
+            <field name="res_model">mining.plan.technic.line</field>
+            <field name="view_id" ref="mining_plan_technic_line_tree"/>
+            <field name="view_mode">tree,pivot,calendar,form</field>
+            <!-- <field name="view_mode">tree,grid,pivot,calendar,gantt,form</field> -->
+            <field name="domain">[('line_type','=','plan')]</field>
+            <field name="context">{'search_default_gr_branch_id': 1, 'search_default_gr_year': 1, 'search_default_gr_month': 1, 'search_default_gr_day': 1,'search_default_this_year': 1}</field>
+        </record>
+
+        <record id="mining_plan_import_form" model="ir.ui.view">
+            <field name="name">mining.plan.import.form</field>
+            <field name="model">mining.plan.import</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="6">
+                        <field name="type"/>
+                        <field name="date_start"/>
+                        <field name="date_end" readonly="0"/>
+                        <field name="branch_id"/>
+                    </group>
+                    <footer>
+                        <button string="Import" class="btn btn-success" type="object" name="import_plan" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_mining_plan_import" model="ir.actions.act_window">
+            <field name="name">Plan Import Or Approve</field>
+            <field name="res_model">mining.plan.import</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+</odoo>

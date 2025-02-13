@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_hr_employee_contract_manager,hr.employee.contract,mw_hr_employee_contract.model_hr_employee_contract,group_employee_contract_manager,1,1,1,1
+access_hr_employee_contract_user,hr.employee.contract,mw_hr_employee_contract.model_hr_employee_contract,group_employee_contract_user,1,1,1,0

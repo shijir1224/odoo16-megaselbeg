@@ -1,0 +1,4 @@
+id,model_id:id,name,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_account_company_request_item,model_account_company_request_item,account.company.request.item,mw_account_payment_request.res_groups_account_payment_request_employees,1,1,1,1
+access_res_partner_bank_user,base.model_res_partner_bank,res.partner.bank,base.group_user,1,1,1,0

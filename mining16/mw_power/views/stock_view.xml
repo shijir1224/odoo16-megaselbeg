@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_inherit_mw_power" model="ir.ui.view">
+        <field name="name">stock.picking.form.view.inherit.mw.power</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="power_workorder_id" options="{'no_create': True}" attrs="{'invisible':[('power_workorder_id','=',False)]}" force_save="1"/>
+            </xpath>
+            <div class="oe_button_box" position="inside">
+                <field name="power_product_id" invisible="1"/>
+                <button name="action_view_power"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-file-o" 
+                    attrs="{'invisible': [('power_product_id', '=', False)]}">
+                    <span>Цахилгааны Бүртгэлд</span>
+                </button>
+            </div>
+          
+        </field>
+    </record>
+</odoo>

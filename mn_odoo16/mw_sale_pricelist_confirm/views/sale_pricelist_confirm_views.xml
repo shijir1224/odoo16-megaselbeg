@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="product_pricelist_confirm_view_search">
+		<field name="name">product.pricelist.confirm.search</field>
+		<field name="model">product.pricelist.confirm</field>
+		<field name="arch" type="xml">
+			<search string="Products Price Search">
+				<field name="name" string="Products Price"/>
+				<field name="currency_id" groups="base.group_multi_currency"/>
+				<filter string="Archived" name="inactive" />
+				<field name="state" />
+			</search>
+		</field>
+	</record>
+
+	<record id="product_pricelist_confirm_view_tree" model="ir.ui.view">
+		<field name="name">product.pricelist.confirm.tree</field>
+		<field name="model">product.pricelist.confirm</field>
+		<field name="arch" type="xml">
+			<tree string="Products Price List">
+				<field name="sequence" widget="handle" />
+				<field name="name"/>
+				<field name="currency_id" groups="base.group_multi_currency"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="date"/>
+				<field name="user_id"/>
+				<field name="flow_line_id"/>
+				<field name="state" invisible="1" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="product_pricelist_confirm_view" model="ir.ui.view">
+		<field name="name">product.pricelist.confirm.form</field>
+		<field name="model">product.pricelist.confirm</field>
+		<field name="arch" type="xml">
+			<form string="Products Price List">
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': ['|',('state','=','done'),('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'not in', ['cancel']),('flow_id','=',False)]}"/>
+				</header>
+				<sheet>
+					<div class="oe_title">
+						<h1>
+							<field name="name" placeholder="ж.нь. USD Жижиглэн борлуулагчууд" attrs="{'readonly': ['|',('state', 'in',['done','cancel']),('is_not_edit','=',True)]}"/>
+						</h1>
+					</div>
+					<group>
+						<group name="pricelist_settings">
+							<field name="flow_id" options="{'no_create':True}" attrs="{'readonly': ['|',('state', 'in',['done','cancel']),('is_not_edit','=',True)]}" required="1"/>
+							<field name="state" invisible="1"/>
+							<field name="flow_line_next_id" invisible="1"/>
+							<field name="flow_line_back_id" invisible="1"/>
+							<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+							<field name="is_not_edit" invisible="1"/>
+							<field name="currency_id" groups="base.group_multi_currency" attrs="{'readonly': ['|',('state', 'in',['done','cancel']),('is_not_edit','=',True)]}"/>
+							<field name="pricelist_id" groups="base.group_no_one" invisible="1"/>
+							<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+							<field name="date" attrs="{'readonly': ['|',('state', 'in',['done','cancel']),('is_not_edit','=',True)]}"/>
+							<field name="user_id" attrs="{'readonly': ['|',('state', 'in',['done','cancel']),('is_not_edit','=',True)]}"/>
+						</group>
+					</group>
+					<notebook>
+						<page name="pricelist_rules" string="Үнийн дүрмүүд">
+							<field name="item_ids" nolabel="1" context="{'default_base':'list_price','from_view_ref':'product.product_pricelist_item_form_view'}" domain="[('active','=',False)]" attrs="{'readonly': [('is_not_edit', '=', True)]}">
+								<tree string="Pricelist Items">
+									<field name="product_tmpl_id" string="Products" required="1"/>
+									<field name="product_id" string="Variants" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create':1}"/>
+									<field name="min_quantity"/>
+									<field name="fixed_price" string="Price"/>
+									<field name="currency_id" invisible="1"/>
+									<field name="pricelist_id" invisible="1"/>
+									<field name="date_start"/>
+									<field name="date_end"/>
+									<field name="base" invisible="1"/>
+									<field name="applied_on" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+									<field name="active" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+						<page name="pricelist_config" string="Тохиргоо">
+							<group>
+								<group name="pricelist_availability" string="Availability">
+									<!-- <field name="country_group_ids" widget="many2many_tags"/> -->
+								</group>
+								<group name="pricelist_discounts" groups="product.group_discount_per_so_line" string="Discounts">
+									<!-- <field name="discount_policy" widget="radio"/> -->
+								</group>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='product_sale_pricelist_action'>
+		<field name="name">Үнийн хүснэгт урсгалтай</field>
+		<field name="res_model">product.pricelist.confirm</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('product_pricelist_confirm_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('product_pricelist_confirm_view')})]"/>
+		<field name="search_view_id" ref="product_pricelist_confirm_view_search"/>
+	</record>
+
+	<menuitem id="menu_pricelist_confirm" name="Үнийн хүснэгт батлах" parent="sale.product_menu_catalog" action="product_sale_pricelist_action" groups="product.group_product_pricelist" sequence="4" />
+
+</odoo>

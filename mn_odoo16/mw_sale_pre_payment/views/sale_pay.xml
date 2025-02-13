@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+     <record id="sale_order_form_pre_payment" model="ir.ui.view">
+        <field name="name">sale.order.formw.mw.pre.payment</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Урьдчилгаа Төлбөр" groups="account.group_account_invoice">
+                    <group col="6">
+                        <field name="pre_pay_amount"/>
+                        <field name="pre_pay_journal_id"/>
+                        <field name="pre_pay_desc"/>
+                        <button name="create_pre_payment" type="object" class="btn-success" string="Урьдчилгаа Төлбөр Үүсгэх"/>
+                    </group>
+                    <group col="1" string="Үүссэн төлбөрийн баримт">
+                        <field name="pre_payment_ids" nolabel="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="payment_reference"/>
+                                <field name="partner_id"/>
+                                <field name="payment_type"/>
+                                <field name="amount" sum="SUM"/>
+                                <field name="currency_id"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <tree position='inside'>
+                <field name="pre_pay_amount" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_order_mw_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree.mw.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <tree position='inside'>
+                <field name="pre_pay_amount" optional="hide"/>
+                <field name="pre_pay_journal_id" optional="hide"/>
+                <field name="invoice_residual" optional="hide"/>
+                
+            </tree>
+        </field>
+    </record>    
+
+</odoo>

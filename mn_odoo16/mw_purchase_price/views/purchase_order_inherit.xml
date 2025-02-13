@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record model="ir.ui.view" id="purchase_order_calendar_mw">
+		<field name="name">purchase.order.calendar.mw</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_calendar"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_total']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="purchase_order_pivot_mw">
+		<field name="name">purchase.order.pivot.mw</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_pivot"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_total']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="purchase_order_graph_mw">
+		<field name="name">purchase.order.graph.mw</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_graph"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_total']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_price_purchase" model="ir.ui.view">
+		<field name="name">purchase.order.formw.mw.price</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='tax_totals']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='invoice_lines']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<field name="message_ids" position="replace">
+				<field name="message_ids" widget="mail_thread" groups="mw_purchase_price.group_mw_purchase_cost_view"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_price_mw_purchase" model="ir.ui.view">
+		<field name="name">purchase.order.formw.mw.price</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase.purchase_order_form_mw"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='price_unit_without_discount']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<field name="price_unit" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</field>
+			<field name="price_subtotal" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</field>
+			<field name="tax_totals" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</field>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_mw_inherit_price" model="ir.ui.view">
+		<field name="name">purchase.order.form.mw.inherit.price</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_expense.purchase_order_form_mw_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='price_unit_product']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='cost_unit']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='total_cost_unit']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='price_unit_stock_move']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_tree_mw" model="ir.ui.view">
+		<field name="name">purchase.order.tree.mw</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_untaxed']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='amount_total']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_line_mw" model="ir.ui.view">
+		<field name="name">purchase.order.line.mw</field>
+		<field name="model">purchase.order.line</field>
+		<field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='price_unit']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='price_subtotal']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="purchase_order_line_form2_mw" model="ir.ui.view">
+		<field name="name">purchase.order.line.form2.mw</field>
+		<field name="model">purchase.order.line</field>
+		<field name="inherit_id" ref="purchase.purchase_order_line_form2"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='price_unit']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+			<xpath expr="//field[@name='invoice_lines']" position="attributes">
+				<attribute name="groups">mw_purchase_price.group_mw_purchase_cost_view</attribute>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

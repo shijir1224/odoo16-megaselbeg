@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- mining.blast -->
+    <record id="mining_blast_tree" model="ir.ui.view">
+        <field name="name">mining.blast.tree</field>
+        <field name="model">mining.blast</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="state=='draft'" decoration-danger="state=='draft'" decoration-muted="state=='done'">
+                <field name="date"/>
+                <field name="plan_id"/>
+                <field name="branch_id"/>
+                <field name="rock_type"/>
+                <field name="avarage_pf"/>
+                <field name="area_level"/>
+                <field name="anfo_qty"/>
+                <field name="emulsion_qty"/>
+                <field name="blast_volume"/>
+                <field name="dundaj_butlagdal"/>
+                <field name="location_ids" widget="many2many_tags"/>
+                <field name="desc"/>
+                <field name="hole_count"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_blast_form" model="ir.ui.view">
+        <field name="name">mining.blast.form</field>
+        <field name="model">mining.blast</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" states="draft" string="Done" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="done" string="To Draft" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group col="4">
+                        <field name="plan_id" domain="[('type','=','forecast'),('actual_ids','=',False)]" options="{'no_create':True}" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="branch_id" options="{'no_create':True}" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="name" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="rock_type" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="bit_size" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="location_ids" domain="[('branch_id','=',branch_id),('is_blasting','=',True)]" required="1" widget="many2many_tags" options="{'no_create':True}" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="avarage_pf" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="date" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <!-- <field name="shift" attrs="{'readonly':[('state','=','done')]}"/> -->
+                        <field name="area_level" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="tsoongiin_zai" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="egnee_zai" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="hole_count" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="dundaj_butlagdal" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="product_id" domain="[('blast_product_ids','!=',False)]"/>
+                        <field name="blast_volume" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="desc" attrs="{'readonly':[('state','=','done')]}"/>
+                    </group>
+                    <notebook >
+                        <page string="Blast Line">
+                            <group col="4">
+                                <button name="action_import_hole" states="draft" class="btn btn-default fa fa-download" string="Өрөмдлөгөөс импортлох" type="object"/>
+                                <field name="import_data" states="draft" class="oe_edit_only"/>
+                                <button name="action_import_excel" states="draft" class="btn btn-default fa fa-download" string="Импортлох" type="object"/>
+                            </group>
+                            <group>
+                                <field name="blast_line_ids" nolabel="1"  attrs="{'readonly':[('state','=','done')]}">
+                                    <form>
+                                        <group col="4">
+                                            <field name="drilling_line_id"/>
+                                            <field name="hole"/>
+                                            <field name="tusliin_gun_m"/>
+                                            <field name="drill_diameter_mm"/>
+                                            <field name="bodit_urumdsun_gun_m"/>
+                                            <field name="urtaashd_tootsoh_gun_m"/>
+                                            <field name="hatuu_chuluulag_ehelsen_gun_m"/>
+                                            <field name="hatuu_chuluulag_duussan_gun_m"/>
+                                            <field name="nuurs_ehelsen_gun_m"/>
+                                            <field name="nuurs_duussan_gun_m"/>
+                                            <field name="is_water"/>
+                                            <field name="is_baarah"/>
+                                            <field name="description"/>
+                                        </group>
+                                        <group col="4">
+                                            <field name="anfo_qty"/>
+                                            <field name="emulsion_qty"/>
+                                            <field name="deck_top"/>
+                                            <field name="deck_medium"/>
+                                            <field name="deck_bottom"/>
+                                            <field name="stemming"/>
+                                            <field name="air_deck_bottom"/>
+                                            <field name="air_deck_top"/>
+                                            <field name="gasbag_ok"/>
+                                            <field name="gasbag_liner_ok"/>
+                                        </group>
+                                    </form>
+                                    <tree editable="bottom">
+                                        <field name="hole"/>
+                                        <field name="tusliin_gun_m"/>
+                                        <field name="drill_diameter_mm"/>
+                                        <field name="bodit_urumdsun_gun_m"/>
+                                        <field name="urtaashd_tootsoh_gun_m"/>
+                                        <field name="hatuu_chuluulag_ehelsen_gun_m"/>
+                                        <field name="hatuu_chuluulag_duussan_gun_m"/>
+                                        <field name="nuurs_ehelsen_gun_m"/>
+                                        <field name="nuurs_duussan_gun_m"/>
+                                        <field name="is_water"/>
+                                        <field name="is_baarah"/>
+                                        <field name="description"/>
+
+                                        <field name="anfo_qty"/>
+                                        <field name="emulsion_qty"/>
+                                        <field name="deck_top"/>
+                                        <field name="deck_medium"/>
+                                        <field name="deck_bottom"/>
+                                        <field name="stemming"/>
+                                        <field name="air_deck_bottom"/>
+                                        <field name="air_deck_top"/>
+                                        <field name="gasbag_ok"/>
+                                        <field name="gasbag_liner_ok"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Consumed products">
+                            <group col="4">
+                                <field name="anfo_qty"/>
+                                <field name="emulsion_qty"/>
+                            </group>
+                            <field name="expense_line_ids" nolabel="1"  attrs="{'readonly':[('state','=','done')]}">
+                                <form>
+                                    <group col="4">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                    </group>
+                                </form>
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mining_blast_pivot_view" model="ir.ui.view">
+        <field name="name">mining.blast.pivot</field>
+        <field name="model">mining.blast</field>
+        <field name="arch" type="xml">
+            <pivot string="Drilling" display_quantity="true">
+                <field name="branch_id" type="row"/>
+                <field name="blast_volume" type="measure"/>
+                <field name="hole_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="mining_blast_view" model="ir.ui.view">
+        <field name="name">mining.blast.graph</field>
+        <field name="model">mining.blast</field>
+        <field name="arch" type="xml">
+            <graph string="Drilling" type="pie">
+                <field name="branch_id" type="row"/>
+                <field name="blast_volume" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="mining_blast_search" model="ir.ui.view">
+            <field name="name">mining.blast.search</field>
+            <field name="model">mining.blast</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <field name="desc"/>
+                    <field name="state"/>
+                    <field name="searhc_product_id"/>
+
+                    <filter name="today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" name="branch" context="{'group_by':'branch_id'}"/>
+                        <separator/>
+                        <filter string="Өдөрөөр" name='day' context="{'group_by':'date:day'}"/>
+                        <filter string="Month" name='month' context="{'group_by':'date:month'}"/>
+                        <filter string="Year" name='year' context="{'group_by':'date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    <record id="action_mining_blast" model="ir.actions.act_window">
+        <field name="name">Blast</field>
+        <field name="res_model">mining.blast</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="context">{'search_default_this_month': 1, 'search_default_branch': 1}</field>
+    </record>
+
+
+    <!-- mining.blast.plan -->
+    <record id="mining_blast_plan_tree" model="ir.ui.view">
+        <field name="name">mining.blast.plan.tree</field>
+        <field name="model">mining.blast.plan</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="state=='draft'" decoration-danger="state=='draft'" decoration-muted="state=='done'">
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="rock_type"/>
+                <field name="avarage_pf"/>
+                <field name="area_level"/>
+                <field name="tsoongiin_zai"/>
+                <field name="egnee_zai"/>
+                <field name="blast_volume"/>
+                <field name="location_ids" widget="many2many_tags"/>
+                <field name="desc"/>
+                <field name="hole_count"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_blast_plan_form" model="ir.ui.view">
+        <field name="name">mining.blast.plan.form</field>
+        <field name="model">mining.blast.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" states="draft" string="Done" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="done" string="To Draft" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group col="4">
+                        <field name="branch_id" options="{'no_create':True}" equired="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <!-- <field name="name" required="1" attrs="{'readonly':[('state','=','done')]}"/> -->
+                        <field name="rock_type" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="bit_size" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="location_ids" domain="[('branch_id','=',branch_id),('is_blasting','=',True)]" required="1" widget="many2many_tags" options="{'no_create':True}" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="avarage_pf" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="date" required="1" attrs="{'readonly':[('state','=','done')]}"/>
+                        <!-- <field name="shift" attrs="{'readonly':[('state','=','done')]}"/> -->
+                        <field name="area_level" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="tsoongiin_zai" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="egnee_zai" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="hole_count" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="product_id" domain="[('blast_product_ids','!=',False)]"/>
+                        <field name="blast_volume" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="desc" attrs="{'readonly':[('state','=','done')]}"/>
+                    </group>
+                    <notebook >
+                        <page string="Blast Line">
+                            <!-- <group>
+                                <button name="action_import_hole" states="draft" class="btn btn-default fa fa-download" string="Import drilling hole" type="object"/>
+                            </group> -->
+                            <group>
+                                <field name="blast_line_ids" nolabel="1"  attrs="{'readonly':[('state','=','done')]}">
+                                    <form>
+                                        <group col="4">
+                                            <field name="product_id"/>
+                                            <field name="quantity"/>
+                                        </group>
+                                    </form>
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mining_blast_plan_pivot_view" model="ir.ui.view">
+        <field name="name">mining.blast.plan.pivot</field>
+        <field name="model">mining.blast.plan</field>
+        <field name="arch" type="xml">
+            <pivot string="Drilling" display_quantity="true">
+                <field name="branch_id" type="row"/>
+                <field name="blast_volume" type="measure"/>
+                <field name="hole_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="mining_blast_plan_view" model="ir.ui.view">
+        <field name="name">mining.blast.plan.graph</field>
+        <field name="model">mining.blast.plan</field>
+        <field name="arch" type="xml">
+            <graph string="Drilling" type="pie">
+                <field name="branch_id" type="row"/>
+                <field name="blast_volume" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="mining_blast_plan_search" model="ir.ui.view">
+            <field name="name">mining.blast.plan.search</field>
+            <field name="model">mining.blast.plan</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <field name="desc"/>
+                    <field name="state"/>
+                    <field name="searhc_product_id"/>
+                    <filter name="today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="this_year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" name="branch" context="{'group_by':'branch_id'}"/>
+                        <separator/>
+                        <filter string="Өдөрөөр" name='day' context="{'group_by':'date:day'}"/>
+                        <filter string="Month" name='month' context="{'group_by':'date:month'}"/>
+                        <filter string="Year" name='year' context="{'group_by':'date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    <record id="action_mining_blast_plan" model="ir.actions.act_window">
+        <field name="name">Blast plan</field>
+        <field name="res_model">mining.blast.plan</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="context">{'search_default_this_month': 1, 'search_default_branch': 1, 'search_default_month': 1, 'plan_type': 'forecat'}</field>
+        <field name="domain">[('type', '=', 'forecast')]</field>
+    </record>
+
+    <record id="action_mining_blast_plan_master" model="ir.actions.act_window">
+        <field name="name">Blast master plan</field>
+        <field name="res_model">mining.blast.plan</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="context">{'search_default_this_year': 1, 'search_default_branch': 1, 'search_default_month': 1, 'plan_type': 'master'}</field>
+        <field name="domain">[('type', '=', 'master')]</field>
+    </record>
+
+
+
+
+    <!-- mining.blast.product  -->
+    <record model='ir.ui.view' id='view_mining_blast_product_tree'>
+        <field name="name">mining.blast.product.tree</field>
+        <field name="model">mining.blast.product</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="product_id"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <record model='ir.ui.view' id='view_mining_blast_product_form'>
+        <field name="name">mining.blast.product.form</field>
+        <field name="model">mining.blast.product</field>
+
+        <field name="arch" type="xml">
+            <form string="Hole" >
+                <sheet>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_mining_blast_product_filter" model="ir.ui.view">
+        <field name="name">mining.blast.product.filter</field>
+        <field name="model">mining.blast.product</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="type"/>
+                <group expand="0">
+                    <filter string="Бараагаар" name="group_product_id" domain="[]" context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record model='ir.actions.act_window' id='action_mining_blast_product'>
+        <field name="name">Product of blast</field>
+        <field name="res_model">mining.blast.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_group_product_id': 1,}</field>
+    </record>
+
+</odoo>

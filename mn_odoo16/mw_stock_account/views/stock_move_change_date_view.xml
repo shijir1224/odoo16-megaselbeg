@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_withcarrier_out_form_change_date" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view.change.date</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+          <data>
+             <notebook position="inside">
+                <page string="Засвар" groups="mw_stock_account.group_stock_change_date_done">
+                    <group col="4">
+                        <field name="change_date" attrs="{'invisible':[('state','!=','done')]}" groups="mw_stock_account.group_stock_change_date_done"/>
+                        <button name="update_change_done_date"
+                            type="object"
+                            icon="fa-date" 
+                         string="Батлагдсан Огноог Товлогдсоноор Солих" confirm="Огноо Өөрлөхдөө Итгэлтэй Байна уу!!!" groups="mw_stock_account.group_stock_change_date_done" attrs="{'invisible':[('state','!=','done')]}" class="btn-danger"/>
+                         
+                        <button name="action_create_account_entry" string="Санхүү бичилт үүсгэх"
+                            type="object" class="oe_highlight" groups="mw_stock_account.group_stock_change_date_done"/>
+                        <!-- <button name="update_change_done_date_only"
+                            type="object"
+                            icon="fa-date" 
+                            _compute_sum_price
+                         string="Батлагд Солих ONLY" confirm="ДАРАА НЬ БАРАА БҮРЭЭР СОЛИОРОЙ.Огноо Өөрлөхдөө Итгэлтэй Байна уу!!!" groups="base.group_no_one" attrs="{'invisible':[('state','!=','done')]}" class="btn-danger"/> -->
+                        <field name="sum_price"/>
+                    </group>
+                    <group>
+                        <field name="resolve_price_unit_ids">
+                            <tree>
+                                <field name="product_id"/>
+                                <field name="move_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Огноо Засвар" groups="mw_stock_account.group_stock_change_date_done_only_schedule">
+                    <group col="4">
+                        <field name="change_date" attrs="{'invisible':[('state','!=','done')]}" />
+                        <button name="junior_date_change"
+                            type="object"
+                         string="Огноо Солих" colspan="2" confirm="Огноо Өөрлөхдөө Итгэлтэй Байна уу!!!"  attrs="{'invisible':[('state','!=','done')]}" class="btn-success"/>
+                         
+                    </group>
+                    <group>
+                    </group>
+                </page>
+            </notebook>
+            
+
+          </data>
+        </field>
+    </record>
+
+
+    <record id="stock_picking_internal_search_change_date" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search..change.date</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+          <data>
+            <filter name="done" position="after">
+                <filter name="is_change_date" string="Огноо Гараар зассан" domain="[('is_change_date','=',True)]"/>
+            </filter>
+
+          </data>
+        </field>
+    </record>
+    
+
+    <record id="view_move_form_mw_stock_account_inherit" model="ir.ui.view">
+        <field name="name">stock.move.form.mn.stock.account.no.picking</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <button name="create_account_move_hand" attrs="{'invisible': [('state', 'not in', ['done'])]}" string="Санхүү Бичилт Үүсээгүйг Үүсгэх" groups="mw_stock_account.group_stock_change_date_done" type="object" class="btn-warning"/>
+                <button name="update_change_done_date" attrs="{'invisible': [('state', 'not in', ['done'])]}" string="Огноо солих" groups="mw_stock_account.group_stock_change_date_done" type="object" class="btn-danger"/>    
+            </field>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button string="Valuation" type="object"
+                    name="action_view_stock_valuation_layers"
+                    class="oe_stat_button" icon="fa-dollar" groups="stock.group_stock_manager"
+                    attrs="{'invisible': [('state', 'not in', ['done'])]}" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="stock_move_update_date_form" model="ir.ui.view">
+        <field name="name">stock.move.update.date.form</field>
+        <field name="model">stock.move.update.date</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="move_id" readonly="1"/>
+                    <field name="change_date" required="1"/>
+                    <field name="is_change_date" readonly="1"/>
+                </group>
+                <group>
+                    <button name="update_change_done_date" string="Огноо солих" confirm="Огноо Өөрлөхдөө Итгэлтэй Байна уу!!!" groups="mw_stock_account.group_stock_change_date_done" type="object" class="btn-danger"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="selected_account_move_create_hand_record" model="ir.ui.view">
+        <field name="name">Сонгогдсон гүйлгээний санхүү бичилт үүсгэх</field>
+        <field name="model">selected.account.move.create.hand</field>
+        <field name="arch" type="xml">
+            <form>
+                <footer>
+                    <button special="cancel" string="Хаах" type="object" class="btn-default"/>
+                    <button name="create_move_hand" string="Санхүү гүйлгээ үүсгэх" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Санхүү гүйлгээ үүсгэх"
+            res_model="selected.account.move.create.hand"
+            binding_model="stock.move"
+            view_mode="form"
+            view_id = "selected_account_move_create_hand_record"
+            target="new"
+            id="selected_account_move_create_hand_action"/>
+    
+    <record model="ir.actions.act_window" id="selected_account_move_create_hand_action">
+            <field name="name">Санхүү гүйлгээ үүсгэх</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">selected.account.move.create.hand</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="selected_account_move_create_hand_record" />
+            <field name="target">new</field>
+        </record>
+</odoo>

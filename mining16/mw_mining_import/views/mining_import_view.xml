@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mining_surveyor_measurement_import_form" model="ir.ui.view">
+        <field name="name">mining.surveyor.measurement.import.form</field>
+        <field name="model">mining.surveyor.measurement.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="2">
+                        <field name="desc"/>
+                    </group>
+                    <group col="2">
+                        <field name="import_data_ids" widget="many2many_binary" required="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_import" class="btn-success" type="object" string="Импортлох" />
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+   <record id="action_mining_surveyor_measurement_import_tree" model="ir.actions.act_window">
+        <field name="name">Маркшейдерийн хэмжилт импортлох</field>
+        <field name="res_model">mining.surveyor.measurement.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem action="action_mining_surveyor_measurement_import_tree" id="menu_mining_surveyor_measurement_import" 
+        parent="mw_mining.menu_mining_survey" sequence="6"/>
+
+</odoo>

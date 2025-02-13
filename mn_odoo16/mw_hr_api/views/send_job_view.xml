@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_hr_open_job_form" model="ir.ui.view">
+        <field name="name">hr.open.job.form</field>
+        <field name="model">hr.open.job</field>
+        <field name="inherit_id" ref = 'mw_hr_applicant.hr_open_job_form'/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_draft']" position="after">
+                <button name="action_send_job_to_zangia" string="Зар тавих" type="object" class="btn-primary"/>
+                <button name="action_fetch_anket_from_zangia" string="Анкет татах" type="object" class="btn-primary"/>
+            </xpath>
+            <xpath expr="//field[@name='no_of_employee']" position="after">
+                <field name="ad_code" string="Зангиа дахь зарын код" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="work_type" string="Төрөл" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="level" string="Түвшин" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="salary_type" string="Цалингийн ангилал" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="location" string="Байршил" attrs="{'readonly':[('state','!=','draft')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

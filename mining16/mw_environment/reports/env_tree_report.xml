@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <!-- WIZARD -->
+        <record model="ir.ui.view" id="env_tree_report_form">
+            <field name="name">env.tree.report.form</field>
+            <field name="model">env.tree.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Tree Report">
+                    <script>
+                        $(document).ready(function(){
+                            $('.modal-dialog').css({'max-width': '800px'});
+                            $('.modal-content').css({'max-height': '600px'});
+                        });
+                    </script>
+                    <group col="2">
+                        <field name="mining_location" options="{'no_create': True, 'no_open': True}" />
+                        <field name="year" />
+                    </group>
+                    <footer>
+                        <button string="Print" name="action_print_report" type="object" icon="fa-print" class="oe_highlight" />
+                        <button string="Cancel" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_env_tree_report" model="ir.actions.act_window">
+            <field name="name">Tree Report</field>
+            <field name="res_model">env.tree.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+	<!-- Харьцуулсан судалгаа -->
+	<menuitem id="purchase_order_comparison_root_menu" 
+		name="Харьцуулсан судалгаа"
+		parent="purchase.menu_purchase_root" sequence="1"/>
+
+		<menuitem id="purchase_order_comparison_menu"
+			name="Бүх харьцуулалт"
+			sequence="1"
+			parent="purchase_order_comparison_root_menu"
+			action="action_purchase_order_comparison"
+			groups="group_mw_purchase_comparison_user"/>
+</odoo>

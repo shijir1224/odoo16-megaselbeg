@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+<!--    	<record id="consume_material_server_reject_action" model="ir.actions.server">
+			<field name="name">Reject</field>
+			<field name="model_id" ref="mw_consume_order.model_consumable_material_in_use"/>
+			<field name="state">code</field>
+			<field name="code">records.button_draft()</field>
+		</record>
+		<record id="consume_material_server_progress_action" model="ir.actions.server">
+			<field name="name">Progress</field>
+			<field name="model_id" ref="mw_consume_order.model_consumable_material_in_use"/>
+			<field name="state">code</field>
+			<field name="code">records.button_progress()</field>
+		</record>
+		 <record id="run_procurement_order_reject_action" model="ir.values">
+			<field name="model_id" ref="mw_consume_order.model_consumable_material_in_use" />
+			<field name="name">Reject</field>
+			<field name="key2">client_action_multi</field>
+			<field name="key">action</field>
+			<field name="model">consumable.material.in.use</field>f
+			<field name="value" eval="'ir.actions.server,' + str(ref('consume_material_server_progress_action'))" />
+		</record>
+		<record id="run_procurement_order_progress_action" model="ir.values">
+			<field name="model_id" ref="mw_consume_order.model_consumable_material_in_use" />
+			<field name="name">Progress</field>
+			<field name="key2">client_action_multi</field>
+			<field name="key">action</field>
+			<field name="model">consumable.material.in.use</field>
+			<field name="value" eval="'ir.actions.server,' + str(ref('consume_material_server_reject_action'))" />
+		</record> 
+		
+		<record id="view_consume_material_in_use_search" model="ir.ui.view">
+			<field name="name">consumable.material.expense</field>
+			<field name="model">consumable.material.expense</field>
+			<field name="arch" type="xml">
+				<search string="Search Owner">
+				   	<group expand="0" string="Group By">
+						<filter string="Warehouse" domain="[]" context="{'group_by':'related_product_move_id.location_id'}"/>
+					</group>
+				 </search>
+			</field>
+		</record>-->
+
+		<record id="action_selected_consumable_material_in_use" model="ir.actions.server">
+			<field name="name">Олноор нь элэгдлийн мөр үүсгэх</field>
+			<field name="model_id" ref="mw_consume_order.model_consumable_material_in_use"/>
+			<field name="groups_id" eval="[(4, ref('mw_consume_order.group_consume_order_user'))]"/>
+			<field name="binding_model_id" ref="mw_consume_order.model_consumable_material_in_use"/>
+			<field name="state">code</field>
+			<field name="code">records.compute_selected_in_use_depreciation()</field>
+		</record>
+		<record id="action_selected_consumable_material_in_use" model="ir.actions.server">
+			<field name="name">Олноор засах элэгдэл</field>
+			<field name="model_id" ref="mw_consume_order.model_consumable_material_in_use"/>
+			<field name="groups_id" eval="[(4, ref('base.group_no_one'))]"/>
+			<field name="binding_model_id" ref="mw_consume_order.model_consumable_material_in_use"/>
+			<field name="state">code</field>
+			<field name="code">records.edit_depreciation_board_amount()</field>
+		</record>
+
+		<record model="ir.sequence" id="seq_consumable_material_in_use">
+			<field name="name">consumable material using</field>
+			<field name="code">consumable.material.in.use</field>
+			<field name="prefix">CMU/%(year)s/%(month)s/%(day)s-</field>
+			<field name="padding">5</field>
+			<field name="company_id" eval='False'/>
+		</record>
+
+		<record id="view_use_consume_material_tree" model="ir.ui.view">
+			<field name="name">consumable.material.in.use.tree</field>
+			<field name="model">consumable.material.in.use</field>
+			<field name="arch" type="xml">
+				<tree string="Use Consumable Material Tree" create="1">
+					<field name="doc_number"/>
+					<field name="product_id"/>
+<!-- 					<field name="owner_ids" required="1" widget="many2many_tags"/> -->
+					<field name="owner_id" required="1" />
+<!-- 					<field name="related_product_move_id"/> -->
+					<field name="department_id" />
+					<field name="branch_id"/>
+					<field name="qty" sum="SUM"/>
+					<field name="amount" sum="SUM"/>
+					<field name="rest_amount" sum="SUM"/>
+					<field name="type_id"/>
+					<field name="transaction_date"/>
+					<field name="date"/>
+					<field name="end_date"/>
+					<field name="is_depreciate"/>
+					<field name="state"/>
+					<field name="lot_id"/>
+				</tree>
+			</field>
+		</record>
+		<record id="use_consume_material_form_view" model="ir.ui.view">
+			<field name="name">consumable.material.in.use</field>
+			<field name="model">consumable.material.in.use</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material">
+					<header>
+						<button name="button_progress" type="object" string="Progress" attrs="{'invisible': [('state','!=','draft')]}"></button>
+						<button name="edit_depreciation_board_amount" type="object" string="Edit Amount"/>
+						<button name="button_done" type="object" string="Актлах" attrs="{'invisible': [('state','=','progress_done')]}" groups="mw_consume_order.group_consume_order_closer"></button>
+						<button name="button_draft" type="object" string="Draft" attrs="{'invisible': [('is_allow_edit','=',False)]}"></button>
+						<button name="action_set_to_close" string="Sell or Dispose" type="object" class="oe_highlight" />  
+						<button name="compute_depreciation_board" type="object" string="Compute" states="draft" attrs="{'invisible': [('is_depreciate', '=', True)]}"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,progress,progress_done" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="doc_number" readonly="1"/>
+								<field name="is_depreciate" invisible="1"/>
+								<field name="product_id" readonly="1"/>
+<!-- 								<field name="owner_id" attrs="{'readonly': [('state', '=', 'progress_done')]}"/> -->
+<!-- 								<field name="owner_ids" required="1" widget="many2many_tags" attrs="{'readonly': [('state', '=', 'progress_done')]}"/> -->
+								<field name="owner_id" required="1" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="is_project_partner" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="note" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="note_close" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="department_id" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="life" force_save='1' attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="lot_id" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="company_id" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="move_id" invisible="1"/>
+								<field name="related_move_id" readonly="1"/>
+								<field name="related_product_move_id" readonly="1"/>
+								<field name="expense_line_id" readonly="1"/>
+								<field name="is_allow_edit" />
+							</group>
+							<group>
+								<field name="related_product_move_id" readonly="1"/>
+								<field name="purchase_date" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="date" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="end_date" readonly="1"/>
+								<field name="category_id" reguired="1" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="account_id" options="{'no_create': True}" force_save="1" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="analytic_distribution" widget="analytic_distribution" options="{'no_create': True}" force_save="1" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="type_id" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="branch_id" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="location_id" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}" options="{'no_create': True}"/>
+								<field name="qty" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="unit_price" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="amount" readonly="1" force_save="1"/>
+								<field name="depr_amount" readonly="1"/>
+								<field name="rest_amount" readonly="1"/>
+								<!-- <field name="depreciation_type" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/> -->
+								<field name="depreciation_method_type" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<field name="date_type" attrs="{'readonly': [('state', 'in', ['progress','progress_done'])]}"/>
+								<!-- , 'invisible': [('depreciation_type', '!=', 'month')] -->
+							</group>
+							<!-- <button name="action_doned_consumable_view" type="object" string="TEST" class="btn-danger"/> -->
+						</group>
+						<notebook>
+							<page string="Depreciation History">
+								<field name="depreciation_line_ids" mode="tree" >
+									<tree string="Depreciation Lines" decoration-info="move_id == False" editable="bottom">
+										<field name="sequence" invisible="1"/>
+										<field name="depreciation_date" />
+										<field name="percent_name" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+										<field name="amount" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}" />
+										<field name="balance" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+										<field name="owner_id" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+										<field name="move_id" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+										<field name="account_id" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+										<field name="analytic_distribution" widget="analytic_distribution" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+										<button name="action_post" type="object" string="Post" attrs="{'invisible': [('move_id','!=',False)]}"/>
+									</tree>
+									<form string="Depreciation Lines" >
+										<group>
+											<button name="action_post" type="object" string="Post" attrs="{'invisible': [('move_id','!=',False)]}"/>
+											<field name="sequence" invisible="1"/>
+											<field name="limit_date" invisible="1"/>
+											<field name="depreciation_date" />
+											<field name="percent_name" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+											<field name="amount" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+											<field name="balance" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+											<field name="owner_id" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+											<field name="move_id" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+											<field name="account_id" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+											<field name="analytic_distribution" widget="analytic_distribution" attrs="{'readonly': [('parent.state', 'in', ['progress','progress_done'])]}"/>
+										</group>
+									</form>
+									
+								</field>
+							</page>
+							<page string="History">
+								<group>
+									<field name="depr_amount_import"/>
+									<field name="rest_amount_import"/>
+								</group>
+								<field name="history_ids" readonly="1">
+									<tree string="Hidtory" >
+										<field name="name" />
+										<field name="qty" readonly="1"/>
+										<field name="date" />
+										<field name="type" />
+										<field name="branch_id"/>
+										<field name="dep_id"/>
+										<field name="account_id"/>
+										<field name="analytic_distribution" widget="analytic_distribution"/>
+										<field name="owner_ids" widget="many2many_tags"/>
+										<field name="new_owner_id"/>
+									</tree>
+									<form string="History" >
+										<sheet>
+											<group col='4'>
+												<field name="name" />
+												<field name="qty" readonly="1"/>
+												<field name="date" />
+												<field name="type" />
+												<field name="branch_id"/>
+												<field name="dep_id"/>
+												<field name="account_id"/>
+												<field name="analytic_distribution" widget="analytic_distribution"/>
+												<field name="owner_ids" widget="many2many_tags"/>
+											</group>
+										</sheet>
+									</form>									
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="activity_ids" widget="mail_activity"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+		 <record id="use_consume_material_search_view" model="ir.ui.view">
+			<field name="name">consumable.material.in.use.select</field>
+			<field name="model">consumable.material.in.use</field>
+			<field name="arch" type="xml">
+				<search string="Search consumable">
+					<field name="doc_number" string="Consumable" filter_domain="['|','|', ('note','ilike',self), ('doc_number', 'ilike', self), ('product_id', 'ilike', self)]"/>
+					<field name="product_id" />
+					<field name="lot_id"/>
+					<field name="department_id" />
+					<field name="owner_id" />
+					<filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+					<filter name="progress" string="Ашиглаж буй" domain="[('state', '=', 'progress')]"/>
+					<filter name="progress_done" string="Дууссан" domain="[('state', '=', 'progress_done')]"/>
+					<filter name="owner_id" string="Эзэмшигчгүй" domain="[('owner_id','=', False)]"/>
+					<filter name="not_def" string="Элэгдэл байгуулаагүй" domain="[('depreciation_line_ids','=', False)]"/>
+					<field name="date" string="Date"/>
+					<group expand="0" string="Group By">
+						<filter name="gb_related_move_id" string="Related move grouping" context="{'group_by':'related_move_id'}"/>
+						<filter name="status" string="Status" context="{'group_by':'state'}"/>
+						<filter name="date" string="Date" context="{'group_by':'date'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+		<record id="action_use_consume_material_view" model="ir.actions.act_window">
+			<field name="name">Consume Material</field>
+			<field name="res_model">consumable.material.in.use</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_use_consume_material_tree"/>
+			 <field name="search_view_id" ref="use_consume_material_search_view"/>
+			<field name="help" type="html">
+			  	<p class="oe_view_nocontent_create">
+					Create a Use Consumable Material
+				</p>
+			</field>
+		</record>
+		<menuitem id="menu_view_using_consumable_material"
+			name="Using Consumable Material"
+			parent="menu_finance_consumable_material"
+			action="action_use_consume_material_view"
+			sequence="3"/>
+			
+		<record id="action_my_use_consume_material_view" model="ir.actions.act_window">
+			<field name="name">Consume Material</field>
+			<field name="res_model">consumable.material.in.use</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_use_consume_material_tree"/>
+			<field name="search_view_id" ref="use_consume_material_search_view"/>
+			<field name="domain">[('owner_id.user_ids','in',[uid])]</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Create a Use Consumable Material
+				</p>
+			</field>
+		</record>
+
+		<!-- <menuitem name="My Consumable Material"
+			id="menu_use_consume_material_2" 
+			parent="mw_asset.menu_mw_asset_root2" 
+			action="mw_consume_order.action_my_use_consume_material_view" 
+			sequence="10" 
+			groups="mw_consume_order.group_consume_order_user"/> -->
+		
+		<!-- Line -->
+		<record id="action_selected_consumable_material_in_use_deprecaition_line" model="ir.actions.server">
+			<field name="name">Олноор нь элэгдүүлэх</field>
+			<field name="model_id" ref="mw_consume_order.model_consumable_material_in_use_deprecaition_line"/>
+			<field name="groups_id" eval="[(4, ref('mw_consume_order.group_consume_order_user'))]"/>
+			<field name="binding_model_id" ref="mw_consume_order.model_consumable_material_in_use_deprecaition_line"/>
+			<field name="state">code</field>
+			<field name="code">records.compute_selected_action_post()</field>
+		</record>
+		
+		<record id="view_use_consume_material_line_tree" model="ir.ui.view">
+			<field name="name">consumable.material.in.use.deprecaition.line.tree</field>
+			<field name="model">consumable.material.in.use.deprecaition.line</field>
+			<field name="arch" type="xml">
+				<tree string="Depreciation Lines" decoration-info="move_id == False" editable="bottom" create="false" edit="false">
+					<field name="parent_id"/>
+					<field name="product_id"/>
+					<field name="depreciation_date" />
+					<field name="percent_name"/>
+					<field name="amount" />
+					<field name="balance" />
+					<field name="owner_id"/>
+					<field name="move_id"/>
+					<field name="account_id"/>
+					<field name="analytic_distribution" widget="analytic_distribution"/>
+					<button name="action_post" type="object" string="Post" class="btn-warning"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_use_consume_material_line_form" model="ir.ui.view">
+			<field name="name">consumable.material.in.use.deprecaition.line.form</field>
+			<field name="model">consumable.material.in.use.deprecaition.line</field>
+			<field name="arch" type="xml">
+				<form string="Depreciation Lines"  create="false" edit="false">
+					<group>
+						<field name="parent_id"/>
+						<field name="depreciation_date" />
+						<field name="percent_name" />
+						<field name="amount" />
+						<field name="balance" />
+						<field name="owner_id"/>
+						<field name="move_id"/>
+						<field name="account_id"/>
+						<field name="analytic_distribution" widget="analytic_distribution"/>
+						<button name="action_post" type="object" string="Post" class="btn-warning" icon="fa-circle-check"/>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="use_consume_material_line_search_view" model="ir.ui.view">
+			<field name="name">consumable.material.in.use.deprecaition.line.select</field>
+			<field name="model">consumable.material.in.use.deprecaition.line</field>
+			<field name="arch" type="xml">
+				<search string="Search consumable">
+					<field name="depreciation_date" />
+					<field name="owner_id"/>
+					<field name="move_id" />
+				</search>
+			</field>
+		</record>
+
+		<record id="action_use_consume_material_line_view" model="ir.actions.act_window">
+			<field name="name">Consume Material Depreciation Line</field>
+			<field name="res_model">consumable.material.in.use.deprecaition.line</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_use_consume_material_line_tree"/>
+			 <field name="search_view_id" ref="use_consume_material_line_search_view"/>
+			<field name="help" type="html">
+			  	<p class="oe_view_nocontent_create">
+					Create a Use Consumable Material Depreciation
+				</p>
+			</field>
+		</record>
+		<menuitem id="menu_view_using_consumable_material_line"
+			name="Using Consumable Material Lines"
+			parent="menu_finance_consumable_material"
+			action="action_use_consume_material_line_view"
+			sequence="4"/>
+
+		<record id="use_consume_material_type_form_view" model="ir.ui.view">
+			<field name="name">consumable.material.type</field>
+			<field name="model">consumable.material.type</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material">
+					<sheet>
+							<group>
+								<field name="name" />
+							</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_use_consume_material_type_tree" model="ir.ui.view">
+			<field name="name">consumable.material.type.tree</field>
+			<field name="model">consumable.material.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Use Consumable Material Tree" >
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+				
+		<record id="action_use_consume_material_type_view" model="ir.actions.act_window">
+			<field name="name">Төрөл</field>
+			<field name="res_model">consumable.material.type</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_use_consume_material_type_tree"/>
+			<field name="help" type="html">
+			  	<p class="oe_view_nocontent_create">
+					Create a Use Consumable Material type
+				</p>
+			</field>
+		</record>
+		<menuitem id="menu_view_using_consumable_type_material"
+			name="Төрөл"
+			parent="menu_finance_consumable_material"
+			action="action_use_consume_material_type_view"
+			sequence="5"/>
+					
+
+		<record id="use_consume_material_category_form_view" model="ir.ui.view">
+			<field name="name">consumable.material.category</field>
+			<field name="model">consumable.material.category</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material">
+					<sheet>
+							<group col='4'>
+								<field name="name" />
+								<field name="method_num"/>
+								<field name="account_id" />
+								<field name="ex_account_id" />
+								<field name="journal_id" />
+								<field name="company_id" />
+							</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_use_consume_material_category_tree" model="ir.ui.view">
+			<field name="name">consumable.material.category.tree</field>
+			<field name="model">consumable.material.category</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Use Consumable Material Tree" >
+					<field name="name"/>
+					<field name="company_id" />
+				</tree>
+			</field>
+		</record>		
+		
+		<record id="action_use_consume_material_category_view" model="ir.actions.act_window">
+			<field name="name">Ангилал</field>
+			<field name="res_model">consumable.material.category</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_use_consume_material_category_tree"/>
+			<field name="help" type="html">
+			  	<p class="oe_view_nocontent_create">
+					Create a Use Consumable Category
+				</p>
+			</field>
+		</record>
+		<menuitem id="menu_view_using_consumable_category_material"
+			name="Ангилал"
+			parent="menu_finance_consumable_material"
+			action="action_use_consume_material_category_view"
+			sequence="5"/>
+
+		<!-- Байрлал -->
+		<record id="use_consume_material_location_form_view" model="ir.ui.view">
+			<field name="name">consumable.material.location</field>
+			<field name="model">consumable.material.location</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material">
+					<sheet>
+							<group col='4'>
+								<field name="name" />
+							</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_use_consume_material_location_tree" model="ir.ui.view">
+			<field name="name">consumable.material.location.tree</field>
+			<field name="model">consumable.material.location</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Use Consumable Material Tree" editable="top">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_use_consume_material_location_view" model="ir.actions.act_window">
+			<field name="name">Байрлал</field>
+			<field name="res_model">consumable.material.location</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_use_consume_material_location_tree"/>
+			<field name="help" type="html">
+			  	<p class="oe_view_nocontent_create">
+					Create a Use Consumable location
+				</p>
+			</field>
+		</record>
+
+		<menuitem id="menu_view_using_consumable_location_material"
+			name="Байрлал"
+			parent="menu_finance_consumable_material"
+			action="action_use_consume_material_location_view"
+			sequence="5"/>
+
+		<!-- Doned consumable continue -->
+		<record id="doned_consumable_continue_form_view" model="ir.ui.view">
+			<field name="name">doned.consumable.continue</field>
+			<field name="model">doned.consumable.continue</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material">
+					<sheet>
+							<group col='4'>
+								<field name="date" />
+								<field name="account_id"/>
+								<field name="tax_id" />
+								<field name="journal_id" />
+							</group>
+							<group>
+								<div class="alert alert-danger alert-dismissible text-left" role="alert" attrs="{'invisible': [('info_message', '=', False)]}">
+									<a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+									<field name="info_message" />
+								</div>
+							</group>
+							<group>
+								<field name="consumable_ids" nolabel="1">
+									<tree string="Use Consumable Material Tree">
+										<field name="doc_number" readonly="1"/>
+										<field name="product_id" readonly="1"/>
+										<field name="owner_id" readonly="1"/>
+										<field name="department_id" readonly="1" optional="hide"/>
+										<field name="amount" sum="SUM" readonly="1"/>
+										<field name="rest_amount" sum="SUM" readonly="1"/>
+										<field name="date" readonly="1"/>
+									</tree>
+								</field>
+							</group>
+							<footer col="3" class="oe_right">
+								<button icon="fa-undo" name="doned_consumable_create_move" string="Дахин ашиглах" type="object" colspan="2" class="btn-success"/>
+								<button icon="fa-times" special="cancel" string="Cancel" colspan="1"/>
+							</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="action_doned_consumable_continue" model="ir.actions.act_window">
+			<field name="name">Элэгдсэн АБХМ үргэлжлүүлэн ашиглах</field>
+			<field name="res_model">doned.consumable.continue</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="doned_consumable_continue_form_view"/>
+		</record>
+
+		<act_window name="Дахин ашиглах"
+			res_model="doned.consumable.continue"
+			binding_model="consumable.material.in.use"
+			view_mode="tree,form"
+			target="new"
+			view_id="doned_consumable_continue_form_view"
+			groups="base.group_no_one"
+			id="action_doned_consumable_continue_act"/>
+	</data>
+</odoo>

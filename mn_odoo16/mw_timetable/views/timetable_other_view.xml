@@ -1,0 +1,386 @@
+
+<odoo>
+    
+    <record id="view_attendance_inherit_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.inherit.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <field name="date"/> 
+            </xpath>
+        </field>
+    </record>
+    <!-- Ажилтан дээр ээлж тохируулах -->
+    <record id="view_hr_employee_shift_form" model="ir.ui.view">
+        <field name="name">hr.employee.shift.form</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">   
+            <form string="Ажилтан дээр ээлж тохируулах">            
+             <sheet>
+                <group>
+                    <group>
+                        <field name="identification_id" readonly='1'/>
+                        <field name="last_name" readonly='1'/>
+                        <field name="name" readonly='1'/>
+                        <field name="department_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                        <field name="job_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                        <field name="company_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                        <field name="is_not_tourist"/>
+                    </group>
+                    <group>
+                         <field name="roster_id"  options="{'no_create':True, 'no_open':True}" required='1'/>
+                        <field name="start_date" required='1'/>
+                        <field name="start_day" required='1'/>
+                        <!-- <field name="w_start_day" readonly='1'/> -->
+                        <!-- <field name="n_start_day"/> -->
+                        <field name="rest_day"/>
+                        <field name="full_worked_hour"/>
+                    </group>
+                </group>
+                <field name="date_history_ids" colspan="4" nolabel="1">
+                    <form string="Timetable">
+                        <group col="4" colspan="4">
+                            <field name="update_date"/>
+                            <field name="user_id" />
+                            <field name="date"/>
+                            <field name="day" />
+                            <!-- <field name="w_start_day"/>
+                            <field name="n_start_day"/> -->
+                        </group>
+                    </form>
+                    <tree string="Timetable" editable="top" limit="1000">
+                        <field name="update_date" readonly='1'/>
+                        <field name="user_id"  readonly='1'/>
+                        <field name="date"  readonly='1'/>
+                        <field name="day"  readonly='1'/>
+                        <!-- <field name="w_start_day"/>
+                        <field name="n_start_day"/> -->
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="roster_id" options="{'no_create':True, 'no_open':True}"/>
+                    </tree>
+                </field>
+             </sheet>     
+             <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>          
+            </form>
+        </field>
+    </record>
+    <record id="view_hr_employee_shift_tree" model="ir.ui.view">
+        <field name="name">hr.employee.shift.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="identification_id" string='Ажилтны код'/>
+                <field name="last_name"/>
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="roster_id"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hr_employee_shift_search" model="ir.ui.view">
+        <field name="name">hr.employee.shift.search</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <field name="name" string="Нэр"/>
+                <field name="identification_id" string="Ажилтны код"/>
+                <filter name="roster_id" string="Хуваарь" icon="terp-personal" context="{'group_by':'roster_id'}"/>
+                <filter name="start_date" string="Эхлэх огноо" icon="terp-personal" context="{'group_by':'start_date'}"/>
+                <filter name="company_id" string="Компани" icon="terp-personal" context="{'group_by':'company_id'}"/>
+                <filter name="department_id" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}"/>
+                <filter name="work_location_id" string="Байршил" icon="terp-personal" context="{'group_by':'work_location_id'}"/>
+                <field name="job_id" string="Албан тушаал"/>
+                <filter name="status_employee" string="Үндсэн ажилчид" domain="[('employee_type','=','employee')]"/>
+				<filter name="status" string="Идэвхтэй ажилчид" domain="[('employee_type','in',('employee','trainee','contractor','student'))]"/>
+				<filter name="status_non_active" string="Идэвхгүй ажилчид" domain="[('employee_type','in',('resigned','longleave','maternity','pregnant_leave','waiting'))]"/>
+            </search>
+        </field>
+    </record>
+    <record id="hr_employee_shift_action" model="ir.actions.act_window">
+        <field name="name">Ээлжийн тохиргоо</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_status': 1,'search_default_work_location_id': 1}</field>
+        <field name="search_view_id" ref="hr_employee_shift_search"/>
+        <field name="view_ids" eval="[(5, 0, 0), 
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_hr_employee_shift_tree')}), 
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_hr_employee_shift_form')})]"/>
+    </record>
+    <record model="ir.ui.view" id="hr_shift_time_form">
+            <field name="name">hr.shift.time.form</field>
+            <field name="model">hr.shift.time</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <group>
+                            <group>
+                                <field name="name" required='1'/> 
+                                <field name="is_work" required='1'/> 
+                                <field name="flag" required='1'/>
+                                <field name="color" widget="color_picker" required='1'/>
+                                <field name="work_location_id"/>
+                                <field name="company_id"/>
+                                <field name="is_request"/>
+                                <field name="is_limit"/>
+                            </group>
+                            <group attrs="{'invisible': [('is_request','=',True)]}">
+                                <field name="start_time" widget="float_time" />   
+                                <field name="end_time" widget="float_time"/> 
+                                <field name="lunch_start_time" widget="float_time"/> 
+                                <field name="lunch_end_time" widget="float_time"/>  
+                                <field name="night_start_time" widget="float_time" />   
+                                <field name="night_end_time" widget="float_time"/> 
+                                <field name="late_s_time" widget="float_time" />   
+                                <field name="compute_sum_time" widget="float_time"/> 
+                                <field name="compute_sum_lunch" widget="float_time"/>  
+                                <field name="compute_sum_ov_time" widget="float_time"/>        
+                                <field name="compute_sum_all_time" widget="float_time"/> 
+                                <field name="roster_change"/>        
+                            </group>   
+                        </group>
+                        <group attrs="{'invisible': [('is_limit','!=',True)]}">
+                            <group>
+                                <field name="in_s_time" widget="float_time" />   
+                                <field name="in_e_time" widget="float_time"/> 
+                            </group>
+                            <group>
+                                <field name="out_s_time" widget="float_time"/> 
+                                <field name="out_e_time" widget="float_time"/>   
+                            </group>              
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_shift_time_tree">
+            <field name="name">hr.shift.time.tree</field>
+            <field name="model">hr.shift.time</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Shift time">
+                    <field name="name"/>
+                    <field name="start_time" widget="float_time"/> 
+                    <field name="end_time"  widget="float_time"/> 
+                    <field name="lunch_start_time" widget="float_time"/> 
+                    <field name="lunch_end_time" widget="float_time"/> 
+                    <field name="compute_sum_time" widget="float_time"/> 
+                    <field name="compute_sum_all_time" widget="float_time"/>
+                    <field name="compute_sum_lunch" widget="float_time"/>      
+                    <field name="is_work"/>   
+                    <field name="flag"/>
+                </tree>
+            </field>
+        </record>
+        <record id="hr_shift_time_filter" model="ir.ui.view">
+            <field name="name">hr.shift.time Search</field>
+            <field name="model">hr.shift.time</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search>
+                    <group col='8' colspan='4'>
+                        <field name="name"/> 
+                        <field name="is_work"/> 
+                        <field name="start_time"/> 
+                    </group>
+                    <group expand="0" string="Group By...">
+                        <filter name="location" string="Байршил" icon="terp-personal" domain="[]" context="{'group_by':'work_location_id'}"/>
+                        <filter name="company_id" string="Компани" icon="terp-personal" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter name="is_work" string="Хуваарь" icon="terp-personal" domain="[]" context="{'group_by':'is_work'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_shift_time" model="ir.actions.act_window">
+            <field name="name">Shift time</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.shift.time</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_shift_time_tree"/>
+            <field name="search_view_id" ref="hr_shift_time_filter"/>
+        </record>
+        <!-- Ээлжийн бүртгэл -->
+        <record model="ir.ui.view" id="hr_shift_form">
+            <field name="name">hr.shift.form</field>
+            <field name="model">hr.shift</field>
+            <field name="arch" type="xml">
+                <form string="Hr Shift">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="work_location_id"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
+                                <field name="shift_time_id" options="{'no_create':True, 'no_open':True}"/> 
+                                <field name="work_hour"/> 
+                                <field name="is_7_2"/> 
+                                <button name="create_line" string="Мөр үүсгэх" class="btn-info" type="object" />
+                            </group>                      
+                        </group>
+                        <button name="line_update" string="Update" type="object" class="btn-warning" />
+                        <button name="all_cancel" string="Бүх чагт арилгах" type="object" class="btn-danger" />
+                        <button name="all_yes" string="Бүгдийг чагтлах" type="object" class="btn-success" icon='fa-check-square'/>
+                        <button name="date_update" string="Өдөр солих" type="object" class="btn-primary"/>
+                        <notebook>
+                            <page string="Дэлгэрэнгүй">
+                                <field name="line_ids" nolabel="1">
+                                    <tree string="Lines" editable="bottom">
+                                        <field name="is_update"/>
+                                        <field name="number"/>
+                                        <field name="date"/>
+                                        <field name='name' options="{'no_create':True}"/>
+                                        <field name="start_time" widget="float_time"/>
+                                        <field name="end_time" widget="float_time"/>
+                                        <field name="night_start_time" widget="float_time" />   
+                                        <field name="night_end_time" widget="float_time"/> 
+                                        <field name="lunch_start_time" widget="float_time"/> 
+                                        <field name="lunch_end_time" widget="float_time"/> 
+                                        <field name="compute_sum_time" widget="float_time" force_save="1"/> 
+                                        <field name="compute_sum_ov_time" widget="float_time" force_save="1"/>
+                                        <field name="compute_sum_all_time" widget="float_time" force_save="1"/>       
+                                        <field name='is_work'/>
+                                    </tree>
+                                    <!-- <form string="Lines">
+                                        <field name="is_update"/>
+                                        <field name="date"/>
+                                        <field name='name'/>
+                                        <field name="number"/>
+                                        <field name="start_time" widget="float_time"/>
+                                        <field name="end_time" widget="float_time"/>
+                                        <field name="night_start_time" widget="float_time" />   
+                                        <field name="night_end_time" widget="float_time"/> 
+                                        <field name="lunch_start_time" widget="float_time"/> 
+                                        <field name="lunch_end_time" widget="float_time"/>   
+                                        <field name="compute_sum_time" widget="float_time" force_save="1"/> 
+                                        <field name="compute_sum_lunch" widget="float_time" force_save="1"/>     
+                                        <field name='is_work'/>
+                                    </form> -->
+                                </field>
+                            </page>
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_shift_tree">
+            <field name="name">hr.shift.tree</field>
+            <field name="model">hr.shift</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Shift">
+                    <field name="name"/>
+                    <field name="shift_time_id"/> 
+                    <field name="start_date"/> 
+                    <field name="end_date"/> 
+                </tree>
+            </field>
+        </record>
+        <record id="hr_shift_filter" model="ir.ui.view">
+            <field name="name">hr.shift Search</field>
+            <field name="model">hr.shift</field>
+            <field name="arch" type="xml">
+                <search string="Monthly Department hour balance front">
+                    <group col='8' colspan='4'>
+                        <field name="name"/> 
+                        <field name="start_date"/> 
+                    </group>
+                    <group expand="0" string="Group By...">
+                        <filter name="year" string="Жил" icon="terp-personal" context="{'group_by':'start_date:year'}"/>
+                        <filter name="month" string="Сар" icon="terp-personal" context="{'group_by':'start_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_hr_shift" model="ir.actions.act_window">
+            <field name="name">Хуваарь</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.shift</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_shift_tree"/>
+            <field name="context">{'search_default_year': 1, 'search_default_month': 1}</field>
+            <field name="search_view_id" ref="hr_shift_filter"/>
+        </record>
+    <!-- Ажилтан дээр хуваарь тохируулах -->
+    <record id="hr_employee_date_set_form" model="ir.ui.view">
+        <field name="name">hr.employee.date.set.form</field>
+        <field name="model">hr.employee.date.set</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="s_date"/>
+                    <field name="s_day"/>
+                    <field name="roster_id" options="{'no_create':True, 'no_open':True}"/>
+                </group>
+                <footer>
+                    <button name="action_update" string="Шинэчлэх" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Цуцлах" type="object" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Ээлж тохируулах" res_model="hr.employee.date.set" binding_model="hr.employee" view_mode="form"
+        view_id = "hr_employee_date_set_form" target="new" id="hr_employee_date_set_action_pr"/>
+
+    <!-- Амралт баяр ёслол -->
+        <record model="ir.ui.view" id="hr_public_holiday_form">
+            <field name="name">hr.public.holiday.form</field>
+            <field name="model">hr.public.holiday</field>
+            <field name="arch" type="xml">
+                <form string="Hr Public Holiday">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="days_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_public_holiday_tree">
+            <field name="name">hr.public.holiday.tree</field>
+            <field name="model">hr.public.holiday</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Public Holiday">
+                    <field name="name"/>
+                    <field name="days_date"/>
+                </tree>
+            </field>
+        </record>
+        <record  id="hr_public_holiday_calendar_view" model="ir.ui.view">
+            <field name="name">hr.public.holiday.calendar</field>
+            <field name="model">hr.public.holiday</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar date_start="days_date" mode="month" quick_add="False">
+                    <field name="name"/>
+                    <field name="days_date"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="action_hr_public_holiday" model="ir.actions.act_window">
+            <field name="name">Амралт баяр ёслол</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.public.holiday</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_id" ref="hr_public_holiday_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to define a new received HR shift. </p>
+            </field>
+        </record> 
+</odoo>

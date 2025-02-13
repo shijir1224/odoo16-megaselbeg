@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="view_action_mining_concentrator_production_tree" model="ir.ui.view">
+            <field name="name">mining.concentrator.production.tree</field>
+            <field name="model">mining.concentrator.production</field>
+            <field name="arch" type="xml">
+                <tree string="Mining Concentrator Production">
+                    <field name="date"/>
+                    <field name="shift"/>
+                    <field name="master_id"/>
+                    <field name="total_worked_hour"/>
+                    <field name="total_stop_hour"/>
+                    <field name="total_production"/>
+                    <field name="total_engineer_work_hour"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_action_mining_concentrator_production_filter" model="ir.ui.view">
+            <field name="name">mining.concentrator.production.filter</field>
+            <field name="model">mining.concentrator.production</field>
+            <field name="arch" type="xml">
+                <search string="Mining Concentrator Production">
+                    <group expand="0" string="Group By...">
+                        <filter string="Салбарs" name="group_branch_id" icon="terp-personal" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <!-- <filter string="Year" name="group_year" icon="terp-go-year" domain="[]" context="{'group_by':'year'}"/> -->
+                        <!-- <filter string="Month" name="group_month" icon="terp-go-month" domain="[]" context="{'group_by':'month'}"/> -->
+                        <!-- <filter string="Day" name="group_day" icon="terp-go-day" context="{'group_by':'day'}"/> -->
+                        <filter string="State" name="group_state" icon="terp-go-state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_mining_concentrator_production_form" model="ir.ui.view">
+            <field name="name">mining.concentrator.production.form</field>
+            <field name="model">mining.concentrator.production</field>
+            <field eval="25" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Mining Concentrator Production" >
+                <header>
+                    <button name="confirm" states="draft" string="Approve" type="object" class="oe_highlight"/>
+                    <button name="refuse" states="approved" string="Draft" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="shift"/>
+                        </group>
+                        <group>
+                            <field name="branch_id" on_change="onchange_project(branch_id)" widget="selection"/>
+                            <field name="master_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <tree string="Mining Year PLanning Lines"  editable='bottom'>
+                                    <field name="mining_concentrator_id" widget="selection"/>
+                                    <field name="state"/>
+                                    <field name="start_time" widget="float_time"/>
+                                    <field name="end_time" widget="float_time"/>
+                                    <field name="pile_id" attrs="{'readonly': [('state', '=', 'stop')], 'required':[('state', '=', 'running')]}" domain="[('material_id.mining_product_type','=','mineral')]" widget="selection"/>
+                                    <field name="excavator_id" attrs="{'readonly': [('state', '=', 'stop')], 'required':[('state', '=', 'running')]}" widget="selection"/>
+                                    <field name="production_count" attrs="{'readonly': [('state', '=', 'stop')], 'required':[('state', '=', 'running')]}"/>
+                                    <field name="cause_id" attrs="{'readonly': [('state', '=', 'running')], 'required':[('state', '=', 'stop')]}" widget="selection"/>
+                                    <field name="total_hour" widget="float_time"/>
+                                    <field name="production_amount"/>
+                                </tree>
+                            </field>
+
+                        </page>
+                    </notebook>
+                    <div class="oe_clear"/>
+                    <separator string="Registration of engineering and welding work performed in the concentrator"/>
+                        <group>
+                            <field name="engineer_work_line" nolabel="1">
+                                <tree string="Engineer work line" editable="bottom">
+                                    <field name="worked"/>
+                                    <field name="hours_worked"/>
+                                    <field name="description_of_work"/>
+                                </tree>
+                            </field>
+                        </group>
+                    <separator string="Description"/>
+                    <field name="description" placeholder="Terms and conditions..."/>
+                    <group>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="total_worked_hour"/>
+                            <field name="total_stop_hour"/>
+                            <field name="total_production"/>
+                            <field name="total_engineer_work_hour"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_mining_concentrator_production'>
+            <field name="name">Concentrator Production</field>
+            <field name="res_model">mining.concentrator.production</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_group_year': 1,'search_default_group_month': 1,'search_default_group_day': 1}</field>
+        </record>
+
+    
+</odoo>

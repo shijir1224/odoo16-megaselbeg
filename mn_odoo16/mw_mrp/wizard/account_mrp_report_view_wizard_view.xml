@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <openerp>
+    <data>
+
+        <record id="account_mrp_view_wizard_view" model="ir.ui.view">
+            <field name="name">account.mrp.view.wizard wizard</field>
+            <field name="model">account.mrp.view.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <field name="company_id" />
+                        <field name="state" />
+                       <newline/>
+                        <field name="date_start" />
+                        <field name="date_end" />
+                    </group>
+                    <group colspan="4">
+                        <field name="account_ids" />
+                    </group>   
+                    <group colspan="4">
+                        <field name="branch_ids" />
+                    </group>   
+                    <group>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="open_analyze_view" string="Харах" type="object" 
+                        icon="fa-file-excel-o"/>
+                    </group>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_account_mrp_view_wizard_wizard" model="ir.actions.act_window">
+            <field name="name">Үйлдвэрлэл санхүүгийн тайлан</field>
+            <field name="res_model">account.mrp.view.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_mrp_view_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem 
+                name="Үйлдвэрлэл санхүүгийн тайлан"
+                action="action_account_mrp_view_wizard_wizard"
+                id="menu_action_account_mrp_view_wizard_wizard1"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="100"/>
+                
+
+    </data>
+</openerp> 

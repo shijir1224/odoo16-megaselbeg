@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+	<t t-name="mw_oil_fuel.FuelProdDashboardWidget">
+		<table style="width:100%">
+			<tr>
+				<td>
+					<div id="fuel_prod_day_dashboard" style="width:100%;height:450px">
+						<b>Fuel production day dashboard</b>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="fuel_prod_dashboard" style="width:100%;height:450px">
+						<b>Fuel production shift dashboard</b>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<div id="fuel_with_prod_day" style="width:100%;height:450px">
+						<b>Fuel production shift dashboard</b>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<div id="fuel_with_prod_shift" style="width:100%;height:450px">
+						<b>Fuel production shift dashboard</b>
+					</div>
+				</td>
+			</tr>
+		</table>
+		
+		
+	</t>
+
+	<!-- <t t-name="mw_oil_fuel.FuelProdDashboardWidget">
+		
+	</t> -->
+</templates>

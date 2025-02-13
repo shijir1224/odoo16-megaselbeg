@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form -->
+	<record id="maintenance_workorder_form_view" model="ir.ui.view">
+		<field name="name">maintenance.workorder.form</field>
+		<field name="model">maintenance.workorder</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_workorder_form_view"/>
+		<field name="arch" type="xml">
+            <field name="branch_id" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+                <newline/>
+            </field>
+		</field>
+	</record>
+
+	<record id="maintenance_workorder_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.workorder.tree</field>
+        <field name="model">maintenance.workorder</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_workorder_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,394 @@
+<?xml version="1.0" ?>
+<odoo noupdate="0">
+
+    <record model="ir.module.category" id="module_environment_category">
+        <field name="name">Байгаль орчны модуль</field>
+        <field name="description">Байгаль орчны модуль</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="group_env_employee" model="res.groups">
+        <field name="name">Байгаль орчны ажилтан</field>
+        <field name="category_id" ref="module_environment_category"/>
+    </record>
+
+    <record id="group_env_manager" model="res.groups">
+        <field name="name">Байгаль орчны менежер</field>
+        <field name="category_id" ref="module_environment_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_env_employee'))]"/>
+    </record>
+
+    <record id="group_env_general" model="res.groups">
+        <field name="name">Байгаль орчны админ</field>
+        <field name="category_id" ref="module_environment_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_env_manager'))]"/>
+    </record>
+
+    <record id="group_env_confirmed" model="res.groups">
+        <field name="name">Байгаль орчин сарын мэдээг батлах</field>
+        <field name="category_id" ref="module_environment_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_env_employee'))]"/>
+    </record>
+
+    <record model="ir.rule" id="env_training_employee_rule">
+        <field name="name">env.training.employee.rule</field>
+        <field name="model_id" ref="model_env_training"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_training_manager_rule">
+        <field name="name">env.training.manager.rule</field>
+        <field name="model_id" ref="model_env_training"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.department_id.branch_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_training_general_rule">
+        <field name="name">env.training.general.rule</field>
+        <field name="model_id" ref="model_env_training"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+        <record model="ir.rule" id="env_inspection_employee_rule">
+        <field name="name">env.inspection.employee.rule</field>
+        <field name="model_id" ref="model_env_inspection"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_inspection_manager_rule">
+        <field name="name">env.inspection.manager.rule</field>
+        <field name="model_id" ref="model_env_inspection"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_inspection_general_rule">
+        <field name="name">env.inspection.general.rule</field>
+        <field name="model_id" ref="model_env_inspection"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_accident_employee_rule">
+        <field name="name">env.accident.employee.rule</field>
+        <field name="model_id" ref="model_env_accident"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+    
+
+    <record model="ir.rule" id="env_accident_manager_rule">
+        <field name="name">env.accident.manager.rule</field>
+        <field name="model_id" ref="model_env_accident"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_accident_general_rule">
+        <field name="name">env.accident.general.rule</field>
+        <field name="model_id" ref="model_env_accident"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_water_employee_rule">
+        <field name="name">env.water.employee.rule</field>
+        <field name="model_id" ref="model_env_water"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+    
+    <record model="ir.rule" id="env_water_manager_rule">
+        <field name="name">env.water.manager.rule</field>
+        <field name="model_id" ref="model_env_water"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_water_general_rule">
+        <field name="name">env.water.general.rule</field>
+        <field name="model_id" ref="model_env_water"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_waste_employee_rule">
+        <field name="name">env.waste.employee.rule</field>
+        <field name="model_id" ref="model_env_waste"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_waste_manager_rule">
+        <field name="name">env.waste.manager.rule</field>
+        <field name="model_id" ref="model_env_waste"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_waste_general_rule">
+        <field name="name">env.waste.general.rule</field>
+        <field name="model_id" ref="model_env_waste"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_rehab_employee_rule">
+        <field name="name">env.rehab.employee.rule</field>
+        <field name="model_id" ref="model_env_rehab"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_rehab_manager_rule">
+        <field name="name">env.rehab.manager.rule</field>
+        <field name="model_id" ref="model_env_rehab"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_rehab_general_rule">
+        <field name="name">env.rehab.general.rule</field>
+        <field name="model_id" ref="model_env_rehab"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_animal_employee_rule">
+        <field name="name">env.animal.employee.rule</field>
+        <field name="model_id" ref="model_env_animal"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_animal_manager_rule">
+        <field name="name">env.animal.manger.rule</field>
+        <field name="model_id" ref="model_env_animal"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_animal_general_rule">
+        <field name="name">env.animal.general.rule</field>
+        <field name="model_id" ref="model_env_animal"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_expense_employee_rule">
+        <field name="name">env.expense.employee.rule</field>
+        <field name="model_id" ref="model_env_expense"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_expense_manager_rule">
+        <field name="name">env.expense.manager.rule</field>
+        <field name="model_id" ref="model_env_expense"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_expense_general_rule">
+        <field name="name">env.expense.general.rule</field>
+        <field name="model_id" ref="model_env_expense"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_garden_employee_rule">
+        <field name="name">env.garden.employee.rule</field>
+        <field name="model_id" ref="model_env_garden"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_garden_manager_rule">
+        <field name="name">env.garden.manager.rule</field>
+        <field name="model_id" ref="model_env_garden"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_garden_general_rule">
+        <field name="name">env.garden.general.rule</field>
+        <field name="model_id" ref="model_env_garden"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_tree_employee_rule">
+        <field name="name">env.tree.employee.rule</field>
+        <field name="model_id" ref="model_env_tree"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_tree_manager_rule">
+        <field name="name">env.tree.manager.rule</field>
+        <field name="model_id" ref="model_env_tree"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_tree_general_rule">
+        <field name="name">env.tree.general.rule</field>
+        <field name="model_id" ref="model_env_tree"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- Monitoring -->
+    <record model="ir.rule" id="env_monitor_employee_rule">
+        <field name="name">env.monitor.employee.rule</field>
+        <field name="model_id" ref="model_env_monitor"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_monitor_manager_rule">
+        <field name="name">env.monitor.manager.rule</field>
+        <field name="model_id" ref="model_env_monitor"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_monitor_general_rule">
+        <field name="name">env.monitor.general.rule</field>
+        <field name="model_id" ref="model_env_monitor"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- Settings -->
+    <record model="ir.rule" id="env_mining_employee_rule">
+        <field name="name">env.mining.employee.rule</field>
+        <field name="model_id" ref="model_env_mining"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_mining_manager_rule">
+        <field name="name">env.mining.manager.rule</field>
+        <field name="model_id" ref="model_env_mining"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('department_id', '=', user.department_id.id),('department_id', 'child_of', user.department_id.parent_id.id),('branch_id','=',user.branch_id.id),('branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_mining_general_rule">
+        <field name="name">env.mining.general.rule</field>
+        <field name="model_id" ref="model_env_mining"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- Reports -->
+    <record model="ir.rule" id="env_monthly_report_manager_rule">
+        <field name="name">env.monthly.report.manager.rule</field>
+        <field name="model_id" ref="model_env_monthly_report"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_monthly_report_general_rule">
+        <field name="name">env.monthly.report.general.rule</field>
+        <field name="model_id" ref="model_env_monthly_report"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record id="group_env_greenhousegas_own_company" model="res.groups">
+        <field name="name">Хүлэмжийн хий өөрийн компани</field>
+        <field name="category_id" ref="module_environment_category"/>
+    </record>
+
+    <record id="group_env_greenhousegas_all_company" model="res.groups">
+        <field name="name">Хүлэмжийн хий бүх компани</field>
+        <field name="implied_ids" eval="[(4, ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="category_id" ref="module_environment_category"/>
+    </record>
+
+    <record model="ir.rule" id="env_object_rule">
+        <field name="name">env.object.rule</field>
+        <field name="model_id" ref="model_env_object"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="domain_force">['|',('company_id', '=',user.company_id.id),('company_id', 'in',user.company_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_technical_rule">
+        <field name="name">env.technical.rule</field>
+        <field name="model_id" ref="model_env_technical"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="domain_force">['|',('company_id', '=',user.company_id.id),('company_id', 'in',user.company_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_fuel_rule">
+        <field name="name">env.fuel.rule</field>
+        <field name="model_id" ref="model_technic_equipment"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="domain_force">['|',('company_id', '=',user.company_id.id),('company_id', 'in',user.company_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_tseh_rule">
+        <field name="name">env.tseh.rule</field>
+        <field name="model_id" ref="model_env_tseh"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="domain_force">['|',('company_id', '=',user.company_id.id),('company_id', 'in',user.company_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_heat_rule">
+        <field name="name">env.heat.rule</field>
+        <field name="model_id" ref="model_env_heat"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="domain_force">['|',('company_id', '=',user.company_id.id),('company_id', 'in',user.company_ids.ids)]</field>
+    </record>
+
+    <!-- <record model="ir.rule" id="env_heat_line_rule">
+        <field name="name">env.heat.line.rule</field>
+        <field name="model_id" ref="model_env_heat_line"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="domain_force">['|',('company_id', '=',user.company_id.id),('company_id', 'in',user.company_ids.ids)]</field>
+    </record> -->
+
+
+    <!-- ENV Approved -->
+    <record model="ir.rule" id="env_approved_employee_rule">
+        <field name="name">env.approved.employee.rule</field>
+        <field name="model_id" ref="model_env_approved"/>
+        <field name="groups" eval="[(4,ref('group_env_employee'))]"/>
+        <field name="domain_force">[('mining_location.department_id', '=', user.department_id.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_approved_manager_rule">
+        <field name="name">env.approved.manager.rule</field>
+        <field name="model_id" ref="model_env_approved"/>
+        <field name="groups" eval="[(4,ref('group_env_manager'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_approved_general_rule">
+        <field name="name">env.approved.general.rule</field>
+        <field name="model_id" ref="model_env_approved"/>
+        <field name="groups" eval="[(4,ref('group_env_general'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- ENV GAS Approved -->
+    <record model="ir.rule" id="env_gas_approved_employee_rule">
+        <field name="name">env.gas.approved.employee.rule</field>
+        <field name="model_id" ref="model_env_gas_approved"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_own_company'))]"/>
+        <field name="domain_force">['|','|','|',('mining_location.department_id', '=', user.department_id.id),('mining_location.department_id', 'child_of', user.department_id.parent_id.id),('mining_location.branch_id','=',user.branch_id.id),('mining_location.branch_id','in',user.branch_ids.ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="env_gas_approved_general_rule">
+        <field name="name">env.gas.approved.general.rule</field>
+        <field name="model_id" ref="model_env_gas_approved"/>
+        <field name="groups" eval="[(4,ref('group_env_greenhousegas_all_company'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+</odoo>

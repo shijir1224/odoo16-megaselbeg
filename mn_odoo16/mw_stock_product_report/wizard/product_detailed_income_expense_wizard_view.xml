@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="product_detailed_income_expense_view" model="ir.ui.view">
+            <field name="name">product.detailed.income.expense wizard</field>
+            <field name="model">product.detailed.income.expense</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <sheet>
+                        <group>
+                            <group string="Date range" >
+                                <field name="date_range_id" options="{'no_create':True, 'no_open':True}"/>
+                                <field name="is_scheduled_date" attrs="{'invisible': [('move_type','!=','expense')]}"/>
+                            </group>
+                        </group>
+                        <group string="Dates">
+                            <group>
+                                <field name="date_start" />
+                            </group>
+                            <group>
+                                <field name="date_end" />
+                            </group>
+                        </group>
+                        <group >
+                            <group>
+                                <group>
+                                    <field name="import_wh" widget="boolean_toggle"/>
+                                    <field name="with_attribute" widget="boolean_toggle" attrs="{'invisible': [('move_type', '!=', 'income_expense')]}"/>
+                                    <field name="no_category_total" widget="boolean_toggle" attrs="{'invisible': [('move_type', '!=', 'income_expense')]}"/>
+                                    <field name="see_account" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="teg_uld_harahgui" widget="boolean_toggle" attrs="{'invisible': [('move_type', 'not in', ['income_expense','balance'])]}"/>
+                                    <field name="included_internal" widget="boolean_toggle"/>
+                                    <field name="see_value" widget="boolean_toggle" attrs="{'invisible': [('move_type', '!=', 'income_expense')]}"/>
+                                    <field name="see_list_price" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                        </group>
+                        <group name="inventory">
+                            <group>
+                                <field name="warehouse_id" colspan="2" widget="many2many_tags" options="{'no_create': True}" />
+                                <field name="move_type" widget="radio" required="1"/>
+                            </group>
+                            <group>
+                                <field name="location_ids" colspan="2" widget="many2many_tags" options="{'no_create': True}"
+                                    domain="[('usage','=','internal'),('set_warehouse_id','in',warehouse_id)]"/>
+                                <field name="move_state" widget="radio" required="1"/>
+                            </group>
+                        </group>
+                        <group >
+                            <field name="product_ids" widget="many2many_tags" colspan="4" options="{'no_create': True}"/>
+                            <field name="categ_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="categ_account_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('categ_ids','=',[])]}"/>
+                            <field name="product_tmpl_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" class="btn-danger"/>
+                        <button name="open_analyze_view" string="Харах" type="object"  icon="fa-eye" class="btn-success"/>
+                        <button name="export_report" string="Татах" type="object"  icon="fa-file-excel-o" class="btn-success" attrs="{'invisible': [('move_type','in',['only_in_out','balance','income'])]}"/>
+                        <!-- attrs="{'invisible': [('move_type', '!=', 'income_expense')]}" -->
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_product_detailed_income_expense" model="ir.actions.act_window">
+            <field name="name">Бараа Материалын Дэлгэрэнгүй Тайлан</field>
+            <field name="res_model">product.detailed.income.expense</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_detailed_income_expense_view"/>
+            <field name="target">new</field>
+        </record>
+
+</odoo>

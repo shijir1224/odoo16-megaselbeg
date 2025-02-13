@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="account_general_ledger_qr_view" model="ir.ui.view">
+            <field name="name">account.general.ledgerq.view</field>
+            <field name="model">account.general.ledgerq</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+	                <group name="main_info">
+	                    <field name="company_id" options="{'no_create': True}" />
+	                </group>
+                    <group colspan="4" col="4" >
+                    		<group colspan="4" >
+		 	                   <field name="account_id" colspan="2" />
+			                   <field name="target_move" />
+		                   </group>
+                    		<group colspan="4" >
+                                <separator string="Огноо" colspan="4"/>
+                                <field name="date_from" colspan="4" string="Эхлэх"/>
+                                <field name="date_to" colspan="4" string="Дуусах"/>
+							</group>
+		                   
+ 						<footer col="3" class="oe_right">
+	                        <button icon="fa-times" special="cancel" string="Cancel" colspan="2"/>
+	                        <button icon="fa-print" name="print_report" string="Print" type="object" colspan="2" default_focus="1" />
+<!-- 	                        <button icon="fa-print" name="print_report_html" string="View" type="object" colspan="2" default_focus="1" /> -->
+        			       </footer>
+ 	                </group>
+               	</form>
+            </field>
+        </record>
+
+        <record id="action_account_general_ledger_qry" model="ir.actions.act_window">
+            <field name="name">Ерөнхий дэвтэр 1</field>
+            <field name="res_model">account.general.ledgerq</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_general_ledger_qr_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem 
+                id="menu_action_account_general_ledger_qry"
+                action="action_account_general_ledger_qry"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                />
+                         
+    </data>
+</openerp>

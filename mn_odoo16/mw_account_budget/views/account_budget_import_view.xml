@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- Import File -->
+     <record id="account_budget_import_file_view" model="ir.ui.view">
+         <field name="name">Import Budget</field>
+         <field name="model">account.budget.import.file</field>
+         <field name="priority">1</field>
+         <field name="arch" type="xml">
+             <form string="Import Bank Statements">
+             <sheet>
+                 <h2>ДООРХ ЗАГВАРЫН ДАГУУ ФАЙЛ ХАВСАРГАНА УУ, МӨР БАГАНА ИЖИЛ БАЙХ!!!</h2>
+<!--                      <div class="alert alert-danger alert-dismissible text-left" 
+                        role="alert" >
+                        <a href="#" class="close" data-dismiss="alert" 
+                            aria-label="close">x</a>
+ 		             <field name="desc"/> 
+                    </div>	               -->
+                 <field name="image_1920" widget='image' class="oe_avatar_mw" options='{"zoom": true, "preview_image":"image_128"}'/>
+                 <field name="data_file" filename="filename" placeholder="Choose a file to import..."/>
+                 <footer>
+                     <button name="import_file" string="_Import" type="object" class="btn-primary" />
+                     <button string="Cancel" class="btn-default" special="cancel"/>
+                 </footer>
+                 </sheet>
+             </form>
+         </field>
+     </record>
+
+     <record id="action_account_budget_import_file" model="ir.actions.act_window">
+         <field name="name">Import</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">account.budget.import.file</field>
+         <field name="view_mode">form</field>
+         <field name="target">new</field>
+         <field name="view_id" ref="account_budget_import_file_view"/>
+     </record>
+</odoo>

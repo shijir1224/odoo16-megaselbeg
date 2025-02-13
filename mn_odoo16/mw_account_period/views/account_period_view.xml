@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	 <!-- Period -->
+     <record id="view_account_period_form" model="ir.ui.view">
+            <field name="name">account.period.form</field>
+            <field name="model">account.period</field>
+            <field name="arch" type="xml">
+                <form string="Account Period">
+                    <header>
+                        <button name="%(action_account_period_close)d" type="action" states="draft" string="Close Periods" groups="mw_account_period.group_mn_account_period_open_close" class="oe_highlight"/> 
+                        <button name="action_draft" states="done" string="Re-Open Period" type="object" groups="mw_account_period.group_mn_account_period_open_close"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code" required="1"/>
+                                <field name="fiscalyear_id"/>
+                                <field name="date_start"/> 
+                                <field name="date_stop"/>
+                            </group>
+                            <group>
+                                <field name="company_id" required="1"/>
+                                <field name="is_draft"/>
+                            </group>
+                        </group>
+                    </sheet>
+					<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                    
+                </form>
+            </field>
+        </record>
+		<record id="view_account_period_tree" model="ir.ui.view">
+            <field name="name">account.period.tree</field>
+            <field name="model">account.period</field>
+            <field name="arch" type="xml">
+              <tree string="Period">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="fiscalyear_id"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
+                    <field name="company_id"/> 
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_account_period_search" model="ir.ui.view">
+            <field name="name">account.period.search</field>
+            <field name="model">account.period</field>
+            <field name="arch" type="xml">
+                <search string="Search Period">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" string="Period"/>
+                    <filter string="To Close" name="draft" domain="[('state','=','draft')]" icon="terp-dialog-close"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_account_period" model="ir.actions.act_window">
+            <field name="name">Мөчлөгүүд</field>
+            <field name="res_model">account.period</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_draft': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a fiscal period.
+              </p><p>
+                An accounting period typically is a month or a quarter. 
+              </p>
+            </field>
+        </record>
+		<menuitem id="menu_action_account_period" action="action_account_period" parent="account.account_account_menu"/>
+		
+
+
+        <record id="view_account_close_form" model="ir.ui.view">
+            <field name="name">account.account.close.form</field>
+            <field name="model">account.account.close</field>
+            <field name="arch" type="xml">
+                <form string="Fiscal year">
+                <header>
+<!--                     <button name="close_year" groups="mw_account_period.group_mn_account_period_open_close" icon="gtk-dialog-authentication" states="draft" string="Close year" type="object"/> -->
+                   <!--  <button name="create_period3" states="draft" string="Create 3 Months Periods" type="object" class="oe_highlight"/> -->
+                    <field name="state" widget="statusbar" nolabel="1" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="account_and_partner" />
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <field colspan="4" name="account_ids" nolabel="1" >
+                    </field>
+                    <field colspan="4" name="partner_ids" nolabel="1" >
+                    </field>
+                   </sheet>
+					<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_account_close_tree" model="ir.ui.view">
+            <field name="name">account.account.close.tree</field>
+            <field name="model">account.account.close</field>
+            <field name="arch" type="xml">
+                <tree  string="Fiscalyear">
+                    <field name="description"/>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
+                    <field name="company_id"/>
+                    <!-- <field name="account_ids" widget='many2many_tags'/>
+                    <field name="partner_ids" widget='many2many_tags'/>
+                    <field name="account_and_partner" /> -->
+                </tree>
+            </field>
+        </record>
+        <record id="action_account_close" model="ir.actions.act_window">
+            <field name="name">Данс хаах</field>
+            <field name="res_model">account.account.close</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to start a new fiscal year.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_account_close" action="action_account_close" parent="account.account_account_menu" groups="mw_account_period.group_mn_account_period_write"/>
+		            
+                		
+</odoo>

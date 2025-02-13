@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_mup_report_tree_view" model="ir.ui.view">
+            <field name="name">sale.order.warehouse.report.tree.view</field>
+            <field name="model">sale.order.warehouse.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="state_delivery == 'overdue'" decoration-success="state_delivery == 'ontime'">
+                    <field name="default_code" optional="hide"/>
+                    <field name="product_id" optional="show"/>
+                    <field name="categ_id" optional="hide"/>
+                    <field name="sale_order_id" optional="show"/>
+                    <field name="sale_order_line_id" optional="hide"/>
+                    <field name="partner_id" optional="hide"/>
+                    <field name="sale_date" optional="show"/>
+                    <field name="qty_uom" optional="show" sum="SUM"/>
+                    <field name="qty_so" sum="SUM" optional="show"/>
+                    <field name="price_unit_so" optional="show"/>
+                    <field name="sub_total_so" sum="SUM" optional="show"/>
+                    <field name="scheduled_date" optional="show"/>
+                    <field name="stock_date" optional="show"/>
+                    <field name="state_delivery" optional="show"/>
+                    <field name="picking_id" optional="show"/>
+                    <field name="warehouse_id" optional="show"/>
+                    <field name="qty_stock" sum="SUM" optional="show"/>
+                    <field name="price_unit_stock" optional="show"/>
+                    <field name="sub_total_stock" sum="SUM" optional="show"/>
+                    <field name="total_ashig" sum="SUM" optional="show"/>
+                    <field name="company_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sale_order_mup_report_pivot" model="ir.ui.view">
+            <field name="name">sale.order.warehouse.report.pivot</field>
+            <field name="model">sale.order.warehouse.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Analysis">
+                    <field name="product_id" type="row" />
+                    <field name="qty_so" type="measure" />
+                    <field name="price_unit_so" type="measure" />
+                    <field name="sub_total_so" type="measure" />
+                    <field name="qty_stock" type="measure" />
+                    <field name="sub_total_stock" type="measure" />
+                    <field name="total_ashig" type="measure" />
+                </pivot>
+            </field>
+        </record>
+        <record id="sale_order_mup_report_search" model="ir.ui.view">
+            <field name="name">sale.order.warehouse.report.search</field>
+            <field name="model">sale.order.warehouse.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="product_id" />
+                    <field name="categ_id" />
+                    <field name="sale_order_id" />
+                    <field name="partner_id" />
+                    <field name="sale_date" />
+                    <field name="stock_date" />
+                    <field name="scheduled_date" />
+                    <field name="state_delivery" />
+                    <field name="picking_id" />
+                    <field name="warehouse_id" />
+                    <filter string="Агуулах огноо" context="{'group_by':'stock_date'}" name="gr_day" />
+                    <filter string="Борлуулалт огноо" context="{'group_by':'sale_date'}" name="gr_sale_date" />
+                    <filter string="Ангилал" context="{'group_by':'categ_id'}" name="gr_categ_id" />
+                    <filter string="Бараа" context="{'group_by':'product_id'}" name="gr_product_id" />
+                    <filter string="Харилцагч" context="{'group_by':'partner_id'}" name="gr_partner_id" />
+                    <filter string="Баримт" context="{'group_by':'picking_id'}" name="gr_picking_id" />
+                    <filter string="Агуулах" context="{'group_by':'warehouse_id'}" name="gr_warehouse_id" />
+                    <filter string="Компани" context="{'group_by':'company_id'}" name="gr_company_id" />
+                </search>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='action_sale_order_mup_report'>
+            <field name="name">Борлуулалт агуулахын тайлан</field>
+            <field name="res_model">sale.order.warehouse.report</field>
+            <field name="view_mode">tree,pivot,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="sale_order_mup_report_menu" parent="sale.menu_sale_report" sequence="15" action="action_sale_order_mup_report" groups="sales_team.group_sale_manager"/>
+    </data>
+</odoo>

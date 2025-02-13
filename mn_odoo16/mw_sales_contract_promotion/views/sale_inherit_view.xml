@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_inherit_view2" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="validity_date"]' position="replace">
+                <field name="validity_date" required="1" string="Захиалсан огноо"/>
+            </xpath>
+            <xpath expr='//field[@name="partner_id"]' position="attributes">
+                <attribute name="options">{'no_create':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                <field name="payment_type"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='validity_date']" position="after">
+                <field name="picking_date"
+                    required="1" 
+                    attrs="{'readonly':[('state','in',['sale','done'])]}"/>
+            </xpath> -->
+            <xpath expr="//div[2]" position="after">
+                <div name="button_box" class="oe_button_box">
+                    <!-- <button 
+                        name="action_compute_coupon_promotion" 
+                        icon="fa-gift" states="draft"
+                        groups="mw_sales_contract_promotion.group_contract_promo_compute_user"
+                        type="object" class="oe_stat_button"
+                        string="Compute promotion"/>
+                    <button 
+                        name="action_compute_contract_per_sales"
+                        icon="fa-file-contract" states="draft"
+                        groups="mw_sales_contract_promotion.group_contract_promo_compute_user"
+                        type="object" class="oe_stat_button"
+                        string="Compute contract"/> -->
+
+                    <!-- <button 
+                        name="action_compute_coupon_promotion" 
+                        groups="base.group_no_one" type="object"
+                        string="admin Compute promotion"/>
+                    <button 
+                        name="action_compute_contract_per_sales"
+                        groups="base.group_no_one" type="object"
+                        string="admin Compute contract"/> -->
+                </div>
+            </xpath>
+            <xpath expr='//field[@name="client_order_ref"]' position="after">
+                <field name="contract_id" />
+                <field name="promotion_ids" widget="many2many_tags"/>
+                <button groups="base.group_no_one"
+                        name="re_compute_dummy"
+                        type="object" class="oe_stat_button"
+                        string="Re Compute"/>
+                <button groups="base.group_no_one"
+                        name="force_cancel_saleorder"
+                        type="object" class="oe_stat_button"
+                        string="Force cancel"/>
+            </xpath>
+
+            <xpath expr='//field[@name="tax_totals"]' position="before">
+                <field name="total_discount" widget='monetary' options="{'currency_field': 'currency_id'}"
+                    attrs="{'invisible':[('total_discount','=',0)]}"/>
+            </xpath>
+            <xpath expr='//field[@name="tax_totals"]' position="after">
+                <field name="main_amount_total" widget='monetary' options="{'currency_field': 'currency_id'}" />
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='price_unit']" position="before">
+                <field name="main_price_unit" attrs="{'invisible':[('main_price_unit','=',0)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='tax_id']" position="before">
+                <field name="total_discount" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="before">
+                <field name="is_reward_product" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create':True}</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']//tree//field[@name='price_subtotal']" position="after">
+                <field name="price_total"/>
+            </xpath> -->
+            <xpath expr="//field[@name='order_line']//tree//field[@name='name']" position="replace">
+                <field name="name" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom_qty']" position="attributes">
+                <attribute name="sum">Total</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='qty_delivered']" position="attributes">
+                <attribute name="sum">Total</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='qty_invoiced']" position="attributes">
+                <attribute name="sum">Total</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree" position="attributes">
+                <attribute name="decoration-warning">is_reward_product==True</attribute>
+                <attribute name="decoration-bf">is_reward_product==True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="is_gift_sale" widget="boolean_toggle"/>
+            </xpath>
+
+            <!-- READONLY PRICE -->
+            <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="attributes">
+                <attribute name="readonly">True</attribute>
+                <attribute name="force_save">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='price_unit']" position="attributes">
+                <attribute name="readonly">True</attribute>
+                <attribute name="force_save">True</attribute>
+            </xpath>
+        </field>
+    </record>
+ 
+ 
+    <record id="sale_order_form_inherit_view_template" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_management.sale_order_form_quote"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="sale_order_template_id"]' position="replace">
+                <field name="custom_promotion_id" options="{'no_create':True}"
+                    attrs="{'invisible':[('state','!=','draft')]}"
+                    groups="mw_sales_contract_promotion.group_promotion_select_user"/>
+                <!-- <field name="custom_promotion_product_id" options="{'no_create':True}"
+                    attrs="{'invisible':[('state','!=','draft')]}"
+                    groups="mw_sales_contract_promotion.group_promotion_select_user"/>
+                <button groups="mw_sales_contract_promotion.group_promotion_select_user"
+                    attrs="{'invisible':[('state','!=','draft')]}"
+                    name="add_promotion_product" type="object" string="Урамшууллын бараа нэмэх"/> -->
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search -->
+    <record id="view_sale_order_filter_inherit" model="ir.ui.view">
+        <field name="name">sale.order.list.select</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                <separator/>
+                <field name="contract_id"/>
+                <field name="promotion_ids"/>
+                <separator/>
+                <filter name="today" string="Өнөөдөр" 
+                    domain="[('validity_date','ilike',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="this_month" string="Энэ сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="year" string="Энэ жил" 
+                    domain="[('validity_date','like',time.strftime('%%Y'))]"/>
+                <separator/>
+                <filter name="january" string="1-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-01'))]"/>
+                <filter name="february" string="2-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-02'))]"/>
+                <filter name="march" string="3-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-03'))]"/>
+                <filter name="April" string="4-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-04'))]"/>
+                <filter name="may" string="5-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-05'))]"/>
+                <filter name="june" string="6-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-06'))]"/>
+                <filter name="july" string="7-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-07'))]"/>
+                <filter name="august" string="8-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-08'))]"/>
+                <filter name="september" string="9-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-09'))]"/>
+                <filter name="octomber" string="10-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-10'))]"/>
+                <filter name="november" string="11-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-11'))]"/>
+                <filter name="december" string="12-р сар" 
+                    domain="[('validity_date','like',time.strftime('%%Y-12'))]"/>
+                <separator/>
+                <filter string="Хүргэлт дуусаагүй" name="no_picking" 
+                    domain="[('picking_ids.state','not in',['done','cancel'])]"/>
+                <filter string="Хүргэлт дууссан" name="yes_picking" 
+                    domain="[('picking_ids.state','not in',['draft','waiting','confirmed','assigned'])]"/>
+            </xpath>
+            <filter name="customer" position="after">
+                <filter name="team_type" string="Борлуулалтын суваг" domain="[]" context="{'group_by':'team_id'}"/>
+                <filter name="warehouse_id" string="Агуулахаар" domain="[]" context="{'group_by':'warehouse_id'}"/>
+                <filter name="payment_type" string="Төлбөрийн хэлбэрээр" domain="[]" context="{'group_by':'payment_type'}"/>
+                <filter name="date_by_year" string="Жилээр" domain="[]" context="{'group_by':'validity_date:year'}"/>
+                <filter name="date_by_month" string="Сараар" domain="[]" context="{'group_by':'validity_date:month'}"/>
+                <filter name="date_by_day" string="Өдрөөр" domain="[]" context="{'group_by':'validity_date:day'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <!-- INHERIT menus -->
+    <record model="ir.actions.act_window" id="sale.action_quotations_with_onboarding">
+        <field name="context">{'search_default_this_month':1}</field>
+        <field name="domain">[('state','in',('draft','sent','cancel')),
+                              '|',('user_id','=',uid),('team_id.user_id','=',uid)]</field>
+    </record>
+    <record model="ir.actions.act_window" id="sale.action_orders">
+        <field name="context">{'search_default_this_month':1}</field>
+        <field name="domain">[('state','not in',('draft', 'sent', 'cancel')),
+                              '|',('warehouse_id.access_user_ids','in',[uid]),('team_id.user_id','=',uid)]</field>
+    </record>
+
+    <record id="action_orders_not_done" model="ir.actions.act_window">
+        <field name="name">Дуусаагүй Захиалгууд</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="context">{'group_by': ['user_id']}</field>
+        <field name="domain">[('state','not in',('draft', 'sent', 'cancel')),   
+                              ('picking_ids.state','not in',['done','cancel']),
+                              '|',('user_id','=',uid),('team_id.user_id','=',uid)]]</field>
+    </record>
+    <menuitem id="menu_sale_order_not_done"
+            name="Дуусаагүй Захиалгууд"
+            action="action_orders_not_done"
+            parent="sale.sale_order_menu"
+            sequence="13" groups="sales_team.group_sale_salesman"/>
+
+    <record id="action_all_sale_orders" model="ir.actions.act_window">
+        <field name="name">Бүх Захиалгууд</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="context">{'group_by': ['user_id'],'search_default_this_month':1}</field>
+    </record>
+    <menuitem id="menu_all_sale_orders"
+            name="Бүх Захиалгууд"
+            action="action_all_sale_orders"
+            parent="sale.sale_order_menu"
+            sequence="11" groups="base.group_no_one,sales_team.group_sale_manager"/>
+    <menuitem id="sale.menu_sale_report"
+            name="Reporting"
+            parent="sale.sale_menu_root"
+            sequence="16"
+            groups="sales_team.group_sale_salesman"/>
+
+
+    <!-- PRICELIST LINES menu -->
+    <record id="product_pricelist_item_tree_view" model="ir.ui.view">
+        <field name="name">product.pricelist.item.tree</field>
+        <field name="model">product.pricelist.item</field>
+        <field eval="1" name="priority"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="create_uid"/>
+                <field name="write_uid"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+                <field name="product_tmpl_id"/>
+                <field name="product_id"/>
+                <field name="fixed_price"/>
+                <field name="pricelist_id"/>
+                <field name="company_id"/>
+                <field name="applied_on"/>
+                <field name="compute_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_pricelist_item_view_search" model="ir.ui.view">
+        <field name="name">product.pricelist.item.search</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="arch" type="xml">
+            <search string="Sales promotion">
+                <field name="product_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="pricelist_id"/>
+                <field name="company_id"/>
+                <separator/>
+                <filter string="Product" name="product_id"
+                    context="{'group_by':'product_id'}" />
+                <filter string="Product tempalte" name="product_tmpl_id"
+                    context="{'group_by':'product_tmpl_id'}" />
+                <filter string="Parent" name="pricelist_id"
+                    context="{'group_by':'pricelist_id'}" />
+                <filter string="Company" name="company_id"
+                    context="{'group_by':'company_id'}" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pricelist_lines" model="ir.actions.act_window">
+        <field name="name">Pricelist lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.pricelist.item</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="product_pricelist_item_view_search"/>
+    </record>
+
+    <record id="selected_sale_re_compute_form" model="ir.ui.view">
+        <field name="name">selected.sale.re.compute.form</field>
+        <field name="model">selected.sale.re.compute</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="active_order_ids" widget="many2many_tags" />
+                </group>
+                <footer>
+                    <button name="action_re_compute" string="Батлах" type="object" class="btn-primary" />
+                    <button special="cancel" string="Хаах" type="object" class="btn-default" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Re compute"
+        res_model="selected.sale.re.compute"
+        binding_model="sale.order"
+        view_mode="form"
+        target="new"
+        view_id="selected_sale_re_compute_form"
+        id="selected_sale_re_compute_action"/>
+
+</odoo>

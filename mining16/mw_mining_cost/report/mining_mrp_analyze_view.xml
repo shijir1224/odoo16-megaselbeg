@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <!-- Technic -->
+ 
+ 
+        <record id="view_mining_report_mrp_cost_tree" model="ir.ui.view">
+            <field name="name">report.mining.mrp.cost.analyze.tree</field>
+            <field name="model">report.mining.mrp.cost.analyze</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date" optional="show"/>
+                    <field name="product_id" optional="show"/>
+                    <!-- <field name="technic_id" optional="show"/> -->
+                    <field name="account_amount" optional="show"/>
+                    <field name="analytic_amount" optional="show"/>
+                    <field name="sum_m3_petram" optional="show"/>
+                    <field name="sum_m3" optional="show"/>
+                    <field name="res_count" optional="show"/>
+                    <field name="sum_tn" optional="show"/>
+                    <field name="sum_m3_sur" optional="show"/>
+                    <field name="sum_tn_petram" optional="show"/>
+                    <field name="sum_m3_avg" optional="show"/>
+                    <field name="sum_tn_avg" optional="show"/>
+                    <field name="sum_tn_sur" optional="hide"/>
+                    
+                    <field name="sum_m3_petram_unit" optional="hide"/>
+                    <field name="sum_m3_unit" optional="show"/>
+                    <field name="res_count_unit" optional="show"/>
+                    <field name="sum_tn_unit" optional="show"/>
+                    <field name="sum_m3_sur_unit" optional="show"/>
+                    <field name="sum_tn_petram_unit" optional="show"/>
+                    <field name="sum_m3_avg_unit" optional="show"/>
+                    <field name="sum_tn_avg_unit" optional="show"/>
+                    <field name="sum_tn_sur_unit" optional="hide"/>
+                                        
+                    <field name="aml_id" optional="show"/>
+                    <field name="gl_acc" optional="show"/>
+                    <field name="analytic_move_id" optional="show"/>
+                    <field name="analytic_acc" optional="show"/>
+                    <field name="branch_id" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mining_report_mrp_cost_graph" model="ir.ui.view">
+            <field name="name">report.mining.mrp.cost.analyze.graph</field>
+            <field name="model">report.mining.mrp.cost.analyze</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="product_id" type="row"/>
+                    <field name="branch_id" type="row"/>
+                    <field name="gl_acc" type="row"/>
+                    <field name="date" type="measure"/>
+                    <field name="account_amount" type="measure"/>
+                    <field name="analytic_amount" type="measure"/>
+
+                    <field name="sum_m3_petram" type="measure"/>
+                    <field name="sum_m3" type="measure"/>
+                    <field name="res_count" type="measure"/>
+                    <field name="sum_tn" type="measure"/>
+                    <field name="sum_m3_sur" type="measure"/>
+                    <field name="sum_tn_petram" type="measure"/>
+                    <field name="sum_m3_avg" type="measure"/>
+                    <field name="sum_tn_avg" type="measure"/>
+                    <field name="sum_tn_sur" type="measure"/>
+<!--                     <field name="aml_id" type="measure"/>
+                    <field name="analytic_move_id" type="measure"/>
+                    <field name="analytic_acc" type="measure"/> -->
+               </graph>
+            </field>
+        </record>
+
+                    
+        <record id="report_mining_mrp_cost_pivot" model="ir.ui.view">
+            <field name="name">report.mining.mrp.cost.analyze.pivot</field>
+            <field name="model">report.mining.mrp.cost.analyze</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="product_id" type="row"/>
+                    <field name="account_amount" type="measure"/>
+                    <field name="analytic_amount" type="measure"/>
+                    
+                    <field name="sum_m3_petram" type="measure"/>
+                    <field name="sum_m3" type="measure"/>
+                    <field name="res_count" type="measure"/>
+                    <field name="sum_tn" type="measure"/>
+                    <field name="sum_m3_sur" type="measure"/>
+                    <field name="sum_tn_petram" type="measure"/>
+                    <field name="sum_m3_avg" type="measure"/>
+                    <field name="sum_tn_avg" type="measure"/>
+                    <field name="sum_tn_sur" type="measure"/>
+                    
+                    <field name="sum_m3_petram_unit" type="measure"/>
+                    <field name="sum_m3_unit" type="measure"/>
+                    <field name="res_count_unit" type="measure"/>
+                    <field name="sum_tn_unit" type="measure"/>
+                    <field name="sum_m3_sur_unit" type="measure"/>
+                    <field name="sum_tn_petram_unit" type="measure"/>
+                    <field name="sum_m3_avg_unit" type="measure"/>
+                    <field name="sum_tn_avg_unit" type="measure"/>
+                    <field name="sum_tn_sur_unit" type="measure"/>                    
+                </pivot>
+             </field>
+        </record>
+
+    
+        <record id="view_mining_report_mrp_cost_search" model="ir.ui.view">
+            <field name="name">report.mining.mrp.cost.analyze.search</field>
+            <field name="model">report.mining.mrp.cost.analyze</field>
+            <field name="arch" type="xml">
+                <search string="Cost Analysis">
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="product_id"/>
+                    <field name="account_amount"/>
+                    <field name="analytic_amount"/>
+                    <field name="sum_m3_petram" type="measure"/>
+                    <field name="sum_tn_sur" type="measure"/>
+                    <field name="aml_id"/>
+                    <separator/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Branch" name="branch" context="{'group_by':'branch_id'}"/>
+                        <filter string="Account" name="account" context="{'group_by':'gl_acc'}"/>
+                        <filter string="Analytic" name="analytic_acc" context="{'group_by':'analytic_amount'}"/>
+                        <filter string="Date (day)" name="gr_day" icon="terp-go-today" context="{'group_by':'date:day'}"/>
+                        <filter string="Date (week)" name="gr_week" icon="terp-go-week" context="{'group_by':'date:week'}"/>
+                        <filter string="Date (month)" name="gr_month" icon="terp-go-month" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (quarter)" name="gr_quarter" icon="terp-go-quarter" context="{'group_by':'date:quarter'}"/>
+                        <filter string="Date (year)" name="gr_year" icon="terp-go-year" context="{'group_by':'date:year'}"/>
+<!--                         <filter string="Technic" name="gr_technic" context="{'group_by':'technic_id'}"/> -->
+                        <filter string="Material" name="gr_product_id" context="{'group_by':'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_report_mrp_cost_tree" model="ir.actions.act_window">
+            <field name="name">MRP Cost Analysis</field>
+            <field name="res_model">report.mining.mrp.cost.analyze</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="search_view_id" ref="view_mining_report_mrp_cost_search"/>
+            <field name="context">{"search_default_this_month":1}</field>
+            <field name="help"></field>
+        </record>
+        
+
+</odoo>

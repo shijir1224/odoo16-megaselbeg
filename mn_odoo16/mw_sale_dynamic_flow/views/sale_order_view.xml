@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_order_form_inherit_mw_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.mw.sale</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//form/header' position="replace">
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object"
+                            attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel'])]}"/>
+                    <button id="create_invoice" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                        type="action" class="btn-primary" data-hotkey="q"
+                        attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+                    <button id="create_invoice_percentage" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                        type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="q"
+                        attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>
+                    <field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object"
+                            attrs="{'invisible': ['|',('state_type', 'in',['cancel']),('flow_id','=',False)]}" confirm="Та борлуулалтыг цуцлахдаа итгэлтэй байна уу?"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', '!=', 'cancel'),('flow_id','=',False)]}"/>
+                </header>
+            </xpath>
+            <field name="validity_date" position="after">
+                <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+                <field name="is_not_edit" invisible="1"/>
+            </field>
+            <xpath expr='//field[@name="partner_id"]' position="before">
+                <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', 'in',['done','cancel'])]}"/>
+            </xpath>
+            <xpath expr='//field[@name="validity_date"]' position="before">
+                <field name="state" readonly="1"/>
+                <field name="state_type" invisible="1"/>
+                <field name="flow_line_next_id" invisible="1"/>
+                <field name="flow_line_back_id" invisible="1"/>
+                <field name="categ_ids" readonly="1" invisible="1" />
+            </xpath>
+            <field name="partner_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_not_edit', '=', True)]}</attribute>
+            </field>
+            <field name="order_line" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_not_edit', '=', True)]}</attribute>
+            </field>
+            <notebook position="inside">
+                <page string="Төлөвийн түүх">
+                    <field name="history_flow_ids" readonly="1">
+                        <tree create='false' delete='false' editable="bottom">
+                            <field name="user_id"/>
+                            <field name="job_id"/>
+                            <field name="date"/>
+                            <field name="flow_line_id" string='Төлөв'/>
+                            <field name="spend_time" widget="float_time" sum="Нийт"/>
+                            <field name="spend_day" sum="Нийт"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>	
+        </field>
+    </record>
+
+    <record id="sale_order_view_tree_inherit_mw_sale" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.mw.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <field name="state" position="replace">
+                <field name="flow_id" optional="hide"/>
+                <field name="flow_line_id" string='Төлөв' optional="hide"/>
+                <field name="state" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_filter_inherit_mw_sale" model="ir.ui.view">
+        <field name="name">sale.order.filter.inherit.mw.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <field name="flow_id"/>
+                <filter string="Төлөв" name="gr_state" domain="[]" context="{'group_by':'stage_id'}"/>
+                <filter string="Урсгалаар" name="gr_flow_id" context="{'group_by':'flow_id'}"/>
+            </search>
+        </field>
+    </record>
+</odoo>

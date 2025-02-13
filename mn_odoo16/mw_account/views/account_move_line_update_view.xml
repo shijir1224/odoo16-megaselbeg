@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Хөрөнгийн мэдээлэл шинэчлэх -->
+
+	<record id="account_move_line_update_information_action" model="ir.actions.act_window">
+		<field name="name">Update Move Line Update</field>
+		<field name="res_model">account.move.line.update</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	
+	<record id="account_move_line_update_view_form" model="ir.ui.view">
+		<field name="name">account.move.line.update.view.form</field>
+		<field name="model">account.move.line.update</field>
+		<field name="arch" type="xml">
+			<form string="">
+				<group>
+					<group>
+						<field name="branch_id"></field>
+					</group>
+					<group>
+					</group>
+				</group>
+				<group>
+					<field name="move_line_ids">
+						<tree>
+							<!-- <field name="code" readonly="1"/> -->
+							<!-- <field name="name" readonly="1"/>
+							<field name="owner_partner_id" readonly="1"/>
+							<field name="owner_department_id" readonly="1"/> -->
+							<!-- <field name="value" sum="SUM" readonly="1"/>
+							<field name="account_analytic_id" readonly="1"/>
+							<field name="location_id" readonly="1"/> -->
+						</tree>
+					</field>
+				</group>
+				<!-- <notebook>
+					<page string="Asset lines">
+						<field name="line_ids">
+							<tree>
+								<field name="asset_id"></field>
+								<field name="expense_account_id"></field>
+								<field name="department_id"></field>
+								<field name="location_id"></field>
+								<field name="owner_id"></field>
+								<field name="analytic_account_id"></field>
+							</tree>
+						</field>
+					</page>
+				</notebook> -->
+				<footer>
+					<button string="Мэдээлэл шинэчлэх" name="change_button" type="object" class="oe_highlight" data-hotkey="q"/>
+					<button string="Цуцлах" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+	<act_window name="Мэдээлэл шинэчлэх"
+		res_model="account.move.line.update"
+		binding_model="account.move.line"
+		view_mode="form"
+		target="new"
+		view_id="mw_account.account_move_line_update_view_form"
+		id="action_doned_account_move_line_update"/>
+
+</odoo>

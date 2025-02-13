@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+		<record id="stock_check_report_form_view" model="ir.ui.view">
+			<field name="name">Агуулахын бүртгэл, хяналтын баримт</field>
+			<field name="model">stock.check.report</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+			   <form>
+					<sheet>
+						<group>
+							<group string="Date range" >
+								<field name="date_range_id" options="{'no_create':True, 'no_open':True}"/>
+								<!-- <field name="is_scheduled_date" /> -->
+							</group>
+						</group>
+						<group string="Dates">
+							<group>
+								<field name="date_start" />
+							</group>
+							<group>
+								<field name="date_end" />
+							</group>
+						</group>
+						<group >
+							<group>
+								<group>
+									<!-- <field name="import_wh" widget="boolean_toggle"/> -->
+									<field name="see_cost" widget="boolean_toggle"/>
+								</group>
+							</group>
+						</group>
+						<group >
+							<!-- <group>
+								<field name="warehouse_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}" />
+							</group> -->
+							<group>
+								<field name="warehouse_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+								<field name="partner_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+								<field name="location_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"
+									domain="[('usage','=','internal')]"/>
+							</group>
+						</group>
+						<group >
+							<field name="product_ids" widget="many2many_tags" colspan="4" options="{'no_create': True}"/>
+							<field name="categ_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+							<field name="product_tmpl_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}"/>
+						</group>
+					</sheet>
+					<footer>
+						<button icon="fa-times" special="cancel" string="Хаах" class="btn-danger"/>
+						<button name="open_analyze_view" string="Харах" type="object"  icon="fa-eye" class="btn-success"/>
+						<button name="export_report" string="Татах" type="object"  icon="fa-file-excel-o" class="btn-success"/>
+						<!-- attrs="{'invisible': [('move_type', '!=', 'income_expense')]}" -->
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_stock_check_report" model="ir.actions.act_window">
+			<field name="name">Агуулахын бүртгэл, хяналтын баримт</field>
+			<field name="res_model">stock.check.report</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="stock_check_report_form_view"/>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem id="menu_stock_check_report" 
+		action="action_stock_check_report" 
+		parent="stock.menu_warehouse_report" sequence="3" 
+		groups="mw_stock_product_report.group_stock_reporter"/>
+
+</odoo>

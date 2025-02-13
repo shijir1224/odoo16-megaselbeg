@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mw_environment" name="Тогтвортой хөгжил" sequence="50" web_icon="mw_environment,static/src/img/environment_logo.png" groups="group_env_employee"/>
+        <menuitem id="menu_mw_environment_registration" name="Сарын мэдээ" sequence="1" parent="menu_mw_environment"/>
+            <menuitem id="menu_env_training" name="Сургалт" parent="menu_mw_environment_registration" action="action_env_training" sequence="2"/>
+            <menuitem id="menu_env_inspection" name="Үл тохирол" parent="menu_mw_environment_registration" action="action_env_inspection" sequence="3"/>
+            <menuitem id="menu_env_water" name="Ус ашиглалт" parent="menu_mw_environment_registration" action="action_env_water" sequence="5"/>
+            <menuitem id="menu_env_waste" name="Хог хаягдал" parent="menu_mw_environment_registration" action="action_env_waste" sequence="6"/>
+            <menuitem id="menu_env_rehab" name="Газар хөндөлт, нөхөн сэргээлт" parent="menu_mw_environment_registration" action="action_env_rehab" sequence="7"/>
+            <menuitem id="menu_env_animal" name="Амьтны үзэгдэл" parent="menu_mw_environment_registration" action="action_env_animal" sequence="8"/>
+            <menuitem id="menu_env_expense" name="Бараа материал, Үйлчилгээний зардал" parent="menu_mw_environment_registration" action="action_env_expense" sequence="10"/>
+            <menuitem id="menu_env_garden" name="Ногоон байгууламжийн арчилгаа" parent="menu_mw_environment_registration" action="action_env_garden" sequence="11"/>
+            <menuitem id="menu_env_tree" name="Мод бутны тооллого" parent="menu_mw_environment_registration" action="action_env_tree" sequence="12"/>
+            <menuitem id="menu_env_approved" name="Баталгаажуулалт" parent="menu_mw_environment_registration" action="action_env_approved" sequence="13" groups="group_env_employee"/>
+            <!-- <menuitem id="menu_env_tree" name="Tree" parent="menu_mw_environment_registration" action="action_env_tree" sequence="12"/> -->
+        <menuitem name="Хүлэмжийн хийн ялгарлын бүртгэл" id="menu_environment_greenhousegas" sequence="2" parent="menu_mw_environment"/>
+            <menuitem name="Объектууд" id="menu_env_object" sequence="1" parent="menu_environment_greenhousegas" action="action_env_object"/>
+            <menuitem name="Эх үүсвэрүүдийн бүртгэл" id="menu_env_technical" sequence="2" parent="menu_environment_greenhousegas" action="action_env_technical"/>
+            <menuitem name="Түлшний хэрэглээ(Scope 1)" id="menu_env_technic" sequence="3" parent="menu_environment_greenhousegas" action="action_env_technic"/>
+            <menuitem name="Олборлолтын хэмжээ" id="menu_env_mining_quant" sequence="4" parent="menu_environment_greenhousegas" action="action_env_mining_quant"/>
+            <menuitem name="Гэрээт тээврийн мэдээлэл(Scope 3)" id="menu_env_contract_shipping" sequence="5" parent="menu_environment_greenhousegas" action="action_env_contract_shipping"/>
+            <menuitem name="Техникийн мэдээлэл" id="menu_env_technic_equipment" sequence="6" parent="menu_environment_greenhousegas" action="action_technic_equipment" groups="group_env_general"/>
+            <menuitem name="Дулааны хэрэглээ" id="menu_env_heat" sequence="7" parent="menu_environment_greenhousegas" action="action_env_heat"/>
+            <menuitem name="Цахилгаан эрчим хүчний хэрэглээ(Scope 2)" id="menu_env_tseh" sequence="8" parent="menu_environment_greenhousegas" action="action_env_tseh"/>
+            
+            <menuitem name="Ажилчдын бизнес уулзалт" id="menu_env_hr_mission" sequence="9" parent="menu_environment_greenhousegas" action="action_env_hr_mission" groups="group_env_general"/>
+            <menuitem id="menu_env_gas_approved" name="Хүлэмжий хийн Баталгаажуулалт" parent="menu_environment_greenhousegas" action="action_env_gas_approved" sequence="12" groups="group_env_general"/>
+            
+        <menuitem id="menu_mw_environment_monitoring" name="Орчны хяналт шинжилгээ" parent="menu_mw_environment" sequence="3"/>
+            <menuitem id="menu_env_monitor_air" name="Агаарын шинжилгээ"  parent="menu_mw_environment_monitoring" action="action_env_monitor_air" sequence="1"/>
+            <menuitem id="menu_env_monitor_water" name="Усны шинжилгээ" parent="menu_mw_environment_monitoring" action="action_env_monitor_water" sequence="2"/>
+            <menuitem id="menu_env_monitor_soil" name="Хөрсний шинжилгээ" parent="menu_mw_environment_monitoring" action="action_env_monitor_soil" sequence="3"/>
+            <menuitem id="menu_env_monitor_animal" name="Амьтны судалгаа" parent="menu_mw_environment_monitoring" action="action_env_monitor_animal" sequence="4"/>
+            <menuitem id="menu_env_monitor_plant" name="Ургамлын судалгаа" parent="menu_mw_environment_monitoring" action="action_env_monitor_plant" sequence="5"/>
+            <menuitem id="menu_env_monitor_noise" name="Дуу чимээний шинжилгээ" parent="menu_mw_environment_monitoring" action="action_env_monitor_noise" sequence="6"/>
+        <menuitem id="menu_mw_environment_reports" name="Тайлан" parent="menu_mw_environment" sequence="4" groups="group_env_manager,group_env_general"/>
+            <!-- <menuitem id="menu_env_monthly_report" name="Сарын мэдээний тайлан" parent="menu_mw_environment_reports" action="action_env_monthly_report" sequence="1"/> -->
+            <!-- <menuitem id="menu_env_seasonal_report"  name="Улирал, жилийн тайлан" parent="menu_mw_environment_reports" action="action_env_seasonal_report" sequence="2"/> -->
+            <!-- <menuitem id="menu_env_monitor_report" name="Шинжилгээ харьцуулсан тайлан" parent="menu_mw_environment_reports" action = "action_env_monitor_report" sequence="3"/> -->
+            <!-- <menuitem id="menu_env_tree_report" name="Мод бутны тооллогын тайлан" parent="menu_mw_environment_reports" action="action_env_tree_report" sequence="4"/> -->
+            <!-- <menuitem id="menu_env_inspection_report" name="Зөрчил дутагдлын мэдээ" parent="menu_mw_environment_reports" action="action_env_inspection_pivot" sequence="5"/> -->
+            <menuitem id="menu_consolidated_report" name="Нэгтгэл тайлан" action="action_consolidated_report" parent="mw_environment.menu_mw_environment_reports" sequence="6"/>
+            <menuitem id="menu_consolidated_gas_report" name="Хүлэмжийн хий тайлан" action="action_consolidated_gas_report" parent="mw_environment.menu_mw_environment_reports" sequence="7"/>
+            
+        <menuitem id="menu_mw_environment_settings" name="Тохиргоо" parent="menu_mw_environment" sequence="5" groups='mw_environment.group_env_general'/>
+            <menuitem id="menu_env_mining" name="Уурхайн бүртгэл" parent="menu_mw_environment_settings" action="action_env_mining" sequence="1"/>
+            <menuitem id="menu_env_mining_line" name="Уурхайн шинжилгээ цэгүүд мап" parent="menu_mw_environment_settings" action="action_env_mining_line" sequence="2"/>
+            <menuitem id="menu_env_parameter" name="Параметрүүд" parent="menu_mw_environment_settings" action="action_env_parameter" sequence="2"/>
+            <menuitem id="menu_env_standard" name="Бодисын бүртгэл" parent="menu_mw_environment_settings" action = "action_env_standard" sequence="3"/>
+            <menuitem id="menu_env_violation_subtype" name="Зөрчил дутагдлын төрөл" parent="menu_mw_environment_settings" action="action_violation_subtype" sequence="3"/>
+            <menuitem id="menu_env_violation_reason" name="Зөрчил дутагдлын шалтгаан" parent="menu_mw_environment_settings" action="action_violation_reason" sequence="4"/>
+            <menuitem id="menu_env_violation_response" name="Зөрчил дутагдлын хариу арга хэмжээ" parent="menu_mw_environment_settings" action="action_violation_response" sequence="5"/>
+            <menuitem id="menu_env_monitoring_item" name="Шинжилгээний элементүүд" parent="menu_mw_environment_settings" action="action_env_monitoring_item" sequence="6"/>
+
+</odoo>

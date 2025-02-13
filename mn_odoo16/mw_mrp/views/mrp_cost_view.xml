@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mrp_standart_cost_calc_form" model="ir.ui.view">
+        <field name="name">mrp.standart.cost.calc.form</field>
+        <field name="model">mrp.standart.cost.calc</field>
+        <field name="arch" type="xml">
+            <form string="Бүтээгдэхүүний зардал хуваарилалт тохиргоо">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button string="Ноорог болгох" type="object" name="action_draft" states="done" groups="mw_mrp.group_mrp_standart_price_mw"/>
+                    <button string="Санхүү бичилт үүсгэх" type="object" name="button_create_difference_aml" states="done" class="btn-primary" groups="mw_mrp.group_mrp_standart_price_mw"/>
+                    <button string="Батлах" type="object" name="action_done" states="draft" class="btn-primary" groups="mw_mrp.group_mrp_standart_price_mw"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <!-- <field name="config_id"/> -->
+                            <field name="config_ids" widget="many2many_tags"/>
+                            <!-- <field name="move_id"/> -->
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group>
+                        <field name="total_debit"/> 
+                        <field name="total_credit"/> 
+                        <field name="company_id" required="1"/> 
+                        <field name="analytic_distribution" string="Шинжилгээ" widget="analytic_distribution"/>
+                        <field name="change_account_id"/>
+	                    <button string="Данс солих" type="object" name="button_change_aml_account" states="done" class="btn-primary" groups="mw_mrp.group_mrp_standart_price_mw"/>
+                        
+                            <!-- <field name="price_total"/> -->
+                            <!-- <field name="price_unit"/> -->
+                            <!-- <field name="account_id"/>  -->
+                        </group>
+                    </group>
+<!--                     <group string="Данс тохиргоо">
+                        <group>
+                            <field name="credit_account_id"/>
+                        </group>
+                        <group>
+                            <field name="debit_account_id"/>
+                        </group>
+                    </group>
+ -->                    <notebook>
+	                    <page string="Тооцоолол">
+		                    <button string="Тооцоолох" type="object" name="action_calculate" states="draft" class="btn-primary" groups="mw_mrp.group_mrp_standart_price_mw"/>
+		                        <field name="line_ids" nolabel="1" >
+		                        	<tree delete="true" create="true" editable="bottom">
+		                        		<field name="name"/>
+		                        		<field name="debit"/>
+		                        		<field name="credit"/>
+		                        		<field name="difference"/>
+		                        		<field name="move_id"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="product_id"/>
+			                            <field name="config_line_id"/>
+			                            <field name="branch_id"/>
+		                        		</tree>
+		                        </field>
+		                </page>
+	                    <page string="Тооцоолол ТЭМ">
+		                    <button string="Тооцоолох" type="object" name="action_calculate_bom" states="draft" class="btn-primary" groups="mw_mrp.group_mrp_standart_price_mw"/>
+		                    <button string="Өртөг шинэчлэх" type="object" name="action_update_st_price" states="draft" class="btn-primary" groups="mw_mrp.group_mrp_standart_price_mw"/>
+		                        <group>
+		                        	<!-- <field name="config_ids"/> -->
+			                        <field name="qty"/>
+			                        <field name="sum_amount"/>
+			                        <field name="price_unit"/>
+			                    </group>
+		                        <field name="bom_line_ids" nolabel="1" >
+		                        	<tree delete="true" create="true" editable="bottom">
+		                        		<field name="name"/>
+		                        		<field name="debit"/>
+		                        		<field name="credit"/>
+		                        		<field name="difference"/>
+		                        		<field name="move_id"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="product_id"/>
+			                            <field name="branch_id"/>
+		                        		</tree>
+		                        </field>
+		                </page>		                
+		              </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_standart_cost_calc_tree" model="ir.ui.view">
+        <field name="name">mrp.standart.cost.calc.tree</field>
+        <field name="model">mrp.standart.cost.calc</field>
+        <field name="arch" type="xml">
+            <tree default_order="id desc" decoration-success="state == 'done'">
+                    <field name="config_id"/>
+                    <field name="move_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+	                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mrp_standart_cost_calc" model="ir.actions.act_window">
+        <field name="name">Гүйцэтгэлээр өртөг тооцоолох</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.standart.cost.calc</field>
+        <field name="view_id" ref="mrp_standart_cost_calc_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_mrp_standart_cost_calc" id="menu_mrp_standart_cost_calc"
+              parent="menu_mw_mrp_cost_config" sequence="4"/>
+
+</odoo>

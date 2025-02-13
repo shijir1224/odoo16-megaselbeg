@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="group_mn_asset_accountant" model="res.groups">
+            <field name="name">Үндсэн хөрөнгийн нягтлан</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+            <!-- <field name="implied_ids" eval="[(4, ref('account.group_account_user'))]"/> -->
+        </record>
+        <record id="group_mw_account_asset_user" model="res.groups">
+            <field name="name">Үндсэн хөрөнгийн хэрэглэгч</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+        </record>
+    </data>
+    <record model="ir.rule" id="model_account_asset_type_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_type"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="model_account_asset_act_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_act"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="model_account_asset_capital_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_capital"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="model_account_asset_move_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_move"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="model_account_asset_inventory_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_inventory"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="model_account_asset_revaluation_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_revaluation"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="model_account_asset_location_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_location"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="model_account_asset_sell_company_rule_rule_line">
+        <field name="name">Өөрийн компаниар</field>
+        <field name="model_id" ref="mw_asset.model_account_asset_sell"/>
+        <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+    </record>
+</odoo>

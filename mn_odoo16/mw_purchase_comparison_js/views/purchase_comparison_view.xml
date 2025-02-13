@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_comparison_view_form_inherit_js" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.form</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="inherit_id" ref="mw_purchase_comparison.purchase_order_comparison_view_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='partner_ids']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state_type', '!=', 'draft')]}</attribute>
+			</xpath>
+			<xpath expr="//page[@name='related_po']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//page[@name='vote']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//page[@name='lines']" position="attributes">
+				<attribute name="string">Барааны мэдээлэл</attribute>
+			</xpath>
+			<xpath expr="//field[@name='company_id']" position="attributes">
+				<attribute name="readonly">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='branch_id']" position="attributes">
+				<attribute name="required">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='picking_type_id']" position="attributes">
+				<attribute name="readonly">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position="attributes">
+				<attribute name="required">0</attribute>
+				<attribute name="readonly">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='winning_partner']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='winning_comment']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='picking_type_id']" position="attributes">
+				<attribute name="options">{'no_open': True}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='company_id']" position="attributes">
+				<attribute name="options">{'no_open': True}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='branch_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				<attribute name="options">{'no_open': True}</attribute>
+			</xpath>
+			<xpath expr="//group[1]//div[1]" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft','vote_started'])]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']/tree/field[@name='product_uom']" position="attributes">
+				<attribute name="string">Хэмжих нэгж</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']/tree/field[@name='taxes_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+				<field name="count_request" invisible="1"/>
+				<button type="object" name="view_purchase_request" class="oe_stat_button" icon="fa-bars" attrs="{'invisible': [('count_request','=',0)]}">
+					<div class="o_field_widget o_stat_info">
+						<span class="o_stat_value">
+							<field name="count_request" attrs="{'invisible': [('count_request','=',0)]}"/>
+						</span>
+						<span class="o_stat_text">ХА хүсэлтийн мөр</span>
+					</div>
+				</button>
+				<field name="count_po" invisible="1"/>
+				<button type="object" name="view_purchase_order" class="oe_stat_button" icon="fa-bars" attrs="{'invisible': [('count_po','=',0)]}">
+					<div class="o_field_widget o_stat_info">
+						<span class="o_stat_value">
+							<field name="count_po" attrs="{'invisible': [('count_po','=',0)]}"/>
+						</span>
+						<span class="o_stat_text">Үнийн санал</span>
+					</div>	
+				</button>
+			</xpath>
+			<xpath expr="//page[@name='lines']" position="before">
+				<page string="Санал өгөх" attrs="{'invisible': [('state', '=', 'draft')]}">
+					<group>
+						<field name="is_price_import" attrs="{'invisible': [('state_type', '!=', 'start_vote')]}"/>
+					</group>
+					<div attrs="{'invisible': [('is_price_import', '=', False)]}">
+						<span>
+							<button name="action_export" string="Экспортлох" type="object" icon="fa-file-excel-o" class="btn-warning"/>
+						</span>
+						<span style="margin-left: 10px">
+							<field name="excel_data" nolabel="1"/>
+						</span>
+						<span style="margin-left: 10px">
+							<button name="import_excel" string="Импортлох" type="object" class="btn btn-success fa fa-download"/>
+						</span>
+					</div>
+					<widget name="purchase_comparison_widget"/>
+					<div style="margin-top: 20px">
+					<field name="comparison_line" attrs="{'readonly': [('state_type', '!=', 'start_vote')]}">
+						<tree create="false" delete="false" editable="bottom">
+							<field name="partner_id"/>
+							<field name="attachment_ids" widget="many2many_binary"/>
+							<field name="currency_id" options="{'no_create': True, 'no_open': True}"/>
+							<field name="taxes_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use', '=', 'purchase')]"/>
+						</tree>
+					</field>
+					</div>
+					<group style="margin-top: 20px">
+						<field name="comparison_desc" attrs="{'required': [('state_type','=','start_vote')], 'readonly': [('state_type','!=','start_vote')]}"/>
+					</group>
+				</page>
+			</xpath>
+			<xpath expr="//page[@name='lines']" position="after">
+				<page string="Бусад мэдээлэл" attrs="{'invisible': [('state', '=', 'draft')]}">
+					<group>
+						<field name="vote_flow_line_ids" widget="many2many_tags"/>
+						<field name="vote_start_flow_line" options="{'no_open': True}"/>
+					</group>
+					<field name="purchase_comparison_js_line">
+						<tree create="false" edit="false" delete="false">
+							<field name="partner_id" options="{'no_create': True}" optional="show"/>
+							<field name="description" optional="show"/>
+							<field name="discount" optional="show"/>
+							<field name="quality_point" optional="show"/>
+							<field name="price_point" optional="show"/>
+							<field name="other_point" optional="show"/>
+							<field name="total_point" optional="show"/>
+							<field name="niiluuleh_hugatsaa" optional="show"/>
+							<field name="teever_tatvar" optional="show"/>
+							<field name="insurance_other_expense" optional="show"/>
+							<field name="total_expense" optional="show"/>
+							<field name="total_qty" optional="show"/>
+							<field name="voted_total_price" optional="show"/>
+							<field name="discount_voted_total_price" optional="show"/>
+							<field name="total_price" optional="show"/>
+							<field name="discount_total_price" optional="show"/>
+							<field name="discount_currency_amount" optional="show"/>
+							<field name="currency_amount" optional="show"/>
+							<field name="voted_discount_currency_amount" optional="show"/>
+							<field name="voted_currency_amount" optional="show"/>
+							<field name="is_create_po" optional="show"/>
+							<field name="attachment_ids" widget="many2many_binary" optional="hide"/>
+							<field name="currency_id" options="{'no_create': True, 'no_open': True}" optional="hide"/>
+							<field name="taxes_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use', '=', 'purchase')]"  optional="hide"/>
+						</tree>
+						<form>
+							<field name="product_line">
+								<tree create="false" edit="false" delete="false">
+									<field name="product_id" optional="show"/>
+									<field name="product_qty" optional="show"/>
+									<field name="discount" optional="show"/>
+									<field name="price_unit" optional="show" sum="Нийт"/>
+									<field name="discount_price_unit" optional="show" sum="Нийт"/>
+									<field name="voted_total_price" optional="show" sum="Нийт"/>
+									<field name="total_price" optional="show" sum="Нийт"/>
+									<field name="is_vote" optional="show"/>
+									<field name="request_line_ids" optional="hide" widget="many2many_tags"/>
+									<field name="po_line_ids" optional="hide" widget="many2many_tags"/>
+								</tree>
+							</field>
+							<field name="vote_line">
+								<tree create="false" edit="false" delete="false">
+									<field name="vote_flow_line_id"/>
+									<field name="is_user_vote"/>
+								</tree>
+							</field>
+						</form>
+					</field>
+					<field name="purchase_comparison_js_line_line" readonly="1">
+						<tree create="false" edit="false" delete="false" limit="3000">
+							<field name="partner_id"/>
+							<field name="product_id"/>
+							<field name="product_qty"/>
+							<field name="discount"/>
+							<field name="price_unit"/>
+							<field name="discount_price_unit"/>
+							<field name="voted_total_price"/>
+							<field name="total_price"/>
+							<field name="is_vote"/>
+						</tree>
+					</field>
+					<field name="purchase_comparison_js_vote_line" readonly="1">
+						<tree create="false" edit="false" delete="false">
+							<field name="partner_id"/>
+							<field name="vote_flow_line_id"/>
+							<field name="is_user_vote"/>
+						</tree>
+					</field>
+				</page>
+			</xpath>
+			<xpath expr="//field[@name='picking_type_id']" position="after">
+				<field name="pr_ids" widget="many2many_tags"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_comparison_view_form_dynamic_workflow_mak" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.form</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="inherit_id" ref="mw_purchase_comparison_dynamic_flow.purchase_order_comparison_view_form_dynamic_workflow"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_draft_stage']" position="attributes">
+				<attribute name="attrs">{'invisible': ['|',('state_type', '!=', 'cancel'),('flow_id','=',False)]}</attribute>
+				<attribute name="string">Буцааж ноороглох</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_draft_stage']" position="after">
+				<button name="action_back_stage" string="Буцах" class="btn-warning" icon="fa-arrow-left" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in', ['ended','cancelled'])]}"/>
+				<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close" type="object" attrs="{'invisible': ['|',('state_type', '=','cancel'),('flow_id','=',False)]}" confirm="Та цуцлахдаа итгэлтэй байна уу?"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_inherit_mw_purchase_comparison_inherit" model="ir.ui.view">
+		<field name="name">purchase.order.form.mw_purchase_comparison_js</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_comparison.purchase_order_form_inherit_mw_purchase_comparison"/>
+		<field name="arch" type="xml">
+			<xpath expr="//sheet/div[@name='button_box']" position="after">
+				<widget name="web_ribbon" title="Харьцуулалттай" bg_color="bg-success" attrs="{'invisible': [('js_comparison_id', '=', False)]}"/>
+			</xpath>
+			<field name="comparison_id" position="after">
+				<field name="js_comparison_id" invisible="1"/>
+			</field>
+			<xpath expr="//field[@name='comparison_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_inherit_mw_purchase_mak" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase"/>
+		<field name="arch" type="xml">
+			<xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+				<field name="js_comparison_id" invisible="1"/>
+				<button type="object" name="view_purchase_comparison" class="oe_stat_button" icon="fa-bars" attrs="{'invisible': [('js_comparison_id','=',False)]}">
+					<div class="o_field_widget o_stat_info">
+						<span class="o_stat_text">Харьцуулсан судалгаа</span>
+					</div>
+				</button>
+			</xpath>
+		</field>
+	</record>
+</odoo>

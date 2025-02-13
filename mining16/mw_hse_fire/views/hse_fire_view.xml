@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="sequence_hse_fire" model="ir.sequence">
+        <field name="name">HSE FIRE</field>
+        <field name="code">hse.fire</field>
+        <field name="prefix">FIRE%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+		<field name="number_next_actual">1</field>
+    </record>
+	
+	<record model="ir.ui.view" id="hse_fire_view">
+		<field name="name">hse.fire.form</field>
+		<field name="model">hse.fire</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_draft" string="Буцааж ноороглох" states="done" type="object" class="btn-danger" groups="mw_hse_fire.group_hse_fire_officer"/>
+					<button name="action_done" class="btn-success" string="Батлах" states="draft" type="object"  icon="fa-check-square-o"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done" readonly="1" />
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="branch_id" options="{'no_create': True}"/>
+							<field name="company_id" options="{'no_create': True}"/>
+							<field name="employee_id" options="{'no_create': True}"/>
+						</group>
+						<group>
+							<field name="date"/>
+							<field name="affected_equipment_materials"/>
+							<field name="hours_worked"/>
+							<field name="review"/>
+						</group>
+					</group>
+					<separator string="Зарцуулсан"/>
+					<group>
+						<field name="water_consumed"/>
+					</group>
+					<field name="fire_extinguisher_ids" nolabel="1">
+						<tree editable="bottom">
+							<field name="switch_id" options="{'no_create': True}"/>
+							<field name="quantity"/>
+						</tree>
+						<form>
+							<group>
+								<field name="fire_id" readonly="1"/>
+								<field name="switch_id" options="{'no_create': True}"/>
+								<field name="quantity"/>
+							</group>
+						</form>
+					</field>
+					<group>
+						<field name="call_type_id" options="{'no_create': True}"/>
+					</group>
+					<separator string="Аварсан"/>
+					<group>
+						<field name="saved_people"/>
+						<field name="saved_material"/>
+					</group>
+					<separator string="Хохирол"/>
+					<group>
+						<field name="damage_died"/>
+						<field name="damage_injured"/>
+						<field name="damage_material"/>
+					</group>
+					<group>
+						<field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_fire_tree" model="ir.ui.view">
+		<field name="name">hse.fire.tree</field>
+		<field name="model">hse.fire</field>
+		<field name="arch" type="xml">
+			<tree
+				decoration-info="state == 'draft'"
+                decoration-success="state == 'done'">
+				<field name="name"/>
+				<field name="company_id"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="affected_equipment_materials"/>
+				<field name="hours_worked"/>
+				<field name="water_consumed"/>
+				<field name="call_type_id"/>
+				<field name="saved_people"/>
+				<field name="saved_material"/>
+				<field name="damage_died"/>
+				<field name="damage_injured"/>
+				<field name="damage_material"/>
+				<field name="employee_id"/>
+				<field name="review"/>
+				<field name="state" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_fire_filter" model="ir.ui.view">
+		<field name="name">hse.fire.filter</field>
+		<field name="model">hse.fire</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="company_id"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="affected_equipment_materials"/>
+				<field name="hours_worked"/>
+				<field name="water_consumed"/>
+				<field name="call_type_id"/>
+				<field name="saved_people"/>
+				<field name="saved_material"/>
+				<field name="damage_died"/>
+				<field name="damage_injured"/>
+				<field name="damage_material"/>
+				<field name="employee_id"/>
+				<field name="review"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_fire">
+		<field name="name">Галын тохиолдлын  бүртгэл</field>
+		<field name="res_model">hse.fire</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="call_typee_view">
+		<field name="name">call.type.form</field>
+		<field name="model">call.type</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="company_id"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_call_type_tree" model="ir.ui.view">
+		<field name="name">call.type.tree</field>
+		<field name="model">call.type</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_call_type_filter" model="ir.ui.view">
+		<field name="name">call.type.filter</field>
+		<field name="model">call.type</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_call_type">
+		<field name="name">Дуудлагын төрөл</field>
+		<field name="res_model">call.type</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="fire_switch_view">
+		<field name="name">fire.switch.form</field>
+		<field name="model">fire.switch</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="size"/>
+					<field name="company_id"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_fire_switch_tree" model="ir.ui.view">
+		<field name="name">fire.switch.tree</field>
+		<field name="model">fire.switch</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="size"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_fire_switch_filter" model="ir.ui.view">
+		<field name="name">fire_switch.filter</field>
+		<field name="model">fire.switch</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="size"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_fire_switch">
+		<field name="name">Гал унтраагуурын бүргэл</field>
+		<field name="res_model">fire.switch</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

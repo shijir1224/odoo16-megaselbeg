@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_account_asset_mw_tax_form">
+        <field name="name">account.asset.mw.tax.form</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//page[@name='depreciation_board']" position="after" >
+               <page string="Difference tax Depreciation" name="Difference Depreciation">
+                    <group>
+                        <group>
+                            <field name="value_other_tax"  string="Өөр өртөгтэй?"/>
+                            <field name="value_total_other" strin="Өөр өртөг" attrs="{'invisible': [('value_other_tax', '!=', True)]}"/>
+                            <field name="tax_value_total" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                            <field name="tax_value_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <button type="object" name="compute_tax_depreciation_board_all" string="Compute Depreciation" class="oe_highlight green-button"/><!-- states="draft" -->
+                        </group>
+                        <group>
+                            <field name="tax_value_total" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                            <field name="tax_value_depreciation" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                            <field name="tax_date" attrs="{'required': [('state', '!=', 'model')]}"/>
+                            <field name="initial_depreciation_tax" /><!-- attrs="{'readonly':[('state','!=','draft')]}" -->
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Difference Depreciation Board">
+                            <field name="depreciation_tax_line_ids" mode="tree" options="{'reload_whole_on_button': true}">
+                                <tree string="Depreciation Lines" decoration-info="(move_check == False)" create="false">
+                                    <field name="depreciation_date"/>
+                                    <field name="depreciated_value" readonly="1"/>
+                                    <field name="amount" widget="monetary" string="Depreciation"/>
+                                    <field name="remaining_value" readonly="1" widget="monetary" string="Residual"/>
+                                     <field name="move_check" widget="deprec_lines_toggler" attrs="{'invisible': [('parent_state', '!=', 'open')]}"/>
+<!--                                    <field name="move_posted_check" invisible="1"/> -->
+                                    <field name="parent_state" invisible="1"/>
+                                </tree>
+                                <form string="Depreciation Lines">
+                                    <group>
+                                        <group>
+                                            <field name="parent_state" invisible="1"/>
+                                            <field name="name"/>
+                                            <field name="sequence"/>
+<!--                                             <field name="move_id"/> -->
+                                            <field name="move_check"/>
+                                            <field name="parent_state" invisible="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="amount" widget="monetary"/>
+                                            <field name="depreciation_date"/>
+                                            <field name="depreciated_value"/>
+                                            <field name="remaining_value"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Depreciation Information">
+                            <group>
+                                <field name="method_tax" widget="radio" attrs="{'invisible': [('asset_type', '!=', 'purchase')]}" options="{'horizontal': true}"/>
+                                <field name="method_progress_factor_tax" attrs="{'invisible':[('method','=','linear')], 'required':[('method','in',('degressive', 'degressive_then_linear'))]}"/>
+                                <field name="method_time_tax" string="Time Method Based On" widget="radio" />
+                                <field name="prorata_tax" attrs="{'invisible': [('method_time_tax','=','end')]}"/>
+                            </group>
+                            <group>
+                                <field name="method_number_tax" attrs="{'invisible':[('method_time_tax','=','end')], 'required':[('method_time_tax','=','number')]}"/>
+                                <field name="method_period_tax"/>
+                                <field name="method_end_tax" attrs="{'required': [('method_time_tax','=','end')], 'invisible':[('method_time_tax','=','number')]}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </page>
+              </xpath>
+              <xpath expr="//field[@name='prorata_computation_type']" position="after">
+                    <field name="method_number_tax_conf" attrs="{'invisible':[('method_time_tax','=','end')], 'required':[('method_time_tax','=','number')]}"/>
+                    <field name="method_period_tax_conf"/>
+                </xpath>
+		</field>
+		</record>
+		
+</odoo>

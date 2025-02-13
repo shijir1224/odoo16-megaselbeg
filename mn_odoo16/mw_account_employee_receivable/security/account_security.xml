@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    
+        <record id="group_mn_employee_receivable_accountant" model="res.groups">
+            <field name="name">Ажилтны авлага хаваарилах нягтлан</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_user'))]"/>
+        </record>
+    </data>
+</odoo>

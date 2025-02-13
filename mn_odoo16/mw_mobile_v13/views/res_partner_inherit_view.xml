@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+		<record id="view_partner_property_mw_form" model="ir.ui.view">
+			<field name="name">res.partner.property.form.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="priority">2</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<!-- <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/> -->
+			<field name="arch" type="xml">
+				<field name="vat" position="after">
+					<field name="payment_type"/>
+					<field name="tin_type"/>
+					<field name="driver_id"/>
+				</field>
+				<field name="category_id" position="after">
+					<field name="print_type"/>
+					<field name="is_mobile_active"/>
+					<field name="decrease_payment_amount"/>
+				</field>
+				<field name="parent_id" position="replace">
+					 <field name="parent_id"
+							placeholder="Company"
+							domain="[('is_company', '=', True)]" context="{'default_is_company': True}"
+							/><!-- attrs="{'invisible': [('is_company','=', True)]}" -->
+					<field name="group_name" string="ААНэр"
+							placeholder="ААНэр"
+					/>
+				</field>
+			</field>
+		</record>		
+		
+
+		<record id="view_view_partner_tree_mw_form" model="ir.ui.view">
+			<field name="name">res.partner.property.tree.inherit</field>
+			<field name="model">res.partner</field>
+			<field eval="8" name="priority"/>
+			<field name="inherit_id" ref="base.view_partner_tree"/>
+			<field name="arch" type="xml">
+				<field name="display_name" position="after">
+					<field name="group_name" string="ААНэр"/>
+				</field>
+			</field>
+		</record>   
+			  
+	   <record model="ir.ui.view" id="res_partner_kanban_mw_view">
+			<field name="name">res.partner.kanban.mw</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.res_partner_kanban_view"/>
+			<field name="arch" type="xml">
+				<field name="display_name" position="after">
+					<field name="group_name"/>
+				</field>
+				<xpath expr="//div[hasclass('oe_kanban_details')]" position="inside">
+					 <strong class="o_kanban_record_title oe_partner_heading"><field name="group_name"/></strong>
+				</xpath>			
+			</field>
+		</record>
+		
+	 <record id="view_res_partner_filter_inehrit" model="ir.ui.view">
+			<field name="name">res.partner.select.inherit.mw</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_res_partner_filter"/>
+			<field name="arch" type="xml">
+				<filter name="type_company" position="after">
+					<filter string="Утсанд харагдах" name="is_mobile_active" 
+						domain="[('is_mobile_active','=',True)]"/>
+					<filter string="Утсанд харагдахгүй" name="is_mobile_active_no" 
+						domain="[('is_mobile_active','!=',True)]"/>
+				</filter>
+			</field>
+		</record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_payment_expense_form" model="ir.ui.view">
+        <field name="name">account.payment.expense.form</field>
+        <field name="model">account.payment.expense</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="2" colspan="4">
+                    <field name="company_id" widget="selection" string="Компани"/>
+                    <field name="invoice_id" invisible="1"/>
+                    <field name="date" readonly="1" string="Огноо"/>
+                    <field name="currency_id"/>
+                    <field name="amount"/>
+                    <field name="journal_id" required="1" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                    <field name="account_id" string="Данс" attrs="{'required': [('invoice_id', '!=', False)]}" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                    <field name="partner_id" string="Харилцагч" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                    <!-- <field name="cash_type_id" string="МГ төрөл"/> -->
+                    <!--                      <field name="analytic_id"/> -->
+                </group>
+                <!-- <separator string="" colspan="4"/> -->
+            </form>
+            <footer>
+                <button special="cancel" string="Болих" class="btn-danger"/>
+                <button icon="gtk-execute" string="Төлөх" name="action_create" type="object" class="btn-success"/>
+            </footer>
+        </field>
+    </record>
+
+    <record id="account_payment_expense" model="ir.actions.act_window">
+        <field name="name">Make Expense</field>
+        <field name="res_model">account.payment.expense</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_account_payment_expense_form"/>
+        <field name="target">new</field>
+    </record>
+
+   <act_window 
+       name="Гүйлгээ үүсгэх"
+       res_model="account.payment.expense"
+       binding_model="payment.request"
+       view_mode="form"
+       target="new"
+       id="action_payment_expense_mdl_req" /> 
+                 
+   
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="ir.module.category" id="module_oil_fuel">
+        <field name="name">Fuel and oil module</field>
+        <field name="sequence">77</field>
+    </record>
+    <record id="group_oil_fuel_user" model="res.groups">
+        <field name="name">Түлш Тос Хэрэглэгч</field>
+        <field name="category_id" ref="mw_oil_fuel.module_oil_fuel"/>
+    </record>
+    <record id="group_oil_fuel_check" model="res.groups">
+        <field name="name">Түлш Тос Хянагч</field>
+        <field name="category_id" ref="mw_oil_fuel.module_oil_fuel"/>
+    </record>
+    
+    <record id="group_oil_fuel_done" model="res.groups">
+        <field name="name">Түлш Тос Батлагч</field>
+        <field name="category_id" ref="mw_oil_fuel.module_oil_fuel"/>
+    </record>
+    <record id="oil_fuel_company_rule" model="ir.rule">
+        <field name="name">Тос, түлш өөрийн компани</field>
+        <field name="model_id" ref="mw_oil_fuel.model_oil_fuel"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Төлөвлөгөө олноор нь цуцлах -->
+    <record id="mw_sales_promotion_change_date_form" model="ir.ui.view">
+        <field name="name">mw.sales.promotion.change.date.form</field>
+        <field name="model">mw.sales.promotion.change.date</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button name="action_change_date" string="Хугацаа сунгах" type="object"
+                        class="btn-primary"/>
+                    <button special="cancel" string="Хаах" type="object" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Хугацаа сунгах"
+        res_model="mw.sales.promotion.change.date"
+        binding_model="mw.sales.promotion"
+        view_mode="form"
+        view_id = "mw_sales_promotion_change_date_form"
+        target="new"
+        id="mw_sales_promotion_change_date_action"/>
+
+	<!-- Sales promotion -->
+	<record id="sales_promotion_filter_view" model="ir.ui.view">
+        <field name="name">mw.sales.promotion.filter</field>
+        <field name="model">mw.sales.promotion</field>
+        <field name="arch" type="xml">
+            <search string="Sales promotion">
+                <field name="name"/>
+                <field name="condition_type"/>
+                <field name="reward_type"/>
+                <filter string="Draft" domain="[('state','=','draft')]" name="draft"/>
+                <filter string="Confirmed" domain="[('state','in',['confirmed'])]" 
+                    name="confirmed"/>
+                <filter name="active" string="Идэвхитэй" 
+                    domain="[('date_start','&lt;=',time.strftime('%%Y-%%m-%%d')),
+                             ('date_end','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'condition_type'}" string="Condition type" name="condition_type"/>
+                    <filter context="{'group_by':'reward_type'}" string="Reward type" 
+                        name="reward_type"/>
+                    <filter context="{'group_by':'state'}" string="State" name="state"/>
+                    <filter string="Date" context="{'group_by':'date_start'}" name="date"/>
+        	   </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- MAIN FORM -->
+	<record id="sales_promotion_form_view" model="ir.ui.view">
+		<field name="name">mw.sales.promotion.form</field>
+		<field name="model">mw.sales.promotion</field>
+		<field name="arch" type="xml">
+            <form string="Sales plan">
+                <header>
+                    <button name="action_to_draft" string="Draft"  
+                        type="object" states="confirmed"
+                        groups="mw_sales_contract_promotion.group_sale_contract_promotion_validator"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Confirm"  
+                        states="draft" type="object"
+                        groups="mw_sales_contract_promotion.group_sale_contract_promotion_validator" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" readonly="1" />
+                </header>
+       		    <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                        <field name="is_pos"/>
+                    </div>
+                    <group col="4" string="Validity">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+
+                        <field name="is_limit_weekday"/>
+                        <newline/>
+                        <field name="monday" 
+                            attrs="{'invisible':[('is_limit_weekday','!=',True)]}"/>
+                        <field name="friday"
+                            attrs="{'invisible':[('is_limit_weekday','!=',True)]}"/>
+
+                        <field name="tuesday"
+                            attrs="{'invisible':[('is_limit_weekday','!=',True)]}"/>
+                        <field name="saturday"
+                            attrs="{'invisible':[('is_limit_weekday','!=',True)]}"/>
+
+                        <field name="wednesday"
+                            attrs="{'invisible':[('is_limit_weekday','!=',True)]}"/>
+                        <field name="sunday"
+                            attrs="{'invisible':[('is_limit_weekday','!=',True)]}"/>
+
+                        <field name="thursday"
+                            attrs="{'invisible':[('is_limit_weekday','!=',True)]}"/>
+                        <newline/>
+                    </group>
+                    <group col="4">
+                        <field name="is_limit_time"/>
+                        <newline/>
+                        <field name="start_time"
+                            attrs="{'invisible':[('is_limit_time','!=',True)],
+                                    'required':[('is_limit_time','=',True)]}"/>
+                        <field name="finish_time"
+                            attrs="{'invisible':[('is_limit_time','!=',True)],
+                                    'required':[('is_limit_time','=',True)]}"/>
+                    </group>
+                    <group col="4">
+                        <field name="priority"/>
+                        <field name="warehouse_ids" options="{'no_create':True}"
+                            widget="many2many_tags"/>
+
+                        <field name="can_be_selected"
+                            attrs="{'invisible':[('is_pos','=',True)]}"/>
+                        <field name="only_payment_cash"
+                            attrs="{'invisible':[('is_pos','=',True)]}"/>
+
+                        <label for="partner_category_ids" string="Харилцагчийн ангилал" colspan="4"/>
+                        <field name="partner_category_ids" widget="many2many_tags" 
+                            options="{'no_create': True}"
+                            nolabel="1" colspan="4" placeholder="Choose category"
+                            attrs="{'required':[('is_pos','=',False)]}"/>
+
+                        <label for="allowed_partner_ids" string="Тусгай хамрагдах харилцагчид" colspan="4"/>
+                        <field name="allowed_partner_ids" widget="many2many_tags" 
+                            options="{'no_create': True}"
+                            nolabel="1" colspan="4" placeholder="Зөвхөн сонгосон харилцагч нарт үйлчлэнэ"/>
+                        
+                        <label for="is_double_promotion" style="min-width:220px"
+                                string="Гэрээтэй урамшуулал өгөх эсэх" />
+                        <field name="is_double_promotion" nolabel="1"/>
+
+                        <label for="double_promotion_partner_id" style="min-width:220px"
+                                string="Давхар урамшуулал авах харилцагч" />
+                        <field name="double_promotion_partner_id"  
+                            widget="many2many_tags" nolabel="1"
+                            attrs="{'invisible':[('is_double_promotion','=',True)]}"
+                            options="{'no_create':True}"/>
+
+                        <field name="set_same_promos"/>
+                        <field name="no_balance"
+                            attrs="{'invisible':[('condition_type','=','amount')]}"/>
+                        
+                        <field name="is_not_set_amount"
+                            attrs="{'invisible':[('condition_type','=','amount')]}"/>
+                    </group>
+                    <group>
+                        <group col="2" string="Conditions">
+                            <field name="condition_type"/>
+                            <field name="condition_condition"
+                                attrs="{'invisible':[('condition_type','!=','product')],
+                                        'required':[('condition_type','=','product')]}"/>
+                            <field name="is_even_level"/>
+                            <field name="products_condition_type"
+                                attrs="{'invisible':[('condition_type','!=','product')],
+                                        'required':[('condition_type','=','product')]}"/>
+                            <field name="products_amount"
+                                attrs="{'invisible':[('products_condition_type','!=','amount'),
+                                              ('condition_type','!=','product')],
+                                 'required':[('products_condition_type','=','amount')]}"/>
+
+                            <field name="category_id" options="{'no_create':True}"
+                                attrs="{'invisible':[('condition_type','!=','category')],
+                                        'required':[('condition_type','=','category')]}"/>
+                            <field name="brand_id" options="{'no_create':True}"
+                                attrs="{'invisible':[('condition_type','!=','brand')],
+                                        'required':[('condition_type','=','brand')]}"/>
+
+                            <field name="qty_type"
+                                attrs="{'invisible':[('condition_type','not in',['brand','category'])],
+                                        'required':[('condition_type','in',['category','brand'])]}"/>
+                            <field name="condition_qty"
+                                attrs="{'invisible':[('condition_type','not in',['brand','category'])],
+                                        'required':[('condition_type','in',['category','brand'])]}"/>
+                            <field name="filter_product_ids"
+                                attrs="{'invisible':[('condition_type','not in',['brand','category'])]}" 
+                                widget="many2many_tags" options="{'no_create':True}"/>
+
+                            <field name="condition_amount"
+                                attrs="{'invisible':[('condition_type','!=','amount')],
+                                        'required':[('condition_type','=','amount')]}"/>
+
+                            <field name="condition_product_line" nolabel="1" widget="one2many_list" 
+                                mode="tree" colspan="2"
+                                attrs="{'invisible':[('condition_type','!=','product')],
+                                        'required':[('condition_type','=','product')]}">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="product_id" options="{'no_create':True}"/>
+                                    <field name="qty" sum="Total"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="2" string="Rewards">
+                            <field name="reward_type"/>
+                            <field name="is_limit_free_product"
+                                attrs="{'invisible':[('reward_type','!=','free_product')]}"/>
+                            <field name="amount_discount" 
+                            	attrs="{'invisible':[('reward_type','!=','amount_discount')]}"/>
+                            <field name="discount_percent"
+                                attrs="{'invisible':[('reward_type','!=','discount')]}"/>
+                            <field name="discount_percent_all_lines"
+                                attrs="{'invisible':[('reward_type','!=','discount')]}"/>
+                            <field name="get_gift_cart_amount"
+                                attrs="{'invisible':[('reward_type','!=','discount')]}"/>
+
+                            <field name="free_product_type"
+                                attrs="{'invisible':[('reward_type','in',['discount','fixed_price', 'amount_discount'])],
+                                        'required':[('reward_type','=','free_product')]}"/>
+                            <field name="reward_product_line" nolabel="1"
+                                widget="one2many_list" 
+                                mode="tree" colspan="2" 
+                                attrs="{'invisible':[('reward_type','=','discount')],
+                                        'required':[('reward_type','!=','discount')]}">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="product_id" options="{'no_create':True}"/>
+                                    <field name="qty" sum="Total"
+                                        attrs="{'column_invisible':[('parent.reward_type','!=', 'free_product')]}"/>
+                                    <field name="fixed_price"
+                                        attrs="{'column_invisible':[('parent.reward_type','!=', 'fixed_price')]}"/>
+                                    <field name="qty_limit"
+                                        attrs="{'column_invisible':[('parent.is_limit_free_product','=',False)]}"/>
+                                    <field name="available_limit" force_save="1"
+                                        attrs="{'column_invisible':[('parent.is_limit_free_product','=',False)]}"/>
+                                </tree>
+                                <form>
+                                    <group col="4">
+                                        <field name="product_id" options="{'no_create':True}"/>
+                                        <field name="qty"/>
+                                        <field name="fixed_price"/>
+                                        <field name="qty_limit"/>
+                                        <field name="available_limit"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </group>
+
+                    <group col="4" string="Validators">
+                        <field name="user_id" />
+                        <field name="validator_id" />
+
+                        <field name="excel_data" states="draft"
+                            help="Columns: default_code, barcode, qty"/>
+                        <field name="description"/>
+
+                        <button name="import_from_excel" string="Бараа импортлох" 
+                            help="Columns: default_code, barcode, qty" type="object" 
+                            icon="fa-file-excel-o" colspan="1" states="draft"/>
+                    </group>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="sales_promotion_tree_view" model="ir.ui.view">
+        <field name="name">mw.sales.promotion.tree</field>
+        <field name="model">mw.sales.promotion</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="priority"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="condition_type"/>
+                <field name="reward_type"/>
+                <field name="free_product_type"/>
+                <field name="can_be_selected"/>
+                <field name="is_pos" invisible="1"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_sales_promotion'>
+        <field name="name">Sales promotion</field>
+        <field name="res_model">mw.sales.promotion</field>
+        <field name="context">{'search_default_active':1,'is_pos':False}</field>
+        <field name="domain">[('is_pos','=',False)]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('sales_promotion_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('sales_promotion_form_view')})]"/>
+    </record>
+    <record model='ir.actions.act_window' id='action_sales_pos_promotion'>
+        <field name="name">Sales promotion</field>
+        <field name="res_model">mw.sales.promotion</field>
+        <field name="context">{'search_default_active':1,'is_pos':True}</field>
+        <field name="domain">[('is_pos','=',True)]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('sales_promotion_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('sales_promotion_form_view')})]"/>
+    </record>
+
+    <!-- CRON -->
+    <record id="cron_check_promotion_date_view" model="ir.cron">
+        <field name="name">Урамшуулалын хугацаа шалгах - КРОН</field>
+        <field name="model_id" ref="model_mw_sales_promotion"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._check_expire_date()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+</odoo>

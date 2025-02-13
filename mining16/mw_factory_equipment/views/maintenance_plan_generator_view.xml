@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_maintenance_type_equipment_tree" model="ir.ui.view">
+		<field name="name">maintenance.type.equipment.tree</field>
+		<field name="model">maintenance.type</field>
+		<field name="inherit_id" ref="mw_technic_maintenance.maintenance_type_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='is_waiting_tire']" position="after">
+				<field name="is_equipment"/>
+			</xpath>
+		</field>
+	</record>
+
+    <record id="view_maintenance_type_equipment_form" model="ir.ui.view">
+		<field name="name">maintenance.type.equipment.form</field>
+		<field name="model">maintenance.type</field>
+		<field name="inherit_id" ref="mw_technic_maintenance.maintenance_type_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='is_waiting_tire']" position="after">
+				<field name="is_equipment"/>
+			</xpath>
+		</field>
+	</record>
+
+    <record id="equipment_plan_generator_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.generator.filter</field>
+        <field name="model">maintenance.plan.generator</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="department_id"/>
+                <field name="maintenance_type_id"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by' : 'planner_id'}" string="Төлөвлөгч"
+                        name="planner_id"/>
+                    <filter context="{'group_by' : 'state'}" string="Төлөв"
+                        name="state"/>
+                    <filter context="{'group_by' : 'equipment_id'}" string="Тоног төхөөрөмж"
+                        name="equipment_id"/>
+                    <filter context="{'group_by' : 'maintenance_type_id'}" string="PM-ээр"
+                        name="maintenance_type_id"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="equipment_plan_generator_form_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.generator.form</field>
+        <field name="model">maintenance.plan.generator</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        states="confirmed"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"
+                        states="draft" type="object" />
+                    <button name="action_to_done" class="oe_highlight" string="Төлөвлөгөө үүсгэх"
+                        states="confirmed" type="object" help="Засварын төлөвлөгөөг үүсгэх бол дарна"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" readonly="1" />
+                </header>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <div name="button_box">
+                        <button
+                            name="see_expenses_view" states="confirmed,done"
+                            type="object" class="oe_stat_button oe_right"
+                            icon="fa-list" string="Пивот">
+                        </button>
+                        <button
+                            name="export_report" states="confirmed,done"
+                            type="object" class="oe_stat_button oe_right"
+                            icon="fa-file-excel-o" string="TББ excel">
+                        </button>
+                        <button
+                            name="generate_lines" states="confirmed"
+                            type="object" class="oe_stat_button oe_right"
+                            icon="fa-plus-square" string="Generate">
+                        </button>
+                    </div>
+                    <group col="4">
+                        <group>
+                            <field name="date"/>
+                            <field name="planner_id" options="{'no_create': True}"/>
+
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+
+                            <field name="branch_id" options="{'no_create': True}"/>
+                            <field name="department_id" options="{'no_create': True}"/>
+
+                            <field name="generate_type"/>
+                            <field name="maintenance_type_id" options="{'no_create':True}" domain="[('is_equipment','=',True)]"/>
+                            <field name="forecast_type"/>
+                            <field name="only_lv_technic" optional="hide"/>
+
+                            <field name="clear_odometer_diff" optional="hide"/>
+                            <field name="is_round_interval" optional="hide"/>
+                        </group>
+                        <group>
+                            <field name="equipment_id" options="{'no_create':True}"
+                                attrs="{'invisible':[('generate_type','!=','only_one')],
+                                        'required':[('generate_type','=','only_one')]}"/>
+                            <field name="technic_setting_id"
+                                attrs="{'invisible':[('generate_type','!=','only_one')],
+                                        'rtrequired':[('generate_type','=','only_one')]}"/>
+
+                            <field name="start_odometer"
+                                attrs="{'invisible':[('generate_type','!=','only_one')],
+                                        'required':[('generate_type','=','only_one')]}"/>
+                            <field name="work_time_per_day"
+                                attrs="{'invisible':[('generate_type','!=','only_one')],
+                                        'required':[('generate_type','=','only_one')]}"/>
+                            <field name="total_amount"/>
+                            <field name="is_date_start"/>
+
+                            <field name="start_last_info"
+                                attrs="{'invisible':[('forecast_type','!=','year')]}"/>
+                        </group>
+
+
+                    </group>
+                    <notebook>
+                        <page string="Тоног төхөөрөмж тохиргоо"
+                            attrs="{'invisible':[('generate_type','=','only_one')]}">
+                            <group col="4">
+                                <button name="import_from_current"
+                                    string="Одоогийн өгөгдлөөс татах"
+                                    states="draft" type="object" class="oe_highlight"
+                                    icon="fa-download" colspan="1"/>
+                                <field name="excel_data" filename="file_name"/>
+                                <button name="export_excel_template"
+                                    string="Импортлох загвар бэлдэх"
+                                    states="draft" type="object"
+                                    icon="fa-upload" colspan="1"/>
+                                <button name="import_from_excel"
+                                    string="Excel-с импортлох"
+                                    states="draft" type="object"
+                                    icon="fa-file-excel-o" colspan="1"/>
+                                <field name="file_name" invisible="1"/>
+
+                                <newline/>
+                                <field name="technic_setting_line" nolabel="1"
+                                    widget="one2many_list"
+                                    colspan="4">
+                                    <tree string="Lines" editable="bottom">
+                                        <field name="equipment_id" options="{'no_create':True}"/>
+                                        <field name="last_date"/>
+                                        <field name="start_odometer"/>
+                                        <field name="last_pm_priority"/>
+                                        <field name="maintenance_type_id" options="{'no_create': True}" domain="[('is_equipment','=',True)]"/>
+                                        <field name="work_time_per_day" sum="Total"/>
+                                        <field name="start_date"/>
+                                        <button name="create_one_forecast" type="object"
+                                            string="Forecast гүйлгэх"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Урьдчилсан төлөвлөгөө" class="oe_page_title" accesskey="M">
+                            <group col="4">
+                                <field name="plan_generated_line" nolabel="1" widget="one2many_list"    colspan="4">
+                                    <tree string="Lines">
+                                        <field name="equipment_id" options="{'no_create': True}"/>
+                                        <field name="equipment_motoh" force_save="1"/>
+                                        <field name="partner_id" options="{'no_create': True}"/>
+                                        <field name="maintenance_type_id" options="{'no_create': True}" domain="[('is_equipment','=',True)]"/>
+                                        <field name="date_plan"/>
+                                        <field name="shift"/>
+                                        <field name="equipment_num"/>
+                                        <!-- <field name="working_time"/> -->
+                                        <field name="work_time" sum="Total"
+                                            widget="float_time"/>
+                                        <field name="responent_id"/>
+                                        <field name="man_hours" sum="Total"
+                                            widget="float_time"/>
+                                        <field name="total_amount" sum="Total"/>
+                                        <field name="description"/>
+                                        <field name="plan_id" invisible="1"/>
+                                        <button
+                                            name="create_plan" type="object"
+                                            attrs="{'invisible':[('plan_id','!=',False)]}"
+                                            string="Төлөвлөгөө үүсгэх"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="equipment_id"/>
+                                            <field name="equipment_motoh" force_save="1"/>
+                                            <field name="partner_id" options="{'no_create': True}"/>
+                                            <field name="maintenance_type_id" options="{'no_create':True}" domain="[('is_equipment','=',True)]"/>
+                                            <!-- <field name="pm_priority"/> -->
+
+                                            <field name="date_plan"/>
+                                            <newline/>
+
+                                            <field name="work_time" required="1" widget="float_time"/>
+                                            <field name="responent_id"/>
+                                            <field name="man_hours" widget="float_time"/>
+                                            <field name="equipment_num"/>
+                                            <!-- <field name="working_time"/> -->
+                                            <field name="shift"/>
+                                            <field name="description"/>
+
+                                            <!-- <field name="pm_odometer"/> -->
+                                            <field name="total_amount" sum="Total"/>
+                                            <field name="plan_id" options="{'no_create': True}"/>
+
+                                            <button name="change_to_date" icon="fa-calendar"
+                                                string="Огноо солих" type="object"
+                                                class="oe_right"
+                                                help="Төлөвлөгөөний огноог түлхэх, солих"
+                                                groups="mw_technic_maintenance.group_maintenance_planner"/>
+                                        </group>
+                                        <group>
+                                            <field name="pm_material_line" nolabel="1"
+                                                widget="one2many_list">
+                                                <tree string="Lines">
+                                                    <field name="template_id" options="{'no_create':True}"/>
+                                                    <field name="material_id" options="{'no_create':True}" readonly='1'/>
+                                                    <field name="price_unit"/>
+                                                    <field name="qty"/>
+                                                    <field name="amount" sum="Total"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <!-- <page string="Календар харагдац">
+                            <div><widget name="maintenance_plan_calendar"/></div>
+                        </page>
+                        <page string="Timeline харагдац">
+                            <div><widget name="maintenance_plan_timeline"/></div>
+                        </page> -->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="equipment_plan_generator_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.generator.tree</field>
+        <field name="model">maintenance.plan.generator</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'" decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="forecast_type"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="planner_id"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="performance_percent" widget="percentpie"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_equipment_plan_generator'>
+        <field name="name">maintenance.plan.generator.action</field>
+        <field name="res_model">maintenance.plan.generator</field>
+        <field name="context">{'search_default_this_month': 1, 'equipment': True}</field>
+        <field name="domain">[('forecast_type','!=','year')]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'sequence':1, 'view_id': ref('mw_factory_equipment.equipment_plan_generator_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'sequence':2, 'view_id': ref('mw_factory_equipment.equipment_plan_generator_form_view')})]"/>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_year_plan_generator'>
+        <field name="name">maintenance.plan.generator.action</field>
+        <field name="res_model">maintenance.plan.generator</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="domain">[('forecast_type','=','year')]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'sequence':1, 'view_id': ref('mw_factory_equipment.equipment_plan_generator_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'sequence':2, 'view_id': ref('mw_factory_equipment.equipment_plan_generator_form_view')})]"/>
+    </record>
+
+    <!-- Calendar -->
+    <record  id="equipment_maintenance_plan_line_calendar_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.line.calendar</field>
+        <field name="model">maintenance.plan.line</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Plan"
+                    date_start="date_required"
+                    color="equipment_id"
+                    mode="month"
+                    quick_add="False">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="shift"/>
+                <field name="maintenance_type_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Form -->
+	<record id="equipment_maintenance_plan_line_form_view" model="ir.ui.view">
+		<field name="name">maintenance.plan.line.form</field>
+		<field name="model">maintenance.plan.line</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        states="confirmed"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,wo_created,done" readonly="1" />
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                        <button name="test_run_cron" string="RUN cron" type="object"
+                            groups="base.group_no_one"/>
+                    </div>
+                    <div name="button_box" class="oe_button_box">
+                        <!-- <button name="action_to_print" icon="fa-print"
+                            string="Хэвлэх" type="object"/> -->
+                        <button name="create_workorder" icon="fa-wrench"
+                            states="confirmed,wo_created"
+                            string="WO үүсгэх" type="object"/>
+                    </div>
+           			<group col="4">
+                        <field name="branch_id" options="{'no_create':True}"/>
+                        <field name="date_required" required="1"/>
+
+                        <field name="maintenance_type"/>
+                        <field name="contractor_type"/>
+
+                        <field name="equipment_id" options="{'no_create': True}" required="1"/>
+                        <field name="start_odometer"/>
+
+                        <field name="work_time" widget="float_time"/>
+                        <field name="man_hours" widget="float_time"/>
+
+                        <field name="total_amount"/>
+                    </group>
+                    <group col="4">
+                        <field name="maintenance_type_id" options="{'no_create': True}"
+                            attrs="{'required':[('maintenance_type','=','pm_service')]}"/>
+                        <field name="pm_priority"/>
+
+                        <field name="description" placeholder="Хийгдэх ажил..."
+                            help="Эвдрэл гэмтэлтэй холбоотой мэдээлэл"/>
+                        <field name="shift"/>
+
+                        <field name="to_delay"/>
+                        <field name="to_delay_description"
+                            attrs="{'required':[('to_delay','=',True)]}"/>
+                        <field name="to_delay_date"
+                            attrs="{'required':[('to_delay','=',True)]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Хэрэгцээт материалиуд" class="oe_page_title" accesskey="M">
+                            <group col="4">
+                                <button name="create_po_request_for_parts" icon="fa-wrench"
+                                    states="confirmed" class="oe_highlight"
+                                    string="Сэлбэг захиалах" type="object" />
+                                <newline/>
+                                <field name="required_material_line" nolabel="1" widget="one2many_list"
+                                    colspan="4">
+                                    <tree string="Lines" editable="bottom" >
+                                        <field name="product_id" options="{'no_create': True}"/>
+                                        <field name="categ_id"/>
+                                        <field name="qty"/>
+                                        <field name="uom_id" />
+                                        <field name="price_unit" invisible="1"/>
+                                        <field name="amount" sum="Total"/>
+                                        <field name="is_pm_material" />
+                                        <field name="warehouse_id" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="REF" class="oe_page_title" accesskey="R">
+                            <group col="4">
+                                <field name="user_id"/>
+                                <field name="planner_id"/>
+
+                                <field name="workorder_id" context="{'form_view_ref':'mw_factory_equipment.maintenance_workorder_form_view_factory'}"/>
+                                <field name="workorder_rate"/>
+
+                                <field name="origin"/>
+                                <field name="generator_line_id"/>
+
+                                <field name="ref_plan_id"/>
+
+                                <field name="parent_id"
+                                    attrs="{'invisible':[('parent_id','=',False)]}"/>
+                                <!-- <field name="po_request_id"
+                                    attrs="{'invisible':[('po_request_id','=',False)]}"/> -->
+                            </group>
+                        </page>
+                    </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="equipment_maintenance_plan_line_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.line.tree</field>
+        <field name="model">maintenance.plan.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'"
+                  decoration-info="state=='confirmed'"
+                  decoration-bf="state=='wo_created'" >
+                <field name="name"/>
+                <field name="date_required"/>
+                <field name="shift"/>
+                <field name="maintenance_type"/>
+                <field name="equipment_id"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="work_time" sum="Total hours"/>
+                <field name="origin"/>
+                <field name="to_delay" invisible="1"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="equipment_maintenance_plan_line_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.line.filter</field>
+        <field name="model">maintenance.plan.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="origin"/>
+                <field name="description"/>
+                <field name="planner_id"/>
+
+                <filter name="this_month" string="Энэ сар" domain="[('date_required','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="today" string="Өнөөдөр"
+                    domain="[('date_required','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="no_inspection" string="0.5 харуулахгүй"
+                    domain="[('work_time','!=',0.5)]"/>
+
+                <filter string="Хойшлуулсан төлөвлөгөө" domain="[('to_delay','=',True)]"
+                    name="to_delay"/>
+                <group expand="1" string="Group By...">
+                    <filter string="Жилээр" context="{'group_by':'date_required:year'}"
+                        name="year"/>
+                    <filter string="Сараар" context="{'group_by':'date_required:month'}"
+                        name="month"/>
+                    <filter string="Өдрөөр" context="{'group_by':'date_required:day'}"
+                        name="day"/>
+                    <filter context="{'group_by' : 'planner_id'}" string="Төлөвлөгч"
+                        name="planner_id"/>
+                    <filter context="{'group_by' : 'equipment_id'}" string="Тоног төхөөрөмжөөр"
+                        name="equipment_id"/>
+                    <filter context="{'group_by' : 'maintenance_type'}" string="Засварын төрлөөр"
+                        name="maintenance_type"/>
+                    <filter context="{'group_by' : 'state'}" string="Төлөв"
+                        name="state"/>
+                    <filter context="{'group_by' : 'parent_id'}" string="Сарын төлөвлөгөө"
+                        name="parent_id"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_equipment_maintenance_plan_line'>
+        <field name="name">Төлөвлөгөө</field>
+        <field name="res_model">maintenance.plan.line</field>
+        <field name="context">{'search_default_this_month':1,'search_default_day':1}</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="search_view_id" ref="mw_factory_equipment.equipment_maintenance_plan_line_filter_view"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'sequence':1, 'view_id': ref('mw_factory_equipment.equipment_maintenance_plan_line_tree_view')}),
+            (0, 0, {'view_mode': 'calendar', 'sequence':2, 'view_id': ref('mw_factory_equipment.equipment_maintenance_plan_line_calendar_view')}),
+            (0, 0, {'view_mode': 'form', 'sequence':3, 'view_id': ref('mw_factory_equipment.equipment_maintenance_plan_line_form_view')})]"/>
+    </record>
+</odoo>

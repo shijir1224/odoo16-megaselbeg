@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.module.category" id="module_category_hse_warehouse">
+			<field name="name">ХАБ Агуулах</field>
+			<field name="parent_id" ref="mw_hse.categ_parent_hse"/>
+	</record>
+	<record id="group_hse_warehouse_user" model="res.groups">
+		<field name="name">ХАБ Агуулах хэрэглэгч</field>
+		<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		<field name="category_id" ref="module_category_hse_warehouse"/>
+	</record>
+	<record id="group_hse_warehouse_officer" model="res.groups">
+		<field name="name">ХАБ Агуулах менежер</field>
+		<field name="category_id" ref="module_category_hse_warehouse"/>
+		<field name="implied_ids" eval="[(4, ref('group_hse_warehouse_user'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+</odoo>

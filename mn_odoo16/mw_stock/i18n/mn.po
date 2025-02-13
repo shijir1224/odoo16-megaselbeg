@@ -1,0 +1,1665 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-10 05:48+0000\n"
+"PO-Revision-Date: 2023-03-10 05:48+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "%s (copy)"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_barcode_print__type_size__small
+msgid "40x30"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_barcode_print__type_size__small2
+msgid "50x20"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_barcode_print__type_size__small3
+msgid "50x25"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_barcode_print__type_size__big
+msgid "60x40"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_inventory_kanban
+msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__access_warning
+msgid "Access warning"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__start_empty
+msgid "Allows to start with an empty inventory."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__prefill_counted_quantity
+msgid ""
+"Allows to start with prefill counted quantity for each lines or with all "
+"counted quantity set to zero."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_barcode_print_form
+msgid "Cancel"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Cancel Inventory"
+msgstr "Цуцлах"
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_inventory__state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__company_id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__company_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Company"
+msgstr "Компани"
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_picking__date_done
+msgid "Completion Date of Transfer"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Continue Inventory"
+msgstr "Тооллого үргэлжлүүлэх"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking_type__count_picking_incoming
+msgid "Count Picking Incoming"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2_mw_real
+msgid "Counted"
+msgstr "Тоолсон"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__prefill_counted_quantity
+msgid "Counted Quantities"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__product_qty
+msgid "Counted Quantity"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.actions.act_window,help:mw_stock.action_inventory_form
+msgid "Create a new inventory adjustment"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__move_ids
+msgid "Created Moves"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__create_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__create_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__create_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__create_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__create_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__create_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__create_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__create_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__create_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__create_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__access_url
+msgid "Customer Portal URL"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__date_done
+msgid "Date of Transfer"
+msgstr "Дуусгасан огноо"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "Date:"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_location__def_warehouse_id
+msgid "Def Warehouse"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_inventory__prefill_counted_quantity__counted
+msgid "Default to stock on hand"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_inventory__prefill_counted_quantity__zero
+msgid "Default to zero"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__location_dest_id
+msgid "Destination Location"
+msgstr "Хүрэх байрлал"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__difference_qty
+msgid "Difference"
+msgstr "Зөрүү"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Difference different than zero"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__display_name
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__display_name
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__display_name
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__display_name
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__display_name
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__display_name
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__data
+msgid "Download File"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_inventory__state__draft
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Draft"
+msgstr "Ноорог"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__start_empty
+msgid "Empty Inventory"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory_line__product_tracking
+msgid "Ensure the traceability of a storable product in your warehouse."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Filters"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Group By"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_lock_filter
+msgid "Group By..."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Group by..."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "INV:"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__message_needaction
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__message_has_error
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__date
+msgid ""
+"If the inventory adjustment is not validated, date at which the theoritical quantities have been checked.\n"
+"If the inventory adjustment is validated, date at which the inventory adjustment has been validated."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid ""
+"If you cancel this inventory adjustment, all its inventory adjustment lines "
+"will be lost. Are you sure you want to discard it ?"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_picking_type_kanban_mw_inherit
+msgid "Immediate Transfer"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_inventory__state__confirm
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "In Progress"
+msgstr "Хийгдэж буй"
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory_line__difference_qty
+msgid ""
+"Indicates the gap between the product's theoretical quantity and its newest "
+"quantity."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__line_ids
+msgid "Inventories"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_inventory
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__inventory_id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move__inventory_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_quant_report_pivot
+msgid "Inventory"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Inventory Adjustment"
+msgstr "Бараа материалын тооллого"
+
+#. module: mw_stock
+#: model:ir.actions.act_window,name:mw_stock.action_inventory_form
+#: model:ir.ui.menu,name:mw_stock.menu_action_inventory_form
+msgid "Inventory Adjustments"
+msgstr "Бараа материалын тооллого"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__inventory_date
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Inventory Date"
+msgstr "Огноо"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2_mw_real
+msgid "Inventory Details"
+msgstr "Тооллого дэлгэрэнгүй"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "Тооллого мөрүүд"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "Inventory Lines"
+msgstr "Тооллого мөрүүд"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_location
+msgid "Inventory Locations"
+msgstr "Нөөцийн байрлалууд"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__name
+msgid "Inventory Reference"
+msgstr "Нэр"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_quant_report_form
+msgid "Inventory Valuation"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__is_editable
+msgid "Is Editable"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print____last_update
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line____last_update
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory____last_update
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line____last_update
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print____last_update
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock____last_update
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__write_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__write_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__write_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__write_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__write_uid
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__write_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__write_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__write_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__write_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__write_date
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory_line__inventory_date
+msgid "Last date at which the On Hand Quantity has been computed."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_barcode_print_form
+msgid "Lines"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__location_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Location"
+msgstr "Байрлал"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__location_name
+msgid "Location Name"
+msgstr "Байрлалын нэр"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__location_ids
+msgid "Locations"
+msgstr "Байрлалууд"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__prod_lot_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Lot/Serial Number"
+msgstr "Цуврал дугаар"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_tree
+msgid "Lot/Serial Number Inventory"
+msgstr "Цуврал дугаар"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_type_form_inherit
+msgid "MW Stock"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "Material inventory sheet"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__name
+msgid "Name"
+msgstr "Нэр"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.product_template_only_form_view_mw_sq
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_quant_tree_editable_inh
+msgid "Nuutslult shinechleh"
+msgstr "Нөөцлөлт шинэчлэх"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__is_barcode_reader
+msgid "Offline Баркод уншигчаар"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2_mw_real
+msgid "On Hand"
+msgstr "Гар байгаа тоо хэмжээ"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "Only a stock manager can validate an inventory adjustment."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Outdated Theoretical Quantities"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__partner_id
+msgid "Owner"
+msgstr "Эзэмшигч"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__package_id
+msgid "Pack"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2_mw_real
+msgid "Package"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Packaging"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__parent_id
+msgid "Parent"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Physical Inventories by Date"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Баримтын төрөл"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__access_url
+msgid "Portal Access URL"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_barcode_print_form
+msgid "Print"
+msgstr "Хэвлэх"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_barcode_print
+msgid "Print barcode"
+msgstr "Баркод хэвлэх"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_barcode_print_line
+msgid "Print barcode line"
+msgstr "Баркод хэвлэх"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_product_product
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__product_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Product"
+msgstr "Бараа"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__categ_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Product Category"
+msgstr "Барааны ангилал"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__product_code
+msgid "Product Code"
+msgstr "Барааны код"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+#, python-format
+msgid "Product Moves"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Барааны хөдөлгөөн (Дэлгэрэнгүй)"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__product_name
+msgid "Product Name"
+msgstr "Барааны нэр"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_product_template
+msgid "Product Template"
+msgstr "Барааны загвар"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__product_uom_id
+msgid "Product Unit of Measure"
+msgstr "Хэмжих нэгж"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__product_ids
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__product_ids
+msgid "Products"
+msgstr "Бараа"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_quant_report_form
+msgid "Quantity On Hand"
+msgstr "Гар байгаа тоо хэмжээ"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_quant_report_form
+msgid "Quantity Reserved"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__outdated
+msgid "Quantity outdated"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_quant
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Quants"
+msgstr "Нөөцийн бүртгэл"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid ""
+"Reading file error.\n"
+"Checking for excel file!"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.actions.server,name:mw_stock.model_stock_inventory_line_action_recompute_quantity
+msgid "Recompute On Hand Quantity"
+msgstr "Гар буй тоо хэмжээ дахин тооцолох"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Reference"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2
+msgid "Refresh quantity"
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_picking.py:0
+#, python-format
+msgid "Report"
+msgstr "Тайлан"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__activity_user_id
+msgid "Responsible User"
+msgstr "Хариуцагч"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_return_picking
+msgid "Return Picking"
+msgstr "Буцаалтын баримт"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_return_picking_line
+msgid "Return Picking Line"
+msgstr "Буцаалтын баримтын мөр"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2_mw_real
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_tree
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_move_line_form_mw_inheritddd
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_move_line_mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_product_template_tree
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_product_tree
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_quant_report_tree
+msgid "SUM"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_lock_filter
+msgid "Search"
+msgstr "Хайх"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Search Inventory"
+msgstr "Хайх"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Search Inventory Lines"
+msgstr "Хайх"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__access_token
+msgid "Security Token"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory_line__categ_id
+msgid "Select category for the current product"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.actions.server,name:mw_stock.model_stock_inventory_line_action_reset_product_qty
+msgid "Set counted quantities to 0"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Set to Draft"
+msgstr "Ноорог болгох"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "Sheet's number error"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_line_view_search_mw
+msgid "Source Location"
+msgstr "Гарах байрлал"
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__product_ids
+msgid "Specify Products to focus your inventory on particular Products."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Start Inventory"
+msgstr "Тооллого эхлүүлэх"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__state
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__state
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Status"
+msgstr "Төлөв"
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree
+msgid "Stock Inventory Lines"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_inventory_line_pivot
+msgid "Stock Level forecast"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_move
+msgid "Stock Move"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_quant_report_view_graph
+msgid "Stock Quant"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_move_lock
+msgid "Stock move lock"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__line_ids
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__stock_move_ids
+msgid "Stock moves"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_quant_report
+msgid "Stock quant report mw"
+msgstr "Барааны дэлгэрэнгүй тайлан"
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_warehouse
+msgid "Stock warehouse"
+msgstr "Агуулах"
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory_line__is_editable
+msgid "Technical field to restrict the edition."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_move_line__price_unit
+msgid ""
+"Technical field used to record the product cost set by the user during a "
+"picking confirmation (when costing method used is 'average price' or "
+"'real'). Value given in company currency and in product uom."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__theoretical_qty
+msgid "Theoretical Quantity"
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid ""
+"There is already one inventory adjustment line for this product, you should "
+"rather modify this one instead of creating a new one."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.actions.act_window,help:mw_stock.action_inventory_form
+msgid "This is used to correct the product quantities you have in stock."
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_move_line_form_mw_inheritddd
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_quant_tree_editable_inh
+msgid "Total"
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "Tracked Products in Inventory Adjustment"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__product_tracking
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__tracking
+msgid "Tracking"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_picking
+msgid "Transfer"
+msgstr "Шилжүүлэг"
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_line__price_unit
+msgid "Unit Price"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_tree2_mw_real
+msgid "UoM"
+msgstr "Хэмжих нэгж"
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Validate Inventory"
+msgstr "Батлах"
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_inventory__state__done
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+msgid "Validated"
+msgstr "Батлагдсан"
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "Warehouse:"
+msgstr "Агуулах:"
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__warning_messages
+msgid "Warning Message"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,help:mw_stock.field_stock_inventory__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid "You can only adjust storable products."
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid ""
+"You can only delete a draft inventory adjustment. If the inventory "
+"adjustment is not done, you can cancel it."
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid ""
+"You can't validate the inventory '%s', maybe this inventory has been already"
+" validated or isn't ready."
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#, python-format
+msgid ""
+"You cannot set a negative product quantity in an inventory line:\n"
+"\t%s - qty: %s"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "close"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "e.g. Annual inventory"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__outdated_mw
+msgid "outdated_mw"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model,name:mw_stock.model_stock_inventory_print
+msgid "stock inventory print"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_stock_move_lock_form
+msgid "Агуулах"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_location_form_inherit
+msgid "Агуулах оноогдоогүйг оноох"
+msgstr ""
+
+#. module: mw_stock
+#: model:res.groups,name:mw_stock.group_stock_wh_manager
+msgid "Агуулахын Засвар Оруулагч"
+msgstr ""
+
+#. module: mw_stock
+#: model:res.groups,name:mw_stock.group_stock_move_locker
+msgid "Агуулахын Хөдөлгөөн Цоожлогч"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_return_picking__cost_method__picking
+msgid "Агуулахын баримтын үнээр"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.actions.act_window,name:mw_stock.action_stock_move_lock
+#: model:ir.ui.menu,name:mw_stock.mw_stock_move_lock_menu
+msgid "Агуулахын хөдөлгөөн цоожлох"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__categ_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_print_form
+msgid "Ангилал"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__many_categ_ids
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__many_categ_ids
+msgid "Ангилалууд"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__location_id
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_print_form
+msgid "Байрлал"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__location_ids
+msgid "Байрлалууд"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking_type__with_print_location
+msgid "Байршилтай Хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__product_id
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__product_id
+msgid "Бараа"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__product_uom_id
+msgid "Бараа Хэмжих"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Бараагаар"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__product_tmpl_id
+msgid "Барааны Темплати"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+msgid "Баримт хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__prod_barcode
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__barcode
+msgid "Баркод"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__date_not_equal
+msgid "Батлагдсан Огноо Зөрүүтэй"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__month_not_equal
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Батлагдсан Сар Зөрүүтэй"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Батлагдсан Өдөр  Зөрүүтэй"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_print_form
+msgid "Болих"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_return_picking__return_desc
+msgid "Буцаалтын тайлбар"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_location__set_warehouse_id
+msgid "Гараар зоож өгөх Агуулах"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Гарах Байрлалаар"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Дотоод Байрлал"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__default_code
+msgid "Дотоод Код"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_filter
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Дуусаагүй"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__date_end
+msgid "Дуусгах Огноо"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_lock_filter
+msgid "Жилээр"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+msgid "Захиалсан тоог дууссан руу хуулах"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+msgid "Захиалсан тоог дууссан руу хуулах итгэлтэй Байна уу!!"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move__move_product_view_on_hand
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__move_product_view_on_hand
+msgid "Зөвхөн Үлдэгдэлтэй Барааг харах"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Зөрүүтэй"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__import_data_ids
+msgid "Импортлох эксел"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_picking_type_kanban_mw_inherit
+msgid "Ирж Гарч Буй Шилжүүлэг"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__forecast_quantity
+msgid "Ирээдүйн Үлдэгдэл"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__company_id
+msgid "Компани"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.product_form_view_procurement_button_mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.product_template_form_view_procurement_button_mw_stock
+msgid "Мөр Хөөх"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__is_with_partner
+msgid "Нийлүүлэгчтэй хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__price_diff_total_in
+msgid "Нийт Дутаа"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__price_diff_total
+msgid "Нийт Зөрүү"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__price_diff_subtotal
+msgid "Нийт Зөрүү Үнэ"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__price_diff_total_out
+msgid "Нийт Илүү"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__sum_qty_price_unit
+msgid "Нийт Нэгж Үнэ/Өртөг"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+msgid "Ноорог болгох"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_line__diff_price_unit
+msgid "Нэгж Үнэ/Өртөг"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_return_picking_line__price_unit
+msgid "Нэгж үнэ"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__reserved_quantity
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Нөөцлөгдсөн"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+msgid "Нөөцлөгдсөн тоог дууссан руу хуулах"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+msgid "Нөөцлөгдсөн тоог дууссан руу хуулах итгэлтэй Байна уу!!"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.product_template_only_form_view_mw_sq
+msgid "Нөөцлөлт Харах"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__custom_date
+msgid "Огноо"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__is_with_date
+msgid "Огноотой хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields.selection,name:mw_stock.selection__stock_return_picking__cost_method__main
+msgid "Одоо байгаа өртөгөөр"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_line_view_search_mw
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_move_search_mw
+msgid "Орсон Гарсан Байрлалд"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_lock_filter
+msgid "Сараар"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking_type__last_expense_out
+msgid "Сүүлд зарлагадсан огноог хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Сөрөг Үлдэгдэлтэй"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__sched_date
+msgid "Товлогдсон өдөр"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__is_many_print
+msgid "Тоо хэмжээгээр хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print_line__qty
+msgid "Тоо ширхэг"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Тооллого 0 болгохдоо итгэлтэй байна уу"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Тооллого Импортлох"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Тооллого Шинэчлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid ""
+"Тооллого Шинэчлэхдээ итгэлтэй байна уу! Хэрэв тоолсон бол Өмнөх тоолсоны "
+"зөрүү нь Өөрчилөгдөх Магдалалтай!!!"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Тооллого Экспортлох"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.product_form_view_procurement_button_mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.product_template_form_view_procurement_button_mw_stock
+msgid "Тооллого-д"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Тооллогоо батлахдаа итгэлтэй байна уу?"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_line_search
+msgid "Тооллогоор"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.actions.act_window,name:mw_stock.stock_action_inventory_line_mw
+#: model:ir.ui.menu,name:mw_stock.menu_stock_action_inventory_line_mw
+msgid "Тооллогын Дэлгэрэнгүй"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Тооллогын Мөр Харах"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.actions.act_window,name:mw_stock.action_stock_inventory_print
+#: model:ir.ui.menu,name:mw_stock.menu_stock_inventory_print
+msgid "Тооллогын Хуудас Хэвлэж Авах"
+msgstr ""
+
+#. module: mw_stock
+#: model:res.groups,name:mw_stock.group_stock_inv_diff_view
+msgid "Тооллогын зөрүү харах"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "Тооллогын хуудас хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory__filter_inv
+msgid "Тоолох сонголт"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_line_view_search_mw
+msgid "Хаанаас"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__custom_partner
+msgid "Харилцагч"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Хэвлэгдсэн"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__printed_count
+msgid "Хэвлэгдсэн тоо"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Хэвлэгдээгүй"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_inventory_print_form
+msgid "Хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: code:addons/mw_stock/models/stock_inventory.py:0
+#: code:addons/mw_stock/models/stock_picking.py:0
+#: code:addons/mw_stock/wizard/stock_inventory_print.py:0
+#, python-format
+msgid ""
+"Хэвлэх загварын тохиргоо хийгдээгүй байна, Системийн админд хандана уу!"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_inventory_print__filter_inv
+msgid "Хэвлэх сонголт"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_line_view_search_mw
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_move_search_mw
+msgid "Хэмжих нэгж"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__type_size
+msgid "Хэмжээ"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_line_view_search_mw
+msgid "Хүртэл"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Хүрэх Байрлалаар"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__is_with_time
+msgid "Цагтай Хамт"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__warehouse_ids
+msgid "Цоожлох агуулахууд"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__lot_id
+msgid "Цуврал дугаар"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.actions.act_window,name:mw_stock.action_stock_barcode_print
+#: model:ir.ui.menu,name:mw_stock.menu_stock_barcode_print
+msgid "Шошго Хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_withcarrier_out_form
+msgid "Шошго хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.quant_report_search_view
+msgid "Эерэг Үлдэгдэлтэй"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Энэ Долоо Хоног"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_picking_internal_search_inherit_mw_stock
+msgid "Энэ сар"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move_lock__date_start
+msgid "Эхлэх Огноо"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move__on_hand_from_loc
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__quantity
+msgid "Үлдэгдэл"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_quant_report__qaunt_id
+msgid "Үлдэгдэл Баримт"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.actions.act_window,name:mw_stock.stock_quant_report_action
+#: model:ir.ui.menu,name:mw_stock.menu_stock_quant_report
+msgid "Үлдэгдэл Дэлгэрэнгүй"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_move__view_from_loc_on_hand
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking__view_from_loc_on_hand
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking_type__view_from_loc_on_hand
+msgid "Үлдэгдэл харуулах"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking_type__view_from_loc_only_on_hand
+msgid "Үлдэгдэлтэй Барааг харуулах Товч"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking_type__with_print_on_hand
+msgid "Үлдэгдэлтэй Хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.stock_move_lock_filter
+msgid "Өдөрөөр"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__height
+msgid "Өндөр"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_barcode_print__width
+msgid "Өргөн"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_return_picking__cost_method
+msgid "Өртөг"
+msgstr ""
+
+#. module: mw_stock
+#: model:ir.model.fields,field_description:mw_stock.field_stock_picking_type__with_print_cost
+msgid "Өртөгтэй хэвлэх"
+msgstr ""
+
+#. module: mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock.view_inventory_form
+msgid "⇒ Тооллогын тоо хэмжээг 0 болгох"
+msgstr ""
+
+
+#. module: mw_stock
+#: model:ir.ui.menu,name:stock.menu_stock_scrap
+msgid "Scrap"
+msgstr "Гологдлын мөр"

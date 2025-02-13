@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+	<t t-name="mw_technic_maintenance.MaintenanceTimesheet">
+		<div id="maintenance_timesheet" style="width:100%;height:250px">
+			<b>maintenance_timsheet_</b>
+		</div>
+	</t>
+
+	<t t-name="mw_technic_maintenance.MaintenancePlanTimeline">
+		<div id="container" style="width:100%;
+										height:350px;">
+			<button class="full_screen btn-success"
+				style="margin:5px">Full screen</button>
+			<div id="div_plan_timeline" style="width:100%;
+											height:350px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+		</div>
+	</t>
+
+	<t t-name="mw_technic_maintenance.MaintenancePlanCalendar">
+		<div id="container">
+			<button class="full_screen btn-success"
+				style="margin:5px">Full screen</button>
+			<div id="calendar_parent" style="width:100%; height:630px;
+				background: url(/web/static/src/img/form_sheetbg.png);">
+				<!-- Toggle -->
+				<div id="toggle_div" style="width:90%; height:35px; margin: auto;
+											border-radius: 1px;
+											margin-bottom: 8px; margin-top: 15px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+					<!-- <label class="switch">
+				  		<input type="checkbox"/>
+				  		<span class="slider round"/>
+					</label> -->
+				</div>
+				<!-- Calendar -->
+				<div id="div_plan_calendar" style="width:100%;
+											height:630px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+				</div>
+			</div>
+		</div>
+	</t>
+
+	<!-- MAINTENANCE DB 01 -->
+	<t t-name="mw_technic_maintenance.MAINTENANCE_DASHBOARD_01">
+		<div id="parent">
+			<div id="wo_performance_div" style="width:100%;
+											height:280px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+			<div id="employee_performance_div" style="width:100%;
+											margin-top: 5px;
+											height:280px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+			<div id="by_technic_type" style="width:100%;
+											margin-top: 5px;
+											height:380px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+			<div id="repairtime_by_system_div" style="width:100%;
+											margin-top: 5px;
+											height:390px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+		</div>
+	</t>
+	<!-- MAINTENANCE DB 02 -->
+	<t t-name="mw_technic_maintenance.MAINTENANCE_DASHBOARD_02">
+		<div id="parent">
+			<div id="month_wo_performance_div" style="width:100%;
+											height:280px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+			<div id="month_employee_performance_div" style="width:100%;
+											margin-top: 5px;
+											height:280px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+			<div id="by_monthly_plan_tbb" style="width:100%;
+											height:350px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+			<div id="by_monthly_work_tbb" style="width:100%;
+											height:350px;
+											border-radius: 1px;
+											border: 1px solid #888888;
+											box-shadow: 3px 3px 2px #888888;">
+			</div>
+		</div>
+	</t>
+
+	<!-- MAINTENANCE DB 03 -->
+	<t t-name="mw_technic_maintenance.MAINTENANCE_DASHBOARD_03">
+		<div>
+			<button class="tablink" title="plan_info">Төлөвлөгөө</button>
+			<button class="tablink" title="daily_info">Daily info</button>
+			<div id="plan_info" class="tabcontent">
+			  	<div class="table_header_freeze" style="width:100%;">
+					<!-- <button id="tbbk_download_pdf">Татах</button> -->
+					<table border="1" class="o_list_table" id="tbbk_table">
+						<!-- Толгой зурах -->
+						<thead>
+							<tr class="text-center">
+								<!-- <th class="technic_name">Техникийн нэр</th> -->
+								<th class="model_id">Загвар</th>
+								<th class="park_number">Парк дугаар</th>
+								<th class="serial_number">Сериал</th>
+								<t t-if="widget.times">
+									<t t-foreach="widget.times" t-as="time">
+										<th class="text-center"><t t-esc="time"/></th>
+									</t>
+								</t>
+								<th>Ажиллавал зохих цаг</th>
+								<!-- <th>Засварын цаг</th> -->
+								<th>Төлөвлөгөөт засварын цаг</th>
+								<th>Сэлбэг эд анги, дугуй хүлээлтийн цаг</th>
+								<th>Төлөвлөгөөт бус засварын цаг</th>
+								<th style="padding:5px">ТББК</th>
+							</tr>
+						</thead>
+						<tbody class="ui-sortable">
+							<t t-if="widget.plan_lines">
+								<!-- Row давталт -->
+								<tr t-foreach="widget.plan_lines" t-as="line" class="tr_line_hover">
+									<!-- <td t-att-data-id="line.technic_id" 
+										class="text-left technic_name">
+										<div t-att-data-id="line.technic_id" class=""
+											t-att-data-tooltip="line.description">
+											<t t-esc="line.technic_name"/>
+										</div>
+									</td> -->
+									<td t-att-data-id="line.technic_id" class="text-center total_cell">
+										<div t-att-data-id="line.technic_id" class=""
+											t-att-data-tooltip="line.description">
+											<t t-esc="line.model_name"/>
+										</div>
+									</td>
+									<td t-att-data-id="line.technic_id" class="text-center total_cell">
+										<div t-att-data-id="line.technic_id" class=""
+											t-att-data-tooltip="line.description">
+											<t t-esc="line.park_number"/>
+										</div>
+									</td>
+									<td t-att-data-id="line.technic_id" class="text-center total_cell">
+										<div t-att-data-id="line.technic_id" class=""
+											t-att-data-tooltip="line.description">
+											<t t-esc="line.vin_number"/>
+										</div>
+									</td>
+									<!-- Төлөвлөгөө давталт -->
+									<t t-foreach="line.plans" t-as="plan">
+										<td class="text-center" t-if="plan.work_time == 0"/>
+										<td class="text-center plan_cell cell_box"
+											t-if="plan.work_time != 0"
+											t-att-data-id="plan.plan_id"
+											t-att-data-tooltip="plan.description" 
+											t-att-bgcolor="plan.color"> 
+											<t t-esc="plan.work_time"/>
+											<div class="ribbon_2 ribbon_2-top-left"
+												t-if="plan.shift == 'day'">
+												<span></span></div>
+											<div class="ribbon_2_night ribbon_2_night-top-left"
+												t-if="plan.shift == 'night'">
+												<span></span></div>
+										</td>
+									</t>
+									<td class="text-center total_cell">
+										<t t-esc="line.norm_motoh"/>
+									</td>
+									<!-- <td class="text-center total_cell">
+										<t t-esc="line.total_work_time"/>
+									</td> -->
+									<td class="text-center total_cell">
+										<t t-esc="line.planned_time"/>
+									</td>
+									<td class="text-center total_cell">
+										<t t-esc="line.parts_waiting_time"/>
+									</td>
+									<td class="text-center total_cell">
+										<t t-esc="line.unplanned_time"/>
+									</td>
+									<td class="text-center total_cell">
+										<t t-esc="line.tbbk"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+						<tfoot></tfoot>
+					</table>
+				</div>
+			</div>
+			<div id="daily_info" class="tabcontent" style="display:none">
+				<br/>
+			  	<div style="width:100%;">
+			  		<table border="1" class="o_list_table" id="tbbk_table">
+						<!-- Толгой зурах -->
+						<thead>
+							<t >
+								<tr class="text-center" t-att-class="tr_line_green" style="background-color:lightgreen;">
+									<th rowspan="2">PARKING NUMBER</th>
+									<th rowspan="2">TYPE</th>
+									<th rowspan="2">SERIAL</th>
+									<th colspan="2">MOTO HOURS</th>
+									<th rowspan="2">WORK HOURS</th>
+									<th rowspan="2">DOWN HOURS</th>
+									<th rowspan="2">WORKED HOURS</th>
+									<th rowspan="2">DAILY AVAILABILITY</th>
+									<th rowspan="2">STATUS</th>
+									<th rowspan="2">DAILY JOBS</th>
+								</tr>
+								<tr class="text-center" style="background-color:lightgreen;">
+									<th>START</th>
+									<th>FINISH</th>
+								</tr>
+							</t>
+						</thead>
+						<tbody class="ui-sortable">
+							<t t-if="widget.performance_lines">
+								<!-- Row давталт -->
+								<tr t-foreach="widget.performance_lines" t-as="line"
+									t-att-class="line.cell_type == 'working' ? 'tr_line_green' :  line.cell_type == 'down' ? 'tr_line_red' : 
+									line.cell_type == 'parking' ? 'tr_line_yellow' : line.cell_type == 'total' ? 'tr_line_grey' : tr_line_white">
+									<t t-if="!line.cell_type">
+										<td class="text-center">
+											<t t-esc="line.park_number"/>
+										</td>
+										<td class="text-center">
+											<t t-esc="line.type"/>
+										</td>
+										<td class="text-center">
+											<t t-esc="line.serial"/>
+										</td>
+										<td class="text-right">
+											<t t-esc="line.start"/>
+										</td>
+										<td class="text-right">
+											<t t-esc="line.finish"/>
+										</td>
+										<!--  -->
+										<t t-if="line.state == 'Working'">
+											<td class="text-center">
+												<t t-esc="line.work_hours"/>
+											</td>
+											<td class="text-center">
+												<t t-esc="line.down_hours"/>
+											</td>
+										</t>
+										<t t-if="line.state != 'Working'">
+											<td class="text-center" colspan="2">
+												<t t-esc="line.work_hours"/>
+											</td>
+										</t>
+
+										<t t-if="line.state == 'Working'">
+											<td class="text-center">
+												<t t-esc="line.worked_hours"/>
+											</td>
+											<td class="text-center">
+												<t t-esc="line.tbbk"/>%
+											</td>
+										</t>
+										<t t-if="line.state != 'Working'">
+											<td class="text-center" colspan="2">
+												<t t-esc="line.tbbk"/>%
+											</td>
+										</t>
+
+										<t t-if="line.state == 'Parking'">
+											<td class="text_center">Down</td>
+										</t>
+										<t t-if="line.state != 'Parking'">
+											<td class="text-center">
+												<t t-esc="line.state"/>
+											</td>
+										</t>
+
+										<td class="text-left">
+											<t t-esc="line.daily_jobs"/>
+										</td>
+									</t>
+									<t t-if="line.cell_type" >
+										<t t-if="line.cell_type == 'working'">
+											<td class="text-center" colspan="8">
+												<t t-esc="line.desc"/>
+											</td>
+											<td class="text-center" colspan="1">
+												<t t-esc="line.tbbk"/>%
+											</td>
+											<td class="text-center" colspan="2">
+												<!-- <t t-esc=""/> -->
+											</td>
+										</t>
+										<t t-if="line.cell_type != 'working'">
+											<td class="text-center" colspan="7">
+												<t t-esc="line.desc"/>
+											</td>
+											<td class="text-center" colspan="2">
+												<t t-esc="line.tbbk"/>%
+											</td>
+											<td class="text-center" colspan="2">
+												<t t-esc="line.state"/>
+											</td>
+										</t>
+									</t>
+								</tr>
+							</t>
+						</tbody>
+						<tfoot></tfoot>
+					</table>
+		  		</div>
+			</div>
+		</div>
+	</t>
+
+	<!-- MAINTENANCE DB 04 -->
+	<t t-name="mw_technic_maintenance.MAINTENANCE_DASHBOARD_04">
+		<table style="width:100%;">
+			<tr>
+				<td style="width:50%;">
+					<div id="all_technic_data" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+				<td style="width:50%;">
+					<div id="total_repairtime_by_type" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<!-- Говь хангай дээр хасах -->
+				<td style="width:50%;">
+					<div id="exca_repairtime_by_type" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+				<!-- Говь хангай дээр хасах -->
+				<td style="width:50%;">
+					<div id="dump_repairtime_by_type" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<!-- Говь хангай дээр хасах -->
+				<td style="width:50%;"> 
+					<div id="support_repairtime_by_type" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+				<td style="width:50%;">
+					<!-- Техникийн төрөлийг Говь хангай дээр солих -->
+					<t t-if="widget.all_technic_info">
+						<table style="width:100%;
+							border-radius: 1px;height:280px;
+							border: 1px solid #888888;
+							box-shadow: 3px 3px 2px #888888;">
+							<thead>
+								<tr class="text-center">
+									<th style="width:40%;font-size:14pt;">Бүтээлийн <t t-esc="widget.all_technic_info.production_total"/> техник</th>
+									<th style="width:30%;font-size:14pt;">Туслах <t t-esc="widget.all_technic_info.support_total"/> техник</th>
+									<th style="width:30%;font-size:14pt;">Бусад <t t-esc="widget.all_technic_info.other_count"/></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="font-size:12pt !important;">
+										<div class="text-center">
+											Экскаватор <t t-esc="widget.all_technic_info.exca_count"/>
+										</div>
+										<div class="text-center">
+											Дамп <t t-esc="widget.all_technic_info.dump_count"/>
+										</div>
+									</td>
+									<td style="font-size:12pt !important;">
+										<div class="text-center">
+											ДОЗЕР <t t-esc="widget.all_technic_info.dozer_count"/>
+										</div>
+										<div class="text-center">
+											ЛОДЕР <t t-esc="widget.all_technic_info.loader_count"/>
+										</div>
+										<div class="text-center">
+											Грайдер <t t-esc="widget.all_technic_info.grader_count"/>
+										</div>
+									</td>
+									<td style="font-size:12pt !important;">
+										<div class="text-center">
+											Бусад техник <t t-esc="widget.all_technic_info.other_count"/>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</t>
+					<!-- <div id="all_technic_info" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div> -->
+				</td>
+			</tr>
+			<tr>
+				<td style="width:50%;">
+					<div id="stopped_by_status" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+				<td style="width:50%;">
+					<div id="total_by_status" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+			</tr>
+			<!-- TIMESHEET -->
+			<tr>
+				<td style="width:50%;">
+					<div id="total_timesheet" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+				<td style="width:50%;">
+					<div id="total_timesheet_pie" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+			</tr>
+			<!-- Workorder -->
+			<tr>
+				<td style="width:50%;">
+					<div id="work_order_planned" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+				<td style="width:50%;">
+					<div id="work_order_unplanned" style="width:100%;
+						border-radius: 1px;height:280px;
+						border: 1px solid #888888;
+						box-shadow: 3px 3px 2px #888888;">
+					</div>
+				</td>
+			</tr>
+		</table>
+	</t>
+
+</templates>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.sequence" id="seq_crm_call_plan">
+        <field name="name">CRM Call Plan</field>
+        <field name="code">crm.call.plan</field>
+        <field name="prefix">CP%(y)s</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval='False'/>
+    </record>
+
+    <record id="crm_call_plan_form_view" model="ir.ui.view">
+        <field name="name">CRM - Phone Call Form</field>
+        <field name="model">crm.call.plan</field>
+        <field name="arch" type="xml">
+            <form string="Phone Call">
+                <header>
+                    <field name="state" nolabel="1" widget="statusbar" options="{'clickable': 1}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!-- <button class="oe_stat_button" name="action_make_meeting" type="object" icon="fa-calendar fa-fw">
+                            <span>Гүйцэтгэл</span>
+                        </button> -->
+                    </div>
+                    <group col="6">
+                        <field name="name" required="1" widget="phone" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="partner_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="number"/>
+                        <field name="lastname"/>
+                        <field name="gender"/>
+                        <field name="vat"/>
+                        <field name="phone" widget="phone"/>
+                    </group>
+                    <group col="6">
+                        <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="call_type_id" required="1" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="user_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Гүйцэтгэл">
+                            <field name="guitsetgel_ids" nolabel="1" context="{'tree_view_ref': 'mw_crm_call.crm_call_tree_view'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_call_plan_tree_view" model="ir.ui.view">
+        <field name="name">CRM - Logged Phone Calls Tree</field>
+        <field name="model">crm.call.plan</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state=='done'" decoration-info="state in ['pending']" editable="bottom">
+                <field name="date"/>
+                <field name="name" />
+                <field name="number"/>
+                <field name="partner_id" options="{'no_create':True}"/>
+                <field name="phone" widget="phone"/>
+                <field name="user_id"/>
+                <field name="state" />
+                <field name="create_date" invisible="1"/>
+<!--                <button name="create_actual" type="object" string="Гүйцэтгэл үүсгэх" class="btn-success" attrs="{'invisible':[('state','in',['done','cancel'])]}"/>-->
+            </tree>
+        </field>
+    </record>
+    
+    <record id="crm_call_plan_calendar_view" model="ir.ui.view">
+        <field name="name">CRM - Phone Calls Calendar</field>
+        <field name="model">crm.call.plan</field>
+        <field name="priority" eval="2" />
+        <field name="arch" type="xml">
+            <calendar string="Phone Calls" date_start="date" color="user_id">
+                <field name="name"/>
+                <field name="partner_id"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="crm_call_plan_filter" model="ir.ui.view">
+        <field name="name">CRM - Phone Calls Search</field>
+        <field name="model">crm.call.plan</field>
+        <field name="arch" type="xml">
+            <search string="Search Phonecalls">
+                <field name="name" string="Дугаар" filter_domain="['|','|',('name','ilike',self),('number','ilike',self),('partner_id','ilike',self)]"/>
+                <field name="date" />
+                <field name="state" />
+                <filter string="Миний дуудлага" name="my_phonecalls" domain="[('user_id', '=', uid)]"/>
+                <filter string="Оноогдоогүй" name="unassigned" domain="[('user_id','=',False)]"/>
+                <separator />
+                <filter name="date" string="Date" date="date" />
+                <separator />
+                <field name="partner_id" operator="child_of" />
+                <field name="user_id" />
+                <group expand="0" string="Group By">
+                    <filter string="Харилцагч" name="groupby_partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Хариуцагч" name="groupby_responsible" context="{'group_by':'user_id'}"/>
+                    <filter string="Үүсгэсэн" name="groupby_creation" help="Creation Date" context="{'group_by':'create_date'}"/>
+                    <filter string="Төлөв" name="groupby_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="crm_call_plan_action" model="ir.actions.act_window">
+        <field name="name">Төлөвлөгөө</field>
+        <field name="res_model">crm.call.plan</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" ref="crm_call_plan_tree_view" />
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

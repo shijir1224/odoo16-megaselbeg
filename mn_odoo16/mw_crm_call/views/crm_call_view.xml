@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.sequence" id="seq_crm_call">
+        <field name="name">CRM Call</field>
+        <field name="code">crm.call</field>
+        <field name="prefix">CALL%(y)s%(month)s-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval='False'/>
+    </record>
+
+    <record id="crm_call_form_view" model="ir.ui.view">
+        <field name="name">CRM - Phone Call Form</field>
+        <field name="model">crm.call</field>
+        <field name="arch" type="xml">
+            <form string="Phone Call">
+                <header>
+                    <button string='Шилжүүлэх' name="action_to_next" type="object" class="btn-warning" attrs="{'invisible':[('state','=','done')]}"/>
+                    <button string='Дуусгах' name="action_to_done" type="object" class="btn-success" attrs="{'invisible':[('state','=','done')]}"/>
+                    <field name="state" nolabel="1" widget="statusbar"/>
+                </header>
+                <sheet string="Phone Call">
+                    <group>
+                        <group string="Харилцагчийн мэдээлэл">
+                            <field name="name" required="1" widget="phone" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="partner_id" options="{'no_create':True,'no_create_edit':True}" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="lastname" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="vat"/>
+                            <field name="gender"/>
+                            <newline/>
+                        </group>
+                        <group string="Дуудлагын бүртгэл">
+                            <group>
+                                <field name="number" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="direction" widget="radio" attrs="{'readonly':[('state','=','done')]}"  />
+                            </group>
+                            <group>
+                                <field name="description" placeholder="Description..." attrs="{'readonly':[('state','=','done')]}" />
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="assigned_user_id" options="{'no_create':True}" attrs="{'readonly':[('state','=','done')]}"/>
+                                </group>
+                                <group>
+                                    <field name="date" attrs="{'readonly':[('state','=','done')]}"/>
+                                </group>
+                                <!-- <group>
+                                    <button string="Мессеж илгээх" name="action_sent_sms_to_emp" class='btn-warning' type="object" attrs="{'readonly':[('state','=','done')]}"/>
+                                </group> -->
+                                <!-- <group>
+                                    <field name="sms_notf_emp_id" groups="base.group_no_one"/>
+                                    <field name="auto_notf_id" groups="base.group_no_one"/>
+                                    <field name="notf_state" attrs="{'invisible':[('notf_state','=',False)]}"/>
+                                </group> -->
+                            </group>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Дуудлагын бүртгэл">
+                            <field name="date_open" force_save="1" attrs="{'readonly':[('state','=','done')]}"/>
+                            <label for="duration"/>
+
+                            <div>
+                                <button style="pointer-events: none;" class="oe_inline badge badge-secondary">
+                                    <field name="duration" widget="crm_time_counter" help="Time the currently logged user spent on this workorder."/>
+                                </button>
+                            </div>
+                            <field name="date_closed" force_save="1"/>
+                            <field name="user_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="priority" widget="priority" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="lead_sent" widget="boolean_toggle" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="complaint_sent" widget="boolean_toggle" attrs="{'readonly':[('state','=','done')]}"/>
+                            <button name="create_lead" string="Сэжим үүсгэх" type="object" class="btn-primary" attrs="{'invisible':['|',('lead_id','!=',False),('lead_sent','=',False)],'readonly':[('state','=','done')]}"/>
+                            <button name="create_feedback" string="Гомдол үүсгэх" class='btn-danger' type="object" attrs="{'invisible':[('complaint_sent','=',False)],'readonly':[('state','=','done')]}"/>
+                            <field name="lead_id" attrs="{'invisible':[('lead_id','=',False)]}" readonly="1"/>
+                            <field name="feedback_id" attrs="{'invisible':[('feedback_id','=',False)]}" readonly="1"/>
+                            <newline/>
+                        </group>
+                    </group>
+                    <group col='8' string='Developer option fields' groups="base.group_no_one" invisible="1">
+                        <field name='call_type' force_save='1' groups='base.group_no_one'/>
+                        <field name="is_user_working" groups='base.group_no_one'/>
+                    </group>
+                    <notebook>
+                        <!-- <page string="Дуудлагууд" name="calls">
+                            <field name="before_crm_call_ids" nolabel="1" context="{'tree_view_ref': 'mw_crm_call.crm_call_tree_view', 'form_view_ref':'mandal_service_call.crm_call_form_inh_view'}"/>
+                        </page> -->
+                      
+                        <page string="Борлуулалт">
+                            <group>
+                                <!-- <field name="insurance_contract_ids" readonly="1" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="insurance_product_id"/>
+                                        <field name="draft_lead_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="broker_id" optional="hide"/>
+                                        <field name="insurance_fee" sum="SUM" optional="show"/>
+                                        <field name="total_evaluation" sum="SUM" optional="show"/>
+                                        <field name="department_id" optional="hide"/>
+                                        <field name="branch_id" optional="hide"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field> -->
+                            </group>
+                        </page>
+                        <page name='insurance_policy' string="Захиалгын мөрүүд">
+                            <!-- <field name="insurance_contract_policy_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}"/> -->
+                        </page>
+                        <page string="Холбоо хамаарал" name="depends">
+                            <group attrs="{'inivisble':[('partner_depend_deed_ids','=',False)]}">
+                                <field name="partner_depend_deed_ids" widget="many2many_tags"/>
+                            </group>
+                            <field name="partner_depend_real_ids" nolabel="1" string="Яаралтай үед холбоо барих" attrs="{'readonly':[('state','=','done')]}">
+                                <form>
+                                    <group col="6">
+                                        <field name="partner_id" string="Байгаа харилцгачтай холбох"/>
+                                        <field name="name"/>
+                                        <field name="phone"/>
+                                        <field name="vat"/>
+                                        <field name="depend_type_id" required="1" options="{'no_create':True, 'no_open':True}"/>
+                                    </group>
+                                </form>
+                                <tree>
+                                    <field name="partner_id"/>
+                                    <field name="name"/>
+                                    <field name="phone"/>
+                                    <field name="vat" optional="show"/>
+                                    <field name="depend_type_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Tur haav -->
+    <!-- <record id="crm_call_form_view" model="ir.ui.view">
+        <field name="name">CRM - Phone Call Form</field>
+        <field name="model">crm.call</field>
+        <field name="arch" type="xml">
+            <form string="Phone Call">
+                <header>
+                    <field name="state" nolabel="1" widget="statusbar" options="{'clickable': 1}"/>
+                </header>
+                <sheet string="Phone Call">
+                    <div class="oe_button_box" name="button_box">
+                       <button class="oe_stat_button" name="action_make_meeting" type="object" icon="fa-calendar fa-fw">
+                           <span>Schedule<br/>A Meeting</span>
+                       </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1" widget="phone"/>
+                            <field name="partner_id" options="{'no_create':True}"/>
+                            <field name="number"/>
+                            <field name="lastname"/>
+                            <field name="gender"/>
+                            <field name="vat"/>
+                        </group>
+                        <group>
+                            <field name="call_type_id" required="1" options="{'no_create':True}"/>
+                            <field name="direction" widget="radio"/>
+                            <field name="user_id" options="{'no_create':True}"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="date_open" force_save="1"/>
+                            <field name="assigned_user_id" options="{'no_create':True}"/>
+                            <field name="date_closed" force_save="1"/>
+                            <label for="duration"/>
+                            <div>
+                                <button style="pointer-events: none;" class="oe_inline badge badge-secondary">
+                                    <field name="duration" widget="crm_time_counter" help="Time the currently logged user spent on this workorder."/>
+                                </button>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="description" placeholder="Description..."/>
+                            <field name="is_user_working" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Дуудлагууд" name="calls">
+                                <field name="crm_call_history" nolabel="1"/>
+                                <field name="before_crm_call_ids" nolabel="1" 
+                                context="{'tree_view_ref': 'mw_crm_call.crm_call_tree_view', 'form_view_ref':'mandal_service_call.crm_call_form_inh_view'}"/>
+                        </page>
+                        <page string="Холбоо хамаарал" name="depends">
+                            <group attrs="{'inivisble':[('partner_depend_deed_ids','=',False)]}">
+                                <field name="partner_depend_deed_ids" widget="many2many_tags"/>
+                            </group>
+                            <group string="Яаралтай үед холбоо барих"/>
+                            <field name="partner_depend_real_ids" nolabel="1">
+                                <tree>
+                                    <field name="partner_id"/>
+                                    <field name="name"/>
+                                    <field name="phone"/>
+                                    <field name="vat" optional="show"/>
+                                    <field name="depend_type_id"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="partner_id" string="Байгаа харилцагчтай холбох"/>
+                                        <field name="name"/>
+                                        <field name="phone"/>
+                                        <field name="vat"/>
+                                        <field name="depend_type_id" required="1" options="{'no_create':True, 'no_open':True}"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record> -->
+
+    <record id="crm_call_tree_view" model="ir.ui.view">
+        <field name="name">CRM - Logged Phone Calls Tree</field>
+        <field name="model">crm.call</field>
+        <field name="arch" type="xml">
+            <tree string="Phone Calls" decoration-success="state=='done'" decoration-info="state=='pending'">
+                <field name="date"/>
+                <field name="date_open"/>
+                <field name="date_closed"/>
+                <field name="number"/>
+                <field name="name"/>
+                <field name="partner_id" options="{'no_create':True}"/>
+                <field name="call_type_id" required="1" options="{'no_create':True}"/>
+                <field name="user_id"/>
+                <field name="assigned_user_id" options="{'no_create':True}"/>
+                <field name="duration"/>
+                <field name="direction"/>
+                <field name="state"/>
+                <button string="Дэлгэрүүлж харах" name="action_view_form" icon="fa-hand-pointer-o" type="object"/>
+                <field name="create_date" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="crm_call_calendar_view" model="ir.ui.view">
+        <field name="name">CRM - Phone Calls Calendar</field>
+        <field name="model">crm.call</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Phone Calls" date_start="date" color="user_id" date_delay="duration">
+                <field name="name"/>
+                <field name="partner_id"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="crm_call_filter" model="ir.ui.view">
+        <field name="name">CRM - Phone Calls Search</field>
+        <field name="model">crm.call</field>
+        <field name="arch" type="xml">
+            <search string="Search Phonecalls">
+                <field name="name" string="Дугаар" filter_domain="['|','|',('name','ilike',self),('number','ilike',self),('partner_id','ilike',self)]"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="assigned_user_id"/>
+                <filter string="Миний дуудлага" name="my_phonecalls" domain="[('user_id', '=', uid)]"/>
+                <filter string="Оноогдоогүй" name="unassigned" domain="[('user_id','=',False)]"/>
+                <separator/>
+                <filter string="Хийх" name="current" domain="[('state','in',('open','pending'))]"/>
+                <separator/>
+                <filter string="Ирэх дуудлага" name="in_calls" domain="[('direction','=','in')]"/>
+                <filter string="Залгах дуудлага" name="out_calls" domain="[('direction','=','out')]"/>
+                <separator/>
+                <filter name="date" string="Date" date="date"/>
+                <separator/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="user_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Харилцагч" name="groupby_partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Хариуцагч" name="groupby_responsible" context="{'group_by':'user_id'}"/>
+                    <filter string="Шилжүүлсэн ажилтан" name="groupby_assignee" context="{'group_by':'assigned_user_id'}"/>
+                    <filter string="Үүсгэсэн" name="groupby_creation" help="Creation Date" context="{'group_by':'create_date'}"/>
+                    <filter string="Төлөв" name="groupby_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="crm_call_action" model="ir.actions.act_window">
+        <field name="name">Миний дуудлага</field>
+        <field name="res_model">crm.call</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" ref="crm_call_tree_view"/>
+        <field name="context">{}</field>
+        <field name="domain">[('user_id','=',uid)]</field>
+    </record>
+
+    <record id="crm_call_action_all" model="ir.actions.act_window">
+        <field name="name">Бүх дуудлага</field>
+        <field name="res_model">crm.call</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="crm_call_tree_view"/>
+        <field name="context">{'create':False}</field>
+    </record>
+
+    <record id="crm_call_conf_form_view" model="ir.ui.view">
+        <field name="name">call.conf.form</field>
+        <field name="model">crm.call.conf</field>
+        <field name="arch" type="xml">
+            <form string="Phone Call">
+                <sheet string="Phone Call">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="call_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_call_conf_tree_view" model="ir.ui.view">
+        <field name="name">crm_call_conf_tree</field>
+        <field name="model">crm.call.conf</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+                <field name="call_type"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="crm_call_conf_filter" model="ir.ui.view">
+        <field name="name">crm_call_conf_filter</field>
+        <field name="model">crm.call.conf</field>
+        <field name="arch" type="xml">
+            <search string="Search Phonecalls">
+                <field name="name"/>
+                <field name="call_type"/>
+            </search>
+        </field>
+    </record>
+    <record id="crm_call_conf_action" model="ir.actions.act_window">
+        <field name="name">Дуудлага тохиргоо</field>
+        <field name="res_model">crm.call.conf</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

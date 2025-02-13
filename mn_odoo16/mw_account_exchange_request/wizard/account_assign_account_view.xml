@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_assign_account_form" model="ir.ui.view">
+            <field name="name">account.assign.account.form</field>
+            <field name="model">account.assign.account</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Make Expense">
+                    <group col="2" colspan="4">
+                     <field name="user_id" widget="selection" />
+                     <field name="type" />
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <group colspan="4" col="6">
+                        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
+                        <button icon="gtk-execute" string="Assign" name="action_create" type="object"/>
+                   </group>
+	           </form>
+            </field>
+        </record>
+        
+        <record id="account_assign_account" model="ir.actions.act_window">
+            <field name="name">Assign accountant</field>
+            <field name="res_model">account.assign.account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_assign_account_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

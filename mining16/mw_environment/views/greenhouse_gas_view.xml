@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- ENV OBJECT -->
+	<record model="ir.ui.view" id="env_object_tree">
+		<field name="name">env.object.tree</field>
+		<field name="model">env.object</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Объектууд" >
+				<field name="name"/>
+				<field name="mining_location"/>
+				<field name="object_uom"/>
+				<field name="area_size"/>
+				<field name="user_id"/>
+				<field name="object_location_id"/>
+				<field name="object_company_id"/>
+				<field name="date_object"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+				<field name="technical_ids" invisible="1"/>
+				<field name="heat" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_object_form">
+		<field name="name">env.object.form</field>
+		<field name="model">env.object</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="area_size"/>
+							<field name="object_uom"/>
+						</group>
+						<group>
+							<field name="mining_location" options="{'no_create': True, 'no_open':True}"/>
+							<field name="object_company_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="object_location_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="date_object"/>
+						</group>
+						<group string="Бүртгэсэн хэрэглэгчийн мэдээлэл">
+							<field name="user_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="sector_id" invisible="1"/>
+							<field name="heat" invisible="1"/>
+						</group>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+					<notebook>
+						<page string="Техникүүд">
+							<button name="technic_import" string="Хөрөнгө импортлох" class="btn-success" type="object" attrs="{'invisible': [('technical_ids', '!=', [])]}"/>
+							<button name="clear_lines" string="Мөр устгах" class="btn-danger" type="object" attrs="{'invisible': [('technical_ids', '=', [])]}"/>
+							<field name="technical_ids" widget="one2many">
+								<tree editable="bottom" create='false'>
+									<field name="asset_source_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+									<field name="quantity" readonly="1"/>
+									<field name="capacity"/>
+									<field name="technic_uom" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+									<field name="description"/>
+									<field name="technic_type" widget="boolean_toggle"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_object_search" model="ir.ui.view">
+		<field name="name">env.object.search</field>
+		<field name="model">env.object</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="name"/>
+					<field name="area_size"/>
+					<field name="object_uom"/>
+					<field name="date_object"/>
+					<field name="user_id"/>
+					<field name="object_location_id"/>
+					<field name="object_company_id"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="name" string="Объект нэр" context="{'group_by':'name'}"/>
+					<filter name="user_id" string="Үүсгэсэн Хэрэглэгч" context="{'group_by':'user_id'}"/>
+					<filter name="object_location_id" string="Салбар" context="{'group_by':'object_location_id'}"/>
+					<filter name="object_company_id" string="Компани" context="{'group_by':'object_company_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_object" model="ir.actions.act_window">
+			<field name="name">Объектууд</field>
+			<field name="res_model">env.object</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="view_id" ref="env_object_tree"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+				Энд дарж объектуудын бүртгэлээ хийнэ үү.
+				</p>
+			</field>
+	</record>
+
+	<!-- ********************** ENV TECHNIC **************************************************** -->
+	<record model="ir.ui.view" id="env_technical_tree">
+		<field name="name">env.technical.tree</field>
+		<field name="model">env.technical</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Эх үүсвэрүүдийн бүртгэл" delete='false' create='false'>
+				<field name="asset_source_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+				<field name="quantity" readonly="1"/>
+				<field name="capacity" readonly="1"/>
+				<field name="technic_uom" readonly="1"/>
+				<field name="description" readonly="1"/>
+				<field name="env_object" readonly="1"/>
+				<field name="technic_type" readonly="1"/>
+				<field name="user_id"/>
+				<field name="company_id"/>
+				<field name="location_id"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_technical_form">
+		<field name="name">env.technical.form</field>
+		<field name="model">env.technical</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="2">
+						<group>
+							<field name="asset_source_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="env_object" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="technic_type" widget="boolean_toggle" readonly="1"/>
+						</group>
+						<group>
+							<field name="quantity" readonly="1"/>
+							<field name="capacity" readonly="1"/>
+							<field name="technic_uom" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="description"/>
+						</group>
+					</group>
+					<group string="Бүртгэсэн хэрэглэгчийн мэдээлэл">
+						<field name="user_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="location_id" options="{'no_create': True, 'no_open':True}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_technical_search" model="ir.ui.view">
+		<field name="name">env.technical.search</field>
+		<field name="model">env.technical</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="asset_source_id"/>
+					<field name="env_object"/>
+					<field name="technic_type"/>
+					<field name="quantity"/>
+					<field name="user_id"/>
+					<field name="company_id"/>
+					<field name="location_id"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="asset_source_id" string="Техникийн нэр" context="{'group_by':'asset_source_id'}"/>
+					<filter name="env_object" string="Байгууламж" context="{'group_by':'env_object'}"/>
+					<filter name="user_id" string="Үүсгэсэн Хэрэглэгч" context="{'group_by':'user_id'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+					<filter name="location_id" string="Байрлал" context="{'group_by':'location_id'}"/>
+					<filter name="technic_type" string="Түлш эсэх" context="{'group_by':'technic_type'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_technical" model="ir.actions.act_window">
+			<field name="name">Эх үүсвэрүүдийн бүртгэл</field>
+			<field name="res_model">env.technical</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="view_id" ref="env_technical_tree"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Энд дарж эх үүсвэрүүдийн бүртгэлээ хийнэ үү.
+					</p>
+			</field>
+	</record>
+
+	<!-- ********************** ENV TECHNIC **************************************************** -->
+
+	<record model="ir.ui.view" id="env_technic_tree">
+		<field name="name">env.technic.tree</field>
+		<field name="model">env.technic</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Түлшний хэрэглээ(Scope 1)">
+				<field name="mining_location"/>
+				<field name="date"/>
+				<field name="technic_id"/>
+				<field name="owner_type"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="fuel_amount"/>
+				<field name="uom_id"/>
+				<field name="fuel_type"/>
+				<field name="technic_category"/>
+				<field name="branch_id"/>
+				<field name="co2e_co2" sum="Нийт" optional="hide"/>
+				<field name="co2e_ch4" sum="Нийт" optional="hide"/>
+				<field name="co2e_n20" sum="Нийт" optional="hide"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_technic_form">
+		<field name="name">env.technic.form</field>
+		<field name="model">env.technic</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group col="2">
+						<group>
+							<field name="date_from"/>
+							<field name="mining_location" options="{'no_create': True, 'no_open':True}"/>
+							<field name="branch_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="owner_type"/>
+							<field name="fuel_amount"/>
+							<field name="date"/>
+						</group>
+						<group>
+							<field name="date_to"/>
+							<field name="technic_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="engine_capacity"/>
+							<field name="technic_category" widget="selection"/>
+							<field name="fuel_type"/>
+							<field name="uom_id" options="{'no_create': True, 'no_open':True}"/>
+						</group>
+					</group>
+					<group string="Итгэлцүүр">
+						<field name="kg"/>
+						<field name="tn"/>
+						<field name="tj"/>
+						<field name="kg_CO2"/>
+						<field name="kg_CH4"/>
+						<field name="kg_N2O"/>
+						<field name="tn_CO2"/>
+						<field name="tn_CH4"/>
+						<field name="tn_N2O"/>
+						<field name="co2e_co2"/>
+						<field name="co2e_ch4"/>
+						<field name="co2e_n20"/>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+					<group string="Бүртгэсэн хэрэглэгчийн мэдээлэл">
+						<field name="user_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_technic_search" model="ir.ui.view">
+		<field name="name">env.technic.search</field>
+		<field name="model">env.technic</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="technic_id"/>
+					<field name="date"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="mining_location"/>
+					<field name="technic_category"/>
+					<field name="branch_id"/>
+					<field name="user_id"/>
+					<field name="company_id"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="technic_id" string="Техник" context="{'group_by':'technic_id'}"/>
+					<filter name="mining_location" string="Үйлдвэр, Уурхай" context="{'group_by':'mining_location'}"/>
+					<filter name="owner_type" string="Эзэмшлийн төрөл" context="{'group_by':'owner_type'}"/>
+					<filter name="user_id" string="Үүсгэсэн Хэрэглэгч" context="{'group_by':'user_id'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+					<filter name="technic_category" string="Ангилал" context="{'group_by':'technic_category'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_technic" model="ir.actions.act_window">
+		<field name="name">Түлшний хэрэглээ(Scope 1)</field>
+		<field name="res_model">env.technic</field>
+		<field name="view_mode">tree,form,graph</field>
+		<field name="view_id" ref="env_technic_tree"/>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">
+				Энд дарж түлшний бүртгэлээ хийнэ үү.
+				</p>
+		</field>
+	</record>
+
+
+	<!-- ********************** ENV MINING QUANT **************************************************** -->
+
+	<record model="ir.ui.view" id="env_mining_quant_tree">
+		<field name="name">env.mining.quant.tree</field>
+		<field name="model">env.mining.quant</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Түлшний хэрэглээ(Scope 1)">
+				<field name="mining_location"/>
+				<field name="date"/>
+				<field name="mining_category"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="mining_amount"/>
+				<field name="uom_id"/>
+				<field name="ave_revolution"/>
+				<field name="user_id" optional="hide"/>
+				<field name="company_id" optional="hide"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_mining_quant_form">
+		<field name="name">env_mining_quant.form</field>
+		<field name="model">env.mining.quant</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group col="2">
+						<group>
+							<field name="date_from"/>
+							<field name="mining_location" options="{'no_create': True, 'no_open':True}"/>
+							<field name="mining_category"/>
+							<field name="ave_revolution"/>
+						</group>
+						<group>
+							<field name="date_to"/>
+							<field name="mining_amount" options="{'no_create': True, 'no_open':True}"/>
+							<field name="uom_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="date"/>
+						</group>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+					<group string="Бүртгэсэн хэрэглэгчийн мэдээлэл">
+						<field name="user_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_mining_quant_search" model="ir.ui.view">
+		<field name="name">env.mining.quant.search</field>
+		<field name="model">env.mining.quant</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="mining_location"/>
+					<field name="mining_category"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="mining_amount"/>
+					<field name="uom_id"/>
+					<field name="ave_revolution"/>
+					<field name="user_id"/>
+					<field name="company_id"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="mining_location" string="Үйлдвэр, Уурхай" context="{'group_by':'mining_location'}"/>
+					<filter name="mining_category" string="Ашигт малтмалын төрөл төрөл" context="{'group_by':'mining_category'}"/>
+					<filter name="user_id" string="Үүсгэсэн Хэрэглэгч" context="{'group_by':'user_id'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_mining_quant" model="ir.actions.act_window">
+		<field name="name">Олборлотын хэмжээ</field>
+		<field name="res_model">env.mining.quant</field>
+		<field name="view_mode">tree,form,graph</field>
+		<field name="view_id" ref="env_mining_quant_tree"/>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">
+				Энд дарж олборлолтын бүртгэлээ хийнэ үү.
+				</p>
+		</field>
+	</record>
+
+
+	<!-- ********************** ENV CONTRACT SHIPPING **************************************************** -->
+	<record model="ir.ui.view" id="env_contract_shipping_tree">
+		<field name="name">env.contract.shipping.tree</field>
+		<field name="model">env.contract.shipping</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Гэрээт тээврийн мэдээлэл(Scope 3)">
+				<field name="technic_id"/>
+				<field name="date"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="shipping_purpose"/>
+				<field name="shipping_way"/>
+				<field name="shipping_way_km"/>
+				<field name="res"/>
+				<field name="total_km"/>
+				<field name="co2e_co2" sum="Нийт" optional="hide"/>
+				<field name="co2e_ch4" sum="Нийт" optional="hide"/>
+				<field name="co2e_n20" sum="Нийт" optional="hide"/>
+				<field name="user_id" optional="hide"/>
+				<field name="company_id" optional="hide"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+				<field name="branch_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_contract_shipping_form">
+		<field name="name">env.contract.shipping.form</field>
+		<field name="model">env.contract.shipping</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group col="2">
+						<field name="technic_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="engine_capacity"/>
+						<field name="date"/>
+					</group>
+					<group col="2">
+						<group>
+							<field name="mining_location" options="{'no_create': True, 'no_open':True}"/>
+							<field name="date_from"/>
+							<field name="shipping_purpose"/>
+							<field name="shipping_way_km"/>
+							<field name="total_km"/>
+						</group>
+						<group>
+							<field name="env_object" options="{'no_create': True, 'no_open':True}"/>
+							<field name="date_to"/>
+							<field name="shipping_way" options="{'no_create': True, 'no_open':True}"/>
+							<field name="res"/>
+							<field name="fuel_amount"/>
+						</group>
+					</group>
+					<group string="Итгэлцүүр">
+						<field name="tj"/>
+						<field name="kg_CO2"/>
+						<field name="kg_CH4"/>
+						<field name="kg_N2O"/>
+						<field name="co2"/>
+						<field name="ch4"/>
+						<field name="n2O"/>
+						<field name="co2e_co2"/>
+						<field name="co2e_ch4"/>
+						<field name="co2e_n20"/>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+					<group string="Бүртгэсэн хэрэглэгчийн мэдээлэл">
+						<field name="user_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="branch_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_contract_shipping_search" model="ir.ui.view">
+		<field name="name">env.contract.shipping.search</field>
+		<field name="model">env.contract.shipping</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="technic_id"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="shipping_purpose"/>
+					<field name="shipping_way"/>
+					<field name="shipping_way_km"/>
+					<field name="res"/>
+					<field name="total_km"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="technic_id" string="Техник" context="{'group_by':'technic_id'}"/>
+					<filter name="user_id" string="Үүсгэсэн Хэрэглэгч" context="{'group_by':'user_id'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	
+	<record id="action_env_contract_shipping" model="ir.actions.act_window">
+		<field name="name">Гэрээт тээврийн мэдээлэл(Scope 3)</field>
+		<field name="res_model">env.contract.shipping</field>
+		<field name="view_mode">tree,form,graph</field>
+		<field name="view_id" ref="env_contract_shipping_tree"/>
+		<field name="search_view_id" ref="env_contract_shipping_search"/>
+		<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+				Энд дарж гэрээт тээврийн бүртгэлээ хийнэ үү.
+				</p>
+		</field>
+	</record>
+
+
+	<!-- ********************** TECHNIC EQUIPMENT **************************************************** -->
+	<record model="ir.ui.view" id="technic_equipment_tree">
+		<field name="name">technic.equipment.tree</field>
+		<field name="model">technic.equipment</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Техникийн мэдээлэл" delete='false' create='false' decoration-bf="state=='draft'" decoration-danger="state=='stopped'" decoration-muted="state=='inactive'" decoration-info="state=='parking'" decoration-warning="state=='repairing'" decoration-success="state=='working'" multi_edit="1">
+				<field name="park_number" string='Машин техникийн марк'/>
+				<field name="branch_id"/>
+				<field name="model_id"/>
+				<field name="technic_setting_id"/>
+				<field name="technic_type" readonly="1"/>
+				<field name="owner_type"/>
+				<field name="user_id"/>
+				<field name="company_id"/>
+				<field name="state" optional='hide'/>
+				<field name="avg_fuel" optional='hide'/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="technic_equipment_form">
+		<field name="name">technic.equipment.form</field>
+		<field name="model">technic.equipment</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<field name="image" widget="image" class="oe_left oe_avatar" style="padding:5px;padding-right: 10px"/>
+					<div class="oe_title">
+						<label for="park_number" class="oe_edit_only" string='Машин техникийн марк'/>
+						<h2>
+							<field name="park_number" class="oe_inline" string='Машин техникийн марк'/>
+						</h2>
+					</div>
+					<div class="oe_title">
+						<field name="total_odometer" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+						<field name="odometer_unit" style="font-weight:bold;font-size:14pt;padding-left:7px"/>
+						<br/>
+						<field name="total_km"/>
+						<field name="total_km" widget="odometer_widget"/>
+						<field name="state" invisible="1"/>
+					</div>
+					<group col="2">
+						<group>
+							<field name="technic_setting_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="technic_type" readonly="1"/>
+							<field name="model_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="owner_type" readonly="1"/>
+						</group>
+						<group>
+							<field name="user_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="branch_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+							<field name="company_id" options="{'no_create': True, 'no_open':True}" readonly="1"/>
+						</group>
+					</group>
+					<group col="2">
+						<group string="Хөдөлгүүр">
+							<field name="engine_power" readonly="1"/>
+							<field name="gearbox_type" readonly="1"/>
+						</group>
+						<group string="Түлш" >
+							<field name="fuel_medium_idle"/>
+							<field name="engine_capacity" readonly="1"/>
+						</group>
+					</group>
+					<group>
+						<group string="Бүртгэл">
+							<field name="avg_fuel" readonly="1"/>
+							<button name="total_fuel_all" string="Бордуулах" class="btn-success" type="object" groups="base.group_no_one"/>
+						</group>
+						<field name="technic_fuel_ids" widget="one2many">
+							<tree>
+								<field name="date_from"/>
+								<field name="date_to"/>
+								<field name="mining_location"/>
+								<field name="technic_category"/>
+								<field name="fuel_type"/>
+								<field name="fuel_amount"/>
+								<field name="uom_id" options="{'no_create': True, 'no_open':True}"/>
+								<field name="branch_id" options="{'no_create': True, 'no_open':True}" optional="hide"/>
+								<field name="user_id" options="{'no_create': True, 'no_open':True}" optional="hide"/>
+								<field name="company_id" options="{'no_create': True, 'no_open':True}" optional="hide"/>
+							</tree>
+						</field>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+		
+	<record id="technic_equipment_search" model="ir.ui.view">
+		<field name="name">technic.equipment.search</field>
+		<field name="model">technic.equipment</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="technic_setting_id"/>
+					<field name="technic_type"/>
+					<field name="engine_power"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="technic_type" string="Техникийн төрөл" context="{'group_by':'technic_type'}"/>
+					<filter name="engine_power" string="Хөдөлгүүрийн төрөл" context="{'group_by':'engine_power'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_technic_equipment" model="ir.actions.act_window">
+		<field name="name">Техникийн мэдээлэл</field>
+		<field name="res_model">technic.equipment</field>
+		<field name="view_mode">tree,form,graph</field>
+		<field name="domain">[('state','=','working')]</field>
+		<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+				Энд дарж түлшний бүртгэлээ хийнэ үү.
+				</p>
+		</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+			(0, 0, {'view_mode': 'tree', 'view_id': ref('mw_environment.technic_equipment_tree')}),
+			(0, 0, {'view_mode': 'form', 'view_id': ref('mw_environment.technic_equipment_form')})]"/>
+	</record>
+
+	<!-- ********************** ENV HEAT **************************************************** -->
+	<record model="ir.ui.view" id="env_heat_tree">
+		<field name="name">env.heat.tree</field>
+		<field name="model">env.heat</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Дулааны хэрэглээ" >
+				<field name="mining_location"/>
+				<field name="date"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="source"/>
+				<field name="uom_id"/>
+				<field name="user_id"/>
+				<field name="company_id"/>
+				<field name="desc"/>
+				<field name="sector_id" optional="hide"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_heat_form">
+		<field name="name">env.heat.form</field>
+		<field name="model">env.heat</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group col="2">
+						<group>
+							<field name="date_from"/>
+							<field name="mining_location" options="{'no_create': True, 'no_open':True}"/>
+							<field name="uom_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="sector_id" invisible="1"/>
+							<field name="source"/>
+							<field name="date"/>
+						</group>
+						<group>
+							<field name="date_to"/>
+							<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="user_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="desc"/>
+						</group>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+					<notebook>
+						<page string="Объект" attrs="{'invisible': [('source', '!=', 'coal')]}">
+							<!-- <button name="object_import" string="Объект импортлох" class="btn-success" type="object" attrs="{'invisible': [('line_ids', '!=', [])]}"/>
+							<button name="clear_lines" string="Мөр устгах" class="btn-danger" type="object" attrs="{'invisible': [('line_ids', '=', [])]}"/> -->
+							<field name="line_ids" widget="one2many">
+								<tree editable="bottom">
+									<field name="env_object" options="{'no_create': True, 'no_open':True}"/>
+									<field name="used_coal" sum="Нийт"/>
+									<field name="used_calor_coal" sum="Нийт"/>
+									<field name="mining_location" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_heat_search" model="ir.ui.view">
+		<field name="name">env.heat.search</field>
+		<field name="model">env.heat</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="mining_location"/>
+					<field name="date"/>
+					<field name="source"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="uom_id"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="mining_location" string="Үйлдвэр, Уурхай" context="{'group_by':'mining_location'}"/>
+					<filter name="user_id" string="Үүсгэсэн Хэрэглэгч" context="{'group_by':'user_id'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_heat" model="ir.actions.act_window">
+			<field name="name">Дулааны хэрэглээ</field>
+			<field name="res_model">env.heat</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="view_id" ref="env_heat_tree"/>
+			<field name="search_view_id" ref="env_heat_search"/>
+			<field name="help" type="html">
+					<p class="oe_view_nocontent_create">
+					Энд дарж дулааны хэрэглээний бүртгэлээ хийнэ үү.
+					</p>
+			</field>
+	</record>
+
+	<!-- ********************** ENV TSEH **************************************************** -->
+	<record model="ir.ui.view" id="env_tseh_tree">
+		<field name="name">env.tseh.tree</field>
+		<field name="model">env.tseh</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Цахилгаан эрчим хүчний хэрэглээ(Scope 2)">
+				<field name="mining_location"/>
+				<field name="date"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="consumption_electricity" sum="Нийт"/>
+				<field name="downtime" sum="Нийт"/>
+				<field name="savings" sum="Нийт"/>
+				<field name="install_capacity" sum="Нийт"/>
+				<field name="pay_off" sum="Нийт"/>
+				<field name="mvt_time" sum="Нийт" optional="hide"/>
+				<field name="tonn_mvt" sum="Нийт" optional="hide"/>
+				<field name="tonn_co2" sum="Нийт" optional="hide" />
+				<field name="gg_co2" sum="Нийт"/>
+				<field name="uom_id" options="{'no_create': True, 'no_open':True}"/>
+				<field name="user_id"/>
+				<field name="company_id"/>
+				<field name="sector_id" optional="hide"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_tseh_form">
+		<field name="name">env.tseh.form</field>
+		<field name="model">env.tseh</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group col="2">
+						<group>
+							<field name="date_from"/>
+							<field name="mining_location" options="{'no_create': True, 'no_open':True}"/>
+							<field name="consumption_electricity"/>
+							<field name="downtime"/>
+							<field name="savings"/>
+							<field name="date"/>
+						</group>
+						<group>
+							<field name="date_to"/>
+							<field name="install_capacity"/>
+							<field name="pay_off"/>
+							<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="user_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="uom_id" options="{'no_create': True, 'no_open':True}"/>
+							<field name="sector_id" invisible="1"/>
+						</group>
+					</group>
+					<group string="Итгэлцүүр">
+						<field name="mvt_time"/>
+						<field name="tonn_mvt"/>
+						<field name="tonn_co2"/>
+						<field name="gg_co2"/>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+					<notebook>
+						<page string="Объект">
+							<!-- <button name="object_import" string="Объект импортлох" class="btn-success" type="object" attrs="{'invisible': [('line_ids', '!=', [])]}"/>
+							<button name="clear_lines" string="Мөр устгах" class="btn-danger" type="object" attrs="{'invisible': [('line_ids', '=', [])]}"/> -->
+							<field name="line_ids" widget="one2many">
+								<tree editable="bottom">
+									<field name="env_object" options="{'no_create': True, 'no_open':True}"/>									
+									<field name="electric_consumption" sum="Нийт"/>
+									<field name="mining_location" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_tseh_search" model="ir.ui.view">
+		<field name="name">env.tseh.search</field>
+		<field name="model">env.tseh</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="mining_location"/>
+					<field name="consumption_electricity"/>
+					<field name="downtime"/>
+					<field name="savings"/>
+					<field name="install_capacity"/>
+					<field name="pay_off"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="uom_id"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="mining_location" string="Үйлдвэр, Уурхай" context="{'group_by':'mining_location'}"/>
+					<filter name="user_id" string="Үүсгэсэн Хэрэглэгч" context="{'group_by':'user_id'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_tseh" model="ir.actions.act_window">
+			<field name="name">Цахилгаан эрчим хүчний хэрэглээ(Scope 2)</field>
+			<field name="res_model">env.tseh</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="view_id" ref="env_tseh_tree"/>
+			<field name="search_view_id" ref="env_tseh_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+				Энд дарж цахилгаан эрчим хүчний хэрэглээний бүртгэлээ хийнэ үү.
+				</p>
+			</field>
+	</record>
+
+	<!-- ********************** HR MISSION **************************************************** -->
+	<record model="ir.ui.view" id="env_hr_mission_tree">
+		<field name="name">hr.mission.tree</field>
+		<field name="model">hr.mission</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Томилолт" delete='false' create='false'
+				decoration-success="state_type=='done'">
+				<field name="employee_id"/>
+				<field name="name"/>
+				<field name="where"/>
+				<field name="date_come"/>
+				<field name="date_back"/>
+				<field name="flow_id"/>
+				<field name="flow_line_id"/>
+				<field name="state_type" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="env_hr_mission_form">
+		<field name="name">hr.mission.form</field>
+		<field name="model">hr.mission</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group name="form">
+							<field name="name" readonly="1"/>
+							<field name="where" readonly="1"/>
+							<field name="date_come" readonly="1"/>
+							<field name="date_back" readonly="1"/>
+						</group>
+						<group name="2">
+							<field name="employee_id" options="{'no_create': True,'no_open': True}" readonly="1"/>
+							<field name="job_id" options="{'no_create': True,'no_open': True}" readonly="1"/>
+							<field name="department_id" options="{'no_create': True,'no_open': True}" readonly="1"/>
+							<field name="company_id" options="{'no_create': True,'no_open': True}" readonly="1"/>
+						</group>
+						<group>
+							<field name="state_type" invisible="1"/>
+							<field name="flow_line_next_id" invisible="1"/>
+							<field name="flow_line_back_id" invisible="1"/>
+							<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+							<field name="state" invisible="1"/>
+							<field name="is_not_edit" invisible="1"/>
+						</group>
+						<group> 
+							<field name="flow_id" options="{'no_create':True}" required="1" readonly="1"/>
+						</group>
+					</group>
+					<notebook>
+					 <page string="Томилолтын баг" name="mission">
+						<field name="mission_ids" readonly="1">
+							<tree editable="bottom">
+								<field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+								<field name="job_id" options="{'no_create':True}"/>
+							</tree>
+						</field>
+					</page>
+					<page string="Зардал" name="amount">
+					<field name="cost_ids" readonly="1">
+						<tree editable="bottom">
+							<field name="cost_name_id"/>
+							<field name="amount"/>
+							<field name="count"/>
+							<field name="sum"/>
+							<field name="desc"/>
+						</tree>
+					</field>
+					<group class="oe_subtotal_footer oe_right">
+						<field name="total" force-save="1"/>
+						<field name="currency_id" options="{'no_create': True,'no_open': True}"/>
+					</group>
+					</page>
+						<page string="Төлөвийн Түүх">
+							<field name="history_ids" readonly="1">
+								<tree>
+									<field name="user_id"/>
+									<field name="date"/>
+									<field name="flow_line_id"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+		
+	<record id="env_hr_mission_search" model="ir.ui.view">
+		<field name="name">hr.mission.search</field>
+		<field name="model">hr.mission</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="employee_id"/>
+					<field name="name"/>
+					<field name="where"/>
+					<field name="date_come"/>
+					<field name="date_back"/>
+					<field name="flow_id"/>
+					<field name="flow_line_id"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="employee_id" string="Томилолтын ахлагч" context="{'group_by':'employee_id'}"/>
+					<filter name="name" string="Томилолтын зорилго" context="{'group_by':'name'}"/>
+					<filter name="flow_line_id" string="Төлөв" context="{'group_by':'flow_line_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_hr_mission" model="ir.actions.act_window">
+		<field name="name">Ажилчдын бизнес уулзалт</field>
+		<field name="res_model">hr.mission</field>
+		<field name="view_mode">tree,form,graph</field>
+		<field name="domain">[('type','=','out')]</field>
+		<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+				Энд дарж ажилчдын бизнес уулзалтын бүртгэлээ хийнэ үү.
+				</p>
+		</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+			(0, 0, {'view_mode': 'tree', 'view_id': ref('env_hr_mission_tree')}),
+			(0, 0, {'view_mode': 'form', 'view_id': ref('env_hr_mission_form')})]"/>
+	</record>
+
+</odoo>

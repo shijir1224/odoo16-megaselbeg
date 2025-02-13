@@ -1,0 +1,74 @@
+<odoo>
+    <!-- Employee Count Report -->
+    <record id="view_contract_amount_report_pivot" model="ir.ui.view">
+        <field name="name">contract.amount.report.pivot</field>
+        <field name="model">contract.amount.report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="contract_id" type="row"/>
+                <field name="amount_total" type="col"/>
+                <field name="disburse_date" type="row"/>
+                <field name="disburse_amount" type="col"/>
+            </pivot>
+        </field>
+    </record>
+     <record id="view_contract_amount_report_tree" model="ir.ui.view">
+        <field name="name">contract.amount.report.tree</field>
+        <field name="model">contract.amount.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="contract_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="disburse_date"/>
+                <field name="amount_total"/>
+                <field name="amount_paid"/>
+                <field name="amount_balance"/>
+                <field name="payment_type"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_contract_amount_report_search" model="ir.ui.view">
+        <field name="name">contract.amount.report.search</field>
+        <field name="model">contract.amount.report</field>
+        <field name="arch" type="xml">
+            <search >
+                <filter name="contract_id" string="Гэрээ"  context="{'group_by':'contract_id'}"/>
+                <filter name="partner" string="Харилцагч"  context="{'group_by':'partner_id'}"/>
+                <filter name="pay_sel" string="Гэрээнд оролцох хэлбэр"  context="{'group_by':'pay_sel'}"/>
+                <filter name="date_from" string="Гэрээ эхлэх огноо"   context="{'group_by':'date_from'}"/>
+                <filter name="date_to" string="Гэрээ дуусах огноо"   context="{'group_by':'date_to'}"/>
+                <filter name="process_type" string="Гэрээний явцын төлөв"   context="{'group_by':'process_type'}"/>
+                <filter string="Энэ долоо хоног төлөх" name="this_week" domain="[
+                ('paid_date', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                ('paid_date', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <filter string="Энэ долоо хоног төлсөн" name="this_week_done" domain="[
+                ('disburse_date', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                ('disburse_date', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <separator/>
+                <filter name="this_month_done" string="Энэ сар төлсөн" domain="[('disburse_date','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="this_month" string="Энэ сар төлөх" domain="[('paid_date','like',time.strftime('%%Y-%%m'))]"/>
+                <separator/>
+                <filter name="this_month_end" string="Энэ сар гэрээ дуусах" domain="[('date_to','like',time.strftime('%%Y-%%m'))]"/>
+                <separator/>
+                <filter name="disburse" string="Үлдэгдэлтэй" domain="[('amount_balance','>','0')]"/>
+                <separator/>
+                <filter name="done_disburse" string="Төлбөр дууссан" domain="[('amount_balance','=',0)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_contract_amount_report" model="ir.actions.act_window">
+        <field name="name">Төлөлтийн тайлан</field>
+        <field name="res_model">contract.amount.report</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="context">{'search_default_pay_sel': 1,'search_default_contract_id': 1}</field>
+        <field name="search_view_id" ref="view_contract_amount_report_search"/>
+    </record>
+
+
+    <menuitem action="action_contract_amount_report" id="menu_contract_amount_report" parent="mw_contract.menu_contract_main" sequence="4"/>
+
+</odoo>

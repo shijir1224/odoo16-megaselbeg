@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_comparison_view_form_dynamic_workflow" model="ir.ui.view" >
+		<field name="name">purchase.order.comparison.form</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="inherit_id" ref="mw_purchase_comparison.purchase_order_comparison_view_form"/>
+		<field name="arch" type="xml">
+			<xpath expr='//form/header' position="replace">
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': ['|',('state_type','=','ended'),('flow_line_next_id', '=', False)]}"/>
+					<button string="Return" type="object" name="action_draft_stage" confirm="Are you sure to return?"
+							class="btn-warning" attrs="{'invisible': [('state','in', ('draft', 'ended'))]}" invisible="1"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', '!=', 'cancel'),('flow_id','=',False)]}"/>
+				</header>
+			</xpath>
+			<field name="partner_ids" position="before">
+				<field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state', '!=','draft')]}"/>
+				<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+				<field name="is_not_edit" invisible="1"/>
+			</field>
+			<xpath expr='//form/sheet/group/group[1]' position="inside">
+				<field name="state" readonly="1"/>
+				<field name="state_type" invisible="1"/>
+				<field name="flow_line_next_id" invisible="1"/>
+				<field name="flow_line_back_id" invisible="1"/>
+				<field name="categ_ids" readonly="1" invisible="1" />
+			</xpath>
+			<notebook position="inside">
+				<page string="Төлөвийн түүх">
+					<field name="history_flow_ids" readonly="1"/>
+				</page>
+			</notebook>
+			<field name="date_order" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_not_edit', '=', True)]}</attribute>
+			</field>
+			<field name="company_id" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_not_edit', '=', True)]}</attribute>
+			</field>
+			<field name="picking_type_id" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_not_edit', '=', True)]}</attribute>
+			</field>
+		</field>
+	</record>
+
+	<record id="purchase_order_comparison_my_approve_view_tree" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.tree</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="user_id" widget="many2one_avatar_user"/>
+				<field name="create_date"/>
+				<field name="date_order"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_po_comparison_my_approve">
+		<field name="name">Миний батлах харьцуулалт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.order.comparison</field>
+		<field name="domain">[('confirm_user_ids','in',[uid]),('confirm_count','&gt;',0)]</field>
+		<field name="view_id" ref="purchase_order_comparison_my_approve_view_tree"/>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="po_comparison_my_approve_menu"
+			name="Миний батлах харьцуулалт"
+			sequence="0"
+			parent="mw_purchase_comparison.purchase_order_comparison_root_menu"
+			action="action_po_comparison_my_approve"/>
+</odoo>

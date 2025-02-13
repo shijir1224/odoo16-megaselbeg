@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+
+{
+	'name': 'MW Purchase request',
+	'version': '1.0',
+	'sequence': 31,
+	'category': 'Inventory/Purchase',
+	'website': 'http://managewall.mn',
+	'author': 'Managewall LLC',
+	'description': """
+		Product request to purchase order""",
+	'depends': ['mw_purchase_dynamic_flow', 'mw_purchase_comparison_dynamic_flow',
+				'mw_product', 'mw_stock'],
+	'summary': '',
+	'data': [
+		"security/request_security.xml",
+		"security/ir.model.access.csv",
+		'data/ir_sequence.xml',
+		"views/purchase_request_view.xml",
+		'views/purchase_order_comparison.xml',
+		"views/request_stock_view.xml",
+		"report/pr_report_view.xml",
+		"report/po_report_view.xml",
+		"report/pr_report_excel_view.xml",
+		"views/menu_item.xml",
+		"views/purchase_order_inherit.xml",
+		'wizard/purchase_request_line_use_set_view.xml',
+		'wizard/purchase_request_line_po_create_view.xml',
+		'wizard/purchase_request_line_po_create_view.xml',
+		'wizard/wizard_po_report_view.xml',
+	],
+	'installable': True,
+	'auto_install': False,
+	'application': False,
+	'license': 'LGPL-3',
+	'icon': '/mw_purchase_request/static/img/icon.png',
+}

@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Sequences for  -->
+	<record id="seq_mn_maintenance_workorder" model="ir.sequence">
+		<field name="name">Work Order</field>
+		<field name="code">maintenance.workorder</field>
+		<field name="prefix">WO%(y)s%(month)s%(day)s-</field>
+		<field name="padding">3</field>
+		<field name="company_id" eval='False'/>
+	</record>
+
+	<!-- Change date_required -->
+	<record id="view_workorder_change_date" model="ir.ui.view">
+		<field name="name">Огноо өөрчлөх</field>
+		<field name="model">workorder.change.date</field>
+		<field name="arch" type="xml">
+			<form string="Огноо өөрлчлөх">
+				<group >
+					<field name="date"/>
+					<field name="shift"/>
+					<footer>
+						<button name="set_to_date" string="Өөрлчлөх"
+							type="object" class="btn-primary"/>
+						<button string="Цуцлах" class="btn-default" special="cancel" />
+					</footer>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<!-- WO олноор нь цуцлах -->
+	<record id="selected_maintenance_workorder_open_form" model="ir.ui.view">
+		<field name="name">selected.maintenance.workorder.open.form</field>
+		<field name="model">selected.maintenance.workorder.open</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+				</group>
+				<footer>
+					<button name="action_open" string="Олноор нь нээх" type="object"
+						class="btn-primary"/>
+					<button name="action_done" string="Олноор нь дуусгах" type="object" />
+					<button special="cancel" string="Хаах" type="object" class="btn-default"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<act_window name="Олноор нь нээх, дуусгах"
+			res_model="selected.maintenance.workorder.open"
+			binding_model="maintenance.workorder"
+			view_mode="form"
+			view_id = "selected_maintenance_workorder_open_form"
+			target="new"
+			id="selected_maintenance_workorder_open_action"/>
+
+	<!-- Олноор нь нэхэмжлэл үүсгэх -->
+	<record id="selected_maintenance_workorder_invoice_form" model="ir.ui.view">
+		<field name="name">selected.wo.invoice.form</field>
+		<field name="model">selected.wo.invoice</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col='1'>
+					<group col='4'>
+						<field name="partner_id" domain="[('id', 'in', posible_partner_ids)]" options="{'no_create': True}"/>
+						<field name="workorder_ids" widget="many2many_tags" readonly='1'/>
+						<field name="date" />
+						<field name="posible_partner_ids" invisible="1" widget="many2many_tags"/>
+					</group>
+					<group>
+						<field name="invoice_line_ids" nolabel='1'>
+							<tree string="Lines" editable="bottom" create='false'>
+								<field name="parent_id" readonly='1'/>
+								<field name="product_id" options="{'no_create': True}" attrs="{'readonly': True}"/>
+								<field name="price_unit" /> 
+								<field name="qty" sum="SUM" attrs="{'readonly': True}"/>
+								<field name="uom_id"/>
+								<field name="part_line_ids" widget="many2many_tags"/>
+								<field name="line_type" groups="base.group_no_one"/>
+							</tree>
+							<form create="false">
+								<group col='4'>
+									<field name="product_id"/>
+									<field name="uom_id"/>
+									<field name="qty"/>
+									<field name="price_unit" sum="SUM"/>
+									<field name="parent_id" groups="base.group_no_one"/>
+									<field name="line_type" groups="base.group_no_one" readonly='1'/>
+								</group>
+								<group col='1'>
+									<field name="part_line_ids">
+										<tree create='false' edit='false'>
+											<field name="product_id"/>
+											<field name="qty"/>
+											<field name="price_unit"/>
+											<field name="uom_id"/>
+											<field name="parent_id"/>
+										</tree>
+										<form create='false' edit='false'>
+											<sheet>
+												<group col='4'>
+													<field name="product_id"/>
+													<field name="qty"/>
+													<field name="price_unit"/>
+													<field name="uom_id"/>
+													<field name="parent_id" string="Workorder"/>
+												</group>
+											</sheet>
+										</form>
+									</field>
+								</group>
+							</form>
+						</field>
+					</group>
+					<button name="get_lines" string="Нэхэмжлэх мөрүүд татах" type="object" class="btn-primary" icon="fa-list"/>
+				</group>
+				<footer>
+					<button name="create_invoice" string="Олноор нэхэмжлэх" type="object" class="btn-success" icon="fa-file"/>
+					<button special="cancel" string="Хаах" type="object" class="btn-warning"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<act_window name="Нэхэмжлэл үүсгэх"
+			res_model="selected.wo.invoice"
+			binding_model="maintenance.workorder"
+			view_mode="form"
+			view_id = "selected_maintenance_workorder_invoice_form"
+			target="new"
+			id="selected_maintenance_workorder_invoice_action"
+			groups="mw_technic_maintenance.group_maintenance_invoice_user"/>
+
+	<!-- Calendar -->
+	<record  id="maintenance_workorder_calendar_view" model="ir.ui.view">
+		<field name="name">maintenance.workorder.calendar</field>
+		<field name="model">maintenance.workorder</field>
+		<field name="priority" eval="2"/>
+		<field name="arch" type="xml">
+			<calendar string="Workorder"
+				date_start="date_required"
+				color="technic_id"
+				mode="month"
+				quick_add="False">
+				<field name="name"/>
+				<field name="technic_id"/>
+				<field name="maintenance_type"/>
+				<field name="maintenance_type_id"/>
+				<field name="damaged_type_id"/>
+			</calendar>
+		</field>
+	</record>
+
+	<!-- Form -->
+	<record id="maintenance_workorder_form_view" model="ir.ui.view">
+		<field name="name">maintenance.workorder.form</field>
+		<field name="model">maintenance.workorder</field>
+		<field eval="2" name="priority"/>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" string="Ноороглох" type="object"
+						states="open,reopen,analysing,done"
+						groups="mw_technic_maintenance.group_maintenance_planner"/>
+					<button name="action_to_open" class="oe_highlight" string="Нээх"
+						states="draft" type="object"/>
+					<button name="action_to_start" class="oe_highlight" string="Батлах"
+						states="open,reopen,ready" type="object"
+						groups="mw_technic_maintenance.group_maintenance_superintendent,mw_technic_maintenance.group_maintenance_master,mw_technic_maintenance.group_maintenance_planner" />
+
+					<button name="action_to_back" class="oe_highlight" string="Буцаах"
+						states="closed" type="object"
+						groups="mw_technic_maintenance.group_maintenance_superintendent"/>
+					<button name="action_to_back" class="oe_highlight" string="Буцаах"
+						states="done" type="object"
+						groups="mw_technic_maintenance.group_maintenance_planner,mw_technic_maintenance.group_maintenance_superintendent"/>
+
+					<button name="action_force_close" string="Шууд хаах"
+						states="open,reopen,analysing" type="object"/>
+
+					<button name="action_to_ready" string="Бэлэн" class="oe_highlight"
+						states="waiting_part,ordered_part,waiting_labour" type="object"/>
+
+					<button name="action_to_done" string="Дуусгах" class="oe_highlight"
+						states="processing,ready" type="object"
+						groups="mw_technic_maintenance.group_maintenance_master,mw_technic_maintenance.group_maintenance_superintendent,mw_technic_maintenance.group_maintenance_planner"/>
+					<button name="action_to_close" string="Хаах" class="oe_highlight"
+						states="done" type="object"/>
+					<button name="action_to_return" string="Буцаах"
+						states="draft,open" type="object"/>
+
+					<button name="checked_by_superintendent" string="Хянасан" states="done,closed"
+						attrs="{'invisible':[('total_no_pm_amount','=',0)]}" type="object"/>
+					
+					<button name="create_invoice" string="Нэхэмжлэх үүсгэх" type="object" class="btn-info" 
+							attrs="{'invisible':[('state','not in',['done','closed'])]}" 
+							groups="mw_technic_maintenance.group_maintenance_invoice_user"/>
+					<button type="object" name="view_prs" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('pr_count', '=', 0)]}">
+						<field name="pr_count" widget="statinfo" string="Худалдан авалтын хүсэлтүүд"/>
+						<field name="po_request_ids" invisible="1"/>
+					</button>
+					<button name="print_wo" string="Хэвлэх" icon="fa-print" class="btn-primary" type="object"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,open,processing,done,closed" readonly="1" />
+				</header>
+					<sheet>
+					<div class="pull-left">
+						<label for="name" class="oe_inline" />
+						<h1>
+							<field name="name" />
+							<field name="name" widget="CopyClipboardButton"/>
+						</h1>
+					</div>
+					<div>
+						<button name="set_to_date" icon="fa-print"
+							string="Огноо солих" type="object" class="oe_right"
+							groups="mw_technic_maintenance.group_maintenance_planner"/>
+
+						<button name="working_ordered_part" icon="fa-repeat"
+							states="processing,ordered_part,analysing,open"
+							string="Ажиллаж хүлээх" type="object" class="oe_right"
+							groups="mw_technic_maintenance.group_maintenance_planner"/>
+
+						<button name="stopping_ordered_part" icon="fa-ban"
+							states="processing,ordered_part,analysing,open"
+							string="Зогсож хүлээх" type="object" class="oe_right"
+							groups="mw_technic_maintenance.group_maintenance_planner"/>
+						<button name="stopping_waiting_labour" icon="fa-users"
+							states="processing,ordered_part,analysing,open"
+							string="Waiting labour" type="object" class="oe_right"
+							groups="mw_technic_maintenance.group_maintenance_planner"/>
+					</div>
+					<div name="button_box" class="oe_button_box text-center">
+						<field name="invoice_ids" invisible="1"/>
+						<button class="oe_stat_button" name="view_invoice" icon="fa-files-o" type="object" attrs="{'invisible':[('invoice_ids','=',[])]}">
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_value"><field name="invoice_count"/></span>
+								<span class="o_stat_text">Нэхэмжлэх</span>
+							</div>
+						</button>
+					</div>
+						<group>
+						<group>
+							<field name="branch_id"
+									options="{'no_create':True}"/>
+							<field name="date"/>
+
+							<field name="date_required"/>
+							<field name="shift" required="1"/>
+
+							<field name="maintenance_type"/>
+							<field name="origin"/>
+
+							<field name="is_warrenty"/>
+							<field name="is_rework"/>
+						</group>
+						<group>
+							<field name="maintenance_type_id" options="{'no_create':True}"
+							attrs="{'required':[('maintenance_type','=','pm_service')],
+									'invisible':[('maintenance_type','!=','pm_service')]}"/>
+							<newline/>
+							<field name="priority"/>
+							<field name="pm_priority"
+							attrs="{'invisible':[('maintenance_type','!=','pm_service')],
+									'required':[('maintenance_type','=','pm_service')]}"/>
+
+							<field name="is_depend_technic"/>
+							<field name="company_id" options="{'no_create':True}"/>
+						</group>
+					</group>
+					<group string="Эвдрэлийн мэдээлэл" name="damaged_information">
+						<group>
+						<field name="damaged_reason_id" options="{'no_create': True}"
+							attrs="{'required':[('maintenance_type','not in',['other_repair'])],
+								'invisible':[('maintenance_type','in',['other_repair'])]}" domain="['|',('company_id','=',False),('company_id','=',company_id)]"/>
+						<field name="damaged_type_id" options="{'no_create': True}"
+							attrs="{'required':[('maintenance_type','not in',['other_repair'])],
+								'invisible':[('maintenance_type','in',['other_repair'])]}" domain="['|',('company_id','=',False),('company_id','=',company_id)]"/>
+						<label for="description" colspan="2" />
+						<field name="description" nolabel="1" colspan="2" placeholder="Хийгдэх ажил..."
+							help="Эвдрэл гэмтэлтэй холбоотой мэдээлэл"/>
+						</group>
+						<group>
+
+                        <label for="performance_description" colspan="2" />
+                        <field name="performance_description" nolabel="1" colspan="2"
+                            placeholder="Хийгдсэн ажил..." help="Засварын гүйцэтгэлийн тайлбар"
+                            attrs="{'required': [('state','=','done')]}"/>
+                        </group>
+                    </group>
+                    <group name="repair_item"  string="Засварлах зүйл">
+						<group>
+							<field name="technic_id" options="{'no_create': True}" required="1"
+								domain="['|',('company_id','=',False),('company_id','=',company_id)]"
+								attrs="{'invisible':[('maintenance_type','in',['other_repair','component_repair'])]}" />
+							<field name="operator_id" />
+							<newline/>
+							<field name="start_odometer"
+								attrs="{'required':[('maintenance_type','not in',
+											['other_repair','daily_works','component_repair'])],
+										'invisible':[('maintenance_type','in',
+											['other_repair','component_repair'])]}"/>
+							<field name="finish_odometer"
+								attrs="{'required':[('maintenance_type','not in',['other_repair','daily_works','component_repair'])],
+									'invisible':[('maintenance_type','in',['other_repair','component_repair'])]}"/>
+						</group>
+                    </group>
+                    <group name="compon" string="Компонент эд ангийн ажил"
+                        attrs="{'invisible':[('maintenance_type','in',
+                                                ['other_repair4','other_repair3','other_repair2','other_repair','daily_works','tire_service','pm_service','daily_works','other_repair'])]}">
+                        <group col="2"
+                            attrs="{'invisible':[('maintenance_type','!=','component_repair')]}">
+                            <field name="repair_component_id"
+                                attrs="{'required':[('maintenance_type','=','component_repair')]}"
+                                options="{'no_create':True}"/>
+                            <field name="component_maintenance_type"
+                                attrs="{'required':[('maintenance_type','=','component_repair')]}"
+                                options="{'no_create':True}"/>
+                        </group>
+                        <group col="2"
+                            attrs="{'invisible':[('maintenance_type','=','component_repair')]}">
+                            <field name="component_repair_type"/>
+                            <!-- <field name="install_component_id" options="{'no_create':True}"
+                                domain="[('state','in',['new','inactive'])]"
+                                attrs="{'invisible':[('component_repair_type','!=','install')],
+                                 'required':[('component_repair_type','=','install')]}"/> -->
+                            <field name="is_field_test"
+                                attrs="{'invisible':[('component_repair_type','!=','install')]}"/>
+                            <!-- <field name="remove_component_id" options="{'no_create':True}"
+                                domain="[('state','=','using'),('current_technic_id','=',technic_id)]"
+                                attrs="{'invisible':[('component_repair_type','!=','remove')],
+                                 'required':[('component_repair_type','=','remove')]}" widget="many2many_tags"/>
+                            <field name="install_component_id" options="{'no_create':True}"
+                                domain="[('state','in',['new','inactive'])]"
+                                attrs="{'invisible':[('component_repair_type','!=','remove')]}" widget="many2many_tags"/> -->
+                            <field name="remove_component_ids" options="{'no_create':True}" domain="[('state','=','using'),('current_technic_id','=',technic_id)]" attrs="{'invisible':[('component_repair_type','!=','remove')],'required':[('component_repair_type','=','remove')]}" widget="many2many_tags"/>
+                            <field name="install_component_ids" options="{'no_create':True}" domain="[('state','in',['new','inactive'])]" widget="many2many_tags"/>
+                    </group>
+                    </group>
+                    <group string="Төлөвлөсөн хүн цаг">
+                        <group>
+                            <field name="planned_time" widget="float_time"/>
+                            <field name="planned_man_hours" widget="float_time"/>
+                        </group>
+                        <group>
+                            <field name="planned_mans"/>
+                            <field name="worked_man_hours" widget="float_time"/>
+                        </group>
+                        <group>
+                            <field name="total_maintenance_hours" widget="float_time"/>
+                            <button name="update_worked_man_hours" type="object" string="update_worked_man_hours" groups="base.group_no_one" class="btn-danger"/>
+                        </group>                
+                        <group>
+                            <field name="total_maintenance_hours" widget="float_time"/>
+                            <button name="update_worked_man_hours" type="object" string="update_worked_man_hours" groups="base.group_no_one" class="btn-danger"/>
+                        </group>                
+                    </group>
+                    <notebook>
+                        <page string="Гүйцэтгэл, цагийн хуудас" class="oe_page_title" accesskey="P">
+                            <group>
+                                <group col="2">
+                                    <field name="planned_time_line" nolabel="1" widget="one2many_list" colspan="2">
+                                        <tree string="Lines" editable="bottom">
+                                            <field name="planned_date"/>
+                                            <field name="planned_time" widget="float_time"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group col="2">
+                                    <field name="contractor_type" required="1" col="2"/>
+                                    <field name="partner_id" options="{'no_create': True}" col="2"
+                                            attrs="{'invisible': [('contractor_type','!=','external')],
+                                                    'required': [('contractor_type','=','external')]}"/>
+                                    <newline/>
+                                    <field name="invoice_id" attrs="{'invisible': [('invoice_id','=',False)]}"
+                                            col="2"/>
+                                    <field name="id" invisible="1" col="2"/>
+                                </group>
+                            </group>
+                            <group  string="Засварчны цагийн хуудас">
+                                <group col="5" 
+                                    attrs="{'invisible':[('state','in',['draft','closed'])]}">
+                                    <field name="temp_date_start" class="oe_edit_only"/>
+                                    <field name="temp_date_end" class="oe_edit_only"/>
+                                    <button name="set_employee_time" string="Цаг оруулах"
+                                    type="object" class="oe_edit_only btn-default" style="color:green;"/>
+                                </group>
+                                <!-- <group > -->
+                                    <!-- <button name="create_add_timesheet" string="Нэхэмжлэхийн мөрд оруулах" type="object" class="btn-warning" groups="base.group_no_one"/> -->
+                                    <field name="employee_timesheet_lines" nolabel="1" widget="one2many_list">
+                                        <tree string="Lines" editable="bottom"
+                                            decoration-danger="over_time != 0">
+                                            <!-- <field name="employee_id" options="{'no_create': True}"/> -->
+                                            <field name="emp_partner_id" options="{'no_create': True}" required="0"/>
+                                            <field name="company_id" optional="hide"/>
+                                            <field name="product_id" options="{'no_create': True}" optional="show" groups="mw_technic_maintenance.group_maintenance_invoice_user"/>
+                                            <!-- <field name="notes" attrs="{'required': [('state','=','done')]}"/> -->
+                                            <field name="date_start"/>
+                                            <field name="date_end"/>
+                                            <field name="spend_time" sum="Total" widget="float_time"/>
+                                            <field name="guitsetgel_time" sum="Total" widget="float_time" optional="hide"/>
+                                            <field name="over_time" sum="Total" widget="float_time"
+                                                style="color:red;" invisible="1"/>
+                                            <field name="state" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                <!-- </group> -->
+                            </group>
+                            <group string="Зогсолтын нийт цаг">
+                            </group>
+                                <field name="work_timesheet_lines" nolabel="1" widget="one2many_list" >
+                                    <tree string="Lines" editable="bottom">
+                                        <field name="delay_reason_id" options="{'no_create': True}"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="spend_time" sum="Total" widget="float_time"/>
+                                    </tree>
+                                </field>
+                            <!-- <group class="oe_read_only"  string="Цагийн хуудасны граф">
+                                <div><widget name="maintenance_timesheet"/></div>
+                            </group> -->
+                        </page>
+                        <page string="Хэрэглэсэн материал" class="oe_page_title" accesskey="M">
+                            <div class="alert alert-danger alert-dismissible text-left" role="alert" attrs="{'invisible': [('warning_messages', '=', False)]}">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                                <field name="warning_messages"/>
+                            </div>
+                            <group  string="Агуулахаас зарлагадах">
+                                <group>
+                                    <field name="warehouse_id"
+                                        options="{'no_create':True}"/>
+                                    <button name="check_product_qty" string="Үлдэгдэл шалгах"
+                                        class="btn-danger" type="object"
+                                        help="Захиалах гэж байгаа сэлбэгийн үлдэгдлийн шалгах"/>
+                                        <button name="set_all_wo_cost" type="object" string="ALL WOS COST" groups="base.group_no_one" class="btn-warning"/>
+                                    <newline/>
+                                    <field name="total_expense_amount"
+                                        groups="mw_technic_maintenance.group_maintenance_superintendent"/>
+                                    <field name="total_no_pm_amount" invisible="1"
+                                        groups="!mw_technic_maintenance.group_maintenance_superintendent"/>
+                                    <field name="total_no_pm_amount"
+                                        groups="mw_technic_maintenance.group_maintenance_superintendent"/>
+                                    <field name="total_invoice_amount" 
+                                        groups="mw_technic_maintenance.group_maintenance_invoice_user" readonly='1'/>
+                                </group>
+                                <group>
+                                    <!-- Шууд батлах -->
+                                    <!-- <button name="create_expense_for_parts"
+                                        string="Сэлбэг зарлагадах"
+                                        states="processing,waiting_part" type="object" colspan="1"
+                                        groups="base.group_no_one"/>
+                                    <newline/> -->
+                                    <!-- Сэлбэг батлах Урсгал -->
+                                    <button name="action_next_stage" string="Сэлбэг зарлагадах"
+                                        class="btn-success" type="object"
+                                        help="Засвар үйлчилгээнд шаардлагатай сэлбэг материалыг агуулахаас авах"
+                                        attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+                                    <button name="cancel_flow"
+                                        string="Сэлбэг цуцлах" class="btn-danger"
+                                        states="processing,waiting_part" type="object" colspan="1"/>
+                                        <!-- groups="mw_technic_maintenance.group_maintenance_superintendent,mw_technic_maintenance.group_maintenance_supervisor"/> -->
+                                    <newline/>
+                                    <field name="flow_id" string='Урсгал' readonly="1" force_save='1'/>
+                                    <field name="flow_line_id" readonly="1" force_save='1'/>
+                                    <field name="flow_line_next_id" invisible="1"
+                                        groups="!base.group_no_one"/>
+                                    <field name="flow_line_next_id" readonly="1"
+                                        groups="base.group_no_one"/>
+                                    <field name="state_type" readonly="1"
+                                        groups="base.group_no_one"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Сэлбэгүүд">
+                                    <field name="required_part_line" nolabel="1" 
+                                        widget="one2many_list" >
+                                        <tree string="Lines" editable="bottom" decoration-success="is_ordered==True" decoration-warning="type=='product' and is_ordered==False" decoration-info="type=='service'">
+                                            <field name="product_id" options="{'no_create': True}"
+                                                attrs="{'readonly':[('is_ordered','=',True)]}"/>
+                                            <field name="categ_id" invisible="1"/>
+                                            <field name="price_unit" force_save="1" attrs="{'readonly':[('type','!=','service')]}" groups="mw_technic_maintenance.group_maintenance_invoice_user"/>
+                                            <field name="product_cost" string="Өртөг" groups="account.group_account_manager"/>
+                                            <!-- <field name="account_id" groups="account.group_account_manager"/> -->
+											<field name="qty_available" force_save="1"/>
+                                            <field name="qty_convert_available" force_save="1"/>
+                                            <field name="qty" sum="Total"
+                                                attrs="{'readonly':[('is_ordered','=',True)]}"/>
+                                            <field name="uom_id"/>
+                                            <field name="amount" sum="Total" invisible="1"/>
+                                            <field name="is_ordered"/>
+                                            <field name="last_expense_date"/>
+                                            <field name="is_pm_material" invisible="1"/>
+                                            <field name="type" invisible="1"/>
+                                            <field name="src_warehouse_id"
+                                                attrs="{'column_invisible':[('parent.maintenance_type', '=','hose_repair')], 'readonly':[('is_ordered','=',True)]}"
+                                                options="{'no_create':True}"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Түүх">
+                                    <field name="history_flow_ids" readonly="1"/>
+                                </page>
+                            </notebook>
+                            <group  string="Хэрэглэсэн сэлбэг материал">
+                                <field name="wo_move_lines"  nolabel="1">
+                                    <tree string="Lines" decoration-danger="origin_returned_move_id != False">
+                                        <field name="picking_id"/>
+                                        <field name="product_id"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="quantity_done"/>
+                                        <field name="state"/>
+                                        <button name="set_used_it" string="Хэрэглэсэн"
+                                            attrs="{'invisible':[('is_used','=',True)]}"
+                                            type="object" icon="fa-check-circle text-success"
+                                        groups="mw_technic_maintenance.group_maintenance_master"/>
+                                        <field name="is_used" invisible="1"/>
+                                        <field name="origin_returned_move_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <group>
+                                    <field name="total_expense_amount" groups="base.group_no_one"/>
+                                    <field name="total_po_amount" groups="base.group_no_one"/>
+                                    <button groups="base.group_no_one" string="all_methods_compute" type="object" name="all_methods_compute"/>
+                                </group>
+                            </group>
+
+							<group string="Худалдан авах">
+								<group>
+									<field name="total_po_amount"/>
+									<!-- <field name="po_request_id"/> -->
+									<field name="po_request_ids"/>
+									<button name="set_pr_ids" type="object" string="SET"/>
+									<button name="create_po_request_for_parts"
+										string="Сэлбэг худалдан авах" class="btn-success"
+										help="Засвар үйлчилгээнд шаардлагатай сэлбэг материалыг худалдан авах"
+										groups="mw_technic_maintenance.group_maintenance_supervisor,mw_technic_maintenance.group_maintenance_spare_user"
+										states="open,processing,ordered_part,waiting_part,done" type="object" colspan="1"/>
+									<field name="po_description" nolabel="1" colspan="2"
+										placeholder="Худалдан авалттай холбоотой нэмэлт мэдээлэл"
+										attrs="{'required': [('required_part_line_2','!=',[])]}"/>
+									<!-- <field name="po_state" nolabel="1" colspan="1"/> -->
+								</group>
+								<field name="required_part_line_2" nolabel="1" widget="one2many_list">
+									<tree string="Lines" editable="bottom">
+										<field name="product_id" options="{'no_create': True}"/>
+										<field name="categ_id" invisible="1"/>
+										<field name="price_unit" invisible="1"/>
+										<field name="qty" sum="Total"/>
+										<field name="uom_id"/>
+										<field name="is_ordered"/>
+										<field name="amount" sum="Total" invisible="1"/>
+									</tree>
+								</field>
+							</group>
+
+						</page>
+						<page string="Бусад мэдээлэл" class="oe_page_title" accesskey="I">
+							<group  string="Зардлын мэдээлэл">
+								<field name="total_amount_spare"/>
+								<field name="total_employee_expense_amount"/>
+							</group>
+							<group  string="Other">
+								<field name="workorder_rate" widget="priority"/>
+								<field name="workorder_rate_description_id"
+									options="{'no_create':True}"/>
+								<field name="is_checked"/> 
+								<field name="is_checked_user"/>
+							</group>
+							<group >
+								<field name="attachment_ids" nolabel="1" widget="many2many_binary"
+									colspan="2"
+									attrs="{'invisible':[('attachment_ids','=',False)]}"/>
+
+								<field name="expense_picking_id"
+									attrs="{'invisible':[('expense_picking_id','=',False)]}"/>
+								<field name="inspection_id"
+									attrs="{'invisible':[('inspection_id','=',False)]}"/>
+								<!-- <field name="po_request_id"
+									attrs="{'invisible':[('po_request_id','=',False)]}"/> -->
+								<field name="po_request_ids" widget='many2many_tags'
+									attrs="{'invisible':[('po_request_ids','=',False)]}"/>
+								<field name="plan_id"
+									attrs="{'invisible':[('plan_id','=',False)]}"/>
+								<newline/>
+
+								<field name="into_smr_report"/>
+								<field name="comment_smr_report"/>
+							</group>
+							<group col="3">
+								<button name="create_experience_info"
+									string="Туршлагын санд нэмэх" colspan="1"
+									groups="mw_technic_maintenance.group_maintenance_superintendent"
+									help="Засварын ажлыг туршлагын санд нэмэх" type="object"
+									attrs="{'invisible': [('is_experience_info','=',True)]}"/>
+								<field name="is_experience_info" attrs="{'invisible': [('is_experience_info','=',False)]}"/>
+							</group>
+							<group  string="Түүх">
+								<label for="parts_user_id" string="Мастер"/>
+								<div>
+									<field name="parts_user_id" class="oe_inline"/> : <field name="date_parts" class="oe_inline"/>
+								</div>
+
+								<label for="user_id" string="Үүсгэсэн хэрэглэгч"/>
+								<div>
+									<field name="user_id" class="oe_inline"/> : <field name="date_open" class="oe_inline"/>
+								</div>
+
+								<label for="senior_user_id" string="Ахлах"/>
+								<div>
+									<field name="senior_user_id" class="oe_inline"
+										options="{'no_create':True}"/> : <field name="date_senior" class="oe_inline"/>
+								</div>
+
+								<label for="validator_id" string="Хариуцагч"/>
+								<div>
+									<field name="validator_id" class="oe_inline"
+										options="{'no_create':True}"/> : <field name="date_start" class="oe_inline"/>
+								</div>
+
+								<label for="engineer_user_id"/>
+								<div>
+									<field name="engineer_user_id" class="oe_inline"
+										options="{'no_create':True}"/> : <field name="date_engineer" class="oe_inline"/>
+								</div>
+
+								<label for="close_user_id" string="WO хаасан"/>
+								<div>
+									<field name="close_user_id" class="oe_inline"/> : <field name="date_done" class="oe_inline"/>
+								</div>
+
+								<label for="chief_user_id" string="Chief"/>
+								<div>
+									<field name="chief_user_id" class="oe_inline"/> : <field name="date_chief" class="oe_inline"/>
+								</div>
+
+								<field name="date_reopen" attrs="{'invisible': [('date_reopen','=',False)]}"/>
+							</group>
+							<group string='Нэхэмжлэл' groups="mw_technic_maintenance.group_maintenance_invoice_user">
+								<field name="invoice_ids" widget="many2many_tags" options="{'no_create':True}"/>
+							</group>
+						</page>
+						<page string="Хойшид хийгдэх ажил">
+							<group  string="Хойшид хийгдэх ажил">
+								<field name="next_work_description" nolabel="1" 
+									placeholder="Хойшид хийгдэх ажил..."/>
+
+								<field name="next_work_state"
+									groups="mw_technic_maintenance.group_maintenance_planner"/>
+								<field name="ref_workorder_id"/>
+
+								<button name="create_ref_workorder" string="Ажил үүсгэх"
+									type="object" states="closed"
+									groups="mw_technic_maintenance.group_maintenance_planner"/>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_workorder_tree_view" model="ir.ui.view">
+		<field name="name">maintenance.workorder.tree</field>
+		<field name="model">maintenance.workorder</field>
+		<field eval="2" name="priority"/>
+		<field name="arch" type="xml">
+			<tree
+				  decoration-success="state =='done'" decoration-info="state=='processing'"
+				  decoration-danger="state =='waiting_part'" decoration-muted="state =='closed'">
+				<field name="name"/>
+				<field name="company_id" optional="hide"/>
+				<field name="branch_id"/>
+				<field name="damaged_type_id"/>
+				<field name="date_required"/>
+				<field name="shift"/>
+				<field name="maintenance_type"/>
+				<field name="maintenance_type_id" invisible="1"/>
+				<field name="technic_id"/>
+				<field name="origin"/>
+				<field name="total_invoice_amount" groups="mw_technic_maintenance.group_maintenance_invoice_user"/>
+				<field name="warehouse_id" invisible="1"/>
+				<field name="workorder_rate" widget="priority"/>
+				<field name="print_count"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="maintenance_workorder_filter_view" model="ir.ui.view">
+		<field name="name">maintenance.workorder.filter</field>
+		<field name="model">maintenance.workorder</field>
+		<field eval="2" name="priority"/>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="technic_id"/>
+				<field name="origin"/>
+				<field name="damaged_reason_id"/>
+				<field name="damaged_type_id"/>
+				<field name="user_id"/>
+				<field name="validator_id"/>
+				<field name="branch_id"/>
+				<filter name="with_parts" string="Сэлбэгтэй WO" domain="[('required_part_line','!=',False)]"/>
+				<filter name="without_parts" string="Сэлбэггүй WO" domain="[('required_part_line','=',False)]"/>
+				<filter name="pr_created" string="PR үүссэн" domain="[('po_request_ids','!=',False)]"/>
+				<filter name="this_month" string="This month" domain="[('date_required','like',time.strftime('%%Y-%%m'))]"/>
+				<filter name="today" string="Өнөөдөр"
+					domain="[('date_required','like',time.strftime('%%Y-%%m-%%d'))]"/>
+				<group expand="1" string="Group By...">
+					<filter string="Жилээр" context="{'group_by':'date_required:year'}"
+						name="year"/>
+					<filter string="Сараар" context="{'group_by':'date_required:month'}"
+						name="month"/>
+					<filter string="Өдрөөр" name="day" context="{'group_by':'date_required:day'}"/>
+					<filter context="{'group_by' : 'technic_id'}" string="Техник"
+						name="technic_id"/>
+					<filter context="{'group_by' : 'branch_id'}" string="Салбар"
+						name="branch_id"/>
+					<filter context="{'group_by' : 'validator_id'}" string="Баталсан хэрэглэгч"
+						name="validator_id"/>
+					<filter context="{'group_by' : 'state'}" string="Төлөв" name="state"/>
+					<filter context="{'group_by' : 'flow_line_id'}" string="Сэлбэгийн урсгалын төлөв" name="state"/>
+					<filter context="{'group_by' : 'maintenance_type'}" string="Засварын төрөл"
+						name="maintenance_type"/>
+					<filter context="{'group_by' : 'maintenance_type_id'}" string="PM төрөл"
+						name="maintenance_type_id"/>
+					<filter context="{'group_by' : 'damaged_reason_id'}" string="Эвдрэлийн шалтгаан"
+						name="damaged_reason_id"/>
+					<filter context="{'group_by' : 'damaged_type_id'}" string="Эвдрэлийн төрөл"
+						name="damaged_type_id"/>
+					<filter string="Ээлж" domain="" context="{'group_by':'shift'}"
+						name="shift"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_workorder'>
+		<field name="name">maintenance.workorder.action</field>
+		<field name="res_model">maintenance.workorder</field>
+		<field name="context">{'search_default_this_month':1,'search_default_day':1,'search_default_state':1}</field>
+		<field name="view_mode">tree,form,calendar</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_workorder_superintendent'>
+		<field name="name">maintenance.workorder.action.superintendent</field>
+		<field name="res_model">maintenance.workorder</field>
+		<field name="context">{'search_default_this_month':1,'group_by':['date_required:day']}</field>
+		<field name="domain">[('shift','=','night'),
+							('total_no_pm_amount','>',1000),
+							('senior_user_id','=',False)]</field>
+		<field name="view_mode">tree,form,calendar</field>
+	</record>
+
+	<!-- Засварчны TIMESHEET бичих -->
+	<!-- Maintenance incpection config -->
+	<record id="maintenance_employee_timesheet_line_filter_view" model="ir.ui.view">
+		<field name="name">maintenance.employee.timesheet.line.filter</field>
+		<field name="model">maintenance.employee.timesheet.line</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="employee_id"/>
+				<field name="mechanic_cause"/>
+				<field name="notes"/>
+				<group expand="0" string="Group By...">
+					<filter context="{'group_by' : 'date_start:day'}" string="Эхэлсэн өдрөөр" name="gr_date_start"/>
+					<filter context="{'group_by' : 'employee_id'}" string="Засварчин" name="gr_employee"/>
+					<filter context="{'group_by' : 'create_date:day'}" string="Үүсгэсэн өдрөөр" name="gr_date_create"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="maintenance_employee_timesheet_line_form_view" model="ir.ui.view">
+		<field name="name">maintenance.employee.timesheet.line.form</field>
+		<field name="model">maintenance.employee.timesheet.line</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_confirm" string="Батлах"  type="object" class="oe_highlight"
+						attrs="{'invisible':[('state2','=','confirmed')]}"/>
+					<field name="state2" widget="statusbar" statusbar_visible="draft,confirmed" readonly="1" />
+				</header>
+				<sheet>
+					<group >
+						<!-- <field name="date_start" /> -->
+						<field name="date_start"
+							attrs="{'readonly':[('state2','=','confirmed')],
+									'required':[('state2','=','draft')]}"/>
+						<field name="date_end"
+							attrs="{'readonly':[('state2','=','confirmed')],
+									'required':[('state2','=','draft')]}"/>
+
+						<field name="employee_id" options="{'no_create':True}"
+							attrs="{'readonly':[('state2','=','confirmed')],
+									'required':[('state2','=','draft')]}"/>
+						<newline/>
+						<!-- <field name="other_employee_ids" widget="many2many_tags"
+							attrs="{'readonly':[('state2','=','confirmed')]}"/> -->
+
+						<field name="technic_id" options="{'no_create':True}"/>
+						<field name="spend_time"
+							attrs="{'readonly':[('state2','=','confirmed')],
+									'required':[('state2','=','draft')]}"/>
+
+						<field name="mechanic_cause" options="{'no_create': True}"
+							attrs="{'readonly':[('state2','=','confirmed')],
+									'required':[('state2','=','draft')]}"/>
+						<field name="notes" placeholder="Нэмэлт ажил"
+							attrs="{'readonly':[('state2','=','confirmed')],
+									'required':[('mechanic_cause','=','other_work')]}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_employee_timesheet_line_tree_view" model="ir.ui.view">
+		<field name="name">maintenance.employee.timesheet.line.tree</field>
+		<field name="model">maintenance.employee.timesheet.line</field>
+		<field name="arch" type="xml">
+			<tree default_order="date_start desc, employee_id asc">
+				<field name="employee_id"/>
+				<!-- <field name="other_employee_ids" widget="many2many_tags"/> -->
+				<field name="technic_id"/>
+				<field name="date_start" />
+				<field name="date_end" />
+				<field name="spend_time"/>
+				<field name="mechanic_cause"/>
+				<field name="state2"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_employee_timesheet_line'>
+		<field name="name">maintenance.employee.timesheet.line.action</field>
+		<field name="res_model">maintenance.employee.timesheet.line</field>
+		<field name="context">{'search_default_gr_employee': 1, 'search_default_gr_date_start': 1, 'order_by':['date_start:day']}</field>
+		<field name="domain">[('parent_id','=',False),('parent_id_2','=',False)]</field>
+		<field name='search_view_id' ref='maintenance_employee_timesheet_line_filter_view'/>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="maintenance_employee_other_timesheet_filter_view" model="ir.ui.view">
+		<field name="name">maintenance.employee.other.timesheet.filter</field>
+		<field name="model">maintenance.employee.other.timesheet</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="employee_id"/>
+				<field name="mechanic_cause"/>
+				<field name="notes"/>
+				<field name="damaged_type_id" />
+				<group expand="1" string="Group By...">
+					<filter context="{'group_by' : 'employee_id'}" string="Засварчин"
+						name="technic_id"/>
+					<filter context="{'group_by' : 'create_date:day'}" string="Үүсгэсэн өдрөөр" name="state"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="maintenance_employee_other_timesheet_form_view" model="ir.ui.view">
+		<field name="name">maintenance.employee.other.timesheet.form</field>
+		<field name="model">maintenance.employee.other.timesheet</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_confirm" string="Батлах"  type="object" class="oe_highlight"
+						attrs="{'invisible':[('state','=','confirmed')]}"/>
+					<button name="print_other_timesheet" string="Хэвлэх" icon="fa-print" class="btn-primary" type="object"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,confirmed" readonly="1" />
+				</header>
+				<sheet>
+					<div name="button_box" class="oe_button_box oe_right">
+						<button
+							name="see_employee_other_timesheet_line"
+							type="object" class="oe_stat_button oe_right"
+							icon="fa-list-ol" string="Засварчны бусад ажил"
+							attrs="{'invisible': [('state','!=','confirmed')]}">
+						</button>
+					</div>
+					<group >
+						<!-- <field name="date_start" /> -->
+						<field name="date_start"
+							attrs="{'readonly':[('state','=','confirmed')],
+									'required':[('state','=','draft')]}"/>
+						<field name="date_end"
+							attrs="{'readonly':[('state','=','confirmed')],
+									'required':[('state','=','draft')]}"/>
+
+						<field name="employee_id" widget='many2many_tags'
+							options="{'no_create':True}"
+							attrs="{'readonly':[('state','=','confirmed')],
+									'required':[('state','=','draft')]}"/>
+						<newline/>
+
+						<field name="technic_id" options="{'no_create':True}"/>
+						<field name="damaged_type_id" options="{'no_create':True}"/>
+						<field name="spend_time"
+							attrs="{'readonly':[('state','=','confirmed')],
+									'required':[('state','=','draft')]}"/>
+
+						<field name="mechanic_cause" options="{'no_create': True}"
+							attrs="{'readonly':[('state','=','confirmed')],
+									'required':[('state','=','draft')]}"/>
+						<field name="notes" placeholder="Нэмэлт ажил"
+							attrs="{'readonly':[('state','=','confirmed')],
+									'required':[('mechanic_cause','=','other_work')]}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_employee_other_timesheet_tree_view" model="ir.ui.view">
+		<field name="name">maintenance.employee.other.timesheet.tree</field>
+		<field name="model">maintenance.employee.other.timesheet</field>
+		<field name="arch" type="xml">
+			<tree default_order="date_start desc">
+				<field name="employee_id"/>
+				<field name="technic_id" optional="hide" />
+				<field name="date_start" />
+				<field name="date_end" />
+				<field name="spend_time"/>
+				<field name="mechanic_cause"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_employee_other_timesheet_1'>
+		<field name="name">maintenance.employee.other.timesheet.action</field>
+		<field name="res_model">maintenance.employee.other.timesheet</field>
+		<!-- <field name="context">{'order_by':['date_start:day'],'group_by':['date_start:day','employee_id']}</field> -->
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record id="account_move_wo_form_view" model="ir.ui.view">
+		<field name="name">account.move.form</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@id='other_tab']/group[@id='other_tab_group']" position="inside">
+				<group string="Source" invisible="1" groups="!mw_technic_maintenance.group_maintenance_invoice_user">
+					<field name="workorder_ids" widget="many2many_tags" readonly='1'/>
+				</group>
+				<group string="Source" groups="mw_technic_maintenance.group_maintenance_invoice_user">
+					<field name="workorder_ids" widget="many2many_tags" readonly='1'/>
+				</group>
+			</xpath>
+			<xpath expr="//div[@name='button_box']" position="inside">
+				<button class="oe_stat_button" name="view_workorder" icon="fa-files-o" type="object" attrs="{'invisible':[('workorder_ids','=',[])]}">
+					<div class="o_field_widget o_stat_info">
+						<span class="o_stat_value"><field name="workorder_count"/></span>
+						<span class="o_stat_text">Workorder</span>
+					</div>
+				</button>
+			</xpath>
+		</field>
+	</record>
+</odoo>

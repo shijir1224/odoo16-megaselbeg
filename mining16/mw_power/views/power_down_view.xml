@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_power_down_down_tree" model="ir.ui.view">
+        <field name="name">power.down.down.tree</field>
+        <field name="model">power.down</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="station_id"/>
+                <field name="level_id"/>
+                <field name="fider_id"/>
+                <field name="work_secure_id"/>
+                <field name="down_nominal"/>
+                <field name="down_time" widget="float_time"/>
+                <field name="plug_time" widget="float_time"/>
+                <field name="break_time" widget="float_time" sum="SUM"/>
+                <field name="incomplete_power"/>
+                <field name="down_type_id"/>
+                <field name="cause"/>
+                <field name="actions_taken"/>
+                <field name="work_user_ids" widget="many2many_tags"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_power_down_down_pivot" model="ir.ui.view">
+        <field name="name">power.down.down.pivot</field>
+        <field name="model">power.down</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="station_id" type="row"/>
+                <field name="break_time" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_power_down_down_search" model="ir.ui.view">
+        <field name="name">power.down.down.search</field>
+        <field name="model">power.down</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="station_id"/>
+                <field name="level_id"/>
+                <field name="fider_id"/>
+                <field name="work_secure_id"/>
+                <field name="down_time"/>
+                <field name="plug_time"/>
+                <field name="break_time"/>
+                <field name="incomplete_power"/>
+                <field name="cause"/>
+                <field name="actions_taken"/>
+                <field name="work_user_ids" widget="many2many_tags"/>
+                <field name="description"/>
+                <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                <filter string="Өдөрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                <filter string="Ээлжээр" name="gr_shift" context="{'group_by':'shift'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_down_down_form" model="ir.ui.view">
+        <field name="name">power.down.down.form</field>
+        <field name="model">power.down</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="station_id" options="{'no_create': True}"/>
+                        <field name="level_id" options="{'no_create': True}"/>
+                        <field name="fider_id" options="{'no_create': True}"/>
+                        <field name="work_secure_id"/>
+                        <field name="down_nominal"/>
+                        <field name="incomplete_power"/>
+                    </group>
+                    <group col="6">
+                        <field name="down_time" widget="float_time"/>
+                        <field name="plug_time" widget="float_time"/>
+                        <field name="break_time" widget="float_time"/>
+                    </group>
+                    <group col="4">
+                        <field name="down_type_id" options="{'no_create': True}"/>
+                        <field name="cause"/>
+                        <field name="actions_taken"/>
+                        <field name="work_user_ids" widget="many2many_tags"/>
+                        <field name="description"/>
+                    </group>
+                   
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_power_down_down" model="ir.actions.act_window">
+        <field name="name">1.Тасралтын мэдээлэл</field>
+        <field name="res_model">power.down</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_id" ref="view_power_down_down_pivot"/>
+        <field name="domain">[('notes_id', '!=', False)]</field>
+        <field name="context">{'create':False, 'edit':False, 'tree_ok':True,'search_default_gr_month': True, 'search_default_gr_day': True,'search_default_gr_month': True, 'search_default_gr_day': True}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_power_down_down_tree_view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_power_down_down_tree"/>
+        <field name="act_window_id" ref="action_power_down_down"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_down_form_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_power_down_down_form"/>
+        <field name="act_window_id" ref="action_power_down_down"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_down_pivot_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_power_down_down_pivot"/>
+        <field name="act_window_id" ref="action_power_down_down"/>
+    </record>
+
+    <!-- ORDER -->
+    <record id="view_power_down_order_tree" model="ir.ui.view">
+        <field name="name">power.down.order.tree</field>
+        <field name="model">power.down</field>
+        <field name="priority">1100</field>
+        <field name="arch" type="xml">
+            <tree>
+                
+                
+                <field name="down_partner_id" options="{'no_create': True}"/>
+                <field name="aan_naryad"/>
+                <field name="partner_job_position"/>
+                <field name="partner_notes"/>
+                <field name="confirm_user_id" options="{'no_create': True}"/>
+                <field name="down_nominal"/>
+                <field name="down_time" widget="float_time"/>
+                <field name="plug_time" widget="float_time"/>
+                <field name="break_time" widget="float_time" sum="SUM"/>
+                <field name="incomplete_power"/>
+                <field name="work_user_ids" widget="many2many_tags"/>
+                <field name="description"/>
+                <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                <field name="eo_ids" nolabel="1" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_power_down_order_pivot" model="ir.ui.view">
+        <field name="name">power.down.order.pivot</field>
+        <field name="model">power.down</field>
+        <field name="priority">1100</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="down_partner_id" type="row"/>
+                <field name="break_time" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_power_down_order_search" model="ir.ui.view">
+        <field name="name">power.down.order.search</field>
+        <field name="model">power.down</field>
+        <field name="priority">1100</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="down_partner_id"/>
+                <field name="aan_naryad"/>
+                <field name="partner_job_position"/>
+                <field name="partner_notes"/>
+                <field name="confirm_user_id"/>
+                <field name="down_nominal"/>
+                <field name="description"/>
+                <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                <filter string="Өдөрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                <filter string="Ээлжээр" name="gr_shift" context="{'group_by':'shift'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_down_order_form" model="ir.ui.view">
+        <field name="name">power.down.order.form</field>
+        <field name="model">power.down</field>
+        <field name="priority">1100</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="down_partner_id" options="{'no_create': True}"/>
+                        <field name="aan_naryad"/>
+                        <field name="partner_job_position"/>
+                        <field name="partner_notes"/>
+                        <field name="confirm_user_id" options="{'no_create': True}"/>
+                        <field name="down_nominal"/>
+                    </group>
+                    <group col="6">
+                        <field name="down_time" widget="float_time"/>
+                        <field name="plug_time" widget="float_time"/>
+                        <field name="break_time" widget="float_time"/>
+                    </group>
+                    <group col="4">
+                        <field name="incomplete_power"/>
+                        <field name="actions_taken"/>
+                        <field name="work_user_ids" widget="many2many_tags"/>
+                        <field name="description"/>
+                    </group>
+                    <group string="EO Үүсгэх Харах" col="1">
+                        <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                        <field name="eo_ids" nolabel="1">
+                            <tree>
+                                <field name="number"/>
+                                <field name="state"/>
+                                <field name="customer_department_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_power_down_order" model="ir.actions.act_window">
+        <field name="name">2.Гадны байгууллагын захиалгат таслалт /ААН-р хийгдсэн/</field>
+        <field name="res_model">power.down</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_id" ref="view_power_down_order_pivot"/>
+        <field name="domain">[('notes_order_id', '!=', False)]</field>
+        <field name="context">{'create':False, 'edit':False, 'tree_ok':True,'search_default_gr_month': True, 'search_default_gr_day': True}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_power_down_order_tree_view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_power_down_order_tree"/>
+        <field name="act_window_id" ref="action_power_down_order"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_order_form_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_power_down_order_form"/>
+        <field name="act_window_id" ref="action_power_down_order"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_order_pivot_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_power_down_order_pivot"/>
+        <field name="act_window_id" ref="action_power_down_order"/>
+    </record>
+
+    <!-- PLAN -->
+    <record id="view_power_down_plan_tree" model="ir.ui.view">
+        <field name="name">power.down.plan.tree</field>
+        <field name="model">power.down</field>
+        <field name="priority">1200</field>
+        <field name="arch" type="xml">
+            <tree>
+                
+                
+                <field name="work_type_id"/>
+                <field name="work_name"/>
+                <field name="aan_naryad"/>
+                <field name="work_user_id"/>
+                <field name="level_id"/>
+                <field name="down_time_plan" widget="float_time"/>
+                <field name="plug_time_plan" widget="float_time"/>
+                <field name="break_time_plan" widget="float_time" sum="SUM"/>
+                <field name="down_time" widget="float_time"/>
+                <field name="plug_time" widget="float_time"/>
+                <field name="break_time" widget="float_time" sum="SUM"/>
+                <field name="diff_plan_actual" widget="float_time" sum="SUM"/>
+                <field name="description"/>
+                <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                <field name="eo_ids" nolabel="1" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_power_down_plan_pivot" model="ir.ui.view">
+        <field name="name">power.down.plan.pivot</field>
+        <field name="model">power.down</field>
+        <field name="priority">1200</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="work_type_id" type="row"/>
+                <field name="break_time" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_power_down_plan_search" model="ir.ui.view">
+        <field name="name">power.down.plan.search</field>
+        <field name="model">power.down</field>
+        <field name="priority">1200</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="work_type_id"/>
+                <field name="work_name"/>
+                <field name="aan_naryad"/>
+                <field name="work_user_id"/>
+                <field name="level_id"/>
+                <field name="description"/>
+                <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                <filter string="Өдөрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                <filter string="Ээлжээр" name="gr_shift" context="{'group_by':'shift'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_down_plan_form" model="ir.ui.view">
+        <field name="name">power.down.plan.form</field>
+        <field name="model">power.down</field>
+        <field name="priority">1200</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="work_type_id" options="{'no_create': True}"/>
+                        <field name="work_name"/>
+                        <field name="aan_naryad" options="{'no_create': True}"/>
+                        <field name="work_user_id" options="{'no_create': True}"/>
+                        <field name="level_id" options="{'no_create': True}"/>
+                        <field name="description"/>
+                    </group>
+                    <group col="6">
+                        <field name="down_time_plan" widget="float_time"/>
+                        <field name="plug_time_plan" widget="float_time"/>
+                        <field name="break_time_plan" widget="float_time"/>
+                        <field name="down_time" widget="float_time"/>
+                        <field name="plug_time" widget="float_time"/>
+                        <field name="break_time" widget="float_time"/>
+                    </group>
+                    <group string="EO Үүсгэх Харах" col="1">
+                        <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                        <field name="eo_ids" nolabel="1">
+                            <tree>
+                                <field name="number"/>
+                                <field name="state"/>
+                                <field name="customer_department_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_power_down_plan" model="ir.actions.act_window">
+        <field name="name">3.Төлөвлөгөөт таслалтын ажил /ААН-р хийгдсэн/</field>
+        <field name="res_model">power.down</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_id" ref="view_power_down_plan_pivot"/>
+        <field name="domain">[('notes_plan_id', '!=', False)]</field>
+        <field name="context">{'create':False, 'edit':False, 'tree_ok':True,'search_default_gr_month': True, 'search_default_gr_day': True}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_power_down_plan_tree_view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_power_down_plan_tree"/>
+        <field name="act_window_id" ref="action_power_down_plan"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_plan_form_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_power_down_plan_form"/>
+        <field name="act_window_id" ref="action_power_down_plan"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_plan_pivot_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_power_down_plan_pivot"/>
+        <field name="act_window_id" ref="action_power_down_plan"/>
+    </record>
+    
+
+    <!-- CALLL -->
+    <record id="view_power_down_call_tree" model="ir.ui.view">
+        <field name="name">power.down.call.tree</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <tree>
+                
+                
+                <field name="level_id"/>
+                <field name="call_department_id"/>
+                <field name="call_partner_name"/>
+                <field name="call_type_id"/>
+                <field name="call_notes"/>
+                <field name="call_time_start" widget="float_time"/>
+                <field name="call_time_end" widget="float_time"/>
+                <field name="call_fix_time" widget="float_time" sum="SUM"/>
+                <field name="call_taken"/>
+                <field name="call_taken_user_id"/>
+                <field name="description"/>
+                <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                <field name="eo_ids" nolabel="1" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_power_down_call_pivot" model="ir.ui.view">
+        <field name="name">power.down.call.pivot</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="level_id" type="row"/>
+                <field name="call_fix_time" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_power_down_call_search" model="ir.ui.view">
+        <field name="name">power.down.call.search</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="level_id"/>
+                <field name="call_department_id"/>
+                <field name="call_partner_name"/>
+                <field name="call_type_id"/>
+                <field name="call_notes"/>
+                <field name="description"/>
+                <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                <filter string="Өдөрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                <filter string="Ээлжээр" name="gr_shift" context="{'group_by':'shift'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_down_call_form" model="ir.ui.view">
+        <field name="name">power.down.call.form</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="level_id" options="{'no_create': True}"/>
+                        <field name="call_department_id" options="{'no_create': True}"/>
+                        <field name="call_partner_name"/>
+                        <field name="call_type_id" options="{'no_create': True}"/>
+                        <field name="call_notes"/>
+                        
+                        <field name="call_taken"/>
+                        <field name="call_taken_user_id" options="{'no_create': True}"/>
+                        <field name="description"/>
+                    </group>
+                    <group col="6">
+                        <field name="call_time_start" widget="float_time"/>
+                        <field name="call_time_end" widget="float_time"/>
+                        <field name="call_fix_time" widget="float_time"/>
+                    </group>
+                    <group string="EO Үүсгэх Харах" col="1">
+                        <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                        <field name="eo_ids" nolabel="1">
+                            <tree>
+                                <field name="number"/>
+                                <field name="state"/>
+                                <field name="customer_department_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_power_down_call" model="ir.actions.act_window">
+        <field name="name">4.Дуудлагаар хийгдсэн ажил</field>
+        <field name="res_model">power.down</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_id" ref="view_power_down_call_pivot"/>
+        <field name="domain">[('notes_call_id', '!=', False)]</field>
+        <field name="context">{'create':False, 'edit':False, 'tree_ok':True,'search_default_gr_month': True, 'search_default_gr_day': True}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_power_down_call_tree_view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_power_down_call_tree"/>
+        <field name="act_window_id" ref="action_power_down_call"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_call_form_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_power_down_call_form"/>
+        <field name="act_window_id" ref="action_power_down_call"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_call_pivot_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_power_down_call_pivot"/>
+        <field name="act_window_id" ref="action_power_down_call"/>
+    </record>
+
+
+    <!-- DAILY -->
+    <record id="view_power_down_daily_tree" model="ir.ui.view">
+        <field name="name">power.down.daily.tree</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <tree>
+                
+                
+                <field name="daily_work_type_id"/>
+                <field name="work_name"/>
+                <field name="work_user_id"/>
+                <field name="start_time" widget="float_time"/>
+                <field name="end_time" widget="float_time"/>
+                <field name="diff_time" widget="float_time" sum="SUM"/>
+                <field name="work_actual"/>
+                <field name="description"/>
+                <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                <field name="eo_ids" nolabel="1" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_power_down_daily_pivot" model="ir.ui.view">
+        <field name="name">power.down.daily.pivot</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="daily_work_type_id" type="row"/>
+                <field name="call_fix_time" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_power_down_daily_search" model="ir.ui.view">
+        <field name="name">power.down.daily.search</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="daily_work_type_id"/>
+                <field name="work_name"/>
+                <field name="work_user_id"/>
+                <field name="description"/>
+                <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                <filter string="Өдөрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                <filter string="Ээлжээр" name="gr_shift" context="{'group_by':'shift'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_down_daily_form" model="ir.ui.view">
+        <field name="name">power.down.daily.form</field>
+        <field name="model">power.down</field>
+        <field name="priority">1300</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="daily_work_type_id" options="{'no_create': True}"/>
+                        <field name="work_name"/>
+                        <field name="work_user_id" options="{'no_create': True}"/>
+                        <field name="description"/>
+                    </group>
+                    <group col="6">
+                        <field name="start_time" widget="float_time"/>
+                        <field name="end_time" widget="float_time"/>
+                        <field name="diff_time" widget="float_time"/>
+                        <field name="work_actual"/>
+                    </group>
+                    <group string="EO Үүсгэх Харах" col="1">
+                        <button name="create_eo" type="object" string="EO Үүсгэх Харах" class="btn-success"/>
+                        <field name="eo_ids" nolabel="1">
+                            <tree>
+                                <field name="number"/>
+                                <field name="state"/>
+                                <field name="customer_department_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_power_down_daily" model="ir.actions.act_window">
+        <field name="name">5.Өдөр тутмын шуурхайд төлөвлөгдсөн ажил</field>
+        <field name="res_model">power.down</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_id" ref="view_power_down_daily_pivot"/>
+        <field name="domain">[('notes_daily_id', '!=', False)]</field>
+        <field name="context">{'create':False, 'edit':False, 'tree_ok':True,'search_default_gr_month': True, 'search_default_gr_day': True}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_power_down_daily_tree_view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_power_down_daily_tree"/>
+        <field name="act_window_id" ref="action_power_down_daily"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_daily_form_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_power_down_daily_form"/>
+        <field name="act_window_id" ref="action_power_down_daily"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_power_down_daily_pivot_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_power_down_daily_pivot"/>
+        <field name="act_window_id" ref="action_power_down_daily"/>
+    </record>
+</odoo>

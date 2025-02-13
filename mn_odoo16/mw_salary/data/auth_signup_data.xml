@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Email template for email validation (for karma purpose) -->
+        <record id="salary_email" model="mail.template">
+            <field name="name">Auth Signup: Цалин</field>
+            <field name="model_id" ref="mw_salary.model_salary_order_line"/>
+            <field name="subject">Сайн байна уу?(Цалингийн мэдээ)</field>
+            <field name="email_from">{{ object.order_id.company_id.email }}</field>
+            <field name="email_to">{{ object.email_address }}</field>
+            <field name="body_html" type="html">
+              <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Times new roman, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="left">
+              <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+              <tbody>
+                <!-- HEADER -->
+                <tr>
+                    <td align="center" style="min-width: 590px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                            <tr><td valign="middle">
+                                <span style="font-size: 20px; font-weight: bold;">Цалингийн мэдээ</span><br/>
+                                <span style="font-size: 15px; ">
+                                    <t t-out="object.ident_id or ''">0001</t>
+                                    <t t-out="object.last_name or ''">Marc</t>
+                                    <t t-out="object.name or ''">Demo</t>
+                                </span>
+                            </td><td valign="middle" align="right">
+                                <img t-attf-src="/logo.png?company={{ object.order_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.order_id.company_id.name"/>
+                            </td></tr>
+                            <tr><td colspan="2" style="text-align:center;">
+                              <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                            </td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                  <td align="center" style="min-width: 590px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                      <tr style='font-size:10px;text-align:center;color:#ffffff;font-weight:bold;background-color:#875A7B'>
+                        <td width="30%" align="center">Үндсэн мэдээлэл</td>
+                        <td width="30%" align="center"></td>
+                        <td width="30%" align="center"></td>
+                        <td width="30%" align="center"></td>
+                      </tr>
+                      <tr style='font-size:10px;text-align:center;color:#ffffff;font-weight:bold;background-color:#B79CAF'>
+                        <td width="30%" align="center">Үндсэн цалин:</td>
+                        <td valign="middle" align="right">
+                            <t t-out="object.basic or ''">1000000</t>
+                        </td>
+                        <td width="30%" align="center"></td>
+                        <td width="30%" align="center"></td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Ажиллавал зохих хоног</td>
+                        <td valign="middle" align="right">
+                            <t t-out="object.day_to_work or ''">20</t>
+                        </td>
+                        <td width="30%" align="left">Ажилласан хоног</td>
+                        <td width="20%" align="right">${object.balance_data_line.worked_day}</td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Ажиллавал зохих цаг</td>
+                        <td valign="middle" align="right">
+                            <t t-out="object.hour_to_work or ''">168</t>
+                        </td>
+                        <td width="30%" align="left">Ажилласан цаг</td>
+                        <td width="20%" align="right">${object.balance_data_line.worked_hour}</td>
+                      </tr>hour_to_work
+
+                      <tr style='font-size:10px;text-align:center;color:#ffffff;font-weight:bold;background-color:#875A7B'>
+                        <td width="30%" align="center">Цалингийн тооцоолол</td>
+                        <td width="30%" align="center"></td>
+                        <td width="30%" align="center"></td>
+                        <td width="30%" align="center"></td>
+                      </tr>
+                      <tr style='font-size:10px;text-align:center;color:#ffffff;font-weight:bold;background-color:#B79CAF'>
+                        <td width="30%" align="center">Үндсэн мэдээлэл</td>
+                        <td width="20%" align="center">Утга</td>
+                        <td width="30%" align="center">Үндсэн мэдээлэл</td>
+                        <td width="20%" align="center">Утга</td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Бодогдсон цалин</td>
+                        <td  width="20%" align="right">${object.amount_pay}</td>
+                        <td width="30%" align="left">НДШ</td>
+                        <td width="20%" align="right">${object.shi}</td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Илүү цагийн нэмэгдэл</td>
+                        <td width="20%" align="right">${object.overtime_wage}</td>
+                        <td width="30%" align="left">ХХОАТ</td>
+                        <td width="20%" align="right">${object.pit}</td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">KPI тооцох суурь цалин</td>
+                        <td width="20%" align="right">${object.kpi_suuri_wage}</td>
+                        <td width="30%" align="left">Урьдчилгаа цалин</td>
+                        <td width="20%" align="right">${object.uridchilgaa_wage}</td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Бусад нэмэгдэл цалин/Аялал,чөлөө,сургалт</td>
+                        <td width="20%" align="right">${object.other_wage}</td>
+                        <td width="30%" align="left">Суутгал</td>
+                        <td width="20%" align="right">${object.avlaga_wage}</td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Баярын нэмэгдэл</td>
+                        <td width="20%" align="right">${object.holiday_wage}</td>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Шөнийн нэмэгдэл</td>
+                        <td width="20%" align="right">${object.nigth_wage}</td>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">KPI нэмэгдэл</td>
+                        <td width="20%" align="right">${object.kpi_wage}</td>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Зэргийн нэмэгдэл</td>
+                        <td width="20%" align="right">${object.zereg_wage}</td>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                      </tr>
+                       <tr>
+                        <td width="30%" align="left">Бусад нэмэгдэл</td>
+                        <td width="20%" align="right">${object.other_nem}</td>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Хоолны мөнгө</td>
+                        <td width="20%" align="right">${object.food_wage}</td>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td width="30%" align="left">Ээлжийн амралтын олговор</td>
+                        <td width="20%" align="right">${object.vacation_wage}</td>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                      </tr>
+                      <tr style='font-size:10px;text-align:center;color:#ffffff;font-weight:bold;background-color:#B79CAF'>
+                        <td width="30%" align="left">Нийт олговол зохих</td>
+                        <td width="20%" align="right">${object.amount_tootsson}</td>
+                        <td width="30%" align="left">Нийт суутгал</td>
+                        <td width="20%" align="right">${object.amount_deduction}</td>
+                      </tr>
+                      <tr style='font-size:10px;text-align:center;color:#ffffff;font-weight:bold;background-color:#B79CAF'>
+                        <td width="30%" align="left"></td>
+                        <td width="20%" align="right"></td>
+                        <td width="30%" align="left">Нийт гарт олгох</td>
+                        <td width="20%" align="right">${object.amount_net}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+              </td></tr>
+              </table>
+            </field>
+        </record>
+    </data>
+</odoo>

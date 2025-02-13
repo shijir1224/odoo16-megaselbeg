@@ -1,0 +1,847 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase_comparison
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-16 09:27+0000\n"
+"PO-Revision-Date: 2022-06-16 17:30+0800\n"
+"Last-Translator: Byambajargal Suuri <byambaa08@gmail.com>\n"
+"Language-Team: \n"
+"Language: mn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.1\n"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "2 or more partners must be chosen"
+msgstr "2 ба түүнээс дээш харилцагч сонгоно уу"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__access_warning
+msgid "Access warning"
+msgstr "Хандалтын анхааруулга"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_needaction
+msgid "Action Needed"
+msgstr "Үйлдэл шаардсан"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_ids
+msgid "Activities"
+msgstr "Ажилбар"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Ажилбарын тайлбар"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_state
+msgid "Activity State"
+msgstr "Ажилбарын төлөв"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ажилбарын төрлийн дүрс"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Add voter"
+msgstr "Санал өгөгч нэмэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__all_voted
+msgid "All Voted"
+msgstr "Бүгд санал өгсөн"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "All voters have voted"
+msgstr "Бүгд санал өгсөн"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Are you sure to end this comparison?"
+msgstr "Энэ харьцуулалтыг дуусгахдаа итгэлтэй байна уу?"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.form_purchase_order_comparison_vote_wizard
+msgid "Are you sure you want to add these voters?"
+msgstr "Эдгээр санал өгөгчдийг нэмэхдээ итгэлтэй байна уу?"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.form_purchase_order_comparison_vote_wizard
+msgid "Are you sure you want to vote?"
+msgstr "Энэ саналыг өгөхдөө итгэлтэй байна уу?"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_attachment_count
+msgid "Attachment Count"
+msgstr "Хавсралтын тоо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__branch_id
+msgid "Branch"
+msgstr "Салбар"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.form_purchase_order_comparison_vote_wizard
+msgid "Cancel"
+msgstr "Цуцлах"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_order.py:0
+#, python-format
+msgid "Cannot create line in order that is created from comparison."
+msgstr "Харьцуулалтаас үүссэн үнийн саналд мөр үүсгэх боломжгүй."
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_order.py:0
+#, python-format
+msgid "Cannot delete order line that is created from comparison."
+msgstr "Харьцуулалтаас үүссэн мөрийг устгах боломжгүй."
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_order.py:0
+#, python-format
+msgid "Cannot delete order that is created from comparison."
+msgstr "Харьцуулалтаас үүссэн захиалгыг устгах боломжгүй."
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__product_uom_category_id
+msgid "Category"
+msgstr "Ангилал"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__partner_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__partner_id
+msgid "Choosing partner"
+msgstr "Сонгож буй харилцагч"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__comment
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__comment
+msgid "Comment"
+msgstr "Тайлбар"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__company_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__company_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__company_id
+msgid "Company"
+msgstr "Компани"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__comparison_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__comparison_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__comparison_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__comparison_id
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order__state__comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_form_inherit_mw_purchase_comparison
+msgid "Comparison"
+msgstr "Харьцуулалт"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__date_order
+msgid "Comparison Deadline"
+msgstr "Харьцуулалтын эцсийн огноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order_comparison__state__ended
+msgid "Comparison Ended"
+msgstr "Харьцуулалт дууссан"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__user_id
+msgid "Comparison Representative"
+msgstr "Харьцуулалт хариуцагч"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Comparison lines"
+msgstr "Харьцуулалтын мөрүүд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison_line__product_uom_category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
+"Хэмжих нэгжийг хооронд нь хөрвүүлэх явдал нь зөвхөн нэг ангилалд хамаарч "
+"байвал л хийгдэнэ. Хөрвүүлэлт нь харьцаан дээр суурилж явагдана."
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Create RFQs"
+msgstr "Үнийн санал үүсгэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__create_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__create_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__create_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__create_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__create_uid
+msgid "Created by"
+msgstr "Үүсгэгч"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__create_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__create_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__create_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__create_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__access_url
+msgid "Customer Portal URL"
+msgstr "Захиалагчийн хандах URL"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__picking_type_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__picking_type_id
+msgid "Deliver To"
+msgstr "Хүргэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order__date_order
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__date_order
+msgid ""
+"Depicts the date within which the Quotation should be confirmed and "
+"converted into a purchase order."
+msgstr ""
+"Үнийн санал батлагдаж борлуулалтын захиалга болох боломжтой огноог "
+"тодорхойлж өгнө."
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__name
+msgid "Description"
+msgstr "Тайлбар"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__display_name
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__display_name
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__display_name
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__display_name
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__display_name
+msgid "Display Name"
+msgstr "Дэлгэрэнгүй нэр"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order_comparison__state__draft
+msgid "Draft"
+msgstr "Ноорог"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "End"
+msgstr "Дуусгах"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "End vote"
+msgstr "Санал хураалтыг дуусгах"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_follower_ids
+msgid "Followers"
+msgstr "Дагагчид"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Дагагчид (Харилцагчид)"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.view_purchase_order_comparison_filter
+msgid "Group By"
+msgstr "Бүлэглэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__has_message
+msgid "Has Message"
+msgstr "Зурвас/Мессеж"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_exception_icon
+msgid "Icon"
+msgstr "Дүрс"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ажилбар дээр сануулга гарсныг илэрхийлэх зураг."
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__message_needaction
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Хэрэв сонгогдсон бол, шинэ зурвасууд таны анхаарлыг шаардана."
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__message_has_error
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Үүнийг сонговол алдаа үүсэх үед зурвасууд ирнэ."
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_is_follower
+msgid "Is Follower"
+msgstr "Дагагч эсэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__is_voted
+msgid "Is voted"
+msgstr "Санал өгсөн эсэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison____last_update
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line____last_update
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote____last_update
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result____last_update
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard____last_update
+msgid "Last Modified on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__write_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__write_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__write_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__write_uid
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Сүүлд зассан этгээд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__write_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__write_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__write_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__write_date
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__write_date
+msgid "Last Updated on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__line_ids
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Lines"
+msgstr "Мөрүүд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Үндсэн хавсралт"
+
+#. module: mw_purchase_comparison
+#: model:res.groups,name:mw_purchase_comparison.group_mw_purchase_comparison_manager
+msgid "Manager"
+msgstr "Менежер"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_has_error
+msgid "Message Delivery error"
+msgstr "Алдаа үүссэн талаарх зурвас"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_ids
+msgid "Messages"
+msgstr "Зурвасууд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Миний ажилбарын эцсийн огноо"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.view_purchase_order_comparison_filter
+msgid "My Comparison"
+msgstr "Миний харьцуулалт"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Name"
+msgstr "Нэр"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Дараагийн ажилбарын эцсийн огноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_summary
+msgid "Next Activity Summary"
+msgstr "Дараагийн ажилбарын гарчиг"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_type_id
+msgid "Next Activity Type"
+msgstr "Дараагийн ажилбарын төрөл"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Not all voters have voted. Are you sure you want to end the vote?"
+msgstr "Санал хураалт дуусаагүй байна. Та дуусгахдаа итгэлтэй байна уу?"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Үйлдлийн тоо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_has_error_counter
+msgid "Number of errors"
+msgstr "Алдааны тоо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Үйлдэл шаардсан зурвасын тоо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Алдааны мэдэгдэл бүхий зурвасын тоо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Уншаагүй зурвасын тоо"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Only the Comparison Representative can add new voter"
+msgstr "Зөвхөн харьцуулалт хариуцагч шинэ санал өгөгч нэмэх боломжтой."
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Only the Comparison Representative can create purchase orders"
+msgstr "Зөвхөн Харьцуулалт хариуцагч худалдан авах захиалга үүсгэх боломжтой."
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Only the Comparison Representative can end the comparison."
+msgstr "Зөвхөн Харьцуулалт хариуцагч харьцуулалтыг дуусгах боломжтой."
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Only the Comparison Representative can end the vote."
+msgstr "Зөвхөн Харьцуулалт хариуцагч санал хураалтыг дуусгах боломжтой."
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Only the Comparison Representative can start the vote"
+msgstr "Зөвхөн харьцуулалт хариуцагч санал хураалтыг эхлүүлэх боломжтой."
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__date_order
+msgid "Order Deadline"
+msgstr "Захиалгын эцсийн огноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__name
+msgid "Order Reference"
+msgstr "Захиалгын дугаар"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__order_line_ids
+msgid "Order lines"
+msgstr "Захиалгын мөрүүд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__product_packaging_id
+msgid "Packaging"
+msgstr "Савлагаа"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__product_packaging_qty
+msgid "Packaging Quantity"
+msgstr "Савалгааны тоо хэмжээ"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__partner_id
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.constraint,message:mw_purchase_comparison.constraint_purchase_order_comparison_vote_Comparison_user_id_unique
+#: model:ir.model.constraint,message:mw_purchase_comparison.constraint_purchase_order_comparison_vote_result_Comparison_partner_id_unique
+msgid "Partner already exists"
+msgstr "Харилцагч аль хэдийн үүссэн байна"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__partner_ids
+msgid "Partners"
+msgstr "Харилцагчид"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Please fill the lines"
+msgstr "Мөр үүсгэнэ үү"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__access_url
+msgid "Portal Access URL"
+msgstr "Гаднаас хандах URL"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order_comparison_vote_wizard__wizard_type__primary
+msgid "Primary vote"
+msgstr "Санал өгөх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__product_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__product_id
+msgid "Product"
+msgstr "Бараа"
+
+#. module: mw_purchase_comparison
+#: model:ir.module.category,name:mw_purchase_comparison.module_mw_purchase_comparison
+msgid "Purchase Comparison"
+msgstr "Худалдан авалтын харьцуулалт"
+
+#. module: mw_purchase_comparison
+#: model:ir.model,name:mw_purchase_comparison.model_purchase_order
+msgid "Purchase Order"
+msgstr "Худалдан авалтын захиалга"
+
+#. module: mw_purchase_comparison
+#: model:ir.model,name:mw_purchase_comparison.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Худалдан авалтын захиалгын мөр"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__user_id
+msgid "Purchase Representative"
+msgstr "Худалдан авалт хариуцагч"
+
+#. module: mw_purchase_comparison
+#: model:ir.actions.act_window,name:mw_purchase_comparison.action_purchase_order_comparison
+#: model:ir.model,name:mw_purchase_comparison.model_purchase_order_comparison
+#: model:ir.ui.menu,name:mw_purchase_comparison.purchase_order_comparison_menu
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Purchase order comparison"
+msgstr "Худалдан авалтын харьцуулалт"
+
+#. module: mw_purchase_comparison
+#: model:ir.model,name:mw_purchase_comparison.model_purchase_order_comparison_line
+msgid "Purchase order comparison line"
+msgstr "Худалдан авалтын харьцуулалтын мөр"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__product_qty
+msgid "Quantity"
+msgstr "Тоо хэмжээ"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order_comparison__state__rfq_created
+msgid "RFQ created"
+msgstr "Үнийн санал үүссэн"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Record must be in 'RFQ created' state"
+msgstr "‘Үнийн санал үүссэн’ төлөвт байх шаардлагатай"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Record must be in 'Vote started' state"
+msgstr "‘Санал хураалт эхлэсэн’ төлөвт байх шаардлагатай"
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "Record must be in Draft state"
+msgstr "‘Ноорог’ төлөвт байх шаардлагатай"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order__origin
+msgid ""
+"Reference of the document that generated this purchase order request (e.g. "
+"a sales order)"
+msgstr ""
+"Энэхүү худалдан авалтын захиалга бүртгэгдэх учир шалтгаан болсон эх "
+"баримтын дугаар (ж.ш: эсрэг талын борлуулалтын захиалга)"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Related POs"
+msgstr "Холбоотой үнийн саналууд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__related_po_count
+msgid "Related Po Count"
+msgstr "Холбоотой үнийн саналын тоо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__comparison_id
+msgid "Related comparison"
+msgstr "Холбоотой харьцуулалт"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_line__comparison_line_id
+msgid "Related comparison line"
+msgstr "Холбоотой харьцуулалтын мөрүүд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__related_po_ids
+msgid "Related purchase orders"
+msgstr "Холбоотой худалдан авалтууд"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.view_purchase_order_comparison_filter
+msgid "Representatives"
+msgstr "Хариуцагчид"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__activity_user_id
+msgid "Responsible User"
+msgstr "Хариуцсан хэрэглэгч"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS илгээлтийн алдаа"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.view_purchase_order_comparison_filter
+msgid "Search comparison"
+msgstr "Харьцуулалт"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__access_token
+msgid "Security Token"
+msgstr "Шинэчлэх токен"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__origin
+msgid "Source Document"
+msgstr "Эх үүсвэр баримт"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.form_purchase_order_comparison_vote_wizard
+msgid "Start"
+msgstr "Эхлэх"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Start Vote"
+msgstr "Санал хураалтыг эхлэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order_comparison_vote_wizard__wizard_type__start
+msgid "Start vote"
+msgstr "Санал хураалтыг эхлэх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__state
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.view_purchase_order_comparison_filter
+msgid "State"
+msgstr "Төлөв"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__state
+msgid "Status"
+msgstr "Төлөв"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Ажилбаруудын төлөв байдал\n"
+"Хоцорсон: Гүйцэтгэх огноо нь аль хэдий нь өнгөрсөн\n"
+"Өнөөдөр: Өнөөдөр гүйцэтгэх ёстой\n"
+"Төлөвлөгдсөн: Ирээдүйд гүйцэтгэх ажилбарууд."
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.form_purchase_order_comparison_vote_wizard
+msgid "Submit"
+msgstr "Батлах"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__taxes_id
+msgid "Taxes"
+msgstr "Татвар"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order__picking_type_id
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__picking_type_id
+msgid "This will determine operation type of incoming shipment"
+msgstr "Энэ нь хүлээн авах баримтын төрлийг тодорхойлно"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "To draft"
+msgstr "Ноорог болгох"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Бичлэг дээрх асуудал бүхий ажилбарын төрөл."
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_line__product_uom
+msgid "Unit of Measure"
+msgstr "Хэмжих нэгж"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_unread
+msgid "Unread Messages"
+msgstr "Уншаагүй зурвас"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Уншаагүй зурвасын тоолуур"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__user_id
+#: model:res.groups,name:mw_purchase_comparison.group_mw_purchase_comparison_user
+msgid "User"
+msgstr "Хэрэглэгч"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order__partner_id
+msgid "Vendor"
+msgstr "Нийлүүлэгч"
+
+#. module: mw_purchase_comparison
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Vote"
+msgstr "Санал өгөх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote__vote_date
+msgid "Vote date"
+msgstr "Санал хураалтыг огноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order_comparison__state__vote_ended
+msgid "Vote ended"
+msgstr "Санал хураалт дууссан"
+
+#. module: mw_purchase_comparison
+#: model:ir.model,name:mw_purchase_comparison.model_purchase_order_comparison_vote
+msgid "Vote for purchase comparison"
+msgstr "Харьцуулалтын санал хураалт"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_result__vote_points
+msgid "Vote points"
+msgstr "Санал хураалтын оноо"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__vote_percentage
+msgid "Vote progress"
+msgstr "Санал хураалтын явц"
+
+#. module: mw_purchase_comparison
+#: model:ir.model,name:mw_purchase_comparison.model_purchase_order_comparison_vote_result
+msgid "Vote result of purchase comparison"
+msgstr "Санал хураалтын хариу"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__vote_result_ids
+msgid "Vote results"
+msgstr "Санал хураалтын хариу"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields.selection,name:mw_purchase_comparison.selection__purchase_order_comparison__state__vote_started
+msgid "Vote started"
+msgstr "Санал хураалт эхлэсэн"
+
+#. module: mw_purchase_comparison
+#: model:ir.actions.act_window,name:mw_purchase_comparison.action_purchase_order_comparison_vote_wizard
+#: model:ir.model,name:mw_purchase_comparison.model_purchase_order_comparison_vote_wizard
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.form_purchase_order_comparison_vote_wizard
+msgid "Vote wizard for purchase comparison"
+msgstr "Санал хураалтын цонх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__vote_ids
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison.purchase_order_comparison_view_form
+msgid "Votes"
+msgstr "Саналууд"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__user_ids
+msgid "Voting users"
+msgstr "Санал өгч буй хэрэглэгчид"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__website_message_ids
+msgid "Website Messages"
+msgstr "Вэбсайт холбоос"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order_comparison__website_message_ids
+msgid "Website communication history"
+msgstr "Вебсайтын харилцааны түүх"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__winning_po_id
+msgid "Winning Order"
+msgstr "Шалгарсан захиалга"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__winning_comment
+msgid "Winning comment"
+msgstr "Шалгарсан тайлбар"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison__winning_partner
+msgid "Winning partner"
+msgstr "Шалгарсан харилцагч"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,field_description:mw_purchase_comparison.field_purchase_order_comparison_vote_wizard__wizard_type
+msgid "Wizard Type"
+msgstr "Цонхны төрөл"
+
+#. module: mw_purchase_comparison
+#: model:ir.model.fields,help:mw_purchase_comparison.field_purchase_order__partner_id
+msgid "You can find a vendor by its Name, TIN, Email or Internal Reference."
+msgstr ""
+"Та нийлүүлэгчийг Нэр, ТТД, Имэйл эсвэл дотоод кодоор хайж олох боломжтой."
+
+#. module: mw_purchase_comparison
+#: code:addons/mw_purchase_comparison/models/purchase_comparison.py:0
+#, python-format
+msgid "You do not have permission to vote"
+msgstr "Таньд санал өгөх эрх алга"

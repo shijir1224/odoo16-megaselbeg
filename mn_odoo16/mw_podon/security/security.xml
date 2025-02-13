@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.module.category" id="module_podon_category">
+        <field name="name">Поддон бүртгэл</field>
+        <field name="description">Поддон модуль</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="group_podon_user" model="res.groups">
+        <field name="name">Поддон ажилтан</field>
+        <field name="category_id" ref="module_podon_category"/>
+    </record>
+    <record id="group_podon_manager" model="res.groups">
+        <field name="name">Поддон менежер</field>
+        <field name="category_id" ref="module_podon_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_podon_user'))]"/>
+    </record>
+    <record id="group_podon_admin" model="res.groups">
+        <field name="name">Поддон админ</field>
+        <field name="category_id" ref="module_podon_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_podon_manager'))]"/>
+    </record>
+</odoo>

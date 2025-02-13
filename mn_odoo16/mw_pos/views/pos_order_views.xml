@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="ebarimt_pos_form_view" model="ir.ui.view">
+            <field name="name">ebarimt.pos.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='state']" position="before">
+                    <button name="print_ebarimt" string="Print Receipt"
+                            type="object"
+                            attrs="{'invisible':['|',('bill_type','=','0'),('state','in',['draft','cancel','invoiced'])]}"/>
+                </xpath>
+                <group name="order_fields" position="inside">
+                    <field name="bill_type" readonly="True"/>
+                    <field name="bill_id" readonly="True"/>
+                </group>
+                <xpath expr="//field[@name='pricelist_id']" position="after">
+					<field name="discount_move_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

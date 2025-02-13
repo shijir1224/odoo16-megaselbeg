@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+        <!-- Currency equalize - Multi company rule -->
+        <record id="rule_account_currency_equalization_multi_company" model="ir.rule">
+            <field name="name">Account currency equalization - multi company rule</field>
+            <field name="model_id" ref="model_account_currency_equalization"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

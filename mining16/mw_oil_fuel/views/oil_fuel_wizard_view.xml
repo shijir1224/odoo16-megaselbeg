@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="oil_fuel_wizard_print_form" model="ir.ui.view">
+        <field name="name">stock.many.print.confirm.form</field>
+        <field name="model">oil.fuel.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <footer>
+                    <button name="action_done" string="Худалдан Авалт Үүсгэх" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Болих" type="object" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Бөөнөөр Хэвлэх"
+            res_model="oil.fuel.wizard"
+            src_model="oil.fuel"
+            view_mode="form"
+            view_id = "oil_fuel_wizard_print_form"
+            target="new"
+            key2="client_action_multi"    
+            id="oil_fuel_wizard_action"/> -->
+</odoo>

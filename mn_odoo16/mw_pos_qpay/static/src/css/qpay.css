@@ -1,0 +1,19 @@
+.class_qr_data {
+    padding: 20px;
+}
+
+.qpay-dialog {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+.class_inv_response_unpaid {
+    color: red;
+    font-weight: normal;
+ }
+
+.class_inv_response_paid {
+    color: green;
+    font-weight: normal;
+ }

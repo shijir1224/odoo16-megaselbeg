@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="view_pos_payment_method_form_inherit_mw_pos" model="ir.ui.view">
+        <field name="name">pos.payment.method.inherit.mw_pos.form</field>
+        <field name="model">pos.payment.method</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cash_journal_id']" position="after">
+                <field name="report_journal_id" required="1" placeholder="USING REPORT"/>
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="pos_sale_report_tree_view" model="ir.ui.view">
+        <field name="name">pos.sale.report.tree.view</field>
+        <field name="model">pos.sale.report</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="default_code" optional="hide" />
+                <field name="product_id" optional="show" />
+                <field name="product_type" optional="show" />
+                <field name="categ_id" optional="hide" />
+                <field name="sale_type" optional="show" />
+                <field name="user_id" optional="hide" />
+                <field name="sale_order_id" optional="show" />
+                <field name="sale_order_line_id" optional="hide" />
+                <field name="pos_order_id" optional="show" />
+                <field name="pos_order_line_id" optional="hide" />
+                <field name="session_id" optional="hide" />
+                <field name="partner_id" optional="hide" />
+                <field name="payment_mehtod_id" optional="show" />
+                <field name="payment_date" optional="hide" />
+                <field name="payment_total" sum="SUM" optional="show" />
+                <field name="pos_sale_date" optional="show" />
+                <field name="qty" sum="SUM" optional="show" />
+                <field name="price_unit" optional="show" />
+                <field name="sub_total" sum="SUM" optional="show" />
+                <field name="sub_total_pay" sum="SUM" optional="hide" />
+                <field name="stock_date" optional="show" />
+                <field name="picking_id" optional="hide" />
+                <field name="warehouse_id" optional="hide" />
+                <field name="qty_stock" sum="SUM" optional="hide" />
+                <field name="price_unit_stock" optional="hide" />
+                <field name="sub_total_stock" sum="SUM" optional="hide" />
+                <field name="total_ashig" sum="SUM" optional="hide" />
+                <field name="sub_untaxed_total" sum="SUM" optional="show" />
+                <field name="sanhuu_avlaga" sum="SUM" optional="show" />
+                <field name="move_id" optional="hide" />
+                <field name="aml_id" optional="hide" />
+                <field name="move_date" optional="hide" />
+
+                <field name="move_state" optional="hide" />
+                <field name="sale_state" optional="hide" />
+                <field name="pos_state" optional="hide" />
+                <field name="branch_id" optional="hide" />
+                <field name="company_id" optional="hide" />
+            </tree>
+        </field>
+    </record>
+    <record id="pos_sale_report_pivot" model="ir.ui.view">
+        <field name="name">pos.sale.report.pivot</field>
+        <field name="model">pos.sale.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Analysis">
+                <field name="product_id" type="row" />
+                <field name="qty" type="measure" />
+                <field name="price_unit" type="measure" />
+                <field name="payment_total" type="measure" />
+                <field name="sub_total" type="measure" />
+                <field name="qty_stock" type="measure" />
+                <field name="sub_total_stock" type="measure" />
+                <field name="total_ashig" type="measure" />
+            </pivot>
+        </field>
+    </record>
+    <record id="pos_sale_report_search" model="ir.ui.view">
+        <field name="name">pos.sale.report.search</field>
+        <field name="model">pos.sale.report</field>
+        <field name="arch" type="xml">
+            <search string="Analysis">
+                <field name="product_id" />
+                <field name="categ_id" />
+                <field name="sale_order_id" />
+                <field name="pos_order_id" />
+                <field name="move_id" />
+                <field name="aml_id" />
+                <field name="partner_id" />
+                <field name="session_id" />
+                <field name="product_type" />
+                <field name="user_id" />
+                <field name="payment_mehtod_id" />
+                <field name="payment_total" />
+                <field name="payment_date" />
+                <field name="pos_sale_date" />
+                <field name="stock_date" />
+                <field name="picking_id" />
+                <field name="warehouse_id" />
+                <field name="branch_id" />
+                <field name="company_id" />
+                <field name="sale_type" />
+                <field name="sale_state" />
+                <field name="pos_state" />
+                <separator />
+                <filter name="pos_sale" string="ПОС-ын борлуулалт"
+                    domain="[('sale_type','=','pos')]" />
+                <filter name="sale_sale" string="Борлуулалт" domain="[('sale_type','=','sale')]" />
+                <separator />
+                <filter name="butsaalt" string="Буцаалт" domain="[('qty','&lt;',0)]" />
+                <filter name="tsever_borluulalt" string="Цэвэр борлуулат"
+                    domain="[('qty','&gt;=',0)]" />
+                <separator />
+                <filter name="aldagdaltai" string="Өртөгөөс баг үнийн борлуулалт"
+                    domain="[('total_ashig','&lt;=',0)]" />
+                <separator />
+                <filter name="is_uilchilgee" string="Үйлчилгээ"
+                    domain="[('product_type','=','service')]" />
+                <filter name="is_not_uilchilgee" string="Үйлчилгээ биш"
+                    domain="[('product_type','!=','service')]" />
+                <separator />
+                <filter name="is_invoice" string="Нэхэмжилсэн"
+                    domain="['|',('pos_order_id.state','=','invoiced'),('sale_order_id.invoice_ids','!=',False)]" />
+                <separator />
+                <filter name="today" string="Өнөөдөр"
+                    domain="[('pos_sale_date','like',time.strftime('%%Y-%%m-%%d'))]" />
+                <filter string="Энэ Долоо Хоног" name="this_week"
+                    domain="[
+            ('pos_sale_date', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+            ('pos_sale_date', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]" />
+                <filter name="this_month" string="Энэ сар"
+                    domain="['|',('pos_sale_date','like',time.strftime('%%Y-%%m')),('payment_date','like',time.strftime('%%Y-%%m'))]" />
+                <filter name="this_year" string="Энэ жил"
+                    domain="['|',('pos_sale_date','like',time.strftime('%%Y')),('payment_date','like',time.strftime('%%Y'))]" />
+                <separator />
+                <filter name="january" string="January"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-01')),('payment_date','like',time.strftime('%%Y-01')),('stock_date','like',time.strftime('%%Y-01'))]" />
+                <filter name="february" string="February"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-02')),('payment_date','like',time.strftime('%%Y-02')),('stock_date','like',time.strftime('%%Y-02'))]" />
+                <filter name="march" string="March"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-03')),('payment_date','like',time.strftime('%%Y-03')),('stock_date','like',time.strftime('%%Y-03'))]" />
+                <filter name="April" string="April"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-04')),('payment_date','like',time.strftime('%%Y-04')),('stock_date','like',time.strftime('%%Y-04'))]" />
+                <filter name="may" string="May"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-05')),('payment_date','like',time.strftime('%%Y-05')),('stock_date','like',time.strftime('%%Y-05'))]" />
+                <filter name="june" string="June"
+                    domain="['|',('pos_sale_date','like',time.strftime('%%Y-06')),('payment_date','like',time.strftime('%%Y-06')),('stock_date','like',time.strftime('%%Y-06'))]" />
+                <filter name="july" string="July"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-07')),('payment_date','like',time.strftime('%%Y-07')),('stock_date','like',time.strftime('%%Y-07'))]" />
+                <filter name="august" string="August"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-08')),('payment_date','like',time.strftime('%%Y-08')),('stock_date','like',time.strftime('%%Y-08'))]" />
+                <filter name="september" string="September"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-09')),('payment_date','like',time.strftime('%%Y-09')),('stock_date','like',time.strftime('%%Y-09'))]" />
+                <filter name="octomber" string="October"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-10')),('payment_date','like',time.strftime('%%Y-10')),('stock_date','like',time.strftime('%%Y-10'))]" />
+                <filter name="november" string="November"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-11')),('payment_date','like',time.strftime('%%Y-11')),('stock_date','like',time.strftime('%%Y-11'))]" />
+                <filter name="december" string="December"
+                    domain="['|','|',('pos_sale_date','like',time.strftime('%%Y-12')),('payment_date','like',time.strftime('%%Y-12')),('stock_date','like',time.strftime('%%Y-12'))]" />
+                <separator />
+                <filter string="Төлбөрийн арга" context="{'group_by':'payment_mehtod_id'}"
+                    name="gr_payment_mehtod_id" />
+                <filter string="SO дугаар" context="{'group_by':'sale_order_id'}"
+                    name="gr_sale_order_id" />
+                <filter string="ПОС дугаар" context="{'group_by':'pos_order_id'}"
+                    name="gr_pos_order_id" />
+                <filter string="Борлуулалтын төрөл" context="{'group_by':'sale_type'}"
+                    name="gr_sale_type" />
+                <filter string="Агуулах огноо" context="{'group_by':'stock_date'}" name="gr_day" />
+                <filter string="Борлуулалт огноо" context="{'group_by':'pos_sale_date'}"
+                    name="gr_pos_sale_date" />
+                <filter string="Санхүү бичилт огноо" context="{'group_by':'move_date'}"
+                    name="gr_move_date" />
+
+                <filter string="Ангилал" context="{'group_by':'categ_id'}" name="gr_categ_id" />
+                <filter string="Бараа" context="{'group_by':'product_id'}" name="gr_product_id" />
+                <filter string="Барааны төрөл" context="{'group_by':'product_type'}"
+                    name="gr_product_type" />
+                <filter string="Борлуулагч" context="{'group_by':'user_id'}" name="gr_user_id" />
+                <filter string="Харилцагч" context="{'group_by':'partner_id'}" name="gr_partner_id" />
+                <filter string="Баримт" context="{'group_by':'picking_id'}" name="gr_picking_id" />
+                <filter string="Агуулах" context="{'group_by':'warehouse_id'}"
+                    name="gr_warehouse_id" />
+                <filter string="Салбар" context="{'group_by':'branch_id'}" name="gr_branch_id" />
+                <filter string="Компани" context="{'group_by':'company_id'}" name="gr_company_id" />
+            </search>
+        </field>
+    </record>
+    <record model='ir.actions.act_window' id='action_pos_sale_report'>
+        <field name="name">ПОС Борлуулалт тайлан</field>
+        <field name="res_model">pos.sale.report</field>
+        <field name="view_mode">tree,pivot,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem parent="sale.menu_sale_report" id="pos_sale_report_menu_sale" sequence="400"
+        action="action_pos_sale_report" groups="sales_team.group_sale_manager" />
+
+    <menuitem parent="point_of_sale.menu_point_rep" id="pos_sale_report_menu_pos" sequence="400"
+        action="action_pos_sale_report" groups="point_of_sale.group_pos_manager" />
+
+</odoo>

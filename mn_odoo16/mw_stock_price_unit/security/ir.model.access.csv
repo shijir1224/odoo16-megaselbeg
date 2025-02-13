@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_stock_price_unit_limit,stock.price.unit.limit,mw_stock_price_unit.model_stock_price_unit_limit,stock.group_stock_user,1,1,1,1
+

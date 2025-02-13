@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+        <record id="action_account_moves_reconcile_mn" model="ir.actions.act_window">
+            <field name="context">{'journal_type':'general', 'search_default_posted':1}</field>
+            <field name="name">Журнал бичилт</field>
+            <field name="res_model">account.move.line</field>
+            <field name="domain">[('display_type', 'not in', ('line_section', 'line_note')),
+            							 ('parent_state', '!=', 'cancel'),
+            							 ('amount_residual', '!=', 0), ('account_id.reconcile', '=', True)
+            							 ]</field>
+			<field name="context">{'search_default_partner_id': [partner_id], 'default_partner_id': partner_id}</field>            							 
+            <field name="view_id" ref="account.view_move_line_tree"/>
+            <field name="view_mode">tree,pivot,graph,kanban</field>
+        </record>
+
+    <record id="view_account_move_invoice_mn" model="ir.ui.view">
+        <field name="name">account.move.mn</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>   
+        <field name="arch" type="xml">
+	        <xpath expr="//button[@name='button_draft']" position="after">
+            		<button type="action"  string="Тулгах" class="oe_highlight"
+            				name="%(mw_account.action_account_moves_reconcile_mn)d"
+            				context="{'partner_id':partner_id}"
+        					attrs="{'invisible': ['|',('partner_id', '=', False),('state', '!=', 'posted')]}">
+                 	</button>
+        	</xpath>
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="partner_id" widget="res_partner_many2one" nolabel="1" context="{'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,'show_address': 1, 'default_is_company': True, 'show_vat': True}" domain="[('type', '!=', 'private'), ('company_id', 'in', (False, company_id))]" options="{&quot;always_reload&quot;: True, &quot;no_quick_create&quot;: True, 'no_create': True}" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="amount_str_mw" invisible='1'/>
+                <field name="amount_total_signed_mw" invisible='1'/>
+                 <!-- options="{'no_open': True, 'no_create': True}" -->
+                                <!-- <field name="partner_id" widget="res_partner_many2one" nolabel="1" context="{'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,'show_address': 1, 'default_is_company': True, 'show_vat': True}" domain="[('type', '!=', 'private'), ('company_id', 'in', (False, company_id))]" options="{&quot;always_reload&quot;: True, &quot;no_quick_create&quot;: True, 'no_create': True}" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/> -->
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='credit']" position="after">
+                <field name="quantity" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="replace">
+                <field name="partner_id" options="{'no_open': True, 'no_create': True}" domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]" attrs="{'column_invisible': [('parent.move_type', '!=', 'entry')]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_move_invoice_m_line" model="ir.ui.view">
+        <field name="name">account.move.mn.line</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>   
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='matching_number']" position="after">
+                <field name="amount_residual" string='Тулгагдсан үлдэгдэл'/>
+                <field name="amount_residual_currency"/>
+            </xpath>
+            <xpath expr="//field[@name='balance']" position="replace">
+                <field name="balance" sum="Тулгалтгүй үлдэгдэл" string="Тулгалтгүй үлдэгдэл" optional="hide" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_action__draft_button" model="ir.actions.server">
+        <field name="name">Олноор ноороглох</field>
+        <field name="model_id" ref="model_account_move"/>
+		<!-- <field name="groups_id" eval="[(4, ref('base.group_no_one'))]"/> -->
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_draft_button_move()</field>
+    </record>
+    
+</odoo>

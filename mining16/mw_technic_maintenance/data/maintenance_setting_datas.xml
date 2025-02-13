@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+		
+		<!-- Damage reason -->
+		<record id="damage_reason01" model="maintenance.damaged.reason">
+			<field name="name">PM үйлчилгээ хийх</field>
+			<field name="code">0101</field>
+			<field name="description">Хуваарьт засвар үйлчилгээ хийх</field>
+		</record>
+		<record id="damage_reason02" model="maintenance.damaged.reason">
+			<field name="name">Буруу хэрэглээ</field>
+			<field name="code">0302</field>
+			<field name="description">Хүний буруутай үйл ажиллагаанаас болж эвдэрэх</field>
+		</record>
+		<record id="damage_reason03" model="maintenance.damaged.reason">
+			<field name="name">Чанаргүй сэлбэг</field>
+			<field name="code">0103</field>
+			<field name="description">Сэлбэг материалын чанар муугаас болж эвдэрсэн</field>
+		</record>
+		<record id="damage_reason04" model="maintenance.damaged.reason">
+			<field name="name">Эд ангийн хугацаа дууссан</field>
+			<field name="code">0102</field>
+			<field name="description">Ажиллах цаг, норм нь дуусч хугацаандаа элэгдэж дууссан</field>
+		</record>
+		<record id="damage_reason05" model="maintenance.damaged.reason">
+			<field name="name">Зам талбай муу</field>
+			<field name="code">0103</field>
+			<field name="description">Зам талбай, орчны муугаас болж гэмтэх</field>
+		</record>
+		<record id="damage_reason06" model="maintenance.damaged.reason">
+			<field name="name">Байгалийн давагдашгүй хүчин зүйл</field>
+			<field name="code">0203</field>
+			<field name="description">...</field>
+		</record>
+		<record id="damage_reason07" model="maintenance.damaged.reason">
+			<field name="name">Засварын чанар</field>
+			<field name="code">0405</field>
+			<field name="description">Боолт, гайка дутуу чангалж гаргах, буруу угсрах гм</field>
+		</record>
+		<record id="damage_reason08" model="maintenance.damaged.reason">
+			<field name="name">Бусад</field>
+			<field name="code">0501</field>
+			<field name="description">Бусдын буруутай үйл ажиллагаанаас хамаарсан гм</field>
+		</record>
+
+		<!-- PM s -->
+		<record id="type_01" model="maintenance.type">
+			<field name="name">PM 1000</field>
+			<field name="is_pm">True</field>
+			<field name="color">#3414FF</field>
+		</record>
+		<record id="type_02" model="maintenance.type">
+			<field name="name">PM 2000</field>
+			<field name="is_pm">True</field>
+			<field name="color">#0AFF12</field>
+		</record>
+		<record id="type_03" model="maintenance.type">
+			<field name="name">PM 250</field>
+			<field name="is_pm">True</field>
+			<field name="color">#FF3BFF</field>
+		</record>
+		<record id="type_04" model="maintenance.type">
+			<field name="name">PM 500</field>
+			<field name="is_pm">True</field>
+			<field name="color">#FF2B0A</field>
+		</record>
+	
+</odoo>

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<record id="sequence_hse_danger" model="ir.sequence">
+        <field name="name">HSE Danger</field>
+        <field name="code">hse.danger</field>
+        <field name="prefix">Danger-%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+	<!-- danger registration -->
+	<record id="sequence_hse_danger_registration" model="ir.sequence">
+		<field name="name">Химийн бодисын бүртгэл</field>
+		<field name="code">hse.danger.registration</field>
+		<field name="prefix">ХБ%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+
+	<!-- water registration -->
+		<record id="sequence_hse_water_registration" model="ir.sequence">
+		<field name="name">Усны бүртгэл</field>
+		<field name="code">hse.water.registration</field>
+		<field name="prefix">УБ%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+	<record id="view_hse_danger_form" model="ir.ui.view">
+		<field name="name">hse.danger.form</field>
+		<field name="model">hse.danger</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="sub_name"/>
+						<field name="date"/>
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_danger_tree" model="ir.ui.view">
+		<field name="name">hse.danger.tree</field>
+		<field name="model">hse.danger</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="sub_name"/>
+				<field name="date"/>
+				<field name="attachment_ids" widget="many2many_binary"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_danger_filter" model="ir.ui.view">
+		<field name="name">hse.danger.filter</field>
+		<field name="model">hse.danger</field>
+		<field name="arch" type="xml">
+			<search string="hse_city_code">
+                <field name="name"/>
+                <field name="sub_name"/>
+				<field name="date"/>
+            </search>
+		</field>
+	</record>
+	<record id="action_hse_danger_halm" model="ir.actions.act_window">
+		<field name="name">ХАЛМ</field>
+		<field name="res_model">hse.danger</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_danger_registration_form" model="ir.ui.view">
+		<field name="name">hse.danger.registration.form</field>
+		<field name="model">hse.danger.registration</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах" type="object" class="btn-danger" groups="mw_hse.group_hse_admin"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="year_month"/>
+							<field name="branch_id" options="{'no_create':True}"/>
+						</group>
+						<group>
+							<field name="create_uid" string='Үүсгэсэн ажилтан'/>
+							<field name="create_date" string='Үүсгэсэн огноо'/>
+						</group>
+					</group>
+					<field name="line_ids" nolabel="1" >
+						<tree editable="bottom">
+							<field name="chemicals_name"/>
+							<field name="chemical_formula"/>
+							<field name="cas_code"/>
+							<field name="license_number"/>
+							<field name="date"/>
+							<field name="first_balance"/>
+							<field name="rec_amount"/>
+							<field name="rec_employee_id" options="{'no_create':True}"/>
+							<field name="wit_amount"/>
+							<field name="use_section"/>
+							<field name="wit_employee_id" options="{'no_create':True}"/>
+							<field name="total_balance"/>
+							<field name="bag"/>
+							<field name="iron"/>
+							<field name="plastic_bag"/>
+							<field name="plastic_bottle"/>
+						</tree>
+						<form>
+							<field name="chemicals_name"/>
+							<field name="chemical_formula"/>
+							<field name="cas_code"/>
+							<field name="license_number"/>
+							<field name="date"/>
+							<field name="first_balance"/>
+							<field name="rec_amount"/>
+							<field name="rec_employee_id" options="{'no_create':True}"/>
+							<field name="wit_amount"/>
+							<field name="use_section"/>
+							<field name="wit_employee_id" options="{'no_create':True}"/>
+							<field name="total_balance"/>
+							<field name="bag"/>
+							<field name="iron"/>
+							<field name="plastic_bag"/>
+							<field name="plastic_bottle"/>
+							
+						</form>
+					</field>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_danger_registration_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">hse.danger.registration</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="branch_id"/>
+				<field name="year_month"/>
+				<field name="create_uid"/>
+				<field name="create_date"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_danger_registration_filter" model="ir.ui.view">
+		<field name="name">hse.danger.registration.filter</field>
+		<field name="model">hse.danger.registration</field>
+		<field name="arch" type="xml">
+			<search string="hse_danger_registration">
+                <field name="name"/>
+				<field name="branch_id"/>
+				<field name="year_month"/>
+				<field name="create_uid"/>
+				<field name="create_date"/>
+            </search>
+		</field>
+	</record>
+	<record id="action_hse_danger_registration" model="ir.actions.act_window">
+		<field name="name">Химийн бодисын бүртгэл</field>
+		<field name="res_model">hse.danger.registration</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_city_code_form" model="ir.ui.view">
+		<field name="name">hse.city.code.form</field>
+		<field name="model">hse.city.code</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="code"/>
+					<field name="name"/>
+				</group>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_city_code_tree" model="ir.ui.view">
+		<field name="name">hse.city.code.tree</field>
+		<field name="model">hse.city.code</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="code"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_city_code_filter" model="ir.ui.view">
+		<field name="name">hse.city.code.filter</field>
+		<field name="model">hse.city.code</field>
+		<field name="arch" type="xml">
+			<search string="hse_city_code">
+                <field name="name"/>
+                <field name="code"/>
+            </search>
+		</field>
+	</record>
+	<record id="action_hse_city_code" model="ir.actions.act_window">
+		<field name="name">Аймаг/хот</field>
+		<field name="res_model">hse.city.code</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record id="view_hse_water_car_form" model="ir.ui.view">
+		<field name="name">hse.water.car.form</field>
+		<field name="model">hse.water.car</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="statenumber" widget="regex_mask" data-inputmask-regex="[0-9]{4}[А-Яа-яҮүӨөЁё\s]{3}"/>
+					<field name="company_id" options="{'no_create':True}"/>
+					<field name="water_type"/>
+					<field name="car"/>
+				</group>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_water_car_tree" model="ir.ui.view">
+		<field name="name">hse.water.car.tree</field>
+		<field name="model">hse.water.car</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="statenumber"/>
+				<field name="company_id" options="{'no_create':True}"/>
+				<field name="water_type"/>
+				<field name="car"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_water_car_filter" model="ir.ui.view">
+		<field name="name">hse.water.car.filter</field>
+		<field name="model">hse.water.car</field>
+		<field name="arch" type="xml">
+			<search string="hse_city_code">
+                <field name="name"/>
+                <field name="statenumber"/>
+				<field name="company_id"/>
+				<field name="water_type"/>
+				<field name="car"/>
+            </search>
+		</field>
+	</record>
+	<record id="action_hse_water_car" model="ir.actions.act_window">
+		<field name="name">Машины мэдээлэл</field>
+		<field name="res_model">hse.water.car</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_water_registration_form" model="ir.ui.view">
+		<field name="name">hse.water.registration.form</field>
+		<field name="model">hse.water.registration</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Ноорог" type="object" class="oe_highlight" />
+					<button name="action_to_done" states="draft" string="Дуусгах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+					<sheet>
+							<group>
+								<group>
+									<field name="name"/>
+									<field name="branch_id" options="{'no_create':True}"/>
+									<field name="year_month"/>
+								</group>
+								<group>
+									
+									<field name="create_date" string='Үүсгэсэн огноо'/>
+									<field name="create_uid" string='Үүсгэсэн ажилтан'/>
+								</group>
+							</group>
+						<notebook>
+							<page string='Цэвэр ус бүртгэл' name='hse.water.registration.line'>
+								<field name="water_registration_line_ids" nolabel="1" >
+									<tree editable="bottom">
+										<field name="well_id" options="{'no_create':True}"/>
+										<field name="date_start"/>
+										<field name="date_end" />
+										<field name="used_day" force_save="1"/>
+										<field name="counter_number"/>
+										<field name="counter_before"/>
+										<field name="counter_after"/>
+										<field name="used_water"/>
+									</tree>
+								</field>
+							</page>
+							<page string='Эргэлтийн ус' name = 'hse.water.circulating.registration.line'>
+								<field name="water_registration_line" nolabel="1" >
+									<tree editable="bottom">
+										<field name="well_id" options="{'no_create':True}"/>
+										<field name="date_start"/>
+										<field name="date_end" />
+										<field name="used_day" force_save="1"/>
+										<field name="counter_number"/>
+										<field name="counter_before"/>
+										<field name="counter_after"/>
+										<field name="used_water"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>	
+
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="activity_ids" widget="mail_activity"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+		</field>	
+	</record>
+	<record id="view_hse_water_registration_tree" model="ir.ui.view">
+		<field name="name">hse.water.registration.tree</field>
+		<field name="model">hse.water.registration</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="branch_id"/>
+				<field name="year_month"/>
+				<field name="create_uid" string='Үүсгэсэн хэрэглэгч'/>
+				<field name="create_date" string='Үүсгэсэн огноо'/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_water_registration_filter" model="ir.ui.view">
+		<field name="name">hse.water.registration.filter</field>
+		<field name="model">hse.water.registration</field>
+		<field name="arch" type="xml">
+			<search string="hse_water">
+                <field name="name"/>
+				<field name="branch_id"/>
+				<field name="year_month"/>
+				<field name="create_uid"/>
+				<field name="create_date"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="hse_water_registration_pivot" model="ir.ui.view">
+         <field name="name">hse.water.registration.pivot</field>
+         <field name="model">hse.water.registration</field>
+         <field name="arch" type="xml">
+             <pivot string="Analysis">
+				<field name="name"/>
+				<field name="branch_id"/>
+				<field name="year_month"/>
+				<field name="create_uid"/>
+				<field name="create_date"/>
+             </pivot>
+         </field>
+    </record>
+	
+	<record id="action_hse_water_registration" model="ir.actions.act_window">
+		<field name="name">Усны бүртгэл</field>
+		<field name="res_model">hse.water.registration</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,pivot,form</field>
+	</record>
+
+
+	<record id="view_hse_water_well_form" model="ir.ui.view">
+		<field name="name">hse.water.well.form</field>
+		<field name="model">hse.water.well</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="code"/>
+					<field name="name"/>
+					<field name="type"/>
+					<field name="branch_id" options="{'no_create':True}"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_water_well_tree" model="ir.ui.view">
+		<field name="name">hse.water.well.tree</field>
+		<field name="model">hse.water.well</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="code"/>
+				<field name="name"/>
+				<field name="type"/>
+				<field name="branch_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_water_well_filter" model="ir.ui.view">
+		<field name="name">hse.water.well.filter</field>
+		<field name="model">hse.water.well</field>
+		<field name="arch" type="xml">
+			<search string="hse_water">
+                <field name="name"/>
+                <field name="code"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="action_hse_water_well" model="ir.actions.act_window">
+		<field name="name">Худгийн бүртгэл</field>
+		<field name="res_model">hse.water.well</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

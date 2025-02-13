@@ -1,0 +1,26 @@
+div.html_editor_a4 {
+    width: 210mm !important;
+    min-height: 300mm !important;
+    padding: 20mm;
+    margin: 0 auto;
+}
+
+/*Dashboard header*/
+#fixed_datetodate{
+  position:fixed;
+  top: 124px;
+  margin: 0 auto;
+  padding: 5px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+#datetodate{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.chart_div_border {
+    margin-top: 6px;
+    border-radius: 1px;
+    border: 1px solid #888888;
+    box-shadow: 3px 3px 2px #888888;
+}

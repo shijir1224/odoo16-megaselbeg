@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="group_purchase_use_lot" model="res.groups">
+		<field name="name">Use lot in purchase order</field>
+		<field name="category_id" ref="base.module_category_inventory_purchase"/>
+	</record>
+	<record id="group_set_discount_on_partner" model="res.groups">
+		<field name="name">Configure purchase discount on partner</field>
+		<field name="category_id" ref="base.module_category_inventory_purchase"/>
+	</record>
+</odoo>

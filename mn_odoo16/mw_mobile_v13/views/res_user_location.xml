@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- res.user.location -->
+	<record id="res_user_location_tree" model="ir.ui.view">
+		<field name="name">res.user.location.tree</field>
+		<field name="model">res.user.location</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="user_id"/>
+				<field name="lng"/>
+				<field name="lat"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="res_user_location_form" model="ir.ui.view">
+		<field name="name">res.user.location.form</field>
+		<field name="model">res.user.location</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="user_id"/>
+						<field name="lng"/>
+						<field name="lat"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_res_user_location" model="ir.actions.act_window">
+		<field name="name">Mobile sync</field>
+		<field name="res_model">res.user.location</field>
+		<field name="view_mode">tree,form</field>
+		<!-- <field name="context">{'search_default_this_month':1,'search_default_type':1}</field> -->
+	</record>
+	
+	<menuitem id="menu_res_user_location"
+		name="User location"
+		action="action_res_user_location"
+		parent="sale.menu_sale_config"
+		sequence="20"/>
+
+</odoo>

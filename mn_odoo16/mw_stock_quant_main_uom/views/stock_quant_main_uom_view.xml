@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_product_tree_mw" model="ir.ui.view">
+        <field name="name">product.stock.tree.inherit.mw</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.view_stock_product_tree"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="after">
+                <field name="qty_available_quant_main_uom" sum="SUM" attrs="{'invisible':[('type', '!=', 'product')]}" optional="show"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="view_stock_product_template_tree_mw" model="ir.ui.view">
+        <field name="name">product.template.stock.tree.inherit.mw</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="after">
+                <field name="qty_available_quant_main_uom" sum="SUM" attrs="{'invisible':[('type', '!=', 'product')]}" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_template_form_view_procurement_button_stock_quant_main_uom">
+        <field name="name">product.template_procurement.stock.quant_main_uom</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <button name="action_open_quants" position="after">
+                <button class="oe_stat_button"
+                        name="action_open_quants"
+                        icon="fa-cubes"
+                        type="object" attrs="{'invisible':[('type', '!=', 'product')]}" 
+                        groups="mw_stock_quant_main_uom.group_stock_by_quant_main_uom">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="qty_available_quant_main_uom" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                            <span class="o_stat_text">Үндсэн нэгжээр Үлдэгдэл</span>
+                        </div>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_form_view_procurement_button_mw">
+        <field name="name">product.product.procurement.mw</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <data>
+                <button name="action_open_quants" position="after">
+                    <button class="oe_stat_button"
+                            name="action_open_quants"
+                            icon="fa-cubes"
+                            type="object" attrs="{'invisible':[('type', '!=', 'product')]}" 
+                            groups="mw_stock_quant_main_uom.group_stock_by_quant_main_uom">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="qty_available_quant_main_uom" widget="statinfo" nolabel="1" class="mr4"/>
+                                </span>
+                                <span class="o_stat_text">Үндсэн нэгжээр Үлдэгдэл</span>
+                            </div>
+                    </button>
+                </button>
+            </data>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_template_kanban_stock_view_mw">
+        <field name="name">Product Template Kanban Stock MW</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_kanban_stock_view"/>
+        <field name="arch" type="xml">
+            <field name="uom_id" position="after">
+                Үндсэн нэгжээр: <field name="qty_available_quant_main_uom" groups="mw_stock_quant_main_uom.group_stock_by_quant_main_uom"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_stock_quant_tree_editable_inh_main_uom">
+        <field name="name">stock.quant.tree.editable.inh.main.uom</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="arch" type="xml">
+            <field name="inventory_quantity_auto_apply" position="after">
+                <field name="quantity_main_uom" sum="SUM" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_stock_quant_report_tree_mw_main_uom">
+        <field name="name">stock.quant.report.tree.stock.mw.main.uom</field>
+        <field name="model">stock.quant.report</field>
+        <field name="inherit_id" ref="mw_stock.view_stock_quant_report_tree"/>
+        <field name="arch" type="xml">
+            <field name="quantity" position="after">
+                <field name="quantity_main_uom" sum="SUM"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

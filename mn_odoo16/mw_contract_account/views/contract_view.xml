@@ -1,0 +1,131 @@
+<odoo>
+
+     <record id="view_move_form_contract_document" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='credit']" position="after">
+                <field name="contract_document_id" options="{'no_create':True}" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_form_mw_contract" model="ir.ui.view">
+        <field name="name">purchase.order.formw.mw.contract</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="contract_id" options="{'no_create':True,'no_create_edit':True}" attrs="{'readonly': [('state','in',['purchase', 'cancel'])]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_document_real_search_view_pr" model="ir.ui.view">
+	        <field name="name">contract.document.real</field>
+	        <field name="model">contract.document.real</field>
+            <field name="inherit_id" ref="mw_contract.contract_document_real_search_view"/>
+	        <field name="arch" type="xml">
+                <xpath expr="//filter[@name='partner_id']" position="after">
+                    <filter name="amount_balance" string="Үлдэгдэл дүнтэй гэрээ" domain="[('amount_balance','!=',0)]"/>
+                </xpath>
+            </field>
+    </record>
+
+    <record id="contract_document_real_form_view_purchase" model="ir.ui.view">
+        <field name="name">contract.document.real.form.purchase</field>
+        <field name="model">contract.document.real</field>
+        <field name="inherit_id" ref="mw_contract.contract_document_real_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[1]" position="replace">
+                <page string="Төлбөр төлөлт">
+                    <group  string='Төлбөрийн график үүсгэх дүн эхлэх, дуусах огноо оруулж өгнө график үүсгэнэ үү!!'>
+                        <group>
+                            <field name='start_date' attrs="{'required':[('payment_type','=','type1')]}"/>
+                            <field name='end_date'/>
+                        </group>
+                        <group>
+                            <field name="amount" attrs="{'required':[('payment_type','=','type1')]}"/>
+                            <button name="line_create" string="График үүсгэх" type="object" class="btn btn-info" />
+                        </group>
+                    </group>
+                    <field name="payment_line_ids" attrs="{'required':[('payment_type','=','type1')]}">
+                        <form string="Contract payment lines" >
+                            <group >
+                                <field name="paid_date"/>  
+                                <field name="percent" optional='hide'/>
+                                <field name="paid_amount"  force_save='1'/>  
+                                <field name="disburse_date"  force_save='1'/>
+                                <field name="disburse_amount"/>
+                            </group>
+                            <notebook>
+                                <page string="Төлөгдсөн төлбөрүүд">
+                                    <field name="line_line_ids">
+                                        <tree string="lines">
+                                            <field name="aml_date"/>
+                                            <field name="aml_paid_amount" sum="SUM"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook> 
+                        </form>
+                        <tree string="Contract payment lines" editable="bottom">
+                            <field name="paid_date"/>  
+                             <field name="percent"/>
+                            <field name="paid_amount"  sum='Sum'/>  
+                            <field name="disburse_date" force_save='1'/>
+                            <field name="disburse_amount" sum='Sum' force_save='1'/> 
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name='amount_total' widget="monetary" force_save='1'/>
+                        <field name='amount_paid' widget="monetary" force_save='1'/>
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="amount_balance" />
+                            <field name='amount_balance' widget="monetary" force_save='1'/>
+                        </div>
+                    </group>
+                </page>
+                <page string="Санхүү бичилт">
+                    <field name="aml_ids" readonly="1" force_save='1'>
+                        <form string="Account move lines" >
+                            <field name="account_id"/>  
+                            <field name="partner_id"/>  
+                            <field name="branch_id"/>
+                            <field name="name"/>
+                            <field name="currency_id"/> 
+                            <field name="debit"/> 
+                            <field name="credit"/>
+                        </form>
+                        <tree string="Contract payment lines" >
+                            <field name="account_id"/>  
+                            <field name="partner_id"/>
+                            <field name="branch_id"/>
+                            <field name="name"/>
+                            <field name="currency_id"/> 
+                            <field name="debit"/> 
+                            <field name="credit"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Худалдан авалт">
+                        <field name='purchase_ids' readonly="1" force_save='1'/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="contract_document_real_tree_view_pr">
+        <field name="name">contract.document.real.tree</field>
+        <field name="model">contract.document.real</field>
+        <field name="inherit_id" ref="mw_contract.contract_document_real_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='payment_sum']" position="after">
+                <field name="amount_paid" sum='Sum'/>
+                <field name="amount_balance" sum='Sum'/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

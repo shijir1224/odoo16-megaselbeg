@@ -1,0 +1,106 @@
+
+<odoo>
+    <record id="view_hr_mining_evaluation_filter" model="ir.ui.view">
+        <field name="name">hr.mining.evaluation.search</field>
+        <field name="model">hr.mining.evaluation</field>
+        <field name="arch" type="xml">
+            <search>
+                <group>
+                    <field name="year"/>
+                    <field name="month"/>
+                </group>
+                <group expand="0" string="Group By..">
+                    <filter name="state" string="Төлөв" domain="[]" context="{'group_by':'state'}"/>
+                    <filter name="year" string="Төлөв" domain="[]" context="{'group_by':'state'}"/>
+                    <filter name="month" string="Төлөв" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hr_mining_evaluation_form" model="ir.ui.view">
+        <field name="name">hr.mining.evaluation.form</field>
+        <field name="model">hr.mining.evaluation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Илгээх" name="action_send" type="object" states='draft' class="oe_highlight" />
+                    <button string="Хянах" name="action_confirm" type="object" states='sent' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                    <button string="Батлах" name="action_done_hr" type="object" states='confirm' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                    <button string="Нябо хүлээж авах" name="action_done" type="object" states='done_hr' class="oe_highlight" />
+                    <button string="Ноороглох" name="action_draft" type="object" states='sent,confirm,done_hr,done' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,done_hr,done" statusbar_colors='{"draft":"gray","sent":"blue","send":"done"}'/>
+                </header>
+                <sheet>
+                <group>
+                    <group>
+                        <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name ='year' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="month" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </group>
+                    <group>
+                        <field name="mining_percent" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name ='hab_percent' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="subcontract_percent" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </group>
+                    <group>
+                        <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="data" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                        <button string="Ажилчид татах" name="line_create" type="object" states='draft' class="btn-info" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <!-- <button string="Импортлох" name="action_import" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}" icon = "fa-import"/> -->
+                    </group>
+                    <notebook>
+                        <page>
+                            <field name="line_ids" widget="one2many_list" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable='bottom'>
+                                    <field name="identification_id"/>
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id"/>
+                                    <field name="hour_to_work_month"/>
+                                    <field name="kpi"/>
+                                    <field name="mining_percent"/>
+                                    <field name ='mining_kpi'/>
+                                    <field name="hab_percent"/>
+                                    <field name="hab_kpi"/>
+                                    <field name ='subcontract_percent'/>
+                                    <field name="subcontract_kpi"/>
+                                    <field name="total_kpi"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>  
+            </form>
+        </field>
+    </record>
+    <record id="hr_mining_evaluation_tree" model="ir.ui.view">
+        <field name="name">hr.mining.evaluation.tree</field>
+        <field name="model">hr.mining.evaluation</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state=='done'" >
+                <field name="name"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_mining_evaluation_action" model="ir.actions.act_window">
+        <field name="name">KPI</field>
+        <field name="res_model">hr.mining.evaluation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_hr_mining_evaluation_filter"/>
+    </record>
+
+    <menuitem id="hr_mining_evaluation_menu" name='KPI' sequence='16'  groups='mw_hr_evaluation.group_evaluation_manager'/> 
+    <menuitem id="mining_evaluation_menu" parent ='hr_mining_evaluation_menu' action="hr_mining_evaluation_action" sequence='1'  groups='mw_hr_evaluation.group_evaluation_manager'/> 
+
+</odoo>

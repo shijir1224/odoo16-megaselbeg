@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_account_asset_model_code_form">
+        <field name="name">account.asset.form.model.code</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='method']" position="before">
+	                <field name="asset_code_sequence_id" attrs="{'invisible': [('state', '!=', 'model')]}"/>
+	         </xpath>
+            <xpath expr="//field[@name='code']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

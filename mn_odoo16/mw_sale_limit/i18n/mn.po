@@ -1,0 +1,155 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_sale_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0-20220525\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-31 16:01+0000\n"
+"PO-Revision-Date: 2022-07-31 16:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_sale_limit
+#: code:addons/mw_sale_limit/models/sale_order_limit_setting.py:0
+#: code:addons/mw_sale_limit/models/sale_order_limit_setting.py:0
+#, python-format
+msgid "(%s) агуулах дээр (%s) барааны хязгаарлалт хийсэн байна!"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__partner_ids
+msgid "Approved partners"
+msgstr "Зөвшөөрөгдсөн харилцагчид"
+
+#. module: mw_sale_limit
+#: model_terms:ir.ui.view,arch_db:mw_sale_limit.sale_order_limit_setting_form
+msgid "Confirm"
+msgstr "Батлах"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields.selection,name:mw_sale_limit.selection__sale_order_limit_setting__state__confirmed
+msgid "Confirmed"
+msgstr "Батлагдсан"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__create_uid
+msgid "Created by"
+msgstr "Үүсгэсэн этгээд"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__description
+msgid "Discription"
+msgstr "Тайлбар"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.model.fields.selection,name:mw_sale_limit.selection__sale_order_limit_setting__state__draft
+#: model_terms:ir.ui.view,arch_db:mw_sale_limit.sale_order_limit_setting_form
+msgid "Draft"
+msgstr "Ноороглох"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_sale_limit
+#: code:addons/mw_sale_limit/models/sale_order_limit_setting.py:0
+#, python-format
+msgid "In order to delete a record, it must be draft first!"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.ui.menu,name:mw_sale_limit.menu_sale_limit_setting
+msgid "Limit Product Settings"
+msgstr "Хязгаарлах барааны тохиргоо"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__categ_ids
+msgid "Limiting category"
+msgstr "Хязгаарлах ангилал"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__product_ids
+msgid "Limiting products"
+msgstr "Хязгаарлах бараанууд"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__warehouse_ids
+msgid "Limiting warehouse"
+msgstr "Хязгаарлах агуулах"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__min_qty
+msgid "Lower limit"
+msgstr "Доод хязгаар"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__name
+msgid "Name"
+msgstr "Дугаар"
+
+#. module: mw_sale_limit
+#: model:ir.model,name:mw_sale_limit.model_sale_order_limit_setting
+msgid "Sale Order Limit Setting"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.model,name:mw_sale_limit.model_sale_order
+msgid "Sales Order"
+msgstr "Борлуулалтын захиалга"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__state
+msgid "State"
+msgstr "Төлөв"
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,field_description:mw_sale_limit.field_sale_order_limit_setting__user_id
+msgid "User"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.actions.act_window,name:mw_sale_limit.action_sale_order_limit_setting
+msgid "sale.order.limit.setting.action"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:res.groups,name:mw_sale_limit.group_sale_limit_user
+msgid "Борлуулалтын хязгаарлалт хийх"
+msgstr ""
+
+#. module: mw_sale_limit
+#: model:ir.model.fields,help:mw_sale_limit.field_sale_order_limit_setting__warehouse_ids
+msgid "Хязгаарлалт хийх агуулахыг сонгоно уу"
+msgstr ""

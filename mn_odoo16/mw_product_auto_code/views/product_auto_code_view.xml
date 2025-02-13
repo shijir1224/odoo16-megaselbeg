@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="product_auto_code" model="ir.ui.view">
+        <field name="name">product.category.search.mw.auto.code</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="mw_product.product_category_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="auto_coding_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

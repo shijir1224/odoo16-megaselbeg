@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mining_surveyor_measurement_import_user,mining.surveyor.measurement.import,model_mining_surveyor_measurement_import,mw_mining.group_mining_user,1,1,1,1

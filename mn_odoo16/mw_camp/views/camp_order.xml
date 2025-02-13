@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_camp_order" model="ir.sequence">
+        <field name="name">Camp Order</field>
+        <field name="code">camp.order</field>
+        <field name="prefix">CO%(y)s%(month)s-</field>
+        <field name="padding">4</field>
+    </record>
+    <record id="view_camp_order_tree" model="ir.ui.view">
+        <field name="name">Camp Order tree</field>
+        <field name="model">camp.order</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Check List">
+                <field name="name" optional="show" />
+                <field name="date" optional="show" />
+                <field name="partner_id" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_camp_order_form" model="ir.ui.view">
+        <field name="name">Camp Order Form</field>
+        <field name="model">camp.order</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <field name="flow_line_id" widget="statusbar" />
+                    <button name="action_next_stage" states="draft" string="Батлах" type="object"
+                        class="btn-success"
+                        attrs="{'invisible': ['|',('state_type','in',['done','cancel']),('flow_id', '=', False)]}" />
+                    <button name="action_draft" string="Ноорог" type="object"
+                        class="btn-danger"
+                        attrs="{'invisible': ['|',('state_type', '!=', 'cancel'),('flow_id','=',False)]}" />
+                    <button name="action_cancel" string="Цуцлах" type="object" states="done"
+                        attrs="{'invisible': ['|',('state_type', 'not in', ['cancel','done']),('flow_id','=',False)]}"
+                        class="btn-danger"
+                    />
+                    <!-- <button name="action_create_invoice" string="Нэхэмжлэл үүсгэх"
+                    type="object"
+                        class="btn-success"
+                    /> -->
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="view_invoice" icon="fa-files-o"
+                            type="object">
+                            <span class="o_stat_value">
+                                <field name="invoice_id" readonly="1" />
+                            </span>
+                            <span class="o_stat_text">Нэхэмжлэл</span>
+                        </button>
+                    </div>
+                    <div name="name">
+                        <label for="name" />
+                        <h1 class="d-flex">
+                            <field name="name" readonly="1" />
+                            <field name="visible_flow_line_ids" invisible="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="flow_id" />
+                            <field name="state_type" invisible="1" />
+                            <field name="partner_id" />
+                            <field name="is_payment" />
+                            <field name="payment_type"
+                                attrs="{'invisible': [('is_payment', '=',False)]}" />
+                            <field name="taxes_id" widget="many2many_tags" string="Татвар" />
+                        </group>
+                        <group>
+                            <field name="state_type" invisible="1" />
+                            <field name="company_id" />
+                            <field name="date" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Мөр" name='default'>
+                            <div>
+                                <span>
+                                    <button name="action_export_template"
+                                        icon="fa-arrow-circle-down" type="object"
+                                        string="Загвар татах" class="btn-warning" />
+                                </span>
+                                <span style="margin-left: 10px">
+                                    <field name="import_data" filename="import_data_name" />
+                                </span>
+                                <span style="margin-left: 10px">
+                                    <button name="import_data_line" icon="fa-arrow-circle-up"
+                                        class="btn-success" type="object"
+                                        string="Мөр эксэлээс импортлох" />
+                                </span>
+                                <span style="margin-left: 10px">
+                                    <button name="clear_lines" type="object" icon="fa-times-circle"
+                                        class="btn-danger" string="Мөр устгах"
+                                        confirm="Бүх мөрийг устгахдаа итгэлтэй байна уу?"
+                                        attrs="{'invisible': ['|',('state_type', '!=', 'draft'),('flow_id','=',False)]}" />
+                                </span>
+                            </div>
+                            <field name="order_line" nolabel="1" widget="one2many_list"
+                                colspan="4">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="partner_id" options="{'no_create': True}"
+                                        optional="show" />
+                                    <field name="gender" optional="show" />
+                                    <field name="department_id" options="{'no_create': True}"
+                                        optional="show" />
+                                    <field name="room_id" optional="show" />
+                                    <field name="room_type_id"
+                                        optional="show" />
+                                    <field name="block_id" options="{'no_create': True}"
+                                        optional="show" />
+                                    <field name='date' optional="hide" />
+                                    <field name='amount' optional="hide" force_save="1"
+                                        attrs="{'readonly': [('payment_type', '!=','nondefault')]}" />
+                                    <field name='price_tax' optional="hide" />
+                                    <field name='price_subtotal' optional="hide" />
+                                    <field name='sub_total' optional="hide" />
+                                    <field name='tax_id' optional="hide" widget="many2many_tags" />
+                                    <field name='payment_type' optional="hide" />
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" name="sale_total" colspan="2">
+
+                                <field name="untax_amount" widget='monetary'
+                                    options="{'currency_field': 'currency_id'}"
+                                    string="Татваргүй дүн" />
+                                <field name="tax_amount" widget='monetary'
+                                    options="{'currency_field': 'currency_id'}" string="Татвар" />
+                                <field name="total_amount" widget='monetary'
+                                    options="{'currency_field': 'currency_id'}" string="Нийт дүн" />
+                            </group>
+                        </page>
+                        <page name='other' string='Бусад' groups='base.group_no_one'>
+                            <group col="6">
+                                <field name="state" />
+                                <field name="flow_line_next_id" />
+                                <field name="flow_line_back_id" />
+
+                                <field name="visible_flow_line_ids" widget="many2many_tags"
+                                />
+                            </group>
+                        </page>
+
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_camp_order" model="ir.actions.act_window">
+        <field name="name">Camp Order </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">camp.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context"></field>
+    </record>
+</odoo>

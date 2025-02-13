@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="dynamic_report_view" model="ir.ui.view">
+            <field name="name">dynamic.report.wizard</field>
+            <field name="model">dynamic.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <field name="salary_id" />
+                        <field name="color" widget="colorpicker"/>
+                    </group>
+                    <notebook>
+                        <page string="Нэмэгдэл суутгалууд">
+                            <field name="category_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                    <field name="is_advance"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_dynamic_report" model="ir.actions.act_window">
+            <field name="name">Dynamic report</field>
+            <field name="res_model">dynamic.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dynamic_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_dynamic_report" action="action_dynamic_report" 
+        parent="menu_finance_salary_report" sequence="4" groups='group_salary_hybo'/>
+
+    </data>
+</openerp>

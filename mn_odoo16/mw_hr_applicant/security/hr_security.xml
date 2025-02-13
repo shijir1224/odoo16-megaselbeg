@@ -1,0 +1,16 @@
+<odoo>
+    <record model="ir.module.category" id="mw_applicant_group">
+        <field name="name">HR Applicant</field>
+        <field name="sequence">31</field>
+    </record>
+
+    <record id="group_applicant_user" model="res.groups">
+        <field name="name">Applicant user</field>
+        <field name="category_id" ref="mw_applicant_group"/>
+    </record>
+
+    <record id="group_applicant_manager" model="res.groups">
+        <field name="name">Applicant administrator</field>
+        <field name="category_id" ref="mw_applicant_group"/>
+    </record>
+</odoo>

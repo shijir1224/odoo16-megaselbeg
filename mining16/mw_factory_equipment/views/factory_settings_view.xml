@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<!-- Facility VIEWs -->
+		<record model='ir.ui.view' id='factory_facility_form'>
+			<field name="name">Байгууламжын бүртгэл</field>
+			<field name="model">factory.facility</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<form string="Facility form">
+					<header>
+					</header>
+					<sheet>
+						<group> 
+							<group>
+								<field name="name" />
+							</group>
+							<group>
+								<field name="branch_id" options="{'no_create':True}"/>
+								<field name="equipment_ids" widget="many2many_tags"/>
+							</group>
+							<field name="equipment_ids" readonly="1">
+								<tree>
+									<field name="vin_number"/>
+									<field name="name"/>
+									<field name="total_odometer"/>
+									<field name="state"/>
+								</tree>
+							</field>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model='ir.ui.view' id='factory_facility_tree'>
+			<field name="name">Байгууламжын жагсаалт</field>
+			<field name="model">factory.facility</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<tree string="Facilities">
+					<field name="name" />
+					<field name="branch_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="factory_facility_search">
+			<field name="name">Байгууламж хайлт</field>
+			<field name="model">factory.facility</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<search string="Search">
+					<field name="name"/>
+					<field name="branch_id"/>
+					<group expand="1" string="Filters">
+					</group>
+					<group expand="1" string="Group By...">
+						<filter name="groupby_branch" context="{'group_by':'branch_id'}"
+							string="Салбар"/>
+					</group>
+			   </search>
+			</field>
+		</record>
+
+		<record model='ir.actions.act_window' id='action_factory_facility'>
+			<field name="name">Тоног төхөөрөмжийн бүртгэл</field>
+			<field name="res_model">factory.facility</field>
+			<field name="view_mode">tree,kanban,form</field>
+			<field name="view_id" ref="factory_facility_tree"/>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+			<field name="search_view_id" ref="factory_facility_search" />
+			<field name="view_ids"
+					   eval="[(5,0,0),(0,0,{'view_mode':'tree',
+								'view_id': ref('mw_factory_equipment.factory_facility_tree')}),
+							  (0,0,{'view_mode':'form',
+								'view_id': ref('mw_factory_equipment.factory_facility_form')})]"/>
+		</record>
+</odoo>

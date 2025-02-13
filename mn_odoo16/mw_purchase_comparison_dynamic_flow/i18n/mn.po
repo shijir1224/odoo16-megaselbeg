@@ -1,0 +1,175 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase_comparison_dynamic_flow
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-05 09:29+0000\n"
+"PO-Revision-Date: 2022-09-05 17:30+0800\n"
+"Last-Translator: Byambajargal Suuri <byambaa08@gmail.com>\n"
+"Language-Team: \n"
+"Language: mn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.1.1\n"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison_dynamic_flow.purchase_order_comparison_view_form_dynamic_workflow
+msgid "Are you sure to return?"
+msgstr "Та буцаахдаа итгэлтэй байна уу?"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__categ_ids
+msgid "Category"
+msgstr "Ангилал"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model,name:mw_purchase_comparison_dynamic_flow.model_dynamic_flow_line
+msgid "Dynamic Flow Line"
+msgstr "Динамик урсгалын мөр"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model,name:mw_purchase_comparison_dynamic_flow.model_dynamic_flow_history
+msgid "Dynamic Flow history"
+msgstr "Ажлын урсгалын түүх"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_purchase_comparison_dynamic_flow.selection__dynamic_flow_line__state_type__ended
+msgid "Ended"
+msgstr "Дууслаа"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__is_not_edit
+msgid "Is Not Edit"
+msgstr "Засах боломжгүй"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: code:addons/mw_purchase_comparison_dynamic_flow/models/purchase_comparison.py:0
+#, python-format
+msgid "Only the Comparison Representative can end the comparison."
+msgstr "Зөвхөн Харьцуулалт хариуцагч харьцуулалтыг дуусгах боломжтой."
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: code:addons/mw_purchase_comparison_dynamic_flow/models/purchase_comparison.py:0
+#, python-format
+msgid "Please create lines"
+msgstr "Мөрүүдийг үүсгэнэ үү"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_dynamic_flow_history__comparison_id
+msgid "Purchase comparison"
+msgstr "Худалдан авалтын харьцуулалт"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model,name:mw_purchase_comparison_dynamic_flow.model_purchase_order_comparison
+msgid "Purchase order comparison"
+msgstr "Худалдан авалтын харьцуулалт"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model,name:mw_purchase_comparison_dynamic_flow.model_purchase_order_comparison_line
+msgid "Purchase order comparison line"
+msgstr "Худалдан авалтын харьцуулалтын мөр"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison_dynamic_flow.purchase_order_comparison_view_form_dynamic_workflow
+msgid "Return"
+msgstr "Буцаах"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_purchase_comparison_dynamic_flow.selection__dynamic_flow_line__state_type__start_vote
+msgid "Start vote"
+msgstr "Санал хураалтыг эхлэх"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_dynamic_flow_line__state_type
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__state_type
+msgid "State type"
+msgstr "Төлвийн төрөл"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__visible_flow_line_ids
+msgid "Visible state"
+msgstr "Төлөв"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_purchase_comparison_dynamic_flow.selection__dynamic_flow_line__state_type__vote
+msgid "Vote"
+msgstr "Санал өгөх"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_purchase_comparison_dynamic_flow.selection__dynamic_flow_line__state_type__vote_ended
+msgid "Vote ended"
+msgstr "Санал хураалт дууссан"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model,name:mw_purchase_comparison_dynamic_flow.model_purchase_order_comparison_vote
+msgid "Vote for purchase comparison"
+msgstr "Харьцуулалтын санал хураалт"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: code:addons/mw_purchase_comparison_dynamic_flow/models/purchase_comparison.py:0
+#, python-format
+msgid "Voting has ended so it is not possible to back."
+msgstr "Санал хураалт дууссан тул буцах боломжгүй."
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__flow_id
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison_line__flow_id
+msgid "Workflow config"
+msgstr "Ажлын урсгалын тохиргоо"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: code:addons/mw_purchase_comparison_dynamic_flow/models/purchase_comparison.py:0
+#, python-format
+msgid "You are not back user"
+msgstr "Та ухраах хэрэглэгч биш байна"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: code:addons/mw_purchase_comparison_dynamic_flow/models/purchase_comparison.py:0
+#, python-format
+msgid "You are not draft user"
+msgstr "Та ноороглох хэрэглэгч биш байна"
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison_dynamic_flow.purchase_order_comparison_view_form_dynamic_workflow
+msgid "Батлах"
+msgstr ""
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison_dynamic_flow.purchase_order_comparison_view_form_dynamic_workflow
+msgid "Буцааж ноороглох"
+msgstr ""
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__flow_line_next_id
+msgid "Дараагийн төлөв"
+msgstr ""
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__flow_line_id
+msgid "Төлөв"
+msgstr ""
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__stage_id
+msgid "Төлөв stage"
+msgstr ""
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_comparison_dynamic_flow.purchase_order_comparison_view_form_dynamic_workflow
+msgid "Төлөвийн түүх"
+msgstr ""
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__history_flow_ids
+msgid "Урсгалын түүхүүд"
+msgstr ""
+
+#. module: mw_purchase_comparison_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_comparison_dynamic_flow.field_purchase_order_comparison__flow_line_back_id
+msgid "Өмнөх төлөв"
+msgstr ""

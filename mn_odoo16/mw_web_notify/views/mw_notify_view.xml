@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="mw_notify_filter" model="ir.ui.view">
+		<field name="name">mw.notify.filter</field>
+		<field name="model">mw.notify</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="desc"/>
+				<field name="active"/>
+				<field name="type"/>
+				<field name="sticky"/>
+				<field name="interval_number"/>
+				<field name="interval_type"/>
+				<field name="nextcall"/>
+				<field name="lastcall"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="mw_notify_form" model="ir.ui.view">
+		<field name="name">mw.notify.form</field>
+		<field name="model">mw.notify</field>
+		<field name="inherit_id" ref=""/>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" required="1"/>
+						</group>
+						<group>
+							<field name="desc" required="1"/>
+						</group>
+						<group>
+							<field name="interval_number" required="1"/>
+							<field name="interval_type" required="1"/>
+						</group>
+						<group>
+							<field name="nextcall"/>
+							<field name="lastcall"/>
+						</group>
+						<group>
+							<field name="active"/>
+						</group>
+						<group>
+							<field name="sticky"/>
+						</group>
+					</group>
+					<button name="check_notify_hand" type="object" string="Гараар илгээх" class="btn-success"/>
+					<notebook>
+						<page string="Мэдэгдэл очих ажилтанууд">
+								<field name="user_ids" nolabel="1">
+									<tree editable="bottom">
+										<field name="name"/>
+									</tree>
+								</field>
+						</page>
+						<page string="Бусад" groups="base.group_no_one">
+							<group col="4">
+								<field name="type"/>
+								<field name="res_id"/>
+								<field name="model_model"/>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="mw_notify_tree" model="ir.ui.view">
+		<field name="name">mw.notify.tree</field>
+		<field name="model">mw.notify</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="desc"/>
+				<field name="active"/>
+				<field name="type"/>
+				<field name="sticky"/>
+				<field name="interval_number"/>
+				<field name="interval_type"/>
+				<field name="nextcall"/>
+				<field name="lastcall"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="mw_notify_action" model="ir.actions.act_window">
+		<field name="name">Мэдэгдэлүүд</field>
+		<field name="res_model">mw.notify</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('user_ids','in',[uid])]</field>
+		<field name="context">{}</field>
+	</record>
+
+	<record id="mw_notify_action_all" model="ir.actions.act_window">
+		<field name="name">Мэдэгдэлүүд Бүгд</field>
+		<field name="res_model">mw.notify</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[]</field>
+		<field name="context">{}</field>
+	</record>
+
+	<menuitem id="menu_notiry_root" name="Мэдэгдэл" web_icon="mw_web_notify,static/icon.png" sequence="77"/>
+	<menuitem id="menu_mw_notify_action" action="mw_notify_action" parent="menu_notiry_root" sequence="30"/>
+	<menuitem id="menu_mw_notify_action_all" action="mw_notify_action_all" groups="base.group_no_one" parent="menu_notiry_root" sequence="40"/>
+	
+	<record id="cron_check_mw_notify" model="ir.cron">
+		<field name="name">Мэдэгдэл шалгах</field>
+		<field name="model_id" ref="model_mw_notify"/>
+		<field name="state">code</field>
+		<field name="user_id" ref="base.user_root" />
+		<field name="code">model.check_notify()</field>
+		<field name="interval_number">1</field>
+		<field name="interval_type">minutes</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+	</record>
+</odoo>

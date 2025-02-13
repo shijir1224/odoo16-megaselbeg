@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_mining_production_report_tree" model="ir.ui.view">
+            <field name="name">mining.production.report.tree</field>
+            <field name="model">mining.production.report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="shift"/>
+                    <field name="part"/>
+                    <field name="material_id"/>
+                    <field name="dump_id"/>
+                    <field name="excavator_id"/>
+                    <field name="from_location"/>
+                    <field name="for_pile"/>
+                    <field name="is_production"/>
+                    <field name="level"/>
+                    <field name="is_stone"/>
+                    <field name="coal_layer"/>
+                    <field name="master_id"/>
+                    <field name="sum_m3"/>
+                    <field name="sum_tn_sur"/>
+                    <field name="sum_tn_petram"/>
+                    <field name="sum_tn_puu"/>
+                    <field name="sum_tn_plan"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_mining_production_report_graph" model="ir.ui.view">
+            <field name="name">mining.production.report.graph</field>
+            <field name="model">mining.production.report</field>
+            <field name="arch" type="xml">
+                <graph stacked="True">
+                     <field name="excavator_id" type="col"/>
+                     <field name="dump_id" type="row"/>
+                     <field name="sum_m3" type="measure"/>
+                     <field name="res_count" type="measure"/>
+                </graph>
+             </field>
+        </record>
+
+        <record id="view_mining_production_report_pivot" model="ir.ui.view">
+            <field name="name">mining.production.report.pivot</field>
+            <field name="model">mining.production.report</field>
+            <field name="arch" type="xml">
+                <pivot>
+                     <field name="dump_id" type="row"/>
+                     <field name="excavator_id" type="col"/>
+                     <field name="sum_m3" type="measure"/>
+                     <field name="res_count" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="view_mining_production_report_search" model="ir.ui.view">
+            <field name="name">mining.production.report.search</field>
+            <field name="model">mining.production.report</field>
+            <field name="arch" type="xml">
+                <search string="Production Entry Analysis">
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="shift"/>
+                    <field name="part"/>
+                    <field name="material_id"/>
+                    <field name="dump_id"/>
+                    <field name="excavator_id"/>
+                    <field name="from_location"/>
+
+                    <field name="partner_id"/>
+                    <field name="technic_setting_id"/>
+                    <field name="partner_id2"/>
+                    <field name="technic_setting_id2"/>
+
+                    <field name="for_pile"/>
+                    <field name="is_production"/>
+                    <field name="level"/>
+                    <field name="is_stone"/>
+                    <field name="coal_layer"/>
+                    <field name="master_id"/>
+                    <field name="sum_m3"/>
+                    <field name="sum_tn" groups="mw_mining.group_mining_mineral_coal"/>
+                    <filter name="ex_ok" string="Экскаватор бүтээл" domain="[('excavator_id','!=',False)]"/>
+                    <filter name="dump_ok" string="Дамп бүтээл" domain="[('dump_id','!=','False')]"/>
+                    <filter name="own_technic" string="Өөрийн техник" domain="['|',('dump_id.owner_type','=','own_asset'), ('excavator_id.owner_type','=','own_asset')]"/>
+                    <separator/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="is_production_true" string="Is production true" domain="[('is_production','=',True)]"/>
+                    <filter name="is_production_false" string="Is production false" domain="[('is_production','=',False)]"/>
+                    <separator/>
+                    <filter name="is_sur_true" string="Хэмжилттэй" domain="[('sum_m3_sur','!=',0)]"/>
+                    <filter name="is_sur_false" string="Хэмжилтгүй" domain="[('sum_m3_sur','=',0)]"/>
+                    <separator/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Project" name="project" context="{'group_by':'branch_id'}"/>
+                        <filter string="Date (day)" name="gr_day" icon="terp-go-today" context="{'group_by':'date:day'}"/>
+                        <filter string="Date (week)" name="gr_week" icon="terp-go-week" context="{'group_by':'date:week'}"/>
+                        <filter string="Date (month)" name="gr_month" icon="terp-go-month" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (quarter)" name="gr_quarter" icon="terp-go-quarter" context="{'group_by':'date:quarter'}"/>
+                        <filter string="Date (year)" name="gr_year" icon="terp-go-year" context="{'group_by':'date:year'}"/>
+                        <filter string="Shift" name="gr_shift" context="{'group_by':'shift'}"/>
+                        <filter string="Part" name="gr_part" context="{'group_by':'part'}"/>
+                        <filter string="Material" name="gr_material" context="{'group_by':'material_id'}"/>
+                        <filter string="Dump" name="gr_dump" context="{'group_by':'dump_id'}"/>
+                        <filter string="Excavator" name="gr_exca" context="{'group_by':'excavator_id'}"/>
+                        <filter string="From location" name="gr_from_loc" context="{'group_by':'from_location'}"/>
+                        <filter string="For location" name="gr_for_loc" context="{'group_by':'for_location'}"/>
+                        <filter string="For pile" name="gr_for pile" context="{'group_by':'for_pile'}"/>
+                        <filter string="From pile" name="gr_from_pile" context="{'group_by':'from_pile'}"/>
+                        <filter string="Level" name="gr_level" context="{'group_by':'level'}"/>
+                        <filter string="Is Stone" name="gr_stone" context="{'group_by':'is_stone'}"/>
+                        <filter string="Coal Layer" name="gr_coal_layer" context="{'group_by':'coal_layer'}"/>
+                        <filter string="Master" name="gr_master" context="{'group_by':'master_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_production_report_tree" model="ir.actions.act_window">
+            <field name="name">Productivity report</field>
+            <field name="res_model">mining.production.report</field>
+            <field name="view_mode">pivot,graph,tree</field>
+            <field name="search_view_id" ref="view_mining_production_report_search"/>
+            <field name="context">{"search_default_this_month":1}</field>
+            <field name="domain">[]</field>
+            <field name="help"></field>
+        </record>
+
+</odoo>

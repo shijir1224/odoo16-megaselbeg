@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_automatic_entry_wizard_mw_form_analytic" model="ir.ui.view">
+            <field name="name">account.automatic.entry.wizard.mw.form.analytic</field>
+            <field name="model">account.automatic.entry.wizard</field>
+	        <field name="inherit_id" ref="account.account_automatic_entry_wizard_form"/>
+	        <field name="arch" type="xml">
+               <xpath expr="//field[@name='destination_account_id']" position="before">
+                    <field name="analytic_distribution" widget ="analytic_distribution" string="Шинжилгээ"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+	<t t-name="mw_salesman_route_planner.SalesmanRoute">
+		<div id="partner_on_map" style="width:100%;
+										height:400px;
+										margin-top: 6px;
+									    border-radius: 1px;
+									    border: 1px solid #888888;
+									    box-shadow: 3px 3px 2px #888888;">
+			<b>Route planner</b>
+		</div>
+	</t>
+
+	<t t-name="mw_salesman_route_planner.SalesmanRouteOnMap">
+		<div id="salesman_on_map" style="width:100%;
+										height:500px;
+									    border-radius: 1px;
+									    border: 1px solid #888888;
+									    box-shadow: 3px 3px 2px #888888;">
+		</div>
+	</t>
+
+	<t t-name="mw_salesman_route_planner.GoogleMapDraw">
+		<div id="google_map_draw" style="width:100%;
+										height:500px;
+									    border-radius: 1px;
+									    border: 1px solid #888888;
+									    box-shadow: 3px 3px 2px #888888;">
+		</div>
+	</t>
+
+</templates>

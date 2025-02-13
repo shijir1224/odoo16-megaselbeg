@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+</head>
+<body>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:14pt;"><strong><span style="color:#7f7f7f;">Disclaimer</span></strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;"><em><span style="color:#7f7f7f;">This plugin is only available in the territory of Mongolia. Please don&rsquo;t download this plugin from other regions and countries.&nbsp;</span></em></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:20pt;"><strong>ePOS Plugin</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">Pass Plugin нь Odoo ERP системийн ПОС-ийн програм дээр Pass ухаалаг түрийвчээр төлбөр төлөх боломж олгоно. Pass нь Монгол улсын төлбөр тооцооны аюулгүй байдлын шаардлагыг хангасан, оюуны өмчөөр баталгаажсан бүтээгдэхүүн бөгөөд бүх төрлийн төлбөр тооцоог банкны карт болон бэлэн мөнгө ашиглахгүй дижитал хэлбэрээр хийх ухаалаг шийдэл юм.</p>
+
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:20pt;"><strong>Давуу тал</strong></p>
+    <ul type="disc" style="margin:0pt; padding-left:0pt;">
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;">Төлбөр, картын мэдээллийн аюулгүй байдлын PCI DSS LEVEL 1 стандартыг хангасан</span></li>
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;">Magstripe</span></li>
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;">ICC /Чип/</span></li>
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;">Contactless</span></li>
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;">PASS QR code /MPM/</span></li>
+    </ul>
+
+    <p style="margin-top:0pt; margin-left:72.3pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:20pt;"><strong>Шийдэл&nbsp;</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;"><strong>MPM (Merchant Presented Mode)</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">Мерчантын үүсгэсэн QR болон Bar code-ийг Pass апп-аар уншуулж төлбөр төлнө.</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">Дэлгэрэнгүй мэдээлэл: <a href="https://databank.mn/">DATABANK.MN</a></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:20pt;"><strong>Суулгах, Тохиргоо хийх заавар</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">1. Apps дотроос Pass түлхүүр үгээр хайж install хийнэ.</p>
+    <img src="pass1.png" height="250" width="900">
+
+    <!-- ----------------------Go DOC------------------------- -->
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">2. POS-ийн тохиргоонд байх Payment methods цэс дотор PASS гэсэн нэртэй төлбөрийн төрөл нэмэгдсэн байна. Дээр нь дарж ороод нэмэлт дараах тохиргоог хийнэ:</p>
+    <ul type="disc" style="margin:0pt; padding-left:0pt;">
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;"><b>'Journal'</b> хэсэг банкны журнал сонгоно</span>
+        </li>
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;"><b>'Use a Payment'</b> хэсэгт <b>'PASS payment'</b> сонгогдсон байх ёстой</span></li>
+        <li style="margin-left:64.82pt; padding-left:7.48pt; font-family:serif;"><span style="font-family:Calibri;"><b>'Active pass test mode'</b> хэсгийг та сонгосон бол PASS-гүйлгээг ямар нэгэн token-гүй тестийн гүйлгээ хийх боломжтой болно. Хэрэв бодитоор ашиглах бол энэ хэсгийг сонгохгүй байх ёстой</span></li>
+        <img src="pass2.png" height="250" width="900">
+    </ul>
+
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">3. Хэрэв production орчинд ашиглах бол <b>'Pass Ecommerce Token'</b> хэсэгт DATABANK ХХК-аас өгсөн token-г бөглөж PASS-ын төлбөрийг ашиглах боломжтой. System settings дотор тохируулна</p>
+    <img src="pass3.png" height="250" width="400">
+
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:20pt;"><strong>Хэрэглэх заавар</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">1. Захиалгаа бичээд төлбөр хийх хэсэг <b>'PASS'</b> дээр <b>'Send'</b> дарахад уншуулах QR код гарч ирнэ</p>
+    <img src="pass5.png" height="290" width="550">
+    <img src="pass6.png" height="290" width="300">
+
+    <p style="margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>
+    <p style="margin-top:0pt; margin-bottom:0pt;">2. Төлбөр хийгдсэний дараа QR цонх хаагдаж <b>'Payment successful'</b> гэсэн төлөв орж <b>VALIDATE</b> товч идэвхижиж захиалга дуусгах боломжтой болно</p>
+    <img src="pass7.png" height="500" width="560">
+
+</body>
+</html>

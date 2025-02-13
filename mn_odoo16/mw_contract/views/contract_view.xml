@@ -1,0 +1,398 @@
+<odoo> 
+    <record id="seq_contract_note_request" model="ir.sequence">
+        <field name="name">Гэрээний дугаарлалт</field>
+        <field name="code">contract.document.real</field>
+        <field name="prefix">%(y)s-%(month)s/</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_contract_new_request" model="ir.sequence">
+        <field name="name">Нэмэлт гэрээний дугаарлалт</field>
+        <field name="code">contract.document.real.new</field>
+        <field name="prefix">%(y)s-%(month)s/</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <menuitem id="menu_contract_main" name="Гэрээ" web_icon="mw_contract,static/document.png" sequence="20"/>
+    <menuitem id="menu_contract_conf" name="Тохиргоо" parent='menu_contract_main' sequence="5" groups='mw_contract.group_contract_manager'/>
+    <record model="ir.ui.view" id="contract_document_real_search_view">
+        <field name="name">contract.document.real.search</field>
+        <field name="model">contract.document.real</field>
+        <field name="arch" type="xml">
+            <search string="contact document search">
+                <group>
+            	    <field name="name" />
+                    <field name="date_from"/>
+                    <field name="contract_name"/>
+                    <field name="partner_id"/>
+                    <field name="type_id"/>
+                    <field name="partner_register"/>
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter string="Гэрээний төрөл" name="type"  context="{'group_by':'type_id'}"/>
+                    <filter string="Харилцагч" name="partner_id"  context="{'group_by':'partner_id'}"/>
+                    <filter string="Урсгал тохиргоо" name="flow_id"  context="{'group_by':'flow_id'}"/>
+                    <filter string="Төлөв" name="flow_line_id"  context="{'group_by':'flow_line_id'}"/>
+                    <filter string="Зөвхөн өөрийн" name="flow_my_send" domain="[('employee_id.user_id','=',uid)]"/>
+                    <filter string="Миний батлах хүсэлт" name="flow_line_id_chief" domain="[('flow_line_next_id.user_ids','in',[uid])]"/>
+                    <filter name="my_done" string="Миний батласан хүсэлт" domain="[('history_ids.user_id','=',uid),('history_ids.flow_line_id.state_type','!=','cancel')]"/>
+                    <filter name="all" string="Бүх хүсэлт"/> 
+                    <filter string="Миний буцаасан" name="gr_own_back_po" domain="[('back_user_ids','in',[uid])]"/>                   
+                    <filter string="Бүх батлагдсан гэрээнүүд" name="flow_line_id_done" domain="[('state_type','=','done')]"/>
+                    <filter string="Бүх дүгнэсэн гэрээнүүд" name="in_end" domain="[('in_end','=',True)]"/>
+                    <filter string="Бүх дүгнээгүй гэрээнүүд" name="not_in_end" domain="[('in_end','!=',True)]"/>
+                    <filter string="Дүгнэх мэдэгдэл очисоноор" name="in_notif" domain="[('in_notif','=',True)]" groups="mw_contract.group_contract_manager"/>
+                    <filter string="Батлагдсан гэрээний файл оруулаагүй хүмүүст мэдэгдэл очисоноор" name="in_notif_act" domain="[('in_notif_act','=',True)]" groups="mw_contract.group_contract_manager"/>
+                    <filter string="Он" name="years"  context="{'group_by':'date_from:year'}"/>
+                    <filter string="Сар" name="months"  context="{'group_by':'date_from:months'}"/>
+                    <!-- <filter string="Төлбөрийн хэлбэр" name="payment_type"  context="{'group_by':'payment_type'}"/> -->
+               </group>
+            </search>
+        </field>
+    </record>
+	<record model="ir.ui.view" id="contract_document_real_form_view">
+        <field name="name">contract.document.real.form</field>
+        <field name="model">contract.document.real</field>
+        <field name="arch" type="xml">
+            <form string="contract document form">
+                <header>
+                  <field name="state_type" invisible='1'/>
+                 <!--    <button string="Батлах" name="action_next_stage"  class="btn-success" type="object"  attrs="{'invisible': [('state_type','=','done')]}" confirm="Та итгэлтэй байна уу?"/> -->
+                    <button string="Батлах" name="action_next_stage"  class="btn-success" type="object"/>
+                    <button string="Буцаах" name="action_back_stage"  class="btn-warning" type="object" attrs="{'invisible': [('state_type','=','draft')]}"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': [('state_type', '=','draft')]}"  groups="mw_contract.group_contract_manager"/>
+                    <field name="flow_line_id" widget="statusbar"/>
+                     <field name="is_not_edit" invisible="1"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box" > 
+						<button name="action_to_contract_intro" string="Хэвлэх " type="object"
+						class="oe_inline oe_right oe_stat_button" icon="fa-print" invisible='1' />
+					</div>
+                    <group string='Бүртгэлийн мэдээлэл'>
+                        <group>
+                            <field name="flow_id" options="{'no_create':True}" required='1' attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="name"  readonly='1'/>
+                            <field name="contract_name" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="contract_idea" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="type_id" attrs="{'readonly': [('is_not_edit', '=', True)]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}" required='1'/>
+                            <field name="in_foreign" attrs="{'readonly': [('is_not_edit', '=', True)]}"  widget='boolean_toggle' required='1'/>
+                            <field name="file"   widget="many2many_binary"  attrs="{'readonly': [('is_not_edit', '=', True)]}"/> 
+                            <field name="process_type" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly': [('is_not_edit', '=', True)]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}" required='1'/>
+                            <field name="company_type1" attrs="{'readonly': [('is_not_edit', '=', True)]}" />
+                            <field name="partner_register" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="partner_c_number" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="pay_sel" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>  
+                            <field name="in_breach" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="date_from" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="date_to" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="period"/>
+                            <field name="in_warrenty" attrs="{'readonly': [('is_not_edit', '=', True)]}"  widget='boolean_toggle'/>
+                            <field name="warrenty_date" attrs="{'readonly': [('is_not_edit', '=', True)],'invisible':[('in_warrenty','!=',True)]}"/>
+                            <field name="in_end" attrs="{'readonly': [('is_not_edit', '=', True)]}"  widget='boolean_toggle'/>
+                            <field name="confirm_user_ids" readonly="1" widget="many2many_tags" />
+                        </group>
+                    </group>
+                    <group name='payment_information' >
+                        <group string='Төлбөрийн мэдээлэл' name='pay_info' >
+                            <field name="in_deal" attrs="{'readonly': [('is_not_edit', '=', True)]}" />
+                            <field name="payment_type" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="res_currency_id" attrs="{'readonly': [('is_not_edit', '=', True)]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="payment_sum" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="not_date" invisible="1"/>
+                        </group>                     
+                    </group>
+                    <group string="Гэрээ байгуулж буй ажилтан" >
+                        <group>
+                            <field name="employee_id" attrs="{'readonly': [('is_not_edit', '=', True)]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}"  required='1'/>
+                            <field name="job_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="department_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="res_company_id" />
+                        </group>
+                        <group>
+                            <field name="create_date" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="date" required='1' attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                        </group>
+                    </group>   
+                    <group string="Гэрээ дүгнэлт"  attrs="{'invisible':[('in_end','!=',True)]}">
+                        <group>
+                            <field name="in_normal"/>
+                            <field name="act_contract_file" widget="many2many_binary"/>
+                        </group>
+                        <group>
+                            <field name="in_create" />
+                            <field name="act_description"/> 
+                        </group>  
+                    </group>
+                    <group>
+                        <field name="employee_ids" placeholder="Харах эрхтэй ажилтнууд оруулна уу"
+                            widget="many2many_tags"  options="{'no_create':True,'no_create_edit':True,'no_open':True}" />
+                    </group>
+                    <notebook>
+                        <page string="Төлбөр төлөлт">
+                            <button name="line_create" string="График үүсгэх" type="object" class="btn btn-info"/>
+                            <group  string='Төлбөрийн график үүсгэх эхлэх,дуусах огноо оруулж өгнө үү'>
+                                <group>
+                                    <field name='start_date' attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                                    <field name='end_date' attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                                    <field name="amount" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                                </group>
+                            </group>
+                            <field name="payment_line_ids" attrs="{'required':[('payment_type','=','type1')]}">
+                                <form string="Contract payment lines" >
+                                    <field name="paid_date"/>  
+                                    <field name="paid_amount"/>  
+                                </form>
+                                <tree string="Contract payment lines" editable="bottom">
+                                    <field name="paid_date"/>  
+                                    <field name="paid_amount"/>  
+                                </tree>
+                            </field>
+                        </page>
+                        <page  string="Батлагдсан гэрээ">
+                            <field name="contract_line_ids" >
+                                <form string="History" >
+                                    <field name="employee_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                                    <field name="file" widget="many2many_binary"/>
+                                </form>
+                                <tree string="History"  editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="file" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page  string="Нэмэлт гэрээний мэдээлэл">
+                            <group>
+                                <field name="old_contract_id"/>
+                            </group>
+                            <button string="Нэмэлт гэрээ үүсгэх" name="action_create_contract"  class="btn-success" type="object"  confirm="Та шинэ гэрээ үүсгэхдээ итгэлтэй байна уу?" icon='fa-copy'/>
+                            <field name="new_contract_ids"  readonly='1'>
+                                <tree string="History" editable='top'>
+                                    <field name="name"/>
+                                    <field name="contract_name" />
+                                    <field name="date_from" />
+                                    <field name="date_to" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page  string="Гэрээний түүх">
+                            <field name="history_line_ids" >
+                                <tree string="History" >
+                                    <field name="contract_name"/>
+                                    <field name="name"/>
+                                    <field name="in_end"/>
+                                    <field name="in_normal"/>
+                                    <field name="in_create"/>
+                                    <field name="act_description"/>
+                                    <field name="act_contract_file" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Төлөвийн Түүх" name="history">
+                            <field name="history_ids"  >
+                                <tree create='false' delete='false' editable='bottom'>
+                                    <field name="user_id" readonly="1" />
+                                    <field name="date" readonly="1" />
+                                    <field name="cont_history_not_date" invisible='1'/>
+                                    <field name="duration" readonly="1" optional='hide' />  
+                                     <field name="duration_ch" readonly="1"  />  
+                                    <field name="flow_line_id" readonly="1" />  
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Debug"  invisible='1'>
+                            <group>
+                                 <group>
+                                    <field name="type" force-save="1"/>
+                                    <field name="print_name"/>
+                                    <field name="print_number"/>
+                                    <field name="l_name"/>
+                                    <field name="branch_id" invisible="1"/>
+                                    <field name="in_notif" invisible="1" />
+                                </group>
+                                <group>
+                                    <field name="in_notif_act" invisible="1" />
+                                    <field name="state_type" invisible="1"/>
+                                    <field name="next_state_type" invisible="1"/>
+                                    <field name="flow_line_next_id" invisible="1"/>
+                                    <field name="flow_line_back_id" invisible="1"/>
+                                    <field name="back_user_ids" string='Буцаасан хэрэглэгчид' widget="many2many_tags" readonly='1' invisible='1'/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="contract_document_real_tree_view">
+        <field name="name">contract.document.real.tree</field>
+        <field name="model">contract.document.real</field>
+        <field name="arch" type="xml">
+            <tree string="contract tree" decoration-danger="state_type=='cancel'" decoration-info="state_type == 'draft'" decoration-warning="state_type == 'sent'" decoration-success="state_type == 'done'">
+                <field name="contract_name"/>
+               	<field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="employee_id"/>
+                <field name="payment_type"/>
+                <field name="payment_sum"/>
+           		<field name="flow_line_id"/>
+                <field name="state_type" optional='hide'/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="contract_document_real_pivot_view">
+        <field name="name">contract.document.real.pivot</field>
+        <field name="model">contract.document.real</field>
+        <field name="arch" type="xml">
+            <pivot string="Received document pivot">
+                <field name="partner_id" type="row"/>
+                <field name="type_id" type="col"/>
+                <field name="payment_sum" type="col"/>
+            </pivot>
+        </field>
+    </record>
+        <record model="ir.ui.view" id="contract_document_real_graph_view">
+            <field name="name">contract.document.real.graph</field>
+            <field name="model">contract.document.real</field>
+            <field name="arch" type="xml">
+                <graph string="contract document graph">
+                    <field name="name" type="measure"/>
+                    <field name="date_from" type="measure"/>
+                    <field name="partner_id" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record  id="contract_document_real_calendar_view" model="ir.ui.view">
+            <field name="name">contract.document.real.calendar</field>
+            <field name="model">contract.document.real</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar 
+                        date_start="date_from"
+                        mode="month"
+                        quick_add="False">
+                    <field name="name"/>
+                    <field name="date_to"/>
+                </calendar>
+            </field>
+        </record>
+
+   
+    <record model="ir.actions.act_window" id="action_contract_document_real_view">
+        <field name="name">Гэрээний бүртгэл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.document.real</field>
+        <field name="view_mode">tree,form,pivot,calendar,graph</field>
+     	<field name="view_id" ref="contract_document_real_tree_view"/>
+     	<field name="context">{'search_default_years': 1,'search_default_type': 1}</field>
+        <field name="search_view_id" ref="contract_document_real_search_view"/>
+    </record>
+
+    <menuitem id="contract_document_real_menu" parent="menu_contract_main" action="action_contract_document_real_view" sequence="1"/>  
+
+<!-- Гэрээний төрөл -->
+    <record model="ir.ui.view" id="contract_type_form_view">
+        <field name="name">contract.type.form</field>
+        <field name="model">contract.type</field>
+        <field name="arch" type="xml">
+            <form string="contract type form">
+            <sheet>
+                <group string='Гэрээний төрөл бүртгэл'>
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                    </group>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="contract_type_tree_view">
+        <field name="name">contract.type.tree</field>
+        <field name="model">contract.type</field>
+        <field name="arch" type="xml">
+            <tree string="contract type tree">
+                <field name="name"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_contract_type_tree_view">
+        <field name="name">Гэрээний төрөл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="contract_type_tree_view"/>
+     
+    </record>
+    <menuitem id="contract_type_menu" parent="menu_contract_conf" action="action_contract_type_tree_view" sequence='3'/>  
+
+    
+<!-- Гэрээний загвар оруулах -->
+    <record model="ir.ui.view" id="contract_template_form_view">
+        <field name="name">contract.template.form</field>
+        <field name="model">contract.template</field>
+        <field name="arch" type="xml">
+            <form string="contract template form">
+            <sheet>
+                <group string='Гэрээний загвар бүртгэл'>
+                    <group>
+                        <field name="name"/>
+                        <field name="file" widget="many2many_binary"/>
+                    </group>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="contract_template_tree_view">
+        <field name="name">contract.template.tree</field>
+        <field name="model">contract.template</field>
+        <field name="arch" type="xml">
+            <tree string="contract type tree">
+                <field name="name"/>
+                <field name="file" widget="many2many_binary"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_contract_template_tree_view">
+        <field name="name">Гэрээний загвар</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="contract_template_tree_view"/>
+     
+    </record>
+    <menuitem id="contract_template_menu" parent="menu_contract_main" action="action_contract_template_tree_view" sequence="2"/>  
+
+     <record id="contract_document_real_print_view" model="ir.actions.report">
+        <field name="name">Гэрээ</field>
+        <field name="model">contract.document.real</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mw_contract.contract_document_real_print</field>
+        <field name="report_file">mw_contract.contract_document_real_print</field>
+        <field name="print_report_name">'Гэрээ'</field>
+        <field name="binding_model_id" ref="model_contract_document_real"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="contract_document_real_print">
+        <t t-value="null">
+        </t>
+    </template>
+  
+</odoo>

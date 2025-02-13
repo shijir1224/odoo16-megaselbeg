@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <!-- Oil sample report -->
+        <record id="oil_sample_pivot_report_tree_view" model="ir.ui.view">
+            <field name="name">oil.sample.pivot.report.tree.view</field>
+            <field name="model">oil.sample.pivot.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="name" />
+                    <field name="date_sample" />
+                    <field name="date_sent" />
+                    <field name="date_response" />
+                    <field name="technic_id" />
+                    <field name="oil_type_id"/>
+                    <field name="damaged_type_id"/>
+                    <field name="response_type"/>
+                    <field name="shift"/>
+                    <field name="state" />
+               </tree>
+            </field>
+        </record>
+
+        <record id="oil_sample_pivot_report_form_view" model="ir.ui.view">
+            <field name="name">oil.sample.pivot.report.form.view</field>
+            <field name="model">oil.sample.pivot.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group col="4">
+                        <field name="name" />
+                        <field name="date_sample" />
+                        <field name="date_sent" />
+                        <field name="date_response" />
+                        <field name="technic_id" />
+                        <field name="oil_type_id"/>
+                        <field name="damaged_type_id"/>
+                        <field name="response_type"/>
+                        <field name="workorder_id"/>
+                        <field name="response_description"/>
+                        <field name="action_description"/>
+                        <field name="shift"/>
+                        <field name="state" />
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="oil_sample_pivot_report_pivot" model="ir.ui.view">
+             <field name="name">oil.sample.pivot.report.pivot</field>
+             <field name="model">oil.sample.pivot.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                    <field name="damaged_type_id" type="row"/>
+                    <field name="response_type" type="row"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="oil_sample_pivot_report_search" model="ir.ui.view">
+            <field name="name">oil.sample.pivot.report.search</field>
+            <field name="model">oil.sample.pivot.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="branch_id"/>
+                    <field name="technic_id"/>
+                    <field name="damaged_type_id"/>
+                    <field name="oil_type_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Салбар" name="Branch_id" context="{'group_by':'branch_id'}"/>
+                        <filter string="Техник" name="Product" context="{'group_by':'technic_id'}"/>
+                        <filter string="Тосны төрөл" name="Category" context="{'group_by':'oil_type_id'}"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    
+</odoo>

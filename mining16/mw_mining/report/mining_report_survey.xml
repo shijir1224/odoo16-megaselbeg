@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_mining_survey_report_tree" model="ir.ui.view">
+            <field name="name">mining.report.survey.tree</field>
+            <field name="model">mining.report.survey</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="mining_surveyor_measurement_id"/>
+                    <field name="material_id"/>
+                    <field name="amount_by_measurement"/>
+                    <field name="amount_by_measurement_tn"/>
+                    <field name="is_production"/>
+                    <field name="location_id"/>
+                    <field name="is_reclamation"/>
+                    <field name="bcm_coefficient"/>
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <field name="state"/>
+                    <field name="description"/>
+                    <field name="excavator_id"/>
+                    <field name="technic_type"/>
+                    <field name="owner_type"/>
+                    <field name="user_id"/>
+                    <field name="month_diff"/>
+                    <field name="total_amount_month"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_mining_survey_report_graph" model="ir.ui.view">
+            <field name="name">mining.report.survey.graph</field>
+            <field name="model">mining.report.survey</field>
+            <field name="arch" type="xml">
+                <graph stacked="True">
+                    <field name="excavator_id" type="col"/>
+                    <field name="amount_by_measurement" type="measure"/>
+                </graph>
+             </field>
+        </record>
+
+        <record id="view_mining_survey_report_pivot" model="ir.ui.view">
+            <field name="name">mining.report.survey.pivot</field>
+            <field name="model">mining.report.survey</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="excavator_id" type="row"/>
+                    <field name="amount_by_measurement" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="view_mining_survey_report_search" model="ir.ui.view">
+            <field name="name">mining.report.survey.search</field>
+            <field name="model">mining.report.survey</field>
+            <field name="arch" type="xml">
+                <search string="Production Entry Analysis">
+                    <field name="mining_surveyor_measurement_id"/>
+                    <field name="material_id"/>
+                    <field name="amount_by_measurement"/>
+                    <field name="amount_by_measurement_tn"/>
+                    <field name="is_production"/>
+                    <field name="location_id"/>
+                    <field name="is_reclamation"/>
+                    <field name="bcm_coefficient"/>
+                    <field name="date"/>
+                    <field name="branch_id"/>
+                    <field name="state"/>
+                    <field name="description"/>
+                    <field name="excavator_id"/>
+                    <field name="technic_type"/>
+                    <field name="owner_type"/>
+                    <field name="user_id"/>
+                    <field name="month_diff"/>
+                    <field name="total_amount_month"/>
+                    <field name="partner_id"/>
+
+                    <filter name="own_technic" string="Өөрийн техник" domain="[('excavator_id.owner_type','=','own_asset')]"/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="is_production_true" string="Is production true" domain="[('is_production','=',True)]"/>
+                    <filter name="is_production_false" string="Is production false" domain="[('is_production','=',False)]"/>
+                    <separator/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Project" name="project" context="{'group_by':'branch_id'}"/>
+                        <filter string="Date" name="gr_day" icon="terp-go-today" context="{'group_by':'date:day'}"/>
+                        <filter string="Material" name="gr_material" context="{'group_by':'material_id'}"/>
+                        <filter string="Excavator" name="gr_exca" context="{'group_by':'excavator_id'}"/>
+                        <filter string="User" name="gr_user" context="{'group_by':'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_survey_report_tree" model="ir.actions.act_window">
+            <field name="name">Survey report</field>
+            <field name="res_model">mining.report.survey</field>
+            <field name="view_mode">pivot,graph,tree</field>
+            <field name="search_view_id" ref="view_mining_survey_report_search"/>
+            <field name="context">{"search_default_this_month":1,"search_default_is_production_true":1}</field>
+            <field name="domain">[]</field>
+        </record>
+
+</odoo>

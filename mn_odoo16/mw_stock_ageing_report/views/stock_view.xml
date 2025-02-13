@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_product_form_view_inherit_ageing" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.ageing</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="uom_id" position="before">
+                <field name="date_ageing_first" groups="mw_stock_ageing_report.group_stock_ageing_reporter"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_ageing_opening_view" model="ir.ui.view">
+        <field name="name">product.ageing.opening.form</field>
+        <field name="model">product.ageing.opening</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <group col="4">
+                        <field name="product_id"/>
+                        <field name="date"/>
+                        <field name="qty"/>
+                        <field name="stock_move_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_ageing_opening_tree_view" model="ir.ui.view">
+        <field name="name">product.ageing.opening.tree</field>
+        <field name="model">product.ageing.opening</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id"/>
+                <field name="date"/>
+                <field name="qty"/>
+                <field name="stock_move_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_ageing_opening_search_view" model="ir.ui.view">
+        <field name="name">product.ageing.opening.search</field>
+        <field name="model">product.ageing.opening</field>
+        <field name="arch" type="xml">
+            <search string="Барааны насжилт эхний үлдэгдэл">
+                <field name="product_id"/>
+                <field name="date"/>
+                <field name="qty"/>
+                <field name="stock_move_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_ageing_opening" model="ir.actions.act_window">
+        <field name="name">Барааны насжилт эхний үлдэгдэл</field>
+        <field name="res_model">product.ageing.opening</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="product_ageing_opening_wizard_view" model="ir.ui.view">
+        <field name="name">product.ageing.opening.wizard.form</field>
+        <field name="model">product.ageing.opening.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="desc"/>
+                    <field name="import_data"/>
+                    <field name="first_balance_date"/>
+                </group>
+                <footer>
+                    <button special="cancel" string="Хаах" type="object" icon="gtk-cancel"/>
+                    <button icon="gtk-execute" string="Импортлох" name="import_data_file" type="object"/>
+               </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_ageing_opening_wizard" model="ir.actions.act_window">
+        <field name="name">Барааны насжилт эхний үлдэгдэл оруулах</field>
+        <field name="res_model">product.ageing.opening.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="product_ageing_opening_wizard_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

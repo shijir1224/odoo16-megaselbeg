@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <!-- FORM -->
+        <record model="ir.ui.view" id="env_monthly_report_tree">
+            <field name="name">env.monthly.report.tree</field>
+            <field name="model">env.monthly.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Сарын мэдээний тайлан">
+                    <field name="mining_location"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="create_uid" string='Бүртгэсэн'/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="env_monthly_report_form">
+            <field name="name">env.monthly.report.form</field>
+            <field name="model">env.monthly.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Сарын мэдээний тайлан">
+                    <sheet>
+                         <div class="oe_right oe_button_box" name="button_po_line">
+                            <button name="create_monthly_report" string="Тайлан" type="object" class="oe_stat_button" icon="fa-file-pdf-o" />
+                        </div>
+                        <group>
+                            <field name="year"/>
+                            <field name="mining_location" options="{'no_create': True, 'no_open': True}" />
+                            <field name="month"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="env_monthly_report_search" model="ir.ui.view">
+            <field name="name">env.monthly.report.search</field>
+            <field name="model">env.monthly.report</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group expand="0" string="Бүлэглэх">
+                        <filter name="mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+                        <filter string="Он" domain="[ ]" context="{'group_by': 'year'}" />
+                        <filter string="Сар" domain="[ ]" context="{'group_by': 'month'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_env_monthly_report" model="ir.actions.act_window">
+            <field name="name">Сарын мэдээний тайлан</field>
+            <field name="res_model">env.monthly.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="env_monthly_report_tree"/>
+            <field name="search_view_id" ref="env_monthly_report_search"/>
+            <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    Энд дарж сарын мэдээний тайлангаа үүсгэнэ үү.
+                  </p>
+            </field>
+        </record>
+
+    
+</odoo>

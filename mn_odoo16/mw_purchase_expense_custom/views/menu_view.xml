@@ -1,0 +1,10 @@
+<odoo>
+	<menuitem id="menu_root_purchase_add_cost" name="Нэмэгдэл зардал" parent="purchase.menu_purchase_root" sequence="98"/>
+	<menuitem id="menu_purchase_add_cost" parent="menu_root_purchase_add_cost" sequence="1"
+			  action="action_purchase_expense_line_product_tree"/>
+	<menuitem id="menu_purchase_acc_view_add" action="action_purchase_add_cost_am_view"
+			  parent="purchase.purchase_report_main" sequence="120"
+			  groups="mw_purchase_am_view.group_purchase_am_reconcile_view"/>
+	<menuitem id="menu_report_add_cost" name="Нэмэгдэл Зардлын Тайлан" action="action_wizard_add_cost_excel_report" 
+			  parent="menu_root_purchase_add_cost" sequence="2"/>
+</odoo>

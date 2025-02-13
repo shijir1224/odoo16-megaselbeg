@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_crm_call,crm.call,model_crm_call,base.group_user,1,1,1,1
+access_crm_call_conf,crm.call.conf,model_crm_call_conf,base.group_user,1,0,0,0
+access_crm_call_conf_admin,crm.call.conf,model_crm_call_conf,mw_crm_call.group_crm_caller_admin,1,1,1,1

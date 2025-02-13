@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+	
+		<!-- Sequences for  -->
+		<record id="sequence_hse_injury_entry" model="ir.sequence">
+		<field name="name">HSE Injury Entry</field>
+		<field name="code">hse.injury.entry</field>
+		<field name="prefix">ОСТ%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+	<!-- Injury entry -->
+	<record id="view_hse_injury_entry_form" model="ir.ui.view">
+		<field name="name">hse.injury.entry.form</field>
+		<field name="model">hse.injury.entry</field>
+		<!-- <field name=>form</field> -->
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="closed" string="Буцааж ноороглох" type="object" class="btn-danger" groups="mw_hse.group_hse_manager"/>
+					<button name="action_to_sent_mail" states="draft" string="Имэйл илгээх" type="object" class="oe_highlight"/>
+					<button name="action_to_closed" states="sent_mail" string="Батлах" type="object" class="btn-success"/>
+					<button name="action_to_closed" states="cor_act_closed" string="Дуусгах" type="object" class="btn-success"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent_mail,cor_act_closed,closed"/>
+				</header>
+				<sheet>
+					<separator string="ХЭСЭГ 1: ДЭЛГЭРЭНГҮЙ МЭДЭЭЛЭЛ:" colspan="2"/>
+					<group>
+						<field name="name"/>
+					</group>    
+					<group col="6">  
+						<field name="datetime"/>
+					   <!-- <field name="date_time"  -->
+					   <field name="company_id" readonly="1"/>
+					   <field name="branch_id" options="{'no_create':True}"/>
+					   <field name="location_id" options="{'no_create':True}"/>
+						<field name="branch_manager_id" options="{'no_create':True}"/>
+						<field name="part"/>
+						<field name="resource_attachment_ids" widget="many2many_binary"/>
+					</group>
+					<separator string="Ослын дэлгэрэнгүй мэдээлэл" colspan="2"/>
+					<group>
+						<field name="location_accident" placeholder="Юу болсоныг маш тодорхой товч байдлаар “хаяглан”бичнэ."/>
+						
+					</group>
+					<group col="4">
+						<field name="case_type"/>
+						<field name="injury_type" attrs="{'invisible':[('case_type','!=','injury')], 'required':[('case_type','=','injury')]}"/> 
+					</group>
+					<group>
+						<field name="case_desc"/>
+						<field name="description_of_the_injury" placeholder="Гэмтлийн хэлбэр, биеийн аль хэсэг яаж гэмтсэн бэ?" attrs="{'invisible':[('case_type','!=','injury')], 'required':[('case_type','=','injury')]}"/> 
+						<field name="environmental_damage" placeholder="Энэ тохиолдлоос Байгаль орчинд ямар хохирол учирсан бэ?" attrs="{'invisible':[('case_type','!=','nature')], 'required':[('case_type','=','nature')]}"/> 
+						<field name="property_damage" placeholder="Ямар тоног төхөөрөмж, багаж хэрэгсэл гэмтсэн бэ?" attrs="{'invisible':[('case_type','!=','property damage')], 'required':[('case_type','=','property damage')]}"/> 
+						<field name="subject" placeholder="Тухайн тохиолдолд  холбогдсон хүний талаарх мэдээлэл, туршлага, мэргэшил, шагнал, шийтгэл г.м."/>
+					</group>
+					<group col="4">  
+						<field name="training_conducted" placeholder="Тухайн тохиолдолд  холбогдсон хүнд хийгдсэн сургалт, зааварчилгааны талаарх мэдээлэл."/>
+						<field name="training_attachment_ids" widget="many2many_binary"/>  
+					</group>   
+					<group> 
+						<field name="on_site_action" placeholder="Тохиолдлыг арилгах, аюулгүй болгох талаар газар дээр нь авсан арга хэмжээ."/>
+					</group>
+					<group col="6">
+						<field name="consequences"/>
+						<field name="possible_consequences"/>
+						<field name="probability_of_occurrence"/>
+					</group>
+					<group>
+						<field name="risk" placeholder="(Гарч болох үр дагавар + Тохиолдох Магадлал) – (Бага зэрэг өөр үр дүн гарвал Их утгаар нь ав)"/>
+					</group>
+					<separator string="ХЭСЭГ 2: ХУВИЙН МЭДЭЭЛЭЛ (Тохиолдолтой шууд болон шууд бусаар холбогдсон хүн бүрийн мэдээлэл):" colspan="2"/>
+						<field name="person_about_line" nolabel="1">  
+							<tree editable="bottom">
+								<field name="employee_id" options="{'no_create':True}"/>
+								<field name="company_id" options="{'no_create':True}"/>
+								<field name="job_id" options="{'no_create':True}"/>
+								<field name="affected_condition"/>
+								<field name="age"/>
+								<field name="working_years"/>
+								<field name="is_taken"/>
+								<field name="taken_employee_id" attrs="{'column_invisible':[('parent.state','in',['draft','sent_mail','closed'])]}" options="{'no_create':True}"/>
+								<field name="taken_date" attrs="{'column_invisible':[('parent.state','in',['draft','sent_mail','closed'])]}"/>
+								<field name="injury_id" invisible="1" options="{'no_create':True}"/>
+							</tree>  
+						</field>
+					<separator string="ХЭСЭГ 2: СУДАЛГААНЫ БАГ" colspan="2"/>
+						<field name="research_team_line" nolabel="1">
+							<tree editable="bottom">
+								<field name="employee_id" options="{'no_create':True}"/>
+								<field name="job_id" options="{'no_create':True}"/>
+								<field name="team"/>
+								<field name="company_id" options="{'no_create':True}"/>
+							</tree>
+						</field>    
+					<group>
+						<field name="basic_causes" placeholder="(Тохиолдолд хүргэсэн хүний болон ажлын орчны хүчин зүйл нь юу байсан бэ? Үүнд ажилтны бэлэн байдал (биеийн / сэтгэл санааны), мэдлэг боловсролын төвшин, буруу сэдэл, зан харьцааны асуудал, стресс, ядаргаа, хангалтгүй удирдамж, ажлын буруу стандарт, загвар эсвэл хангалтгүй засвар үйлчилгээ зэрэг хүчин зүйлүүд байсан уу? г.м)"/> 
+					</group>
+					<group col="4">
+						<field name="environment_ids" options="{'no_create':True}" widget="many2many_tags"/>
+						<field name="equipment_materials_ids" options="{'no_create':True}" widget="many2many_tags"/>
+						<field name="operating_system_ids" options="{'no_create':True}" widget="many2many_tags"/>
+						<field name="person_ids" options="{'no_create':True}" widget="many2many_tags"/>
+					</group>
+					<group>
+						<field name="direct_cause" placeholder="(Тохиолдолд хүргэсэн шууд шалтгааныг Аюултай (Стандарт бус) Үйлдэл болон Аюултай (Стандарт бус) Нөхцөл гэж 2 ангилах бөгөөд эдгээр нь хэвийн ажлын нөхцөл болон энгийн үйлдлийн гажуудал юм)"/>
+					</group>
+					<group col="4">
+						<field name="non_standard_ids" options="{'no_create':True}" widget="many2many_tags"/>
+						<field name="non_standard_condition_ids" options="{'no_create':True}" widget="many2many_tags"/>
+					</group>
+					<group>
+						<field name="prevention_correction" placeholder="(Тохиолдолд хүргэсэн суурь болон шууд шалтгаан бүрд тохирсон хариу буюу дахин гарахаас сэргийлсэн арга хэмжээг сонгож хариуцан гүйцэтгэх ажилтан, хийх хугацааг зааж өгнө)"/>
+					</group> 
+					<field name="injury_report_line" force_save="1" nolabel="1" attrs="{'invisible': [('state','=','draft')]}">
+						<tree editable="bottom">
+							<field name="influencing_factor_id"/>
+							<field name="problem_about"/>
+							<field name="who" options="{'no_create':True}"/>
+							<field name="when"/>
+							<field name="end_date"/>
+						</tree>
+					</field>
+					<group>
+						<field name="plan_attachment_ids" widget="many2many_binary"/>
+						<field name="witness_explanation_ids" widget="many2many_binary"/>
+						<field name="work_attachment_ids" widget="many2many_binary"/>
+						<field name="work_guide_ids" widget="many2many_binary"/>
+					</group>
+					<group col="6">
+						<field name="injury_research" options="{'no_create':True}"/>
+						<field name="square_senior_empl" options="{'no_create':True}"/>
+						<field name="senior_manager" options="{'no_create':True}"/>
+						<field name="is_project_admin" widget="boolean_toggle"/>
+						<field name="project_admin" options="{'no_create':True}" attrs="{'invisible':[('is_project_admin','=',False)]}"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_injury_entry_tree" model="ir.ui.view">
+		<field name="name">hse.injury.entry.tree</field>
+		<field name="model">hse.injury.entry</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="datetime"/>
+				<field name="name"/>
+				<!-- <field name="accident_type"/> -->
+				<field name="accident_name"/>
+				<field name="involved_employee"/>
+				<field name="is_lti"/>
+				<field name="lost_day"/>
+				<field name="department_id"/>
+				<field name="dep_manager_id"/>
+				<field name="general_master_id"/>
+				<field name="master_id"/>
+				<field name="branch_manager_id" options="{'no_create':True}"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_injury_entry_filter" model="ir.ui.view">
+		<field name="name">hse.injury.entry.filter</field>
+		<field name="model">hse.injury.entry</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="accident_name"/>
+				<filter name="is_draft" string="Draft" domain="[('state','=',('draft'))]"/>
+				<filter name="is_sent_mail" string="Sent mail" domain="[('state','in',['sent_mail'])]"/>
+				<filter name="is_closed" string="Closed" domain="[('state','in',['closed'])]"/>
+				<filter name="is_cor_act_closed" string="Corrective actions closed" domain="[('state','in',['cor_act_closed'])]"/>
+				<separator/>
+				<group expand="0">
+					<!-- <filter string="Accident type" name="group_accident_type" domain="[]" context="{'group_by':'accident_type'}"/> -->
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Жилээр" name='group_year' domain="[]" context="{'group_by':'datetime:year'}"/>
+					<filter string="Сараар" name='group_month' domain="[]" context="{'group_by':'datetime:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' domain="[]" context="{'group_by':'datetime:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	<record id="action_hse_injury_entry" model="ir.actions.act_window">
+		<field name="name">Ослын судалгааны тайлан</field>
+		<field name="res_model">hse.injury.entry</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="view_hse_injury_entry_filter"/>
+		<field name="view_id" ref="view_hse_injury_entry_tree"/>
+		<field name="context">{}</field>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+	</record>
+
+<!-- 
+	<record id="action_hse_injury_entry_tree" model="ir.actions.act_window.view">
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_hse_injury_entry_tree"/>
+		<field name="act_window_id" ref="action_hse_injury_entry"/>
+	</record> -->
+	<!-- <record id="action_hse_injury_entry_form" model="ir.actions.act_window.view">
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_hse_injury_entry_form"/>
+		<field name="act_window_id" ref="action_hse_injury_entry"/>
+	</record>
+	 -->
+	<record id="view_hse_injury_entry_mail" model="ir.ui.view">
+		<field name="name">hse.injury.entry.mail.form</field>
+		<field name="model">hse.injury.entry</field>
+		<field name="arch" type="xml">
+			<form>
+				<field name="mail_line" nolabel="1" >
+					<tree editable="bottom">
+						<field name="mail" widget="email"/>
+					</tree>
+				</field> 
+				<group>
+					<field name="mail_text"/>
+				</group>
+				<footer>
+					<button class="oe_highlight" name="mail_sent" string="Имэйл Илгээх" type="object"/>
+					or
+					<button class="oe_link" special="cancel" string="Буцах"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	
+	<!-- <record id="action_hse_injury_entry_mail_form" model="ir.actions.act_window.view">
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_hse_injury_entry_mail"/>
+		<field name="act_window_id" ref="action_hse_injury_entry_mail"/>
+	</record> -->
+
+</odoo>

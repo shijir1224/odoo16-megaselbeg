@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="main_menu_mining_report" name="Mining report" sequence="13" groups="mw_mining.group_mining_user" web_icon="mw_mining,static/mining_report.png" action="action_mining_report_technic_analyze_tree"/>
+        <menuitem id="menu_technic_analyze_report" name="Technic analysis" parent="main_menu_mining_report" sequence="10" action="action_report_mining_wizard_ta"/>
+        <menuitem id="menu_mining_product_report" name="Mining report" parent="main_menu_mining_report" sequence="11" action="action_mining_production_report_tree"/>
+        <menuitem id="menu_mining_motohour_report" name="Moto hour report" parent="main_menu_mining_report" sequence="12" action="action_mining_motohour_report_tree"/>
+        <!-- <menuitem id="menu_operator_analyze_report" name="Operator report" parent="main_menu_mining_report" sequence="13" action="action_mining_report_operator_analyze_tree"/> -->
+        <menuitem id="menu_mining_coal_sales_report1" name="Sales report" parent="main_menu_mining_report" sequence="14" action="action_mining_coal_report_tree"/>
+        <menuitem id="menu_mining_dashboard_main" name="Dashboard" parent="main_menu_mining_report" sequence="3" action="action_mining_mining_dashboard" groups="mw_mining.group_mining_dashboard_user"/>
+        <menuitem action="action_report_operator_production_analyze_wiz" name="Operator production report" id="menu_report_operator_prudction_analyze_1" parent="main_menu_mining_report" sequence='15'/>
+        <menuitem action="action_mining_survey_report_tree" id="menu_report_mining_survey_report_main" parent="main_menu_mining_report" sequence='30'/>
+
+    <menuitem id="main_menu_mining" name="Mining" sequence="12" groups="mw_mining.group_mining_user" web_icon="mw_mining,static/icon.png"/>
+    <menuitem id="menu_mining_plan" name="Planning" parent="main_menu_mining" sequence="1"/>
+        <menuitem id="menu_mining_plan_customer" name="From contract" parent="menu_mining_plan" sequence="10" action="action_mining_plan_customer"/>
+        
+        <menuitem id="menu_plan_buteel_root" parent="menu_mining_plan" name="Бүтээлийн төлөвлөгөө" sequence="14"/>
+            <menuitem id="menu_plan_exca_buteel" parent="menu_plan_buteel_root" sequence="14" action="action_mining_plan_buteel_exca_view"/>
+            <menuitem id="menu_plan_dump_buteel" parent="menu_plan_buteel_root" sequence="24" action="action_mining_plan_buteel_dump_view"/>
+            
+
+        <menuitem id="menu_plan_time_root" parent="menu_mining_plan" name="Ажиллах цагийн төлөвлөгөө" sequence="24"/>
+            <menuitem id="menu_mining_plan_time_exca_view" parent="menu_plan_time_root" sequence="14" action="action_mining_plan_time_exca_view"/>
+            <menuitem id="menu_mining_plan_time_dump_view" parent="menu_plan_time_root" sequence="24" action="action_mining_plan_time_dump_view"/>
+        
+        
+
+
+        <menuitem id="menu_plan_time_ashiglalt_root" parent="menu_mining_plan" name="Цаг ашиглалт" sequence="34"/>
+            <menuitem id="menu_mining_plan_time_ashiglalt_exca_view" parent="menu_plan_time_ashiglalt_root" sequence="14" action="action_mining_plan_time_ashiglalt_exca_view"/>
+            <menuitem id="menu_mining_plan_time_ashiglalt_dump_view" parent="menu_plan_time_ashiglalt_root" sequence="24" action="action_mining_plan_time_ashiglalt_dump_view"/>
+            
+        <menuitem id="menu_plan_line_all" parent="menu_mining_plan" sequence="68" action="action_mining_plan_technic_line_all"/>
+        <menuitem id="menu_mining_plan_import" parent="menu_mining_plan" sequence="78" action="action_mining_plan_import"/>
+
+    <menuitem id="menu_mining_survey" name="Survey" parent="main_menu_mining" sequence="2"/>
+        <menuitem action="action_mining_surveyor_measurement" id="menu_mining_surveyor_measurement" parent="menu_mining_survey" sequence="4"/>
+        <menuitem action="action_mining_pile_measurement" id="menu_mining_pile_measurement" parent="menu_mining_survey" sequence="5"/>
+
+    <menuitem id="menu_mining_dashboard" name="Dashboard" parent="main_menu_mining" sequence="3" action="action_mining_mining_dashboard" groups="mw_mining.group_mining_dashboard_user"/>
+
+    <menuitem id="menu_mining_dispatcher" name="Actual" parent="main_menu_mining" sequence="4"/>
+        <menuitem id="menu_mining_daily_entry" name="DPR" parent="menu_mining_dispatcher" action="action_mining_daily_entry" sequence="2" />
+         <menuitem id="menu_mining_motohour_entry" name="SMU" parent="menu_mining_dispatcher" action="action_mining_mh_entry" sequence="30" />
+         <menuitem id="menu_mining_dpr_report" parent="menu_mining_dispatcher" action="action_mining_dpr_report" sequence="40" />
+    <menuitem id="menu_mining_coal" name="Coal" parent="main_menu_mining" sequence="5"/>
+        <menuitem id="menu_mining_coal_sales" name="Coal mining" parent="menu_mining_coal" sequence="1" action="mw_mining.action_mining_coal_sales"/>
+        <menuitem id="menu_mining_coal_sales_report" name="Coal mining report" parent="menu_mining_coal" sequence="2" action="action_mining_coal_report_tree"/>
+
+    <menuitem id="menu_mining_report" name="Reporting" parent="main_menu_mining" sequence="8"/>
+        <menuitem id="menu_mining_production_report" parent="menu_mining_report" action="action_mining_production_report_tree" sequence="3"/>
+        <menuitem action="action_report_mining_wizard_ta" id="menu_mining_report_technic_analyze" parent="menu_mining_report" sequence="4"/>
+        <menuitem action="action_mining_motohour_report_tree" name="Moto hour report" id="menu_mining_motohour" parent="menu_mining_report" sequence="5"/>
+        <menuitem action="action_report_operator_production_analyze_wiz" name="Operator production report" id="menu_report_operator_prudction_analyze" parent="menu_mining_report" sequence='9'/>
+        <menuitem action="action_mining_survey_report_tree" id="menu_report_mining_survey_report" parent="menu_mining_report" sequence='30'/>
+
+    <menuitem id="menu_mining_configuration" name="Configuration" parent="main_menu_mining" sequence="9"/>
+        <menuitem action="action_mining_material" id="menu_mining_product_product"  parent="menu_mining_configuration" sequence="1"/>
+        <menuitem action="action_mining_pile" id="menu_mining_pile" parent="menu_mining_configuration" sequence="2"/>
+        <menuitem action="action_mining_location" id="menu_mining_location" parent="menu_mining_configuration" sequence="3"/>
+        <menuitem action="action_mining_location_type" id="menu_mining_location_type" parent="menu_mining_configuration" sequence="4"/>
+
+        <menuitem id="menu_mining_motohours" name="Cause of Moto hour" parent="menu_mining_configuration" sequence="4"/>
+            <menuitem id="menu_mining_motohours_cause" name="Cause" parent="menu_mining_motohours" sequence="1" action="action_mining_motohours_cause" />
+            <menuitem id="menu_mining_motohours_cause_type" name="Type" parent="menu_mining_motohours" sequence="2" action="action_mining_motohours_cause_type" />
+
+        <menuitem id="menu_mining_conf_technic" name="Technic" parent="menu_mining_configuration" sequence="9"/>
+        <menuitem id="menu_mining_technic_conf" parent="menu_mining_conf_technic" action="action_mining_technic_configure" sequence="1"/>
+        <!-- <menuitem id="menu_mining_product" name="Material type" parent="menu_mining_configuration" sequence="1"/> -->
+
+        <!-- <menuitem id="menu_mining_plan_technic_run_hour" parent="menu_mining_configuration" sequence="88" action="action_mining_plan_technic_run_hour" groups="base.group_no_one"/> -->
+        <menuitem id="menu_mining_plan_exca_hour_prod" parent="menu_mining_configuration" sequence="99" action="action_mining_plan_exca_hour_prod"/>
+        <menuitem id="menu_mining_dispatcher_import_config" parent="menu_mining_configuration" sequence="999" action="action_mining_dispatcher_import_config" groups="base.group_no_one,mw_mining.group_mining_dispatcher"/>
+        <menuitem id="menu_mining_hab_category" parent="menu_mining_configuration" sequence="1999" action="action_mining_hab_category"/>
+        <menuitem id="menu_mining_default_hour" parent="menu_mining_configuration" sequence="2399" action="action_mining_default_hour"/>
+        <menuitem id="menu_mining_dpr_logo" parent="menu_mining_configuration" sequence="2999" action="action_mining_dpr_logo"/>
+    
+</odoo>

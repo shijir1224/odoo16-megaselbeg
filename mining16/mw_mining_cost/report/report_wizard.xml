@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_mining_wizard_mrp_view" model="ir.ui.view">
+        <field name="name">report.mining.mrp.wizard.wizard</field>
+        <field name="model">report.mining.mrp.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="6">
+                    <field name="date_range_id" options="{'no_create':True, 'no_open':True}"/>
+                    <field name="date_start" required="1"/>
+                    <field name="date_end" required="1"/>
+                </group>
+                <group col="4">
+                    <!-- <field name="branch_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}" domain="[('user_ids','in',[uid])]" required="1"/> -->
+                    <field name="conf_ids" colspan="4" widget="many2many_tags" options="{'no_create': True}" />
+                </group>
+                <footer>
+                    <group col="6">
+                        <button icon="fa-times" special="cancel" string="Хаах" class="btn-danger"/>
+                        <button name="open_analyze" string="Харах" type="object"  icon="fa-eye" class="btn-success"/>
+                    </group>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_report_mining_wizard_mrp" model="ir.actions.act_window">
+        <field name="name">MRP cost Analysis</field>
+        <field name="res_model">report.mining.mrp.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="report_mining_wizard_mrp_view"/>
+        <field name="target">new</field>
+    </record>
+       <menuitem action="action_report_mining_wizard_mrp" name="MRP cost Analysis" id="menu_report_mining_wizard_mrp" parent="mw_mining.menu_mining_report" sequence="50"/>
+       <menuitem action="action_report_mining_wizard_mrp" name="MRP cost Analysis" id="menu_report_mining_wizard_mrp2" parent="mrp.menu_mrp_reporting" sequence="50"/>
+    
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+	<record id="parts_waiting_form_view" model="ir.ui.view">
+		<field name="name">parts.waiting.form</field>
+		<field name="model">parts.waiting</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        groups="base.group_no_one" />
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"  
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" readonly="1"  
+                        statusbar_visible="draft,confirmed" />
+                </header>
+           		<sheet>
+           			<group col="4">
+                        <field name="branch_id"
+                                options="{'no_create':True}"/>
+                        <field name="date"/>
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+
+                        <field name="name" nolabel="1" colspan="4" placeholder="Тайлбар..."/>
+                        
+                        <field name="equipment_parts_waiting" options="{'no_create': True}" />
+                        <field name="technic_status"/>
+                        <field name="user_id"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="Lines" editable="bottom">
+                                <field name="product_id" options="{'no_create':True}"/>
+                                <field name="qty"/>
+                                <field name="uom_id"/>
+                            </tree>
+                        </field>
+                    </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="parts_waiting_tree_view" model="ir.ui.view">
+        <field name="name">parts.waiting.tree</field>
+        <field name="model">parts.waiting</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='confirmed'">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="equipment_parts_waiting"/>
+                <field name="technic_status"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_parts_waiting'>
+        <field name="name">parts.waiting.action</field>
+        <field name="res_model">parts.waiting</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+</odoo>

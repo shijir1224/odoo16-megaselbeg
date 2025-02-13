@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mining_cost_ancillary_month_exca_tree" model="ir.ui.view">
+        <field name="name">mining.cost.ancillary.month.exca.tree</field>
+        <field name="model">mining.cost.ancillary.month.exca</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="year_month"/>
+                <field name="exca_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_cost_ancillary_month_exca_pivot" model="ir.ui.view">
+        <field name="name">mining.cost.ancillary.month.exca.pivot</field>
+        <field name="model">mining.cost.ancillary.month.exca</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="year_month" type="row"/>
+                <field name="exca_amount" type="measure"/>
+            </pivot>
+         </field>
+    </record>
+
+    <record id="view_mining_cost_ancillary_month_exca_search" model="ir.ui.view">
+        <field name="name">mining.cost.ancillary.month.exca.search</field>
+        <field name="model">mining.cost.ancillary.month.exca</field>
+        <field name="arch" type="xml">
+            <search string="Technic Analysis">
+                <field name="year_month"/>
+                <filter name="gr_year_month" string="Сараар" context="{'group_by': 'year_month'}"/>
+            </search>
+        </field>
+    </record>
+
+   <record id="action_mining_cost_ancillary_month_exca_tree" model="ir.actions.act_window">
+        <field name="name">Acillary Cost Month Exca</field>
+        <field name="res_model">mining.cost.ancillary.month.exca</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="search_view_id" ref="view_mining_cost_ancillary_month_exca_search"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+    <menuitem action="action_mining_cost_ancillary_month_exca_tree" id="menu_mining_cost_ancillary_month_exca" parent="menu_mining_report_bcm_sub" sequence="20" groups="base.group_no_one"/>
+
+
+    <record id="view_mining_cost_config_ancillary_amount_exca_tree" model="ir.ui.view">
+        <field name="name">mining.cost.config.ancillary.amount.exca.tree</field>
+        <field name="model">mining.cost.config.ancillary.amount.exca</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="technic_id"/>
+                <field name="amount_aml"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_cost_config_ancillary_amount_exca_pivot" model="ir.ui.view">
+        <field name="name">mining.cost.config.ancillary.amount.exca.pivot</field>
+        <field name="model">mining.cost.config.ancillary.amount.exca</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date" type="row"/>
+                <field name="amount_aml" type="measure"/>
+            </pivot>
+         </field>
+    </record>
+
+    <record id="view_mining_cost_config_ancillary_amount_exca_search" model="ir.ui.view">
+        <field name="name">mining.cost.config.ancillary.amount.exca.search</field>
+        <field name="model">mining.cost.config.ancillary.amount.exca</field>
+        <field name="arch" type="xml">
+            <search string="Technic Analysis">
+                <field name="technic_id"/>
+                <field name="date"/>
+                <filter name="gr_technic_id" string="Technic" context="{'group_by': 'technic_id'}"/>
+            </search>
+        </field>
+    </record>
+
+   <record id="action_mining_cost_config_ancillary_amount_exca_tree" model="ir.actions.act_window">
+        <field name="name">Ancillary Cost For Technic Exca</field>
+        <field name="res_model">mining.cost.config.ancillary.amount.exca</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="search_view_id" ref="view_mining_cost_config_ancillary_amount_exca_search"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+    <menuitem action="action_mining_cost_config_ancillary_amount_exca_tree" id="menu_mining_cost_config_ancillary_amount_exca" parent="menu_mining_report_bcm_sub" sequence="77"/>
+
+
+
+     <record id="view_mining_cost_ancillary_month_dump_tree" model="ir.ui.view">
+        <field name="name">mining.cost.ancillary.month.dump.tree</field>
+        <field name="model">mining.cost.ancillary.month.dump</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="year_month"/>
+                <field name="dump_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_cost_ancillary_month_dump_pivot" model="ir.ui.view">
+        <field name="name">mining.cost.ancillary.month.dump.pivot</field>
+        <field name="model">mining.cost.ancillary.month.dump</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="year_month" type="row"/>
+                <field name="dump_amount" type="measure"/>
+            </pivot>
+         </field>
+    </record>
+
+    <record id="view_mining_cost_ancillary_month_dump_search" model="ir.ui.view">
+        <field name="name">mining.cost.ancillary.month.dump.search</field>
+        <field name="model">mining.cost.ancillary.month.dump</field>
+        <field name="arch" type="xml">
+            <search string="Technic Analysis">
+                <field name="year_month"/>
+                <filter name="gr_year_month" string="Сараар" context="{'group_by': 'year_month'}"/>
+            </search>
+        </field>
+    </record>
+
+   <record id="action_mining_cost_ancillary_month_dump_tree" model="ir.actions.act_window">
+        <field name="name">Acillary Cost Month Dump</field>
+        <field name="res_model">mining.cost.ancillary.month.dump</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="search_view_id" ref="view_mining_cost_ancillary_month_dump_search"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+    <menuitem action="action_mining_cost_ancillary_month_dump_tree" id="menu_mining_cost_ancillary_month_dump" parent="menu_mining_report_bcm_sub" sequence="20" groups="base.group_no_one"/>
+
+
+    <record id="view_mining_cost_config_ancillary_amount_dump_tree" model="ir.ui.view">
+        <field name="name">mining.cost.config.ancillary.amount.dump.tree</field>
+        <field name="model">mining.cost.config.ancillary.amount.dump</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="technic_id"/>
+                <field name="amount_aml"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_cost_config_ancillary_amount_dump_pivot" model="ir.ui.view">
+        <field name="name">mining.cost.config.ancillary.amount.dump.pivot</field>
+        <field name="model">mining.cost.config.ancillary.amount.dump</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date" type="row"/>
+                <field name="amount_aml" type="measure"/>
+            </pivot>
+         </field>
+    </record>
+
+    <record id="view_mining_cost_config_ancillary_amount_dump_search" model="ir.ui.view">
+        <field name="name">mining.cost.config.ancillary.amount.dump.search</field>
+        <field name="model">mining.cost.config.ancillary.amount.dump</field>
+        <field name="arch" type="xml">
+            <search string="Technic Analysis">
+                <field name="technic_id"/>
+                <field name="date"/>
+                <filter name="gr_technic_id" string="Technic" context="{'group_by': 'technic_id'}"/>
+            </search>
+        </field>
+    </record>
+
+   <record id="action_mining_cost_config_ancillary_amount_dump_tree" model="ir.actions.act_window">
+        <field name="name">Ancillary Cost For Technic Dump</field>
+        <field name="res_model">mining.cost.config.ancillary.amount.dump</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="search_view_id" ref="view_mining_cost_config_ancillary_amount_dump_search"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+    <menuitem action="action_mining_cost_config_ancillary_amount_dump_tree" id="menu_mining_cost_config_ancillary_amount_dump" parent="menu_mining_report_bcm_sub" sequence="77"/>
+</odoo>

@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_enrollment_plan_admin,enrollment.plan,model_enrollment_plan,hr.group_hr_manager,1,1,1,1
+access_enrollment_plan_line_admin,enrollment.plan.line,model_enrollment_plan_line,hr.group_hr_manager,1,1,1,1
+
+access_hr_applicant_manager,hr.applicant,model_hr_applicant,mw_hr_applicant.group_applicant_manager,1,1,1,1
+access_hr_applicant_user,hr.applicant,model_hr_applicant,mw_hr_applicant.group_applicant_user,1,1,1,0
+
+access_hr_applicant_request_manager,hr.applicant.request,model_hr_applicant_request,mw_hr_applicant.group_applicant_manager,1,1,1,1
+access_hr_applicant_request_user,hr.applicant.request,model_hr_applicant_request,mw_hr_applicant.group_applicant_user,1,1,1,0
+
+access_hr_open_job_manager,hr.open.job,model_hr_open_job,mw_hr_applicant.group_applicant_manager,1,1,1,1
+access_hr_open_job_user,hr.open.job,model_hr_open_job,mw_hr_applicant.group_applicant_user,1,0,0,0

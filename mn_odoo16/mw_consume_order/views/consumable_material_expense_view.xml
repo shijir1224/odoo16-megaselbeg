@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.sequence" id="seq_consumable_material_expense">
+			<field name="name">consumable material expense</field>
+			<field name="code">consumable.material.expense</field>
+			<field name="prefix">CONSU/%(year)s/%(month)s/%(day)s-</field>
+			<field name="padding">5</field>
+			<field name="company_id" eval='False'/>
+		</record>
+
+		<record id="view_consume_material_expense_search" model="ir.ui.view">
+			<field name="name">consumable.material.expense.search</field>
+			<field name="model">consumable.material.expense</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="doc_number"/>
+					<field name="product_id"/>
+					<field name="note"/>
+					<field name="owner_id"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="view_consume_material_expense_tree" model="ir.ui.view">
+			<field name="name">consumable.material.expense.tree</field>
+			<field name="model">consumable.material.expense</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Consume Material Espense Tree" >
+					<field name="doc_number"/>
+					<field name="warehouse_id"/>
+					<field name="date"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="consume_material_expense_form_view" model="ir.ui.view">
+			<field name="name">consumable.material.expense</field>
+			<field name="model">consumable.material.expense</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material Debit">
+						<header>
+							<button name="button_confirm" type="object" string="Confirm" attrs="{'invisible': [('state','!=','draft')]}"></button>
+							<button name="button_reject" type="object" string="Reject" attrs="{'invisible': [('state','!=','confirm')]}"></button>
+							<button name="button_draft" type="object" string="Draft" attrs="{'invisible': [('state','!=','reject')]}"></button>
+							<!-- attrs="{'invisible': [('state', '!=', 'progress')]}" -->
+							<field name="state" widget="statusbar" statusbar_visible="draft,confirm,reject,done" />
+						</header>
+						<sheet>
+						<div class="oe_button_box" name="button_box" >
+							 <button class="oe_stat_button" name="button_consume_order" type="object" icon="fa-gears" attrs="{'invisible': [('consume_count','=',0)]}"> 
+								<field string="Consume count" name="consume_count" widget="statinfo" />         
+							</button>
+						</div>
+						<group>
+							<group>
+								<field name="doc_number"/>
+								<field name="other_expense_id" options="{'no_create': True}" readonly="1"/>
+								<field name="date" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="disposal_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="company_id"  options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="is_project_partner" attrs="{'readonly': [('state','!=','draft')]}"/>
+							</group>
+							<group>
+								<field name="warehouse_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="branch_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="department_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="categ_id" required='1' attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="account_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="analytic_distribution" widget='analytic_distribution' options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<button name="set_lines_categ" type='object' class='btn-primary' string='Set category' attrs="{'invisbile': [('state','!=','draft')]}"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="expense_product_list">
+							<field name="expense_product_list_ids" mode="tree" >
+								<tree string="expense_product_list_ids" editable="bottom"> 
+									<field name="product_id" required="1" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="lot_id" options="{'no_create': True}" optional="hide" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="quantity_available" readonly="1" optional="hide"/>
+									<field name="quantity" required="1" optional="show" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="price" required="1" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="note" optional="show" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="account_id" options="{'no_create': True}" optional="show" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="analytic_distribution" widget='analytic_distribution' options="{'no_create': True}" optional="show" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+<!-- 									<field name="owner_ids" required="1" widget="many2many_tags"/> -->
+									<field name="owner_id" required="1" optional="show" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="branch_id" options="{'no_create': True}" optional="show" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="department_id" options="{'no_create': True}" optional="hide" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="is_depreciate" readonly="1"/>
+									<field name="start_date" attrs="{'invisible': [('is_depreciate','=','False')], 'readonly': [('parent.state','!=','draft')]}" optional="show" />
+									<field name="end_date" attrs="{'invisible': [('is_depreciate','=','False')], 'readonly': [('parent.state','!=','draft')]}" optional="hide" />
+									<field name="category_id" options="{'no_create': True}" optional="show" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="type_id" options="{'no_create': True}" optional="hide" attrs="{'readonly': [('parent.state','!=','draft')]}"/>
+									<field name="related_product_move_id" readonly="1" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+		<record id="action_consume_material_expense_view" model="ir.actions.act_window">
+			<field name="name">Consume Material Expense</field>
+			<field name="res_model">consumable.material.expense</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_consume_material_expense_tree"/>
+			<field name="help" type="html">
+			  	<p class="oe_view_nocontent_create">
+					Create a Consume Material Expense
+				</p>
+			</field>
+		</record>
+		
+		<record id="product_template_action_mn_mrp" model="ir.actions.act_window">
+			<field name="name">Products</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.template</field>
+			<field name="view_mode">kanban,tree,form</field>
+			<field name="view_id" ref="product.product_template_kanban_view"/>
+<!-- 	        <field name="domain">[('type','=','consu')]</field> -->
+			<field name="domain">[('is_consum','=',True)]</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to define a new product.
+				</p><p>
+					You must define a product for everything you sell, whether it's a physical product, a consumable or a service you offer to customers.
+				</p><p>
+					The product form contains information to simplify the sale process: price, notes in the quotation, accounting data, procurement methods, etc.
+				</p>
+			</field>
+		</record>
+		
+		<menuitem id="menu_finance_consumable_material"
+			name="Consumable Material"
+			parent="stock.menu_stock_root"
+			groups="mw_consume_order.group_consume_order_manager"
+			sequence="3"/>
+			
+		<menuitem id="menu_view_consumable_material_material"
+			name="Consumable Material"
+			parent="menu_finance_consumable_material"
+			action="product_template_action_mn_mrp"
+			sequence="1"/>
+		<menuitem id="menu_view_consumable_material_expense"
+			name="Consumable Material Expense"
+			parent="menu_finance_consumable_material"
+			action="action_consume_material_expense_view"
+			sequence="2"/>
+			
+		<record id="stock_product_other_expense_ttjv_form_view" model="ir.ui.view">
+			<field name="name">stock.product.other.expense.mw</field>
+			<field name="model">stock.product.other.expense</field>
+			<field name="inherit_id" ref="mw_stock_moves.stock_product_other_expense_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_back_stage']" position="after">
+					<button name="action_to_consumable" string="АБХМ үүсгэх" class="oe_highlight" states="confirmed" type="object" attrs="{'invisible': [('is_consume_product','=',False)]}"/>
+					<field name="is_consume_product" invisible="1"/>
+				</xpath>
+				<xpath expr="//div[@name='button_box']" position="inside">
+					<button class="oe_stat_button" name="view_consumable_expense" type="object" icon="fa-gears" string="АБХМ" attrs="{'invisible': [('count_consumable','=',0)]}"> 
+						<field name="count_consumable" nolabel='1'/>
+						<field name="consumable_expense_ids" invisible='1'/>
+					</button>
+				</xpath>
+				<xpath expr="//field[@name='product_expense_line']/tree/field[@name='res_partner_id']" position="attributes">
+					<attribute name="attrs">{'column_invisible': [('parent.is_employee', '=', False)], 'required': ['|',('parent.is_employee','=',True),('parent.is_consume_product','=',False)]}</attribute>
+				</xpath>
+			</field>
+		</record> 
+
+		<record id="view_consumable_material_lot_tree" model="ir.ui.view">
+			<field name="name">consumable.material.lot.tree</field>
+			<field name="model">consumable.material.lot</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Consume Material Espense Tree" create="1">
+					<field name="name"/>
+					<field name="date"/>
+				</tree>
+			</field>
+		</record>    
+
+		<record id="consumable_material_lot_form_view" model="ir.ui.view">
+			<field name="name">consumable.material.lot</field>
+			<field name="model">consumable.material.lot</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material lot">
+				<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="date"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>        
+		<!-- 
+		<record id="stock_product_other_expense_form_view" model="ir.ui.view">
+			<field name="name">stock.product.other.expense.form</field>
+			<field name="model">stock.product.other.expense</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="action_to_draft" string="To draft"  states="sent,confirmed" type="object" 
+							/>
+						<button name="action_to_send" class="oe_highlight" string="Sent"  states="draft" type="object"
+							/>
+						<button name="action_to_confirm" class="oe_highlight" string="Confirm"  
+							states="sent" type="object"/>
+						<button name="action_to_done" string="Done" class="oe_highlight" 
+							states="confirmed" type="object"/>
+						<button name="action_to_print" class="oe_highlight" 
+							string="Хэвлэх"  states="sent,confirmed,done" type="object"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed,done" readonly="1" />
+						<button name="action_next_stage" string="Confirm" class="btn-success" type="object" attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+						<button name="action_back_stage" string="Back" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in', ['done','cancel'])]}"/>
+						<field name="flow_line_id" widget="statusbar"/>
+						<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', '!=', 'cancel'),('flow_id','=',False)]}"/>
+						<button name="action_cancel_stage" string="Cancel" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'in',['done','cancel']),('flow_id','=',False)]}"/>
+						<button name="update_available_qty" string="Үлдэгдэл шалгах" type="object" attrs="{'invisible': [('is_not_edit', '=',True)]}"/>
+					</header>
+				</form>
+			</field>
+		</record> -->
+
+		<record id="mn_transaction_value_consume_form_view" model="ir.ui.view">
+			<field name="name">mn.transaction.value.consume.form</field>
+			<field name="model">mn.transaction.value</field>
+			<field name="inherit_id" ref="mw_stock_moves.mn_transaction_value_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='is_list_pirce_view']" position="after">
+					<field name="is_consume_product"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+
+	<record model="ir.ui.view" id="consumable_material_expense_line_form">
+		<field name="name">consumable.material.expense.line.form</field>
+		<field name="model">consumable.material.expense.line</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="product_id" required="1"/>
+						<field name="lot_id" options="{'no_create': True}"/>
+						<field name="quantity_available" readonly="1"/>
+						<field name="quantity" required="1"/>
+						<field name="price" required="1"/>
+						<field name="note"/>
+						<field name="account_id" options="{'no_create': True}"/>
+						<field name="owner_id" required="1"/>
+						<field name="branch_id" options="{'no_create': True}"/>
+						<field name="department_id" options="{'no_create': True}"/>
+						<field name="is_depreciate" readonly="1"/>
+						<field name="start_date" attrs="{'invisible': [('is_depreciate','=','False')]}"/>
+						<field name="end_date" attrs="{'invisible': [('is_depreciate','=','False')]}"/>
+						<field name="category_id" options="{'no_create': True}"/>
+						<field name="type_id" options="{'no_create': True}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="consumable_material_expense_line_tree">
+		<field name="name">consumable.material.expense.line.tree</field>
+		<field name="model">consumable.material.expense.line</field>
+		<field name="arch" type="xml">
+			<tree> 
+				<field name="product_id" />
+				<field name="lot_id" optional="hide"/>
+				<field name="quantity_available" optional="hide"/>
+				<field name="quantity" />
+				<field name="price" />
+				<field name="note" optional="hide"/>
+				<field name="account_id" />
+				<field name="owner_id" />
+				<field name="branch_id" />
+				<field name="department_id" />
+				<field name="is_depreciate" />
+				<field name="start_date" optional="hide"/>
+				<field name="end_date" optional="hide"/>
+				<field name="category_id" />
+				<field name="type_id" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_consume_material_expense_line_view" model="ir.actions.act_window">
+		<field name="name">Consume Material Expense</field>
+		<field name="res_model">consumable.material.expense.line</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="consumable_material_expense_line_tree"/>
+		<field name="domain">[('owner_id.user_ids','in',[uid])]</field>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">
+				Create a Consume Material Expense
+			</p>
+		</field>
+	</record>
+</odoo>

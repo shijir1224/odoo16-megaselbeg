@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <record id="group_sale_ebarimt" model="res.groups">
+            <field name="name">Sale order Ebarimt</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record>
+
+        <record id="group_sale_ebarimt_returner" model="res.groups">
+            <field name="name">Sale order Ebarimt буцаагч</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record>
+    </data>
+
+</odoo>

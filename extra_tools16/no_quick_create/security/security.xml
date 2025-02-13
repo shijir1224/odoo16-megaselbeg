@@ -1,0 +1,5 @@
+<odoo>
+    <record id="no_quick_create" model="res.groups">
+        <field name="name">Quick Edit / Create</field>
+    </record>
+</odoo>

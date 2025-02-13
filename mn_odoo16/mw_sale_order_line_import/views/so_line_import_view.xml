@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_import" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="before">
+                <group col="6">
+                    <button name="action_export" string="Template Export" type="object" icon="fa-file-excel-o" class="btn-warning" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <field name="import_data" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_import_line" string="Import" type="object" class="btn btn-success fa fa-download" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

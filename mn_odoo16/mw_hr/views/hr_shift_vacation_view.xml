@@ -1,0 +1,335 @@
+<odoo>
+	<record model="ir.ui.view" id="view_shift_vacation_request_search">
+		<field name="name">shift.vacation.request.search</field>
+		<field name="model">shift.vacation.request</field>
+		<field name="arch" type="xml">
+			<search string="Request search">
+				<group expand="0" string="Group By...">
+					<field name="employee_id"/>
+					<filter name="flow_id" string="Урсгалын тохиргоо" context="{'group_by':'flow_id'}"/>
+					<filter name="flow_line_id" string="Төлөв" context="{'group_by':'flow_line_id'}"/>
+					<filter name="year" string="Жил" context="{'group_by':'year'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+					<filter name="department_id" string="Хэлтэс" context="{'group_by':'department_id'}"/>
+					<filter name="employee" string="Ажилтан" context="{'group_by':'employee_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="shift_vacation_request_form_view">
+		<field name="name">shift.vacation.request.form</field>
+		<field name="model">shift.vacation.request</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Request form" version="7.0">
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('state_type','=','done')]}"/>
+					<button name="action_back_stage" string="Буцаах" class="btn-warning" type="object" attrs="{'invisible': [('state_type','=','draft')]}"/>
+					<field name="flow_line_id" widget="statusbar"/>
+					<button name="action_draft_stage" string="Ноороглох" class="btn-danger" type="object" attrs="{'invisible': [('state_type','=','draft')]}" groups="mw_hr.group_shift_vacation_admin"/>
+				</header>
+				<sheet>
+				<group>
+					<group>
+						<field name="employee_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create': True,'no_open': True}"/>
+						<field name="job_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+						<field name="department_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+						<field name="company_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+						<field name="in_company_date" force_save='1' />
+						<field name="before_shift_vac_date" force_save='1'/>
+						<field name="count_day" force_save='1'/>
+						<field name="this_vac_date" readonly='1'/>
+                        <field name="work_year_bef" readonly='1' />
+					</group>
+					<group>
+						<field name="create_date"/>
+						<field name="year" attrs="{'readonly': [('state_type', '!=', 'draft')]}" placeholder="Зөвхөн тухайн жилийг оруулна уу!!"/>
+						<field name="con_day" force_save='1'/>
+						<field name="payslip_date" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+						<field name="is_personally" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+						<field name="startdate"  attrs="{'invisible': [('is_personally', '!=', True)],'readonly': [('state_type', '!=', 'draft')]}"/>
+						<field name="enddate"  attrs="{'invisible': [('is_personally', '!=', True)],'readonly': [('state_type', '!=', 'draft')]}"/>
+						<field name="days" attrs="{'invisible': [('is_personally', '!=', True)],'readonly': [('state_type', '!=', 'draft')]}"/>
+						<field name="is_con" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+						<field name="desc"/>
+						
+					</group>
+				</group>
+					<notebook>
+						<page string="Төлөвийн Түүх" name="history_flow">
+							<field name="history_ids" readonly="1">
+								<tree>
+									<field name="user_id"/>
+									<field name="date"/>
+									<field name="flow_line_id"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					<group>
+						<field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=', 'draft')]}" />
+						<field name="state_type" invisible="1"/>
+						<field name="next_state_type" invisible="1"/>
+						<field name="flow_line_next_id" invisible="1"/>
+						<field name="branch_id" invisible="1"/>
+						<field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save='1'/>
+						<field name="is_non" invisible="1"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="shift_vacation_request_tree_view">
+		<field name="name">shift.vacation.request.tree</field>
+		<field name="model">shift.vacation.request</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree decoration-success="state_type == 'done'" decoration-warning="state_type == 'draft'" decoration-danger="state_type == 'sent'">
+				<field name="employee_id"/>
+				<field name="department_id"/>
+				<field name="job_id"/>
+				<field name="payslip_date"/>
+				<field name="in_company_date"/>
+				<field name="before_shift_vac_date"/>
+				<field name="flow_line_id"/>
+				<field name="company_id"/>
+				<field name="state_type" invisible='1'/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_shift_vacation_request">
+		<field name="name">ЭА цалингийн хүсэлт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">shift.vacation.request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_year': 1}</field>
+		<field name="search_view_id" ref="view_shift_vacation_request_search"/>
+		<field name="view_id" ref="shift_vacation_request_tree_view"/>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_shift_vacation_request_hr">
+		<field name="name">ЭА цалингийн хүсэлт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">shift.vacation.request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_year': 1}</field>
+		<field name="search_view_id" ref="view_shift_vacation_request_search"/>
+		<field name="view_id" ref="shift_vacation_request_tree_view"/>
+	</record>
+
+	<!-- ЭА төлөвлөгөө -->
+	<record model="ir.ui.view" id="view_shift_vacation_plan_search">
+		<field name="name">shift.vacation.plan.search</field>
+		<field name="model">shift.vacation.plan</field>
+		<field name="arch" type="xml">
+			<search string="plan search">
+				<field name="name"/>
+				<group expand="0" string="Group By...">
+					<filter name="year" string="Жил" context="{'group_by':'year'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+					<filter name="department_id" string="Хэлтэс" context="{'group_by':'department_id'}"/>
+					<filter name="state" string="Төлөв" context="{'group_by':'state'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="shift_vacation_plan_form_view">
+		<field name="name">shift.vacation.plan.form</field>
+		<field name="model">shift.vacation.plan</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="plan form">
+				<header>
+					<button string="Илгээх" name="action_send" type="object" states="draft" class="oe_highlight"/>
+					<button string="Батлах" name="action_done" type="object" class="oe_highlight"  groups='mw_hr.group_shift_vacation_admin' states='send'/>
+					<button string="Буцааж ноороглох" name="action_draft" type="object" groups='mw_hr.group_shift_vacation_admin'  states='send,done,cancel'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,send,done,cancel" statusbar_colors='{"draft":"red","send":"orange","done":"green","cancel":"black"}'/>
+				</header>
+				<sheet>
+					<group col="4" colspan="2">
+						<field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="department_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="year" attrs="{'readonly':[('state','!=','draft')]}"/>
+						<field name="company_id" />
+						<button string="Ажилчид татах" name="create_plan_line" class="btn-success" type="object" states='draft'/>
+						<button name="action_print" colspan="1" type="object" class="btn btn-danger" icon="fa-print" string="Хэвлэх"/>
+					</group>
+					<field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+						<form string="Employee leave plan">
+							<group col="4" colspan="4">
+								<field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+								<field name="department_id" options="{'no_create':True}"/>
+								<field name="job_id" options="{'no_create':True}"/>
+								<field name="in_company_date"/>
+								<field name="uls_year"/>
+								<field name="count_day"/>
+								<field name="before_shift_vac_date"/>
+								<field name="payslip_date"/>
+								<field name="state"/>
+							</group>
+						</form>
+						<tree string="Emshployee hour balance" editable="top">
+							<field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+							<field name="department_id"/>
+							<field name="job_id"/>
+							<field name="in_company_date"/>
+							<field name="uls_year"/>
+							<field name="und_day" />
+							<field name="add_day" />
+							<field name="count_day"/>
+							<field name="before_shift_vac_date"/>
+							<field name="payslip_date"/>
+							<field name="state"/>
+						</tree>
+					</field>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="shift_vacation_plan_tree_view">
+		<field name="name">shift.vacation.plan.tree</field>
+		<field name="model">shift.vacation.plan</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="department_id"/>
+				<field name="year"/>
+				<field name="state"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_shift_vacation_plan">
+		<field name="name">ЭА жилийн төлөвлөгөө</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">shift.vacation.plan</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_year': 1, 'search_default_department_id': 1}</field>
+		<field name="search_view_id" ref="view_shift_vacation_plan_search"/>
+		<field name="view_id" ref="shift_vacation_plan_tree_view"/>
+	</record>
+
+	<!-- ЭА хуваарь -->
+	<record model="ir.ui.view" id="view_shift_vacation_schedule_search">
+		<field name="name">shift.vacation.schedule.search</field>
+		<field name="model">shift.vacation.schedule</field>
+		<field name="arch" type="xml">
+			<search string="schedule search">
+				<group expand="0" string="Group By...">
+					<field name="name"/>
+					<filter name="start_date" string="Жил" context="{'group_by':'start_date'}"/>
+					<filter name="type" string="Төрөл" context="{'group_by':'type'}"/>
+					<filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="shift_vacation_schedule_form_view">
+		<field name="name">shift.vacation.schedule.form</field>
+		<field name="model">shift.vacation.schedule</field>
+		<field name="arch" type="xml">
+			<form string="schedule form" version="7.0">
+				<header>
+					<button string="Илгээх" name="action_send" states="draft" type="object" class="btn-success"/>
+					<button string="Батлах" name="action_confirm" states="send" type="object" class="btn-success"/>
+					<button string="НЯБО хүлээж авах" name="action_done" states="confirm" class="btn-success" type="object" groups='mw_hr.group_shift_vacation_admin'/>
+					<button string="Буцаах" name="action_draft" class="btn-warning" states="send,confirm" type="object" groups='mw_hr.group_shift_vacation_admin' />
+					<button string="Буцаах" name="action_draft" class="btn-warning" type="object" attrs="{'invisible': [('state', '!=', 'done')]}" groups='mw_salary.group_salary_hybo'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,send,confirm,done" statusbar_colors='{"draft":"red","send":"orange","confirm":"orange","done":"green"}'/>
+				</header>
+				<sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="start_date" string='Эхлэх огноо' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="end_date" string='Дуусах огноо' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="type" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group >
+                            <field name="company_id"/>
+                            <field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+                            <field widget="binary" height="64" name="import_data" filename="file_fname"/>
+                            <field name="file_fname" invisible="1" />
+                            <button name="action_print" colspan="1" type="object" class="btn btn-success" icon="fa-print" string="Хэвлэх"/>
+                        </group>
+                        <group >
+                            <button string="Ажилчид татах" name="create_schedule_line" type="object" class="btn btn-info" attrs="{'invisible':[('state','!=','draft')]}"/>
+                            
+                        </group>
+                    </group>
+					<field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+						<form string="Employee leave schedule">
+							<group >
+								<field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+								<field name="department_id" options="{'no_create':True}"/>
+								<field name="job_id" options="{'no_create':True}"/>
+								<field name="in_company_date"/>
+								<field name="uls_year" string='Улсад ажилласан жил'/>
+								<field name="count_day" string='Амрах хоног'/>
+								<field name="before_shift_vac_date"/>
+								<field name="payslip_date"/>
+								<field name='state'/>
+							</group>
+						</form>
+						<tree string="Emshployee hour balance" editable="top">
+							<field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+							<field name="department_id" options="{'no_create':True}"/>
+							<field name="job_id" options="{'no_create':True}"/>
+							<field name="in_company_date"/>
+							<field name="uls_year"/>
+							<field name="count_day" string='Амрах хоног'/>
+							<field name="before_shift_vac_date"/>
+							<field name="payslip_date"/>
+							<field name="is_minikin"/>
+							<field name='state'/>
+						</tree>
+					</field>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="shift_vacation_schedule_tree_view">
+		<field name="name">shift.vacation.schedule.tree</field>
+		<field name="model">shift.vacation.schedule</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="start_date"/>
+				<field name="company_id"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_shift_vacation_schedule">
+		<field name="name">ЭА бодох</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">shift.vacation.schedule</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_start_date': 1}</field>
+		<field name="search_view_id" ref="view_shift_vacation_schedule_search"/>
+		<field name="view_id" ref="shift_vacation_schedule_tree_view"/>
+	</record>
+	
+
+</odoo>

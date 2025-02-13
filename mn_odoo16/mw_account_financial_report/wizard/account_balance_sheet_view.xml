@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="account_balance_sheet_report_view" model="ir.ui.view">
+            <field name="name">Balance sheet</field>
+            <field name="model">account.balance.sheet.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group colspan="4" col="2" expand="1">
+                    		<group>
+	                   <field name="company_id" widget='selection' string='Компани'/>
+	                   <field name="report_id" widget='selection' domain="[('report_type', '=', 'balance')]" string='Тайлан'/>
+	                   <field name="target_move" string='Гүйлгээний төлөв'/>
+	                   <field name="lang_type" string='Хэл'/>
+	                   <field name="branch_ids" widget='many2many_tags' domain="[('company_id', '=', company_id)]" string='Салбар'/>
+	                   </group>
+	                        <notebook tabpos="up">
+									<page string="Хайлтууд">
+										<group name='Хайлтууд'>
+											<field name="date_range_id" string='Огнооны хязгаар'/>
+											<field name="date_from"  string='Эхлэх огноо'/>
+											<field name="date_to" string='Дуусах огноо'/>
+										</group>
+										<group>
+										</group>
+									</page>
+			                        <page name="accounts" string="Журнал сонгох">
+<!-- 			                            <field name="chart_account_ids" colspan="4" nolabel="1"/> -->
+							            <group col="3">
+							                <field name="journal_ids" widget="many2many_tags" options="{'no_create': True}" string='Журналууд'/>
+							            </group>
+			                        </page>
+
+	                        </notebook>
+	                    <separator colspan="2"/>
+ 						<footer col="3" class="oe_right">
+	                        <button icon="fa-times" special="cancel" string="Цуцлах" colspan="2"/>
+	                        <button icon="fa-print" name="check_report" string="Татах" type="object" colspan="2" default_focus="1" />
+        			       </footer>
+ 	                </group>
+               	</form>
+            </field>
+        </record>
+
+        <record id="action_account_balance_sheet_report" model="ir.actions.act_window">
+            <field name="name">Баланс тайлан</field>
+            <field name="res_model">account.balance.sheet.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_balance_sheet_report_view"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem 
+                name="Баланс"
+                action="action_account_balance_sheet_report"
+                id="menu_action_account_balance_sheet_report"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="2"/>
+                
+    </data>
+</openerp>

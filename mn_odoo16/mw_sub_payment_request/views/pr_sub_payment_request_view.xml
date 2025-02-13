@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Payment request -->
+	<record id="view_payment_request_search_mw" model="ir.ui.view">
+		<field name="name">payment.request.search.my</field>
+		<field name="model">payment.request</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_payment_request_search_my"/>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<xpath expr="//filter[@name='my_confirm']" position="after">
+				<filter name="my_done" string="Миний батласан хүсэлт" domain="[('history_flow_ids.user_id','=',uid),('history_flow_ids.flow_line_id.state_type','not in',['draft','sent','cancel'])]"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_payment_request_form_my_mw" model="ir.ui.view">
+		<field name="name">payment.request.form.my</field>
+		<field name="model">payment.request</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_payment_request_form_my"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='flow_id']" position="replace">
+				<field name="flow_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}" domain="[('model_id.model','=','payment.request'),('company_id','=',company_id),('is_cash','=',False),('is_between_account','=',False),('is_between_company','=',False),'|',('user_ids','=', False),('user_ids','in', [uid])]"/>
+			</xpath>
+			<xpath expr="//button[@name='action_draft_stage']" position="attributes">
+				<attribute name="attrs">{'invisible': ['|',('state', '!=', 'cancel'),('flow_id','=',False)]}</attribute>
+			</xpath>
+			<!-- <xpath expr="//button[@name='request_print']" position="attributes">
+				<attribute name="attrs">{'invisible': [('state','in',['draft','cancel'])]}</attribute>
+			</xpath> -->
+			<xpath expr="//field[@name='amount']" position="attributes">
+				<attribute name="readonly">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='confirmed_amount']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date']" position="attributes">
+				<attribute name="string">Үүсгэсэн огноо</attribute>
+			</xpath>
+			<xpath expr="//field[@name='move_id']" position="after">
+				<field name="approved_date" readonly="1"/>
+			</xpath>
+			<xpath expr="//field[@name='move_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='ex_account_id']" position="attributes">
+				<attribute name="string">Харьцсан данс</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_next_stage']" position="attributes">
+				<attribute name="attrs">{'invisible': [('flow_line_next_id','=',False)]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='priority']" position="after">
+				<field name="is_butsaalt" invisible="1"/>
+				<field name="is_info" invisible="1"/>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="after">
+				<field name="butsaalt_partner"/>
+			</xpath>
+			<xpath expr="//field[@name='bank_id']" position="after">
+				<field name="butsaalt_bank"/>
+			</xpath>
+			<xpath expr="//field[@name='new_dans_id']" position="after">
+				<field name="butsaalt_dans"/>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="attributes">
+				<attribute name="attrs">{'invisible': [('is_butsaalt','=',True)],'readonly':[('is_not_edit','=',True)]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='butsaalt_partner']" position="attributes">
+				<attribute name="attrs">{'invisible': [('is_butsaalt','!=',True)],'readonly':[('is_not_edit','=',True)]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='bank_id']" position="attributes">
+				<attribute name="attrs">{'invisible': [('is_butsaalt','=',True)],'readonly':[('is_not_edit','=',True)]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='butsaalt_bank']" position="attributes">
+				<attribute name="attrs">{'invisible': [('is_butsaalt','!=',True)],'readonly':[('is_not_edit','=',True)]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='new_dans_id']" position="attributes">
+				<attribute name="attrs">{'invisible': [('is_butsaalt','=',True)],'readonly':[('is_not_edit','=',True)]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='butsaalt_dans']" position="attributes">
+				<attribute name="attrs">{'invisible': [('is_butsaalt','!=',True)],'readonly':[('is_not_edit','=',True)]}</attribute>
+			</xpath>
+			<xpath expr="//group[2]" position="after">
+				<group colspan="2">
+					<field name="info_payment" nolabel="1" style="font-size:13pt; font-family:'Verdana'" class="text-danger" colspan="4" attrs="{'invisible':[('is_info','!=',True)]}"/>
+				</group>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_confirm_all_payment_request_tree" model="ir.ui.view">
+		<field name="name">payment.request.tree</field>
+		<field name="model">payment.request</field>
+		<field name="priority">1</field>
+		<field name="mode">primary</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Payment Request" decoration-success="tulugdsun_dun!=0" decoration-info="state=='draft'" create="false">
+				<field name="name" optional="show"/>
+				<field name="type" optional="show"/>
+				<field name="date" string='Үүсгэсэн огноо' optional="show"/>
+				<field name="approved_date" optional="show"/>
+				<field name="priority" optional="show" widget="priority"/>
+				<field name="department_id" optional="hide"/>
+				<field name="partner_id" optional="hide"/>
+				<field name="butsaalt_partner" string="Харилцагч /гараас/" optional="hide"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="payment_ref" optional="show"/>
+				<field name="description" optional="show"/>
+				<field name="amount" sum="SUM" optional="show"/>
+				<field name="tulugdsun_dun" sum="SUM" optional="hide"/>
+				<field name="currency_id" optional="show"/>
+				<field name="create_partner_id" optional="show"/>
+				<field name="bank_statement_line_id" optional="show"/>
+				<field name="new_dans_id" optional="show"/>
+				<field name="bank_id" optional="show"/>
+				<field name="flow_id" optional="show"/>
+				<field name="flow_line_id" optional="show"/>
+				<field name="company_id" optional="show"/>
+				<field name="state" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="mw_account_payment_request.action_view_payment_request_my" model="ir.actions.act_window">
+		<field name="name">Өөрийн хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('create_uid','=',uid),('flow_id.is_cash','=',False),('flow_id.is_between_account','=',False),('flow_id.is_between_company','=',False),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('mw_account_payment_request.view_payment_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('mw_account_payment_request.view_payment_request_form_my')}),
+				(0,0,{'view_mode':'pivot','view_id': ref('mw_account_payment_request.payment_request_pivot')}),
+				(0,0,{'view_mode':'graph','view_id': ref('mw_account_payment_request.payment_request_graph')}),
+				(0,0,{'view_mode':'calendar','view_id': ref('mw_account_payment_request.payment_requestcalendar')})]"/>
+	</record>
+
+	<record id="mw_account_payment_request.action_view_payment_request_my_batlah" model="ir.actions.act_window">
+		<field name="name">Миний батлах хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('confirm_user_ids','in',[uid]),('flow_id.is_cash','=',False),('flow_id.is_between_account','=',False),('flow_id.is_between_company','=',False),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_payment_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('mw_account_payment_request.view_payment_request_form_my')}),
+				(0,0,{'view_mode':'pivot','view_id': ref('mw_account_payment_request.payment_request_pivot')}),
+				(0,0,{'view_mode':'graph','view_id': ref('mw_account_payment_request.payment_request_graph')}),
+				(0,0,{'view_mode':'calendar','view_id': ref('mw_account_payment_request.payment_requestcalendar')})]"/>
+	</record>
+
+	<record id="action_view_payment_request_my_batlasan" model="ir.actions.act_window">
+		<field name="name">Миний батласан хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('flow_id.is_cash','=',False),('flow_id.is_between_account','=',False),('flow_id.is_between_company','=',False),('history_flow_ids.user_id','=',uid),('history_flow_ids.flow_line_id.state_type','not in',['draft','sent','cancel']),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_payment_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('mw_account_payment_request.view_payment_request_form_my')})]"/>
+	</record>
+
+	<record id="mw_account_payment_request.action_view_payment_request_all" model="ir.actions.act_window">
+		<field name="name">Төлбөр тооцоо бүгд</field>
+		<field name="res_model">payment.request</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('flow_id.is_cash','=',False),('flow_id.is_between_account','=',False),('flow_id.is_between_company','=',False),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_payment_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('mw_account_payment_request.view_payment_request_form_my')}),
+				(0,0,{'view_mode':'pivot','view_id': ref('mw_account_payment_request.payment_request_pivot')}),
+				(0,0,{'view_mode':'graph','view_id': ref('mw_account_payment_request.payment_request_graph')}),
+				(0,0,{'view_mode':'calendar','view_id': ref('mw_account_payment_request.payment_requestcalendar')})]"/>
+	</record>
+
+	<menuitem action="mw_account_payment_request.action_view_payment_request_my_batlah" id="mw_account_payment_request.menu_action_view_payment_request_my_batlah" parent="mw_account_payment_request.menu_account_payment_request_root_2" sequence="1"/>
+	<menuitem action="mw_account_payment_request.action_view_payment_request_my" id="mw_account_payment_request.menu_action_view_payment_request_my_2" parent="mw_account_payment_request.menu_account_payment_request_root_2" sequence="2"/>
+	<menuitem action="action_view_payment_request_my_batlasan" id="menu_payment_request_my_batlasan" parent="mw_account_payment_request.menu_account_payment_request_root_2" sequence="3"/>
+	<menuitem action="mw_account_payment_request.action_view_payment_request_all" id="mw_account_payment_request.menu_action_view_payment_request_all_2" groups="mw_account_payment_request.res_groups_account_payment_request_admin,mw_account_payment_request.res_groups_cash_accountant,mw_account_payment_request.res_groups_account_general_accountant" parent="mw_account_payment_request.menu_account_payment_request_root_2" sequence="4"/>
+
+	<!-- Cash request -->
+	<record id="view_cash_request_tree" model="ir.ui.view">
+		<field name="name">payment.request.tree</field>
+		<field name="model">payment.request</field>
+		<field name="priority">1</field>
+		<field name="mode">primary</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Payment Request" decoration-success="tulugdsun_dun!=0" decoration-info="state=='draft'">
+				<field name="name" optional="show"/>
+				<field name="type" optional="show"/>
+				<field name="date" string='Үүсгэсэн огноо' optional="show"/>
+				<field name="approved_date" optional="show"/>
+				<field name="priority" optional="show" widget="priority"/>
+				<field name="department_id" optional="hide"/>
+				<field name="partner_id" optional="hide"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="payment_ref" optional="show"/>
+				<field name="description" optional="show"/>
+				<field name="amount" sum="SUM" optional="show"/>
+				<field name="tulugdsun_dun" sum="SUM" optional="hide"/>
+				<field name="currency_id" optional="show"/>
+				<field name="create_partner_id" optional="show"/>
+				<field name="bank_statement_line_id" optional="show"/>
+				<field name="new_dans_id" optional="show"/>
+				<field name="bank_id" optional="show"/>
+				<field name="flow_id" optional="show"/>
+				<field name="flow_line_id" optional="show"/>
+				<field name="company_id" optional="show"/>
+				<field name="state" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_confirm_all_cash_request_tree" model="ir.ui.view">
+		<field name="name">payment.request.tree</field>
+		<field name="model">payment.request</field>
+		<field name="priority">1</field>
+		<field name="mode">primary</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Payment Request" decoration-success="tulugdsun_dun!=0" decoration-info="state=='draft'" create="false">
+				<field name="name" optional="show"/>
+				<field name="type" optional="show"/>
+				<field name="date" string='Үүсгэсэн огноо' optional="show"/>
+				<field name="approved_date" optional="show"/>
+				<field name="priority" optional="show" widget="priority"/>
+				<field name="department_id" optional="hide"/>
+				<field name="partner_id" optional="hide"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="payment_ref" optional="show"/>
+				<field name="description" optional="show"/>
+				<field name="amount" sum="SUM" optional="show"/>
+				<field name="tulugdsun_dun" sum="SUM" optional="hide"/>
+				<field name="currency_id" optional="show"/>
+				<field name="create_partner_id" optional="show"/>
+				<field name="bank_statement_line_id" optional="show"/>
+				<field name="new_dans_id" optional="show"/>
+				<field name="bank_id" optional="show"/>
+				<field name="flow_id" optional="show"/>
+				<field name="flow_line_id" optional="show"/>
+				<field name="company_id" optional="show"/>
+				<field name="state" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_cash_request_my_form" model="ir.ui.view">
+		<field name="name">payment.request.form.my</field>
+		<field name="model">payment.request</field>
+		<field name="arch" type="xml">
+			<form string="Төлбөрийн хүсэлт" version="9.0">
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in', ['cancel']),('flow_id','=',False)]}"/>
+					<button name="%(mw_account_payment_request.account_payment_expense)s" attrs="{'invisible': [('state','!=','pay')]}" string="Төлөх" class="btn-primary" type="action" groups="mw_account_payment_request.res_groups_cash_accountant"/>
+					<!-- <button name="request_print" string="Хүсэлт хэвлэх" class="btn-success" type="object" icon="fa-print" attrs="{'invisible': [('state','in',['draft','cancel'])]}"/> -->
+				</header>
+				<sheet>
+					<div name="button_box" class="oe_button_box"></div>
+					<h1>
+						<field name="name" class="oe_inline"/>
+						<field name="state" invisible="1"/>
+						<field name="flow_line_next_id" invisible="1"/>
+						<field name="flow_line_back_id" invisible="1"/>
+						<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+						<field name="is_not_edit" invisible="1"/>
+					</h1>
+					<group>
+						<group col="4">
+							<field name="flow_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}" domain="[('model_id.model', '=', 'payment.request'),('company_id','=',company_id),('is_cash','=',True),'|',('user_ids','=', False),('user_ids','in', [uid])]"/>
+							<field name="date" string="Үүсгэсэн огноо"/>
+							<field name="paid_date"/>
+							<field name="not_date" invisible="1"/>                     
+							<field name="move_id" readonly="1" force_save="1" string="Холбоотой нэхэмжлэл" invisible="1"/>
+							<field name="approved_date" readonly="1"/>
+						</group>
+						<!-- <group colspan="2">
+							<field name="info_payment" nolabel="1" style="font-size:13pt; font-family:'Verdana'" class="text-danger" colspan="4" attrs="{'invisible':[('is_info','!=',True)]}"/>
+						</group> -->
+						<group col="2">
+							<field name="payment_ref"  attrs="{'readonly':[('is_not_edit','=',True)],'required':[('state','=','draft')]}" string="Гүйлгээний утга"/>
+							<field name="description" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+							<field name="duusgahgui" invisible="1"/>
+							<field name="butsaalt_tailbar"/>
+							<field name="confirm_user_ids" widget="many2many_tags"/>
+						</group>
+					</group>
+					<group>
+					</group>
+					<notebook colspan="4">
+						<page string="Мэдээлэл" >
+							<field name="desc_line_ids" nolabel="1" attrs="{'readonly': ['|',('move_id', '!=', False),('is_not_edit','=',True)]}">
+								<tree editable="bottom">
+									<field name="sequence" widget="handle"/>
+									<field name="name"/>
+									<field name="move_line_id"/>
+									<field name="qty" sum="SUM"/>
+									<field name="price_unit" optional="show"/>
+									<field name="taxes_id" optional="hide" widget="many2many_tags"/>
+									<field name="price_subtotal" sum="SUM" optional="hide"/>
+									<field name="price_total" optional="show" sum="SUM"/>
+								</tree>
+							</field>
+							<group>
+								<group>
+									<field name="create_partner_id" string="Хүсэгч"/>
+									<field name="department_id" domain="[('company_id', '=', company_id)]" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="priority" widget="priority"/>
+									<field name="is_info" invisible="1"/>
+									<field name="partner_id" attrs="{'readonly':[('is_not_edit','=',True)]}" />
+									<!-- <field name="uglugiin_uldegdel"/>
+									<button name="input_hariltsagchiin_uld" string="Харилцагчийн үлдэгдэлээс татах" type="object" attrs="{'invisible':[('state','!=','draft')]}" class="btn-primary" colspan="2"/> -->
+								</group>
+								<group>
+									<field name="amount" string="Дүн" force_save="1" readonly="1"/>
+									<field name="confirmed_amount" attrs="{'readonly':[('is_not_edit','=',True)]}" force_save="1" invisible="1"/>
+									<field name="tulugdsun_dun" readonly="1"/>
+									<field name="currency_id" widget="selection" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="branch_id" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="type" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="journal_id" attrs="{'readonly':[('is_not_edit','=',True)],'invisible':[('state','!=','accountant')],'required':[('state','=','accountant')]}"/>
+									<field name="ex_account_id" string="Харьцсан данс"  attrs="{'readonly':[('is_not_edit','=',True)],'invisible':[('state','!=','accountant')],'required':[('state','=','accountant')]}"/>
+                                    <field name="analytic_distribution" string="Шинжилгээ" widget="analytic_distribution" attrs="{'readonly':[('is_not_edit','=',True)],'invisible':[('state','!=','accountant')]}"/>
+									<field name="cash_type_id" attrs="{'readonly':[('is_not_edit','=',True)],'invisible':[('state','!=','accountant')],'required':[('state','=','accountant')]}"/>
+									<field name="company_id" force_save="1" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<button name="print_bank_order" colspan="1" type="object" icon="fa-print"/>
+									<field name="is_yurunhii_nybo" invisible="1"/>
+								</group>
+							</group>
+							<field name="check_items" colspan="4" nolabel="1">
+								<form string="хавсаргасан баримт">
+									<group>
+										<field name="name" />
+										<field name="image_1920" widget='image' class="oe_avatar" options='{"zoom": true, "preview_image":"image_128"}'/>
+										<field name="description" nolabel="1" colspan="4" />
+										<field name="checked" />
+									</group>
+								</form>
+								<tree string="хавсаргасан баримт" editable="bottom">
+									<field name="name" sting="Нэр"/>
+									<field name="data_ids" widget="many2many_binary"/>
+									<field name="checked" />
+								</tree>
+							</field>
+							<group>
+								<field name="attachment_ids" widget="many2many_binary" groups="base.group_no_one" />
+							</group>
+						</page>
+						<page string="Түүх">
+							<group>
+								<field name="accountant_id" colspan="4" readonly="1"/>
+								<field name="complete_date"/>
+								<field name="bank_statement_line_id"/>
+							</group>
+							<field name="history_flow_ids" nolabel="1" colspan="4"/>
+							<button name="update_attach" string="Update attach" groups="base.group_system" type="object"/>
+							<button name="change_history" type="object" groups="base.group_no_one" string="Change history" class="btn-danger"/>
+							<button name="all_compute_user_ids" type="object" groups="base.group_no_one" string="all compute user ids" class="btn-danger"/>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_view_cash_request_my_batlah" model="ir.actions.act_window">
+		<field name="name">Миний батлах хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('confirm_user_ids','in',[uid]),('flow_id.is_cash','=',True),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_cash_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_cash_request_my_form')})]"/>
+	</record>
+
+	<record id="action_view_cash_request_my_batlasan" model="ir.actions.act_window">
+		<field name="name">Миний батласан хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('flow_id.is_cash','=',True),('history_flow_ids.user_id','=',uid),('history_flow_ids.flow_line_id.state_type','not in',['draft','sent','cancel']),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_cash_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_cash_request_my_form')})]"/>
+	</record>
+
+	<record id="action_view_cash_request_my" model="ir.actions.act_window">
+		<field name="name">Өөрийн хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('user_id','=',uid),('flow_id.is_cash','=',True),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_cash_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_cash_request_my_form')})]"/>
+	</record>
+
+	<record id="action_view_cash_request_all" model="ir.actions.act_window">
+		<field name="name">Бэлэн мөнгө хүсэх бүгд</field>
+		<field name="res_model">payment.request</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('flow_id.is_cash','=',True),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_cash_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_cash_request_my_form')})]"/>
+	</record>
+
+	<menuitem name="Бэлэн мөнгөний хүсэлт" parent="mw_account_payment_request.menu_account_payment_request_root" id="cash_request_menu_root" groups="mw_account_payment_request.res_groups_account_payment_request_employees" sequence="1"/>
+	<menuitem name="Миний батлах хүсэлт" parent="cash_request_menu_root" id="cash_confirm_request_menu" sequence="1" action="action_view_cash_request_my_batlah"/>
+	<menuitem name="Бэлэн мөнгө хүсэх" parent="cash_request_menu_root" id="cash_my_request_menu" sequence="2" action="action_view_cash_request_my"/>
+	<menuitem name="Миний батласан хүсэлт" parent="cash_request_menu_root" id="cash_my_confirmed_request_menu" action="action_view_cash_request_my_batlasan" sequence="3"/>
+	<menuitem name="Бэлэн мөнгө хүсэх бүгд" parent="cash_request_menu_root" id="cash_request_all_menu" sequence="4" action="action_view_cash_request_all" groups="mw_account_payment_request.res_groups_account_payment_request_admin,mw_account_payment_request.res_groups_cash_accountant,mw_account_payment_request.res_groups_account_general_accountant"/>
+
+	<!-- Account, company between request -->
+	<record id="view_account_company_request_tree" model="ir.ui.view">
+		<field name="name">payment.request.tree</field>
+		<field name="model">payment.request</field>
+		<field name="priority">1</field>
+		<field name="mode">primary</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Payment Request" decoration-success="tulugdsun_dun!=0" decoration-info="state=='draft'">
+				<field name="name" optional="show"/>
+				<field name="type" optional="show"/>
+				<field name="date" string='Үүсгэсэн огноо' optional="show"/>
+				<field name="approved_date" optional="show"/>
+				<field name="priority" optional="show" widget="priority"/>
+				<field name="department_id" optional="hide"/>
+				<field name="partner_id" optional="hide"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="description" optional="show"/>
+				<field name="payment_type" optional="show"/>
+				<field name="amount" sum="SUM" optional="show"/>
+				<field name="tulugdsun_dun" sum="SUM" optional="hide"/>
+				<field name="currency_id" optional="show"/>
+				<field name="create_partner_id" optional="show"/>
+				<field name="bank_statement_line_id" optional="show"/>
+				<field name="new_dans_id" optional="show"/>
+				<field name="bank_id" optional="show"/>
+				<field name="flow_id" optional="show"/>
+				<field name="flow_line_id" optional="show"/>
+				<field name="company_id" optional="show"/>
+				<field name="state" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_confirm_all_account_company_request_tree" model="ir.ui.view">
+		<field name="name">payment.request.tree</field>
+		<field name="model">payment.request</field>
+		<field name="priority">1</field>
+		<field name="mode">primary</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Payment Request" decoration-success="tulugdsun_dun!=0" decoration-info="state=='draft'" create="false">
+				<field name="name" optional="show"/>
+				<field name="type" optional="show"/>
+				<field name="date" string='Үүсгэсэн огноо' optional="show"/>
+				<field name="approved_date" optional="show"/>
+				<field name="priority" optional="show" widget="priority"/>
+				<field name="department_id" optional="hide"/>
+				<field name="branch_id" optional="hide"/>
+				<field name="description" optional="show"/>
+				<field name="payment_type" optional="show"/>
+				<field name="amount" sum="SUM" optional="show"/>
+				<field name="tulugdsun_dun" sum="SUM" optional="hide"/>
+				<field name="currency_id" optional="show"/>
+				<field name="create_partner_id" optional="show"/>
+				<field name="bank_statement_line_id" optional="show"/>
+				<field name="new_dans_id" optional="show"/>
+				<field name="bank_id" optional="show"/>
+				<field name="flow_id" optional="show"/>
+				<field name="flow_line_id" optional="show"/>
+				<field name="company_id" optional="show"/>
+				<field name="state" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_account_company_request_my_form" model="ir.ui.view">
+		<field name="name">payment.request.form.my</field>
+		<field name="model">payment.request</field>
+		<field name="arch" type="xml">
+			<form string="Төлбөрийн хүсэлт" version="9.0">
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in', ['cancel']),('flow_id','=',False)]}"/>
+					<button name="%(mw_account_payment_request.account_payment_expense)s" attrs="{'invisible': [('state','!=','accountant')]}" string="Төлөх" class="btn-primary" type="action" groups="mw_account_payment_request.res_groups_cash_accountant"/>
+					<!-- <button name="request_print" string="Хүсэлт хэвлэх" class="btn-success" type="object" icon="fa-print" attrs="{'invisible': [('state','in',['draft','cancel'])]}"/> -->
+				</header>
+				<sheet>
+					<div name="button_box" class="oe_button_box"></div>
+					<group>
+						<h1>
+							<field name="name" class="oe_inline"/>
+							<field name="state" invisible="1"/>
+							<field name="flow_line_next_id" invisible="1"/>
+							<field name="flow_line_back_id" invisible="1"/>
+							<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+							<field name="is_not_edit" invisible="1"/>
+						</h1>
+					</group>
+					 <group col="4">
+						<field name="flow_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}" domain="[('model_id.model', '=', 'payment.request'),('company_id','=',company_id),'|',('is_between_account','=',True),('is_between_company','=',True),'|',('user_ids','=', False),('user_ids','in', [uid])]"/>
+						<field name="date" string="Үүсгэсэн огноо"/>
+						<field name="paid_date"/>
+                        <field name="not_date" invisible="1"/>                     
+						<field name="move_id" readonly="1" force_save="1" string="Холбоотой нэхэмжлэл" invisible="1"/>
+						<field name="approved_date" readonly="1"/>
+					</group>
+					<group colspan="2">
+						<field name="info_payment" nolabel="1" style="font-size:13pt; font-family:'Verdana'" class="text-danger" colspan="4" attrs="{'invisible':[('is_info','!=',True)]}"/>
+					</group>
+					<group col="2">
+						<field name="payment_ref"  attrs="{'readonly':[('is_not_edit','=',True)],'required':[('state','=','draft')]}" string="Гүйлгээний утга"/>
+						<field name="description" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="duusgahgui" invisible="1"/>
+						<field name="butsaalt_tailbar"/>
+						<field name="confirm_user_ids" widget="many2many_tags"/>
+					</group>
+					<notebook colspan="4">
+						<page string="Мэдээлэл" >
+							<field name="account_company_line_ids" nolabel="1" attrs="{'readonly':[('is_not_edit','=',True)]}">
+								<tree editable="bottom">
+									<field name="sequence" widget="handle"/>
+									<field name="partner_id"/>
+									<field name="bank_id" options="{'no_create': True, 'no_create_edit':True}"/>
+									<field name="price_total" sum="SUM"/>
+								</tree>
+							</field>
+							<group>
+								<group>
+									<field name="create_partner_id" string="Хүсэгч"/>
+									<field name="department_id" domain="[('company_id', '=', company_id)]" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="priority" widget="priority"/>
+									<field name="is_info" invisible="1"/>
+								</group>
+								<group>
+									<field name="amount" string="Дүн" force_save="1" readonly="1"/>
+									<field name="confirmed_amount" attrs="{'readonly':[('is_not_edit','=',True)]}" force_save="1" invisible="1"/>
+									<field name="tulugdsun_dun" readonly="1"/>
+									<field name="currency_id" widget="selection" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="branch_id" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="type" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="journal_id" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="ex_account_id" string="Харьцсан данс"/>
+                                    <field name="analytic_distribution" string="Шинжилгээ"/>
+									<field name="cash_type_id" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+									<field name="company_id" force_save="1" readonly="1"/>
+									<field name="is_yurunhii_nybo" invisible="1"/>
+								</group>
+							</group>
+						</page>
+						<page string="Түүх">
+							<group>
+								<field name="accountant_id" colspan="4" readonly="1"/>
+								<field name="complete_date"/>
+								<field name="bank_statement_line_id"/>
+							</group>
+							<field name="history_flow_ids" nolabel="1" colspan="4"/>
+							<button name="update_attach" string="Update attach" groups="base.group_system" type="object"/>
+							<button name="change_history" type="object" groups="base.group_no_one" string="Change history" class="btn-danger"/>
+							<button name="all_compute_user_ids" type="object" groups="base.group_no_one" string="all compute user ids" class="btn-danger"/>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_view_account_company_request_my_batlah" model="ir.actions.act_window">
+		<field name="name">Миний батлах хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('confirm_user_ids','in',[uid]),'|',('flow_id.is_between_account','=',True),('flow_id.is_between_company','=',True),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_account_company_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_account_company_request_my_form')})]"/>
+	</record>
+
+	<record id="action_view_account_company_request_my_batlasan" model="ir.actions.act_window">
+		<field name="name">Миний батласан хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('history_flow_ids.user_id','=',uid),('history_flow_ids.flow_line_id.state_type','not in',['draft','sent','cancel']),'|',('flow_id.is_between_account','=',True),('flow_id.is_between_company','=',True),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_cash_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_cash_request_my_form')})]"/>
+	</record>
+
+	<record id="action_view_account_company_request_my" model="ir.actions.act_window">
+		<field name="name">Өөрийн хүсэлт</field>
+		<field name="res_model">payment.request</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">[('user_id','=',uid),'|',('flow_id.is_between_account','=',True),('flow_id.is_between_company','=',True),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_account_company_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_account_company_request_my_form')})]"/>
+	</record>
+
+	<record id="action_view_account_company_request_all" model="ir.actions.act_window">
+		<field name="name">Бүх шилжүүлэг</field>
+		<field name="res_model">payment.request</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,pivot,graph,calendar,form</field>
+		<field name="domain">['|',('flow_id.is_between_account','=',True),('flow_id.is_between_company','=',True),'|',('flow_id.user_ids','=', False),('flow_id.user_ids','in', [uid])]</field>
+		<field name="context">{'search_default_gr_flow_line_id':True}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_confirm_all_account_company_request_tree')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_account_company_request_my_form')})]"/>
+	</record>
+
+	<menuitem name="Данс, компани хоорондын хүсэлт" parent="mw_account_payment_request.menu_account_payment_request_root" id="account_company_request_menu_root" groups="mw_account_payment_request.res_groups_account_payment_request_employees" sequence="1"/>
+	<menuitem name="Миний батлах" parent="account_company_request_menu_root" id="account_company_confirm_request_menu" sequence="1" action="action_view_account_company_request_my_batlah"/>
+	<menuitem name="Шилжүүлэг" parent="account_company_request_menu_root" id="account_company_my_request_menu" sequence="2" action="action_view_account_company_request_my"/>
+	<menuitem name="Миний батласан" parent="account_company_request_menu_root" id="account_company_confirmed_request_menu" sequence="3" action="action_view_account_company_request_my_batlasan"/>
+	<menuitem name="Бүх шилжүүлэг" parent="account_company_request_menu_root" id="account_company_request_all_menu" sequence="4" action="action_view_account_company_request_all" groups="mw_account_payment_request.res_groups_account_payment_request_admin,mw_account_payment_request.res_groups_cash_accountant,mw_account_payment_request.res_groups_account_general_accountant"/>
+
+	<!-- Sequence settings -->
+	<record id="view_partner_bank_form_mw" model="ir.ui.view">
+		<field name="name">res.partner.bank.form</field>
+		<field name="model">res.partner.bank</field>
+		<field name="priority">15</field>
+		<field name="arch" type="xml">
+			<form string="Bank account" create="false" delete="false">
+				<sheet>
+					<widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+					<group>
+						<group>
+							<field name="sequence" invisible="1"/>
+							<field name="acc_type" invisible="1"/>
+							<field name="acc_number" string="Дансны дугаар" readonly="1"/>
+							<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" readonly="1"/>
+							<field name="partner_id" string="Дансыг эзэмшигч" readonly="1"/>
+							<field name="acc_holder_name" readonly="1"/>
+						</group>
+						<group>
+							<field name="bank_id" string="Банк" readonly="1"/>
+							<field name="currency_id" string="Валют" groups="base.group_multi_currency" options="{'no_create': True}" readonly="1"/>
+							<field name="active" invisible="1"/>
+						</group>
+					</group>
+					<group col="4">
+						<field name="code" attrs="{'readonly': [('payment_sequence_id', '!=', False)]}"/>
+						<field name="payment_sequence_id" options="{'no_open': True}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_partner_bank_tree_mw" model="ir.ui.view">
+		<field name="name">res.partner.bank.tree</field>
+		<field name="model">res.partner.bank</field>
+		<field name="arch" type="xml">
+			<tree string="Банкны данснууд" create="false" delete="false">
+				<field name="sequence" widget="handle"/>
+				<field name="acc_number"/>
+				<field name="bank_name"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="partner_id"/>
+				<field name="acc_holder_name" invisible="1"/>
+				<field name="code"/>
+				<field name="payment_sequence_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_res_partner_bank_account_form" model="ir.actions.act_window">
+		<field name="name">Банкны данснууд</field>
+		<field name="res_model">res.partner.bank</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+				(0,0,{'view_mode':'tree','view_id': ref('view_partner_bank_tree_mw')}),
+				(0,0,{'view_mode':'form','view_id': ref('view_partner_bank_form_mw')})]"/>
+	</record>
+
+	<menuitem name="Авто дугаарлалт тохируулах" id="menu_payment_request_partner_bank" parent="mw_account_payment_request.next_id_23" action="action_res_partner_bank_account_form" groups="mw_account_payment_request.res_groups_account_payment_request_admin,mw_account_payment_request.res_groups_cash_accountant,mw_account_payment_request.res_groups_account_general_accountant" sequence="1"/>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- Validate selected order -->
+	<record id="view_validate_account_order_order_form1" model="ir.ui.view">
+        <field name="name">view.consume.order.validate.form.1</field>
+        <field name="model">consume.order.validate.all</field>
+        <field name="arch" type="xml">
+            <form string="Validate selected order">
+                <group colspan="4" col="4">
+                    <field name="account_id" attrs="{'required': [('not_aml', '!=', True)]}"/>
+                    <field name="purchase_date" required="1"/>
+                    <field name="not_aml" />
+                </group>
+                <footer>
+					<button name="validate_all" string="Validate All" type="object"
+						class="btn-primary" />
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+           </form>
+        </field>
+    </record>
+    <record id="action_view_validate_account_order_order1" model="ir.actions.act_window">
+        <field name="name">Validate selected order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">consume.order.validate.all</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_validate_account_order_order_form1"/>
+        <field name="target">new</field>
+    </record>
+    
+    <act_window id="action_validate_selected_order"
+		 name="Validate selected order"
+         res_model="consume.order.validate.all" 
+         view_mode="form" 
+         binding_model="consumable.material.in.use"
+         view_id="view_validate_account_order_order_form1"
+         target="new" />                
+    
+</odoo>

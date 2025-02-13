@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2014 ABF OSIELL <http://osiell.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_res_users_role_form_inherit_mw" model="ir.ui.view">
+        <field name="name">res.users.role.form.inherit.mw</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="company_id" readonly="1"/>
+            </field>
+            <notebook position="inside">
+                <page string="Салбар">
+                    <group col="2">
+                        <field name="branch_id"/>
+                        <field name="branch_ids" widget="many2many_tags"/>
+                    </group>
+                </page>
+                <page string="Агуулахууд">
+                    <group col="2">
+                        <field name="warehouse_id"/>
+                        <field name="warehouse_ids" widget="many2many_tags"/>
+                        <field name="done_warehouse_ids" widget="many2many_tags"/>
+                    </group>
+                </page>
+                <page string="Батлах Хэрэглэгчид">
+                    <group col="2">
+                        <field name="manager_user_ids" widget="many2many_tags"/>
+                    </group>
+                </page>
+                <page string="Оноогдсон байгаа Хэрэглэгчид" >
+                    <group group="">
+                        <button name="action_update_user" type="object" string="Хэрэглэгчидийн эрхийг update хийх" class="btn-danger" confirm="Update хийхдээ итгэлтэй байна уу"/>
+                    </group>
+                    <group col="2">
+                        <field name="user_ids"/>
+                    </group>
+                </page>
+                <page string="Хэрэглэгээс темплати болгож оруулах" groups="base.group_no_one">
+                    <group col="3">
+                        <field name="import_user_id"/>
+                        <button name="action_import_user" type="object" string="Импортлох" class="btn-danger" confirm="Шинээр эрхүүдийг оруулахдаа итгэлтэй байна уу"/>
+                    </group>
+                </page>
+
+            </notebook>
+
+        </field>
+    </record>
+
+
+
+
+
+
+    <record id="view_res_users_form_inherit_mw" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.mw</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form/sheet" position="inside">
+                <notebook>
+                    <page string="Roles" groups="mw_base_user_role.group_mw_base_role_user">
+                        <field name="role_line_ids" nolabel="1">
+                            <tree editable="bottom" decoration-muted="not is_enabled">
+                                <field name="role_id" required="1"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="is_enabled"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+
+            
+
+        </field>
+    </record>
+
+    <record id="view_res_users_role_tree_inherit_mw" model="ir.ui.view">
+        <field name="name">res.users.role.tree.inherit.mw</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_ids" position="after">
+                <field name="company_id" readonly="1"/>
+                <field name="branch_id"/>
+                <field name="warehouse_id"/>
+            </field>
+            
+
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,481 @@
+<odoo>
+   <record id="view_employee_form_add" model="ir.ui.view">
+		<field name="name">hr.employee.extension</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='public']" position="after">
+				<page name="education" string="Боловсрол, Ур чадвар">
+					<group>
+                        <field name="certificate"/>
+                        <field name="education_level"/>
+                    </group>
+					<label for="school_line_ids" string="Төгссөн сургуууль"/>
+					<field name="school_line_ids">
+						<form >
+							<field name="country_id"/>
+							<field name="name"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+							<field name="job"/>
+							<field name="education_level"/>
+							<field name="honest"/>
+                            <field name="is_foreign"/>
+						</form>
+						<tree  editable="bottom">
+							<field name="country_id" options="{'no_create': True}"/>
+							<field name="name" options="{'no_create': True}"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+							<field name="job" options="{'no_create': True}"/>
+							<field name="education_level"/>
+							<field name="honest"/>
+                            <field name="is_foreign"/>
+						</tree>
+					</field>
+					<label for="course_line_ids"  string="Курс дамжаа"/>
+					<field name="course_line_ids" >
+						<form>
+							<field name="organization_name"/>
+							<field name="name"/>
+							<field name="year"/>
+							<field name="train_time"/>
+						</form>
+						<tree  editable="bottom">
+							<field name="organization_name"/>
+							<field name="name"/>
+							<field name="year"/>
+							<field name="train_time"/>
+						</tree>
+					</field>
+                    <label for="language_line_ids"  string="Гадаад хэлний мэдлэг"/>
+					<field name="language_line_ids" >
+						<form >
+							<field name="language_name" options="{'no_create': True}"/>
+							<field name="listening_skill"/>
+							<field name="speaking_skill"/>
+							<field name="reading_skill"/>
+							<field name="writing_skill"/>
+						</form>
+						<tree  editable="bottom">
+							<field name="language_name" options="{'no_create': True}"/>
+							<field name="listening_skill"/>
+							<field name="speaking_skill"/>
+							<field name="reading_skill"/>
+							<field name="writing_skill"/>
+						</tree>
+					</field>
+					<label for="software_skill_line_ids" string="Программын мэдлэг"/>
+					<field name="software_skill_line_ids" >
+						<form >
+							<field name="name"/>
+							<field name="software_level"/>
+							<field name="name_description"/>
+						</form>
+						<tree  editable="bottom">
+							<field name="name"/>
+							<field name="software_level"/>
+							<field name="name_description"/>
+						</tree>
+					</field>
+					<label for="degree_line_ids" string="Мэргэжлийн зэрэг цол"/>
+					<field name="degree_line_ids" >
+						<form>
+							<field name="direction"/>
+							<field name="name"/>
+							<field name="date"/>
+						</form>
+						<tree  editable="bottom">
+							<field name="direction"/>
+							<field name="name"/>
+							<field name="date"/>
+						</tree>
+					</field>
+					<label for="other_skill_line_ids" string="Нэмэлт ур чадвар"/>
+					<field name="other_skill_line_ids">
+						<form>
+							<field name="name"/>
+							<field name="level"/>
+							<field name="name_description"/>
+						</form>
+						<tree editable="bottom">
+							<field name="name"/>
+							<field name="level"/>
+							<field name="name_description"/>
+						</tree>
+					</field>
+	            </page>
+			</xpath>
+		</field>
+    </record>
+
+    <!-- Өөрийн мэдээлэл дээр -->
+     <record id="view_employee_form_mine_add" model="ir.ui.view">
+		<field name="name">hr.employee.extension</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mine_mw"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='employee_info']" position="after">
+				<page name="education" string="Боловсрол, Ур чадвар">
+					<group>
+                        <field name="certificate"/>
+                    </group>
+					<label for="school_line_ids" string="Төгссөн сургуууль"/>
+					<field name="school_line_ids">
+						<form>
+							<field name="country_id"/>
+							<field name="name"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+							<field name="job"/>
+							<field name="education_level"/>
+							<field name="honest"/>
+						</form>
+						<tree editable="bottom">
+							<field name="country_id"/>
+							<field name="name"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+							<field name="job"/>
+							<field name="education_level"/>
+							<field name="honest"/>
+						</tree>
+					</field>
+					<label for="course_line_ids" string="Курс дамжаа"/>
+					<field name="course_line_ids">
+						<form>
+							<field name="organization_name"/>
+							<field name="name"/>
+							<field name="year"/>
+							<field name="train_time"/>
+						</form>
+						<tree editable="bottom">
+							<field name="organization_name"/>
+							<field name="name"/>
+							<field name="year"/>
+							<field name="train_time"/>
+						</tree>
+					</field>
+                    <label for="language_line_ids" string="Гадаад хэлний мэдлэг"/>
+					<field name="language_line_ids">
+						<!-- <form >
+							<field name="language_name"/>
+							<field name="listening_skill"/>
+							<field name="speaking_skill"/>
+							<field name="reading_skill"/>
+							<field name="writing_skill"/>
+						</form> -->
+						<tree editable="bottom">
+							<field name="language_name"/>
+							<field name="listening_skill"/>
+							<field name="speaking_skill"/>
+							<field name="reading_skill"/>
+							<field name="writing_skill"/>
+						</tree>
+					</field>
+					<label for="degree_line_ids" string="Мэргэжлийн зэрэг цол"/>
+					<field name="degree_line_ids">
+						<form string="Сургууль">
+							<field name="direction"/>
+							<field name="name"/>
+							<field name="date"/>
+						</form>
+						<tree editable="bottom">
+							<field name="direction"/>
+							<field name="name"/>
+							<field name="date"/>
+						</tree>
+					</field>
+					<label for="software_skill_line_ids" string="Программын мэдлэг"/>
+					<field name="software_skill_line_ids">
+						<form>
+							<field name="name"/>
+							<field name="software_level"/>
+							<field name="name_description"/>
+						</form>
+						<tree editable="bottom">
+							<field name="name"/>
+							<field name="software_level"/>
+							<field name="name_description"/>
+						</tree>
+					</field>
+					<label for="other_skill_line_ids" string="Нэмэлт ур чадвар"/>
+					<field name="other_skill_line_ids" colspan="4">
+						<form string="Сургууль">
+							<field name="name"/>
+							<field name="level"/>
+							<field name="name_description"/>
+						</form>
+						<tree string="Сургууль" editable="bottom">
+							<field name="name"/>
+							<field name="level"/>
+							<field name="name_description"/>
+						</tree>
+					</field>
+	            </page>
+			</xpath>
+		</field>
+    </record>
+
+<!-- Тохиргоо -->
+    <record model="ir.ui.view" id="hr_degree_name_search_view">
+            <field name="name">hr.degree.name.search</field>
+            <field name="model">hr.degree.name</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string=" document search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_degree_name_form_view">
+            <field name="name">hr.degree.name.form</field>
+            <field name="model">hr.degree.name</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="form">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                </form>  
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_degree_name_tree_view">
+            <field name="name">hr.degree.name.tree</field>
+            <field name="model">hr.degree.name</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_hr_degree_name">
+            <field name="name">Зэрэг цолны чиглэл</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.degree.name</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="hr_degree_name_search_view"/>
+            <field name="view_id" ref="hr_degree_name_tree_view"/>
+        </record>
+
+        <menuitem id="hr_degree_name_menu"
+             parent="hr.menu_config_employee" 
+             action="action_hr_degree_name" 
+             sequence="8"/> 
+
+<!--  -->
+   	 <record model="ir.ui.view" id="hr_info_language_search_view">
+            <field name="name">hr.info.language.search</field>
+            <field name="model">hr.info.language</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string=" document search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_info_language_form_view">
+            <field name="name">hr.info.language.form</field>
+            <field name="model">hr.info.language</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="form">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                </form>  
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_info_language_tree_view">
+            <field name="name">hr.info.language.tree</field>
+            <field name="model">hr.info.language</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_hr_info_language">
+            <field name="name">Гадаад хэл</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.info.language</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="hr_info_language_search_view"/>
+            <field name="view_id" ref="hr_info_language_tree_view"/>
+        </record>
+
+        <menuitem id="hr_info_language_menu"
+             parent="hr.menu_config_employee" 
+             action="action_hr_info_language" 
+             sequence="9"/> 
+<!-- program hangamj -->
+         <record model="ir.ui.view" id="hr_software_skill_search_view">
+            <field name="name">hr.software.skill.search</field>
+            <field name="model">hr.software.skill</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string=" document search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_software_skill_form_view">
+            <field name="name">hr.software.skill.form</field>
+            <field name="model">hr.software.skill</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="form">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                </form>  
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_software_skill_tree_view">
+            <field name="name">hr.software.skill.tree</field>
+            <field name="model">hr.software.skill</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_hr_software_skill">
+            <field name="name">Программ хангамж</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.software.skill</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="hr_software_skill_search_view"/>
+            <field name="view_id" ref="hr_software_skill_tree_view"/>
+        </record>
+
+        <menuitem id="hr_software_skill_menu"
+             parent="hr.menu_config_employee" 
+             action="action_hr_software_skill" 
+             sequence="10"/> 
+<!-- surguuliiin ners burtgel -->
+		<record model="ir.ui.view" id="hr_school_name_search">
+            <field name="name">hr.school.name.search</field>
+            <field name="model">hr.school.name</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string=" name search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="school_name_form_view">
+            <field name="name">hr.school.name.form</field>
+            <field name="model">hr.school.name</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="form">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                </form>  
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="school_name_form_tree_view">
+            <field name="name">hr.school.name.tree</field>
+            <field name="model">hr.school.name</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="school_name_action">
+            <field name="name">Сургууль</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.school.name</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="hr_school_name_search"/>
+            <field name="view_id" ref="school_name_form_tree_view"/>
+        </record>
+
+        <menuitem id="school_name_menu"
+             parent="hr.menu_config_employee" 
+             action="school_name_action" 
+             sequence="11"/> 
+<!-- mergejliin ners -->
+		<record model="ir.ui.view" id="job_name_search">
+            <field name="name">job.name.search</field>
+            <field name="model">job.name</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string=" job search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="job_name_form_view">
+            <field name="name">job.name.form</field>
+            <field name="model">job.name</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="form">
+                <sheet>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <group>
+                        <field name="index"/>
+                        <field name="index_name"/>
+                    </group>
+                </group>
+                </sheet>
+                </form>  
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="job_name_tree_view">
+            <field name="name">job.name.tree</field>
+            <field name="model">job.name</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="index"/>
+                    <field name="index_name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="job_name_action">
+            <field name="name">Мэргэжил</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">job.name</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="job_name_search"/>
+            <field name="view_id" ref="job_name_tree_view"/>
+        </record>
+
+        <menuitem id="job_name_menu"
+             parent="hr.menu_config_employee" 
+             action="job_name_action" 
+             sequence="12"/> 
+</odoo>

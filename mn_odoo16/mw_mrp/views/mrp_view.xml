@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem  id="menu_mw_mrp_cost_config" parent="mrp.menu_mrp_root" sequence="11" name="Өртөг суурь тохиргоо" groups="mw_mrp.group_mrp_standart_price_mw"/>
+
+    <record id="view_mrp_product_standart_cost_form" model="ir.ui.view">
+        <field name="name">mrp.product.standart.cost.form</field>
+        <field name="model">mrp.product.standart.cost</field>
+        <field name="arch" type="xml">
+            <form string="Бүтээгдэхүүний зардал хуваарилалт тохиргоо">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button string="Ноорог болгох" type="object" name="action_draft" states="done" groups="mw_mrp.group_mrp_standart_price_mw"/>
+                    <button string="Батлах" type="object" name="action_done" states="draft" class="btn-primary" groups="mw_mrp.group_mrp_standart_price_mw"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_view_history_ids" type="object" icon="fa-wrench" attrs="{'invisible': [('mrp_production_history_count', '=', 0)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="mrp_production_history_count"/></span>
+                                <span class="o_stat_text">Түүх</span>
+                            </div>
+                        </button>
+                     </div>                
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="expense_type"/>
+                            <field name="parameter"/>
+                            <field name="type"/>
+                            <field name="description"/>
+                            <field name="branch_id"/>
+                        </group>
+                        <group>
+                        <field name="total_cost"/> 
+                        <field name="analytic_distribution" string="Шинжилгээ" widget="analytic_distribution"/>
+                            <!-- <field name="price_total"/> -->
+                            <!-- <field name="price_unit"/> -->
+                            <!-- <field name="account_id"/>  -->
+                        </group>
+                    </group>
+<!--                     <group string="Данс тохиргоо">
+                        <group>
+                            <field name="credit_account_id"/>
+                        </group>
+                        <group>
+                            <field name="debit_account_id"/>
+                        </group>
+                    </group>
+ -->                    <notebook>
+	                    <page>
+		                        <field name="line_ids"  >
+		                        	<tree delete="true" create="true" editable="bottom">
+		                        		<field name="name"/>
+		                        		<field name="price_unit"/>
+			                            <field name="branch_id"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="debit_account_id"/>
+		                        		</tree>
+		                        </field>
+		                        
+		                        <field name="line_by_ids"  >
+		                        	<tree delete="true" create="true" editable="bottom">
+		                        		<field name="name"/>
+		                        		<field name="price_unit"/>
+		                        		<field name="by_product_id" required="1"/>
+			                            <field name="branch_id"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="debit_account_id"/>
+		                        		</tree>
+		                        </field>
+		                </page>
+		              </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_product_standart_cost_tree" model="ir.ui.view">
+        <field name="name">mrp.product.standart.cost.tree</field>
+        <field name="model">mrp.product.standart.cost</field>
+        <field name="arch" type="xml">
+            <tree default_order="id desc" decoration-success="state == 'done'">
+                <field name="expense_type"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="parameter" decoration-success="parameter == 'production'"
+                           decoration-info="parameter == 'pacakge'" widget="badge"/>
+                <field name="type" decoration-success="type == 'tn'"
+                           decoration-info="type == 'day'" widget="badge"/>
+                <field name="price_total"/>
+                <field name="price_unit"/>
+                <field name="total_cost"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mrp_product_standart_cost" model="ir.actions.act_window">
+        <field name="name">Бүтээгдэхүүний зардал хуваарилалт тохиргоо /бүгд/</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.product.standart.cost</field>
+        <field name="view_id" ref="mrp_product_standart_cost_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+
+    <record id="action_mrp_product_standart_cost_branch" model="ir.actions.act_window">
+        <field name="name">Бүтээгдэхүүний зардал хуваарилалт тохиргоо /салбар/</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.product.standart.cost</field>
+        <field name="view_id" ref="mrp_product_standart_cost_tree"/>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|',('branch_id.user_ids', 'in',[uid]), ('branch_id', '=',False)]</field>
+    </record>    
+
+    <menuitem action="action_mrp_product_standart_cost" id="menu_mrp_product_standart_cost"
+              parent="menu_mw_mrp_cost_config" sequence="2"  groups="group_mrp_all_branch_mo"/>
+
+    <menuitem action="action_mrp_product_standart_cost_branch" id="menu_mrp_product_standart_cost_branch"
+              parent="menu_mw_mrp_cost_config" sequence="1"  groups="group_mrp_all_branch_mo"/>
+
+    <record id="view_mrp_product_standart_cost_history_form" model="ir.ui.view">
+        <field name="name">mrp.product.standart.cost.history.form</field>
+        <field name="model">mrp.product.standart.cost.history</field>
+        <field name="arch" type="xml">
+            <form string="Бүтээгдэхүүний зардал хуваарилалт тохиргоо">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="price_unit"/>
+                            <field name="old_price_unit"/>
+                            <field name="cost_id"/>
+                            <field name="cost_line_id"/>
+                            <field name="product_id"/>
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_product_standart_cost_history_tree" model="ir.ui.view">
+        <field name="name">mrp.product.standart.cost.history.tree</field>
+        <field name="model">mrp.product.standart.cost.history</field>
+        <field name="arch" type="xml">
+            <tree >
+               <field name="name"/>
+               <field name="price_unit"/>
+               <field name="old_price_unit"/>
+               <field name="cost_id"/>
+               <field name="cost_line_id"/>
+               <field name="product_id"/>
+               <field name="create_date"/>
+               <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mrp_product_standart_cost_history" model="ir.actions.act_window">
+        <field name="name">Зардал хуваарилалт түүх</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.product.standart.cost.history</field>
+        <field name="view_id" ref="mrp_product_standart_cost_history_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_mrp_product_standart_cost_history" id="menu_mrp_product_standart_cost_history"
+              parent="menu_mw_mrp_cost_config" sequence="20"/>
+
+        
+
+    <record id="mrp_production_form_view_mw_inherited" model="ir.ui.view">
+        <field name="name">mrp.production.mw.inherited</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_mo_delivery']" position="after">
+                  <button type="object" name="action_view_account_move_line" class="oe_stat_button" icon="fa-dollar" groups="base.group_user" attrs="{'invisible': [('aml_count', '=', 0)]}">
+                      <field name="aml_count" widget="statinfo" string="Account moves"/>
+                  </button>
+			</xpath>        
+            <xpath expr="//button[@name='button_unbuild']" position="after">
+	        	<button name="button_create_st_aml" type="object" string="Create account move" attrs="{'invisible': [('state', '!=', 'done')]}" data-hotkey="shift+v"/>
+    		</xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="standart_cost_id"/>
+                <field name="is_add_cost"/>
+                <field name="add_standart_cost_ids" attrs="{'invisible': [('is_add_cost', '=', False)]}" widget="many2many_tags" />
+            </xpath>
+               <xpath expr="//field[@name='move_byproduct_ids']/tree/field[@name='product_uom_qty']" position="after">
+                   <field name="is_mrp_sale"/>
+                   <field name="price_unit"/>
+               </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="shift_select"/>
+                <field name="branch_id" required="1"/><!--  domain="[('id', '=', standart_cost_id.branch_id.id)]" -->
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="is_account_mo"/>
+            </xpath>
+            <xpath expr="//field[@name='move_raw_ids']/tree/field[@name='product_id']" position="after">
+                <field name="mo_account_id" />
+             </xpath>
+            <xpath expr="//page[@name='operations']" position="after">
+                     <page string="Standart price" name="standart_price" >
+				        	<button name="button_delete_st_aml" type="object" string="Delete account move" data-hotkey="shift+v"/>
+                     		<field name="is_internal"/>
+	                          <label for="st_line_ids" string="Стандарт өртөг" class="oe_inline flex-grow-1"/>
+                            <field name="st_line_ids" readonle="1">
+		                        	<tree >
+		                        		<field name="name"/>
+		                        		<field name="price_unit" sum="Total"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="debit_account_id"/>
+			                            <!-- <field name="move_id"/> -->
+	                        		</tree>
+                            </field>
+	                          <label for="st_line_by_ids" string="Стандарт өртөг /дайвар/" class="oe_inline flex-grow-1"/>
+                            <field name="st_line_by_ids" readonle="1">
+		                        	<tree >
+		                        		<field name="name"/>
+		                        		<field name="price_unit" sum="Total"/>
+										<field name="by_product_id" required="1"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="debit_account_id"/>
+			                            <!-- <field name="move_id"/> -->
+	                        		</tree>
+                            </field>
+                            <field name="standart_aml_ids"/>
+                            <field name="standart_close_aml_ids"/>
+							
+                            <label for="add_st_line_ids" string="Стандарт өртөг /нэмэлт/" class="oe_inline flex-grow-1"  attrs="{'invisible': [('is_add_cost', '=', False)]}" />
+                            <field name="add_st_line_ids" readonle="1"  attrs="{'invisible': [('is_add_cost', '=', False)]}" >
+		                        	<tree >
+		                        		<field name="name"/>
+		                        		<field name="price_unit" sum="Total"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="debit_account_id"/>
+			                            <!-- <field name="move_id"/> -->
+	                        		</tree>
+                            </field>
+	                          <label for="add_st_line_by_ids" string="Стандарт өртөг /дайвар нэмэлт/" class="oe_inline flex-grow-1"  attrs="{'invisible': [('is_add_cost', '=', False)]}" />
+                            <field name="add_st_line_by_ids" readonle="1"  attrs="{'invisible': [('is_add_cost', '=', False)]}" >
+		                        	<tree >
+		                        		<field name="name"/>
+		                        		<field name="price_unit" sum="Total"/>
+										<field name="by_product_id" required="1"/>
+			                            <field name="credit_account_id"/>
+			                            <field name="debit_account_id"/>
+			                            <!-- <field name="move_id"/> -->
+	                        		</tree>
+                            </field>
+                            
+                       </page>
+            </xpath>
+            
+        </field>
+    </record>
+    
+        <record id="mrp_bom_form_mw_view" model="ir.ui.view">
+            <field name="name">mrp.bom.mw.form</field>
+            <field name="model">mrp.bom</field>
+	        <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+            <field name="arch" type="xml">
+	            <xpath expr="//notebook/page/field[@name='bom_line_ids']/tree/field[@name='product_id']" position='after'>
+	                <field name="bom_location_id"/>
+	            </xpath>
+            </field>
+        </record>
+    
+
+        <record id="mrp_production_action_mw_mrp" model="ir.actions.act_window">
+            <field name="name">Үйлдвэрлэлийн захиалгууд /Салбар/</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="context">{'search_default_todo': True, 'default_company_id': allowed_company_ids[0]}</field>
+            <field name="domain">[('picking_type_id.active', '=', True),
+            						'|',('branch_id.user_ids', 'in',[uid]), ('branch_id', '=',False)]</field>
+            						
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No manufacturing order found. Let's create one.
+              </p><p>
+                Consume <a name="%(product.product_template_action)d" type='action' tabindex="-1">components</a> and build finished products using <a name="%(mrp.mrp_bom_form_action)d" type='action' tabindex="-1">bills of materials</a>
+              </p>
+            </field>
+        </record>
+
+
+        <menuitem action="mrp.mrp_production_action"
+            id="mrp.menu_mrp_production_action"
+            parent="mrp.menu_mrp_manufacturing"
+            sequence="1" groups="group_mrp_all_branch_mo"/>
+            
+
+        <menuitem action="mrp_production_action_mw_mrp"
+            id="menu_mrp_production_action_mw"
+            parent="mrp.menu_mrp_manufacturing"
+            sequence="2" />            
+    
+    
+<!-- Дотоод хөдөлгөөн зардал нэмэх  -->
+
+        <record id="mrp.mrp_production_action" model="ir.actions.act_window">
+            <field name="name">Manufacturing Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="context">{'search_default_todo': True, 
+            'default_is_internal': False, 
+            'default_company_id': allowed_company_ids[0]}</field>
+            <field name="domain">[('picking_type_id.active', '=', True),('is_internal', '=',False)]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No manufacturing order found. Let's create one.
+              </p><p>
+                Consume <a name="%(product.product_template_action)d" type='action' tabindex="-1">components</a> and build finished products using <a name="%(mrp.mrp_bom_form_action)d" type='action' tabindex="-1">bills of materials</a>
+              </p>
+            </field>
+        </record>
+
+
+        <record id="mrp_production_action_mw_internal_mrp" model="ir.actions.act_window">
+            <field name="name">Дотоод хөдөлгөөн зардал нэмэх</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="context">{'search_default_todo': True, 
+            					'default_is_internal': True, 
+            					'default_company_id': allowed_company_ids[0]}</field>
+            <field name="domain">[('picking_type_id.active', '=', True),
+            						 ('is_internal', '=',True)]</field>
+            						
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No manufacturing order found. Let's create one.
+              </p><p>
+                Consume <a name="%(product.product_template_action)d" type='action' tabindex="-1">components</a> and build finished products using <a name="%(mrp.mrp_bom_form_action)d" type='action' tabindex="-1">bills of materials</a>
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="mrp_production_action_mw_internal_mrp"
+            id="menu_mrp_production_action_mw_internal"
+            parent="stock.menu_stock_warehouse_mgmt"
+            sequence="20" />      
+
+</odoo>

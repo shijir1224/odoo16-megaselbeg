@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <!-- Maintenance wo report -->
+        <record id="maintenance_wo_report_tree_view" model="ir.ui.view">
+            <field name="name">maintenance.wo.report.tree.view</field>
+            <field name="model">maintenance.wo.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id" invisible="1"/>
+                    <field name="date" />
+                    <field name="maintenance_type" />
+                    <field name="technic_id" />
+                    <field name="technic_type" />
+                    <field name="model_id" optional="show"/>
+                    <field name="workorder_rate" optional="show"/>
+                    <field name="total_spend_time" />
+                    <field name="contractor_type" optional="show"/>
+                    <field name="total_amount_spare" sum="Нийт"/>
+                    <field name="state" optional="hide"/>
+                    <field name="damaged_reason_id" optional="hide"/>
+                    <field name="damaged_type_id" optional="hide"/>
+                    <field name="state" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="maintenance_wo_report_form_view" model="ir.ui.view">
+            <field name="name">maintenance.wo.report.form.view</field>
+            <field name="model">maintenance.wo.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group col="4">
+                        <field name="date" />
+                        <field name="wo_id" />
+                        <field name="maintenance_type" />
+                        <field name="technic_id" />
+                        <field name="total_spend_time" />
+                        <field name="contractor_type" />
+                        <field name="total_amount_spare" sum="Нийт"/>
+                        <field name="state" />
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="maintenance_wo_report_pivot" model="ir.ui.view">
+             <field name="name">maintenance.wo.report.pivot</field>
+             <field name="model">maintenance.wo.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                     <field name="technic_id" type="row"/>
+                     <field name="total_amount_spare" type="measure"/>
+                     <field name="total_spend_time" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="maintenance_wo_report_search" model="ir.ui.view">
+            <field name="name">maintenance.wo.report.search</field>
+            <field name="model">maintenance.wo.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="date"/>
+                    <field name="description"/>
+                    <field name="performance_description"/>
+                    <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter string="Confirmed" domain="[('state','=','confirmed')]" name="confirmed"/>
+                    <filter string="Дууссан" domain="[('state','=','done')]" name="done"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <field name="branch_id"/>
+                    <field name="technic_id"/>
+                    <field name="plan_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Салбар" name="Branch_id" context="{'group_by':'branch_id'}"/>
+                        <filter string="Product" name="Technic" context="{'group_by':'technic_id'}"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Maintenance CALL report -->
+        <record id="maintenance_call_report_tree_view" model="ir.ui.view">
+            <field name="name">maintenance.call.report.tree.view</field>
+            <field name="model">maintenance.call.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="id" />
+                    <field name="date_required" />
+                    <field name="workorder_id" />
+                    <field name="technic_id" />
+                    <field name="call_type" />
+                    <field name="state" />
+               </tree>
+            </field>
+        </record>
+
+        <record id="maintenance_call_report_form_view" model="ir.ui.view">
+            <field name="name">maintenance.call.report.form.view</field>
+            <field name="model">maintenance.call.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group col="4">
+                        <field name="id" />
+                        <field name="date_required" />
+                        <field name="workorder_id" />
+                        <field name="technic_id" />
+                        <field name="call_type" />
+                        <field name="state" />
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="maintenance_call_report_pivot" model="ir.ui.view">
+             <field name="name">maintenance.call.report.pivot</field>
+             <field name="model">maintenance.call.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                     <field name="call_type" type="row"/>
+                     <field name="man_hours" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="maintenance_call_report_search" model="ir.ui.view">
+            <field name="name">maintenance.call.report.search</field>
+            <field name="model">maintenance.call.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="date_required"/>
+                    <field name="description"/>
+                    <field name="performance_description"/>
+                    <filter name="today" string="Өнөөдөр" domain="[('date_required','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="Энэ сар" domain="[('date_required','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="Энэ жил" domain="[('date_required','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter string="Confirmed" domain="[('state','=','confirmed')]" name="confirmed"/>
+                    <filter string="Дууссан" domain="[('state','=','done')]" name="done"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date_required','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date_required','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date_required','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date_required','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date_required','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date_required','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date_required','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date_required','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date_required','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date_required','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date_required','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date_required','like',time.strftime('%%Y-12'))]"/>
+                    <field name="branch_id"/>
+                    <field name="technic_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Салбар" name="Branch_id" context="{'group_by':'branch_id'}"/>
+                        <filter string="Product" name="Technic" context="{'group_by':'technic_id'}"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    
+</odoo>

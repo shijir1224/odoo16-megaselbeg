@@ -1,0 +1,118 @@
+<odoo>
+	<!-- <menuitem id="hr_org_structure_parent_menu" 
+            name ='Бүтэц орон тоо' 
+            parent="hr.menu_hr_root"  
+            sequence="7"  groups="hr.group_hr_manager"/> -->
+
+		<record id="hr_org_structure_filter" model="ir.ui.view">
+			<field name="name">hr.org.structure Search</field>
+			<field name="model">hr.org.structure</field>
+			<field name="arch" type="xml">
+				<search string="hr.org.structure">
+					<group expand="0" string="Group By...">
+						<field string="Нэр.." name='name'/>
+					</group>
+					<group expand="0" string="Group By...">
+						<filter string="Жил" name="year" context="{'group_by':'create_date:year'}"/>
+					</group>
+					<searchpanel>
+	                    <field name="company_id" string="Company" enable_counters="1"/>
+	                </searchpanel>
+				</search>
+			</field>
+		</record>
+
+    	<record model="ir.ui.view" id="hr_org_structure_form_view">
+            <field name="name">hr.org.structure.form</field>
+            <field name="model">hr.org.structure</field>
+            <field name="arch" type="xml">
+            	<form string="TR">
+            		<header>
+						<button name="confirm_action" states="draft" string="Батлах" class="btn-success" type="object"/>
+						<button name="action_draft" states="confirmed" string="Ноороглох" type="object" class="btn-success"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,confirmed" />
+					</header>
+					<sheet>
+						<group>
+							<field name='name'/>
+						</group>
+						<group>
+							<group>
+								<field name='year'/>
+								<field name="company_id" />
+			            	</group>
+							<group> 
+								<field name="sum_count" />
+								<field name='description'/>
+							</group>
+						</group>
+						<button name="action_copy" states="confirmed" string="Хуулбарлах" type="object" class="btn-info" groups='mw_hr.group_for_director'/>
+						<notebook>
+							<page>
+								<field name="line_ids" >
+									<tree string="TR tree">
+										<field name="department_id"  options="{'no_create':True}"/>
+										<field name='dep_count' />
+									</tree>
+									<form string="TR tree">
+										<group> 
+											<group> 
+												<field name="department_id"  options="{'no_create':True}"/>
+											</group>
+											<group> 
+												<field name='dep_count' />
+											</group>
+										</group>
+										<field name="line_line_ids">
+											<tree string="TR tree" editable='bottom'>
+												<field name="avail_job_ids" widget = 'many2many_tags' invisible ='1'/>
+												<field name="job_id" domain = "[('id','in',avail_job_ids)]"  options="{'no_create':True}"/>
+												<field name='job_count' />
+											</tree>
+											<!-- <form string="TR tree">
+												<field name="avail_job_id" widget = 'many2many_tags'/>
+												<field name="job_id" domain = "[('id','in',avail_job_id)]"/>
+												<field name='job_count' />
+											</form> -->
+								</field>
+									</form>
+								</field>
+							</page>
+						</notebook>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+		            </sheet>
+            	</form>
+            </field>
+        </record>
+
+	    <record model="ir.ui.view" id="hr_org_structure_tree_view">
+	        <field name="name">hr.org.structure.tree</field>
+	        <field name="model">hr.org.structure</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="TR tree">
+					<field name='name'/>
+            		<field name='year'/>
+		            <field name='company_id'/>
+		            <field name="sum_count" />
+					<field name='state'/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.actions.act_window" id="action_hr_org_structure_view">
+	        <field name="name">Байгууллагын бүтэц, орон тоо</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">hr.org.structure</field>
+	        <field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_year': 1}</field>
+        	<field name="search_view_id" ref="hr_org_structure_filter"/>
+	    </record>
+
+	    <menuitem action="action_hr_org_structure_view"
+			id="hr_org_structure_menu" parent="mw_hr_applicant.hr_oron_too_menu" />
+
+</odoo>

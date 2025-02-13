@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_account_config_settings_inherit_account" model="ir.ui.view">
+        <field name="name">view.account.config.settings.inherit.account</field>
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings"/>
+        <field name="arch" type="xml">
+	        <data>
+		        <xpath expr="//group[@name='accounting']" position="before">
+					<group string="Period" groups="account.group_account_manager">
+						<label for="period_journal_id"/>
+						<div>
+			            	<field name="period_journal_id" />
+						</div>
+						<label for="period_account_id"/>
+						<div>
+							<field name="period_account_id"/>
+						</div>
+					</group>
+		        </xpath>
+	        </data>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <!--Mining Dashboard - 01-->
+        <record model="ir.ui.view" id="mining_dashboard_blast_form_view">
+            <field name="name">Mining blast dashboard</field>
+            <field name="model">mining.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard" create="false" write="false">
+                    <div>
+                        <group col="4">
+                            <field name="date_range_id"/>
+                            <field name="group_by" required="1"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group col="4">
+                            <widget name="mining_blast_plan"/>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Dashboard Action-->
+        <record model="ir.actions.act_window" id="action_mining_blast_dashboard">
+            <field name="name">Mining blast dashboard</field>
+            <field name="res_model">mining.dashboard</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="mining_dashboard_blast_form_view"/>
+        </record>
+
+
+        <!--Mining Dashboard - 01-->
+        <record model="ir.ui.view" id="mining_dashboard_mining_form_view">
+            <field name="name">Mining plan actual dash</field>
+            <field name="model">mining.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard" create="false" write="false">
+                    <div>
+                        <group col="4">
+                            <field name="date_range_id"/>
+                            <field name="group_by" required="1"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group col="4">
+                            <!-- <widget name="mining_dashboard_plan"/> -->
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Dashboard Action-->
+        <record model="ir.actions.act_window" id="action_mining_mining_dashboard">
+            <field name="name">Mining dashboard</field>
+            <field name="res_model">mining.dashboard</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="mining_dashboard_mining_form_view"/>
+        </record>
+
+    
+</odoo>

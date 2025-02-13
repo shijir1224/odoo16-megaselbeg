@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!--  -->
+	<record id="maintenance_dems_info_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.dems.info.filter</field>
+        <field name="model">maintenance.dems.info</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="damaged_type_id"/>
+                <field name="technic_id"/>
+                <field name="branch_id"/>
+                <filter name="this_month" string="This month" domain="[('date_receive','like',time.strftime('%%Y-%%m'))]"/>
+                <group expand="1" string="Group By...">
+                    <filter string="Жилээр" context="{'group_by':'date_receive:year'}"
+                        name="year"/>
+                    <filter string="Сараар" context="{'group_by':'date_receive:month'}"
+                        name="month" />
+                    <filter string="Өдрөөр" context="{'group_by':'date_receive:day'}"
+                        name="day"/>
+                    <filter context="{'group_by':'state'}" string="State"
+                        name="State"/>
+                    <!-- <filter context="{'group_by':'technic_ids'}" string="Техник"
+                        name="technic_ids"/> -->
+                    <filter context="{'group_by':'damaged_type_id'}" string="Систем"
+                        name="damaged_type_id"/>
+                    <filter string="Ээлж" domain="" context="{'group_by':'shift'}"
+                        name="shift"/>
+            	</group>
+            </search>
+        </field>
+    </record>
+    
+	<record id="maintenance_dems_info_form_view" model="ir.ui.view">
+		<field name="name">maintenance.dems.info.form</field>
+		<field name="model">maintenance.dems.info</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object" />
+                    <button name="action_to_receive" class="oe_highlight" string="Мэдээ ирсэн"  
+                        states="draft" type="object" />
+                    <button name="action_create_workorder" class="oe_highlight" string="WO үүсгэх"  
+                        states="received" type="object" />
+                    <button name="action_to_close" class="oe_highlight" string="Хаах"  
+                        states="received" type="object"/>
+                    <field name="state" widget="statusbar" readonly="1"  
+                        statusbar_visible="draft,received,closed" />
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+           			<group col="4">
+                        <field name="branch_id"
+                                options="{'no_create':True}"/>
+                        <field name="date"/>
+
+                        <field name="date_receive"/>
+                        <field name="shift"/>
+
+                        <field name="technic_id" options="{'no_create': True}" />
+                        <field name="technic_odometer"/>
+                        
+                        <field name="damaged_type_id" options="{'no_create': True}" required="1"/>
+                        <field name="description" nolabel="1" colspan="2" placeholder="Тайлбар..."/>
+                    </group>
+                    <notebook>
+                        <page string="Reference" class="oe_page_title">
+                            <group col="4">
+                                <field name="workorder_id"/>
+                                <field name="action_description"/>
+
+                                <field name="date_close"/>
+                            </group>
+                        </page>
+                    </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_dems_info_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.dems.info.tree</field>
+        <field name="model">maintenance.dems.info</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="shift"/>
+                <field name="date_receive"/>
+                <field name="branch_id"/>
+                <field name="technic_id"/>
+                <field name="damaged_type_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_dems_info'>
+        <field name="name">maintenance.dems.info.action</field>
+        <field name="res_model">maintenance.dems.info</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="menu_hse_hygiene" name="Эрүүл Ахуй" parent="mw_hse.main_menu_hse" sequence="3"/>
+		<menuitem id="menu_food_hygiene" name="Хүнсний Эрүүл Ахуй" parent="menu_hse_hygiene" sequence="1"/>
+			<menuitem id="menu_hse_food_hygiene" name="Ажлын байрны үзлэг" parent="menu_food_hygiene" action="action_hse_food_hygiene_inspection" sequence="1"/>
+			<menuitem id="menu_hse_food_season_evaluation" name="Улиралын үнэлгээ" parent="menu_food_hygiene" action="action_hse_food_season_evaluation" sequence="2"/>
+			<menuitem id="menu_rida_check" name="Rida Check" parent="menu_food_hygiene" action="action_rida_check" sequence="3"/>
+			<menuitem id="menu_food_check" name="Хоолны хяналт" parent="menu_food_hygiene" action="action_food_check" sequence="4"/>
+			<menuitem id="menu_food_poisoning" name="Хоолны хордлого" parent="menu_food_hygiene" action="action_food_poisoning" sequence="5"/>
+		<menuitem id="menu_occupational_hygiene" name="Хөдөлмөрийн Эрүүл Ахуй" parent="menu_hse_hygiene" sequence="2"/>
+			<menuitem id="menu_tool_measurement" name="Багаж хэмжилт" parent="menu_occupational_hygiene" action="action_tool_measurement" sequence="3"/>
+			<menuitem id="menu_hygiene_sterilization" name="Ариутгал" parent="menu_occupational_hygiene" action="action_hygiene_sterilization" sequence="4"/>
+	<menuitem id="menu_hse_hygiene_config" name="ХЭА-н тохиргоо" parent="mw_hse.menu_hse_config" sequence="10"/>
+		<menuitem id="menu_food_hygiene_conf" name="Хүнсний эрүүл ахуй тохиргоо" parent="menu_hse_hygiene_config" action="action_food_hygiene_conf" sequence="1"/>
+</odoo>

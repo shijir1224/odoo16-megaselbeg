@@ -1,0 +1,231 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase_dynamic_flow
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e-20221127\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-06 04:16+0000\n"
+"PO-Revision-Date: 2023-03-06 04:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__categ_ids
+msgid "Category"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__create_ok
+msgid "Create ok"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model,name:mw_purchase_dynamic_flow.model_dynamic_flow_history
+msgid "Dynamic Flow history"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__is_not_edit
+msgid "Is Not Edit"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model,name:mw_purchase_dynamic_flow.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model,name:mw_purchase_dynamic_flow.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model,name:mw_purchase_dynamic_flow.model_purchase_flow_history
+msgid "Purchase flow history"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_dynamic_flow_history__po_id
+msgid "Purchase order"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__state_type
+msgid "State type"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__visible_flow_line_ids
+msgid "Visible state"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__flow_id
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order_line__flow_id
+msgid "Workflow config"
+msgstr "Урсгал тохиргоо"
+
+#. module: mw_purchase_dynamic_flow
+#: code:addons/mw_purchase_dynamic_flow/models/purchase_order.py:0
+#, python-format
+msgid "You are not back user"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: code:addons/mw_purchase_dynamic_flow/models/purchase_order.py:0
+#, python-format
+msgid "You are not cancel user"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: code:addons/mw_purchase_dynamic_flow/models/purchase_order.py:0
+#, python-format
+msgid "You are not draft user"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase
+msgid "Батлах"
+msgstr "Confirm"
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase
+msgid "Буцааж ноороглох"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase
+msgid "Буцах"
+msgstr "Back"
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_filter_inherit_mw_purchase
+msgid "Гадаад"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__flow_line_next_id
+msgid "Дараагийн төлөв"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_filter_inherit_mw_purchase
+msgid "Дотоод"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__spend_day
+msgid "Зарцуулсан хоног"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__spend_time
+msgid "Зарцуулсан цаг"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase
+msgid "Нэхэмжлэх үүсгэх"
+msgstr "Create invoice"
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__date
+msgid "Огноо"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__history_ids
+msgid "Түүхүүд"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__flow_line_id
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_filter_inherit_mw_purchase
+msgid "Төлөв"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__flow_line_id
+msgid "Төлөв PO"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__stage_id
+msgid "Төлөв stage"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase
+msgid "Төлөвийн түүх"
+msgstr "Flow History"
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_line_search_mw
+msgid "Урсгалаар"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__history_flow_ids
+msgid "Урсгалын түүхүүд"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__purchase_id
+msgid "Худалдан авалтын захиалга"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase
+msgid "Цуцлах"
+msgstr "Cancel"
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_order__flow_line_back_id
+msgid "Өмнөх төлөв"
+msgstr ""
+
+#. module: mw_purchase_dynamic_flow
+#: model:ir.model.fields,field_description:mw_purchase_dynamic_flow.field_purchase_flow_history__user_id
+msgid "Өөрчилсөн Хэрэглэгч"
+msgstr ""

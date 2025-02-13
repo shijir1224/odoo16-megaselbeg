@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Technic -->
+        <record id="view_mining_cost_config_tree" model="ir.ui.view">
+            <field name="name">mining.cost.config.tree</field>
+            <field name="model">mining.cost.config</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="type"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="currency_dollar"/>
+                    <field name="exca_percent"/>
+                    <field name="dump_percent"/>
+                    <field name="account_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mining_cost_config_form" model="ir.ui.view">
+            <field name="name">mining.cost.config.form</field>
+            <field name="model">mining.cost.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box">
+                            <button name="action_view_aml"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                type="object"
+                                string="Санхүү Бичилтийг Харах">
+                            </button>
+                            <button name="action_view_aml_ancillary_exca"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                type="object"
+                                string="View Ancillary Exca"
+                                attrs="{'invisible':[('type','not in',['indirect_cost'])]}">
+                            </button>
+                            <button name="action_view_aml_ancillary_dump"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                type="object"
+                                string="View Ancillary Dump"
+                                attrs="{'invisible':[('type','not in',['indirect_cost'])]}">
+                            </button>
+                        </div>
+                        <group col="2">
+                            <field name="type"/>
+                        </group>
+                        <group col="4">
+                            <field name="year" attrs="{'invisible':[('type','not in',['indirect_cost','overhead_cost'])], 'required':[('type','in',['indirect_cost','overhead_cost'])]}"/>
+                            <field name="month" attrs="{'invisible':[('type','not in',['indirect_cost','overhead_cost'])], 'required':[('type','in',['indirect_cost','overhead_cost'])]}"/>
+                            <field name="date_start" invisible="1"/>
+                            <field name="date_end" invisible="1"/>
+                        </group>
+                        <group col="4">
+                            <field name="exca_percent" attrs="{'invisible':[('type','not in',['indirect_cost','overhead_cost'])], 'required':[('type','in',['indirect_cost','overhead_cost'])]}"/>
+                            <field name="dump_percent" attrs="{'invisible':[('type','not in',['indirect_cost','overhead_cost'])], 'required':[('type','in',['indirect_cost','overhead_cost'])]}"/>
+                        </group>
+                        <group col="4">
+                            <field name="currency_dollar" attrs="{'invisible':[('type','not in',['indirect_cost'])]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Данс">
+                                <field name="account_ids">
+                                    <tree editable="bottom" create="1">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Экскаваторын тохиргоо" attrs="{'invisible':[('type','not in',['indirect_cost','overhead_cost'])]}">
+                                <group col="1">
+                                    <field name="technic_config_line" nolabel="1" attrs="{'required':[('type','in',['indirect_cost','overhead_cost'])]}">
+                                        <tree editable="bottom">
+                                            <field name="technic_id" options="{'no_create':True}" domain="[('owner_type', '=', 'own_asset'), ('technic_type', '=', 'excavator')]"/>
+                                            <field name="percent" sum="SUM"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group col="1" string="Ancillary Technic in Exca">
+                                    <field name="ancillary_digging_technic_ids" nolabel="1" attrs="{'invisible':[('type','not in',['indirect_cost'])]}" domain="[('owner_type', '=', 'own_asset')]">
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Дампын тохиргоо" attrs="{'invisible':[('type','not in',['indirect_cost','overhead_cost'])]}">
+                                <group col="1">
+                                    <field name="technic_config_line2" nolabel="1" attrs="{'required':[('type','in',['indirect_cost','overhead_cost'])]}" domain="[('owner_type', '=', 'own_asset')]" options="{'no_create':True}">
+                                        <tree editable="bottom">
+                                            <field name="technic_id" options="{'no_create':True}" domain="[('owner_type', '=', 'own_asset'), ('technic_type', '=', 'dump')]"/>
+                                            <field name="percent" sum="SUM"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group col="1" string="Ancillary Technic in Dump">
+                                    <field name="ancillary_tracking_technic_ids" nolabel="1" attrs="{'invisible':[('type','not in',['indirect_cost'])]}" domain="[('owner_type', '=', 'own_asset')]" options="{'no_create':True}">
+                                        <tree editable="bottom">
+                                             <field name="name"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                       
+                    </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="view_mining_cost_config_search" model="ir.ui.view">
+            <field name="name">mining.cost.config.search</field>
+            <field name="model">mining.cost.config</field>
+            <field name="arch" type="xml">
+                <search string="Technic Analysis">
+                    <field name="type"/>
+                    <field name="categ_ids"/>
+                    <field name="account_ids"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Зардлын Төрөл" name="type_cost" context="{'group_by':'type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_cost_config_tree" model="ir.actions.act_window">
+            <field name="name">Mining Cost Config</field>
+            <field name="res_model">mining.cost.config</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_mining_cost_config_search"/>
+            <field name="context">{'search_default_type_cost': 1}</field>
+            <field name="help"></field>
+        </record>
+
+        <menuitem action="action_mining_cost_config_tree" id="menu_mining_cost_config" parent="mw_mining.menu_mining_configuration" sequence="77"/>
+
+
+<!-- Config -->
+        <record id="view_mining_mrp_cost_config_tree" model="ir.ui.view">
+            <field name="name">mining.cost.mrp.config.tree</field>
+            <field name="model">mining.cost.mrp.config</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="account_ids"/>
+                    <field name="product_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mining_mrp_cost_config_form" model="ir.ui.view">
+            <field name="name">mining.cost.mrp.config.form</field>
+            <field name="model">mining.cost.mrp.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <field name="name"/>
+                        </group>
+                        <group col="4">
+                            <field name="product_id" />
+                        </group>
+                        <notebook>
+                            <page string="Данс">
+                                <field name="account_ids">
+                                    <tree editable="bottom" create="1">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Шинжилгээний данс">
+                                <field name="analytic_ids">
+                                    <tree editable="bottom" create="1">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Салбар">
+                                <field name="branch_ids">
+                                    <tree editable="bottom" create="1">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>                                                        
+                        </notebook>
+                       
+                    </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="view_mining_cost_mrp_config_search" model="ir.ui.view">
+            <field name="name">mining.cost.mrp.config.search</field>
+            <field name="model">mining.cost.mrp.config</field>
+            <field name="arch" type="xml">
+                <search string="Technic Analysis">
+                    <field name="name"/>
+                    <field name="product_id"/>
+                    <field name="account_ids"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Зардлын Төрөл" name="type_cost" context="{'group_by':'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_cost_mrp_config_tree" model="ir.actions.act_window">
+            <field name="name">Mining Cost mrp Config</field>
+            <field name="res_model">mining.cost.mrp.config</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_mining_cost_mrp_config_search"/>
+            <field name="context">{'search_default_type_cost': 1}</field>
+            <field name="help"></field>
+        </record>
+
+        <menuitem action="action_mining_cost_mrp_config_tree" id="menu_mining_cost_mrp_config" parent="mw_mining.menu_mining_configuration" sequence="77"/>
+        
+        <menuitem id="menu_mining_cost_mrp_config_mrp"
+            action="action_mining_cost_mrp_config_tree"
+            parent="mrp.menu_mrp_configuration" sequence="77"
+            />
+</odoo>

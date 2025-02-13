@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    	<template id="assets_common_maintenance" name="Maintenance's assets common" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/mw_technic_maintenance/static/css/base.css"/>
+   			</xpath>
+		</template>
+        <template id="assets_backend_maintenance_timesheet_line" name="Maintenance's assets backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/mw_technic_maintenance/static/js/widget.js"></script>
+                <script type="text/javascript" 
+                    src="/mw_technic_maintenance/static/libs/jspdf.js"></script>
+            </xpath>
+        </template>
+    
+</odoo>

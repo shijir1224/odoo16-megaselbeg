@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_leave_confirm_view" model="ir.ui.view">
+        <field name="name">hr.leave.confirm.form</field>
+        <field name="model">hr.leave.confirm</field>
+        <field name="arch" type="xml">
+            <form>
+                <footer>
+                    <button name="action_to_confirm_all_mw" type="object" string="Батлах" class="btn-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_hr_leave_confirm_all" model="ir.actions.act_window">
+        <field name="name">Хүсэлтүүд олноор батлах</field>
+        <field name="res_model">hr.leave.confirm</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_leave_confirm_view"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="hr_holidays.model_hr_leave" />
+        <field name="binding_view_types">list</field>
+    </record>
+    <record id="view_hr_leave_mw_form" model="ir.ui.view">
+        <field name="name">hr.leave.mw.inherit</field>
+        <field name="model">hr.leave.mw</field>
+        <field name="arch" type="xml">
+            <form string="Employee">
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object" attrs="{'invisible': [('state_type','in',['done','cancel'])]}"/>
+                    <field name="flow_line_id" widget="statusbar"/>
+                    <button string="Буцаах" name="%(mw_timetable.action_back_description)d" type="action" attrs="{'invisible': [('state_type','in',['draft','cancel'])]}"  class="btn-warning" icon="fa-arrow-left"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-secondary" icon="fa-close" type="object" attrs="{'invisible': [('state_type', '=','draft')]}"  groups="mw_timetable.group_timetable_manager"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close" type="object" attrs="{'invisible': [('state_type', '!=','sent')]}"/>
+                </header>
+                <sheet>
+                    <group name = 'group_1'>
+                        <group string='Ажилтны мэдээлэл' name = 'group_1_1'>
+                            <field name='employee_id' attrs="{'readonly': [('state_type', '!=','draft')]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name='department_id' readonly="1" options='{"no_open": True, "no_create": True}'/>
+                            <field name='work_location_id' readonly="1" force_save="1"/>
+                            <field name='company_id' readonly="1"/>
+                            <field name='create_date'/>
+                        </group>
+                        <group string='Цагийн мэдээлэл' name = 'group_1_2' >
+                            <field name='shift_plan_id' options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'readonly': [('state_type', '!=','draft')]}" domain = "[('id','in',is_work_ids)]"/>
+                            <field name="description" attrs="{'readonly': [('state_type', '!=','draft')],'required':[('is_work','=','overtime_hour')]}"/>
+                            <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                            <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1"/>
+                            <field name="date_from" attrs="{'readonly': [('state_type', '!=','draft')],'invisible': [('is_work', '!=','attendance')]}"/>
+                            <field name="date_to" attrs="{'readonly': [('state_type', '!=','draft')],'invisible': [('is_work', '!=','attendance_out')]}"/>
+                        </group>
+                        <group >
+                            <field name='return_description' readonly='1' force_save='1'/>
+                            <field name="confirm_all_user_ids" readonly="1" widget="many2many_tags" force_save="1" invisible='1'/>
+                        </group>
+                        <group name='group_1_2_2' attrs="{'invisible': [('is_work', 'in',('attendance_out','attendance'))]}">
+                            <field name="date_from" widget='date' attrs="{'readonly': [('state_type', '!=','draft')],'required': [('is_work', 'not in',('attendance_out','attendance'))]}"/>
+                            <field name="date_to" widget='date' attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                            <field name="time_from" widget="float_time" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                            <field name="time_to" widget="float_time" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                            <field name="number_of_hour"  widget="float_time"/>
+                            <field name="total_hour" widget="float_time"/>
+                            <field name="days" />
+                            <field name="vac_days" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+                            <field name="remain_days" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+                            <field name="lunch_hour" invisible='1' />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Мөрүүд" >
+                        <group>
+                            <field name="is_many" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                            <field name='warning' nolabel="1" style="color:grey;" colspan='2'/>
+                            <field name="employee_ids" attrs="{'readonly': [('state_type', '!=','draft')],'invisible': [('is_many','!=',True)]}" widget="many2many_tags" placeholder="Ажилтан сонгоно уу"/>
+                        </group>
+                        <group>
+                            <button name="line_create" string="Татах" class="btn-success" type="object" attrs="{'invisible': [('is_many','!=',True)]}"/>
+                        </group>
+                        <field name="hr_time_ids" attrs="{'invisible': [('is_many','!=',True)],'readonly': [('state_type','!=','draft')]}" >
+                            <tree editable='bottom'>
+                                <field name="date_from" widget='date'/>
+                                <field name="in_out_time"/>
+                                <field name="time_from" widget="float_time"/>
+                                <field name="time_to" widget="float_time"/>
+                                <field name="lunch_time" widget="float_time" optional='hide'/>
+                                <field name="number_of_hour" widget="float_time"/>
+                                <field name='shift_plan_id'/>
+                                <field name='employee_id'/>
+                                <field name='description'/>
+                            </tree>
+                        </field>
+                        </page>
+                        <page name='history_flow' string="Төлөвийн Түүх">
+                            <field name="history_flow_ids" readonly="1" />
+                        </page>
+                        <page  invisible="1">
+                            <group name='group_1_2_4'>
+                                <field name="state_type"/>
+                                <field name="back_user_leave_ids" string='Буцаасан хэрэглэгчид' widget="many2many_tags" />
+                                <field name="next_state_type"/>
+                                <field name="flow_line_next_id"/>
+                                <field name="branch_id"/>
+                                <field name='is_work'/>
+                                <field name='is_work_ids'/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_leave_mw_tree" model="ir.ui.view">
+        <field name="name">hr.leave.mw.inherit.tree</field>
+        <field name="model">hr.leave.mw</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state_type=='cancel'" decoration-success="state_type == 'done'">
+                <field name='employee_id'/>
+                <field name='department_id'/>
+                <field name='work_location_id'/>
+                <field name='shift_plan_id'/>
+                <field name="date_from"  widget='date'/>
+                <field name="date_to"  widget='date'/>
+                <field name="time_from" widget="float_time" optional='hide'/>
+                <field name="time_to" widget="float_time" optional='hide'/>
+                <field name='create_date' optional='hide'/>
+                <field name="flow_line_id" widget='badge'/>
+                <field name="state_type" optional='hide'/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_leave_mw_filter" model="ir.ui.view">
+        <field name="name">hr.leave.mw.filter</field>
+        <field name="model">hr.leave.mw</field>
+        <field name="arch" type="xml">
+            <search string="Search Leave">
+                <group string="Search">
+                    <field name="employee_id"/>
+                    <field name="department_id" />
+                    <field name="shift_plan_id"/>
+                </group>
+                <group expand="0" string="Group By">
+                    <filter name="this_month" string="Энэ сар" domain="[('create_date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter string="Зөвхөн өөрийн" name="flow_my_send" domain="[('employee_id.user_id','=',uid)]"/>
+                    <filter string="Миний батлах хүсэлт" name="flow_done" domain="[('confirm_user_ids','in',[uid])]"/>
+                    <filter name="my_done" string="Миний батласан хүсэлт" domain="[('history_flow_ids.user_id','=',uid),('history_flow_ids.flow_line_id.state_type','!=','cancel')]"/>
+                    <filter string="Миний буцаасан" name="gr_own_back_po" domain="[('back_user_leave_ids','in',[uid])]"/>
+                    <filter name="employee_ids" string="Ажилчид" domain="[('employee_ids', '!=', False)]"/>
+                    <filter name="group_employee" string="Ажилтнаар" context="{'group_by':'employee_id'}"/>
+                    <filter name="work_location" string="Байршил" context="{'group_by':'work_location_id'}"/>
+                    <filter name="employee_ids" string="Ажилчид" context="{'group_by':'employee_ids'}"/>
+                    <filter name="department" string="Хэлтэс" context="{'group_by':'department_id'}"/>
+                    <filter name="group_type" string="Төрөл" context="{'group_by':'shift_plan_id'}"/>
+                    <filter name="date_year" string="Хүсэлтийн он" context="{'group_by':'date_from:year'}"/>
+                    <filter name="date_month" string="Хүсэлтийн сар" context="{'group_by':'date_from:month'}"/>
+                    <filter name="create_year" string="Үүсгэсэн он" context="{'group_by':'create_date:year'}"/>
+                    <filter name="create_month" string="Үүсгэсэн сар" context="{'group_by':'create_date:month'}"/>
+                    <filter name="flow_line_id" string="Төлөв" context="{'group_by':'flow_line_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+     <record  id="hr_leave_mw_pivot_view" model="ir.ui.view">
+        <field name="name">hr.leave.mw.pivot</field>
+        <field name="model">hr.leave.mw</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date_from"/>
+                <field name="date_from"/>
+                <field name="employee_id" type="row"/>
+                <field name="shift_plan_id" type="row"/>
+                <field name="total_hour" type="measure"/>
+                <field name="days" type="measure"/>
+
+            </pivot>
+        </field>
+    </record>
+
+    <record id="open_hr_leave_mw_action" model="ir.actions.act_window">
+        <field name="name">Бүх цагийн хүсэлт</field>
+        <field name="res_model">hr.leave.mw</field>
+        <field name="context">{'search_default_work_location': 1,'search_default_create_year': 1 ,'search_default_create_month': 1,'search_default_flow_line_id': 1}</field>
+        <field name="search_view_id" ref="view_hr_leave_mw_filter"/>
+    </record>
+    <record id="open_hr_leave_mw_own_approve_action" model="ir.actions.act_window">
+        <field name="name">Цагийн хүсэлт үүсгэх,батлах</field>
+        <field name="res_model">hr.leave.mw</field>
+        <field name="domain">['|','|',('confirm_user_ids','in',[uid]),('employee_id.user_id','=',uid),('create_uid','=',uid)]</field>
+        <field name="context">{'search_default_work_location': 1,'search_default_create_year': 1 ,'search_default_create_month': 1,'search_default_flow_line_id': 1}</field>
+        <field name="search_view_id" ref="view_hr_leave_mw_filter"/>
+    </record>
+    <record id="open_hr_leave_mw_done_action" model="ir.actions.act_window">
+        <field name="name">Миний батласан хүсэлт</field>
+        <field name="res_model">hr.leave.mw</field>
+        <field name="domain">[('history_flow_ids.user_id','in',[uid]),('history_flow_ids.flow_line_id.state_type','=','done')]</field>
+        <field name="context">{'search_default_work_location': 1,'search_default_create_year': 1 ,'search_default_create_month': 1,'search_default_flow_line_id': 1}</field>
+        <field name="search_view_id" ref="view_hr_leave_mw_filter"/>
+    </record>
+
+    <record id="open_hr_leave_inherit_action_hr" model="ir.actions.act_window">
+        <field name="name">Цагийн хүсэлт шинжилгээ</field>
+        <field name="res_model">hr.leave.mw</field>
+        <field name="context">{'search_default_work_location': 1,'search_default_group_employee': 1,'search_default_this_month': 1  }</field>
+        <field name="search_view_id" ref="view_hr_leave_mw_filter"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('hr_leave_mw_pivot_view')}),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_hr_leave_mw_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_hr_leave_mw_form')}),
+              ]"/>
+    </record>
+</odoo>

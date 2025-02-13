@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <act_window id="stock_picking_create_production_wizard_action"
+        name="Дотоод шилжүүлгээс ҮЗ үүсгэх"
+        res_model="stock.picking.create.production.wizard"
+        binding_model="stock.picking"
+        view_mode="form"
+        binding_views="form,list"
+        target="new"
+        groups="mw_stock_mrp.group_create_production_from_internal_transfer"/>
+
+    <record id="stock_picking_create_production_wizard_view" model="ir.ui.view">
+        <field name="name">Дотоод шилжүүлгээс ҮЗ үүсгэх</field>
+        <field name="model">stock.picking.create.production.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="production_type"/>
+                </group>
+            </sheet>
+            <footer>
+                <button string="ҮЗ үүсгэх" name="create_production" type="object" class="oe_highlight"/>
+                <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+            </footer>
+        </form>
+        </field>
+    </record>
+
+</odoo>

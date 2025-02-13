@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="stock_move_product_change_form" model="ir.ui.view">
+		<field name="name">stock.move.product.change.form</field>
+		<field name="model">stock.move.product.change</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="1">
+					<field name="stock_move_id" readonly="1"/>
+					<field name="base_product_id" readonly="1"/>
+					<field name="base_product_tmpl_id" readonly="1"/>
+					<field name="product_id" options="{'no_create': True}" required="1" context="{'product_tmpl_id': base_product_tmpl_id}"/>
+				</group>
+			</form>
+			<footer>
+				<button name="action_done" string="Солих Бараа" type="object" class="btn-primary"/>
+				<button string="Болих" class="btn-default" special="cancel" />
+			</footer>
+		</field>
+	</record>
+
+	<record id="stock_move_location_change_form" model="ir.ui.view">
+		<field name="name">stock.move.location.change.form</field>
+		<field name="model">stock.move.product.change</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="1">
+					<field name="stock_move_id" readonly="1"/>
+					<field name="base_product_id" readonly="1"/>
+					<field name="base_location_id" readonly="1"/>
+					<field name="base_warehouse_id" invisible="1"/>
+					<field name="location_id" options="{'no_create': True}" domain="[('set_warehouse_id','=',base_warehouse_id),('id','!=',base_location_id),('usage','=','internal')]" required="1"/>
+				</group>
+			</form>
+			<footer>
+				<button name="action_done_location" string="Солих Байрлал" type="object" class="btn-primary"/>
+				<button string="Болих" class="btn-default" special="cancel" />
+			</footer>
+		</field>
+	</record>
+</odoo>

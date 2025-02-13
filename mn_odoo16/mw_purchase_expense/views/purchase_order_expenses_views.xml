@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_expenses_form" model="ir.ui.view">
+		<field name="name">purchase.order.expenses.form</field>
+		<field name="model">purchase.order.expenses</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="order_id" invisible="1"/>
+				</group>
+				<group>
+					<group>
+						<field name="product_id" required="1"/>
+						<field name="invoice_ref"/>
+						<field name="currency_id" required="1"/>
+						<field name="portion_method" required="1"/>
+						<field name="current_cur" />
+						<field name="current_amount" readonly="1"/>
+						<field name="purchase_lines" options="{'no_quick_create':True,'no_create_edit':True}"  widget="many2many_tags" domain="[('order_id','=',parent.id)]"/>
+					</group>
+					<group>
+						<field name="partner_id" required="1"/>
+						<field name="amount" required="1"/>
+						<field name="date_cur" />
+						<field name="is_foreign_currency" invisible="1"/>
+						<field name="invoice_id" readonly="1"/>
+						<field name="is_without_cost"/>
+						<field name="taxes_id" widget="many2many_tags" options="{'no_create':True}"/>
+						<field name="notes"/>
+					</group>
+					<!-- <group>
+						<div style="color:red">
+							Татвар оруулбал татваргүй дүн бодогдож өртөгт хуваарилагдахыг анхаарна уу
+						</div>
+					</group> -->
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="purchase_order_expenses_tree" model="ir.ui.view">
+		<field name="name">purchase.order.expenses.tree</field>
+		<field name="model">purchase.order.expenses</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="product_id"/>
+				<field name="partner_id"/>
+				<field name="amount"/>
+				<field name="currency_id"/>
+				<field name="portion_method"/>
+				<field name="date_cur"/>
+				<field name="is_without_cost"/>
+				<field name="invoice_id"/>
+				<field name="purchase_lines" widget="many2many_tags"/>
+				<field name="taxes_id" widget="many2many_tags"/>
+				<field name="notes"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_purchase_expense_line_product_tree">
+		<field name="name">Expenses</field>
+		<field name="res_model">purchase.order.expenses</field>
+		<field name="context">{}</field>
+		<field name="domain">[('product_id.product_tmpl_id','in',active_ids), ('order_id.state', 'in', ['purchase', 'done'])]</field>
+		<field name="view_id" ref="purchase_order_expenses_tree"/>
+	</record>
+</odoo>

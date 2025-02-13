@@ -1,0 +1,190 @@
+<odoo>
+    <record id="hr_order_to_hire_period" model="ir.actions.report">
+        <field name="name">Ажилд авах/Туршилтын Хугацаатай/</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_to_hire_period</field>
+        <field name="report_file">hr.order_to_hire_period</field>
+        <field name="print_report_name">'Ажилд авах/Туршилтын Хугацаатай/'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_to_hire_period">
+        <t t-value="null">
+        </t>
+    </template>
+   <record id="hr_order_get_employee" model="ir.actions.report">
+        <field name="name">Жинхлэх тухай</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_get_employee</field>
+        <field name="report_file">hr.order_get_employee</field>
+        <field name="print_report_name">'Жинхлэх тухай'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_get_employee">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_order_to_hire" model="ir.actions.report">
+        <field name="name">Ажилд авах тухай</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_to_hire</field>
+        <field name="report_file">hr.order_to_hire</field>
+        <field name="print_report_name">'Ажилд авах'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_to_hire">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_order_to_end" model="ir.actions.report">
+        <field name="name">Хөдөлмөрийн гэрээг дуусгавар болгох</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_to_end</field>
+        <field name="report_file">hr.order_to_end</field>
+        <field name="print_report_name">'Хөдөлмөрийн гэрээг дуусгавар болгох тухай'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_to_end">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_order_to_extend_period" model="ir.actions.report">
+        <field name="name">Туршилтын хугацааг сунгах тухай</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_to_extend_period</field>
+        <field name="report_file">hr.order_to_extend_period</field>
+        <field name="print_report_name">'Туршилтын хугацааг сунгах тухай'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_to_extend_period">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_order_day_off" model="ir.actions.report">
+        <field name="name">Чөлөө олгох тухай</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_day_off</field>
+        <field name="report_file">hr.order_day_off</field>
+        <field name="print_report_name">'Чөлөө олгох тухай'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_day_off">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_order_babysit" model="ir.actions.report">
+        <field name="name">Хүүхэд асрах чөлөө олгох тухай </field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_babysit</field>
+        <field name="report_file">hr.order_babysit</field>
+        <field name="print_report_name">'Хүүхэд асрах чөлөө олгох тухай '</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_babysit">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_order_cancel" model="ir.actions.report">
+        <field name="name">Хөдөлмөрийн гэрээг цуцлах тухай</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_cancel</field>
+        <field name="report_file">hr.order_cancel</field>
+        <field name="print_report_name">'Хөдөлмөрийн гэрээг цуцлах тухай'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_cancel">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_order_to_cancel_emp" model="ir.actions.report">
+        <field name="name">Хөдөлмөрийн гэрээг ажилтны санаачилгаар цуцлах</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_to_cancel_emp</field>
+        <field name="report_file">hr.order_to_cancel_emp</field>
+        <field name="print_report_name">'Хөдөлмөрийн гэрээг ажилтны санаачилгаар цуцлах'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="order_to_cancel_emp">
+        <t t-value="null">
+        </t>
+    </template>
+
+    <record id="hr_order_double_job" model="ir.actions.report">
+        <field name="name">Ажил хавсран гүйцэтгүүлэх тухай</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_double_job</field>
+        <field name="report_file">hr.order_double_job</field>
+        <field name="print_report_name">'Ажил хавсран гүйцэтгүүлэх тухай'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="order_double_job">
+        <t t-value="null">
+        </t>
+    </template>
+
+    <record id="hr_order_to_retire" model="ir.actions.report">
+        <field name="name">Хөдөлмөрийн гэрээг цуцлах тухай(тэтгэвэрт гарах)</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_to_retire</field>
+        <field name="report_file">hr.order_to_retire</field>
+        <field name="print_report_name">'Сэлгэн ажиллуулах тухай'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="order_to_retire">
+        <t t-value="null">
+        </t>
+    </template>
+
+    <record id="hr_order_to_fire_employee" model="ir.actions.report">
+        <field name="name">ХГ ажил олгогчийн санаачилгаар цуцлах(орон тооны цомхотгол)</field>
+        <field name="model">hr.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.order_to_fire_employee</field>
+        <field name="report_file">hr.order_to_fire_employee</field>
+        <field name="print_report_name">'орон тооны цомхотгол'</field>
+        <field name="binding_model_id" ref="model_hr_order"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="order_to_fire_employee">
+        <t t-value="null">
+        </t>
+    </template>
+
+</odoo>

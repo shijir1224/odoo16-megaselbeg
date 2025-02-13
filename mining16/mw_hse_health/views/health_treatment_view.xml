@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_health_treatment_form" model="ir.ui.view">
+		<field name="name">health.treatment.form</field>
+		<field name="model">health.treatment</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group string='Эмчилгээ'>
+						<group>
+							<field name="name"/>
+							<field name="company_id"/>
+							<field name="ambulance_line_id" options="{'no_create':True}"/>
+						</group>
+						<field name="treatment_line_ids" nolabel="1" >
+							<tree string='Эмчилгээ' editable="bottom">
+								<field name="treatment_type" force_save="1"/>
+								<field name="health_precise_id" options="{'no_create':True}"/>
+								<field name="treatment_fre"/>
+								<field name="treatment_id" optional="hide"/>
+							</tree>
+						</field>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_health_treatment_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">health.treatment</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="ambulance_line_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_health_treatment_filter" model="ir.ui.view">
+		<field name="name">health.treatment.filter</field>
+		<field name="model">health.treatment</field>
+		<field name="arch" type="xml">
+			<search string="health_treatment">
+				<field name="name"/>
+				<field name="ambulance_line_id"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="action_health_treatment_view" model="ir.actions.act_window">
+		<field name="name">Эмчилгээний дэлгэрэнгүй</field>
+		<field name="res_model">health.treatment</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_health_treatment_form" model="ir.ui.view">
+		<field name="name">health.treatment.form</field>
+		<field name="model">health.treatment</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group string='Эмчилгээ'>
+						<group>
+							<field name="name"/>
+							<field name="ambulance_line_id" options="{'no_create':True}"/>
+						</group>
+						<field name="treatment_line_ids" nolabel="1" >
+							<tree string='Эмчилгээ' editable="bottom">
+								<field name="treatment_type" force_save="1"/>
+								<field name="health_precise_id" options="{'no_create':True}"/>
+								<field name="treatment_fre"/>
+								<field name="treatment_id" optional="hide"/>
+							</tree>
+						</field>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_health_treatment_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">health.treatment</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="ambulance_line_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_health_treatment_filter" model="ir.ui.view">
+		<field name="name">health.treatment.filter</field>
+		<field name="model">health.treatment</field>
+		<field name="arch" type="xml">
+			<search string="health_treatment">
+				<field name="name"/>
+				<field name="ambulance_line_id"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="action_health_treatment_view" model="ir.actions.act_window">
+		<field name="name">Эмчилгээний дэлгэрэнгүй</field>
+		<field name="res_model">health.treatment</field>
+		<field name="context">{}</field> 
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>
+
+<!-- health.precise.treatment -->

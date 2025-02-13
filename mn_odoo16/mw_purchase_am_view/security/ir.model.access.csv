@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_acc_view,purchase.acc.view,model_purchase_acc_view,mw_purchase_am_view.group_purchase_am_reconcile_view,1,1,1,1

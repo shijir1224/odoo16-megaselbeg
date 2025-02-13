@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="env_water_tree">
+        <field name="name">env.water.tree</field>
+        <field name="model">env.water</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Ус ашиглалт"  >
+                <field name="mining_location"/>
+                <field name="date"/>                
+                <field name="water_type"/>
+                <field name="amount" sum="Total"/>
+                <field name="accumulated_amount" sum="Нийт"/>
+                <field name="create_uid" string='Бүртгэсэн'/>
+                <field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="env_water_form">
+        <field name="name">env.water.form</field>
+        <field name="model">env.water</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+                    <button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="mining_location" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    <group>
+                        <field name="water_type" widget="radio"/>
+                    </group>
+                    </group>
+                    <hr/>
+                    <group>
+                        <group>
+                            <field name="amount" attrs="{'invisible': [('water_type', '=', 'usage_res')]}"/>
+                            <field name="accumulated_amount"/>
+                            <field name="residual_amount" attrs="{'invisible': [('water_type', '=', 'usage_res')]}"/>
+                        </group>
+                        <group>
+                            <field name="pay_amount"  widget="monetary" options="{'currency_field': 'currency_id'}" />
+                            <field name="total_payment" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                            <field name="balance"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="allowed_payment" attrs="{'invisible': [('water_type', '=', 'usage_res')]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="usage" string="Усны хэмжээ /сараар/" attrs="{'invisible':[('water_type','!=','usage')]}">
+                            <field name="line_ids" nolabel="1">
+                                <tree string="Water usage" editable="bottom">
+                                    <field name="water_source" options="{'no_create': True, 'no_open':True}"/>
+                                    <field name="dedication_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="start_amount"/>
+                                    <field name="end_amount"/>
+                                    <field name="amount"/>
+                                    <field name="total_amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="line_res_id" string="Усны хэмжээ /рейсеер/" attrs="{'invisible':[('water_type','!=','usage_res')]}">
+                            <field name="line_res_ids" nolabel="1">
+                                <tree string="Water usage res" editable="bottom">
+                                    <field name="water_m"/>
+                                    <field name="water_source"/>
+                                    <field name="dedication_id"/>
+                                    <field name="res_number"/>
+                                    <field name="res_amount"/>
+                                    <field name="total_amount"/>
+                                    <field name="total_acc" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="dirty" string="Бохир ус" attrs="{'invisible':[('water_type','!=','dirty')]}">
+                            <field name="dirty_ids" nolabel="1">
+                                <tree string="Water dirty" editable="bottom">
+                                    <field name="water_dirty"/>
+                                    <field name="dirty_amount"/>
+                                    <field name="dirty_acc"/>
+                                    <field name="total_amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="payment" string="Усны төлбөр">
+                            <field name="payment_ids" nolabel="1">
+                                <tree string="Water payment" editable="bottom" >
+                                    <field name="pay_date"/>
+                                    <field name="amount"/>
+                                    <field name="note"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="attachment_ids" widget="many2many_binary"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="env_water_pivot" model="ir.ui.view">
+        <field name="name">env.water.pivot</field>
+        <field name="model">env.water</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Water Summary">
+                <field name="water_type" type="row" />
+                <field name="date" type="col" />
+                <field name="accumulated_amount" type="measure"/>
+            </graph>
+        </field>
+    </record> -->
+
+    <record id="env_water_search" model="ir.ui.view">
+        <field name="name">env.water.search</field>
+        <field name="model">env.water</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group>
+                    <field name="mining_location"/>
+                </group>
+                <group expand="0" string="Бүлэглэх">
+                    <filter name="mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+                    <filter name="date" string="Огноо" context="{'group_by':'date'}"/>
+                    <filter name="water_type" string="Төрөл" context="{'group_by':'water_type'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_env_water" model="ir.actions.act_window">
+        <field name="name">Ус ашиглалт</field>
+        <field name="res_model">env.water</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="view_id" ref="env_water_tree"/>
+        <field name="search_view_id" ref="env_water_search"/>
+        <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Энд дарж усны ашиглалт, бохир усны бүртгэлээ хийнэ үү.
+                </p>
+        </field>
+    </record>
+
+
+
+</odoo>

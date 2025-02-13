@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="env_mining_tree">
+        <field name="name">env.mining.tree</field>
+        <field name="model">env.mining</field>
+        <field name="arch" type="xml">
+            <tree string="Mining Locations"  >
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="is_active"/>
+                <field name="type"/>
+                <field name="company_id" optional="hide" options="{'no_create': True}"/>
+                <field name="branch_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="env_mining_form">
+        <field name="name">env.mining.form</field>
+        <field name="model">env.mining</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="department_id" options="{'no_create': True}" />
+                        <field name="partner_id" options="{'no_create': True}"/>
+                        <field name="is_active" widget="radio"/>
+                        <field name="type" widget="selection"/>
+                        <field name="customer_latitude"/>
+                        <field name="customer_longitude"/>
+                        <field name="customer_address"/>
+                        <field name="marker_color"/>
+                        <field name="branch_id" options="{'no_create': True}"/>
+                        <field name="company_id" options="{'no_create': True}"/>
+                    </group>
+                    <notebook>
+                        <page name="monitor_location" string="Шинжилгээний цэгүүд">
+                            <field name="line_ids" nolabel="1">
+                                <tree string="Monitor Location" editable="bottom" >
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="monitor_category"/>
+                                    <field name="latitude"/>
+                                    <field name="longitude"/>
+                                    <field name="height"/>
+                                    <field name="surface"/>
+                                    <field name="is_active"/>
+                                    <field name="mining_id" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="env_mining_search" model="ir.ui.view">
+        <field name="name">env.mining.search</field>
+        <field name="model">env.mining</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name"/>
+                <filter name="active" string="Идэвхтэй төлөв" domain="[('is_active','=', 'active')]" />
+                <filter name="type" string="Төрөл" domain="[('type','=', 'mining')]"/>
+                <filter name="branch_id" string="Салбар" context="{'group_by':'branch_id'}"/>
+                <filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_env_mining" model="ir.actions.act_window">
+        <field name="name">Үйлдвэр,уурхай </field>
+        <field name="res_model">env.mining</field>
+        <field name="view_mode">tree,form,google_map</field>
+        <field name="help" type="html">
+	        <p class="o_view_nocontent_smiling_face">
+	           Энд бүртгэнэ үү!!!
+	        </p>
+	    </field>
+	</record>
+
+
+    <record id="view_env_mining_google_map" model="ir.ui.view">
+        <field name="name">view.env.mining.google.map</field>
+        <field name="model">env.mining</field>
+        <field name="arch" type="xml">
+            <google_map string="Mining" lat="customer_latitude" lng="customer_longitude" color="marker_color" sidebar_title="name" sidebar_subtitle="customer_address">
+                <field name="name"/>
+                <field name="customer_latitude"/>
+                <field name="customer_longitude"/>
+                <field name="customer_address"/>
+                <field name="marker_color"/>
+            </google_map>
+        </field>
+    </record>
+
+
+    <!-- Env Mining Line -->
+    <record model="ir.ui.view" id="env_mining_line_tree">
+        <field name="name">env.mining.line.tree</field>
+        <field name="model">env.mining.line</field>
+        <field name="arch" type="xml">
+            <tree string="Уурхайн Байршил" create="false" delete="false">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="monitor_category"/>
+                <field name="latitude"/>
+                <field name="longitude"/>
+                <field name="height"/>
+                <field name="surface"/>
+                <field name="is_active"/>
+                <field name="mining_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="env_mining_line_form">
+        <field name="name">env.mining.line.form</field>
+        <field name="model">env.mining.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="monitor_location" string="Шинжилгээний цэгүүд">
+                        <field name="code" readonly="1"/>
+                        <field name="name" readonly="1"/>
+                        <field name="monitor_category" readonly="1"/>
+                        <field name="latitude" readonly="1"/>
+                        <field name="longitude" readonly="1"/>
+                        <field name="height" readonly="1"/>
+                        <field name="surface" readonly="1"/>
+                        <field name="is_active" readonly="1"/>
+                        <field name="mining_id" readonly="1"/>
+                        <field name="marker_color" widget="color_picker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_env_mining_line" model="ir.actions.act_window">
+        <field name="name">Нийт шинжилгээний цэгүүд</field>
+        <field name="res_model">env.mining.line</field>
+        <field name="view_mode">tree,form,google_map</field>
+        <field name="help" type="html">
+	        <p class="o_view_nocontent_smiling_face">
+	           Энд бүртгэнэ үү!!!
+	        </p>
+	    </field>
+	</record>
+
+
+    <record id="view_env_mining_line_google_map" model="ir.ui.view">
+        <field name="name">view.env.mining.line.google.map</field>
+        <field name="model">env.mining.line</field>
+        <field name="arch" type="xml">
+            <google_map string="Уурхайн шинжилгээний мэдээлэл" lat="latitude" lng="longitude" color="marker_color" sidebar_title="name" sidebar_subtitle="mining_id" panel_title="monitor_category" routing="true">
+                <field name="name"/>
+                <field name="mining_id"/>
+                <field name="monitor_category"/>
+                <field name="latitude"/>
+                <field name="longitude"/>
+                <field name="marker_color" widget="color_picker"/>
+            </google_map>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,1331 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account
+# 
+# Translators:
+# Odgarig Byambatsogt <odgarig@gmail.com>, 2022
+# baaska sh <sh.baaskash@gmail.com>, 2022
+# Ganbaatar Buriad <Ganbaatar@asterisk-tech.mn>, 2022
+# Munkhbilguun Altankhuyag <munkhbilguunaltankhuyag@gmail.com>, 2022
+# Byambajargal Suuri <byambaa08@gmail.com>, 2022
+# Munkhbaatar g <muuguu17@gmail.com>, 2022
+# Onii Onii <onii0223@yahoo.com>, 2022
+# Tsog Tsog <ts.tsogoo@gmail.com>, 2022
+# Otgonbayar.A <gobi.mn@gmail.com>, 2022
+# Nurbahyt Kh <nurbahyt.kh@gmail.com>, 2022
+# hish, 2022
+# Batmunkh Ganbat <batmunkh.g@bumanit.mn>, 2022
+# Minj P <pminj322@gmail.com>, 2022
+# nurbakhit nurka <nurbakhit@bumanit.mn>, 2022
+# Насан-Очир <nasaaskii@gmail.com>, 2022
+# tumenjargal hadbaatar <tumenjargal7903@gmail.com>, 2022
+# Nomin Erdenchimeg <nomin.bmde@gmail.com>, 2022
+# Bayarkhuu Bataa, 2022
+# Батболд <batbold.ts@gmail.com>, 2022
+# tserendavaa tsogtoo <tseegii011929@gmail.com>, 2022
+# Батмөнх Ганбат <batmunkh2522@gmail.com>, 2022
+# Cheemee Bumtsend <cheemeesun@gmail.com>, 2022
+# Sanjaajamts Badamjunai <b.sanjaajamtsfc@gmail.com>, 2023
+# Martin Trigaux, 2023
+# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2023
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-02 10:33+0000\n"
+"PO-Revision-Date: 2022-09-22 05:44+0000\n"
+"Last-Translator: Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2023\n"
+"Language-Team: Mongolian (https://app.transifex.com/odoo/teams/41243/mn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.track_po_line_template
+msgid "-&gt;"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.view_picking_form_inherit_mn_stock_move
+msgid "<span>Шаардах 1</span>"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.track_po_line_template_delete
+msgid "<strong>Мөр устгасан.</strong>"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.track_po_line_template
+msgid "<strong>Тоо өөрчлөгдлөө.</strong>"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "ALLLLL"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__account_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__account_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__account_id
+msgid "Account"
+msgstr "Данс"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_needaction
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_needaction
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__active
+msgid "Active"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.ui.menu,name:mw_stock_moves.product_expense_menu_all
+msgid "All inventory requirements"
+msgstr "Бүх агуулахын хүсэлт"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__account_analytic_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__analytic_distribution
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__account_analytic_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__account_analytic_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__analytic_distribution
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__account_analytic_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__analytic_distribution
+msgid "Analytic"
+msgstr "Шинжилгээ"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__analytic_distribution_search
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__analytic_distribution_search
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__analytic_distribution_search
+msgid "Analytic Distribution Search"
+msgstr "Шинжилгээ хайх"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__analytic_precision
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__analytic_precision
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__analytic_precision
+msgid "Analytic Precision"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Approve"
+msgstr "Батлах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_picking__stock_expense_accountant
+msgid "Approved accountant"
+msgstr "Батласан нягтлан"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "April"
+msgstr "4 сар"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Assign an account"
+msgstr "Данс оноох"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_attachment_count
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_attachment_count
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_attachment_count
+msgid "Attachment Count"
+msgstr "Хавсралтын тоо"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "August"
+msgstr "8 сар"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Back"
+msgstr "Буцах"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Back to draft"
+msgstr "Буцааж ноороглох"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__branch_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__branch_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__branch_id
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "Branch"
+msgstr "Салбар"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.mn_transaction_value_filter_view
+msgid "By account"
+msgstr "Дансаар"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "By branch"
+msgstr "Салбараар"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "By department"
+msgstr "Хэлтсээр"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "By employee"
+msgstr "Ажилтнаар"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "By state"
+msgstr "Төлвөөр"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "By user"
+msgstr "Хэрэглэгчээр"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.mn_transaction_value_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "By warehouse"
+msgstr "Агуулахаар"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Cancel"
+msgstr "Цуцлах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields.selection,name:mw_stock_moves.selection__stock_product_other_expense__state__cancelled
+msgid "Cancelled"
+msgstr "Цуцлагдсан"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__categ_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__categ_id
+msgid "Category"
+msgstr "Ангилал"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Change history"
+msgstr "Түүх"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__user_id
+msgid "Changed user"
+msgstr "Өөрчилсөн хэрэглэгч"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Check residual"
+msgstr "Үлдэгдэл шалгах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__choose_fleet
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__choose_fleet
+msgid "Choose the technic"
+msgstr "Техник сонгох"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.selected_other_expense_next_form_view
+msgid "Close"
+msgstr "Хаах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__company_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__company_id
+msgid "Company"
+msgstr "Компани"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields.selection,name:mw_stock_moves.selection__stock_product_other_expense__state__confirmed
+msgid "Confirmed"
+msgstr "Батлагдсан"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__available_qty_template
+msgid "Convert total residual "
+msgstr "Үлдэгдэл Хөрвөх Нийт"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__product_standard_price
+msgid "Cost of product"
+msgstr "я"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__create_ok
+msgid "Create ok"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__create_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next__create_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__create_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__create_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__date
+msgid "Created date"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__partner_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__partner_id
+msgid "Created employee"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__create_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next__create_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__create_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__create_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__date
+msgid "Date"
+msgstr "Огноо"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__last_date
+msgid "Date last taken"
+msgstr "Сүүлд авсан огноо"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "December"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__uom_id
+msgid "Default unit of measure used for all stock operations."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__department_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__department_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__department_id
+msgid "Department"
+msgstr "Хэлтэс"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__flow_ids
+msgid "Dependent dynamic flow"
+msgstr "Хамаарах Урсгал Тохиргоо"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__warehouse_id
+msgid "Dependent warehouse"
+msgstr "Хамааралтай агуулах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__description
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__description
+msgid "Description"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__diff_qty
+msgid "Difference"
+msgstr "Зөрүү"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__display_name
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__display_name
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next__display_name
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__display_name
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__display_name
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields.selection,name:mw_stock_moves.selection__stock_product_other_expense__state__done
+msgid "Done"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields.selection,name:mw_stock_moves.selection__stock_product_other_expense__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_dynamic_flow_history
+msgid "Dynamic Flow history"
+msgstr "Ажлын урсгалын түүх"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Dynamic flow"
+msgstr "Урсгал тохиргоо"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__employee_id
+msgid "Employee"
+msgstr "Ажилтан"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__import_partner_ids
+msgid "Employees to import"
+msgstr "Импортлох Ажилтанууд"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__import_employee_ids
+msgid "Employees to import are wrong"
+msgstr "Импортлох Ажилтанууд Буруу"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__product_expense_line
+msgid "Expense line"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Fact of expenditure"
+msgstr "Зарлагын Баримт"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "February"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "Finished"
+msgstr "Дууссан"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_follower_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_follower_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_partner_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_partner_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.mn_transaction_value_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "Group By..."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__has_message
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__has_message
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next__id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_mn_transaction_value__message_needaction
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__message_needaction
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_mn_transaction_value__message_has_error
+#: model:ir.model.fields,help:mw_stock_moves.field_mn_transaction_value__message_has_sms_error
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__message_has_error
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__message_has_sms_error
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__message_has_error
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Information of expenditure"
+msgstr "Зарлагын мэдээлэл"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__import_product_ids
+msgid "Inventories to import"
+msgstr "Импортлох Бараанууд"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__product_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__product_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__product_id
+msgid "Inventory"
+msgstr "Бараа"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Inventory & insert and import employees"
+msgstr "Бараа & Ажилтан оруулах импортлох"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_dynamic_flow_history__shaardah_id
+msgid "Inventory Requirement"
+msgstr "БМ Шаардах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__categ_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__categ_id
+msgid "Inventory category"
+msgstr "Барааны ангилал"
+
+#. module: mw_stock_moves
+#: model:ir.ui.menu,name:mw_stock_moves.product_expense_menu
+#: model:ir.ui.menu,name:mw_stock_moves.root_product_expense_menu
+#: model:ir.ui.menu,name:mw_stock_moves.sub_product_expense_menu
+msgid "Inventory requirements"
+msgstr "БМ-ын шаардах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_is_follower
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_is_follower
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__is_not_edit
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__is_not_edit
+msgid "Is Not Edit"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "January"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "July"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "June"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value____last_update
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report____last_update
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next____last_update
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense____last_update
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history____last_update
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__write_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next__write_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__write_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__write_uid
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__write_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next__write_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__write_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__write_date
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_move__expense_line_id
+msgid "Line"
+msgstr "Шаардах мөр"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Lines"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__location_id
+msgid "Location Stock"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.module.category,name:mw_stock_moves.module_mw_stock_moves
+msgid "MW Stock Moves"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_main_attachment_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_main_attachment_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:res.groups,comment:mw_stock_moves.group_stock_all_user
+#: model:res.groups,name:mw_stock_moves.group_stock_other_expence_user
+msgid "Make inventory requirements"
+msgstr "БМ Шаардах хийх"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "March"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "May"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__transaction_value_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__transaction_value_id
+msgid "Meaning of expenditure transaction"
+msgstr "Зарлага гүйлгээний утга"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_has_error
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_has_error
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "Month"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__move_ids
+msgid "Move ids"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__expense_picking_ids
+msgid "Movements that done expenditure"
+msgstr "Зарлага хийсэн хөдөлгөөнүүд"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.actions.act_window,name:mw_stock_moves.action_view_product_other_expense_my_confirm
+msgid "My approval requests"
+msgstr "Миний батлах хүсэлт"
+
+#. module: mw_stock_moves
+#: model:ir.ui.menu,name:mw_stock_moves.product_expense_menu_my_confirm
+msgid "My approval requirements"
+msgstr "Миний батлах шаардах хуудас"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_move__new_expense_line_id
+msgid "New line"
+msgstr "Шинэ шаардах мөр"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__new_move_ids
+msgid "New move ids"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "Not finished"
+msgstr "Дуусаагүй"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "November"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_needaction_counter
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_needaction_counter
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_has_error_counter
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_has_error_counter
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__expense_picking_count
+msgid "Number of fact expenditure"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_mn_transaction_value__message_needaction_counter
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__message_needaction_counter
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_mn_transaction_value__message_has_error_counter
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__message_has_error_counter
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__name
+msgid "Numbering"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "October"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.actions.act_window,name:mw_stock_moves.action_stock_product_other_expense
+#: model:ir.actions.act_window,name:mw_stock_moves.action_stock_product_other_expense_all
+#: model:ir.model.fields,field_description:mw_stock_moves.field_selected_other_expense_next__other_expense_ids
+msgid "Other expense"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_picking__other_expense_id
+msgid "Other expense ID"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "PRINT & VIEW"
+msgstr "ХЭВЛЭЖ ҮЗЭХ"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__parent_id
+msgid "Parent ID"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Parent must select"
+msgstr "Харилцагч оноох(Dev mode)"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Partner"
+msgstr "Хариуцагч"
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_product_product
+msgid "Product Variant"
+msgstr "Бараа"
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_product_expense_report
+msgid "Product expense report"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__product_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__product_ids
+msgid "Product names"
+msgstr "Барааны нэрc"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__qty
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__qty
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.track_po_line_template
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.track_po_line_template_delete
+msgid "Quantity"
+msgstr "Тоо хэмжээ"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__delivered_qty
+msgid "Quantity delivered"
+msgstr "Хүргэгдсэн тоо"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__import_qty
+msgid "Quantity to import"
+msgstr "Импортлох тоо хэмжээ"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__res_partner_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__res_partner_id
+msgid "Received employee"
+msgstr "Хүлээн авсан ажилтан"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Related information"
+msgstr "Холбоотой мэдээлэл"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__expense_id
+msgid "Request"
+msgstr "Хүсэлт"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__flow_id
+msgid "Request Config"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__flow_line_back_id
+msgid "Request line back"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__flow_line_next_id
+msgid "Request line next"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__expense_id
+msgid "Requirement"
+msgstr "Шаардах"
+
+#. module: mw_stock_moves
+#: model:ir.actions.act_window,name:mw_stock_moves.product_expense_report_action
+#: model:ir.ui.menu,name:mw_stock_moves.product_expense_menu_report
+msgid "Requirement report"
+msgstr "Шаардах Тайлан"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__reserved_qty
+msgid "Reserved"
+msgstr "Нөөцлөгдсөн"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__available_qty
+msgid "Residual"
+msgstr "Үлдэгдэл"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__message_has_sms_error
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__message_has_sms_error
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "SUM"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__product_sale_price
+msgid "Sales price of inventory"
+msgstr "Барааны зарах үнэ"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__date_required
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__date_required
+msgid "Scheduled date"
+msgstr "Товлосон огноо"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__categ_id
+msgid "Select category for the current product"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__department_id
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__department_id
+msgid "Select if the department costs."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields.selection,name:mw_stock_moves.selection__stock_product_other_expense__state__sent
+msgid "Sent"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "September"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.ui.menu,name:mw_stock_moves.product_expense_menu_config_root
+msgid "Settings"
+msgstr "Тохиргоо"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__is_list_pirce_view
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__is_list_pirce_view
+msgid "Show selling price"
+msgstr "Зарах Үнэ Харуулах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__flow_line_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__flow_line_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__stage_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__state
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_history__flow_line_id
+msgid "State"
+msgstr "Төлөв"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__state_type
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__state_type
+msgid "State type"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_stock_move
+msgid "Stock Move"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_stock_product_other_expense
+msgid "Stock Product Other Expense"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_stock_product_other_expense_line
+msgid "Stock Product Other Expense Line"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__history_ids
+msgid "Stories"
+msgstr "Түүхүүд"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__history_flow_ids
+msgid "Stories of dynamic"
+msgstr "Урсгалын түүхүүд"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Story of state"
+msgstr "Төлвийн Түүх"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__sub_total
+msgid "Subtotal"
+msgstr "Дэд дүн"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__employee_id
+msgid "The employee is wrong"
+msgstr "Ажилтан буруу"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__is_employee
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__is_employee
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__is_employee
+msgid "The employee must choose"
+msgstr "Ажилтан заавал сонгох"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__product_expense_line
+msgid "The information to expand inventory"
+msgstr "Бараа зарлагадах мэдээлэл"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "The name of the approver"
+msgstr "Батлагчийн нэр"
+
+#. module: mw_stock_moves
+#: model:res.groups,comment:mw_stock_moves.group_stock_other_expence_user
+msgid "The right to make other expenses in the warehouse"
+msgstr "Агуулахад бусад зарлага хийх эрх"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "This Month"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "This Year"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_filter_view
+msgid "This month"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.actions.act_window,name:mw_stock_moves.selected_other_expense_next_action
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.selected_other_expense_next_form_view
+msgid "To approve by mass"
+msgstr "Олноор батлах"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "Today"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__total_amount
+msgid "Total amount"
+msgstr "Нийт дүн"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__product_total_price
+msgid "Total cost of product"
+msgstr "Барааны нийт өртөг"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__code
+msgid "Transaction code"
+msgstr "Гүйлгээний код"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__name
+#: model:ir.ui.menu,name:mw_stock_moves.mn_transaction_value_menu
+msgid "Transaction description"
+msgstr "Гүйлгээний утга"
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_mn_transaction_value
+msgid "Transaction value"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_stock_picking
+msgid "Transfer"
+msgstr "Шилжүүлэг"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Type of expenditure transaction"
+msgstr "Зарлага гүйлгээний төрөл"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__uom_id
+msgid "Unit of measurement"
+msgstr "Хэмжих нэгж"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__list_price
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__price_unit
+msgid "Unit price"
+msgstr "Нэгж Үнэ"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__user_id
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "User"
+msgstr "Хэрэглэгч"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__date_user
+msgid "User Date"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__confirm_user_ids
+msgid "Users that to approve"
+msgstr "Батлах хэрэглэгчид"
+
+#. module: mw_stock_moves
+#: model:res.groups,name:mw_stock_moves.group_stock_all_user
+msgid "View all inventory requirements"
+msgstr "БМ Шаардах Бүгдийг Харах"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "View details Edit"
+msgstr "Дэлгэрэнгүй Харах Засах"
+
+#. module: mw_stock_moves
+#: model:res.groups,comment:mw_stock_moves.group_stock_report_user
+#: model:res.groups,name:mw_stock_moves.group_stock_report_user
+msgid "View inventory requirements report"
+msgstr "БМ Шаардах тайлан харах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__available_product
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__available_product
+msgid "View the remaining items"
+msgstr "Үлдэгдэлтэй барааг харуулах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__warehouse_id
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__warehouse_id
+msgid "Warehouse"
+msgstr "Агуулах"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__website_message_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__website_message_ids
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense_line__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_mn_transaction_value__website_message_ids
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__website_message_ids
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense_line__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.product_expense_report_view_search
+msgid "Year"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid "You are not back user"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid "You are not cancel user"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid "You are not draft user"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__validator_id
+msgid "approved user"
+msgstr "Батласан Хэрэглэгч"
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__date_validator
+msgid "date of approved"
+msgstr "Батласан Огноо"
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "get date last taken"
+msgstr "Сүүлд авсан огноо татах"
+
+#. module: mw_stock_moves
+#: model:ir.actions.act_window,name:mw_stock_moves.action_mn_transaction_value
+msgid "mn.transaction.value.action"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_selected_other_expense_next
+msgid "selected other expense open"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model,name:mw_stock_moves.model_stock_product_other_expense_history
+msgid "stock product exepense history"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid "Бараа зарлагадах мэдээллийг оруулна уу!"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid "Барааны зарлагадах хөдөлгөөн дуусаагүй байна!"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid "Зарлагадах байрлал олдсонгүй!"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.actions.act_window,name:mw_stock_moves.action_view_product_other_expense_my_confirmed
+msgid "Миний батласан хүсэлт"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.ui.menu,name:mw_stock_moves.product_expense_menu_my_confirmed
+msgid "Миний батласан шаардах хуудас"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__product_total_price
+msgid "Нийт өртөг"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid "Ноорог болон Цуцлагдсан төлөвтэй бичлэгийг устгаж болно!"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__product_standard_price
+msgid "Нэгж өртөг"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model_terms:ir.ui.view,arch_db:mw_stock_moves.stock_product_other_expense_form_view
+msgid "Тайлбар"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__scheduled_date
+msgid "Товлосон огноо"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_mn_transaction_value__is_partner
+#: model:ir.model.fields,field_description:mw_stock_moves.field_stock_product_other_expense__is_partner
+msgid "Харилцагч заавал сонгох"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid ""
+"Хэвлэх загварын тохиргоо хийгдээгүй байна, Системийн админд хандана уу!"
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,help:mw_stock_moves.field_stock_product_other_expense__partner_id
+msgid ""
+"Хэрэв ажилтан сонгогдвол тухайн ажилтаны 'Ашиглалтанд байгаа хангамжийн "
+"материал'-ын бүртгэлд бүртгэгдэнэ."
+msgstr ""
+
+#. module: mw_stock_moves
+#: model:ir.model.fields,field_description:mw_stock_moves.field_product_expense_report__delivered_qty
+msgid "Хүргэгдсэн тоо хэмжээ"
+msgstr ""
+
+#. module: mw_stock_moves
+#. odoo-python
+#: code:addons/mw_stock_moves/models/stock_product_expense.py:0
+#, python-format
+msgid ""
+"Хөдөлгөөн цуцлах боломжгүй, цуцлах шаардлагатай бол хөдөлгөөнийг эхлээд "
+"цуцлуулна уу!"
+msgstr ""

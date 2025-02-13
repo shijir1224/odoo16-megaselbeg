@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_both_income_expense_report_search_fil" model="ir.ui.view">
+        <field name="name">product.both.income.expense.report.search.fil</field>
+        <field name="model">product.both.income.expense.report</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_both_income_expense_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter name="location_dest_id_customer" string="Борлуулалтын Зарлага" domain="[('location_dest_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_customer" string="Борлуулалтын Буцаалт" domain="[('location_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_supplier" string="Худалдан Авалтын Орлого" domain="[('location_id.usage','=','supplier'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_dest_id_supplier" string="Худалдан Авалтын Буцаалт" domain="[('location_dest_id.usage','=','supplier')]" />
+                <filter name="location_id_inventory" string="Тооллогын Орлого" domain="[('location_id.usage','=','inventory')]" />
+                <filter name="location_dest_id_inventory" string="Тооллогын Зарлага" domain="[('location_dest_id.usage','=','inventory')]" />
+                <filter name="is_internal" string="Дотоод Хөдөлгөөн" domain="[('location_id.usage','=','internal'),('location_dest_id.usage','=','internal')]" />
+                <filter name="is_internal_not" string="Дотоод Хөдөлгөөн Биш" domain="[('transfer_type','!=','internal')]" />
+                <filter name="location_id_production" string="Үйлдвэр Орлого" domain="[('location_id.usage','=','production')]" />
+                <filter name="location_dest_id_production" string="Үйлдвэр Зарлага" domain="[('location_dest_id.usage','=','production')]" />
+                <filter name="is_production_not" string="Үйлдвэрлэл Биш" domain="[('location_dest_id.usage','!=','production'),('location_id.usage','!=','production')]" />
+                <filter name="other_expense_id_ok" string="БМ Шаардахын гүйлгээ" domain="[('picking_id.other_expense_id','!=',False)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_income_expense_report_search" model="ir.ui.view">
+        <field name="name">product.income.expense.report.search</field>
+        <field name="model">product.income.expense.report</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_income_expense_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter name="location_dest_id_customer" string="Борлуулалтын Зарлага" domain="[('location_dest_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_customer" string="Борлуулалтын Буцаалт" domain="[('location_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_supplier" string="Худалдан Авалтын Орлого" domain="[('location_id.usage','=','supplier')]" />
+                <filter name="location_dest_id_supplier" string="Худалдан Авалтын Буцаалт" domain="[('location_dest_id.usage','=','supplier')]" />
+                <filter name="location_id_inventory" string="Тооллогын Орлого" domain="[('location_id.usage','=','inventory')]" />
+                <filter name="location_dest_id_inventory" string="Тооллогын Зарлага" domain="[('location_dest_id.usage','=','inventory')]" />
+                <filter name="is_internal" string="Дотоод Хөдөлгөөн" domain="[('location_id.usage','=','internal'),('location_dest_id.usage','=','internal')]" />
+                <filter name="is_internal_not" string="Дотоод Хөдөлгөөн Биш" domain="[('transfer_type','!=','internal')]" />
+                <filter name="location_id_production" string="Үйлдвэр Орлого" domain="[('location_id.usage','=','production')]" />
+                <filter name="location_dest_id_production" string="Үйлдвэр Зарлага" domain="[('location_dest_id.usage','=','production')]"/>
+                <filter name="is_production_not" string="Үйлдвэрлэл Биш" domain="[('location_dest_id.usage','!=','production'),('location_id.usage','!=','production')]" />
+                <filter name="other_expense_id_ok" string="БМ Шаардахын Хөдөлгөөн" domain="[('picking_id.other_expense_id','!=',False)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_move_line_view_search_mw_fil" model="ir.ui.view">
+        <field name="name">stock.move.line.search.mw.fil</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="reference" string="Ангилал-д Хайх" filter_domain="[('product_id.categ_id','child_of',self)]"/>
+                <filter name="location_dest_id_customer" string="Борлуулалтын Зарлага" domain="[('location_dest_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_customer" string="Борлуулалтын Буцаалт" domain="[('location_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_supplier" string="Худалдан Авалтын Орлого" domain="[('location_id.usage','=','supplier')]" />
+                <filter name="location_dest_id_supplier" string="Худалдан Авалтын Буцаалт" domain="[('location_dest_id.usage','=','supplier')]" />
+                <filter name="location_id_inventory" string="Тооллогын Орлого" domain="[('location_id.usage','=','inventory')]" />
+                <filter name="location_dest_id_inventory" string="Тооллогын Зарлага" domain="[('location_dest_id.usage','=','inventory')]" />
+                <filter name="is_internal" string="Дотоод Хөдөлгөөн" domain="[('location_id.usage','=','internal'),('location_dest_id.usage','=','internal')]" />
+                <filter name="location_id_production" string="Үйлдвэр Орлого" domain="[('location_id.usage','=','production')]" />
+                <filter name="location_dest_id_production" string="Үйлдвэр Зарлага" domain="[('location_dest_id.usage','=','production')]" />
+                <filter name="is_production_not" string="Үйлдвэрлэл Биш" domain="[('location_dest_id.usage','!=','production'),('location_id.usage','!=','production')]" />
+                <filter name="other_expense_id_ok" string="БМ Шаардахын Хөдөлгөөн" domain="[('picking_id.other_expense_id','!=',False)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_search_mw_fil" model="ir.ui.view">
+        <field name="name">stock.move.search.mw.fil</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="name" string="Ангилал-д Хайх" filter_domain="[('product_id.categ_id','child_of',self)]"/>
+                <filter name="location_dest_id_customer" string="Борлуулалтын Зарлага" domain="[('location_dest_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_customer" string="Борлуулалтын Буцаалт" domain="[('location_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_supplier" string="Худалдан Авалтын Орлого" domain="[('location_id.usage','=','supplier')]" />
+                <filter name="location_dest_id_supplier" string="Худалдан Авалтын Буцаалт" domain="[('location_dest_id.usage','=','supplier')]" />
+                <filter name="location_id_inventory" string="Тооллогын Орлого" domain="[('location_id.usage','=','inventory')]" />
+                <filter name="location_dest_id_inventory" string="Тооллогын Зарлага" domain="[('location_dest_id.usage','=','inventory')]" />
+                <filter name="is_internal" string="Дотоод Хөдөлгөөн" domain="[('location_id.usage','=','internal'),('location_dest_id.usage','=','internal')]" />
+                <filter name="location_id_production" string="Үйлдвэр Орлого" domain="[('location_id.usage','=','production')]" />
+                <filter name="location_dest_id_production" string="Үйлдвэр Зарлага" domain="[('location_dest_id.usage','=','production')]" />
+                <filter name="is_production_not" string="Үйлдвэрлэл Биш" domain="[('location_dest_id.usage','!=','production'),('location_id.usage','!=','production')]" />
+                <filter name="other_expense_id_ok" string="БМ Шаардахын Хөдөлгөөн" domain="[('picking_id.other_expense_id','!=',False)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search_inherit_mw_stock_fil" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search.inherit.mn.stock.fil</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter name="location_dest_id_customer" string="Борлуулалтын Зарлага" domain="[('location_dest_id.usage','=','customer'),('other_expense_id','=',False)]" />
+                <filter name="location_id_customer" string="Борлуулалтын Буцаалт" domain="[('location_id.usage','=','customer'),('other_expense_id','=',False)]" />
+                <filter name="location_id_supplier" string="Худалдан Авалтын Орлого" domain="[('location_id.usage','=','supplier')]" />
+                <filter name="location_dest_id_supplier" string="Худалдан Авалтын Буцаалт" domain="[('location_dest_id.usage','=','supplier')]" />
+                <filter name="location_id_inventory" string="Тооллогын Орлого" domain="[('location_id.usage','=','inventory')]" />
+                <filter name="location_dest_id_inventory" string="Тооллогын Зарлага" domain="[('location_dest_id.usage','=','inventory')]" />
+                <filter name="is_internal" string="Дотоод Хөдөлгөөн" domain="[('location_id.usage','=','internal'),('location_dest_id.usage','=','internal')]" />
+                <filter name="location_id_production" string="Үйлдвэр Орлого" domain="[('location_id.usage','=','production')]" />
+                <filter name="location_dest_id_production" string="Үйлдвэр Зарлага" domain="[('location_dest_id.usage','=','production')]" />
+                <filter name="is_production_not" string="Үйлдвэрлэл Биш" domain="[('location_dest_id.usage','!=','production'),('location_id.usage','!=','production')]" />
+                <filter name="other_expense_id_ok" string="БМ Шаардахын Хөдөлгөөн" domain="[('other_expense_id','!=',False)]" />
+            </xpath>
+        </field>
+    </record>
+    <record id="stock_report_detail_search_filter" model="ir.ui.view">
+        <field name="name">stock.report.detail.search.filter</field>
+        <field name="inherit_id" ref="mw_stock_product_report.stock_report_detail_search"/>
+        <field name="model">stock.report.detail</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter name="location_dest_id_customer" string="Борлуулалтын Зарлага" domain="[('location_dest_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_customer" string="Борлуулалтын Буцаалт" domain="[('location_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_id_supplier" string="Худалдан Авалтын Орлого" domain="[('location_id.usage','=','supplier'),('picking_id.other_expense_id','=',False)]" />
+                <filter name="location_dest_id_supplier" string="Худалдан Авалтын Буцаалт" domain="[('location_dest_id.usage','=','supplier')]" />
+                <filter name="location_id_inventory" string="Тооллогын Орлого" domain="[('location_id.usage','=','inventory')]" />
+                <filter name="location_dest_id_inventory" string="Тооллогын Зарлага" domain="[('location_dest_id.usage','=','inventory')]" />
+                <filter name="is_internal" string="Дотоод Хөдөлгөөн" domain="[('location_id.usage','=','internal'),('location_dest_id.usage','=','internal')]" />
+                <filter name="is_internal_not" string="Дотоод Хөдөлгөөн Биш" domain="[('transfer_type','!=','internal')]" />
+                <filter name="location_id_production" string="Үйлдвэр Орлого" domain="[('location_id.usage','=','production')]" />
+                <filter name="location_dest_id_production" string="Үйлдвэр Зарлага" domain="[('location_dest_id.usage','=','production')]" />
+                <filter name="is_production_not" string="Үйлдвэрлэл Биш" domain="[('location_dest_id.usage','!=','production'),('location_id.usage','!=','production')]" />
+                <filter name="other_expense_id_ok" string="БМ Шаардахын гүйлгээ" domain="[('picking_id.other_expense_id','!=',False)]" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

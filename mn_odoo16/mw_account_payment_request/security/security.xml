@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.module.category" id="module_category_payment_request">
+            <field name="name">Төлбөрийн хүсэлт</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="res_groups_account_payment_request_employees" model="res.groups">
+            <field name="name">Төлбөрийн хүсэлт ажилчид</field>
+            <field name="category_id" ref="mw_account_payment_request.module_category_payment_request"/>
+        </record>
+
+        <record id="res_groups_account_payment_request_admin" model="res.groups">
+            <field name="name">Төлбөрийн хүсэлт админ </field>
+            <field name="category_id" ref="mw_account_payment_request.module_category_payment_request"/>
+        </record>
+        
+        <record id="res_groups_cash_accountant" model="res.groups">
+            <field name="name">Төлбөр тооцооны нягтлан</field>
+            <field name="category_id" ref="mw_account_payment_request.module_category_payment_request"/>
+        </record>
+
+        <record id="res_groups_account_general_accountant" model="res.groups">
+            <field name="name">Бэлэн мөнгө батлах Ерөнхий нягтлан</field>
+            <field name="comment">Бэлэн мөнгө батлах Ерөнхий нягтлан</field>
+            <field name="category_id" ref="mw_account_payment_request.module_category_payment_request"/>
+        </record>
+
+        <record id="account_payment_req_comp_rule" model="ir.rule">
+            <field name="name">Payment request multi-company</field>
+            <field name="model_id" ref="model_payment_request"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+        
+    </data>
+</openerp>

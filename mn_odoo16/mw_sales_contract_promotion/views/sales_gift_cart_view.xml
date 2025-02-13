@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- sales.gift.cart -->
+	<record id="sales_gift_cart_filter_view" model="ir.ui.view">
+        <field name="name">mw.sales.gift.cart.filter</field>
+        <field name="model">mw.sales.gift.cart</field>
+        <field name="arch" type="xml"> 
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <filter string="Draft" domain="[('state','=','draft')]" name="draft"/>
+                <filter string="Confirmed" domain="[('state','in',['confirmed'])]" name="confirmed"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'partner_id'}" string="Partner" name="partner"/>
+                    <filter context="{'group_by':'state'}" string="State" name="state"/>
+                    <filter string="Date" context="{'group_by':'date_start'}" name="date"/>
+        	</group>
+            </search>
+        </field>
+    </record>
+
+    <!-- MAIN FORM -->
+	<record id="sales_gift_cart_form_view" model="ir.ui.view">
+		<field name="name">mw.sales.gift.cart.form</field>
+		<field name="model">mw.sales.gift.cart</field>
+		<field name="arch" type="xml">
+            <form string="Sales plan">
+                <header>
+                    <button name="action_to_draft" string="Draft"  
+                        type="object" states="confirmed"
+                        groups="mw_sales_contract_promotion.group_sale_contract_promotion_validator"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Approve"  
+                        states="draft" type="object"
+                        groups="mw_sales_contract_promotion.group_sale_contract_promotion_validator" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" readonly="1" />
+                </header>
+       		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                    </div>
+                    <group col="4">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+
+                        <field name="partner_id" options="{'no_create': True}"/>
+                        <field name="bonus_amount"
+                            attrs="{'readonly':[('readonly_amount','=',True)]}"/>
+                    </group>
+                    <group col="4">
+                        <field name="description"/>
+                        <field name="readonly_amount"/> 
+
+                        <field name="user_id" />
+                        <field name="validator_id" />
+                    </group>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="sales_gift_cart_tree_view" model="ir.ui.view">
+        <field name="name">mw.sales.gift.cart.tree</field>
+        <field name="model">mw.sales.gift.cart</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="bonus_amount"/>
+                <field name="validator_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_sales_gift_cart'>
+        <field name="name">sales.gift.cart</field>
+        <field name="res_model">mw.sales.gift.cart</field>
+        <field name="context">{'search_default_confirmed': 1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('sales_gift_cart_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('sales_gift_cart_form_view')})]"/>
+    </record>
+
+</odoo>

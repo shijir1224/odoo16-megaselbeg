@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_form_mw_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.mw.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
+                <field name="price_unit" readonly="1" groups="mw_stock_account.group_stock_view_cost"/>
+                <field name="niit_urtug" readonly="1" groups="mw_stock_account.group_stock_view_cost" sum="SUM"/>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']//form//field[@name='quantity_done']" position="after">
+                <field name="price_unit" readonly="1" groups="mw_stock_account.group_stock_view_cost"/>
+                <field name="niit_urtug" readonly="1" groups="mw_stock_account.group_stock_view_cost" sum="SUM"/>
+                <field name="round_sub_total_sale" readonly="1" sum="Нийт1111" groups="mw_stock_account.group_stock_view_cost" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_account_moves"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-dollar" groups="mw_stock_account.group_stock_view_cost">
+                    <field string="Account Entry" name="acc_move_count" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+	</record>
+    <record id="stock_valuation_layer_picking_mw_inherit" model="ir.ui.view">
+        <field name="name">stock.valuation.layer.picking.mw.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_account.stock_valuation_layer_picking" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_stock_valuation_layers']" position="attributes">
+                <attribute name="groups">mw_stock_account.group_stock_view_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="stock_move_tree_mw_stock_account_inherit" model="ir.ui.view">
+        <field name="name">stock.move.tree.mw.stock.account.inherit</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="price_unit" readonly="1" groups="mw_stock_account.group_stock_view_cost"/>
+            </field>
+            <xpath expr="//field[@name='date']" position="replace">
+                <field name="date" decoration-danger="(state not in ('cancel','done')) and date &gt; current_date"/>
+            </xpath>
+        </field>
+    </record>
+    
+   <record id="view_stock_move_form_mn_inherit" model="ir.ui.view">
+        <field name="name">view.stock.move.form.form.view</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_get_account_moves" icon="fa-usd" groups="mw_stock_account.group_stock_view_cost" class="oe_stat_button" string="Accounting Entries" type="object"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_form_mw_stock_account_inherit_mw_account" model="ir.ui.view">
+        <field name="name">stock.move.form.mn.stock.account.no.picking.mw.account</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="price_unit" readonly="1" groups="mw_stock_account.group_stock_view_cost"/>
+            </field>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_get_account_moves" icon="fa-usd" groups="mw_stock_account.group_stock_view_cost" class="oe_stat_button" string="Accounting Entries" type="object"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_template_property_form_mw_stock_account" model="ir.ui.view">
+            <field name="name">product.template.stock.property.form.inherit.mw.stock.account</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                     <attribute name="groups">mw_stock_account.group_stock_view_cost</attribute>
+                     <attribute name="readonly">1</attribute>
+                 </xpath>
+            </field>
+    </record>
+
+    <!-- <record id="product_product_normal_form_view_inherit_mw_stock_account" model="ir.ui.view">
+            <field name="name">product.product.normal.form.view.inherit.mw.stock.account</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="groups">mw_stock_account.group_stock_view_cost</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+    <record id="product_normal_form_view_inherit_mw" model="ir.ui.view">
+        <field name="name">product.normal.form.view.inherit.mw</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="standard_price" readonly="1" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}" attrs="{'invisible': [('product_variant_count', '=', 1)],'readonly': True}" groups="mw_stock_account.group_stock_view_cost"/>
+            </field>
+        </field>
+    </record>
+
+     <record id="product_variant_easy_edit_view_inherit_mw" model="ir.ui.view">
+        <field name="name">product.product.product.view.form.easy.inherit.mw</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="groups">mw_stock_account.group_stock_view_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_tree_view_mw_stock_account" model="ir.ui.view">
+        <field name="name">product.product.tree.view.mw.stock_account</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="groups">mw_stock_account.group_stock_view_cost</attribute>
+                </xpath>
+        </field>
+    </record>
+
+    
+    <menuitem 
+        action="stock_account.stock_valuation_layer_action" 
+        id="stock_valuation_layer_action_mw" 
+        parent="stock.menu_warehouse_report" sequence="250" groups="mw_stock_account.group_stock_view_cost"/>
+
+
+    <record model="ir.ui.view" id="view_stock_quant_tree_inherit_mw">
+        <field name="name">stock.quant.tree.inherit.mw</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock_account.view_stock_quant_tree_inherit"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='value']" position="attributes">
+                <attribute name="groups">mw_stock_account.group_stock_view_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_stock_quant_tree_editable_inherit_mw">
+        <field name="name">stock.quant.tree.editable.inherit.mw</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock_account.view_stock_quant_tree_editable_inherit"></field>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='value']" position="attributes">
+                <attribute name="groups">mw_stock_account.group_stock_view_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_move_filter_mw" model="ir.ui.view">
+        <field name="name">account.move.select.mw</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <!-- <field name="product_haih_id" groups="stock.group_stock_user"/> -->
+                <filter string="Агуулахын бичилт" domain="[('stock_move_id', '!=', False)]" name="stock_move_ok"/>
+                <filter string="Агуулахын бичилт хоосон" domain="[('stock_move_id', '=', False)]" name="stock_move_mo"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_mw" model="ir.ui.view">
+        <field name="name">view.account.invoice.filter.mw</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <!-- <field name="product_haih_id" groups="stock.group_stock_user"/> -->
+                <filter string="Агуулахын бичилт" domain="[('stock_move_id', '!=', False)]" name="stock_move_ok" groups="stock.group_stock_user"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="view_account_move_line_eq_form" model="ir.ui.view">
+        <field name="name">account.move.line.extened.eq</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group col="4" groups="stock.group_stock_user">
+                    <field name="stock_picking_id" readonly="1"/>
+                    <field name="stock_move_id" readonly="1"/>
+                </group>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_account_move_line_filter" model="ir.ui.view">
+        <field name="name">account.move.line.search</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <field name="product_id" groups="stock.group_stock_user"/>
+                <filter string="Агуулахын бичилт" domain="[('move_id.stock_move_id', '!=', False)]" name="stock_move_ok" groups="stock.group_stock_user"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_procurement_button_mw_stock" model="ir.ui.view">
+        <field name="name">product.template.stock.property.form.inherit.mw.stock</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <button name= "action_view_stock_move_lines" position="before">
+                <button string="Санхүү бичилт харах"
+                            type="object"
+                            name= "action_view_aml"
+                            class="oe_stat_button" icon="fa-dollar"
+                            groups="mw_stock_account.group_stock_view_cost"/>
+            </button>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_form_view_procurement_button_mw_stock">
+        <field name="name">product.product.procurement.mw.stock</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <button name= "action_view_stock_move_lines" position="before">
+                <button string="Санхүү бичилт харах"
+                            type="object"
+                            name= "action_view_aml"
+                            class="oe_stat_button" icon="fa-dollar"
+                            groups="mw_stock_account.group_stock_view_cost"/>
+            </button>
+        </field>
+    </record>
+
+    <record id="view_account_move_line_filter_mw" model="ir.ui.view">
+        <field name="name">account.move.line.search.mw</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <filter string="Агуулахын бичилт" domain="[('move_id.stock_move_id', '!=', False)]" name="stock_move_ok" groups="stock.group_stock_user"/>
+                <filter string="Агуулахын бичилт биш" domain="[('move_id.stock_move_id', '=', False)]" name="stock_move_no" groups="stock.group_stock_user"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_category_list_view_mw" model="ir.ui.view">
+        <field name="name">product.category.list.mw</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="property_account_income_categ_id" groups="account.group_account_manager" optional="hide"/>
+                <field name="property_account_expense_categ_id" groups="account.group_account_manager" optional="hide"/>
+                <field name="property_stock_account_input_categ_id" groups="account.group_account_manager" optional="hide"/>
+                <field name="property_stock_account_output_categ_id" groups="account.group_account_manager" optional="hide"/>
+                <field name="property_stock_valuation_account_id" groups="account.group_account_manager" optional="hide"/>
+                <field name="property_stock_journal" groups="account.group_account_manager" optional="hide"/>
+                <field name="property_cost_method" groups="account.group_account_manager" optional="hide"/>
+                <field name="property_valuation" groups="account.group_account_manager" optional="hide"/>
+            </field>
+        </field>
+    </record>
+</odoo>

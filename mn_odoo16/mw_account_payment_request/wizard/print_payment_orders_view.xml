@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="print_payment_mw">
+            <field name="name">print.payment.request</field>
+            <field name="model">print.payment.request</field>
+            <field name="arch" type="xml">
+                <form string="хэвлэх">
+                    <group>
+                    	<field name="bank_account_id"/>
+<!--                         <field name="amount" class="oe_inline" string="Дүн"/> -->
+                    </group>
+                    <footer>
+                        <button name="run" string="Татах" type="object" class="btn-primary"/>
+                        <button class="btn-default" special="cancel" string="Цуцлах" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    
+        <act_window 
+            name="Банкны файл татах"
+            res_model="print.payment.request"
+            binding_model="payment.request"
+            view_mode="form"
+            target="new"
+	        view_id = "print_payment_mw"
+            id="action_print_payment_req" /> 
+            
+<!--     <act_window name="Олноор нь батлах"
+        res_model="selected.payment.request.confirm"
+        binding_model="payment.request"
+        view_mode="form"
+		target="new"
+        id="selected_payment_request_confirm_action"/>  -->           
+    </data>
+</odoo>

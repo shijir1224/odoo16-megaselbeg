@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+<t t-name="MwNotification" t-extend="Notification">
+    <t t-jquery=".o_notification_content" t-operation="after">
+        <div class="mt-2">
+            <t t-if="widget.mw_not_id" >
+                <button type="button" 
+                t-att-data-mw_res_id="widget.mw_not_id.mw_res_id"
+                t-att-data-mw_model_model="widget.mw_not_id.mw_model_model"
+                class="btn btn-primary link2showed oe_highlight oe_form oe_button">Уншсан</button>
+                <button type="button" 
+                t-att-data-mw_res_id="widget.mw_not_id.mw_res_id"
+                t-att-data-mw_model_model="widget.mw_not_id.mw_model_model"
+                class="btn btn-link link2event">Дэлгэрэнгүй</button>
+                <button type="button" class="btn btn-link link2recall">Хаах</button>
+            </t>
+        </div>
+    </t>
+</t>
+</template>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_res_partner,res.partner,product.model_res_partner,mw_base.group_mn_base_res_partner_editor,1,1,1,1
+access_base_confirm_wizard,base.confirm.wizard,model_base_confirm_wizard,base.group_user,1,1,1,1
+access_report_exccel_output,report.excel.output,model_report_excel_output,base.group_user,1,1,1,1
+mw_base.access_abstract_report_excel,access_abstract_report_excel,mw_base.model_abstract_report_excel,base.group_user,1,0,0,0

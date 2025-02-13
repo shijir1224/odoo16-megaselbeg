@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="maintenance_call_form_view_power" model="ir.ui.view">
+        <field name="name">maintenance.call.form.power</field>
+        <field name="model">maintenance.call</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_call_form_view"/>
+        <field name="arch" type="xml">
+            <button name="action_create_workorder" position="after">
+                <button name="action_create_eo" class="btn-success" 
+                        string="EO үүсгэх" states="open" type="object" 
+                        groups="mw_power.group_power_dispatcher,mw_power.group_power_engineer" />
+            </button>
+            <field name="workorder_id" position="after">
+                EO: <field name="eo_id" class="oe_inline"/>
+            </field>
+            <button name="action_to_close" position="attributes">
+                <attribute name="states">open,to_wo,to_eo,to_expense</attribute>
+            </button>
+            <field name="technic_id" position="attributes">
+                <attribute name="attrs">{'invisible':[('call_type','not in',['technic','power_exca_portable'])],
+                                    'required':[('call_type','in',['technic','power_exca_portable'])]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

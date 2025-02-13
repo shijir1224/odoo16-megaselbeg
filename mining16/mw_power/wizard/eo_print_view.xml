@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="eo_print_wizard_view" model="ir.ui.view">
+        <field name="name">eo.print.wizard</field>
+        <field name="model">eo.print.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="type" widget="radio"/>
+                    <field name="date" attrs="{'invisible':[('type','!=','day')],'required':[('type','=','day')]}"/>
+                </group>
+                <group col="4">
+                    <field name="date_start" attrs="{'invisible':[('type','!=','day_from')],'required':[('type','=','day_from')]}"/>
+                    <field name="date_end" attrs="{'invisible':[('type','!=','day_from')],'required':[('type','=','day_from')]}"/>
+                </group>
+                <footer>
+                    <button icon="fa-times" special="cancel" string="Хаах" colspan="2"/>
+                    <button name="export_excel" string="Хэвлэх" type="object" attrs="{'invisible':[('type','!=','day')]}" colspan="2" class="btn-success" icon="fa-table"/>
+                    <button name="export_excel_date" string="Хэвлэх Огнооны Хооронд" attrs="{'invisible':[('type','!=','day_from')]}" type="object" colspan="2" class="btn-success" icon="fa-table"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eo_print_wizard" model="ir.actions.act_window">
+        <field name="name">Өдрийн Мэдээ Хэвлэх</field>
+        <field name="res_model">eo.print.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eo_print_wizard_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

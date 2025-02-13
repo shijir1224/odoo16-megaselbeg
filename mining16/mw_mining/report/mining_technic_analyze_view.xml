@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <!-- Technic -->
+        <record id="view_mining_report_technic_analyze_tree" model="ir.ui.view">
+            <field name="name">report.mining.technic.analyze.tree</field>
+            <field name="model">report.mining.technic.analyze</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date" optional="show"/>
+                    <field name="branch_id" optional="show"/>
+                    <field name="technic_id" optional="show"/>
+                    <field name="owner_type" optional="show"/>
+                    <field name="technic_type" optional="show"/>
+                    <field name="technic_setting_id" optional="show"/>
+                    <field name="sum_motohour_time" optional="show"/>
+                    <field name="sum_diff_odometer_value" optional="show"/>
+                    <field name="sum_work_time" optional="show"/>
+                    <field name="sum_repair_time" optional="show"/>
+                    <field name="sum_production_time" optional="show"/>
+                    <field name="sum_production" optional="show"/>
+                    <field name="sum_fuel" optional="show"/>
+                    <field name="sum_expense" optional="show"/>
+                    <field name="first_odometer_value" optional="show"/>
+                    <field name="last_odometer_value" optional="show"/>
+                    <!-- <field name="availibility" optional="show"/>
+                    <field name="availibility_hour" optional="show"/>
+                    <field name="utilization" optional="show"/>
+                    <field name="utilization_hour" optional="show"/>
+                    <field name="production" optional="show"/> -->
+                    <field name="last_km" optional="show"/>
+                    <field name="tbbk" optional="show"/>
+                    <field name="is_tbbk" optional="show"/>
+                    <field name="run_day" optional="show"/>
+                    <field name="shift" optional="show"/>
+                    <field name="part" optional="show"/>
+                    <field name="partner_id" optional="show"/>
+                    <field name="daily_entry_id" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mining_report_technic_analyze_graph" model="ir.ui.view">
+            <field name="name">report.mining.technic.analyze.graph</field>
+            <field name="model">report.mining.technic.analyze</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="branch_id" type="row"/>
+                    <field name="technic_id" type="row"/>
+                    <field name="run_day" type="measure"/>
+                    <field name="sum_motohour_time" type="measure"/>
+                    <field name="sum_work_time" type="measure"/>
+                    <field name="sum_production_time" type="measure"/>
+                    <field name="sum_repair_time" type="measure"/>
+                    <field name="sum_production" type="measure"/>
+                    <field name="sum_fuel" type="measure"/>
+                    <field name="sum_expense" type="measure"/>
+                    <field name="first_odometer_value" type="measure"/>
+                    <field name="last_odometer_value" type="measure"/>
+                    <field name="last_km" type="measure"/>
+                    <!-- <field name="availibility" type="measure"/>
+                    <field name="availibility_hour" type="measure"/>
+                    <field name="utilization" type="measure"/>
+                    <field name="utilization_hour" type="measure"/>
+                    <field name="production" type="measure"/> -->
+               </graph>
+            </field>
+        </record>
+
+        <record id="report_mining_technic_analyze_pivot" model="ir.ui.view">
+            <field name="name">report.mining.technic.analyze.pivot</field>
+            <field name="model">report.mining.technic.analyze</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="technic_id" type="row"/>
+                    <field name="sum_diff_odometer_value" type="measure"/>
+                    <field name="sum_production" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="view_mining_report_technic_analyze_search" model="ir.ui.view">
+            <field name="name">report.mining.technic.analyze.search</field>
+            <field name="model">report.mining.technic.analyze</field>
+            <field name="arch" type="xml">
+                <search string="Technic Analysis">
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="technic_id"/>
+                    <field name="technic_type"/>
+                    <field name="technic_setting_id"/>
+                    <field name="owner_type"/>
+                    <filter name="is_tbbk_true" string="ТББК-д орох" domain="[('is_tbbk','=',True)]"/>
+                    <filter name="owner_type_own_asset" string="Эзэмшигч Өөрийн" domain="[('owner_type','=','own_asset')]"/>
+                    <separator/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Project" name="project" context="{'group_by':'branch_id'}"/>
+                        <filter string="Date (day)" name="gr_day" icon="terp-go-today" context="{'group_by':'date:day'}"/>
+                        <filter string="Date (week)" name="gr_week" icon="terp-go-week" context="{'group_by':'date:week'}"/>
+                        <filter string="Date (month)" name="gr_month" icon="terp-go-month" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (quarter)" name="gr_quarter" icon="terp-go-quarter" context="{'group_by':'date:quarter'}"/>
+                        <filter string="Date (year)" name="gr_year" icon="terp-go-year" context="{'group_by':'date:year'}"/>
+                        <filter string="Technic" name="gr_technic" context="{'group_by':'technic_id'}"/>
+                        <filter string="Technic Type" name="gr_technic_type" context="{'group_by':'technic_type'}"/>
+                        <filter string="Owner Type" name="gr_owner_type" context="{'group_by':'owner_type'}"/>
+                        <filter string="Technic Setting" name="gr_technic_setting" context="{'group_by':'technic_setting_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_report_technic_analyze_tree" model="ir.actions.act_window">
+            <field name="name">Technic Analysis</field>
+            <field name="res_model">report.mining.technic.analyze</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="search_view_id" ref="view_mining_report_technic_analyze_search"/>
+            <field name="context">{"search_default_this_month":1}</field>
+            <field name="help"></field>
+        </record>
+        
+
+</odoo>

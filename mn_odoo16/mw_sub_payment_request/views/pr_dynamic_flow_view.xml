@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="dynamic_flow_edit_inherit" model="ir.ui.view">
+		<field name="name">dynamic.flow.form</field>
+		<field name="model">dynamic.flow</field>
+		<field name="inherit_id" ref="mw_dynamic_flow.dynamic_flow_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//group[1]" position="after">
+				<group col="4">
+					<field name="is_cash"/>
+					<field name="is_between_account"/>
+					<field name="is_between_company"/>
+					<field name="is_butsaalt"/>
+					<field name="is_info"/>
+				</group>
+			</xpath>
+		</field>
+	</record>
+</odoo>

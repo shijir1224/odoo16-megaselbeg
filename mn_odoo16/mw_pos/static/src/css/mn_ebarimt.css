@@ -1,0 +1,50 @@
+.mn_eb_radio {
+    width: 15px !important;
+}
+
+.mn_eb_control {
+    margin-right: 18px;
+    font-size: 18px;
+}
+
+.mn_eb_control_reg {
+    text-align: center;
+    font-size: 16px;
+    border: solid 1px #64AF8A !important;
+}
+
+.company-name {
+    text-align: center;
+    font-size: 17px;
+    color: black;
+}
+
+.mn_eb_tax_type {
+    margin: 16px;
+    color: white;
+    font-weight: bold;
+    font-family: "Lato", "Lucida Grande", Helvetica, Verdana, Arial;
+    background-color: #6EC89B !important;
+    border: solid 1px #64AF8A !important;
+}
+
+.mn_eb_tax_name {
+    text-align: center;
+}
+
+.mn_eb_row_div {
+    padding-bottom: 10px;
+}
+
+@media print {
+    .pos .pos-receipt {
+        margin: 0;
+        page-break-before: always !important;
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        border: none !important;
+        font-size: 18px !important;
+        width: 250px !important;
+    }
+}

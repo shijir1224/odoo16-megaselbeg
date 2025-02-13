@@ -1,0 +1,681 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_stock_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-03 01:46+0000\n"
+"PO-Revision-Date: 2023-03-03 01:46+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "1. Тооцоолох"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "2. Эхний үлдэгдэлийн Өртөгийг Тооцоолох"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "3. Шалгах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "4. Зөрүүтэй Хөдөлгөөнийг Олох"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "5. Зөрүүтэй Хөдөлгөөнийг Нэгж өртөг Засах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_account_move
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.stock_picking_form_mw_inherit
+msgid "Account Entry"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_picking__acc_move_count
+msgid "Account Moves Count"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.stock_picking_form_mw_inherit
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_form_mn_inherit
+msgid "Accounting Entries"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__move_id
+msgid "Change move date"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_valuation_layer__company_id
+msgid "Company"
+msgstr "Компани"
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__new_standard_price
+msgid "Cost New"
+msgstr "Өртөг"
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__cost_method
+msgid "Costing Method"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_selected_account_move_create_hand__create_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__create_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__create_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__create_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__create_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__create_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__create_uid
+msgid "Created by"
+msgstr "Үүсгэсэн этгээд"
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_selected_account_move_create_hand__create_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__create_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__create_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__create_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__create_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__create_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_quant_report__currency_id
+msgid "Currency"
+msgstr "Валют"
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__date
+msgid "Date Scheduled"
+msgstr "Товолсон огноо"
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__product_uom_qty
+msgid "Demand"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_line_tree_invoice
+msgid "Disc.%"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_selected_account_move_create_hand__display_name
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__display_name
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__display_name
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__display_name
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__display_name
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__display_name
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_selected_account_move_create_hand__id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.actions.act_window,name:mw_stock_account.action_account_invoice_move_line
+msgid "Invoice Items"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_valuation_layer__account_move_id
+msgid "Journal Entry"
+msgstr "Ажил гүйлгээ"
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_line_tree_invoice
+msgid "Journal Items"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_selected_account_move_create_hand____last_update
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit____last_update
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit____last_update
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line____last_update
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move____last_update
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date____last_update
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_selected_account_move_create_hand__write_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__write_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__write_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__write_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__write_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__write_uid
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_selected_account_move_create_hand__write_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__write_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__write_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__write_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__write_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__write_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_line_tree_invoice
+msgid "Price"
+msgstr "Үнэ"
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_product_product
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_valuation_layer__product_id
+msgid "Product"
+msgstr "Бараа"
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_product_template
+msgid "Product Template"
+msgstr "Барааны загвар"
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__parent_id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__parent_id
+msgid "Resolve"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__first_uld_id
+msgid "Resolve first"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.stock_picking_form_mw_inherit
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_quant_report_tree_mw_stock_account
+msgid "SUM"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "SVL update"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,help:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__date
+msgid "Scheduled date until move is done, then date of actual move processing"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,help:mw_stock_account.field_stock_move_resolve_price_unit__cost_method
+msgid ""
+"Standard Price: The products are valued at their standard cost defined on the product.\n"
+"        Average Cost (AVCO): The products are valued at weighted average cost.\n"
+"        First In First Out (FIFO): The products are valued supposing those that enter the company first will also leave it first.\n"
+"        "
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_move
+msgid "Stock Move"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_stock_account
+#: model:ir.ui.menu,name:mw_stock_account.stock_valuation_layer_action_mw
+msgid "Stock Valuation"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_valuation_layer
+msgid "Stock Valuation Layer"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_move_change_price_unit
+msgid "Stock move change price.unit"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_move_resolve_price_unit_line
+msgid "Stock move resolve price unit line"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_move_resolve_price_unit_stock_move
+msgid "Stock move resolve price unit stock move"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_move_resolve_price_unit
+msgid "Stock move resolve price.unit"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_quant_report
+msgid "Stock quant report mw"
+msgstr "Барааны дэлгэрэнгүй тайлан"
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_line_tree_invoice
+msgid "Subtotal"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,help:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__product_uom_qty
+msgid ""
+"This is the quantity of products from an inventory point of view. For moves "
+"in the state 'done', this is the quantity of products that were actually "
+"moved. For other moves, this is the quantity of product that is planned to "
+"be moved. Lowering this quantity does not generate a backorder. Changing "
+"this quantity on assigned moves affects the product reservation, and should "
+"be done with care."
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_line_tree_invoice
+msgid "Total"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_picking
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__picking_id
+msgid "Transfer"
+msgstr "Шилжүүлэг"
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_line_tree_invoice
+msgid "UoM"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_form_mw_stock_account_inherit
+msgid "Valuation"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_form
+msgid "View Lines"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_form
+msgid "View invoice Lines"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_selected_account_move_create_hand
+msgid "selected account move create han"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_move_update_date
+msgid "stock.move.update.date"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model,name:mw_stock_account.model_stock_price_unit_change_log
+msgid "stock.price.unit.change.log"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_account_bank_statement_line__stock_picking_id
+#: model:ir.model.fields,field_description:mw_stock_account.field_account_move__stock_picking_id
+#: model:ir.model.fields,field_description:mw_stock_account.field_account_payment__stock_picking_id
+msgid "Агуулахын баримт"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_account_invoice_filter_mw
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_account_move_filter_mw
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_account_move_line_filter
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_account_move_line_filter_mw
+msgid "Агуулахын бичилт"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__product_id
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__product_id
+msgid "Бараа"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_account_bank_statement_line__product_haih_id
+#: model:ir.model.fields,field_description:mw_stock_account.field_account_move__product_haih_id
+#: model:ir.model.fields,field_description:mw_stock_account.field_account_payment__product_haih_id
+msgid "Бараанд хайх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__move_id
+msgid "Барааны хөдөлгөөн"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.actions.act_window,name:mw_stock_account.action_stock_move_resolve_price_unit
+#: model:ir.ui.menu,name:mw_stock_account.mn_stock_move_resolve_price_unit_menu
+msgid "Барааны хөдөлгөөний нэгж өртөг Засах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.actions.act_window,name:mw_stock_account.action_stock_move_change_price_unit
+#: model:ir.ui.menu,name:mw_stock_account.mn_stock_move_change_price_unit_menu
+msgid "Барааны хөдөлгөөний нэгж өртөг өөрчлөх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:res.groups,name:mw_stock_account.group_stock_move_change_price_unit
+msgid "Барааны хөдөлгөөний өртөг өөрчлөх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__stock_move_ids
+msgid "Барааны хөдөлөгөөний IDs"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:res.groups,name:mw_stock_account.group_stock_view_cost
+msgid "Барааны өртөг харах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_picking_withcarrier_out_form_change_date
+msgid "Батлагд Солих ONLY"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_picking_withcarrier_out_form_change_date
+msgid "Батлагдсан Огноог Товлогдсоноор Солих"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:res.groups,name:mw_stock_account.group_stock_change_date_done
+msgid "Батлагдсан Огноог Товлогдсоноор Солих "
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_quant_report__bohir_ashig
+msgid "Бохир ашиг"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "Бүх мөр утгах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_picking_withcarrier_out_form_change_date
+msgid "ДАРАА НЬ БАРАА БҮРЭЭР СОЛИОРОЙ.Огноо Өөрлөхдөө Итгэлтэй Байна уу!!!"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_quant_report__zarah_niit_price
+msgid "Зарах нийт үнэ"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_quant_report__zarah_negj_price
+msgid "Зарах нэгж үнэ"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_picking__resolve_price_unit_ids
+msgid "Засагдсан мөрүүд"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__stock_move_fisrt_ids
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__stock_move_ids
+msgid "Засах Хөдөлгөөн"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "Засах Хөдөлгөөнүүд"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_picking_withcarrier_out_form_change_date
+msgid "Засвар"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_price_unit_change_log__company_id
+msgid "Компани"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_quant_report__value_sum
+msgid "Нийт Өртөг"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move__niit_urtug
+msgid "Нийт өртөг"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__price_unit
+msgid "Нэгж үнэ"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_quant_report__value
+msgid "Нэгж Өртөг"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_change_price_unit_form
+msgid "Нэгж Өртөг Өөрчлөх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_change_price_unit_form
+msgid "Нэгж Өртөг Өөрчлөх FORCE"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_change_price_unit_form
+msgid "Нэгж Өртөг Өөрчлөхдөө Итгэлтэй байна уу ЗАЛУУ!!!"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__date
+msgid "Огноо"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.stock_picking_internal_search_change_date
+msgid "Огноо Гараар зассан"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__is_change_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_picking__is_change_date
+msgid "Огноо гараар өөрчилсөн эсэх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.stock_move_update_date_form
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_form_mw_stock_account_inherit
+msgid "Огноо солих"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.stock_move_update_date_form
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_picking_withcarrier_out_form_change_date
+msgid "Огноо Өөрлөхдөө Итгэлтэй Байна уу!!!"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "Орлого PO Үйлдвэрлэл"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__stock_move_id_in
+msgid "Орлогын Хөдөлгөөн"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__line_in_ids
+msgid "Орлогын баримтууд"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__st_end_date
+msgid "СТ дуусах огноо"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit__st_start_date
+msgid "СТ эхлэх огноо"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_move_form_mw_stock_account_inherit
+msgid "Санхүү Бичилт Үүсээгүйг Үүсгэх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.product_form_view_procurement_button_mw_stock
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.product_template_form_view_procurement_button_mw_stock
+msgid "Санхүү бичилт харах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_picking_withcarrier_out_form_change_date
+msgid "Санхүү бичилт үүсгэх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "Санхүү бичилтүүд дахин үүсгэх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "Санхүү бичилтүүд устгах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.actions.act_window,name:mw_stock_account.selected_account_move_create_hand_action
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.selected_account_move_create_hand_record
+msgid "Санхүү гүйлгээ үүсгэх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__product_uom_qty
+msgid "Тоо хэмжээ"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.selected_account_move_create_hand_record
+msgid "Хаах"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__price_unit
+msgid "Хуучин Нэгж Үнэ"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_quant_report__value_old
+msgid "Хуучин Өртөг"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__stock_move_id
+msgid "Хөдөлгөөн"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__is_updated
+msgid "Шинэчлэгдсэн Эсэх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_stock_move__new_price_unit
+msgid "Шинэчлэх Нэгж Үнэ"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__shinechleh_price_unit
+msgid "Шинэчлэх өртөг"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.view_stock_move_resolve_price_unit_form
+msgid "Эхний үлдэгдэл 2 өөр өртөгөөр зөрүүтэй"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__umnuh_price_unit_all
+msgid "Өмнөх нийт үнэ"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__umnuh_price_unit
+msgid "Өмнөх нэгж өртөг"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_resolve_price_unit_line__umnuh_qty
+msgid "Өмнөх үлдэгдэл"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.product_normal_form_view_inherit
+msgid "Өртгийн Өөрчлөлт Түүх"
+msgstr ""
+
+#. module: mw_stock_account
+#: model_terms:ir.ui.view,arch_db:mw_stock_account.quant_report_search_view_mw_stock_account
+msgid "Өртөг нь зарах үнээс их"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_product_product__cost_change_log_ids
+msgid "Өртөгийн өөрчлөлт"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__change_desc
+msgid "Өөрлчлөлтийн Тайлбар"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_update_date__change_date
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_picking__change_date
+msgid "Өөрчлөх Огноо"
+msgstr ""
+
+#. module: mw_stock_account
+#: model:ir.model.fields,field_description:mw_stock_account.field_stock_move_change_price_unit__change_price_unit
+msgid "Өөрчлөх Үнэ"
+msgstr ""

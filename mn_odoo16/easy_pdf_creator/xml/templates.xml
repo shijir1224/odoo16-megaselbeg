@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress CheckTagEmptyBody -->
+<odoo>
+    <data>
+        <!-- Backend assets -->
+        <!-- <template id="assets_backend_inherit" name="custom bar assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/easy_pdf_creator/static/js/easy_print.js"></script>
+            </xpath>
+        </template> -->
+    </data>
+</odoo>

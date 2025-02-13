@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_quant_find,stock.quant.find,mw_stock_quant_find.model_stock_quant_find,mw_stock_quant_find.group_stock_quant_find,1,1,1,1
+access_stock_quant_find_line,stock.quant.find.line,mw_stock_quant_find.model_stock_quant_find_line,mw_stock_quant_find.group_stock_quant_find,1,1,1,1
+access_stock_quant_find_no_move_line,stock.quant.find.no.move.line,mw_stock_quant_find.model_stock_quant_find_no_move_line,mw_stock_quant_find.group_stock_quant_find,1,1,1,1

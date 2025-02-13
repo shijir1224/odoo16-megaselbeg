@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_first_balance,first.balance,mw_stock_first_balance.model_first_balance,stock.group_stock_manager,1,1,1,1
+access_first_balance_line,first.balance.line,mw_stock_first_balance.model_first_balance_line,stock.group_stock_manager,1,1,1,1
+
+
+access_zarlaga_import,zarlaga.import,mw_stock_first_balance.model_zarlaga_import,stock.group_stock_manager,1,1,1,1
+access_zarlaga_import_line,zarlaga.import.line,mw_stock_first_balance.model_zarlaga_import_line,stock.group_stock_manager,1,1,1,1

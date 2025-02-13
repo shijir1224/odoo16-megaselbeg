@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for -->
+    <!-- <record id="seq_sale_contract" model="ir.sequence">
+        <field name="name">Sales Master Plan</field>
+        <field name="code">mw.sales.contract</field>
+        <field name="prefix">SP%(y)s-</field>
+        <field name="reset_monthly" eval='True'/>
+        <field name="padding">3</field>
+    </record> -->
+
+	<!-- Sales contract -->
+	<record id="sales_contract_filter_view" model="ir.ui.view">
+        <field name="name">mw.sales.contract.filter</field>
+        <field name="model">mw.sales.contract</field>
+        <field name="arch" type="xml">
+            <search string="Sales contract">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="partner_id"/>
+                <filter string="Draft" domain="[('state','=','draft')]" name="draft"/>
+                <filter string="Confirmed" domain="[('state','in',['confirmed'])]" name="confirmed"/>
+                <filter name="active" string="Идэвхитэй" 
+                    domain="[('date_start','&lt;=',time.strftime('%%Y-%%m-%%d')),
+                             ('date_end','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'partner_id'}" string="Partner" name="partner"/>
+                    <filter context="{'group_by':'state'}" string="State" name="state"/>
+                    <filter string="Date" context="{'group_by':'date_start'}" name="date"/>
+        	</group>
+            </search>
+        </field>
+    </record>
+
+    <!-- MAIN FORM -->
+	<record id="sales_contract_form_view" model="ir.ui.view">
+		<field name="name">mw.sales.contract.form</field>
+		<field name="model">mw.sales.contract</field>
+		<field name="arch" type="xml">
+            <form string="Sales plan">
+                <header>
+                    <button name="action_to_draft" string="Draft"
+                        type="object" states="confirmed"
+                        groups="mw_sales_contract_promotion.group_sale_contract_promotion_validator"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Approve"  
+                        states="draft" type="object" 
+                        groups="mw_sales_contract_promotion.group_sale_contract_promotion_validator"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" readonly="1" />
+                </header>
+       		<sheet>
+                <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                        <field name="active" invisible="1"/>
+                    </div>
+                    <group col="4">
+                        <field name="partner_id" options="{'no_create': True}"/>
+                        <field name="contract_type"/>
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+
+                        <field name="discount_percent"
+                            attrs="{'invisible':[('contract_type','in',['total_sales','total_payments'])]}"/>
+                        <field name="date_contract"/>
+
+                        <field name="get_gift_cart_amount"
+                            attrs="{'invisible':[('contract_type','in',['per_payment','per_sales','loan_contract'])]}"/>
+                    </group>
+                    <group col="4">
+                        <field name="description"/>  
+                        <field name="attachment_ids" widget="many2many_binary" />
+                    
+                        <field name="user_id" />
+                        <field name="validator_id" />
+                    </group>
+                    <group col="4" attrs="{'invisible':[('state','!=','draft')]}">
+                        <label string="Код, Barcode, Төрөл(percent,amount), Хувь(Үнэ)" colspan="4" 
+                            style="color:red" for="excel_data"/>
+                        <field name="excel_data"/>
+                        <button name="import_from_excel" string="Excel-с импортлох"  
+                            states="draft" type="object" 
+                            icon="fa-file-excel-o" colspan="1"/>
+                    </group>
+                <notebook>
+                    <page string="Conditions" attrs="{'invisible':[('contract_type','not in',['total_sales','total_payments','per_sales'])]}">
+                        <field name="pricelist_line" nolabel="1" widget="one2many_list"
+                            mode="tree" >
+                            <tree string="Lines" class="table_header_freeze">
+                                <field name="name"/>
+                                <field name="pricelist_type"/>
+                                <field name="condition_type"/>
+                                <field name="condition_min"/>
+                                <field name="condition_max"/>
+                                <field name="discount_percent"/>
+                                <field name="fixed_price"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                            <form>
+                                <group col="4">
+                                    <field name="name"/>
+                                    <field name="condition_type"/>
+
+                                    <field name="condition_min"/>
+                                    <field name="condition_max"/>
+                                </group>
+                                <separator string="Discount"/>
+                                <group>
+                                    <group>
+                                        <field name="pricelist_type"/>
+                                        <field name="brand_ids"  options="{'no_create':True}"
+                                            widget="many2many_tags" 
+                                            attrs="{'invisible':[('pricelist_type','!=','brand')],
+                                                    'required':[('pricelist_type','=','brand')]}"/>
+                                        <field name="category_ids" options="{'no_create':True}"
+                                            widget="many2many_tags" 
+                                            attrs="{'invisible':[('pricelist_type','!=','category')],
+                                                    'required':[('pricelist_type','=','category')]}"/>
+                                        <field name="product_id" colspan="4"
+                                             options="{'no_create':True}"
+                                            attrs="{'invisible':[('pricelist_type','!=','product')],
+                                                    'required':[('pricelist_type','=','product')]}"/>
+                                        <newline/>
+                                        <field name="discount_type"/>
+                                        <field name="discount_percent"
+                                            attrs="{'invisible':[('discount_type','!=','percent')],
+                                             'required':[('discount_type','=','percent')]}"/>
+                                        <field name="fixed_price"
+                                            attrs="{'invisible':[('discount_type','!=','amount')],
+                                             'required':[('discount_type','=','amount')]}"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="sales_contract_tree_view" model="ir.ui.view">
+        <field name="name">mw.sales.contract.tree</field>
+        <field name="model">mw.sales.contract</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='confirmed'"
+                  decoration-danger="state == 'confirmed' and date_end and date_end &lt; current_date"
+                  class="table_header_freeze">
+                <field name="name"/>
+                <field name="contract_type"/>
+                <field name="partner_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="validator_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_sales_contract'>
+        <field name="name">Sales contract</field>
+        <field name="res_model">mw.sales.contract</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('sales_contract_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('sales_contract_form_view')})]"/>
+    </record>
+
+    <!-- CRON -->
+    <record id="cron_check_contract_date_view" model="ir.cron">
+        <field name="name">Гэрээний хугацаа шалгах - КРОН</field>
+        <field name="model_id" ref="model_mw_sales_contract"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._check_expire_date()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+</odoo>

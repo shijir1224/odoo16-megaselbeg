@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Sequences for  -->
+	 <record id="sequence_env_approved" model="ir.sequence">
+        <field name="name">Env Approved</field>
+        <field name="code">env.approved</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record model="ir.ui.view" id="env_approved_tree">
+        <field name="name">env.approved.tree</field>
+        <field name="model">env.approved</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Баталгаажуулах">
+                <field name="name" optional="hide"/>
+                <field name="mining_location"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="last_state_time"/>
+                <field name="create_uid" string='Бүртгэсэн'/>
+                <field name="flow_line_id" decoration-success="state == 'done' " decoration-info="state == 'draft'" decoration-warning="state not in ['draft','done']" widget="badge"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="env_approved_form">
+        <field name="name">env.approved.form</field>
+        <field name="model">env.approved</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'not in', ['cancel','done']),('flow_id','=',False)]}"/>
+				</header>
+                <sheet>
+                    <group>
+						<field name="state" invisible="1"/>
+						<field name="flow_line_next_id" invisible="1"/>
+						<field name="flow_line_back_id" invisible="1"/>
+						<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+						<field name="is_not_edit" invisible="1"/>
+					</group>
+                    <group col="3">
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="flow_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}" required="1"/>
+                        </group>
+                        <group>
+                            <field name="mining_location" options="{'no_create':True, 'no_open': True}" readonly="1"/>
+                        </group>
+                    </group>
+                    <group col="3">
+                        <group>
+                            <field name="start_date" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+                        </group>
+                        <group>
+                            <field name="end_date" readonly="0" force_save="1"/>
+                        </group>
+                        <group>
+                            <button name="find" string="Хайх" type="object" class="btn-warning" attrs="{'invisible':['|',('is_not_edit','=',True),('state','=','done')]}"/>
+                        </group>
+                    </group>
+                    
+                    <hr/>
+                    <separator string="Сургалт" colspan="2"/>
+                    <field name="training_ids" nolabel="1">
+                        <tree string="Сургалт" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="training_date" readonly="1"/>
+                            <field name="topic_id" readonly="1"/>
+                            <field name="trainee_type" readonly="1"/>
+                            <field name="number_of_trainees" sum="Нийт" readonly="1"/>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Үл тохирол" colspan="2"/>
+                    <field name="inspection_ids" nolabel="1">
+                        <tree string="Үл тохирол" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="inspection_date" readonly="1"/>
+                            <field name="inspector_category" readonly="1"/>
+                            <field name="inspector" readonly="1"/>
+                            <field name="inspection_type" readonly="1"/>
+                            <field name="manager_comment" readonly="1"/>
+                            <field name="progress_rate" widget="progressbar" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Ус ашиглалт" colspan="2"/>
+                    <field name="water_ids" nolabel="1">
+                        <tree string="Ус ашиглалт" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                            <field name="water_type" readonly="1"/>
+                            <field name="amount" sum="Total" readonly="1"/>
+                            <field name="accumulated_amount" sum="Total Accumulated" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Хог хаягдал" colspan="2"/>
+                    <field name="waste_ids" nolabel="1">
+                        <tree string="Хог хаягдал" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="waste_date" readonly="1"/>
+                            <field name="waste_category" readonly="1"/>
+                            <field name="waste_type" readonly="1"/>
+                            <field name="amount" sum="Total Amount" readonly="1"/>
+                            <field name="reused_amount" sum="Total Reused" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Нөхөн сэргээлт" colspan="2"/>
+                    <field name="rehab_line_ids" nolabel="1">
+                        <tree string="Нөхөн сэргээлт" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="rehab_location_id" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                            <field name="rehab_type" readonly="1"/>
+                            <field name="rehab_category" readonly="1"/>
+                            <field name="amount" sum="Нийт" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Газар хөндөлт" colspan="2"/>
+                    <field name="rehab_land_ids" nolabel="1">
+                        <tree string="Газар хөндөлт" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="rehab_location_id" readonly="1"/>
+                            <field name="approved_date" readonly="1"/>
+                            <field name="used_date" readonly="1"/>
+                            <field name="dedication" readonly="1"/>
+                            <field name="amount" sum="Нийт" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Ан амьтан" colspan="2"/>
+                    <field name="animal_ids" nolabel="1">
+                        <tree string="Ан амьтан" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                            <field name="animal" readonly="1"/>
+                            <field name="number" sum="Нийт" readonly="1"/>
+                            <field name="gender" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Бараа материал, Үйлчилгээний зардал" colspan="2"/>
+                    <field name="expense_ids" nolabel="1">
+                        <tree string="Бараа материал, Үйлчилгээний зардал" delete='false' create='false' editable='bottom'>
+                            <field name="mining_location" readonly="1"/>
+                            <field name="expense_category" readonly="1"/>
+                            <field name="expense_type" readonly="1"/>
+                            <field name="expense_date" readonly="1"/>
+                            <field name="amount" sum="Нийт" readonly="1"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="payment_state" readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Ногоон байгууламжийн арчилгаа" colspan="2"/>
+                    <field name="garden_ids" nolabel="1">
+                        <tree string="Ногоон байгууламжийн арчилгаа" delete='false' create='false' editable='bottom'>
+                            <field name="date"/>
+                            <field name="garden_location"/>
+                            <field name="garden_activity"/>
+                            <field name="amount"/>
+                            <field name="uom"/>
+                            <field name="user_id"  options="{'no_create': True}" string='Бүртгэсэн'/>
+                            <field name="note"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <separator string="Мод бутны тооллого" colspan="2"/>
+                    <field name="tree_ids" nolabel="1">
+                        <tree string="Мод бутны тооллого" delete='false' create='false' editable='bottom'>
+                            <field name="date"/>
+                            <field name="season"/>
+                            <field name="tree"/>
+                            <field name="number"/>
+                            <field name="number"/>
+                            <field name="delete_tree"/>
+                            <field name="new_number"/>
+                            <field name="total_number"/>
+                            <field name="create_uid" string='Бүртгэсэн' readonly="1"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-info="state == 'draft'" widget="badge" optional="show" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="is_not_approve" optional="hide" readonly="0"/>
+                        </tree>
+                    </field>
+                    <field name="attachment_ids" widget="many2many_binary"/>
+                    <notebook>
+                        <page string="Түүх">
+                            <field name="last_state_time"/>
+                            <field name="history_ids" readonly="1" nolabel="1" colspan="4">
+                                <tree>
+                                    <field name="user_id"/>
+                                    <field name="date"/>
+                                    <field name="flow_line_id"/>
+                                    <field name="spend_time" sum="Нийт цаг" widget="float_time"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="env_approved_pivot" model="ir.ui.view">
+        <field name="name">env.approved.pivot</field>
+        <field name="model">env.approved</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Water Summary">
+                <field name="water_type" type="row" />
+                <field name="year" type="col" />
+                <field name="accumulated_amount" type="measure"/>
+            </graph>
+        </field>
+    </record> -->
+
+    <record id="env_approved_search" model="ir.ui.view">
+        <field name="name">env.approved.search</field>
+        <field name="model">env.approved</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group>
+                    <field name="name"/>
+                    <field name="mining_location"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="create_uid" string='Бүртгэсэн'/>
+                </group>
+                <group expand="0" string="Бүлэглэх">
+                    <filter name="group_mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+                    <filter name="group_state" string="Төлөв" context="{'group_by':'state'}"/>
+					<filter string="Он" name='group_year' domain="[]" context="{'group_by':'start_date:year'}"/>
+					<filter string="Сар" name='group_month' domain="[]" context="{'group_by':'start_date:month'}"/>
+					<filter string="Өдөр" name='group_day' domain="[]" context="{'group_by':'start_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_env_approved" model="ir.actions.act_window">
+        <field name="name">Баталгаажуулалт</field>
+        <field name="res_model">env.approved</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="view_id" ref="env_approved_tree"/>
+        <field name="search_view_id" ref="env_approved_search"/>
+        <field name="context">{'search_default_group_mining_location': 1, 'search_default_group_state': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+        <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Энд дарж бүртгэлээ хийнэ үү.
+                </p>
+        </field>
+    </record>
+
+
+    <record id="dynamic_flow_form_inherit_env" model="ir.ui.view">
+        <field name="name">dynamic.flow.form.inherit.env</field>
+        <field name="model">dynamic.flow</field>
+        <field name="inherit_id" ref="mw_dynamic_flow.dynamic_flow_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position='after'>
+                <field name="mining_location_id" options="{'no_create':True}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record model="ir.ui.view" id="env_parameter_tree">
+            <field name="name">env.parameter.tree</field>
+            <field name="model">env.parameter</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Параметрүүд">
+                    <field name="type"/>
+                    <field name="name"/>
+                    <field name="category"/>
+                    <field name="is_active"/>
+                    <field name="price" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="env_parameter_form">
+            <field name="name">env.parameter.form</field>
+            <field name="model">env.parameter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar m-0" force_save="1"/>
+                        <group col="4">
+                            <field name="type"/>
+                            <field name="name"/>
+                            <field name="category" 
+                                attrs="{'invisible':[('type', 'not in', ('waste_type','rehab_type','monitor_type','animal','expense_type','garden_activity'))], 'required':[('type','in',('waste_type','rehab_type','monitor_type','animal','expense_type','garden_activity'))]}"/>
+                            <field name="is_active" widget="radio"/>
+                            <field name="price" attrs="{'invisible':[('type','!=','dedication')]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="env_parameter_search" model="ir.ui.view">
+            <field name="name">env.parameter.search</field>
+            <field name="model">env.parameter</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group>
+                        <field name="name"/>
+                    </group>
+
+                    <group expand="0" string="Бүлэглэх">
+                        <filter name="type" string="Төрөл" context="{'group_by':'type'}"/>
+                        <filter name="is_active" string="Төлөв" context="{'group_by':'is_active'}"/>
+                    </group>
+                    <filter name="active" string="Идэвхтэй төлөв" domain="[('is_active','=', 'active')]"/>
+                    <filter name="training" string="Сургалтын сэдэв" domain="[('type','=', 'training')]"/>
+                    <filter name="violation" string="Зөрчил дутагдал" domain="[('type','=', 'violation')]"/>
+                    <filter name="location" string="Зөрчлийн байршил" domain="[('type','=', 'location')]"/>
+                    <filter name="dedication" string="Усны зориулалт" domain="[('type','=', 'dedication')]"/>
+                    <filter name="source" string="Усны эх үүсвэр" domain="[('type','=', 'source')]"/>
+                    <filter name="waste_type" string="Хог хаягдлын төрөл" domain="[('type','=', 'waste_type')]"/>
+                    <filter name="rehab_type" string="Нөхөн сэргээлтийн төрөл" domain="[('type','=', 'rehab_type')]"/>
+                    <filter name="rehab_location" string="Нөхөн сэргээлтийн байршил"
+                            domain="[('type','=', 'rehab_location')]"/>
+                    <filter name="animal" string="Ан амьтан" domain="[('type','=', 'animal')]"/>
+                    <filter name="monitor_type" string="Орчны хяналт шинжилгээ"
+                            domain="[('type','=', 'monitor_type')]"/>
+                    <filter name="expense_type" string="Бараа материал, Үйчилгээний төрөл" domain="[('type','=', 'expense_type')]"/>
+                    <filter name="garden_activity" string="Ногоон байгууламжийн арчилгаа"
+                            domain="[('type','=', 'garden_activity')]"/>
+                    <filter name="tree" string="Мод бут" domain="[('type','=', 'tree')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_env_parameter" model="ir.actions.act_window">
+            <field name="name">Параметрүүд</field>
+            <field name="res_model">env.parameter</field>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="env_parameter_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Энд дарж сарын мэдээний параметерүүдээ оруулна уу.
+                </p>
+            </field>
+        </record>
+
+        <!-- Зөрчил дутагдлын төрөл модуль begins here-->
+        <record model="ir.ui.view" id="env_violation_subtype_tree">
+            <field name="name">env.violation.subtype</field>
+            <field name="model">env.violation.subtype</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Зөрчил дутагдал">
+                    <field name="violation_subtype"/>
+                    <field name="violation_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="env_violation_subtype_form">
+            <field name="name">env.violation.subtype.form</field>
+            <field name="model">env.violation.subtype</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="2">
+                        <field name="violation_id"/>
+                        <field name="violation_subtype"/>
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="env_violation_subtype_search" model="ir.ui.view">
+            <field name="name">search.env.violation.subtype</field>
+            <field name="model">env.violation.subtype</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group>
+                        <field name="violation_subtype"/>
+                        <field name="violation_id"/>
+                    </group>
+
+                    <group expand="0" string="Бүлэглэх">
+                        <filter name="violation_id" string="Төрөл" context="{'group_by':'violation_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_violation_subtype" model="ir.actions.act_window">
+            <field name="name">Зөрчил дутагдлын төрөл</field>
+            <field name="res_model">env.violation.subtype</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="env_violation_subtype_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Энд дарж Зөрчил дутагдлын төрлүүдээ оруулна уу.
+                </p>
+            </field>
+        </record>
+
+        <!-- Зөрчил дутагдлын шалтгаан модуль begins here-->
+        <record model="ir.ui.view" id="env_violation_reason_tree">
+            <field name="name">env.violation.reason</field>
+            <field name="model">env.violation.reason</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Зөрчил дутагдал гарсан шалтгаан">
+                    <field name="reason"/>
+                    <field name="violation_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="env_violation_reason_form">
+            <field name="name">env.violation.reason.form</field>
+            <field name="model">env.violation.reason</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="2">
+                        <field name="violation_id"/>
+                        <field name="reason"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="env_violation_reason_search" model="ir.ui.view">
+            <field name="name">search.env.violation.reason</field>
+            <field name="model">env.violation.reason</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group>
+                        <field name="reason"/>
+                        <field name="violation_id"/>
+                    </group>
+
+                    <group expand="0" string="Бүлэглэх">
+                        <filter name="violation_id" string="Төрөл" context="{'group_by':'violation_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_violation_reason" model="ir.actions.act_window">
+            <field name="name">Зөрчил дутагдлын шалтгаан</field>
+            <field name="res_model">env.violation.reason</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="env_violation_reason_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Энд дарж Зөрчил дутагдлын шалтгааныг оруулна уу.
+                </p>
+            </field>
+        </record>
+
+         <!-- Зөрчил дутагдлын хариу арга хэмжээ модуль begins here-->
+        <record model="ir.ui.view" id="env_violation_response_tree">
+            <field name="name">env.violation.response</field>
+            <field name="model">env.violation.response</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Зөрчил дутагдалд авах хариу арга хэмжээ">
+                    <field name="response"/>
+                    <field name="violation_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="env_violation_response_form">
+            <field name="name">env.violation.response.form</field>
+            <field name="model">env.violation.response</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="2">
+                        <field name="violation_id"/>
+                        <field name="response"/>
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="env_violation_response_search" model="ir.ui.view">
+            <field name="name">search.env.violation.response</field>
+            <field name="model">env.violation.response</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group>
+                        <field name="response"/>
+                        <field name="violation_id"/>
+                    </group>
+
+                    <group expand="0" string="Бүлэглэх">
+                        <filter name="violation_id" string="Төрөл" context="{'group_by':'violation_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_violation_response" model="ir.actions.act_window">
+            <field name="name">Зөрчил дутагдалд авах хариу арга хэмжээ</field>
+            <field name="res_model">env.violation.response</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="env_violation_response_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Энд дарж Зөрчил дутагдлыг арилгах хариу арга хэмжээг оруулна уу.
+                </p>
+            </field>
+        </record>
+
+</odoo>

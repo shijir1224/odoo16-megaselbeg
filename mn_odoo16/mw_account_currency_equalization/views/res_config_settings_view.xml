@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Res config add currency equalization settings -->
+    <record id="view_res_config_settings_form_inherit_currency_equalization" model="ir.ui.view">
+        <field name="name">view.res.config.settings.form.inherit.currency.equalization</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="default_accounts" position="after">
+                <div id="exchange_equation_settings">
+                    <h2>Equalize Currency Rate</h2>
+                    <div class="row mt16 o_settings_container" name="exchange_equation" attrs="{'invisible': [('group_multi_currency', '=', False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <label for="exchange_equation_journal_id" class="col-lg-3 o_light_label"/>
+                            <field name="exchange_equation_journal_id" options="{'no_create': True}"/>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <label for="exchange_equation_cashflow_id" class="col-lg-3 o_light_label"/>
+                            <field name="exchange_equation_cashflow_id" options="{'no_create': True}"/>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <label for="exchange_equation_analytic_account_id" class="col-lg-3 o_light_label"/>
+                            <field name="exchange_equation_analytic_account_id" options="{'no_create': True}"/>
+                        </div>
+                    </div>
+                </div>
+                <div id="exchange_equation_account_settings">
+                    <h2>Equalize Currency Rate</h2>
+                    <div class="row mt16 o_settings_container" name="exchange_equation_account" attrs="{'invisible': [('group_multi_currency', '=', False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <label for="unperformed_exchange_gain_account_id" class="col-lg-3 o_light_label"/>
+                            <field name="unperformed_exchange_gain_account_id" options="{'no_create': True}"/>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <label for="unperformed_exchange_loss_account_id" class="col-lg-3 o_light_label"/>
+                            <field name="unperformed_exchange_loss_account_id" options="{'no_create': True}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

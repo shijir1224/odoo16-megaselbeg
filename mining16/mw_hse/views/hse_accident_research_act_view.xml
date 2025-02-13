@@ -1,0 +1,222 @@
+<odoo>
+
+	<record id="sequence_hse_accident_research_act" model="ir.sequence">
+		<field name="name">HSE accident research act</field>
+		<field name="code">accident.research.act</field>
+		<field name="prefix">ОСА%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+	<record id="view_accident_research_act_form" model="ir.ui.view">
+		<field name="name">hse.accident.research.act.form</field>
+		<field name="model">accident.research.act</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="branch_id" options="{'no_create':True}"/>
+						<field name="company_id" options="{'no_create':True}"/>
+					</group>
+					<group col="3">
+						<group string='Хувийн мэдээлэл'>
+							<field name="partner_id" options="{'no_create':True}"/>
+							<field name="location"/>
+							<field name="is_not_main" widget="boolean_toggle"/>
+							<field name="employee_id" options="{'no_create':True}" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="lname" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="fname" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="date_allocation" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="age" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="gender" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="register" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="live_address" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="living_addsress" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+
+							<field name="lname_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="fname_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="date_allocation_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="age_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="gender_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="register_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="home_id_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="living_addsress_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+						</group>
+						<group string='Ажлын мэдээлэл' >
+							<field name="pos_job" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="levelicate" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="certificate" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+							<field name="start_date" attrs="{'invisible': [('is_not_main', '=', True)]}"/>
+
+							<field name="pos_job_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="levelicate_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="certificate_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+							<field name="start_date_partner" attrs="{'invisible': [('is_not_main', '=', False)]}"/>
+						</group>
+						<group string="Бусад мэдээлэл" >
+							<field name="property_type"/>
+							<field name="pay_day"/>
+							<field name="Social_Security_number"/>
+							<field name="command"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Акт бүртгэл">
+							<group col="3">
+								<group>
+									<field name="work_safe" style="white-space: text-nowrap;"/>
+									<field name="work_safe_check"/>
+									<field name="health_examination"/>
+									<field name="injure_start"/>
+									<field name="work_loctation"/>
+								</group>
+								<group>
+									<field name="injure_limit"/>
+									<field name="injure_number"/>
+									<field name="injure_type"/>
+									<field name="injure_reason"/>
+								</group>
+								<group>
+									<field name="commis_info"/>
+									<field name="commis_decision" required="1"/>
+									<field name="act_done" required="1"/>
+								</group>
+							</group>
+						</page>
+					</notebook>
+					<field name="attachment_ids" widget="many2many_binary"/>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_accident_research_act_tree" model="ir.ui.view">
+		<field name="name">hse.accident.research.act.tree</field>
+		<field name="model">accident.research.act</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="partner_id"/>
+				<field name="location"/>
+				<field name="is_not_main" widget="boolean_toggle"/>
+				<field name="employee_id"/>
+				<field name="lname_partner" optional="hide"/>
+				<field name="property_type"/>
+				<field name="lname" optional="hide"/>
+				<field name="fname" optional="hide"/>
+				<field name="date_allocation" optional="hide"/>
+				<field name="age" optional="hide"/>
+				<field name="gender" optional="hide"/>
+				<field name="register" optional="hide"/>
+				<field name="living_addsress" optional="hide"/>
+				<field name="Social_Security_number" optional="hide"/>
+				<field name="pos_job" optional="hide"/>
+				<field name="levelicate" optional="hide"/>
+				<field name="certificate" optional="hide"/>
+				<field name="start_date" optional="hide"/>
+				<field name="command" optional="hide"/>
+				<field name="pay_day" optional="hide"/>
+				<field name="work_safe" optional="hide"/>
+				<field name="work_safe_check" optional="hide"/>
+				<field name="health_examination" optional="hide"/>
+				<field name="home_id" optional="hide"/>
+				<field name="injure_start" optional="hide"/>
+				<field name="work_loctation" optional="hide"/>
+				<field name="injure_limit" optional="hide"/>
+				<field name="injure_number" optional="hide"/>
+				<field name="injure_type" optional="hide"/>
+				<field name="injure_reason" optional="hide"/>
+				<field name="commis_info" optional="hide"/>
+				<field name="commis_decision" optional="hide"/>
+				<field name="act_done" optional="hide"/>
+				<field name="fname_partner"/>
+				<field name="date_allocation_partner" optional="hide"/>
+				<field name="age_partner" optional="hide"/>
+				<field name="gender_partner" optional="hide"/>
+				<field name="register_partner" optional="hide"/>
+				<field name="home_id_partner" optional="hide"/>
+				<field name="living_addsress_partner" optional="hide"/>
+				<field name="pos_job_partner" optional="hide"/>
+				<field name="levelicate_partner" optional="hide"/>
+				<field name="certificate_partner" optional="hide"/>
+				<field name="start_date_partner" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_accident_research_act_search" model="ir.ui.view">
+		<field name="name">hse.accident.research.act.search</field>
+		<field name="model">accident.research.act</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="partner_id"/>
+				<field name="location"/>
+				<field name="is_not_main" widget="boolean_toggle"/>
+				<field name="employee_id"/>
+				<field name="lname_partner"/>
+				<field name="property_type"/>
+				<field name="lname"/>
+				<field name="fname"/>
+				<field name="date_allocation"/>
+				<field name="age"/>
+				<field name="gender"/>
+				<field name="register"/>
+				<field name="living_addsress"/>
+				<field name="Social_Security_number"/>
+				<field name="pos_job"/>
+				<field name="levelicate"/>
+				<field name="certificate"/>
+				<field name="start_date"/>
+				<field name="command"/>
+				<field name="pay_day"/>
+				<field name="work_safe"/>
+				<field name="work_safe_check"/>
+				<field name="health_examination"/>
+				<field name="home_id"/>
+				<field name="injure_start"/>
+				<field name="work_loctation"/>
+				<field name="injure_limit"/>
+				<field name="injure_number"/>
+				<field name="injure_type"/>
+				<field name="injure_reason"/>
+				<field name="commis_info"/>
+				<field name="commis_decision"/>
+				<field name="act_done"/>
+				<field name="fname_partner"/>
+				<field name="date_allocation_partner"/>
+				<field name="age_partner"/>
+				<field name="gender_partner"/>
+				<field name="register_partner"/>
+				<field name="home_id_partner"/>
+				<field name="living_addsress_partner"/>
+				<field name="pos_job_partner"/>
+				<field name="levelicate_partner"/>
+				<field name="certificate_partner"/>
+				<field name="start_date_partner"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_accident_research_act" model="ir.actions.act_window">
+		<field name="name">Ослын судалгааны акт</field>
+		<field name="res_model">accident.research.act</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_accident_research_act_tree"/>
+	</record>
+
+	<record id="hse_accident_research_act_report" model="ir.actions.report">
+		<field name="name">Ослын судалгааны акт</field>
+		<field name="model">accident.research.act</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">mw_hse.hse_accident_research_act_report</field>
+		<field name="report_file">mw_hse.hse_accident_research_act_report</field>
+		<field name="print_report_name">'Ослын судалгааны акт'</field>
+		<field name="binding_model_id" ref="model_accident_research_act"/>
+		<field name="binding_type">report</field>
+	</record>
+
+</odoo>

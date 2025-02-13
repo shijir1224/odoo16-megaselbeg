@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_retire_request_user,retire.request,model_retire_request,group_retire_request_user,1,1,1,1
+access_retire_request_line_user,retire.request.line,model_retire_request_line,group_retire_request_user,1,1,1,1
+access_retire_approve_description_user,retire.approve.description,model_retire_approve_description,group_retire_request_user,1,1,1,1

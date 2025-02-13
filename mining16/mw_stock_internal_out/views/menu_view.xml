@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+		<menuitem 
+			name="Дотоод зарлагын баримт"
+			id="sub_stock_product_interout_menu" parent="stock.menu_stock_root" sequence="9"/>
+
+		<menuitem parent="sub_stock_product_interout_menu"
+			name="Дотоод зарлагын баримт"
+			id="stock_product_interout_menu_my_confirm" sequence="1"
+			action="action_stock_product_interout_all" />
+
+		<menuitem parent="sub_stock_product_interout_menu"
+			name="Дотоод зарлагын баримт"
+			id="stock_product_interout_menu" sequence="20" 
+			action="action_stock_product_interout_all" />
+</odoo>

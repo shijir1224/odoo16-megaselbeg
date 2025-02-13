@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_stock_quant_report_tree_mw_stock_account_sale">
+        <field name="name">stock.quant.report.tree.stock.account.sale</field>
+        <field name="model">stock.quant.report</field>
+        <field name="inherit_id" ref="mw_stock.view_stock_quant_report_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_uom_id" position="after">
+                <field name="brand_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="quant_report_search_view_inh_stock_sale">
+        <field name="name">stock.quant.report.filter.stock.sale</field>
+        <field name="model">stock.quant.report</field>
+        <field name="inherit_id" ref="mw_stock.quant_report_search_view"/>
+        <field name="arch" type="xml">
+            <field name="location_id" position="after">
+                <field name="brand_id" optional="show"/>
+            </field>
+            <filter name="locationgroup" position="after">
+                <filter string='Брэнд' name="brandgroup" domain="[]" context="{'group_by': 'brand_id'}"/>
+            </filter>    
+        </field>
+    </record>
+</odoo>

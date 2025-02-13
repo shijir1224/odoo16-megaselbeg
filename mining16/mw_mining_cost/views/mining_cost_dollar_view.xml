@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mining_cost_report_dollar_date_tree" model="ir.ui.view">
+            <field name="name">mining.cost.report.date.dollar.tree</field>
+            <field name="model">mining.cost.report.date.dollar</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="branch_id"/>
+                    <field name="technic_id"/>
+                    <field name="sum_m3_sur"/>
+                    <field name="selbeg_amount"/>
+                    <field name="electrical_amount"/>
+                    <field name="tire_amount"/>
+                    <field name="fuel_amount"/>
+                    <field name="oil_amount"/>
+                    <field name="dep_amount"/>
+                    <field name="insurance_amount"/>
+                    <field name="contract_amount"/>
+                    <field name="tax_amount"/>
+                    <field name="indirect_cost_amount"/>
+                    <field name="overhead_cost_amount"/>
+                    <field name="sum_amount"/>
+                    <field name="cost_unit"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mining_cost_report_dollar_date_graph" model="ir.ui.view">
+            <field name="name">mining.cost.report.date.dollar.graph</field>
+            <field name="model">mining.cost.report.date.dollar</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="branch_id" type="row"/>
+                    <field name="technic_id" type="row"/>
+               </graph>
+            </field>
+        </record>
+
+        <record id="mining_cost_report_date_dollar_pivot" model="ir.ui.view">
+            <field name="name">mining.cost.report.date.dollar.pivot</field>
+            <field name="model">mining.cost.report.date.dollar</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="technic_setting_id" type="row"/>
+                    <field name="sum_m3_sur" type="measure"/>
+                     <field name="currency_dollar" type="measure"/>
+                    <field name="hauling_distance" type="measure"/>
+                    <field name="selbeg_amount_cost_unit" type="measure"/>
+                    <field name="electrical_amount_cost_unit" type="measure"/>
+                    <field name="tire_amount_cost_unit" type="measure"/>
+                    <field name="fuel_amount_cost_unit" type="measure"/>
+                    <field name="oil_amount_cost_unit" type="measure"/>
+                    <field name="dep_amount_cost_unit" type="measure"/>
+                    <field name="insurance_amount_cost_unit" type="measure"/>
+                    <field name="contract_amount_cost_unit" type="measure"/>
+                    <field name="tax_amount_cost_unit" type="measure"/>
+                    <field name="indirect_cost_amount_cost_unit" type="measure"/>
+                    <field name="overhead_cost_amount_cost_unit" type="measure"/>
+                    <field name="ancillary_cost_amount_cost_unit" type="measure"/>
+                    <field name="salary_cost_amount_cost_unit" type="measure"/>
+                    <field name="accomodation_cost_amount_cost_unit" type="measure"/>
+                    <!-- <field name="sum_amount" type="measure"/> -->
+                    <field name="cost_unit" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="view_mining_cost_report_dollar_date_search" model="ir.ui.view">
+            <field name="name">mining.cost.report.date.dollar.search</field>
+            <field name="model">mining.cost.report.date.dollar</field>
+            <field name="arch" type="xml">
+                <search string="Technic Analysis">
+                    <field name="technic_id"/>
+                    <field name="technic_setting_id"/>
+                    <field name="technic_type"/>
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="owner_type"/>
+                    <separator/>
+                    <filter name="technic_type_dump" string="Dump" domain="[('technic_type','in',['dump'])]"/>
+                    <separator/>
+                    <filter name="technic_type_exca" string="Excavator" domain="[('technic_type','in',['excavator'])]"/>
+                    <separator/>
+                    <filter name="ok_buteel" string="Production ok" domain="[('sum_m3_sur','>',0)]"/>
+                    <separator/>
+                    <filter name="ok_hauling" string="Hauling distance ok" domain="[('hauling_distance','>',0)]"/>
+                    <separator/>
+                    <filter name="ancillary_ok" string="Ancillary cost" domain="[('ancillary_cost_amount','>',0)]"/>
+                    <filter name="indirect_ok" string="Indirect cost" domain="[('indirect_cost_amount','>',0)]"/>
+                    <filter name="overhead_ok" string="Overhead cost" domain="[('overhead_cost_amount','>',0)]"/>
+
+                    <filter name="selbeg_ok" string="Part cost" domain="[('selbeg_amount','>',0)]"/>
+                    <filter name="electrical_ok" string="Part cost" domain="[('electrical_amount','>',0)]"/>
+                    <filter name="tire_amount_ok" string="Tire cost" domain="[('tire_amount','>',0)]"/>
+                    <filter name="fuel_amount_ok" string="Fuel cost" domain="[('fuel_amount','>',0)]"/>
+                    <filter name="oil_amount_ok" string="Oil cost" domain="[('oil_amount','>',0)]"/>
+                    <filter name="dep_amount_ok" string="Deprecation cost" domain="[('dep_amount','>',0)]"/>
+                    <filter name="insurance_amount_ok" string="Insurance cost" domain="[('insurance_amount','>',0)]"/>
+                    <filter name="contract_amount_ok" string="Contract cost" domain="[('contract_amount','>',0)]"/>
+                    <filter name="tax_amount_cost_ok" string="Tax cost" domain="[('tax_amount','>',0)]"/>
+                    
+                    <separator/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <group expand="1" string="Group By...">
+                        <filter name="gr_tech" string="Technic" context="{'group_by':'technic_id'}"/>
+                        <filter name="gr_tech_sett" string="Technic Setting" context="{'group_by':'technic_setting_id'}"/>
+                        <filter name="gr_tech_type" string="Technic Type" context="{'group_by':'technic_type'}"/>
+                        <filter name="gr_owner_type" string="Owner Type" context="{'group_by':'owner_type'}"/>
+                        <filter name="gr_branch_id" string="Branch" context="{'group_by':'branch_id'}"/>
+                        <filter name="gr_date" string="Date" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_cost_report_dollar_date_tree" model="ir.actions.act_window">
+            <field name="name">Mining BCM Cost Dollar</field>
+            <field name="res_model">mining.cost.report.date.dollar</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="search_view_id" ref="view_mining_cost_report_dollar_date_search"/>
+            <field name="context">{"search_default_this_month":1}</field>
+            <field name="help"></field>
+        </record>
+
+        <menuitem action="action_mining_cost_report_dollar_date_tree" id="menu_mining_cost_report_dollar_date" parent="menu_mining_report_bcm" sequence="9"/>
+
+</odoo>

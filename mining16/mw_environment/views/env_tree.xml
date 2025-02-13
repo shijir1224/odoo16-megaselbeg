@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="env_tree_tree">
+        <field name="name">env.tree.tree</field>
+            <field name="model">env.tree</field>
+            <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Garden Activity"  >
+                <field name="mining_location"/>
+                <field name="year"/>
+                <field name="tree_type"/>
+                <field name="create_uid" string='Бүртгэсэн'/>
+                <field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="env_tree_form">
+        <field name="name">env.tree.form</field>
+        <field name="model">env.tree</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+                    <button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="mining_location" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="year"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="tree_type" widget="selection"/>
+                    </group>
+                    <field name="tree_line_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="date"/>
+                            <field name="season"/>
+                            <field name="tree"/>
+                            <field name="number"/>
+                            <field name="delete_tree"/>
+                            <field name="new_number"/>
+                            <field name="total_number"/>
+                            <field name="user_id"  options="{'no_create': True}"/>
+                            <field name="note"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="env_tree_pivot" model="ir.ui.view">
+        <field name="name">env.tree.pivot</field>
+        <field name="model">env.tree</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Garden Activity">
+                <field name="year" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="env_tree_search" model="ir.ui.view">
+        <field name="name">env.tree.search</field>
+        <field name="model">env.tree</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="mining_location"/>
+                <field name="year"/>
+                <field name="tree_type"/>
+                <field name="create_uid" string='Бүртгэсэн'/>
+                <group expand="0" string="Бүлэглэх">
+                    <filter name="mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+                    <filter name="year" string="Он" domain="[]" context="{'group_by': 'year'}" />
+                    <filter name="tree_type" string="Төрөл" context="{'group_by':'tree_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_env_tree" model="ir.actions.act_window">
+            <field name="name">Мод бутны тооллого</field>
+            <field name="res_model">env.tree</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_id" ref="env_tree_tree"/>
+            <field name="search_view_id" ref="env_tree_search"/>
+            <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                    Энд дарж Мод бутны тооллого бүртгэлээ хийнэ үү.
+                    </p>
+            </field>
+    </record>
+    
+</odoo>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Currency equalization form-->
+	<record id="view_account_currency_equalization_form" model="ir.ui.view">
+	    <field name="name">account.currency.equalization.form</field>
+	    <field name="model">account.currency.equalization</field>
+	    <field name="arch" type="xml">
+	        <form string="Account Equalize Currency Rate">
+				<header>
+					<button name="action_start" states="draft" string="Start" type="object" class="oe_highlight"/>
+					<button name="action_equalize" states="started" string="Equalize" type="object" class="oe_highlight"/>
+					<button name="action_to_draft" states="started,equalized" string="Action to Draft" type="object" groups="account.group_account_manager"/>
+					<field name="state" widget="statusbar" readonly="1"/>
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="open_entries"  type="object" icon="fa-pencil">
+                            <field string="Items" name="entry_count" widget="statinfo" />
+                        </button>
+                    </div>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="type"/>
+							<field name="journal_id" options='{"no_create": True}' domain="[('type','=','general')]"/>
+							<field name="partner_id" options='{"no_create": True}' />
+							<field name="account_id" options='{"no_create": True}' />
+						</group>
+						<group>
+							<field name="company_id" widget='selection' readonly="1" groups="base.group_multi_company"/>
+							<field name="date"/>
+							<field name="currency_id" options='{"no_create": True}'/>
+							<field name="rate"/>
+							<field name="rate_date"/>
+						</group>
+					</group>
+					<notebook>
+						<page name="equalization lines">
+							<field name="line_ids">
+								<tree>
+									<field name="date" invisible="1"/>
+									<field name="account_id"/>
+									<field name="partner_id"/>
+									<field name="old_rate"/>
+									<field name="debit" sum="Debit"/>
+									<field name="credit" sum="Credit"/>
+									<field name="amount_currency" sum="Amount currency"/>
+									<field name="amount_residual_currency" />
+									<field name="difference" />
+									<field name="rec_pay_move_id"/>
+									<field name="move_id"/>
+									<field name="added_debit" sum="Added debit"/>
+									<field name="added_credit" sum="Added credit"/>
+									<field name="total_debit" sum="Total debit"/>
+									<field name="total_credit" sum="Total credit"/>
+								</tree>
+								<form>
+									<group>
+										<group>
+											<field name="date" invisible="1"/>
+											<field name="account_id"/>
+											<field name="partner_id"/>
+											<field name="rec_pay_move_id"/>
+											<field name="equalization_id"/>
+											<field name="move_id"/>
+											<field name="currency_id"/>
+											<field name="old_rate"/>
+											<field name="new_rate"/>
+										</group>
+										<group>
+											<field name="amount_currency"/>
+											<field name="debit"/>
+											<field name="credit"/>
+											<field name="added_debit"/>
+											<field name="added_credit"/>
+											<field name="total_debit"/>
+											<field name="total_credit"/>
+											<field name="difference" />
+										</group>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</sheet>
+	       </form>
+	    </field>
+	</record>
+
+	<!-- Currency equalization tree-->
+	<record id='view_account_currency_equalization_tree' model='ir.ui.view'>
+		<field name="name">Account Equalize Currency Rate</field>
+		<field name="model">account.currency.equalization</field>
+		<field name="arch" type="xml">
+			<tree string="Account Equalize Currency Rate">
+				<field name="name"/>
+				<field name="date"/>
+				<field name="type"/>
+				<field name="journal_id"/>
+				<field name="currency_id"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Currency equalization search-->
+	<record id="view_account_currency_equalization_search" model="ir.ui.view">
+        <field name="name">account.currency.equalization.search</field>
+        <field name="model">account.currency.equalization</field>
+        <field name="arch" type="xml">
+            <search string="Account Equalize Currency Rate">
+                <field name="name" string="Account Equalize Currency Rate"/>
+                <field name="date"/>
+                <field name="currency_id" string="Currency"/>
+				<filter string="Draft" name="draft" domain="[('state','=', 'draft')]" help="Equalize Currency Rates in draft states"/>
+                <filter string="Equalized" name="equalized" domain="[('state','=', 'equalized')]" help="Equalize Currency Rates in equalized state"/>
+                <group expand="0" string="Group By...">
+					<filter string="Date" name="month" domain="[]" context="{'group_by':'date'}"/>
+					<filter string="Type" name="type" domain="[]" context="{'group_by':'type'}"/>
+					<filter string="State" name="state" domain="[]" context="{'group_by':'state'}"/>
+					<filter string="Currency" name="currency" domain="[]" context="{'group_by':'currency_id'}"/>
+					<filter string="Company" name="company" domain="[]" context="{'group_by':'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<!-- Currency equalization action-->
+	<record id="action_account_currency_equalization" model="ir.actions.act_window">
+		<field name="name">Account Equalize Currency Rate</field>
+		<field name="res_model">account.currency.equalization</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_account_currency_equalization_tree"/>
+		<field name="search_view_id" ref="view_account_currency_equalization_search"/>
+		<field name="help" type="html">
+		  <p class="oe_view_nocontent_create">
+			Click here to create new account equalize currency rate
+		  </p>
+		</field>
+	</record>
+
+	<!-- Currency equalization menu-->
+	<menuitem id="menu_parent_account_currency_equalization" name="Account Equalize Currency Rate"
+			  parent="account.menu_finance_entries" sequence="12" groups="base.group_multi_currency"/>
+
+    <menuitem action="action_account_currency_equalization" id="menu_account_currency_equalization"
+              parent="menu_parent_account_currency_equalization" sequence="1" groups="base.group_multi_currency"/>
+
+
+   <record id="branch_view_account_journal_form_rate" model="ir.ui.view">
+        <field name="name">account.journal.form.rate</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="not_reverse"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

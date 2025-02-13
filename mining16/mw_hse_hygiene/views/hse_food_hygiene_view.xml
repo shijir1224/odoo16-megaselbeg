@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="sequence_hse_food_hygiene_inspection" model="ir.sequence">
+        <field name="name">HSE FOOD INSPECTION</field>
+        <field name="code">hse.food.hygiene.inspection</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+		<field name="number_next_actual">1</field>
+    </record>
+	
+	<!-- Ажлын байрны үзлэг  -->
+	<record model="ir.ui.view" id="hse_food_hygiene_inspection_view">
+		<field name="name">hse.food.hygiene.inspection.form</field>
+		<field name="model">hse.food.hygiene.inspection</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_draft" string="Буцааж ноороглох" states="done" type="object" class="btn-danger" groups="mw_hse_hygiene.group_hse_hygiene_manager"/>
+					<button name="action_done" class="btn-success" string="Батлах" states="draft" type="object"  icon="fa-check-square-o"/>
+					<button name="action_to_download" class="btn-warning" string="Татах" states="draft" type="object" icon="fa-download"/>
+					<button name="line_clear" class="btn-danger" string="Мөр устгах" states="draft" type="object"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done" readonly="1" />
+				</header>
+				<sheet>
+					<group colspan='4'>
+						<group>
+							<field name="name"/>
+							<field name="date"/>
+							<field name="inspection_type" widget="selection"/>
+							<field name="review"/>
+						</group>
+						<group>
+							<field name="branch_id" options="{'no_create': True}"/>
+							<field name="user_id" options="{'no_create': True}" readonly="1"/>
+							<field name="company_id" options="{'no_create': True}" readonly="1"/>
+							<field name="attachment_ids" widget="many2many_binary" options="{'no_create': True}"/>
+						</group>
+					</group>
+					<separator string='1. Дотоод хяналт' colspan="2"/>
+					<field name="contral_ids" nolabel="1">
+						<tree editable='bottom' create='false' delete='false'>
+							<field name="name" readonly="1"/>
+							<field name="evaluation"/>
+							<field name="review"/>
+						</tree>
+					</field>
+					<separator string='2. Түүхий эд тээвэрлэлт, хүлээн авах, хадгалах, анхны боловсруулалтын үеийн хяналт'/>
+					<field name="material_ids" nolabel="1">
+						<tree editable='bottom' create='false' delete='false'>
+							<field name="name" readonly="1"/>
+							<field name="evaluation"/>
+							<field name="review"/>
+						</tree>
+					</field>
+					<separator string='3. Боловсруулалт, бэлэн бүтэгдэхүүн олголтын үеийн хяналт'/>
+					<field name="processing_ids" nolabel="1">
+						<tree editable='bottom' create='false' delete='false'>
+							<field name="name" readonly="1"/>
+							<field name="evaluation"/>
+							<field name="review"/>
+						</tree>
+					</field>
+					<separator string='4. Угаалга, цэвэрлэгээ, халдваргүйтгэл, халдвараас сэргийлэх үйл ажиллагаа'/>
+					<field name="clean_ids" nolabel="1">
+						<tree editable='bottom' create='false' delete='false'>
+							<field name="name" readonly="1"/>
+							<field name="evaluation"/>
+							<field name="review"/>
+						</tree>
+					</field>
+					<group colspan="4">
+						<group string='5. Шаардлага хангасан эсэх үзүүлэлтийн дүгнэлт'>
+							<field name="total_evaluation"/>
+							<field name="qualified_type" widget="selection"/>
+						</group>
+						<group string='6. Оноо, онооны хувь'>
+							<field name="evaluation_type"/>
+							<field name="evaluation_percent"/>
+							<field name="evaluation_review"/>
+						</group>
+					</group>
+					<group>
+						<group string='8. Дүгнэлт'>
+							<field name="conclusion"/>
+						</group>
+						<group string='9. Зөвлөмж'>
+							<field name="advice"/>
+						</group>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_food_hygiene_inspection_tree" model="ir.ui.view">
+		<field name="name">hse.food.hygiene.inspection.tree</field>
+		<field name="model">hse.food.hygiene.inspection</field>
+		<field name="arch" type="xml">
+			<tree
+				decoration-info="state == 'draft'"
+                decoration-success="state == 'done'">
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="inspection_type"/>		
+				<field name="user_id"/>
+				<field name="review"/>
+				<field name="company_id" optional="hide"/>
+				<field name="state" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_food_hygiene_inspection_filter" model="ir.ui.view">
+		<field name="name">hse.food.hygiene.inspection.filter</field>
+		<field name="model">hse.food.hygiene.inspection</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="inspection_type"/>		
+				<field name="user_id"/>
+				<field name="review"/>
+				<field name="company_id"/>
+				<field name="state"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_food_hygiene_inspection">
+		<field name="name">Ажлын байрны үзлэг</field>
+		<field name="res_model">hse.food.hygiene.inspection</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<!-- Улиралын үнэлгээ -->
+	<record id="sequence_hse_food_season_evaluation" model="ir.sequence">
+        <field name="name">HSE FOOD EVALUATION</field>
+        <field name="code">hse.food.season.evaluation</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+		<field name="number_next_actual">1</field>
+    </record>
+
+	<record model="ir.ui.view" id="hse_food_season_evaluation_view">
+		<field name="name">hse.food.hygiene.evaluation.form</field>
+		<field name="model">hse.food.season.evaluation</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_draft" string="Буцааж ноороглох" states="done" type="object" class="btn-danger" groups="mw_hse_hygiene.group_hse_hygiene_manager"/>
+					<button name="action_done" class="btn-success" string="Батлах" states="draft" type="object"  icon="fa-check-square-o"/>
+					<button name="action_to_download" class="btn-warning" string="Татах" states="draft" type="object" icon="fa-download"/>
+					<button name="line_clear" class="btn-danger" string="Мөр устгах" states="draft" type="object"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done" readonly="1" />
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="date"/>
+							<field name="review"/>
+						</group>
+						<group>
+							<field name="branch_id" options="{'no_create': True}"/>
+							<field name="user_id" options="{'no_create': True}"/>
+							<field name="company_id" options="{'no_create': True}"/>
+							<field name="attachment_ids" widget="many2many_binary" options="{'no_create': True}"/>
+						</group>
+					</group>
+					<separator string='1. Хүнсний аюулгүй байдал'/>
+					<field name="food_safety_ids" nolabel="1">
+						<tree editable="bottom">
+							<field name="name"/>
+							<field name="evaluation"/>
+							<field name="review"/>
+						</tree>
+					</field>
+					<separator string='2. Цэвэрлэгээ, угаалга үйлчилгээ'/>
+					<field name="clean_ids" nolabel="1">
+						<tree editable="bottom" create='false'>
+							<field name="name"/>
+							<field name="evaluation"/>
+							<field name="review"/>
+						</tree>
+					</field>
+					<group colspan="4">
+						<group string='3. Шаардлага хангасан эсэх үзүүлэлтийн дүгнэлт'>
+							<field name="total_evaluation"/>
+							<field name="qualified_type" widget="selection"/>
+						</group>
+						<group string='4. Оноо, онооны хувь'>
+							<field name="evaluation_type"/>
+							<field name="evaluation_percent"/>
+							<field name="evaluation_review"/>
+						</group>
+					</group>
+					<group colspan="4">
+						<group string='5. Дүгнэлт'>
+							<field name="conclusion"/>
+						</group>
+						<group string='6. Зөвлөмж'>
+							<field name="advice"/>
+						</group>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_food_season_evaluation_tree" model="ir.ui.view">
+		<field name="name">hse.food.season.evaluation.tree</field>
+		<field name="model">hse.food.season.evaluation</field>
+		<field name="arch" type="xml">
+			<tree
+				decoration-info="state == 'draft'"
+                decoration-success="state == 'done'">
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="user_id"/>
+				<field name="review"/>
+				<field name="company_id" optional="hide"/>
+				<field name="state" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_food_season_evaluation_filter" model="ir.ui.view">
+		<field name="name">hse.food.season.evaluation.filter</field>
+		<field name="model">hse.food.season.evaluation</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="user_id"/>
+				<field name="review"/>
+				<field name="company_id"/>
+				<field name="state"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_food_season_evaluation">
+		<field name="name">Улиралын үнэлгээ</field>
+		<field name="res_model">hse.food.season.evaluation</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<!-- Тохиргоо -->
+	<record model="ir.ui.view" id="food_hygiene_confe_view">
+		<field name="name">food.hygiene.conf.form</field>
+		<field name="model">food.hygiene.conf</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="type" widget="selection"/>
+					<field name="sub_categ" widget="selection"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_food_hygiene_conf_tree" model="ir.ui.view">
+		<field name="name">food.hygiene.conf.tree</field>
+		<field name="model">food.hygiene.conf</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="type"/>
+				<field name="sub_categ"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_food_hygiene_conf_filter" model="ir.ui.view">
+		<field name="name">food.hygiene.conf.filter</field>
+		<field name="model">food.hygiene.conf</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="name"/>
+				<field name="type"/>
+				<field name="sub_categ"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_food_hygiene_conf">
+		<field name="name">Хүнсний эрүүл ахуй</field>
+		<field name="res_model">food.hygiene.conf</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

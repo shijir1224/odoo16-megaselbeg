@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+.oe_form div.oe_mining_history_line {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+table.o_balance_table_hover tr:hover td {
+  background-color: #dbf0fb;
+  color: #063681;
+  padding: -5px;
+}
+
+.oe_hour_balance_dynamic_schedule {
+  overflow-x: none;
+  width: 100%;
+}
+
+.oe_hour_balance_dynamic_schedule table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.oe_hour_balance_dynamic_schedule td {
+  text-align: center;
+  border-collapse: collapse;
+  vertical-align: text-bottom;
+  border-bottom: 1px;
+  height: 22px;
+  background: white;
+}
+
+.oe_hour_balance_dynamic_schedule th {
+  background-color: #a0e1fb;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 1px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #000000;
+  border: 1px solid #e0dfdf;
+  border-bottom: 1px;
+}
+
+.oe_no_emplo_col_number td {
+  text-align: center;
+  border-collapse: collapse;
+  vertical-align: text-bottom;
+  border-bottom: 1px;
+  height: 22px;
+  background: white;
+  border: 1px solid #e0dfdf;
+}
+
+
+.oe_hour {
+  text-align: center;
+  /* border-collapse: collapse; */
+  vertical-align: text-bottom;
+  border-bottom: 1px;
+  border-top: 1px;
+  height: 22px;
+  border: 1px solid #656464;
+}
+
+.oe_th_balance_head {
+  text-align: center;
+  border-collapse: collapse;
+  vertical-align: text-bottom;
+  height: 22px;
+  /* border: 1px solid  #656464; */
+}

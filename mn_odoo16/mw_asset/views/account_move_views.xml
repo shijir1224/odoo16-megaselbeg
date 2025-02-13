@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_asset_inherit" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <field name="asset_ids" invisible="1"/>
+                <button name="action_open_asset_ids"
+                    type="object"
+                    class="oe_stat_button text-danger"
+                    icon="fa-id-card-o"
+                    attrs="{'invisible': [('asset_ids', '=', 0)]}"
+                    string="Assets"
+                    >
+                    <!-- <field name="asset_ids_display_name" nolabel="1"/> -->
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_move_line_form_asset_inherit" model="ir.ui.view">
+        <field name="name">account.move.line.asset</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='credit']" position="before">
+                <fields name="asset_id" invisible="1"></fields>
+                <fields name="asset_type_id" invisible="1"></fields>
+            </xpath> 
+        </field>
+    </record>
+
+</odoo>

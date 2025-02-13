@@ -1,0 +1,113 @@
+<odoo>
+	<record id="a_order_filter" model="ir.ui.view">
+		<field name="name">a.order Search</field>
+		<field name="model">a.order</field>
+		<field name="arch" type="xml">
+			<search string="А тушаал">
+				<group expand="0" string="Group By...">
+					<field string="Ажилтан.." name='employee_id'/>
+				</group>
+				<group expand="0" string="Group By...">
+					<filter string="Жил" name="year" context="{'group_by':'create_date:year'}"/>
+					<filter string="Сар" name="month" context="{'group_by':'create_date:month'}"/>
+					<filter string="Төлөв" name="flow_line_id"  context="{'group_by':'flow_line_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="a_order_form_view">
+		<field name="name">a.order.form</field>
+		<field name="model">a.order</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('state_type','=','done')]}"/>
+					<button name="action_back_stage" string="Буцаах" class="btn-warning" type="object"/>
+					<field name="flow_line_id" widget="statusbar"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'not in', ['cancel','done']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+				</header>
+				<sheet>
+					<group>
+						<group string='Үүсгэсэн ажилтан' >
+							<field name='employee_id' attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create': True,'no_open': True}"/>
+							<field name='job_id' attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+							<field name='department_id'  attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+							<field name='company_id' attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+							<field name='create_date' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+							<field name='description' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+						</group>
+						<group string='А тушаалын мэдээлэл'>
+							<field name='name' attrs="{'readonly': [('state_type', '!=', 'draft')]}" />
+							<field name='comment'/>
+							<field name='approved_date'/>
+						</group> 
+						<group>
+							<field name='a_att_ids' widget="many2many_binary"/>
+						</group>
+						</group>
+						<group string='Урсгал'>
+							<group>
+								<field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+								<field name="emp_name_melen" invisible='1'/>
+							</group>
+							<group>
+								<field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1"/>
+								<field name="state_type" invisible="1"/>
+								<field name="next_state_type" invisible="1"/>
+								<field name="flow_line_next_id" invisible="1"/>
+								<field name="branch_id" invisible="1"/>
+							</group>
+						</group>
+					<notebook>
+					<page string="Төлөвийн Түүх" name ='state'>
+						<field name="history_ids" readonly="1"  >
+							<tree>
+								<field name="user_id"/>
+								<field name="date"/>
+								<field name="flow_line_id"/>
+							</tree>
+						</field>
+					</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="a_order_tree_view">
+		<field name="name">a.order.tree</field>
+		<field name="model">a.order</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name='number'/>
+				<field name='approved_date'/>
+				<field name='employee_id'/>
+				<field name='job_id'/>
+				<field name='flow_line_id'/>
+				<field name='a_att_ids'  widget="many2many_binary"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_a_order_view">
+		<field name="name">А тушаал</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">a.order</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_year': 1,'search_default_month': 1,'search_default_flow_line_id': 1}</field>
+		<field name="search_view_id" ref="a_order_filter"/>
+	</record>
+
+	<menuitem id="a_order_menu"
+		name ='А тушаал'
+		parent="mw_hr.hr_labor_relations_menu"
+		action="action_a_order_view"
+		sequence="5"/>
+
+</odoo>

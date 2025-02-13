@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_form_mw_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.mw.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
+                <field name="first_qty"/>
+            </xpath>
+        </field>
+	</record>
+   
+    <record id="stock_move_tree_mw_stock_account_inherit" model="ir.ui.view">
+        <field name="name">stock.move.tree.mw.stock.account.inherit</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="first_qty"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="view_move_form_mw_stock_account_inherit_mw_account" model="ir.ui.view">
+        <field name="name">stock.move.form.mn.stock.account.no.picking.mw.account</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="first_qty"/>
+            </field>
+        </field>
+    </record>
+   
+</odoo>

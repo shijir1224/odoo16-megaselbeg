@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+        
+        <record id="view_sale_return_form" model="ir.ui.view">
+        	<field name="name">sale.return.form.inherit</field>
+        	<field name="model">sale.return</field>
+        	<field name="inherit_id" ref="mw_sale_return.view_sale_return_form"/>
+        	<field name="arch" type="xml">
+				<xpath expr="//form/sheet/group/group/field[@name='partner_id']" position="after">
+					<field name="is_create_from_inter_company" invisible="1"/>
+					<field name="company_partner_id" invisible="1"/>
+					<field name="purchase_return_id" domain="[('partner_id', '=', company_partner_id), ('state','!=','cancelled'),('need_deliver', '=', True)]" attrs="{'invisible': [('is_create_from_inter_company', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+					<button name="import_purchase_return" string="ХА-н буцаалтаас барааг импортлох" type="object" class="oe_highlight" attrs="{'invisible': ['|', '|', ('is_create_from_inter_company', '=', False), ('purchase_return_id', '=', False), ('state', '!=', 'draft')]}"/>
+					<field name="src_warehouse_id" attrs="{'invisible': [('is_create_from_inter_company', '=', False)]}"/>
+				</xpath>
+				<xpath expr="//form/sheet//field[@name='return_line']" position="attributes">
+					<attribute name="attrs">{'readonly':['|', ('purchase_return_id', '!=', False), ('state','!=','draft')]}</attribute>
+				</xpath>
+        	</field>
+		</record>
+
+		<record id="view_sale_return_tree" model="ir.ui.view">
+        	<field name="name">sale.return.tree.inherit</field>
+        	<field name="model">sale.return</field>
+        	<field name="inherit_id" ref="mw_sale_return.view_sale_return_tree"/>
+        	<field name="arch" type="xml">
+				<xpath expr="//tree/field[@name='partner_id']" position="after">
+					<field name="src_warehouse_id"/>
+				</xpath>
+        	</field>
+		</record>
+		
+		<record id="sale_return_view_search" model="ir.ui.view">
+        	<field name="name">sale.return.search.inherit</field>
+        	<field name="model">sale.return</field>
+        	<field name="inherit_id" ref="mw_sale_return.sale_return_view_search"/>
+        	<field name="arch" type="xml">
+				<xpath expr="//search/filter[@name='my_created_returns']" position="after">
+					<field name="src_warehouse_id"/>
+					<filter string="Дотоод буцаалтууд" domain="[('is_create_from_inter_company', '=', True)]" name="inter_company_returns"/>
+				</xpath>
+        	</field>
+		</record>
+		
+	</data>
+</odoo>

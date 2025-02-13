@@ -1,0 +1,70 @@
+
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_salary">
+                <field name="name">Цалин</field>
+                <field name="sequence">30</field>
+        </record>
+        <record id="group_salary_hybo" model="res.groups">
+            <field name="name">Цалингийн НЯБО</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+        <record id="group_two_salary_compute" model="res.groups">
+            <field name="name">Сарын дундуур ҮЦ өөрчлөгдөх</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+        <record id="group_wage_create" model="res.groups">
+            <field name="name">Үндсэн цалин оруулах</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+        <record id="group_wage_manager_print" model="res.groups">
+            <field name="name">Салбарын цалин харах</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_salary_mine" model="res.groups">
+            <field name="name">Өөрийнхөө цалин харах</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_all_salary" model="res.groups">
+            <field name="name">Бүх цалин харах</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_done_salary" model="res.groups">
+            <field name="name">Цалин батлах ГЗ</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_confirm_ez_salary" model="res.groups">
+            <field name="name">Цалин хянах ЭЗ</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_confirm_salary" model="res.groups">
+            <field name="name">Цалин батлах санхүү ГЗ</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_zut_salary" model="res.groups">
+            <field name="name">ЗҮТ Цалин бодох</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_dornod_salary" model="res.groups">
+            <field name="name">Дорнод цалин батлах</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_confirm_hr_salary" model="res.groups">
+            <field name="name">Цалин хянах Хүний нөөц/НСУ/</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+
+        <record id="group_confirm_ahlah_salary" model="res.groups">
+            <field name="name">Цалин хянах Ерөнхий нягтлан/НСУ/</field>
+            <field name="category_id" ref="mw_salary.module_salary"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="mw_pos_ebarimt3.PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+
+        <xpath expr="//div[hasclass('payment-controls')]" position="after">
+            <div class="row mn_eb_tax_type">
+                <div class="col-md-12">
+                    <h2>EBarimt Tax Type</h2>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 mn_eb_row_div">
+                        <label class="mn_eb_control">
+                            <input id="bill_type_individual" type="radio" name="bill_type" value="B2C_RECEIPT" class="mn_eb_radio" t-on-change="changeBillType" t-att-disabled="currentOrder.to_invoice" t-model="currentOrder.bill_type"/> Individual
+                        </label>
+                        <label class="mn_eb_control">
+                            <input id="bill_type_company" type="radio" name="bill_type" value="B2B_RECEIPT" class="mn_eb_radio" t-on-change="changeBillType" t-att-disabled="currentOrder.to_invoice" t-model="currentOrder.bill_type"/> Company
+                        </label>
+                    </div>
+                    <div class="col-md-12 mn_eb_row_div">
+                        <label t-if='env.pos.config.module_account' class="mn_eb_control">
+                            <input id="bill_type_invoice" type="radio" name="bill_type" value="B2C_INVOICE" class="mn_eb_radio" t-on-change="changeBillType" t-model="currentOrder.bill_type"/> Invoice
+                        </label>
+                    </div>
+                </div>
+                <div class="isCompany" style="display:none">
+					<div class="col-md-12 mn_eb_row_div mn_eb_control_reg flex-row">
+                        <div class='mn_eb_row_div'>Байгууллагын регистер:</div>
+						<div class="col-tendered edit flex-grow">
+							<input t-on-change="inputValueCheck" name="register" id="register" class="check_register"
+                                   type="text" maxlength="10"/>
+						</div>
+					</div>
+					<div class="col-md-12 mn_eb_row_div mn_eb_control_reg flex-row">
+						<div class='mn_eb_row_div'>Байгууллагын нэр:</div>
+						<div id="company_name" class="company-name"></div>
+					</div>
+				</div>
+            </div> 
+      </xpath>
+    </t>
+</templates>

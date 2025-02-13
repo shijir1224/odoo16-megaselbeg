@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_financial_report_inherit_brand_tree" model="ir.ui.view">
+            <field name="name">account.transaction.balance.pivot.brand.tree</field>
+            <field name="model">account.transaction.balance.pivot</field>
+            <field name="inherit_id" ref="mw_account.account_transaction_balance_pivot_tree_view"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='account_id']" position="after">
+                	<field name="brand_id"/>
+            	</xpath>
+			</field>
+		</record>
+        <record id="view_account_financial_report_inherit_brand_form" model="ir.ui.view">
+            <field name="name">account.transaction.balance.pivot.brand.form</field>
+            <field name="model">account.transaction.balance.pivot</field>
+            <field name="inherit_id" ref="mw_account.account_transaction_balance_pivot_form_view"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='account_id']" position="after">
+                	<field name="brand_id"/>
+            	</xpath>
+			</field>
+		</record>
+		<record id="account_transaction_balance_pivot_brand_search" model="ir.ui.view">
+            <field name="name">account.transaction.balance.pivot.brand.search</field>
+            <field name="model">account.transaction.balance.pivot</field>
+            <field name="inherit_id" ref="mw_account.account_transaction_balance_pivot_search"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='account_id']" position="after">
+                	<field name="brand_id"/>
+            	</xpath>
+                 <xpath expr="//filter[@name='gr_account']" position="after">
+      	               <filter string="Брэнд" name="gr_brand" context="{'group_by':'brand_id'}"/>
+            	</xpath>
+			</field>
+		</record>
+			        
+
+    </data>
+</openerp>

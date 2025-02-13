@@ -1,0 +1,237 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_pos_qpay
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-27 06:13+0000\n"
+"PO-Revision-Date: 2023-01-27 14:30+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: mn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "An error occurred while login in to QPay!"
+msgstr "QPay нэвтрэх сервис алдаа гарлаа!"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "An error occurred while refresh_token in to QPay!"
+msgstr "QPay нэвтрэх сервис алдаа гарлаа!"
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/js/QrPopup.js:0
+#, python-format
+msgid "Cancel"
+msgstr "Цуцлах"
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/js/PaymentQpay.js:0
+#, python-format
+msgid "Cannot process transactions with zero or negative amount."
+msgstr "Тэг эсвэл сөрөг дүнтэй гүйлгээг хийх боломжгүй."
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/xml/QrPopup.xml:0
+#, python-format
+msgid "Check payment"
+msgstr "Төлбөр шалгах"
+
+#. module: mw_pos_qpay
+#: model:ir.model,name:mw_pos_qpay.model_res_company
+msgid "Companies"
+msgstr "Компаниуд"
+
+#. module: mw_pos_qpay
+#: model:ir.model,name:mw_pos_qpay.model_res_config_settings
+msgid "Config Settings"
+msgstr "Тохиргооны тохируулга"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_qpay_exchange__create_uid
+msgid "Created by"
+msgstr "Үүсгэсэн"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_qpay_exchange__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_qpay_exchange__display_name
+msgid "Display Name"
+msgstr "Харагдах нэр"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_qpay_exchange__id
+msgid "ID"
+msgstr "ID"
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/js/QrPopup.js:0
+#, python-format
+msgid ""
+"If you close this window, you won't be able to check whether this QR code "
+"has been paid or not. If you submit again, the QR code will be renewed"
+msgstr ""
+"Энэ цонхыг хаавал. Одоо байгаа QR колыг төлөгдсөн эсэхийг шалгах "
+"боломжгүй болно. Дахин илгээх үед өөр QR код үүсгэхийг анхаарна уу"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_company__qpay_invoice_check_url
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_config_settings__qpay_invoice_check_url
+msgid "Invoice check url"
+msgstr "Нэхэмжлэл шалгах хаяг"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_company__qpay_invoice_code
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_config_settings__qpay_invoice_code
+msgid "Invoice code"
+msgstr "Нэхэмжлэл код"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_company__qpay_invoice_create_url
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_config_settings__qpay_invoice_create_url
+msgid "Invoice create url"
+msgstr "Нэхэмжлэл үүсгэх хаяг"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "Invoice paid"
+msgstr "Төлөгдсөн"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "Invoice unpaid"
+msgstr "Төлөгдөөгүй"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_qpay_exchange____last_update
+msgid "Last Modified on"
+msgstr "Сүүлд өөрчилсөн огноо"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_qpay_exchange__write_uid
+msgid "Last Updated by"
+msgstr "Хамгийн сүүлд шинэчилсэн"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_qpay_exchange__write_date
+msgid "Last Updated on"
+msgstr "Хамгийн сүүлд шинэчлэгдсэн"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_company__qpay_login_url
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_config_settings__qpay_login_url
+msgid "Login url"
+msgstr "Нэвтрэх хаяг"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_company__qpay_password
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_config_settings__qpay_password
+msgid "Password"
+msgstr "Нууц үг"
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/js/PaymentQpay.js:0
+#, python-format
+msgid "Payment QPay Error"
+msgstr "Төлбөрийн алдаа"
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/js/PaymentQpay.js:0
+#, python-format
+msgid ""
+"Please press the red button on the payment qpay to cancel the transaction."
+msgstr "Гүйлгээг цуцлахын тулд qpay дээрх улаан товчийг дарна уу."
+
+#. module: mw_pos_qpay
+#: model:ir.model,name:mw_pos_qpay.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr "Төлбөрийн аргууд"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/pos_payment_method.py:0
+#, python-format
+msgid "QPay"
+msgstr "QPay"
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/xml/PaymentScreen.xml:0
+#, python-format
+msgid "QPay Invoice"
+msgstr "QPay нэхэмжлэл"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "QPay Invoice create connection error!"
+msgstr "QPay нэхэмжлэл үүсгэх үед холболтын алдаа гарлаа!"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "QPay check_invoice connection error!"
+msgstr "QPay нэхэмжлэл шалгах үед холболтын алдаа гарлаа!"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "QPay check_invoice error! code: %s, message: %s"
+msgstr "QPay нэхэмжлэл шалгахад алдаа гарлаа! код %s, мессеж %s"
+
+#. module: mw_pos_qpay
+#: model:ir.model,name:mw_pos_qpay.model_qpay_exchange
+msgid "QPay exchange"
+msgstr "QPay функц"
+
+#. module: mw_pos_qpay
+#: model_terms:ir.ui.view,arch_db:mw_pos_qpay.res_config_settings_view_form_inherit_qpay
+msgid "QPay integration info"
+msgstr "QPay холболт хийх мэдээлэл"
+
+#. module: mw_pos_qpay
+#: code:addons/mw_pos_qpay/models/qpay_exchange.py:0
+#, python-format
+msgid "QPay invoice create error! code: %s, message: %s"
+msgstr "QPay нэхэмжлэл хийхэд алдаа гарлаа! код %s, мессеж %s"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_company__qpay_refresh_url
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_config_settings__qpay_refresh_url
+msgid "Refresh url"
+msgstr "Токен сэргээх хаяг"
+
+#. module: mw_pos_qpay
+#. openerp-web
+#: code:addons/mw_pos_qpay/static/src/js/PaymentQpay.js:0
+#: code:addons/mw_pos_qpay/static/src/js/PaymentScreen.js:0
+#: code:addons/mw_pos_qpay/static/src/xml/QrPopup.xml:0
+#, python-format
+msgid "Scan QR"
+msgstr "QR уншуулах"
+
+#. module: mw_pos_qpay
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_company__qpay_username
+#: model:ir.model.fields,field_description:mw_pos_qpay.field_res_config_settings__qpay_username
+msgid "Username"
+msgstr "Нэвтрэх нэр"

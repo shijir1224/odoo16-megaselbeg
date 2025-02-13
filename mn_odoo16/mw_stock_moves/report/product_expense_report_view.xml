@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="product_expense_report_view_tree" model="ir.ui.view">
+		<field name="name">product.expense.report.tree</field>
+		<field name="model">product.expense.report</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="expense_id"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="warehouse_id"/>
+				<field name="partner_id"/>
+				<field name="department_id"/>
+				<field name="transaction_value_id"/>
+				<field name="product_id"/>
+				<field name="categ_id"/>
+				<field name="qty"/>
+				<field name="delivered_qty"/>
+				<field name="product_standard_price"/>
+				<field name="product_total_price"/>
+				<field name="res_partner_id"/>
+				<!-- <field name="picking_id"/> -->
+				<field name="description"/>
+				<field name="flow_line_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="product_expense_report_view_pivot" model="ir.ui.view">
+		<field name="name">product.expense.report.pivot</field>
+		<field name="model">product.expense.report</field>
+		<field name="arch" type="xml">
+			<pivot>
+				<field name="branch_id" type="col"/>
+				<field name="date" interval="day" type="row"/>
+				<field name="partner_id" type="row"/>
+				<field name="product_id" type="row"/>
+				<field name="qty" type="measure"/>
+				<field name="delivered_qty" type="measure"/>
+				<field name="product_standard_price" type="measure"/>
+				<field name="product_total_price" type="measure"/>
+			</pivot>
+		</field>
+	</record>
+
+	<record id="product_expense_report_view_search" model="ir.ui.view">
+		<field name="name">product.expense.report.search</field>
+		<field name="model">product.expense.report</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="expense_id"/>
+				<field name="partner_id"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="product_id"/>
+				<field name="warehouse_id"/>
+				<field name="res_partner_id"/>
+				<field name="description"/>
+				<filter name="today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+				<filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+				<filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+				<separator/>
+				<filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+				<filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+				<filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+				<filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+				<filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+				<filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+				<filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+				<filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+				<filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+				<filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+				<filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+				<filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+				<group expand="0" string="Group By">
+					<filter string="Branch" name="branch_id" context="{'group_by':'branch_id'}"/>
+					<separator/>
+					<filter string="Month" name='month' context="{'group_by':'date:month'}"/>
+					<filter string="Year" name='year' context="{'group_by':'date:year'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="product_expense_report_action" model="ir.actions.act_window">
+		<field name="name">Шаардах тайлан</field>
+		<field name="res_model">product.expense.report</field>
+		<field name="view_mode">tree,pivot</field>
+		<field name="context">{'search_default_this_month': True}</field>
+		<field name="domain">[]</field>
+	</record>
+</odoo>

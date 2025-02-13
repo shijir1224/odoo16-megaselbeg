@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="menu_hse_dangerous_waste" name="Хог Хаягдлын Бүртгэл" parent="mw_hse_danger.menu_hse_danger" action="action_hse_dangerous_registration" sequence="4"/>
+	<menuitem id="menu_hse_dangerous_report" name="Аюултай хог хаягдлын тайлан" parent="mw_hse_danger.menu_hse_danger" action="action_hse_dangerous_waste" sequence="6"/>
+	<menuitem id="menu_hse_simple_report" name="Энгийн хог хаягдлын тайлан" parent="mw_hse_danger.menu_hse_danger" action="action_hse_simple_waste" sequence="6"/>
+	<menuitem id="menu_hse_land_permit" name="ШХХГХЗ" parent="mw_hse_danger.menu_hse_danger" action="action_hse_land_permit_registration" sequence="5"/>
+</odoo>

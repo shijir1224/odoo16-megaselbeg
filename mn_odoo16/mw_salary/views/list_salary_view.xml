@@ -1,0 +1,157 @@
+<odoo>
+<!-- List мөнгө бодох -->
+    <record id="view_list_wage_form" model="ir.ui.view">
+        <field name="name">list.wage.form</field>
+        <field name="model">list.wage</field>
+        <field name="arch" type="xml">
+            <form string="Employee">
+                <header>
+                    <button string="Батлах" name="done_action" type="object" states='draft' class="oe_highlight"/>
+                    <button string="Ноороглох" name="draft_action"  states='done' type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"
+                        statusbar_colors='{"draft":"gray","done":"blue"}'/>
+                </header>
+                <sheet>
+                	<group string='ХЧТАТ мэдээлэл'>
+                        <group>
+                    		<field name='name' string='Нэр'  placeholder="e.g. 2024 оны 01-р сарын ХЧТАТ"/>
+                    		<field name='year' attrs="{'readonly':[('state','!=','draft')]}"/>
+                    		<field name='month' attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                    		<field name='company_id' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name='is_maternity' attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                	</group>
+                	<!-- <group col='4' string='Санхүү бүртгэл'>
+                		<field name='move_id'/>
+                		<field name='journal_id'/>
+                		<field name='invoice_partner_id'/>
+                		<field name='invoice_date'/>
+                	</group>
+                	<button string="Санхүү бичилт хийх" name="action_move_create" type="object"  class="oe_highlight"/> -->
+                	<button name="action_to_print" string="Нэхэмжлэх хэвлэх" type="object" class="oe_inline oe_right oe_stat_button" icon="fa-print"/>
+                    <field name="emp_balance_ids" colspan="4" nolabel="1">
+                    <form string="Employee hour balance">
+                        <group col="4" colspan="4">
+                            <field name="employee_id"/>
+                            <field name="hospital_number"/>
+                            <field name='start_date' />
+                            <field name="end_date" />
+                            <field name="total_year"/>
+                            <field name="tree_month_amount_wage"/>
+                            <field name="tree_month_amount_day"/>
+                            <field name="one_day_wage"/>
+                            <field name="procent"/>
+                            <field name='salary_start_date'/>
+                            <field name='salary_end_date'/>
+                            <field name="one_day"/>
+                            <field name="all_day" />
+                            <field name="company_day"/>
+                            <field name='nd_day' />
+                            <field name="all_wage" />
+                            <field name="company_wage"/>
+                            <field name="nd_wage"/>
+                        </group>
+                        <field name="employee_wage_id" colspan="4" nolabel="1">
+		                    <form string="Details">
+		                        <group col="4" colspan="4">
+		                            <field name="employee_id"/>
+		                            <field name="year" />
+		                            <field name="month"/>
+		                            <field name='amount_tootsson' />
+		                            <field name="worked_day" />
+		                        </group>
+		                    </form>
+		                    <tree string="Details" editable="top">
+		                        <field name="employee_id"/>
+	                            <field name="year" />
+	                            <field name="month"/>
+                                <field name="line_start_date"/>
+                                <field name="line_end_date"/>
+	                            <field name='amount_tootsson' sum='a'/>
+	                            <field name="worked_day" sum='a'/>
+		                    </tree>
+		                </field>
+                    </form>
+                    <tree string="Emshployee hour balance" editable="top">
+                        <field name="employee_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="hospital_number"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name='start_date'   attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="end_date"   attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="total_year"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="tree_month_amount_wage" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="tree_month_amount_day" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="one_day_wage" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="procent" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name='salary_start_date'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name='salary_end_date'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="one_day" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="all_day" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="company_day" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name='nd_day' sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="all_wage" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="company_wage" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="nd_wage" sum='Sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <button string="Тооцоолох" name="button_computation" type="object"  class="oe_highlight"/>
+                        <button name="view_form" type="object" string="Харах"/>
+                        <field name="state" optional='hide'/>
+                    </tree>
+                </field>
+                <group class="oe_subtotal_footer oe_right">
+                    <button name="print_list_report" string="Хэвлэх" type="object"/>
+				</group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="list_wage_tree" model="ir.ui.view">
+        <field name="name">list.wage.tree</field>
+        <field name="model">list.wage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='name'/>
+                <field name='year'/>
+        		<field name='month'/>
+        		<field name='company_id'/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="list_wage_action" model="ir.actions.act_window">
+        <field name="name">Актны мөнгө бодох</field>
+        <field name="res_model">list.wage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="list_wage_menu" parent="menu_other_parent_salary" action="list_wage_action"/> 
+
+    <record id="view_list_wage_line_form" model="ir.ui.view">
+        <field name="name">list.wage.line.form</field>
+        <field name="model">list.wage.line</field>
+        <field name="arch" type="xml">
+            <form string="Employee hour balance">
+                <group>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="all_wage" />
+                    </group>
+                    <group>
+                        <field name="company_wage"/>
+                        <field name="nd_wage"/>
+                    </group>
+                </group>
+                <field name="employee_wage_id" colspan="4" nolabel="1">
+                    <tree string="Details" editable="top">
+                        <field name="employee_id"/>
+                        <field name="year" />
+                        <field name="month"/>
+                        <field name="line_start_date"/>
+                        <field name="line_end_date"/>
+                        <field name='amount_tootsson' sum='a'/>
+                        <field name="worked_day" sum='a'/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,4 @@
+.o_list_view .o_list_table tbody > tr > td:not(.o_list_record_selector).o_list_text {
+    word-break: break-word;
+    white-space: nowrap;
+}

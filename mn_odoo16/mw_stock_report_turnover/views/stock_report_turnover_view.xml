@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Balance report -->
+        <record id="stock_report_turnover_report_tree_view" model="ir.ui.view">
+            <field name="name">stock.report.turnover.tree.view</field>
+            <field name="model">stock.report.turnover</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="warehouse_id"/>
+                    <field name="location_id"/>
+                    <field name="categ_id"/>
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id" />
+                    <field name="qty"/>
+                    <field name="amount"/>
+               </tree>
+            </field>
+        </record>
+
+        <record id="stock_report_turnover_report_pivot" model="ir.ui.view">
+             <field name="name">stock.report.turnover.pivot</field>
+             <field name="model">stock.report.turnover</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                     <field name="categ_id" type="row"/>
+                     <field name="qty" type="measure"/>
+                     <field name="qty_sale_out" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="stock_report_turnover_report_search_main" model="ir.ui.view">
+            <field name="name">stock.report.turnover.search</field>
+            <field name="model">stock.report.turnover</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="warehouse_id"/>
+                    <field name="location_id"/>
+                    <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                    <field name="lot_id" groups="stock.group_production_lot"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Бараа" name="gr_product" context="{'group_by':'product_id'}"/>
+                        <filter string="Төлөв" name="gr_state" context="{'group_by':'state'}"/>
+                        <filter string="Ангилал" name="gr_categ" context="{'group_by':'categ_id'}"/>
+                        <filter string="Байрлал" name="gr_location_id" context="{'group_by':'location_id'}"/>
+                        <filter string="Агуулах" name="gr_warehouse" context="{'group_by':'warehouse_id'}"/>
+                        <filter string="Харилцагчаар" name="gr_partner_id" context="{'group_by':'partner_id'}"/>
+                        <filter string="Өдрөөр" name="gr_day" context="{'group_by':'date_expected:day'}" help="Pppp"/>
+                        <filter string="Сараар" name="gr_month" context="{'group_by':'date_expected:month'}" help="Pppp"/>
+                        <filter string="Жилээр" name="gr_year" context="{'group_by':'date_expected:year'}" help="Жил жилээр"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_stock_report_turnover_report" model="ir.actions.act_window">
+            <field name="name">Эргэцийн тайлан</field>
+            <field name="res_model">stock.report.turnover</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="view_id" ref="stock_report_turnover_report_pivot"/>
+            <field name="context">{'search_default_gr_categ': 1}</field>
+            <field name="target">current</field>
+        </record>
+
+        
+	
+</odoo>

@@ -1,0 +1,346 @@
+<odoo>
+	<record id="view_hour_balance_dynamic_form" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.form</field>
+        <field name="model">hour.balance.dynamic</field>
+        <field name="arch" type="xml">
+            <form string="Employee">
+                <header>
+                    <button string="Илгээх" name="action_send" type="object" icon="fa-arrow-right" attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-success" groups ='mw_timetable.group_timetable_manager'/>
+                    <button string="ШУ батлах" name="action_confirm_ahlah"  icon="fa-check-square-o" type="object" attrs="{'invisible': [('state', '!=', 'send')]}" class="btn-success"/>
+                    <button string="Нябо хүлээж авах" name="action_done"  icon="fa-check-square-o" type="object" attrs="{'invisible': [('state', '!=', 'confirm_ahlah')]}" class="btn-success" />
+                    <button string="Ноороглох" name="action_draft" type="object" icon="fa-arrow-left" attrs="{'invisible': [('state', 'not in', ('send','confirm_ahlah'))]}" class="btn-warning" groups ='mw_timetable.group_timetable_manager'/>
+                    <button string="Буцаах" name="action_cancel" type="object" class="btn-warning" icon="fa-arrow-left" attrs="{'invisible': [('state', '!=', 'done')]}" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,send,confirm_ahlah,done,refuse"
+                        statusbar_colors='{"draft":"gray","send":"blue","confirm_ahlah":"blue","done":"blue","refuse":"red"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='name' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name='year' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name='month' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="day_to_work_month" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="hour_to_work_month" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+                            <field name='work_location_id' attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+                            <field name='department_id' attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+                            <field name='employee_id' attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+                            <field name='confirm_emp_id' attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}"/>
+                             <field name='confirm_job_id' attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create':True}" invisible='1'/>
+                        </group>
+                        <group name='hour'>
+                            <field name="date_from" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_to" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="data" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="is_htw_plan" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="register_import" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <button name="action_import_hour_balance" string="Баланс импортлох" type="object" icon="fa-sign-in" attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-danger"/>
+                            <button string="Ажилчид татах" name="balance_line_create" type="object" attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
+                            <field name="employee_ids"  widget='many2many_tags'/>
+                        </group>
+                    </group>
+                    <button name="print_dyn_hour_balance" string="Эксел татах" type="object" class="btn btn-outline-dark fa fa-download"/>
+                    <button name="add_balance_employee" states="draft" string="Ажилтан нэмэх"
+                            type="object" class="btn btn-warning"/>
+                    <notebook>
+                        <page string="Цаг">
+                            <widget name="hr_dynamic_balance"/>
+                        </page>
+                        <page string="Дэлгэрэнгүй">
+                            <field name="balance_line_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <form string="Employee hour balance">
+                                    <group >
+                                        <group  name="see_more">
+                                            <field name="employee_id"  options="{'no_create':True}"/>
+                                            <field name="job_id"   options="{'no_create':True}"/>
+                                            <field name="employee_type" />
+                                            <field name="date_from" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            <field name="date_to" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        </group>
+                                        <group >
+                                            <field name="day_to_work_month"/>
+                                            <field name="hour_to_work_month"/>
+                                            <field name="timetable_line_id"/>
+                                            <field name="state" />
+                                            <field name="description"/>
+                                        </group>
+                                     </group>
+                                        <field name="balance_line_line_ids" colspan="4">
+                                            <form string="Employee hour balance">
+                                                <group >
+                                                    <field name="number"/>
+                                                    <field name="conf_id"/>
+                                                    <field name="hour" />
+                                                    <field name="name"/>
+                                                    <field name="company_id" options="{'no_create':True}"/>
+                                                </group>
+                                            </form>
+                                            <tree string="Employee hour balance"  editable='bottom' class="table_header_freeze">
+                                                <field name="number" force_save='1'/>
+                                                <field name="name" />
+                                                <field name="hour" sum='Sum'/>
+                                                <field name="conf_id" optional='hide'/>
+                                                <field name="hour_type" optional='hide' force_save='1'/>
+                                                <field name="company_id" options="{'no_create':True}" invisible='1'/>
+                                                <field name="date_from" optional='hide'/>
+                                                <field name="date_to" optional='hide'/>
+                                                <field name="employee_id" optional='hide'/>
+                                            </tree>
+                                        </field>
+                                </form>
+                                <tree string="Emshployee hour balance" limit="2000"  class="table_header_freeze">
+                                     <field name="sequence"/>
+                                    <field name="identification_id"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="employee_id"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="department_id" options="{'no_create':True}"/>
+                                    <field name="job_id" options="{'no_create':True}"/>
+                                    <field name="employee_type" optional='hide'/>
+                                    <field name='year' optional='hide' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name='month' optional='hide' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="day_to_work_month" sum='Day'  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="hour_to_work_month" sum='Hour'  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="att_procent" sum='Hour'  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="description"  optional='show'/>
+                                    <field name="state" optional='show'/>
+                                    <field name="date_from" optional='hide'/>
+                                    <field name="date_to" optional='hide'/>
+                                     <field name="balance_line_line_ids" widget="many2many_tags" optional='hide'/>
+                                     <field name="balance_line_line_hour_ids" widget="many2many_tags" optional='hide'/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                     <div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_tree" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.tree</field>
+        <field name="model">hour.balance.dynamic</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'">
+                <field name='name'/>
+                <field name='year'/>
+                <field name='month'/>
+                <field name="type"/>
+                <field name='department_id'/>
+                <field name="state" widget='badge' decoration-success="state =='done'" decoration-warning="state =='send'"/>
+                <field name="balance_line_ids"  widget="many2many_tags"  optional='hide'/>
+            </tree>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_filter" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic Search</field>
+        <field name="model">hour.balance.dynamic</field>
+        <field name="arch" type="xml">
+            <search string="Monthly Department hour balance front">
+                <group col='8' colspan='4'>
+                    <field name="department_id"/>
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter name="location" string="Байршил" icon="terp-personal" context="{'group_by':'work_location_id'}"/>
+                    <filter name="year" string="Жил" icon="terp-personal" context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар" icon="terp-personal" context="{'group_by':'month'}"/>
+                    <filter name="type" string="Төрөл" icon="terp-personal" context="{'group_by':'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hour_balance_dynamic_action" model="ir.actions.act_window">
+        <field name="name">Цагийн баланс.</field>
+        <field name="res_model">hour.balance.dynamic</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_location': 1, 'search_default_year': 1, 'search_default_month': 1, 'search_default_type': 1}</field>
+        <field name="search_view_id" ref="hour_balance_dynamic_filter"/>
+    </record>
+    <!-- Сүүл мөр-->
+    <record id="view_hour_balance_dynamic_line_form" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.line.form</field>
+        <field name="model">hour.balance.dynamic.line</field>
+        <field name="arch" type="xml">
+            <form string="Employee" create='false' edit='True' delete='false'>
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="employee_id" />
+                        <field name="job_id"/>
+                        <field name="employee_type"/>
+                        <field name="day_to_work_month" />
+                        <field name="description" />
+                        <field name="hour_to_work_month"/>
+                        <field name="att_procent" sum='Hour'/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="state"/>
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="balance_line_line_ids" colspan="4" nolabel="1" readonly='1'>
+                            <form string="Employee hour balance" >
+                                <group col="4" colspan="4">
+                                    <field name="employee_id" />
+                                    <field name="number"/>
+                                    <field name="conf_id"/>
+                                    <field name="hour"/>
+                                    <field name="name"/>
+                                    <field name="company_id" options="{'no_create':True}"/>
+                                </group>
+                            </form>
+                            <tree string="Employee hour balance" class="table_header_freeze">
+                                <field name="employee_id" />
+                                <field name="number" optional='hide'/>
+                                <field name="name"/>
+                                <field name="hour"/>
+                                <field name="conf_id" optional='hide'/>
+                                 <field name="hour_type" optional='hide' force_save='1'/>
+                                <field name="company_id" options="{'no_create':True}" optional='hide'/>
+                                <field name="date_from" optional='hide'/>
+                                <field name="date_to" optional='hide'/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="balance_line_line_hour_ids" colspan="4">
+                            
+                            <tree string="Employee hour balance"  editable='bottom'>
+                                <field name="name" />
+                                <field name="conf_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_line_tree" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.line.tree</field>
+        <field name="model">hour.balance.dynamic.line</field>
+        <field name="arch" type="xml">
+            <tree string="Hour balance data" class="table_header_freeze"  create='false' edit='false' delete='false'>
+                <field name="sequence"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="identification_id"/>
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <field name="employee_type"/>
+                 <field name="date_from" optional='hide'/>
+                <field name="date_to" optional='hide'/>
+                <field name="day_to_work_month" sum='Sum'/>
+                <field name="hour_to_work_month" sum='Sum'/>
+                <field name="att_procent" sum='Hour' />
+                <field name="description" />
+                <field name="state"/>
+                <field name="balance_line_line_ids"  widget="many2many_tags"  optional='hide'/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hour_balance_dynamic_line_pivot_view">
+        <field name="name">hour.balance.dynamic.line.pivot</field>
+        <field name="model">hour.balance.dynamic.line</field>
+        <field name="arch" type="xml">
+            <pivot string="hour balance line pivot">
+                <field name="employee_id" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_line_search" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.line.search</field>
+        <field name="model">hour.balance.dynamic.line</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <field name="employee_id" string="Ажилтан"/>
+                <field name="department_id" string="Хэлтэс"/>
+                <field name="job_id" string="Албан тушаал"/>
+                <filter name="year" string="Жил" icon="terp-personal" context="{'group_by':'year'}"/>
+                <filter name="month" string="Сар" icon="terp-personal" context="{'group_by':'month'}"/>
+                <filter name="department_id" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_line_action" model="ir.actions.act_window">
+        <field name="name">Сүүл мөр</field>
+        <field name="res_model">hour.balance.dynamic.line</field>
+        <field name="view_mode">tree,form,pivot</field>
+         <field name="context">{'search_default_year': 1, 'search_default_month': 1}</field>
+        <field name="search_view_id" ref="hour_balance_dynamic_line_search"/>
+    </record>
+    <record id="hour_balance_dynamic_line_mine_action" model="ir.actions.act_window">
+        <field name="name">Цагийн нэгтгэл</field>
+        <field name="res_model">hour.balance.dynamic.line</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="context">{'search_default_year': 1, 'search_default_month': 1}</field>
+        <field name="domain">[('employee_id.user_id', 'in', [uid])]</field>
+        <field name="search_view_id" ref="hour_balance_dynamic_line_search"/>
+    </record>
+
+    <!-- Line line -->
+    <record id="view_hour_balance_dynamic_configuration_form" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.configuration.form</field>
+        <field name="model">hour.balance.dynamic.configuration</field>
+        <field name="arch" type="xml">
+            <form string="Employee">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <group col="4">
+                        <field name="number"/>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="company_id" options="{'no_create':True}"/>
+                        <field name="work_location_id" options="{'no_create':True}"/>
+                    </group>
+                    <group col="2">
+                        <field name="tomyo"  attrs="{'invisible': [('type', 'not in', ('tomyo','both'))]}"/>
+                        <field name="query"  attrs="{'invisible': [('type', 'not in', ('query','both'))]}"/>
+                        <!-- <field name="query2"  attrs="{'invisible': [('type', 'not in', ('query','both'))]}"/> -->
+                        <field name="hour" attrs="{'invisible': [('type', '!=', 'fixed')]}"/>
+                        <field name="hour_type"  attrs="{'invisible': [('type', 'not in', ('query','both'))]}"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_configuration_tree" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.configuration.tree</field>
+        <field name="model">hour.balance.dynamic.configuration</field>
+        <field name="arch" type="xml">
+            <tree string="Hour balance data">
+                <field name="number"/>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="hour"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_configuration_search" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.configuration.search</field>
+        <field name="model">hour.balance.dynamic.configuration</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <field name="name"/>
+                <field name="hour"/>
+                <filter name="type" string="Төрөл" icon="terp-personal" context="{'group_by':'type'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="hour_balance_dynamic_configuration_action" model="ir.actions.act_window">
+        <field name="name">Цагийн тохиргоо</field>
+        <field name="res_model">hour.balance.dynamic.configuration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hour_balance_dynamic_configuration_search"/>
+    </record>
+</odoo>

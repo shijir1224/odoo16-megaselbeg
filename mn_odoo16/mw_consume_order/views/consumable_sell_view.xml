@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="asset_sell_form">
+		<field name="name">consumable.material.sell.form</field>
+		<field name="model">consumable.material.sell</field>
+		<field name="arch" type="xml">
+			<form string="Sell Asset">
+				<field name="select_invoice_line_id" invisible="1"/>
+				<field name="gain_or_loss" invisible="1"/>
+				<field name="company_id" invisible="1"/>
+				<group>
+					<group col="4">
+						<field name="action"/>
+						<field name="date"/>
+						<field name="invoice_id" options="{'no_create': True}" attrs="{'invisible': [('action', '!=', 'sell')], 'required': [('action', '=', 'sell')]}"/>
+						<field name="invoice_line_id" options="{'no_create': True}" attrs="{'invisible': [('select_invoice_line_id', '=', False)], 'required': [('select_invoice_line_id', '=', True)]}"/>
+						<field name="account_id" options="{'no_create': True}" attrs="{'invisible': [('action', '!=', 'dispose')], 'required': [('action', '=', 'dispose')]}"/>
+						<field name="analytic_distribution" widget="analytic_distribution"/>
+						<field name="is_qty" /> 
+						<!-- attrs="{'invisible': [('using_id.qty','>',1)]}" -->
+						<field name="qty" attrs="{'invisible': [('is_qty','=',True)]}"/>
+					</group>
+					<!-- <group>
+						<field name="gain_account_id" attrs="{'invisible': [('gain_or_loss', '!=', 'gain')], 'required': [('gain_or_loss', '=', 'gain')]}"/>
+						<field name="loss_account_id" attrs="{'invisible': [('gain_or_loss', '!=', 'loss')], 'required': [('gain_or_loss', '=', 'loss')]}"/>
+					</group> -->
+				</group>
+				<footer>
+					<button name="do_action" string="Sell" type="object" class="btn-primary" attrs="{'invisible': [('action', '!=', 'sell')]}"/>
+					<button name="do_action" string="Dispose" type="object" class="btn-primary" attrs="{'invisible': [('action', '!=', 'dispose')]}"/>
+					<button string="Cancel" class="btn-secondary" special="cancel"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+	
+	<!-- <record id="action_consumable_material_sell" model="ir.actions.act_window">
+		<field name="name">Sell Consumable Material</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">consumable.material.sell</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_asset_sell_tree"/>
+		<field name="search_view_id" ref="asset_sell_search"/>
+	</record> -->
+
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+		<field name="name">delivery.stock.picking_withcarrier.form.view</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//form/sheet/notebook" position="before">
+				<!-- <group attrs="{'invisible': [('state', 'in', ['done','cancel'])]}">
+					<div>
+						<field name="import_data_ids" widget="many2many_binary"/>
+					</div>
+					<button name="action_import_product" string="Бараа импортлох" type="object" class="btn-success"/>
+					<button name="action_export_product" string="Темплати экспортлох" type="object" class="btn-warning"/>
+					<div>
+						<label for="is_barcode_reader" invisible="1"/>
+						<field name="is_barcode_reader" attrs="{'readonly': [('state','in',['done','cancel'])]}" invisible="1"/>
+					</div>
+					<div>
+						<label for="is_barcode_with_loc_reader" invisible="1"/>
+						<field name="is_barcode_with_loc_reader" attrs="{'readonly': [('state','in',['done','cancel'])], 'invisible': [('is_barcode_reader','=',False)]}" invisible="1"/>
+					</div>
+				</group> -->
+				<div style="margin-bottom: 10px">
+					<span>
+						<button name="action_export_product" string="Темплати экспортлох" type="object" class="btn-warning" attrs="{'invisible': [('state', 'in', ['done','cancel'])]}"/>
+					</span>
+					<span style="margin-left: 10px">
+						<field name="import_data_ids" widget="many2many_binary" attrs="{'invisible': [('state', 'in', ['done','cancel'])]}"/>
+					</span>
+					<span style="margin-left: 10px">
+						<button name="action_import_product" string="Бараа импортлох" type="object" class="btn-success" attrs="{'invisible': [('state', 'in', ['done','cancel'])]}"/>
+					</span>
+				</div>
+			</xpath>
+		</field>
+	</record>
+</odoo>

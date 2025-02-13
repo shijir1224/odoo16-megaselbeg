@@ -1,0 +1,177 @@
+<odoo>
+<!-- Hurliin temdeglel -->
+        <menuitem id="minute_note_menu" name="Хурал" parent="menu_document_main" sequence="2"/>
+        <record id="minute_note_filter" model="ir.ui.view">
+			<field name="name">minute.note.Search</field>
+			<field name="model">minute.note</field>
+			<field name="arch" type="xml">
+				<search string="minute note">
+					<group expand="0" string="Group By...">
+						<filter string="Төрөл" name="type_id" context="{'group_by':'type_id'}"/>
+						<filter string="Жилээр" name="date" context="{'group_by':'date:year'}" help="Жил жилээр"/>
+						<filter string="Хурлын нэр" name="name" context="{'group_by':'name'}" help="Хурлын нэр"/>
+					</group>
+				</search>
+			</field>
+        </record>
+    	<record model="ir.ui.view" id="minute_note_form_view">
+            <field name="name">minute.note.form</field>
+            <field name="model">minute.note</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Minute">
+            		<header>
+	                    <button string="Илгээх" name="action_send" states="draft" type="object" class="oe_highlight"/>
+	                    <button string="Хаах" name="action_confirm" states="send" type="object" class="oe_highlight"/>
+	                    <button string="Буцаах" name="action_draft" states="send,confirm" type="object"/>
+                        <button string="ҮД үүсгэх" name="create_task" states="draft,send,confirm" type="object"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,send,confirm"
+                        statusbar_colors='{"draft":"gray","send":"blue","confirm":"blue"}'/>
+					</header>
+					<sheet>
+                    <group>
+						<group>
+							<field name='number'/>
+							<field name='name'/>
+							<field name='date'/>
+							<field name='type_id'/>
+                            <field name='start_time'  widget="float_time"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name='end_time'  widget="float_time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+						<group>
+                            <field name='employee_id' options="{'no_create': True,'no_open': True}"/>
+		            		<field name='res_company_id' options="{'no_create': True,'no_open': True}"/>
+							<field name='job_id' options="{'no_create': True,'no_open': True}"/>
+							<field name="description" type="html" class="oe_memo"/>
+						</group>
+                    </group>
+						<notebook>
+			            	<page name='employees' string="Хамрагдах ажилтнууд">
+		                        <field name="attendance_ids" >
+		                            <tree string="Lines"  editable="bottom">
+		                                <field name="employee_id" options="{'no_create':True}"/>
+		                                <field name="attendance_id"/>
+		                            </tree>
+		                        </field>
+		                    </page>
+		                </notebook>
+		                <group name='creates'>
+							<field name='create_employee_id' options="{'no_create': True,'no_open': True}"/>
+							<field name='create_date'/>
+							<field name='create_job_id' options="{'no_create':True}"/>
+                            <field name='task_id' options="{'no_create':True}"/> 
+		            	</group>
+		            </sheet>
+		            <div class="oe_chatter">
+		                <field name="message_follower_ids" widget="mail_followers"/>
+		                <field name="message_ids" widget="mail_thread"/>
+		            </div>
+            	</form>
+            </field>
+        </record>
+
+	    <record model="ir.ui.view" id="minute_note_tree_view">
+	        <field name="name">minute.note.tree</field>
+	        <field name="model">minute.note</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="Minute" decoration-info="state=='send'" decoration-success="state=='confirm'" decoration-muted="state=='draft'"> 
+            		<field name='name'/>
+					<field name='date'/>
+	        		<field name='employee_id'/>
+	        		<field name='res_company_id' />
+					<field name='state'/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.actions.act_window" id="action_minute_note_tree_view">
+	        <field name="name">Хурлын тэмдэглэл</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">minute.note</field>
+	        <field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_type_id': 1}</field>
+			<field name="search_view_id" ref="minute_note_filter"/>
+	     	<field name="view_id" ref="minute_note_tree_view"/>
+	    </record>
+
+	    <menuitem id="minute_add_menu" parent="minute_note_menu" action="action_minute_note_tree_view" sequence="1"/>
+
+<!-- Уулзалтын бүлэг үүсгэх-->
+
+    <record model="ir.ui.view" id="view_meeting_types_form"> 
+         <field name="name">Бүлэг</field>
+        <field name="model">meeting.types</field>
+        <field name="arch" type="xml">
+            <form string="Meeting types">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook position="inside">
+                        <page string="Шийдвэрийг харах эрхтэй хүмүүс">
+                            <group col="2">
+                                <field name="employees" groups="mw_document.group_document_manager" options="{'no_create':True}">
+                                    <tree string="Employees"  editable="bottom">
+                                        <field name="name"/>
+                                        <field name="job_id" />
+                                        <field name="company_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>  
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="decision_register_tree" model="ir.ui.view">
+        <field name="name">meeting.types.tree</field>
+        <field name="model">meeting.types</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='name'/>
+                <field name='employees'/>
+                <field name='state'/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id="action_meeting_types">
+        <field name="name">Бүлэг</field>
+        <field name="res_model">meeting.types</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="meet_types_menu_id"  parent="minute_note_menu" action="action_meeting_types" sequence="2" />
+    
+    <!-- Ирцийн мэдээлэл үүсгэх-->
+	<record model="ir.ui.view" id="view_attendance_register_form"> 
+         <field name="name">Хурлын ирц</field>
+        <field name="model">attendance.register</field>
+        <field name="arch" type="xml">
+            <form string="attendance" groups="mw_document.group_document_manager" >
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="attendance_register_tree" model="ir.ui.view">
+        <field name="name">attendance.register.tree</field>
+        <field name="model">attendance.register</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='name'/>
+				
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id="action_attendance_register">
+        <field name="name">Хурлын ирц</field>
+        <field name="res_model">attendance.register</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

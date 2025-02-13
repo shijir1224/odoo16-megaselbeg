@@ -1,0 +1,1258 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_oil_fuel
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20210527\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-06 12:20+0000\n"
+"PO-Revision-Date: 2022-03-06 12:20+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__avg_epx
+msgid "1 мот цагт"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__avg_epx
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__avg_epx
+msgid "1МЦЗ"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: code:addons/mw_oil_fuel/models/oil_fuel.py:0
+#, python-format
+msgid ""
+"<div class=\"o_mail_notification\">created <a href=\"#\" "
+"class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
+msgstr ""
+"<div class=\"o_mail_notification\">建立<a href=\"#\" "
+"class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.view_picking_form_inherit_oil_fuel
+msgid "<span>Тос Түлш 1</span>"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_line__oil_type__add
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__oil_type__add
+msgid "ADD"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "April"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Attach a file"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "August"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__create_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__create_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__create_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__create_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__create_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__create_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__create_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__create_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "December"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__display_name
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__display_name
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__display_name
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__display_name
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__display_name
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__display_name
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__dozer
+msgid "Dozer"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__drill
+msgid "Drill"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__dump
+msgid "Dump"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__equipment
+msgid "Equipment"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__excavator
+msgid "Excavator"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "February"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.module.category,name:mw_oil_fuel.module_oil_fuel
+msgid "Fuel and oil module"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__fuel_high_idle
+msgid "Fuel high idle"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__fuel_low_idle
+msgid "Fuel low idle"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__fuel_medium_idle
+msgid "Fuel medium idle"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__grader
+msgid "Grader"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Group By"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__message_needaction
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__message_has_error
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "January"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "July"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "June"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel____last_update
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard____last_update
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report____last_update
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line____last_update
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm____last_update
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report____last_update
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__write_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__write_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__write_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__write_uid
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__write_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__write_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__write_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__write_date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__service_car
+msgid "Light, service vehicle"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__loader
+msgid "Loader"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "March"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "May"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_mining_production_report
+msgid "Mining production report"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "November"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "October"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_stock_picking__oil_fuel_line_ids
+msgid "Oil Fuel"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_oil_fuel_dashboard
+msgid "Oil Fuel Dashboard"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_oil_fuel
+msgid "Oil fuel"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_oil_fuel_fuel_report
+msgid "Oil fuel fuel report"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_oil_fuel_line
+msgid "Oil fuel line"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_oil_fuel_norm
+msgid "Oil fuel norm"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_oil_fuel_report
+msgid "Oil fuel report"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_oil_report_product_categ
+msgid "Oil report product categ"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_line__oil_type__pm
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__oil_type__pm
+msgid "PM"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "PO Үүсгэх Хэсэг"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_line__oil_type__rpc
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__oil_type__rpc
+msgid "RPC"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_tree
+msgid "SUM"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "September"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_technic_equipment_setting
+msgid "Setting of the technic equipment"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_report_mining_technic_analyze
+msgid "Technic Fuel Motohour Production"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__technic_partner_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__technic_partner_id
+msgid "Technic Partner"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_technic_equipment
+msgid "Technic equipment"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "This Month"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "This Year"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Today"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model,name:mw_oil_fuel.model_stock_picking
+msgid "Transfer"
+msgstr "调拨"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__warning_messages
+msgid "Warning Message"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,help:mw_oil_fuel.field_oil_fuel__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__wheel_dozer
+msgid "Wheel dozer"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__wheel_excavator
+msgid "Wheel excavator"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__wheel_loader
+msgid "Wheel loader"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__oil_type_from__wo
+msgid "Work order агуулахын бүртгэл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__run_hour
+msgid "АМЦ"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__product_qty
+msgid "Авсан тос"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__product_qty
+msgid "Авсан түлш"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__warehouse_id
+msgid "Агуулах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Агуулах Санхүү Бичилтийн Огноог Өөрлчөх"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__run_hour
+msgid "Ажиласан цаг"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Ажиласан цаг бодуулах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__achaanii_mashin
+msgid "Ачааны машин"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__location_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__location_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__location_id
+msgid "Байрлал"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__product_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__product_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__product_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__product_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__product_id
+msgid "Бараа"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Бараанууд"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__categ_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__categ_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__categ_id
+msgid "Барааны Ангилал"
+msgstr "商品分类"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__picking_ids
+msgid "Баримтууд"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Баримтын дугаар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__done_user_id
+msgid "Батласан Ажилтан"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Батлах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__is_view_done
+msgid "Батлах харах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__group_by
+msgid "Бүлэглэх"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__oil_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__parent_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__oil_id
+msgid "Бүртгэл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__production_amount
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__production_amount
+msgid "Бүтээл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_fuel_report__owner_type__contracted
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__owner_type__contracted
+msgid "Гэрээт"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__group_by__week
+msgid "Долоо хонгоор"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__date_to
+msgid "Дуусах огноо"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__state__done
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_fuel_report__state__done
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__state__done
+msgid "Дууссан"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__group_by__year
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Жилээр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Зарлага оноох (Dev mode)"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Зарлагын Баримт"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__picking_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__picking_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__picking_id
+msgid "Зарлагын баримт"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__picking_count
+msgid "Зарлагын баримтын тоо"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Засварын Ахлах Төлөвлөгч Хянах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Засварын Ахлах Төлөвлөгч-д Мессеж Илгээх"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__diff_in_total
+msgid "Зөрүү дүн"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__incoming_picking_id
+msgid "Зөрүү орлого зарлагын Баримт"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Зөрүүгээр Орлого Зарлага Үүсгэх"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Зөрүүгээр Орлого Зарлага Үүсгэх Хэсэг"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Импортлох"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__attachment_ids
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__import_data_ids
+msgid "Импортлох эксел"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__company_id
+msgid "Компани"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Компаниар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__mechanizm
+msgid "Механизм"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__model_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__model_id
+msgid "Модел"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__moto_hour
+msgid "Мотоцаг"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__line_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__line_id
+msgid "Мөр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__line_ids
+msgid "Мөрүүд"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__line_in_ids
+msgid "Мөрүүд орлогын"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.technic_equipment_fuel_view_id
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.technic_equipment_oil_view_id
+msgid "Нийлбэр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__partner_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__partner_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__partner_id
+msgid "Нийлүүлэгч"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Нийлүүлэгчээр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__sum_total
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Нийт"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__state__draft
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_fuel_report__state__draft
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__state__draft
+msgid "Ноорог"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Ноороглох"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Нэмэлт мэдээлэл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__name
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__name
+msgid "Нэр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__date
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__date
+msgid "Огноо"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__date_range_id
+msgid "Огнооны хязгаар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Орлогын Худалдан Авалтын Захиалга Үүсгэх"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__sum_in_total
+msgid "Орлогын дүн"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__res_count
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__res_count
+msgid "Ресс"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__branch_id
+msgid "Салбар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Санхүү бичилт харах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__group_by__month
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Сараар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__desc
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__desc
+msgid "Тайлбар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Темплате Экспортлох"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__technic_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__technic_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__technic_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__technic_id
+msgid "Техник"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Техник импортлох"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__technic_id
+msgid "Техникийн"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_norm_search
+msgid "Техникийн Тохиргоо"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__technic_setting_id
+msgid "Техникийн Төрөл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__program_code
+msgid "Техникийн код"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Техникийн моделоор"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__technic_setting_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__technic_setting_id
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__technic_setting_id
+msgid "Техникийн тохиргоо"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Техникийн төрлөөр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__technic_type
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__technic_type
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__technic_type
+msgid "Техникийн төрөл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Техникээр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__technic_ids
+msgid "Техникүүд"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__technic_type__technology_technic
+msgid "Технологийн автомашин"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__product_qty
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__qty
+msgid "Тоо хэмжээ"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.technic_equipment_oil_view_id
+msgid "Тос зар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__system_type_id
+msgid "Тос нэмсэн систем"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__type__oil
+msgid "Тос тосолгоо"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.action_oil_report_product_categ
+#: model:ir.ui.menu,name:mw_oil_fuel.oil_report_product_categ_menu
+msgid "Тосны Барааны ангилалын тохиргоо"
+msgstr "燃油产品分类设置"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__oil_type_from__oil
+msgid "Тосны Бүртгэл"
+msgstr "油品登记"
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.action_oil
+#: model:ir.ui.menu,name:mw_oil_fuel.oil_menu
+msgid "Тосны бүртгэл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_technic_equipment__tosnii_zarlaga_ids
+msgid "Тосны зарлага"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_technic_equipment_setting__oil_fuel_norm_ids
+msgid "Тосны норм"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.oil_report_action
+#: model:ir.ui.menu,name:mw_oil_fuel.oil_report_menu
+msgid "Тосны тайлан"
+msgstr "燃油报告"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_report_product_categ__product_categ_ids
+msgid "Тосны тайланд орох Барааны Ангилал"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__oil_type
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__oil_type
+msgid "Тосны төрөл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__type__fuel
+msgid "Түлш"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:res.groups,name:mw_oil_fuel.group_oil_fuel_done
+msgid "Түлш Тос Батлагч"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:res.groups,name:mw_oil_fuel.group_oil_fuel_user
+msgid "Түлш Тос Хэрэглэгч"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:res.groups,name:mw_oil_fuel.group_oil_fuel_check
+msgid "Түлш Тос Хянагч"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_stock_picking__oil_fuel_id
+msgid "Түлш Тосны бүртгэл"
+msgstr "燃油和油品登记"
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.technic_equipment_fuel_view_id
+msgid "Түлш зар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.ui.menu,name:mw_oil_fuel.oil_fuel_root_menu
+msgid "Түлш тосны бүртгэл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.technic_equipment_setting_form_oil
+msgid "Түлш, Тосны Норм"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.action_oil_fuel_norm
+#: model:ir.ui.menu,name:mw_oil_fuel.oil_fuel_norm_menu
+msgid "Түлш, Тосны Тохиргоо"
+msgstr "燃油和油品设置"
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.action_oil_fuel_dashboard
+#: model:ir.ui.menu,name:mw_oil_fuel.fuel_dashboard_menu
+msgid "Түлшний Хянах Самбар"
+msgstr "燃油控制板"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_technic_equipment__tulshnii_zarlaga_ids
+msgid "Түлшний зарлага"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.action_fuel
+#: model:ir.ui.menu,name:mw_oil_fuel.fuel_menu
+msgid "Түлшний зарлагын бүртгэл"
+msgstr "燃料支出登记"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_technic_equipment_setting__fuel_norm
+msgid "Түлшний норм"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.action_fuel_in
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__type__fuel_in
+#: model:ir.ui.menu,name:mw_oil_fuel.fuel_in_menu
+msgid "Түлшний орлого"
+msgstr "燃油收入"
+
+#. module: mw_oil_fuel
+#: model:ir.actions.act_window,name:mw_oil_fuel.fuel_fuel_report_action
+#: model:ir.ui.menu,name:mw_oil_fuel.fuel_report_menu
+msgid "Түлшний тайлан"
+msgstr "燃料报告"
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_fuel_report__owner_type__rent
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__owner_type__rent
+msgid "Түрээс"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__state
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__state
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__state
+msgid "Төлөв"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__type
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__type
+msgid "Төрөл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__oil_type_from
+msgid "Хаанаас зарлагадсан"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__purchase_order_id
+msgid "Худалдан авалтын захиалга"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__is_danger_norm
+msgid "Хэмжээнээс хэтэрсэн"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_norm__is_danger
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_norm_search
+msgid "Хэтэрч болохгүй"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__state__check
+msgid "Хянасан"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__check_user_id
+msgid "Хянасан Ажилтан"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__is_view_check
+msgid "Хянах харах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__state__cancel
+msgid "Цуцласан"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_form
+msgid "Цуцлах"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__shift__night
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_fuel_report__shift__night
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__shift__night
+msgid "Шөнө"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Эзэмшигчийн төрлөөр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__owner_type
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__owner_type
+msgid "Эзэмшлийн төрөл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Энэ жил"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Энэ сар"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_dashboard__date_from
+msgid "Эхлэх огноо"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel__shift
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_fuel_report__shift
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__shift
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_report__shift
+msgid "Ээлж"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Ээлжээр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Өдрөөр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel__shift__day
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_fuel_report__shift__day
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__shift__day
+msgid "Өдөр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_dashboard__group_by__day
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_search
+msgid "Өдөрөөр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__before_moto_hour
+msgid "Өмнөх Мотоцаг"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__before_line_id
+msgid "Өмнөх бүртгэл"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__edit_before_moto_hour
+msgid "Өмнөх мотоцаг ЗАСАХ"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields,field_description:mw_oil_fuel.field_oil_fuel_line__after_line_ids
+msgid "Өмнөх цаг"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Өнөөдөр"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_fuel_report_view_search
+#: model_terms:ir.ui.view,arch_db:mw_oil_fuel.oil_fuel_report_view_search
+msgid "Өөрийн техник"
+msgstr ""
+
+#. module: mw_oil_fuel
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_fuel_report__owner_type__own_asset
+#: model:ir.model.fields.selection,name:mw_oil_fuel.selection__oil_fuel_report__owner_type__own_asset
+msgid "Өөрийн хөрөнгө"
+msgstr ""

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+		<record id="view_action_mining_coal_sales_tree" model="ir.ui.view">
+            <field name="name">mining.coal.sales.tree</field>
+            <field name="model">mining.coal.sales</field>
+            <field name="arch" type="xml">
+                <tree string="Mining Coal Sales">
+                    <field name="date"/>
+                    <field name="sum_sales_amount_tn"/>
+                    <field name="sum_sales_amount_m3"/>
+                    <field name="sum_res_count"/>
+                    <field name="description"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- <record id="view_mining_coal_sales_filter" model="ir.ui.view">
+            <field name="name">mining.coal.sales.filter</field>
+            <field name="model">mining.coal.sales</field>
+            <field name="arch" type="xml">
+                <search string="Coal">
+                    <group expand="0" string="Group By...">
+                        <filter string="Project" name="group_project" icon="terp-go-month" domain="[]"/>
+                        <filter string="Year" name="group_year" icon="terp-go-month" domain="[]" context="{'group_by':'year'}"/>
+                        <filter string="Month" name="group_month" icon="terp-go-month" domain="[]" context="{'group_by':'month'}"/>
+                        <filter string="Day" name="group_day" icon="terp-go-day" domain="[]" context="{'group_by':'day'}"/>
+                    </group>
+                </search>
+            </field>
+        </record> -->
+        <record id="view_mining_coal_sales_filter" model="ir.ui.view">
+    	<field name="name">mining.coal.sales.filter</field>
+        <field name="model">mining.coal.sales</field>
+        <field name="arch" type="xml">
+        	<search string="Search">
+                <group expand="0" string="Group By...">
+                        <filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+                        <filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+                        <filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>      
+                </group>
+           	</search>
+        </field>
+    	</record>
+
+        <record id="view_mining_coal_sales_form" model="ir.ui.view">
+            <field name="name">mining.coal.sales.form</field>
+            <field name="model">mining.coal.sales</field>
+            <field eval="25" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Mining Coal Sales">
+                <header>
+                    <button name="action_to_approved" states="draft" string="Approve" type="object" class="oe_highlight"/>
+                    <button name="action_to_draft" states="approved" string="Draft" type="object"/>                     
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="branch_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Мөрүүд">
+                            <field name="line_ids">                              
+                                <tree string="Coal Sales Lines"  editable='bottom'>
+                                    <field name="partner_id" options="{'no_create': True, 'no_open':True}"/>
+                                    <field name="pile_id" domain="[('material_id.mining_product_type','=','mineral')]" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="pile_material_id" readonly="1"/>
+                                    <field name="type"/>
+                                    <field name="res_count"/>
+                                    <field name="sales_amount_tn"/>
+                                    <field name="sales_amount_m3"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="sum_sales_amount_tn"/>
+                            <field name="sum_sales_amount_m3"/>
+                            <field name="sum_res_count"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_mining_coal_sales'>
+            <field name="name">Coal Sales</field>
+            <field name="res_model">mining.coal.sales</field>
+            <!-- <field name="context">{'search_default_group_year': 1,'search_default_group_month': 1, 'search_default_group_day': 1}</field>  -->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_action_mining_coal_sales_tree"/>
+        </record>
+	
+</odoo>

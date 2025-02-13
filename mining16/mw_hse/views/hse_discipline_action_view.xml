@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+
+
+	<!-- Discipline action -->
+	<record id="sequence_hse_discipline_action" model="ir.sequence">
+        <field name="name">HSE Зөрчлийн хуудас</field>
+        <field name="code">hse.discipline.action</field>
+        <field name="prefix">ЗБ%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+	<record id="view_hse_discipline_action_form" model="ir.ui.view">
+		<field name="name">hse.discipline.action.form</field>
+		<field name="model">hse.discipline.action</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'not in', ['cancel','done']),('flow_id','=',False)]}"/>
+				</header>	
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+					</div>
+					<group>
+						<field name="flow_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}" required="1"/>
+						<field name="state" invisible="1"/>
+						<field name="flow_line_next_id" invisible="1"/>
+						<field name="flow_line_back_id" invisible="1"/>
+						<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+						<field name="is_not_edit" invisible="1"/>
+						<field name="discipline_categ" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="company_id"/>
+					</group>
+					<separator string="Ажилтны талаарх мэдээлэл" colspan="2"/>
+					<group>
+						<field name="name"/>
+						<field name="branch_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="employee_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="department_id"/>
+						<field name="employee_position"/>
+					</group>
+					<group>    
+						<field name="prev_discipline_check" attrs="{'readonly':[('is_not_edit','=',True)],'invisible':[('state','=','draft')]}"/>
+						<field name="prev_discipline_type" attrs="{'invisible':[('prev_discipline_check','=',False)],'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="prev_discipline_date" attrs="{'invisible':[('prev_discipline_check','=',False)], 'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="prev_discipline_datetime" attrs="{'invisible':[('prev_discipline_check','=',False)], 'readonly':[('is_not_edit','=',True)]}"/>
+					</group>
+					<group>
+						<field name="create_user_id" options="{'no_create':True}" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="discipline_attachment_ids" widget="many2many_binary" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+					</group>
+					<separator string="Гаргасан зөрчлийн талаарх мэдээлэл" attrs="{'invisible':[('state','=','draft')]}"/>
+					<group>
+						<field name="now_discipline_date" attrs="{'required':[('state','!=','draft')],'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="discipline_location" attrs="{'required':[('state','!=','draft')],'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="discipline_type" widget="many2many_tags" options="{'no_create':True}" attrs="{'required':[('state','!=','draft')],'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="discipline_level" widget="selection" attrs="{'required':[('state','!=','draft')],'readonly':[('is_not_edit','=',True)]}"/>
+					</group>
+					<group>
+						<field name="discipline_content" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+						<field name="attachment_ids" widget="many2many_binary" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+					</group>
+					<separator string="Зөрчлийн хуудасын талаарх мэдээлэл" attrs="{'invisible':[('state','=','draft')]}"/>
+					<group>
+						<field name="punishment_type" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="punishment_time" attrs="{'invisible':[('state','=','draft')]}"/>
+					</group>
+					<notebook>
+						<page string="Төлөв түүх" name="history">
+							<field name="history_ids" readonly="1">
+								<tree>
+									<field name="user_id"/>
+									<field name="date"/>
+									<field name="flow_line_id"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>	
+					<!-- <group>
+						<field name="taniltssan_employee"/>
+						<field name="taniltssan_employee_date"/>
+						<field name="shuud_udirdlaga"/>
+						<field name="shuud_udirdlaga_date"/>
+						<field name="hr_employee" options="{'no_create':True}" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="hr_employee_date" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="heltes_udirdlaga" options="{'no_create':True}" attrs="{'invisible':[('state','not in',['done','end'])]}"/>
+						<field name="heltes_udirdlaga_date" attrs="{'invisible':[('state','not in',['done','end'])]}"/>
+					</group> -->
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_discipline_action_tree" model="ir.ui.view">
+		<field name="name">hse.discipline.action.tree</field>
+		<field name="model">hse.discipline.action</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name" invisible="1"/>
+				<field name="employee_id" options="{'no_create':True}"/>
+				<field name="branch_id"/>
+				<field name="department_id"/>
+				<field name="employee_position"/>
+				<field name="prev_discipline_type"/>
+				<field name="prev_discipline_date"/>
+				<field name="prev_discipline_datetime"/>
+				<field name="now_discipline_date"/>
+				<field name="discipline_location"/>
+				<field name="discipline_type" widget="many2many_tags"/>
+				<field name="discipline_location"/>
+				<field name="discipline_level" widget="selection"/>
+				<field name="discipline_content"/>
+				<field name="attachment_ids" widget="many2many_binary" optional="hide"/>
+				<field name="flow_line_id"/>
+				<field name="state" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hse_discipline_action_pivot" model="ir.ui.view">
+         <field name="name">hse.discipline.action.pivot</field>
+         <field name="model">hse.discipline.action</field>
+         <field name="arch" type="xml">
+             <pivot string="Analysis">
+                 <field name="discipline_level" type="row"/>
+                 <!-- <field name="prev_discipline_type" type="measure"/> -->
+             </pivot>
+         </field>
+    </record>
+
+	<record id="view_hse_discipline_action_filter" model="ir.ui.view">
+		<field name="name">hse.discipline.action.filter</field>
+		<field name="model">hse.discipline.action</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+				<filter name="is_done" string="Батлагдсан" domain="[('state','=',('done'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Хэлтэс" name="group_department_id" domain="[]" context="{'group_by':'department_id'}"/>
+					<filter string="Төлөв" name="group_state" domain="[]" context="{'group_by':'flow_line_id'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'create_date:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'create_date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'create_date:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_discipline_action" model="ir.actions.act_window">
+		<field name="name">Зөрчлийн хуудас</field>
+		<field name="res_model">hse.discipline.action</field>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_department_id': 1,'search_default_group_state': 1}</field>
+		<field name="view_mode">tree,pivot,form</field>
+	</record>
+
+</odoo>

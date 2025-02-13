@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="view_request_template_verify_form" model="ir.ui.view">
+            <field name="name">request.template.verify.form</field>
+            <field name="model">request.template.verify</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              <form string="Verification Action">
+                <field name="notes" nolabel="1" colspan="4"/>
+                <group colspan="4" col="8">
+                    <button icon="gtk-cancel" special="cancel" string="Close"/>
+                    <button icon="gtk-ok" string="Approve" name="approve" type="object"/>
+                    <button icon="terp-gtk-stop" string="reject" name="reject" type="object"/>
+               </group>
+              </form>
+            </field>
+        </record>
+        
+        <record id="action_request_template_verify" model="ir.actions.act_window">
+            <field name="name">Verification Action</field>
+            <field name="res_model">request.template.verify</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_request_template_verify_form"/>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="view_request_template_wkf_notes_tree" model="ir.ui.view">
+            <field name="name">request.template.wkf.notes.tree</field>
+            <field name="model">request.template.wkf.notes</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Workflow History">
+                    <field name="name" string="Дугаар"/>
+                    <field name="user_id" string="Хүсэлт үүсгэсэн"/>
+                    <field name="date" string="Огноо"/>
+                    <field name="action" string="Үйлдэл"/>
+<!--                     <field name="amount"/> -->
+                    <field name="flow_line_id"/>
+                    <field name="notes" string="Тэмдэглэл"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_request_template_wkf_notes_form" model="ir.ui.view">
+            <field name="name">request.template.wkf.notes.form</field>
+            <field name="model">request.template.wkf.notes</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Workflow History">
+                    <field name="name"/>
+<!--                     <field name="amount"/> -->
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="action"/>
+                    <field name="notes" nolabel="1" colspan="4"/>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_purchase_create_move_tree" model="ir.ui.view">
+		<field name="name">purchase.create.stock.move.tree</field>
+		<field name="model">stock.move</field>
+		<field name="priority">1000</field>
+		<field name="arch" type="xml">
+			<tree string="Moves" create="0">
+				<field name="date" groups="base.group_no_one"/>
+				<field name="reference"/>
+				<field name="picking_type_id" invisible="1"/>
+				<field name="create_date" invisible="1" groups="base.group_no_one"/>
+				<field name="product_id"/>
+				<field name="location_id" options="{'no_create': True}" string="From"/>
+				<field name="location_dest_id" options="{'no_create': True}" string="To"/>
+				<field name="product_residual"/>
+				<field name="product_uom_qty"/>
+				<field name="product_uom"/>
+				<field name="po_diff_qty"/>
+				<field name="po_qty"/>
+				<field name="is_over" widget="boolean_toggle"/>
+				<field name="po_l_ids" widget="many2many_tags"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_purchase_create_move_form" model="ir.ui.view">
+		<field name="name">purchase.create.stock.move.form</field>
+		<field name="model">stock.move</field>
+		<field name="priority">1000</field>
+		<field name="arch" type="xml">
+			<form string="Stock Moves" create="0" edit="0">
+				<header>
+					<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,assigned,done" />
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+					</div>
+					<group>
+						<group name="main_grp" colspan="2">
+							<group name="main_grp_col1">
+								<field name="reference"/>
+								<field name="location_id" options="{'no_create': True}"/>
+								<field name="location_dest_id" options="{'no_create': True}"/>
+								<field name="company_id"/>
+							</group>
+							<group name="main_grp_col2">
+								<field name="product_id"/>
+								<field name="product_uom_category_id" invisible="1"/>
+								<label for="product_uom_qty"/>
+								<div class="o_row">
+									<field name="product_uom_qty"/>
+									<field name="product_uom"/>
+								</div>
+								<field name="po_diff_qty"/>
+								<field name="po_qty"/>
+								<field name="product_residual"/>
+								<field name="name" invisible="1"/>
+								<field name="date"/>
+							</group>
+						</group>
+						<group name="origin_grp" string="Origin" groups="base.group_no_one" >
+							<field name="origin"/>
+							<field name="group_id"/>
+							<field name="procure_method" attrs="{'readonly': [('state', '!=', 'draft')]}" groups="stock.group_adv_location"/>
+						</group>
+					</group>
+					<group string="Үүссэн Худалдан Авалт">
+						<field name="po_l_ids" readonly="1" nolabel="1">
+							<tree>
+								<field name="order_id"/>
+								<field name="product_id"/>
+								<field name="product_qty" sum="SUM"/>
+							</tree>
+						</field>
+					</group>
+				</sheet>
+				</form>
+		</field>
+	</record>
+
+	<record id="stock_purchase_create_move_view_search" model="ir.ui.view">
+		<field name="name">purchase.create.stock.move.search</field>
+		<field name="model">stock.move</field>
+		<field name="priority">1000</field>
+		<field name="arch" type="xml">
+			<search string="Stock Moves">
+				<field name="origin" filter_domain="['|', '|', ('origin', 'ilike', self), ('name', 'ilike', self), ('picking_id', 'ilike', self)]" string="Reference"/>
+				<field name="product_id"/>
+				<field name="name" string="Location" filter_domain="['|',('location_id', 'ilike', self),('location_dest_id', 'ilike', self)]"/>
+				<field name="partner_id" string="Partner" filter_domain="[('picking_id.partner_id', 'child_of', self)]"/>
+				<filter string="Ready" name="ready" domain="[('state','=','assigned')]" help="Stock moves that are Available (Ready to process)"/>
+				<filter name="to_do" string="Хийх" domain="[('state','not in',['done','cancel']),'|',('po_l_ids','=',False),('po_diff_qty','>',0),('is_over','=',False)]"/>
+				<filter string="Done" name="done" domain="[('state','=','done')]" help="Stock moves that have been processed"/>
+				<separator/>
+				<filter string="Incoming" name="incoming" domain="[('location_id.usage', 'not in', ('internal', 'transit')), ('location_dest_id.usage', 'in', ('internal', 'transit'))]"/>
+				<filter string="Outgoing" name="outgoing" domain="[('location_id.usage', 'in', ('internal', 'transit')), ('location_dest_id.usage', 'not in', ('internal', 'transit'))]"/>
+				<separator/>
+				<filter string="Date" name="today" date="date" help="Scheduled or processing date"/>
+				<group expand="0" string="Group By">
+					<filter string="Product" name="by_product" domain="[]"  context="{'group_by': 'product_id'}"/>
+					<filter string="Picking" name="groupby_picking_id" domain="[]"  context="{'group_by': 'picking_id'}"/>
+					<filter string="Source Location" name="groupby_location_id" domain="[]" context="{'group_by': 'location_id'}" groups="stock.group_stock_multi_locations"/>
+					<filter string="Destination Location" name="groupby_dest_location_id" domain="[]" context="{'group_by': 'location_dest_id'}" groups="stock.group_stock_multi_locations"/>
+					<filter string="Status" name="status" domain="[]" context="{'group_by': 'state'}"/>
+					<filter string="Creation Date" name="groupby_create_date" domain="[]" context="{'group_by': 'create_date'}" groups="base.group_no_one"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="view_picking_mw_stock_confirm" model="ir.ui.view">
+		<field name="name">stock.mw.stock.confirm</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<field name="location_dest_id" position="after">
+				<field name="is_salbar_zahialga" force_save="1" widget="boolean_toggle" attrs="{'invisible': [('picking_type_code','!=','internal')], 'readonly': [('state', 'in', ['done','cancel'])]}"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="stock_warehouse_form" model="ir.ui.view">
+		<field name="name">stock.warehouse.form.inherit</field>
+		<field name="model">stock.warehouse</field>
+		<field name="inherit_id" ref="stock.view_warehouse"/>
+		<field name="arch" type="xml">
+			<field name="partner_id" position="after">
+				<field name="is_salbar_zahialga"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="purchase_create_stock_move_action" model="ir.actions.act_window">
+			<field name="name">Салбарын Захиалга</field>
+			<field name="res_model">stock.move</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('picking_id.picking_type_id.code','=','internal'),('picking_id.is_salbar_zahialga','=',True)]</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('view_purchase_create_move_tree')}),
+				(0, 0, {'view_mode': 'form', 'view_id': ref('view_purchase_create_move_form')})]"/>
+			<field name="search_view_id" ref="stock_purchase_create_move_view_search"/>
+			<field name="context">{'search_default_to_do': 1, 'search_default_by_product': 1, 'create': 0}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_empty_folder">
+					There's no product move yet
+				</p><p>
+					This menu gives you the full traceability of inventory operations on a specific product.
+					You can filter on the product to see all the past movements for the product.
+				</p>
+			</field>
+	</record>
+
+	<record id="stock_move_po_create_form" model="ir.ui.view">
+		<field name="name">stock.move.po.create.form</field>
+		<field name="model">stock.move.po.create</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="4">
+					<field name="is_sub_po" widget="boolean_toggle"/>
+				</group>
+				<group col="4">
+					<field name="partner_id" options="{'no_create':True}" attrs="{'invisible': ['|',('is_comparison', '=', True),('is_sub_po','=',True)], 'required': [('is_comparison', '!=', True),('is_sub_po','!=',True)]}" />
+					<field name="partner_ids" options="{'no_create':True}" widget="many2many_tags" attrs="{'invisible': [('is_comparison', '=', False)], 'required': [('is_comparison', '=', True)]}"/>
+					<field name="is_comparison" widget="boolean_toggle" attrs="{'invisible': [('is_sub_po','=',True)]}"/>
+					<field name="date" attrs="{'invisible': [('is_sub_po','=',True)]}"/>
+				</group>
+				<group col="4">
+					<field name="purchase_sub_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', True)] ,'invisible': [('is_sub_po', '=', False)]}" domain="[('flow_line_id.state_type','=','draft')]"/>
+				</group>
+				<group>
+					<field name="flow_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', False)] ,'invisible': [('is_sub_po', '=', True)]}"/>
+					<field name="warehouse_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', False)] ,'invisible': [('is_sub_po', '=', True)]}" domain="[('access_user_ids','in',[uid])]"/>
+				</group>
+
+				<group col="4">
+					<field name="is_po_qty_edit" widget="boolean_toggle"/>
+				</group>
+				<group>
+					<field name="line_ids" nolabel="1" attrs="{'invisible': [('is_po_qty_edit', '=', False)]}" force_save="1">
+						<tree create="false" delete="false" editable="bottom">
+							<field name="product_id"/>
+							<field name="product_residual" readonly="1"/>
+							<field name="qty"/>
+							<field name="po_qty" readonly="0" force_save="1"/>
+						</tree>
+					</field>
+				</group>
+				<footer>
+					<button name="action_done" string="Худалдан авалтын захиалга үүсгэх" type="object" class="btn-primary"/>
+					<button special="cancel" string="Cancel" type="object" class="btn-default"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<act_window name="Худалдан Авалтын Захиалга Үүсгэх"
+		res_model="stock.move.po.create"
+		binding_model="stock.move"
+		view_mode="form"
+		view_id = "stock_move_po_create_form"
+		target="new"
+		id="stock_move_po_create_action"/>
+
+	<record id="report_purchase_create_stock_move_pivot1" model="ir.ui.view">
+		<field name="name">report.purchase.create.stock.move.pivot1</field>
+		<field name="model">stock.move</field>
+		<field name="arch" type="xml">
+			<pivot>
+				<field name="product_id" type="measure"/>
+				<field name="location_dest_id" type="row"/>
+				<field name="product_id" type="row"/>
+				<field name="product_uom_qty" type="measure"/>
+			</pivot>
+		</field>
+	</record>
+
+	<record id="stockquat_more_report_c_tree" model="ir.ui.view">
+		<field name="name">stockquant.more.report.c.tree</field>
+		<field name="model">stockquant.more.report.c</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="location_dest_id"/>
+				<field name="product_id"/>
+				<field name="product_uom_qty"/>
+				<field name="reserved_qty"/>
+				<field name="product_quant"/>
+				<field name="without_reserverd_qty"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="stockquat_more_report_c_pivot" model="ir.ui.view">
+		<field name="name">stockquant.more.report.c.pivot</field>
+		<field name="model">stockquant.more.report.c</field>
+		<field name="arch" type="xml">
+			<pivot string="Quantities">
+				<field name="location_dest_id" type="row"/>
+				<field name="product_id" type="row"/>
+				<field name="product_uom_qty" type="measure"/>
+				<field name="reserved_qty" type="measure"/>
+				<field name="product_quant"/>
+				<field name="without_reserverd_qty"/>
+			</pivot>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='stockquat_more_report_c_action'>
+		<field name="name">stock quant more report</field>
+		<field name="res_model">stockquant.more.report.c</field>
+		<field name="view_mode">pivot,tree</field>
+	</record>
+
+	<record id="purchase_create_stock_move_form1_view" model="ir.ui.view">
+		<field name="name">purchase create stock move report wizard</field>
+		<field name="model">purchase.create.stock.move.report</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		   <form>
+				<group col="4">
+					<field name="date_start" />
+					<field name="date_end"/>
+					<field name="picking_type_id"/>
+				</group>
+				<footer>
+					<button name="see_report" string="Харах (new)" type="object" icon="fa-eye" class="btn-success"/>
+					<button special="cancel" string="Cancel" type="object" class="btn-default"/>
+				</footer>
+		   </form>
+		</field>
+	</record>
+
+	<record id="action_purchase_create_stock_move_report" model="ir.actions.act_window">
+		<field name="name">Нэгтгэлийн Дэлгэрэнгүй Тайлан</field>
+		<field name="res_model">purchase.create.stock.move.report</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="purchase_create_stock_move_form1_view"/>
+		<field name="target">new</field>
+	</record>
+</odoo>

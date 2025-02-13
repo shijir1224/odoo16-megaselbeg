@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_pricelist_view_inherid_import" model="ir.ui.view">
+        <field name="name">product.pricelist.form.inherit_import</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="excel_data"/>
+                <field name="name" invisible="1"/>
+                <button name="import_from_excel" string="Excel-с импортлох" type="object" icon="fa-file-excel-o" colspan="1" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_confirm_view_inherit_import" model="ir.ui.view">
+		<field name="name">product.pricelist.confirm.form.inherit_import</field>
+		<field name="model">product.pricelist.confirm</field>
+        <field name="inherit_id" ref="mw_sale_pricelist_confirm.product_pricelist_confirm_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='user_id']" position="after">
+                <field name="excel_data" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                <field name="name" invisible="1"/>
+                <button name="import_from_excel" string="Excel-с импортлох" type="object" icon="fa-file-excel-o" colspan="1" class="oe_highlight" attrs="{'invisible':[('state','in',['done','cancel'])]}"/>
+            </xpath>
+		</field>
+	</record>
+
+</odoo>

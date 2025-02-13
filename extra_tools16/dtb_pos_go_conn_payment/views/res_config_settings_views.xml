@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_session_go_conn_inherit" model="ir.ui.view">
+        <field name="name">POS Session Go conn inherit</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cash_register_balance_end_real']" position="after">
+                <field name="go_conn_sale_count"/>
+                <field name="go_conn_sale_total"/>
+                <field name="go_conn_void_count"/>
+                <field name="go_conn_void_total"/>
+                <field name="go_conn_description"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

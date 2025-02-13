@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="before">
+                <label for="product_tmpl_id" class="oe_edit_only" string="Үндсэн Бараа" groups="mw_product_variant.group_stock_product_huvilbar"/>
+                <div>
+                    <field name="product_tmpl_id" class="oe_inline" attrs="{'required': [('id', '!=', False)],'invisible': [('id', '=', False)],'readonly': False}" groups="mw_product_variant.group_stock_product_huvilbar" options="{'no_create':True}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_view_mw_inherit" model="ir.ui.view">
+        <field name="name">product.template.search.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <filter name="real_product_variant_count_mwh" string="Хувилбар хоосон" domain="[('product_variant_count_mw','&gt;',0)]"/>
+            </search>
+        </field>
+    </record>
+    
+</odoo>

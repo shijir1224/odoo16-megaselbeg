@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    	
+        <template id="assets_backend_oil_fuel" name="Oil fuel assets backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <!-- <script type="text/javascript" src="/mw_oil_fuel/static/libs/data.js"></script>
+                <script type="text/javascript" src="/mw_oil_fuel/static/libs/drilldown.js"></script> -->
+                <script type="text/javascript" src="/mw_oil_fuel/static/js/oil_fuel_dashboard.js"></script>
+            </xpath>
+        </template>
+    
+</odoo>

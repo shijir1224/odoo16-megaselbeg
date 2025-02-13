@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<menuitem id="purchase_request_root_menu" 
+			name="ХА-ын хүсэлт" sequence="134" 
+			web_icon="mw_purchase_request,static/img/Purchase_request.png"/>
+		<menuitem id="purchase_request_add_new_menu" 
+			name="Хүсэлт" 
+			parent="purchase_request_root_menu" 
+			action="action_purchase_request_view" sequence="1"/>
+		<menuitem id="pr_my_approve_menu" 
+			name="Миний батлах хүсэлт" 
+			parent="purchase_request_root_menu" 
+			action="action_pr_my_approve" sequence="1"/>
+		<menuitem id="purchase_request_add_new_all_menu" 
+			name="Бүх хүсэлт" 
+			parent="purchase_request_root_menu" 
+			action="action_purchase_request_all_view" sequence="2" 
+			groups="mw_purchase_request.group_mw_purchase_request_all_view"/>
+		<menuitem id="purchase_request_line_menu" 
+			name="Хүсэлтийн мөр" 
+			parent="purchase_request_root_menu" sequence="3" 
+			groups="mw_purchase_request.group_mw_purchase_request_manager"/>
+		<menuitem id="purchase_request_line_my_menu" 
+			name="Миний хийх" 
+			parent="purchase_request_line_menu" 
+			action="action_purchase_request_line_my_view" sequence="1"/>
+		<menuitem id="purchase_request_line_all_menu" 
+			name="Бүх хүсэлтийн мөр" 
+			parent="purchase_request_line_menu" 
+			action="action_purchase_request_line_view" sequence="2" 
+			groups="mw_purchase_request.group_purchase_request_line_all_view"/>
+		<menuitem id="purchase_request_report" 
+			name="Тайлан" 
+			parent="purchase_request_root_menu" sequence="4" 
+			groups="mw_purchase_request.group_mw_purchase_request_manager"/>
+		<menuitem id="pr_report_menu" 
+			parent="purchase_request_report" 
+			action="pr_report_action" sequence="1"/>
+		<menuitem id="po_report_mw_menu" 
+			parent="purchase_request_report" 
+			action="po_report_mw_action" sequence="2"/>
+		<menuitem id="pr_report_excel_menu" 
+			parent="purchase_request_report" 
+			action="action_pr_report_excel" sequence="3"/>
+	</data>
+</odoo>

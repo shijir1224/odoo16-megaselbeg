@@ -1,0 +1,313 @@
+<odoo>
+	<record id="seq_set_order_number" model="ir.sequence">
+		<field name="name">Hr order number</field>
+		<field name="code">hr.order</field>
+		<field name="padding">3</field>
+	</record>
+	
+    <record id="hr_order_filter_view" model="ir.ui.view">
+        <field name="name">hr.order.filter</field>
+        <field name="model">hr.order</field>
+		<field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Decision">
+                <field name="name"/>
+                <field name="order_type_id"/>
+                <field name="order_employee_id"/>
+                <group>
+                    <filter string="Баталсан" name="state_done" domain="[('state', '=', 'done')]"/>
+                    <filter  string="Цуцалсан" name="state_cancel" domain="[('state', '=', 'canceled')]"/>
+                    <filter  string="Ноорог" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter name="date_year" context="{'group_by':'starttime:year'}" string="Жил" />
+                    <filter name="date_month" context="{'group_by':'starttime:month'}" string="Сар" />
+					<filter  name="state_c" context="{'group_by':'state'}"  string="Төлөв"/>
+					<filter name="this_month" string="Энэ сар" domain="[('starttime','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter  name="type_c" context="{'group_by':'order_type_id'}"  string="Төрөл"/>
+					<filter  name="type_2" domain="[('type', '=', 'type2')]"  string="Туршилтын ажилтнууд"/>
+					<filter  name="type_1" domain="[('type', '=', 'type1')]"  string="Үндсэн ажилтнаар томилогдсон"/>
+					<filter  name="type_3" domain="[('type', '=', 'type3')]"  string="Үндсэн цалин өөрчлөгдсөн"/>
+					<filter  name="type_6" domain="[('type', '=', 'type6')]"  string="Ажлаас гарсан ажилтнууд"/>
+					<filter  name="type_10" domain="[('type', '=', 'type10')]"  string="Сахилгын шийтгэл авсан"/>
+					<filter  name="type_11" domain="[('type', '=', 'type11')]"  string="Тэтгэмж авсан ажилтнууд"/>
+					<filter  name="type_16" domain="[('type', '=', 'type16')]"  string="Цалинтай чөлөө, тэтгэмж авсан ажилтнууд"/>
+					<filter  name="type_4" domain="[('type', '=', 'type4')]"  string="Шилжсэн ажилтнууд"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<record id="view_hr_order_form" model="ir.ui.view">
+        <field name="name">hr_order_form</field>
+        <field name="model">hr.order</field>
+        <field name="arch" type="xml">   
+            <form string="Order">  
+				<header name='header'>
+					<button string="Илгээх" name="action_send" states="draft" type="object" class="oe_highlight" />
+					<button string="Батлах" name="action_done"  states="approve" type="object" class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+					<button string="Цуцлах" name="action_canceled" states="done" type="object" class="oe_highlight"/>
+					<button string="Хянах" name="action_approve" states="send" type="object" class="oe_highlight"/>
+					<button string="Ноороглох" name="action_draft"  type="object" class="oe_highlight"  groups='mw_hr.group_hr_confirm' states="send,done,canceled,approve"/>
+					<field name="state" widget="statusbar" statusbar="draft,send,done,canceled,approve" statusbar_colors='{"draft":"red","send":"red","done":"red","canceled":"orange"}'/>
+				</header>               	 
+				<sheet>
+					<group colspan="2">
+						<group string='Бүртгэсэн ажилтан' name='emp'>
+							<field name='employee_id' options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name='department_id' options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name='job_id' options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name='company_id' />
+							<field name="res_currency_id" invisible='1'/>
+							<field name="wage_mnt" invisible='1'/>
+						</group>  
+					</group>
+					<group string='Тушаалын мэдээлэл'>
+						<group name="order_news">
+							<field name="name"/>
+							<field name="order_type_id"  attrs="{'readonly': [('state', '!=', 'draft')]}"  options="{'no_create':True}"/>
+							<field name="resigned_type" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', '!=', 'type6')]}" />
+							<field name="is_many_emp" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="description" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+				            <field name="reward" attrs="{'invisible': [('type', '!=','type5')]}"/>
+							<field name="days" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', '!=', 'type9')]}"/>
+						</group>
+						<group name="order_news_two">
+							<field name='starttime'  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+				            <field name="endtime" attrs="{'invisible': [('type', 'not in', ('type13','type14'))]}"/>
+							<field name="trainee_end_date" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', 'not in', ('type2','type9','type11','type16','type12','type17'))]}"/>
+							<field name='approveddate'/>
+							<field name='is_wage_change' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name='wage' attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('is_wage_change', '!=', True)]}" />
+							<field name='new_wage' attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('is_wage_change', '!=', True)]}" />
+							<field name='new_wage_ch' invisible='1' />
+							<field name='new_wage_str' invisible='1' />
+							<field name="vac_days" attrs="{'invisible': [('type', '!=','type13')]}"/>
+							<field name="start_days" attrs="{'invisible': [('type', '!=','type13')]}"/>
+							<field name="end_days" attrs="{'invisible': [('type', '!=','type13')]}"/>
+							<field name='is_this_month_wage'  attrs="{'invisible': [('type', '!=', 'type6')],'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="warning" nolabel="1" style="color:red;" colspan="2"/>
+						</group>
+						<group  attrs="{'invisible': [('type', 'not in',('type6','type7','type8','type9'))]}">
+							<field name="in_company_date" force_save='1' />
+							<field name="before_shift_vac_date" force_save='1'/>
+							<field name="count_day" force_save='1'/>
+							<field name="this_vac_date" readonly='1'/>
+							<field name="con_day" force_save='1'/>
+							<field name="payslip_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="is_con" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+						</group>
+					</group>
+					<notebook colspan="4">
+						<page string='Тушаалд оролцох ажилтан' attrs="{'invisible': [('is_many_emp', '=', True)]}">
+							<group colspan='4' col='4'>
+								<field name='order_employee_id' options="{'no_create':True,'no_create_edit':True,'no_open':True}"  attrs="{'readonly': [('state', '!=', 'draft')],'required':[('is_many_emp','=', False)]}"/>
+								<field name='order_job_id' options="{'no_create':True,'no_create_edit':True,'no_open':True}"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name='order_department_id' options="{'no_create':True,'no_create_edit':True,'no_open':True}"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name='contract_number' attrs="{'invisible': [('is_wage_change', '!=', True)]}" force_save='1'/>
+								<field name="job_id_after" options="{'no_create':True}" attrs="{'required':[('type','=','type4'),('is_many_emp','=', False)], 'invisible':[('type','!=','type4')]}"/>
+								<field name="department_id_after" attrs="{'required':[('type','=','type4')], 'invisible':[('type','!=','type4')]}" options="{'no_create':True, 'no_open':True}"/> 
+								<field name="discipline_name" attrs="{'invisible': [('type', '!=', 'type10')]}"/>
+								<field name="start_date" attrs="{'invisible': [('type', 'not in', ('type10','type7','type8'))]}"/>
+								<field name="end_date" attrs="{'invisible': [('type', 'not in', ('type10','type7','type8'))]}"/>
+								<field name="desc" attrs="{'invisible': [('type', 'not in', ('type10','type6'))]}"/>
+								<field name="prize_type" attrs="{'invisible': [('type', '!=', 'type5')]}" />
+								<field name="prize_name_id" attrs="{'invisible': [('type', '!=', 'type5')]}" />
+								<field name="prize_date" attrs="{'invisible': [('type', '!=', 'type5')]}"/>
+								<field name="prize_desc" attrs="{'invisible': [('type', '!=', 'type5')]}"/>
+								<field name="deduct" attrs="{'invisible': [('type', '!=', 'type10')]}" />		
+								<field name="allowance_name" attrs="{'invisible': [('type', 'not in', ('type11','type16','type17'))]}"/>		   
+								<field name="allowance" attrs="{'invisible': [('type', 'not in', ('type11','type16','type17'))]}" />
+								<field name="allowance_type" attrs="{'invisible': [('type', '!=', 'type17')]}"/>
+				                <field name="leave_type" attrs="{'invisible': [('type', 'not in', ('type16'))]}"/>
+								<field name="months" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', '!=', 'type10')]}"/>
+								
+								<field name='new_wage_ch' attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('type', 'not in', ('type11','type16'))]}" invisible='1'/>
+								<field name='wage_ch' attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('type', 'not in', ('type11','type16'))]}" invisible='1'/>
+								<field name='wage_str' invisible='1'/>
+								<field name='new_wage_str' invisible='1'/>
+								
+							</group>
+						</page>
+						<page name="order_line"  string="Ажилчид"  attrs="{'invisible': [('is_many_emp', '!=', True)]}">
+							<group colspan='4'>
+								<field name="order_lines" attrs="{'readonly': [('state', '!=', 'draft')]}">
+									<tree string="Employees" editable="bottom" >
+										<field name="employee_id" options="{'no_create':True}"/>
+										<field name="department_id" options="{'no_create':True, 'no_open':True}"/>
+										<field name="job_id" options="{'no_create':True, 'no_open':True}"/>
+										<field name="res_currency_id" invisible='1'/>
+										<field name="wage" invisible='1'/>
+										<field name='wage_ch' invisible='1'/>
+										<field name='wage_str' invisible='1'/>
+										<field name="new_wage"/>
+										<field name='new_wage_ch' invisible='1' />
+										<field name='new_wage_str' invisible='1'/>										
+										<field name="new_department_id" attrs="{'column_invisible': [('parent.type','!=','type4')]}" options="{'no_create':True, 'no_open':True}"/> 
+										<field name="new_job_id" attrs="{'column_invisible': [('parent.type', '!=','type4')]}" options="{'no_create':True, 'no_open':True}"/>
+										<field name="duple_department_id" attrs="{'column_invisible': [('parent.type','!=','type4')]}" options="{'no_create':True, 'no_open':True}"/> 
+										<field name="duple_job_id" attrs="{'column_invisible': [('parent.type', '!=', 'type4')]}" options="{'no_create':True, 'no_open':True}"/>
+										<field name="discipline_name" attrs="{'column_invisible': [('parent.type', '!=', 'type10')]}"/>
+										<field name="start_date" attrs="{'column_invisible': [('parent.type', '!=', 'type10')]}"/>
+										<field name="end_date" attrs="{'column_invisible': [('parent.type', 'not in', ('type10','type4'))]}"/>
+										<field name="desc" attrs="{'column_invisible': [('parent.type', 'not in', ('type10','type6'))]}"/>
+										<field name="prize_name_id" attrs="{'column_invisible': [('parent.type', '!=', 'type5')]}" />
+										<field name="prize_date" attrs="{'column_invisible': [('parent.type', '!=', 'type5')]}"/>
+										<field name="prize_desc" attrs="{'column_invisible': [('parent.type', '!=', 'type5')]}"/>
+										<field name="deduct" attrs="{'column_invisible': [('parent.type', '!=', 'type10')]}" />		
+										<field name="allowance_name" attrs="{'column_invisible': [('parent.type', 'not in', ('type11','type16','type17'))]}"/>								   
+										<field name="allowance" attrs="{'column_invisible':  [('parent.type', 'not in', ('type11','type16','type17'))]}" />
+									</tree>
+								</field>
+							</group>  
+						</page> 
+						<page name='settings' string='Тохиргоо' >
+							<group>
+								<button string="Хэрэглэгч идэвхгүй болгох" name="action_user_inactive" type="object" class="btn-danger" groups="mw_hr_order.group_order_manager"/>
+								<button string="Цaлингийн мэдээлэл оруулах" name="create_hr_contract" type="object" class="btn btn-sm btn-info" groups="mw_hr_order.group_order_manager" attrs="{'invisible': [('is_wage_change', '!=', True)]}"/>
+								<field name='inactive_user' style="font-size:12pt;background-color:#F9B64B;color:#450E0E;" force_save='1'/>
+								<field name="contract_id"/>
+								<field name="employees_name" invisible='1'/>
+								<field name="type" invisible='1'/>
+								<field name="year" invisible='1' force_save="1"/>
+								<field name="month" invisible='1' force_save="1"/>
+								<field name="day" invisible='1' force_save="1"/>
+								<field name="start_day" invisible='1' force_save="1"/>
+								<field name="start_month" invisible='1' force_save="1"/>
+								<field name="start_year" invisible='1' force_save="1"/>
+								<field name="start_date_day" invisible='1' force_save="1"/>
+								<field name="start_date_day" invisible='1' force_save="1"/>
+								<field name="start_date_year" invisible='1' force_save="1"/>
+								<field name="end_date_year" invisible='1' force_save="1"/>
+								<field name="end_date_month" invisible='1' force_save="1"/>
+								<field name="end_date_day" invisible='1' force_save="1"/>
+								<field name="emp_name_melen" invisible='1'/>
+							</group>
+						</page>
+						<page string='Батлах хэрэглэгчид' >
+							<group colspan='4' col='4'>
+								<field name='hr_employee_id' options="{'no_create':True, 'no_open':True}"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name='acc_employee_id' options="{'no_create':True, 'no_open':True}"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name='doc_employee_id' options="{'no_create':True, 'no_open':True}"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name='hr_name_melen' force_save='1' invisible='1' />
+								<field name='order_name_melen' force_save='1' invisible='1' />
+								<field name='acc_name_melen' force_save='1' invisible='1' />
+								<field name='doc_name_melen' force_save='1' invisible='1' />
+							</group>
+						</page>
+					</notebook>
+             	</sheet>  	  
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>   
+                </div>       
+          	</form>
+        </field>
+    </record>
+    <record id="hr_order_tree" model="ir.ui.view">
+        <field name="name">hr.order.tree</field>
+        <field name="model">hr.order</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-success="state=='done'">
+                <field name="name"/>
+	            <field name="order_type_id" />
+                <field name='starttime'/>
+                <field name='description'/>
+                <field name="order_employee_id"/>
+                <field name="employees_name" optional="hide"/>
+                <field name="order_department_id"/>
+                <field name="order_job_id"/>
+                <field name="state"/>
+                <field name="employee_id" optional="hide"/>
+                <field name="days" optional="hide"/>
+                <field name="department_id_after" optional="hide"/>
+                <field name="job_id_after" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_order_action" model="ir.actions.act_window">
+        <field name="name">Б тушаал</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_date_year': 1,'search_default_date_month': 1,'search_default_type_c': 1,'search_default_state_c': 1}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_menu" parent="mw_hr.hr_labor_relations_menu" action="hr_order_action" name='Б Тушаал'/> 
+
+	<!--Тушаалын төрөл -->
+		<record model="ir.ui.view" id="hr_order_type_form_view">
+            <field name="name">hr_order_type_form</field>
+            <field name="model">hr.order.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="To company form" version="7.0">
+					<group>
+						<field name='name'/>
+						<field name='type'/>
+					</group>
+            	</form>
+            </field>
+        </record>
+
+	    <record model="ir.ui.view" id="hr_order_type_tree_view">
+	        <field name="name">hr_order_type_tree</field>
+	        <field name="model">hr.order.type</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="To company tree">
+	               	<field name="name"/>
+					<field name='type'/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.actions.act_window" id="action_hr_order_type_view">
+	        <field name="name">Тушаалын төрөл</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">hr.order.type</field>
+	        <field name="view_mode">tree,form</field>
+	     	<field name="view_id" ref="hr_order_type_tree_view"/>
+	    </record>
+
+		<menuitem id="hr_order_type_menu"
+             parent="mw_hr.hr_labor_relations_menu" 
+             action="action_hr_order_type_view" 
+             sequence="10"/> 
+
+	<record id="hr_employee_view_form2_inherit2" model="ir.ui.view">
+		<field name="name">hr.hr.employee.view.form2.mw</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_user']" position="after">
+				<button name="action_hr_order" type="object" class="oe_stat_button" icon="fa-file">
+					<field string=" Тушаал" widget="statinfo" name ='order_count'/>
+				</button>
+				<button name="action_hr_order_disc" type="object" class="oe_stat_button" icon="fa-file">
+					<field string="Сахилга" widget="statinfo" name ='disc_count'/>
+				</button>
+			</xpath>
+			<xpath expr="//field[@name='days_of_annualleave']" position='after'>
+				<field name='start_days'/>
+				<field name='end_days'/>
+			</xpath>
+		</field>
+	</record>
+	<record id="view_employee_form_mine_order" model="ir.ui.view">
+		<field name="name">hr.employee.extension.mine</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mine_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//div[@name='button_box']" position="inside">
+				<button name="action_hr_order" type="object" class="oe_stat_button" icon="fa-file" invisible='1'>
+					<field string=" Тушаал" widget="statinfo" name ='order_count'/>
+				</button>
+			</xpath>
+			<xpath expr="//field[@name='days_of_annualleave']" position='after'>
+				<field name='start_days' readonly='1'/>
+				<field name='end_days' readonly='1'/>
+			</xpath>
+		</field>
+    </record>
+</odoo>

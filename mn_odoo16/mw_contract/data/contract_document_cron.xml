@@ -1,0 +1,50 @@
+<odoo>
+    
+    <record id="cron_contract_real_end" model="ir.cron">
+        <field name="name">Гэрээ дүгнэх хугацаанаас 1 хоногийн өмнө мэдэгдэх</field>
+        <field name="model_id" ref="model_contract_document_real"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._update_contract_end_change()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+    <!-- <record id="cron_contract_real_end_act" model="ir.cron">
+        <field name="name">Гэрээний акт оруулах сануулга</field>
+        <field name="model_id" ref="model_contract_document_real"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._not_contract_act()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>  -->
+
+    <record id="cron_contract_real_payment_late" model="ir.cron">
+        <field name="name">Гэрээний төлбөрийн хоцролт мэдэгдэл крон</field>
+        <field name="model_id" ref="model_contract_document_real"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._payment_late_contract()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record> 
+
+    <record id="cron_contract_real_end" model="ir.cron">
+        <field name="name">Гэрээний хугацаа дуусах мэдэгдэх</field>
+        <field name="model_id" ref="model_contract_document_real"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._cron_contract_end_date()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+</odoo>

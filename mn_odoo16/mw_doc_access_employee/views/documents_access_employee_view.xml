@@ -1,0 +1,15 @@
+<odoo>
+    <record id="document_view_form_mdl" model="ir.ui.view">
+        <field name="name">documents.document.inherit</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="after">
+                <button name="action_send_chat_employee"  string="Мэдэгдэл илгээх" type="object" groups="documents.group_documents_manager"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="employee_ids" widget ="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

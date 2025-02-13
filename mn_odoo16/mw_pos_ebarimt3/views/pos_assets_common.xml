@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+      <template id="indices" inherit_id="point_of_sale.assets">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/l10n_mn_pos_qpay/static/src/js/models.js" />
+              <script type="text/javascript" src="/l10n_mn_pos_qpay/static/src/js/PaymentScreen.js" />
+              <script type="text/javascript" src="/l10n_mn_pos_qpay/static/src/js/QrPopup.js" />
+
+              <link rel="stylesheet" href="/l10n_mn_pos_qpay/static/src/css/qpay.css" />
+          </xpath>
+      </template>
+    </data>
+</odoo>

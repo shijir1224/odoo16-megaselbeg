@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="purchase_request_line_user_set_form" model="ir.ui.view">
+		<field name="name">purchase.request.line.user.set.form</field>
+		<field name="model">purchase.request.line.user.set</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="user_id" options="{'no_create': True}"/>
+				</group>
+				<footer>
+					<button name="action_done" string="Оноох" type="object" class="btn-primary"/>
+					<button special="cancel" string="Цуцлах" type="object" class="btn-default"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="purchase_request_line_user_set_action_pr" model="ir.actions.act_window">
+		<field name="name">Хангамжийн ажилтан оноох</field>
+		<field name="res_model">purchase.request.line.user.set</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+		<field name="context">{}</field>
+		<field name="binding_model_id" ref="model_purchase_request_line"/>
+		<field name="binding_view_types">list</field>
+		<field name="groups_id" eval="[(6, 0, [ref('mw_purchase_request.group_purchase_request_user_set')])]"/>
+	</record>
+
+</odoo>

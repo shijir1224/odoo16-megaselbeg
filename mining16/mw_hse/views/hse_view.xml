@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+
+	<!-- <record  model="ir.actions.act_window" id='action_hse_training'>
+		<field name="name">Hse training</field>
+		<field name="res_model">hr.training.plan</field>
+		<field name="type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('employees_type','in',('for_new_employee','training_type','re_training','hab_training','visitors_','eco_training','health_training'))]</field>
+	</record> -->
+
+	
+	
+	<!-- <record  model="ir.actions.act_window" id='action_hse_training_plan'>
+		<field name="name">Hse training plan</field>
+		<field name="res_model">hr.training</field>
+		<field name="type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('employees_type','in',('for_new_employee','training_type','re_training','hab_training','visitors_','eco_training','health_training'))]</field>
+	</record> -->
+
+	
+
+	<!-- Man/Hour without LTI-->
+	<record id="view_hse_nope_lti_form" model="ir.ui.view">
+		<field name="name">hse.nope.lti.form</field>
+		<field name="model">hse.nope.lti</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="date"/>
+						<field name="branch_id" widget="selection"/>
+						<field name="man_hour"/>
+					</group>
+					<group>
+						<field name="line_ids" nolabel="1">
+							<tree editable="bottom">
+								<field name="location_id" widget="selection" domain="[('branch_id','=', parent.branch_id)]"/>
+								<field name="man"/>
+								<field name="man_hour"/>
+							</tree>                             
+						</field>
+					</group>
+					<group class="oe_subtotal_footer oe_right">
+						<field name="total_day"/>
+						<field name="total_man_hour"/>
+						<field name="inc_man_hour"/>
+						<field name="inc_total_day"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_nope_lti_tree" model="ir.ui.view">
+		<field name="name">hse.nope.lti.tree</field>
+		<field name="model">hse.nope.lti</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="man_hour"/>
+				<field name="inc_total_day"/>
+				<field name="inc_man_hour"/>
+				<field name="total_day"/>
+				<field name="total_man_hour"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_nope_lti_filter" model="ir.ui.view">
+		<field name="name">hse.nope.lti.filter</field>
+		<field name="model">hse.nope.lti</field>
+		<field name="arch" type="xml">
+			<search>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	<record id="action_hse_nope_lti" model="ir.actions.act_window">
+		<field name="name">Man/Hour without LTI</field>
+		<field name="res_model">hse.nope.lti</field>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+
+
+	<!-- Safety plan-->
+	<record id="view_hse_safety_plan_form" model="ir.ui.view">
+		<field name="name">hse.safety.plan.form</field>
+		<field name="model">hse.safety.plan</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="indicator_id" widget="selection"/>
+						<field name="year"/>
+						<field name="frequency"/>
+						<field name="indicator_type"/>
+					</group>
+					<group>
+						<field name="is_count"/>
+						<field name="count" attrs="{'invisible':[('is_count','=',False)]}"/>
+						<field name="percent" attrs="{'invisible':[('is_count','=',True)]}"/>
+						<field name="actual"/>
+						<field name="actual_percent"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_safety_plan_tree" model="ir.ui.view">
+		<field name="name">hse.safety.plan.tree</field>
+		<field name="model">hse.safety.plan</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="indicator_id" />
+				<field name="year"/>
+				<field name="frequency"/>
+				<field name="count"/>
+				<field name="percent"/>
+				<field name="actual"/>
+				<field name="actual_percent"/>
+				<field name="indicator_type"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_safety_plan_filter" model="ir.ui.view">
+		<field name="name">hse.safety.plan.filter</field>
+		<field name="model">hse.safety.plan</field>
+		<field name="arch" type="xml">
+			<search>
+				<group expand="0">
+					<filter string="Year" name="group_year" domain="[]" context="{'group_by':'year'}"/>
+					<filter string="Indicator type" name="group_indicator_type" domain="[]" context="{'group_by':'indicator_type'}"/>
+					<filter string="Indicator" name="group_indicator_id" domain="[]" context="{'group_by':'indicator_id'}"/>
+					<filter string="Frequency" name="group_frequency" domain="[]" context="{'group_by':'frequency'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	<record id="view_hse_safety_plan_graph" model="ir.ui.view">
+			<field name="name">hse.safety.plan.graph</field>
+			<field name="model">hse.safety.plan</field>
+			<field name="arch" type="xml">
+				<graph type="bar">
+					<field name="year"/>
+					<field name="count" operator="+"/>
+				</graph>
+			</field>
+		</record>
+	<record id="action_hse_safety_plan" model="ir.actions.act_window">
+		<field name="name">Safety plan</field>
+		<field name="res_model">hse.safety.plan</field>
+		<field name="context">{'search_default_group_year': 1,'search_default_group_indicator_type': 1,'search_default_group_indicator_id': 1}</field>
+		<field name="view_mode">tree,form,graph</field>
+	</record>
+	
+
+	<!-- Hse safety plan config -->
+	<record id="view_hse_safety_indicator_form" model="ir.ui.view">
+		<field name="name">hse.safety.indicator.form</field>
+		<field name="model">hse.safety.indicator</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="type"/>
+						<field name="value"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_safety_indicator_tree" model="ir.ui.view">
+		<field name="name">hse.safety.indicator.tree</field>
+		<field name="model">hse.safety.indicator</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="type"/>
+				<field name="value"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_safety_indicator" model="ir.actions.act_window">
+		<field name="name">Safety indicator</field>
+		<field name="res_model">hse.safety.indicator</field>
+		<field name="view_mode">tree,form</field>
+	</record>    
+	
+
+
+
+	<!-- Safety Meeting -->
+	<record id="view_hse_safety_meeting_form" model="ir.ui.view">
+		<field name="name">hse.safety.meeting.form</field>
+		<field name="model">hse.safety.meeting</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_done" states="draft" string="Done" icon="gtk-apply" type="object" class="oe_highlight"/>
+					<button name="action_to_draft" states="done" string="Draft" type="object"/>                     
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<field name="date"/>
+						<field name="branch_id" widget="selection"/>
+						<field name="part"/>
+						<field name="department_id" widget="selection" domain="[('parent_id.branch_id','=', branch_id)]"/>
+						<field name="monitoring_user_id"/>
+						<field name="name"/>
+					</group>
+					<group>
+						<field name="subject"/>
+					</group>
+					<group class="oe_right">
+						<field name="participants_count"/>
+					</group>
+					<separator colspan="2"/>
+
+					<group>
+						<notebook>
+							<page string="Managing employee">
+								<!-- <group>
+									<field colspan="4" name="managing_employee_ids" widget="many2many_kanban" context="" domain="[('status', 'in', ['working','student'])]">
+										<kanban quick_create="true" create="true" delete="true">
+											<field name="name"/>
+											<templates>
+												<t t-name="kanban-box">
+													<div style="position: relative">
+														<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+														<div class="oe_module_vignette">
+															<img t-att-src="kanban_image('hr.employee', 'image_small', record.id.value)" class="oe_avatar oe_kanban_avatar_smallbox"/>
+															<div class="oe_module_desc">
+																<field name="name"/>
+															</div>
+															<div class="oe_module_desc">
+																<field name="job_id"/>
+															</div>
+															<div class="oe_module_desc">
+																<field name="department_id"/>
+															</div>
+														</div>
+													</div>
+												</t>
+											</templates>
+										</kanban>
+									</field>
+								</group> -->
+							</page>
+						</notebook>
+
+					</group>
+					<button name="import_participants" states="draft" string="Import participants" 
+							icon="fa-download" class="oe_stat_button oe_edit_only"
+							type="object"/>
+					<group>
+						<notebook>
+							<page string="Participants">
+								<field name="meeting_line" nolabel="1">
+									<tree editable="bottom">
+										<field name="participant_id"/>
+									</tree>                             
+								</field>
+							</page>
+						</notebook>
+					</group>
+					<group>
+						<separator string="Өмнөх ААСХ-ын болон төлөвлөгөөт шалгалтаас авах шаардлагатай арга хэмжээний тухай хяна:" colspan="2"/>
+						<field name="safety_meeting_1" nolabel="1"/>
+					</group>
+					<group>
+						<separator string="Санал: Компаний шинэ бодлого, журам, заавар буюу түүнтэй холбоотой асуудлыг хянан тодорхойл." colspan="2"/>
+						<field name="safety_meeting_2" nolabel="1"/>
+					</group>
+					<group>
+						<separator string="Comment" colspan="2"/>
+						<field name="comment" nolabel="1"/>
+					</group>
+					<group>
+						<separator colspan="2"/>
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+					<group>
+						<!-- <widget type="hse_injury_image">
+						</widget> -->
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_safety_meeting_tree" model="ir.ui.view">
+		<field name="name">hse.safety.meeting.tree</field>
+		<field name="model">hse.safety.meeting</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="date"/>
+				<field name="subject"/>
+				<field name="branch_id"/>
+				<field name="part"/>
+				<field name="department_id" options="{'no_create':True}"/>
+				<field name="participants_count"/>
+				<field name="monitoring_user_id"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_safety_meeting_filter" model="ir.ui.view">
+		<field name="name">hse.safety.meeting.filter</field>
+		<field name="model">hse.safety.meeting</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter name="is_draft" string="Draft" domain="[('state','=',('draft'))]"/>
+				<filter name="is_done" string="Done" domain="[('state','=',('done'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	<record id="action_hse_safety_meeting" model="ir.actions.act_window">
+		<field name="name">Safety meeting</field>
+		<field name="res_model">hse.safety.meeting</field>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- <record id="action_hse_injury_entry" model="ir.actions.act_window">
+		<field name="name">Ослын судалгааны тайлан</field>
+		<field name="res_model">hse.injury.entry</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="view_hse_injury_entry_filter"/>
+		<field name="view_id" ref="view_hse_injury_entry_tree"/>
+		<field name="context">{}</field> -->
+
+		<!-- <field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field> -->
+	<!-- </record> -->
+
+<!-- 
+	<record id="action_hse_injury_entry_tree" model="ir.actions.act_window.view">
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_hse_injury_entry_tree"/>
+		<field name="act_window_id" ref="action_hse_injury_entry"/>
+	</record> -->
+	<!-- <record id="action_hse_injury_entry_form" model="ir.actions.act_window.view">
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_hse_injury_entry_form"/>
+		<field name="act_window_id" ref="action_hse_injury_entry"/>
+	</record>
+	 -->
+
+	<!-- Rules documents -->
+	<record id="view_hse_rules_documents_form" model="ir.ui.view">
+		<field name="name">hse.rules.documents.form</field>
+		<field name="model">hse.rules.documents</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group >
+						<field name="date"/>
+						<field name="number"/>  
+						<field name="branch_ids" widget="many2many_tags"/>
+					</group>
+					<group col='4'>
+						<field name="subject"/>
+						<field name="type_id"/>
+					</group>
+					<group>
+						<separator colspan="2"/>
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_rules_documents_tree" model="ir.ui.view">
+		<field name="name">hse.rules.documents.tree</field>
+		<field name="model">hse.rules.documents</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="date"/>
+				<field name="number"/>
+				<field name="type_id"/>
+				<field name="branch_ids"/>
+				<field name="subject"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_rules_documents" model="ir.actions.act_window">
+		<field name="name">Үндсэн бичиг баримт</field>
+		<field name="res_model">hse.rules.documents</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+
+	<!-- Hse code config -->
+	<record id="view_hse_code_config_form" model="ir.ui.view">
+		<field name="name">hse.code.config.form</field>
+		<field name="model">hse.code.config</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="branch_id" widget="selection"/>
+						<!-- <field name="model_id"/> -->
+						<field name="name"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_code_config_tree" model="ir.ui.view">
+		<field name="name">hse.code.config.tree</field>
+		<field name="model">hse.code.config</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="branch_id"/>
+				<!-- <field name="model_id"/> -->
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_code_config" model="ir.actions.act_window">
+		<field name="name">Code config</field>
+		<field name="res_model">hse.code.config</field>
+		<field name="view_mode">tree,form</field>
+	</record>    
+	
+
+	<!-- IR CRON -->
+	<record id="view_hse_ir_cron_tree" model="ir.ui.view">
+		<field name="name">hse.ir.cron.tree</field>
+		<field name="model">ir.cron</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name" readonly="1"/>
+				<field name="interval_type"/>
+				<field name="interval_number"/>
+				<field name="active"/>
+			</tree>
+		</field>
+	</record>
+	
+
+	<record id="action_hse_ir_cron" model="ir.actions.act_window">
+		   <field name="name">Hse auto mail</field>
+		   <field name="res_model">ir.cron</field>
+		   <field name="view_mode">tree</field>
+	</record>
+	<record id="action_hse_ir_cron_tree" model="ir.actions.act_window.view">
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_hse_ir_cron_tree"/>
+		<field name="act_window_id" ref="action_hse_ir_cron"/>
+	</record>
+
+
+	
+
+
+	<!-- Categories of Accident-->
+	<record id="view_hse_accident_category_form" model="ir.ui.view">
+		<field name="name">hse.accident.category.form</field>
+		<field name="model">hse.accident.category</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="accident_id"/>
+						<field name="name"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_accident_category_tree" model="ir.ui.view">
+		<field name="name">hse.accident.category.tree</field>
+		<field name="model">hse.accident.category</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="accident_id"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_accident_category" model="ir.actions.act_window">
+		<field name="name">Categories of accidents</field>
+		<field name="res_model">hse.accident.category</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<!-- Factors in Accidents-->
+	<record id="view_hse_accident_factor_form" model="ir.ui.view">
+		<field name="name">hse.accident.factor.form</field>
+		<field name="model">hse.accident.factor</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="name"/>
+						<field name="type"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_accident_factor_tree" model="ir.ui.view">
+		<field name="name">hse.accident.factor.tree</field>
+		<field name="model">hse.accident.factor</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="type"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_accident_factor" model="ir.actions.act_window">
+		<field name="name">Factors in accidents</field>
+		<field name="res_model">hse.accident.factor</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+
+
+   <!-- Causes in Accidents-->
+	<record id="view_hse_accident_cause_form" model="ir.ui.view">
+		<field name="name">hse.accident.cause.form</field>
+		<field name="model">hse.accident.cause</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="sequence"/>
+						<field name="name"/>
+						<field name="factor_id"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_accident_cause_tree" model="ir.ui.view">
+		<field name="name">hse.accident.cause.tree</field>
+		<field name="model">hse.accident.cause</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="sequence"/>
+				<field name="name"/>
+				<field name="factor_id"/>                
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_accident_cause" model="ir.actions.act_window">
+		<field name="name">Causes of accidents</field>
+		<field name="res_model">hse.accident.cause</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	
+	<!-- branch.man.hour -->
+	<record id="view_hse_branch_man_hour_form" model="ir.ui.view">
+		<field name="name">hse.branch.man.hour.form</field>
+		<field name="model">hse.branch.man.hour</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="branch_id" widget="selection"/>
+						<field name="man_hour"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_branch_man_hour_tree" model="ir.ui.view">
+		<field name="name">hse.branch.man.hour.tree</field>
+		<field name="model">hse.branch.man.hour</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="branch_id"/>
+				<field name="man_hour"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_branch_man_hour" model="ir.actions.act_window">
+		<field name="name">Салбар man hour</field>
+		<field name="res_model">hse.branch.man.hour</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+   
+  
+
+</odoo>

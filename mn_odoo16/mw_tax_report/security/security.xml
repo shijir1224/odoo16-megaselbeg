@@ -1,0 +1,6 @@
+<odoo>
+        <record id="group_tax_report_user_account" model="res.groups">
+            <field name="name">Татварын тайлангийн нягтлан</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+        </record>     
+</odoo>

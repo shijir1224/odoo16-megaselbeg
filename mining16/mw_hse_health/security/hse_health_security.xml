@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.module.category" id="module_category_hse_health">
+		<field name="name">ХАБ Эрүүл мэнд</field>
+		<field name="parent_id" ref="mw_hse.categ_parent_hse"/>
+	</record>
+
+	<record id="group_hse_health_user" model="res.groups">
+		<field name="name">ХАБ Эрүүл мэнд хэрэглэгч</field>
+		<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		<field name="category_id" ref="module_category_hse_health"/>
+	</record>
+
+	<record id="group_hse_health_officer" model="res.groups">
+		<field name="name">ХАБ Эрүүл мэнд менежер</field>
+		<field name="category_id" ref="module_category_hse_health"/>
+		<field name="implied_ids" eval="[(4, ref('group_hse_health_user'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+
+	<!-- <record model="ir.module.category" id="module_category_hse_health_settings">
+		<field name="name">ХАБ Эрүүл мэнд тохиргоо</field>
+		<field name="parent_id" ref="mw_hse.categ_parent_hse"/>
+	</record> -->
+
+	<record id="group_health_settings_user" model="res.groups">
+		<field name="name">Эрүүл мэнд тохиргоо хэрэглэгч</field>
+		<field name="category_id" ref="module_category_hse_health"/>
+		<field name="implied_ids" eval="[(4, ref('group_hse_health_user'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+	
+</odoo>

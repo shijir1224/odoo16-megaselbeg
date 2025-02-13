@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>     
+        <!-- Ирц татах эрхтэй хүн -->
+        <record id="group_attendance_terminal_user" model="res.groups">
+            <field name="name">Ажилтны ирц татах</field>
+            <field name="comment">DB, ZK төхөөрөмжөөс ирц татах хэрэглэгч</field>
+            <field name="category_id" ref="base.module_category_human_resources_attendances"/>
+            <field name="implied_ids" eval="[(4, ref('hr.group_hr_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

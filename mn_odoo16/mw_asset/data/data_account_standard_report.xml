@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_asset_standard_excel"
+        model="account.asset.report.standard.ledger"
+        string="Asset detail Report"
+        report_type="xlsx"
+        name="account_asset_report.standard_excel"
+        file="account_asset_report.standard_excel"/>
+
+    <report
+        id="action_asset_move_excel"
+        model="account.asset.report.move.ledger"
+        string="Asset move Report"
+        report_type="xlsx"
+        name="account_asset_report.move_excel"
+        file="account_asset_report.move_excel"/>
+    <record id="ir_cron_to_check_moves" model="ir.cron">
+        <field name="name">Delete Move To Check</field>
+        <field name="model_id" ref="model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+        model.action_delete_am_to_check()</field>
+        <field name="interval_number">50</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+        
+</odoo>

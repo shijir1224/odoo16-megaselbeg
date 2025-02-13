@@ -1,0 +1,4 @@
+id,model_id:id,name,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_exchange_request_desc_line,mw_account_exchange_request.model_exchange_request_desc_line,exchange.request.desc.line,res_groups_account_exchange_request_employees,1,1,1,1
+access_exchange_request_manager,mw_account_exchange_request.model_exchange_request,exchange.request,res_groups_account_exchange_request_employees,1,1,1,1
+access_exchange_request_item,mw_account_exchange_request.model_exchange_request_item,exchange.request.item,res_groups_account_exchange_request_employees,1,1,1,1

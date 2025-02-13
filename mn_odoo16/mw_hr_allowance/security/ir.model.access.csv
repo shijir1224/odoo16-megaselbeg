@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_hr_allowance_admin,hr.allowance,model_hr_allowance,hr.group_hr_manager,1,1,1,1
+
+access_hr_allowance_name_admin,hr.allowance.name,model_hr_allowance_name,hr.group_hr_manager,1,1,1,1
+
+access_allowance.report_admin,allowance.report,model_allowance_report,hr.group_hr_manager,1,1,1,1

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Account product conf -->
+	<record id="view_account_product_form" model="ir.ui.view">
+		<field name="name">product.account.config.maining</field>
+		<field name="model">product.account.config</field>
+		<field name="inherit_id" ref="mw_product_warehouse_account.view_account_product_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='depend_technic']" position="after">
+				<field name="depend_equipment"/>
+				<field name="depend_department"/>
+			</xpath>
+			<xpath expr="//field[@name='technic_ids']" position="after">
+				<separator string="Equipment" attrs="{'invisible':[('depend_equipment','=',False)]}"/>
+				<field name="equipment_ids" required="1" nolabel="1" attrs="{'invisible':[('depend_equipment','=',False)]}">
+					<tree string="Equipment" decoration-bf="state=='draft'" decoration-warning="state=='stopped'" decoration-muted="state=='inactive'" decoration-info="state=='parking'" decoration-danger="state=='repairing'" decoration-success="state=='working'" create="true" delete="true">
+						<field name="name" />
+						<field name="state_number"/>
+						<field name="branch_id"/>
+						<field name="model_id" invisible="1"/>
+						<field name="technic_type"/>
+						<field name="total_odometer" />
+						<field name="total_km" />
+						<field name="odometer_unit" />
+						<field name="state"/>
+					</tree>
+				</field>
+				<label for="department_ids" string="Хэлтэс" class="oe_inline flex-grow-1" attrs="{'invisible':[('depend_department','=',False)]}"/>
+				<field name="department_ids" required="1" nolabel="1" attrs="{'invisible':[('depend_department','=',False)]}"/>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_account_product_tree" model="ir.ui.view">
+		<field name="name">product.account.config.maining</field>
+		<field name="model">product.account.config</field>
+		<field name="inherit_id" ref="mw_product_warehouse_account.view_account_product_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='depend_technic']" position="after">
+				<field name="depend_equipment"/>
+			</xpath>
+			<xpath expr="//field[@name='technic_ids']" position="after">
+                <field name="category_ids" widget="many2many_tags" optional="hide"/>
+                <field name="technic_ids" widget="many2many_tags" optional="hide"/>
+                <field name="analytic_distribution" widget="analytic_distribution"/>
+                <field name="department_ids" widget="many2many_tags"/>
+                <field name="branch_ids" widget="many2many_tags"/>
+                <field name="depend_equipment"/>
+			</xpath>
+		</field>
+	</record>
+
+
+	<record id="view_account_product_conf_filter" model="ir.ui.view">
+		<field name="name">product.account.config.maining</field>
+		<field name="model">product.account.config</field>
+		<field name="inherit_id" ref="mw_product_warehouse_account.view_account_product_conf_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='technic_ids']" position="after">
+				<field name="technic_ids" />
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

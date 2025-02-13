@@ -1,0 +1,159 @@
+@charset "utf-8";
+.openerp .odometer_divs div{
+  text-align: right;
+  display: inline;
+}
+div#parent_div{
+  text-align: right;
+  display: inline;
+  font-size: 30px !important;
+}
+ #odometer_div div{
+  text-align: right;
+  font-size: 20pt;
+}
+ #odometer_unit_div b{
+  margin-right: 14px;
+}
+
+.openerp .oe_custom_div div{
+  width: 270px;
+  height: 300px
+  text-align: right;
+}
+
+.openerp .oe_form div.oe_line_height {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+/*  DASHBOARD css  */
+
+#fixed_datetodate{
+  position:fixed;
+  top: 124px;
+  left: 220px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+#datetodate{
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+h3.title {
+  /*background-color: rgba(0, 0, 0, 0.2);*/
+  padding-left: 5px;
+  margin-top: 10px !important;
+  color: #385199;
+  border-top: 4px solid #96a9e0;
+}
+
+#header {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: right; 
+}
+tr.right_align {
+    text-align: right; 
+}
+#header #technic_name {
+
+    background-color: rgba(0, 0, 0, 0.6);
+    font-family: 'Effra Bold','Effra',Helvetica Neue,HelveticaNeue,Helvetica-Neue,sans-serif;
+    position: absolute;
+    left: 0px;
+    right: 0;
+    padding: 10px 10px 10px 10px;
+    color: #fff;
+    z-index: 1;
+    font-weight: 500;
+    font-size: 5.2rem;
+    line-height: 50px;
+    text-shadow: 2px 2px 2px #001;
+}
+
+#current_info {
+    background-color: rgba(0, 0, 0, 0.4);
+    font-family: 'Effra Bold','Effra',Helvetica Neue,HelveticaNeue,Helvetica-Neue,sans-serif;
+    position: absolute;
+    left: 0px;
+    right: 0;
+    margin: 80px 100px 10px 10px;
+    padding: 3px 3px 3px 3px;
+    color: #fff;
+    z-index: 1;
+    font-weight: 400;
+    font-size: 2.0rem;
+    line-height: 30px;
+    text-shadow: 1px 1px 1px #001;
+}
+
+#popup_window div {
+  background-color: #b0c4de;
+}
+
+/* Tire position widget */
+table#tire_position_parent{
+  margin: 0 auto;
+}
+.tire_to_open{
+  cursor: pointer;
+}
+img.empty_tire {
+    opacity: 0.55;
+    filter: alpha(opacity=55); /* For IE8 and earlier */
+}
+tr.tire_position_line {
+  padding-bottom: 30px !important;
+}
+td.right_tires {
+  text-align: right !important;
+  padding-left: 25px !important;
+}
+
+/* = ======== COMPONENTs ========= = */
+img[name="img_of_parts"] { 
+    height: auto;
+    width: auto;
+    border-radius: 2px;
+    border: 1.5px solid #888888;
+}
+img[name="img_of_parts_2"] { 
+    height: auto;
+    width: auto;
+    border-radius: 2px;
+    border: 1.5px solid #888888;
+}
+
+.part_number{
+    background-color: #6E6E6E;
+    color: white;
+    font-weight: bold;
+    font-size: 9pt;
+    height: 20px;
+    width: 20px;
+    border-radius: 3px;
+    padding: 1px;
+    margin: 2px;
+    position:absolute;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    z-index: 334;
+}
+div.td_number{
+    background-color: #6E6E6E;
+    color: white;
+    font-weight: bold;
+    font-size: 11pt;
+    height: 35px;
+    width: 35px;
+    border-radius: 3px;
+    padding: 1px;
+    margin: 2px;
+}
+.part_number:hover{
+    background-color: #ff0000;
+}
+/*-------*/

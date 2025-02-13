@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_comparison_view_form" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.form</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="arch" type="xml">
+			<form string="Purchase order comparison">
+				<header>
+					<field name="state" widget="statusbar" readonly="1"/>
+					<button string="To draft" type="object" name="to_draft"
+							class="btn-secondary" attrs="{'invisible': [('state','!=','rfq_created')]}"/>
+					<button string="Create RFQs" type="object" name="create_purchase_orders"
+							class="oe_highlight" attrs="{'invisible': [('state','!=','draft')]}"/>
+					<button string="Start Vote" type="object" name="start_vote_button"
+							class="oe_highlight" attrs="{'invisible': [('state','!=','rfq_created')]}"/>
+					<button string="Vote" type="object" name="vote"
+							class="oe_highlight" attrs="{'invisible': [('state','!=','vote_started')]}"/>
+					<button string="Add voter" type="object" name="add_voter"
+							class="btn-secondary" attrs="{'invisible': [('state','!=','vote_started')]}"/>
+					<button string="End vote" type="object" name="end_vote"
+							class="oe_highlight" attrs="{'invisible': [('state','!=','vote_started')]}"/>
+					<button string="End" type="object" name="end_comparison"
+							confirm="Are you sure to end this comparison?"
+							class="oe_highlight" attrs="{'invisible': [('state','!=','vote_ended')]}"/>
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="action_view_related_purchase_orders" type="object"
+								class="oe_stat_button" icon="fa-bars"
+								attrs="{'invisible': [('related_po_count','=', 0)]}">
+							<field name="related_po_count" widget="statinfo"/>
+						</button>
+					</div>
+					<div>
+						<h1>
+							<field name="name" placeholder="Name" readonly="1"/>
+						</h1>
+					</div>
+					<group>
+						<group>
+							<field name="partner_ids" required="1" options="{'no_create': True}" widget="many2many_tags"
+								   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="user_id" domain="[('share', '=', False)]" widget="many2one_avatar_user"
+								   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="winning_partner" options="{'no_open': True, 'no_create': True}"
+								   attrs="{'invisible': [('state', 'in', ['draft', 'rfq_created', 'vote_started'])],
+										   'required':[('state','=','vote_ended')],'readonly':[('state','=','ended')]}"/>
+							<field name="winning_comment" attrs="{'invisible': [('state', 'in', ['draft', 'rfq_created', 'vote_started'])],'required':[('state','=','vote_ended')],'readonly':[('state','=','ended')]}"/>
+							<field name="all_voted" invisible="1"/>
+						</group>
+						<group>
+							<field name="create_date"/>
+							<field name="branch_id"/>
+							<field name="date_order" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="picking_type_id" attrs="{'readonly': [('state', '!=', 'draft')]}"
+								   domain="[('code','=','incoming'), ('warehouse_id.access_user_ids', 'in', [uid]), '|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]"
+								   options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+						</group>
+
+						<div attrs="{'invisible': ['|',('all_voted', '!=', True),('state', '!=', 'vote_started')]}">
+							<h3 style="color:green;">All voters have voted</h3>
+						</div>
+					</group>
+					<notebook>
+						<page string="Lines" name="lines">
+							<field name="line_ids" mode="tree,form" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+								<tree string="Comparison lines" editable="bottom" limit="700" edit="false" create="false">
+									<!--invisible fields-->
+									<field name="product_uom_category_id" invisible="1"/>
+									<!--main fields-->
+									<field name="product_id" force_save="1"
+											domain="[('purchase_ok','=',True),'|',('company_id','=',False),('company_id','=',parent.company_id)]"/>
+									<field name="name" widget="section_and_note_text"/>
+									<field name="product_uom"/>
+									<field name="product_packaging_id" required="0"
+											groups="product.group_stock_packaging" optional="hidden"/>
+									<field name="product_packaging_qty" required="0"
+											groups="product.group_stock_packaging" optional="hidden"/>
+									<field name="product_qty"/>
+									<field name="taxes_id" widget="many2many_tags"
+											domain="[('type_tax_use', '=', 'purchase')]"/>
+								</tree>
+								<form>
+									<sheet>
+										<group>
+											<group>
+												<field name="product_uom_category_id" invisible="1"/>
+												<field name="product_id"/>
+												<field name="product_uom"/>
+												<field name="taxes_id" widget="many2many_tags"/>
+											</group>
+											<group>
+												<field name="name"/>
+												<field name="product_qty"/>
+											</group>
+											<field name="order_line_ids" style="pointer-events:none;">
+												<tree>
+													<field name="order_id"/>
+													<field name="partner_id"/>
+													<field name="price_unit_without_discount"/>
+													<field name="discount"/>
+													<field name="price_unit"/>
+													<field name="price_subtotal"/>
+													<field name="price_total"/>
+												</tree>
+											</field>
+										</group>
+									</sheet>
+								</form>
+							</field>
+						</page>
+						<page string="Related POs" name="related_po" attrs="{'invisible': [('state', '=', 'draft')]}">
+							<field name="related_po_ids" readonly="1" nolabel="1">
+								<tree>
+									<field name="state" invisible="1"/>
+									<field name="partner_id"/>
+									<field name="currency_id" invisible="1"/>
+									<field name="company_currency_id" invisible="1"/>
+									<field name="payment_term_id" />
+									<field name="current_rate" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+									<field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+									<field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+									<field name="notes" string="Тайлбар"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Votes" name="vote" attrs="{'invisible': [('state', 'in', ['draft', 'rfq_created'])]}">
+							<group>
+								<group>
+									<field name="vote_result_ids" readonly="1" style="pointer-events:none;">
+										<tree>
+											<field name="partner_id"/>
+											<field name="vote_points"/>
+										</tree>
+									</field>
+								</group>
+								<group>
+									<field name="vote_percentage" widget="progressbar"/>
+								</group>
+							</group>
+							<field name="vote_ids" readonly="1" nolabel="1">
+								<tree>
+									<field name="user_id"/>
+									<field name="is_voted" widget="boolean_toggle" readonly="1"/>
+									<field name="vote_date"/>
+									<field name="partner_id"/>
+									<field name="comment"/>
+								</tree>
+								<form>
+									<group>
+										<field name="user_id"/>
+										<field name="is_voted" widget="boolean_toggle" readonly="1"/>
+										<field name="vote_date" readonly="1"/>
+									</group>
+									<group>
+										<field name="partner_id" readonly="1"/>
+										<field name="comment" readonly="1"/>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids"/>
+					<field name="activity_ids"/>
+					<field name="message_ids"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="purchase_order_comparison_view_tree" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.tree</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="user_id" widget="many2one_avatar_user"/>
+				<field name="create_date"/>
+				<field name="date_order"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_purchase_order_comparison_filter" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.filter</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="arch" type="xml">
+			<search string="Search comparison">
+				<field name="name"/>
+				<field name="product_id"/>
+				<separator/>
+				<filter name="my_Comparison" string="My Comparison" domain="[('user_id', '=', uid)]"/>
+				<separator/>
+				<group expand="0" name="group_by" string="Group By">
+					<filter name="state" string="State" domain="[]" context="{'group_by' : 'state'}"/>
+				</group>
+				<searchpanel>
+					<field name="state" string="State" enable_counters="1"/>
+				</searchpanel>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_purchase_order_comparison" model="ir.actions.act_window">
+		<field name="name">Purchase order comparison</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.order.comparison</field>
+		<field name="view_id" ref="purchase_order_comparison_view_tree"/>
+		<field name="search_view_id" ref="view_purchase_order_comparison_filter"/>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

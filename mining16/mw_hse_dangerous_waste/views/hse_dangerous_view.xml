@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_hse_dangerous_registration_form" model="ir.ui.view">
+		<field name="name">hse.dangerous.registration.form</field>
+		<field name="model">hse.dangerous.registration</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="name"/>
+						<field name="company_id" options="{'no_create': True}"/>
+					</group>
+					<notebook>
+						<page string="АЮУЛТАЙ">
+							<field name="dangerous_waste_ids" colspan="4" nolabel="1">
+                                <tree editable="bottom">
+									<field name="date"/>
+									<field name="air_filter" sum="Нийт"/>
+									<field name="oil_filter" sum="Нийт"/>
+									<field name="trash_box" sum="Нийт"/>
+									<field name="culyator" sum="Нийт"/>
+									<field name="trash_tire" sum="Нийт"/>
+									<field name="clean_material" sum="Нийт"/>
+									<field name="fire_ballon" sum="Нийт"/>
+									<field name="air_ballon" sum="Нийт"/>
+									<field name="battery" sum="Нийт"/>
+									<field name="trash_oil" sum="Нийт"/>
+									<field name="hospital_waste" sum="Нийт"/>
+								</tree>
+								<form>
+									<group col='6'>
+										<field name="parent_id"/>
+										<field name="date"/>
+										<field name="air_filter"/>
+										<field name="oil_filter"/>
+										<field name="trash_box"/>
+										<field name="culyator"/>
+										<field name="trash_tire"/>
+										<field name="clean_material"/>
+										<field name="fire_ballon"/>
+										<field name="air_ballon"/>
+										<field name="battery"/>
+										<field name="trash_oil"/>
+										<field name="hospital_waste"/>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string="БУСАД">
+							<field name="other_waste_ids" colspan="4" nolabel="1">
+                                <tree editable="bottom">
+									<field name="date"/>
+									<field name="iron" sum="Нийт"/>
+									<field name="tree" sum="Нийт"/>
+									<field name="car_parts" sum="Нийт"/>
+								</tree>
+								<form>
+									<group col='6'>
+										<field name="parent_id"/>
+										<field name="date"/>
+										<field name="iron"/>
+										<field name="tree"/>
+										<field name="car_parts"/>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string="ЭНГИЙН">
+							<field name="simple_waste_ids" colspan="4" nolabel="1">
+                                <tree editable="bottom">
+									<field name="date"/>
+									<field name="paper" sum="Нийт"/>
+									<field name="plastic" sum="Нийт"/>
+									<field name="glass" sum="Нийт"/>
+									<field name="food_trash" sum="Нийт"/>
+									<field name="food_waste" sum="Нийт"/>
+									<field name="can" sum="Нийт"/>
+									<field name="card_paper" sum="Нийт"/>
+									<field name="ash" sum="Нийт"/>
+									<field name="const_waste" sum="Нийт"/>
+									<field name="others" sum="Нийт"/>
+								</tree>
+								<form>
+									<group col='6'>
+										<field name="parent_id"/>
+										<field name="date"/>
+										<field name="paper"/>
+										<field name="plastic"/>
+										<field name="glass"/>
+										<field name="food_trash"/>
+										<field name="food_waste"/>
+										<field name="can"/>
+										<field name="card_paper"/>
+										<field name="ash"/>
+										<field name="const_waste"/>
+										<field name="others"/>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+						<field name="waste_con_ids" colspan="4" nolabel="1">
+							<tree editable="bottom">
+								<field name="date_to"/>
+								<field name="date_from"/>
+								<field name="baked" sum="Нийт"/>
+								<field name="centralized_waste" sum="Нийт"/>
+								<field name="recycle_plant" sum="Нийт"/>
+								<field name="savings" sum="Нийт"/>
+							</tree>
+							<form>
+								<group col='6'>
+									<field name="parent_id"/>
+									<field name="date"/>
+									<field name="date_to"/>
+									<field name="date_from"/>
+									<field name="baked"/>
+									<field name="centralized_waste"/>
+									<field name="recycle_plant"/>
+									<field name="savings"/>
+								</group>
+							</form>
+						</field>
+						<group>
+							<field name='review'/>
+						</group>
+						<group col='4'>
+							<field name="employee_id" options="{'no_create': True}"/>
+							<field name="job_id"/>
+						</group>
+						<group col='4'>
+							<field name="check_employee_id" options="{'no_create': True}"/>
+							<field name="check_job_id"/>
+						</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_dangerous_registration_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">hse.dangerous.registration</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="company_id"/>
+				<field name="employee_id"/>
+				<field name="job_id"/>
+				<field name="check_employee_id"/>
+				<field name="check_job_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_dangerous_registration_filter" model="ir.ui.view">
+		<field name="name">hse.dangerous.registration.filter</field>
+		<field name="model">hse.dangerous.registration</field>
+		<field name="arch" type="xml">
+			<search string="hse_dangerous_registration">
+                <field name="name"/>
+				<field name="company_id"/>
+				<field name="employee_id"/>
+				<field name="job_id"/>
+				<field name="check_employee_id"/>
+				<field name="check_job_id"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="hse_dangerous_registration_pivot" model="ir.ui.view">
+         <field name="name">hse.dangerous.registration.pivot</field>
+         <field name="model">hse.dangerous.registration</field>
+         <field name="arch" type="xml">
+             <pivot string="Analysis">
+                 <field name="name" type="row"/>
+                 <!-- <field name="prev_discipline_type" type="measure"/> -->
+             </pivot>
+         </field>
+    </record>
+
+	<record id="action_hse_dangerous_registration" model="ir.actions.act_window">
+		<field name="name">Хог Хаягдлын Бүртгэл</field>
+		<field name="res_model">hse.dangerous.registration</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,pivot,form</field>
+	</record>
+
+
+<!-- Lines report -->
+	<record id="view_hse_dangerous_waste_form" model="ir.ui.view">
+		<field name="name">hse.dangerous.waste.form</field>
+		<field name="model">hse.dangerous.waste</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col='6'>
+						<field name="parent_id"/>
+						<field name="date"/>
+						<field name="air_filter"/>
+						<field name="oil_filter"/>
+						<field name="trash_box"/>
+						<field name="culyator"/>
+						<field name="trash_tire"/>
+						<field name="clean_material"/>
+						<field name="fire_ballon"/>
+						<field name="air_ballon"/>
+						<field name="battery"/>
+						<field name="trash_oil"/>
+						<field name="hospital_waste"/>
+					</group>		
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_dangerous_waste_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">hse.dangerous.waste</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="date"/>
+				<field name="air_filter"/>
+				<field name="oil_filter"/>
+				<field name="trash_box"/>
+				<field name="culyator"/>
+				<field name="trash_tire"/>
+				<field name="clean_material"/>
+				<field name="fire_ballon"/>
+				<field name="air_ballon"/>
+				<field name="battery"/>
+				<field name="trash_oil"/>
+				<field name="hospital_waste"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hse_dangerous_waste_pivot" model="ir.ui.view">
+         <field name="name">hse.dangerous.waste.pivot</field>
+         <field name="model">hse.dangerous.waste</field>
+         <field name="arch" type="xml">
+             <pivot string="Analysis">
+                 <field name="date" type="row"/>
+             </pivot>
+         </field>
+    </record>
+
+	<record id="action_hse_dangerous_waste" model="ir.actions.act_window">
+		<field name="name">Аюултай хог хаягдлын тайлан</field>
+		<field name="res_model">hse.dangerous.waste</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,pivot,form</field>
+	</record>
+
+	<!-- engiin report -->
+	<record id="view_hse_simple_waste_form" model="ir.ui.view">
+		<field name="name">hse.simple.waste.form</field>
+		<field name="model">hse.simple.waste</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col='6'>
+						<field name="date"/>
+						<field name="paper" sum="Нийт"/>
+						<field name="plastic" sum="Нийт"/>
+						<field name="glass" sum="Нийт"/>
+						<field name="food_trash" sum="Нийт"/>
+						<field name="food_waste" sum="Нийт"/>
+						<field name="can" sum="Нийт"/>
+						<field name="card_paper" sum="Нийт"/>
+						<field name="ash" sum="Нийт"/>
+						<field name="const_waste" sum="Нийт"/>
+						<field name="others" sum="Нийт"/>
+					</group>		
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_simple_waste_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">hse.simple.waste</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="date"/>
+				<field name="paper" sum="Нийт"/>
+				<field name="plastic" sum="Нийт"/>
+				<field name="glass" sum="Нийт"/>
+				<field name="food_trash" sum="Нийт"/>
+				<field name="food_waste" sum="Нийт"/>
+				<field name="can" sum="Нийт"/>
+				<field name="card_paper" sum="Нийт"/>
+				<field name="ash" sum="Нийт"/>
+				<field name="const_waste" sum="Нийт"/>
+				<field name="others" sum="Нийт"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hse_simple_waste_pivot" model="ir.ui.view">
+         <field name="name">hse.simple.waste.pivot</field>
+         <field name="model">hse.simple.waste</field>
+         <field name="arch" type="xml">
+             <pivot string="Analysis">
+                 <field name="date" type="row"/>
+             </pivot>
+         </field>
+    </record>
+
+	<record id="action_hse_simple_waste" model="ir.actions.act_window">
+		<field name="name">Энгийн хог хаягдлын тайлан</field>
+		<field name="res_model">hse.simple.waste</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,pivot,form</field>
+	</record>
+</odoo>

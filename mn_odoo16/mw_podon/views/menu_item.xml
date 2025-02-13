@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_mw_podon_core" name="Поддон" parent="stock.menu_stock_root" sequence="5"/>
+        <menuitem id="menu_mw_podon" action="action_mw_podon" parent="menu_mw_podon_core" name='Поддон бүртгэл' sequence="1"/>
+        <menuitem id="menu_mw_podon_line_in_use" action="action_podon_line_in_use" parent="menu_mw_podon_core" name='Ашиглалтанд буй Поддон' sequence="2"/>
+        <menuitem id="menu_podon_use_transfer" action="action_podon_use_transfer" parent="menu_mw_podon_core" name='Поддон Шилжүүлэг' sequence="3"/> 
+</odoo>

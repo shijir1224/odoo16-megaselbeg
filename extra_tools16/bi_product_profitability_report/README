@@ -1,0 +1,9 @@
+14.0.0.1 (31-12-2020) : Added Tax(%), Tax Amount, Discount(%) , Discount Amount field in report.
+
+14.0.0.2 (11-1-2021) : Issue fixed for not updated return qty. in report every time updated with 0.qty.
+
+14.0.0.3 ==>fixed issue of product cost issue with multi company.
+         ==>fixed issue of state filter in sale order line.
+
+14.0.0.4 ==>fixed installation error with multi-company.
+14.0.0.5 ==>fixed issue of traceback when quantity or price are 0 in sale order line.

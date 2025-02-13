@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="salary_final_report_view" model="ir.ui.view">
+            <field name="name">salary.final.report.wizard</field>
+            <field name="model">salary.final.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group>
+                        <group>
+                            <field name="date_from" />
+                            <field name="date_to" />
+                            <field name="type" />
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="sector_ids"  widget="many2many_tags"/>
+                            <field name="is_dep"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_salary_final_report" model="ir.actions.act_window">
+            <field name="name">Дэлгэрэнгүй тайлан/хэлтсээр/</field>
+            <field name="res_model">salary.final.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="salary_final_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_salary_final_report" action="action_salary_final_report" 
+        parent="menu_finance_salary_report" sequence="2"  groups='group_salary_hybo'/>
+
+    </data>
+</openerp>

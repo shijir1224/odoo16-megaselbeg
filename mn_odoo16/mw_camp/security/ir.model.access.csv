@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_camp_order_admin,camp.order,model_camp_order,mw_camp.group_camp_order_admin,1,1,1,1
+access_camp_order_user,camp.order,model_camp_order,mw_camp.group_camp_order_user,1,0,0,0
+
+access_camp_order_line_admin,camp.order.line,model_camp_order_line,mw_camp.group_camp_order_admin,1,1,1,1
+
+
+access_camp_room_admin,camp.room,model_camp_room,mw_camp.group_camp_order_admin,1,1,1,1
+access_camp_block_admin,camp.block,model_camp_block,mw_camp.group_camp_order_admin,1,1,1,1
+access_camp_dempartment_admin,camp.department,model_camp_department,mw_camp.group_camp_order_admin,1,1,1,1
+access_camp_room_type_admin,camp.room.type,model_camp_room_type,mw_camp.group_camp_order_admin,1,1,1,1
+access_camp_order_report_admin,camp.order.report,model_camp_order_report,mw_camp.group_camp_order_admin,1,1,1,1
+

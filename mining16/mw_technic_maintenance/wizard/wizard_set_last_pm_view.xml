@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="wizard_set_last_pm_view" model="ir.ui.view">
+            <field name="name">Засварчны ажлын тайлан</field>
+            <field name="model">wizard.set.last.pm</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4">
+                        <label string="Template COLUMNs: (Park number; Serial number; Огноо; Мото цаг; Км; Priority)" 
+                            colspan="4" style="color: red;" for="excel_data"/>
+                        <field name="excel_data" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                   </group>
+                    <footer>
+                        <button name="import_pm_data" string="Импорт хийх" type="object" colspan="1"  
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_set_last_pm" model="ir.actions.act_window">
+            <field name="name">PM ийн дата</field>
+            <field name="res_model">wizard.set.last.pm</field>
+            
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_set_last_pm_view"/>
+            <field name="target">new</field>
+        </record>
+
+    
+</odoo>

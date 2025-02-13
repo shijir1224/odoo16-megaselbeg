@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="account_asset_report_standard_view" model="ir.ui.view">
+            <field name="name">Asset Ledger</field>
+            <field name="model">account.asset.report.standard.ledger</field>
+            <field name="arch" type="xml">
+                <form string="Report Options" class="oe_form_configuration">
+                    <field name="company_id" invisible="1"/>
+                    <h1>Үндсэн хөрөнгийн дэлгэрэнгүй тайлан</h1>
+                    <group>
+                        <group>
+                            <field name="old_temp" string="Хуучин загвараар?" widget="boolean_toggle" invisible="1"/>
+                            <field name="is_group" string="Багцлах?" widget="boolean_toggle" invisible="1"/>
+                            <field name="is_depreciated" widget="boolean_toggle"></field>
+                            <field name="is_capital" widget="boolean_toggle"/>
+                            <!-- <field name="is_not_cost" widget="boolean_toggle"/> -->
+                        </group>
+                        <group>
+                            <field name="is_total" widget="boolean_toggle"></field>
+                            <field name="is_owner" string="Эд хариуцагч?" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_range_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_from" string="Эхлэх огноо" required="True"/>
+                        </group>
+                        <group>
+                            <field name="date_to" string="Дуусах огноо" required="True"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="is_all_account" widget="boolean_toggle"/>
+                            <field name="account_ids" string="Хөрөнгийн Данс" widget="many2many_tags" options="{'no_create': True}" required="True"/> 
+                        </group>
+                        <group>
+                            <field name="is_all_branch" widget="boolean_toggle" string= "Бүх Салбар"/>
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}" string= "Салбар"/>
+                            <field name="asset_types" widget="many2many_tags" options="{'no_create': True}" string= "Хөрөнгийн төрөл"/>
+                            <field name="dep_ids" widget="many2many_tags" options="{'no_create': True}" string="Хэлтэс"/>
+                            <field name="owner_id" string= "Эд хариуцагч" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_excel_report" string="Тайлан татах" type="object" class="oe_highlight green-button"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_asset_standard_report_menu" model="ir.actions.act_window">
+            <field name="name">Хөрөнгийн Тайлан</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.asset.report.standard.ledger</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_asset_report_standard_view"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

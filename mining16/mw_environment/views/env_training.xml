@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="env_training_tree">
+        <field name="name">env.training.tree</field>
+            <field name="model">env.training</field>
+            <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Сургалт"  >
+                <field name="mining_location" options="{'no_create': True, 'no_open': True}"/>
+                <field name="training_date"/>
+                <field name="topic_id" />
+                <field name="trainee_type"/>
+                <field name="number_of_trainees" sum="Нийт"/>
+                <field name="employee_id"/>
+                <field name="create_uid" string='Бүртгэсэн'/>
+                <field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="env_training_form">
+        <field name="name">env.training.form</field>
+        <field name="model">env.training</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+                    <button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="mining_location" options="{'no_create':True}" />
+                        <field name="topic_id" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="training_date"/>
+                        <field name="trainee_type" widget="radio"/>
+                        <field name="number_of_trainees"/>
+                        <field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="env_training_pivot" model="ir.ui.view">
+        <field name="name">env.training.pivot</field>
+        <field name="model">env.training</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Training Summary">
+                <field name="trainee_type" type="row" />
+                <field name="topic_id" type="row" />
+                <field name="training_date" interval="year" type="col" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="env_training_search" model="ir.ui.view">
+        <field name="name">env.training.search</field>
+        <field name="model">env.training</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="mining_location"/>
+                <field name="topic_id"/>
+                <group expand="0" string="Бүлэглэх">
+                    <filter name="mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+                    <filter name="year" string="Он" domain="[ ]" context="{'group_by': 'training_date:year'}"/>
+                    <filter name="topic" string="Сургалтын сэдэв" context="{'group_by':'topic_id'}"/>
+                    <filter name="trainee" string="Суралцагчид" context="{'group_by':'trainee_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_env_training" model="ir.actions.act_window">
+            <field name="name">Сургалт</field>
+            <field name="res_model">env.training</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_id" ref="env_training_tree"/>
+            <field name="search_view_id" ref="env_training_search"/>
+            <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                    Энд дарж сургалтын бүртгэлээ хийнэ үү.
+                    </p>
+            </field>
+    </record>
+    
+</odoo>

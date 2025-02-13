@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ppe_end_date_report_view" model="ir.ui.view">
+        <field name="name">ppe.end.date.report.wizard</field>
+        <field name="model">ppe.end.date.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button icon="fa-times" special="cancel" string="Хаах"/>
+                    <button name="export_report" string="Татах" type="object" icon="fa-file-excel-o" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ppe_end_date_report" model="ir.actions.act_window">
+        <field name="name">PPE хугацааны тайлан</field>
+        <field name="res_model">ppe.end.date.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="ppe_end_date_report_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

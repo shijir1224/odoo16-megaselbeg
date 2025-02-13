@@ -1,0 +1,166 @@
+<odoo>
+    <record model="ir.ui.view" id="view_hr_mission_search">
+        <field name="name">hr.mission.search</field>
+        <field name="model">hr.mission</field>
+        <field name="arch" type="xml">
+            <search string="Mission search">
+                <group expand="0" string="Group By...">
+                    <field name="employee_id"/>
+                    <filter name="flow_line_id" string="Төлөв" context="{'group_by':'flow_line_id'}"/>
+					<filter name="employee" string="Ажилтан" context="{'group_by':'employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id ="view_hr_mission_form" model = "ir.ui.view">
+        <field name="name">hr.mission.form</field>
+	    <field name="model">hr.mission</field>
+        <field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object" attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцаах" class="btn-warning" icon="fa-arrow-left" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close"  type="object" attrs="{'invisible': ['|',('state_type', 'in',['cancel','draft']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'not in', ['done']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group name='form'>
+                            <field name="type" attrs="{'readonly':[('state_type','!=','draft')]}" required="1"/>
+                            <field name="name" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <field name="where" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <field name="date_come" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <field name="date_back" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <field name="active" invisible='1'/>
+                            <!-- <field name="number_of_employees" attrs="{'readonly':[('state_type','!=','draft')]}"/> -->
+                        </group>
+                        <group name='2'>
+                            <field name="employee_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <field name="job_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <field name="department_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <field name="company_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            <!-- <field name="is_many" attrs="{'readonly':[('state_type','!=','draft')]}"/> -->
+                        </group>
+                        <group> 
+                            <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit','=',True)]}" required="1"/>
+                        </group>
+                        <group>
+                            <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1" />
+                        </group>
+                        <group>
+                            <field name="state_type" invisible="1"/>
+                            <field name="flow_line_next_id" invisible="1"/>
+                            <field name="flow_line_back_id" invisible="1"/>
+                            <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                            <field name="is_not_edit" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                     <page string="Томилолтын баг" name='mission'>
+                        <field name="mission_ids">
+                            <tree editable="bottom">
+                                <field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+                                <field name="job_id" options="{'no_create':True}"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Зардал" name='amount'>
+                    <field name="cost_ids">
+                        <tree editable="bottom">
+                            <field name="cost_name_id"/>
+                            <field name="amount"/>
+                            <field name="count"/>
+                            <field name="sum"/>
+                            <field name="desc"/>
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="total" force-save='1'/>
+                        <field name="currency_id" options="{'no_create': True,'no_open': True}"/>
+                    </group>
+                    </page>
+                        <page string="Төлөвийн Түүх">
+                            <field name="history_ids" readonly="1"  >
+                                <tree>
+                                    <field name="user_id"/>
+                                    <field name="date"/>
+                                    <field name="flow_line_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+        </field>
+    </record>
+
+    <record id ="view_hr_mission_tree" model = "ir.ui.view">
+        <field name="name">hr.mission.tree</field>
+	    <field name="model">hr.mission</field>
+        <field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree decoration-success="state_type == 'done'">
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="where"/>
+                <field name="date_come"/>
+                <field name="date_back"/>
+                <!-- <field name="number_of_employees"/> -->
+                <field name="flow_line_id"/>
+                <field name="state_type" invisible='1'/>
+			</tree>
+        </field>
+    </record>
+
+    <record id="hr_mission_action" model="ir.actions.act_window">
+		<field name="name">Томилолт</field>
+		<field name="res_model">hr.mission</field>
+        <field name="context">{'search_default_flow_line_id': 1}</field>
+        <field name="view_mode">tree,form</field>
+	</record>
+    <menuitem id="hr_mission_menu" 
+            parent="mission_menu" 
+            action="hr_mission_action" 
+            sequence="0"/>
+
+    <!-- Зардлын нэрний бүртгэл -->
+    <record id="view_cost_name_form" model="ir.ui.view">
+        <field name="name">cost.name.form</field>
+        <field name="model">cost.name</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="6">
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_cost_name_tree" model="ir.ui.view">
+        <field name="name">cost.name.tree</field>
+        <field name="model">cost.name</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_cost_name_action" model="ir.actions.act_window">
+		<field name="name">Зардлын нэр</field>
+		<field name="res_model">cost.name</field> 
+		<field name="view_mode">tree,form</field>
+	</record>
+    <menuitem 
+        id="cost_name_menu" 
+        parent="hr.menu_human_resources_configuration"
+        action="view_cost_name_action" 
+        sequence="2" />
+</odoo>

@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+        
+		<record id="view_sale_return_tree" model="ir.ui.view">
+			<field name="name">sale.return.tree</field>
+			<field name="model">sale.return</field>
+			<field name="priority">4</field>
+			<field name="arch" type="xml">
+				<tree string="Sale Return">
+					<field name="name"/>
+					<field name="date"/>
+					<field name="partner_id"/>
+					<field name="warehouse_id"/>
+					<field name="create_uid" string="Үүсгэгч"/>
+					<field name="amount_total" sum="SUM"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+        
+        <record id="view_sale_return_form" model="ir.ui.view">
+        	<field name="name">sale.return.form</field>
+        	<field name="model">sale.return</field>
+        	<field name="priority">4</field>
+        	<field name="arch" type="xml">
+        		<form string="Sale Return">
+        			<header>
+        				<button name="calculate" type="object" states='draft' class="oe_highlight" string="Шалгах"/>
+        				<button name="confirm" type="object" states='calculated' class="oe_highlight" string="Батлах"/>
+						<button name="to_draft" type="object" states='calculated,cancelled' string="Ноороглох"/>
+						<field name="need_create_invoice" invisible="1"/>
+						<button name="create_invoice" type="object" attrs="{'invisible': [('need_create_invoice', '=', False)]}" string="Нэхэмжлэл үүсгэх"/>
+        				<button name="action_to_cancel" type="object" states="confirmed,done" string="Цуцлах" class="btn-danger"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,calculated,confirmed,done" statusbar_colors='{"calculated":"red","done":"blue"}'/>
+        			</header>
+        			<sheet>
+        				<div class="oe_button_box" name="button_box">
+                        	<button class="oe_stat_button" name="action_view_pickings" type="object" 
+		                       icon="fa-shopping-cart">
+		                       <field string="Шилжүүлэг" name="picking_count" widget="statinfo"/>
+		                    </button>
+		                    <button class="oe_stat_button" name="action_view_invoices" type="object" 
+		                       icon="fa-shopping-cart">
+		                       <field string="Нэхэмжлэл" name="invoice_count" widget="statinfo"/>
+		                    </button>
+						</div>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+        				<group>
+	        				<group>
+								<field name="company_id" readonly="1" required="1" force_save="1"/>
+								<field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="partner_id" required="1" options="{'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="taxes_id" widget="many2many_tags" attrs="{'readonly':[('state','!=','draft')]}" domain="[('type_tax_use', '=', 'sale'), ('company_id', '=', company_id)]"/>
+								<field name="warehouse_id" required="1" domain="[('company_id', '=', company_id)]" options="{'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+	        				</group>
+	        				<group>
+								<field name="pricelist_id" groups="product.group_product_pricelist" options="{'no_open':True,'no_create': True}"/>
+								<field name="currency_id" readonly="1" force_save="1"/>
+	        					<field name="create_date" attrs="{'invisible': [('create_date', '=', False)]}" readonly="1" />
+	        					<field name="create_uid" attrs="{'invisible': [('create_date', '=', False)]}" readonly="1" />
+	        					<field name="salesman_id" required="1" options="{'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+	        					<!-- <button name="button_dummy" type="object" string="Buttom dummy"
+	        						groups="base.group_no_one"/> -->
+							</group>
+						</group>
+						<div class="alert alert-info" attrs="{'invisible': [('create_date', '!=', False)]}" role="alert">
+                            Борлуулалт сонгох бол эхлээд хадгална уу
+                        </div>
+						<group>
+							<field name="sale_line_ids" domain="[('order_partner_id', '=', partner_id), ('state', 'in', ['sale', 'done']), ('qty_delivered', '>', 0)]" attrs="{'readonly':[('state','!=','draft')], 'invisible': [('create_date', '=', False)]}">
+								<tree string="Буцаах борлуулалтууд">
+									<field name="company_id" invisible="1"/>
+									<field name="create_date" width="100px"/>
+									<field name="product_id" width="200px"/>
+									<field name="product_uom_category_id" invisible="1"/>
+									<field name="product_uom_qty" sum="Нийт тоо хэмжээ"/>
+									<field name="price_unit"/>
+									<field name="product_uom"/>
+									<field name="tax_id" widget="many2many_tags"/>
+									<field name="price_subtotal" sum="Дэд дүн"/>
+								</tree>
+							</field>
+						</group>
+						<field name="show_import_button" invisible="1"/>
+						<button type="object" name="import_lines" string="Борлуулалтаас барааг импортлох" class="oe_highlight" attrs="{'invisible': ['|', ('show_import_button', '=', False), ('state', '!=', 'draft')]}"/>
+						<notebook>
+							<page string="Products to return">
+								<field name="return_line" attrs="{'readonly':[('state','!=','draft')]}">
+									<form string="Products to return">
+										<group>
+											<group>
+												<field name="product_id" options="{'no_create': True}"/>
+												<field name="qty"/>
+												<field name="product_uom_category_id" invisible="1"/>
+												<field name="product_uom" options="{'no_create': True}"/>
+												<field name="price_unit"/>
+												<field name="price_unit_cost" readonly="1" force_save="1"/>
+												<!-- <field name="lot_id" groups="stock.group_production_lot"/> -->
+												<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'), ('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'sale', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}" optional="show"/>
+												<field name="price_subtotal" widget="monetary"/>
+												<field name="sale_line_id" readonly="1"/>
+											</group>
+										</group>
+									</form>
+									<tree string="Борлуулалтын буцаалт" editable="bottom" decoration-success="sale_line_id != False" decoration-info="sale_line_id == False">
+										<field name="product_id" required="1" options="{'no_create': True}"/>
+										<field name="qty" required="1" sum="Нийт тоо хэмжээ"/>
+										<field name="product_uom_category_id" invisible="1"/>
+										<field name="product_uom" options="{'no_create': True}"/>
+										<field name="price_unit"/>
+										<field name="price_unit_cost" force_save="1" attrs="{'readonly':[('sale_line_id','!=',False),('cost_method','!=','fifo')]}"/>
+										<field name="sale_line_id" invisible="1"/>
+										<field name="cost_method" invisible="1"/>
+										<!-- <field name="lot_id" groups="stock.group_production_lot" options="{'no_create': True}" domain="[('company_id', '=', parent.company_id), ('product_id', '=', product_id)]"/> -->
+										<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'), ('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'sale', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}" optional="show"/>
+										<field name="price_subtotal" widget="monetary"/>
+									</tree>
+								</field>
+								<group class="oe_subtotal_footer oe_right">
+									<field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+									<field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+									<div class="oe_subtotal_footer_separator oe_inline">
+										<label for="amount_total"/>
+									</div>
+									<field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+								</group>
+							</page>
+						</notebook>
+			
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="activity_ids" widget="mail_activity"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+       			</form>
+        	</field>
+		</record>
+		
+		<record id="sale_return_view_search" model="ir.ui.view">
+            <field name="name">sale.return.search</field>
+            <field name="model">sale.return</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Борлуулалтын буцаалт">
+                    <field name="name"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="create_uid"/>
+                    <field name="return_line" string="Бараа" filter_domain="[('return_line.product_id', 'ilike', self)]"/>
+                    <filter string="Миний буцаалтууд" domain="[('create_uid', '=', uid)]" name="my_created_returns"/>
+                    <group expand="0" string="Бүлэглэлт">
+						<filter string="Агуулах" name="warehouse" domain="[]" context="{'group_by': 'warehouse_id'}"/>
+						<filter string="Огноо" name="return_month" domain="[]" context="{'group_by': 'date'}"/>
+                        <filter string="Захиалагч" name="customer" domain="[]" context="{'group_by': 'partner_id'}"/>
+						<filter string="Үүсгэгч" name="creator" domain="[]" context="{'group_by': 'create_uid'}"/>
+						<filter string="Төлөв" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_return_sale_order" model="ir.actions.act_window">
+            <field name="name">Борлуулалтын буцаалт</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.return</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+		<menuitem id="menu_action_sale_return" action="action_return_sale_order" parent="sale.sale_order_menu" groups="mw_sale_return.group_sale_return" sequence="16"/>
+	</data>
+</odoo>

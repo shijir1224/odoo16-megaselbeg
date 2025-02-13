@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Salary config -->
+	<record id="view_hse_salary_config_form" model="ir.ui.view">
+		<field name="name">hse.salary.config.form</field>
+		<field name="model">hse.salary.config</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="6">
+					<field name="conflict_type" options="{'no_create':True}"/>
+					<field name="emp_type"/>
+					<field name="point"/>
+				</group>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_salary_config_tree" model="ir.ui.view">
+		<field name="name">hse.salary.config.tree</field>
+		<field name="model">hse.salary.config</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="conflict_type"/>
+				<field name="emp_type"/>
+				<field name="point"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_hse_salary_config" model="ir.actions.act_window">
+		<field name="name">Үнэлгээ тохиргоо</field>
+		<field name="res_model">hse.salary.config</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_employee_kpi_form" model="ir.ui.view">
+		<field name="name">hse.employee.kpi.form</field>
+		<field name="model">hse.employee.kpi</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="4">
+					<field name="employee_hse_point"/>
+					<field name="emp_type"/>
+					<field name="company_id"/>
+				</group>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_employee_kpi_tree" model="ir.ui.view">
+		<field name="name">hse.employee.kpitree</field>
+		<field name="model">hse.employee.kpi</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="employee_hse_point"/>
+				<field name="emp_type"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_hse_employee_kpi" model="ir.actions.act_window">
+		<field name="name">HSE Employee Kpi</field>
+		<field name="res_model">hse.employee.kpi</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Hse pre notice config -->
+	<record id="view_hse_notice_action_config_form" model="ir.ui.view">
+		<field name="name">hse.notice.action.config</field>
+		<field name="model">hse.notice.action.config</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="4">
+					<field name="name"/>
+					<field name="company_id"/>
+				</group>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_notice_action_config_tree" model="ir.ui.view">
+		<field name="name">hse.notice.action.config.tree</field>
+		<field name="model">hse.notice.action.config</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_hse_notice_action_config" model="ir.actions.act_window">
+		<field name="name">Урьдчилсан мэдэгдэл тохиргоо</field>
+		<field name="res_model">hse.notice.action.config</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Injury environment -->
+	<record id="view_hse_hazard_type_form" model="ir.ui.view">
+		<field name="name">hse.injury.environment.form</field>
+		<field name="model">hse.injury.environment</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_injury_environment_tree" model="ir.ui.view">
+		<field name="name">hse.injury.environment.tree</field>
+		<field name="model">hse.injury.environment</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_injury_environment" model="ir.actions.act_window">
+		<field name="name">Орчин</field>
+		<field name="res_model">hse.injury.environment</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+	 <!-- Injury equipment materials -->
+	<record id="view_hse_injury_equipment_mateials_form" model="ir.ui.view">
+		<field name="name">hse.injury.equipment.materials.form</field>
+		<field name="model">hse.injury.equipment.materials</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="company_id"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_injury_equipment_mateials_tree" model="ir.ui.view">
+		<field name="name">hse.injury.equipment.materials.tree</field>
+		<field name="model">hse.injury.equipment.materials</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_injury_equipment_mateials" model="ir.actions.act_window">
+		<field name="name">Тоног төхөөрөмж/Материал бүртгэл:</field>
+		<field name="res_model">hse.injury.equipment.materials</field>
+		<field name="view_mode">tree,form</field>
+	</record>  
+
+	<!-- Operating system -->
+  <record id="view_hse_injury_equipment_mateials_form" model="ir.ui.view">
+		<field name="name">hse.injury.operating.system.form</field>
+		<field name="model">hse.injury.operating.system</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="company_id"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_injury_operating_system_tree" model="ir.ui.view">
+		<field name="name">hse.injury.operating.system.tree</field>
+		<field name="model">hse.injury.operating.system</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_injury_operating_system" model="ir.actions.act_window">
+		<field name="name">Ажлын систем бүртгэл:</field>
+		<field name="res_model">hse.injury.operating.system</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+	<!--HSE injury person-->
+   <record id="view_hse_injury_person_form" model="ir.ui.view">
+		<field name="name">hse.injury.person.form</field>
+		<field name="model">hse.injury.person</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="company_id"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_injury_person_tree" model="ir.ui.view">
+		<field name="name">hse.injury.person.tree</field>
+		<field name="model">hse.injury.person</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_injury_person" model="ir.actions.act_window">
+		<field name="name">Хүн</field>
+		<field name="res_model">hse.injury.person</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!--HSE Injury non standard action-->
+   <record id="view_hse_injury_non_standard_form" model="ir.ui.view">
+		<field name="name">hse.injury.non.standard.form</field>
+		<field name="model">hse.injury.non.standard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="company_id"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_injury_person_tree" model="ir.ui.view">
+		<field name="name">hse.injury.non.standard.tree</field>
+		<field name="model">hse.injury.non.standard</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_injury_non_standard" model="ir.actions.act_window">
+		<field name="name">Стандарт бус үйлдэл:</field>
+		<field name="res_model">hse.injury.non.standard</field>
+		<field name="view_mode">tree,form</field>
+	</record>  
+
+		<!--HSE Injury non standard conditions-->
+ 	<record id="view_hse_injury_non_standard_conditions_form" model="ir.ui.view">
+		<field name="name">hse.injury.non.standard.conditions.form</field>
+		<field name="model">hse.injury.non.standard.conditions</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="company_id"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_injury_non_standard_conditions_tree" model="ir.ui.view">
+		<field name="name">hse.injury.non.standard.conditions.tree</field>
+		<field name="model">hse.injury.non.standard.conditions</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_injury_non_standard_conditions" model="ir.actions.act_window">
+		<field name="name">Стандарт бус нөхцөл:</field>
+		<field name="res_model">hse.injury.non.standard.conditions</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!--HSE discipline categs-->
+	<record id="view_disciplineЕcateg_form" model="ir.ui.view">
+		<field name="name">discipline.categ.form</field>
+		<field name="model">discipline.categ</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="company_id"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+	<record id="view_discipline_categ_tree" model="ir.ui.view">
+		<field name="name">discipline.categ.tree</field>
+		<field name="model">discipline.categ</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_discipline_categ" model="ir.actions.act_window">
+		<field name="name">Зөрчлийн ангилал:</field>
+		<field name="res_model">discipline.categ</field>
+		<field name="view_mode">tree,form</field>
+	</record>  
+
+	<!--Email Config-->
+	<record id="view_email_send_users_form" model="ir.ui.view">
+		<field name="name">email.send.users.form</field>
+		<field name="model">email.send.users</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="partner_id" options="{'no_create':True}"/>
+					<field name="company_id"/>
+					<field name="name"/>
+					<field name="is_first"/>
+				</group> 
+			</form>
+		</field>
+	</record>
+
+	<record id="view_email_send_users_tree" model="ir.ui.view">
+		<field name="name">email.send.users.tree</field>
+		<field name="model">email.send.users</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="partner_id"/>
+				<field name="company_id"/> 
+				<field name="name"/>
+				<field name="is_first"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_email_send_users" model="ir.actions.act_window">
+		<field name="name">Групп мэйл илгээх тохиргоо:</field>
+		<field name="res_model">email.send.users</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Partner -->
+	<record id="view_hse_partner_form" model="ir.ui.view">
+		<field name="name">hse.partner.form</field>
+		<field name="model">hse.partner</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="name"/>
+						<field name="company_id"/>
+						<field name="branch_id" widget="selection" options="{'no_create':True}"/>
+						<field name="email" widget="email"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_partner_tree" model="ir.ui.view">
+		<field name="name">hse.partner.tree</field>
+		<field name="model">hse.partner</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="company_id"/>
+				<field name="name"/>
+				<field name="branch_id" widget="selection" options="{'no_create':True}"/>
+				<field name="email"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_partner" model="ir.actions.act_window">
+		<field name="name">Харилцагч</field>
+		<field name="res_model">hse.partner</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Hazard category -->
+	<record id="view_hse_hazard_category_form" model="ir.ui.view">
+		<field name="name">hse.hazard.category.form</field>
+		<field name="model">hse.hazard.category</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+
+				<sheet>
+					<group col="6">
+						<field name="name"/>
+						<field name="company_id"/>
+					</group>
+					
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_hazard_category_tree" model="ir.ui.view">
+		<field name="name">hse.hazard.category.tree</field>
+		<field name="model">hse.hazard.category</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_hse_hazard_category" model="ir.actions.act_window">
+		<field name="name">Аюулыг ангилал</field>
+		<field name="res_model">hse.hazard.category</field>
+		<field name="view_id" ref="view_hse_hazard_category_tree"/>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+		<!-- Location -->
+	<record id="view_hse_location_form" model="ir.ui.view">
+		<field name="name">hse.location.form</field>
+		<field name="model">hse.location</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="name"/>
+						<field name="branch_id" widget="selection" options="{'no_create':True}"/>
+						<field name="department_id" widget="selection" options="{'no_create':True}"/>
+						<!-- <field name="responsible"/> -->
+						<field name="company_id"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_location_tree" model="ir.ui.view">
+		<field name="name">hse.location.tree</field>
+		<field name="model">hse.location</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="branch_id" options="{'no_create':True}"/>
+				<field name="department_id" widget="selection" options="{'no_create':True}"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_location_filter" model="ir.ui.view">
+		<field name="name">hse.location.filter</field>
+		<field name="model">hse.location</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter string="Салбар" name="group_branch_id" context="{'group_by':'branch_id'}"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_location" model="ir.actions.act_window">
+		<field name="name">Байршил</field>
+		<field name="res_model">hse.location</field>
+		<field name="view_id" ref="view_hse_location_tree"/>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- <record id="action_hse_location" model="ir.actions.act_window">
+		<field name="name">Location</field>
+		<field name="res_model">hse.location</field>
+		<field name="context">{'search_default_group_branch_id': 1}</field>
+		<field name="view_mode">tree,form</field>
+	</record> -->
+
+	<!-- Types of Accidents -->
+	<record id="view_hse_accident_type_form" model="ir.ui.view">
+		<field name="name">hse.accident.type.form</field>
+		<field name="model">hse.accident.type</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="name"/>
+						<field name="company_id"/>
+						<field name="value" groups="base.group_erp_manager"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_accident_type_tree" model="ir.ui.view">
+		<field name="name">hse.accident.type.tree</field>
+		<field name="model">hse.accident.type</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+				<field name="value" groups="base.group_erp_manager"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_accident_type" model="ir.actions.act_window">
+		<field name="name">Болсон явдлын тохиолдлын төрөл</field>
+		<field name="res_model">hse.accident.type</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Discipline type-->
+	<record id="view_hse_discipline_type_form" model="ir.ui.view">
+		<field name="name">hse.discipline.type.form</field>
+		<field name="model">hse.discipline.type</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="number"/>
+						<field name="name"/>
+						<field name="company_id"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_accident_cause_tree" model="ir.ui.view">
+		<field name="name">hse.discipline.type.tree</field>
+		<field name="model">hse.discipline.type</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="number"/>
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_discipline_type" model="ir.actions.act_window">
+		<field name="name">Зөрчлийн төрөл</field>
+		<field name="res_model">hse.discipline.type</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Risk Probability -->
+	<record id="view_hse_risk_probability_form" model="ir.ui.view">
+		<field name="name">hse.risk.probability.form</field>
+		<field name="model">hse.risk.probability</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="6">
+						<field name="name"/>
+						<field name="prioraty"/>
+						<field name="risk_about"/>
+						<field name="company_id"/>
+					</group>
+					<group col="6">	
+						<field name="risk_probability"/>
+						<field name="risk_probability_about"/>
+						<field name="risk_probability_opportunity"/>
+					</group>
+					<group col="4">
+						<field name="risk_consequences"/>
+						<field name="risk_consequences_hygiene"/>
+						<field name="risk_consequences_about"/>
+						<field name="risk_consequences_nature"/>
+					</group>	
+					<group>
+						<field name="risk_level"/>
+						<field name="damaged_estimate"/>
+					</group>	
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_risk_probability_tree" model="ir.ui.view">
+		<field name="name">hse.risk.probability.tree</field>
+		<field name="model">hse.risk.probability</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+					<field name="risk_probability"/>
+					<field name="risk_consequences"/>
+					<field name="prioraty"/>
+					<field name="risk_about"/>
+					<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_hse_risk_probability" model="ir.actions.act_window">
+		<field name="name">Эрсдэлийн үнэлгээ тохиргоо</field>
+		<field name="res_model">hse.risk.probability</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Workplace type-->
+	<record id="view_hse_risk_workplace_type_form" model="ir.ui.view">
+		<field name="name">hse.risk.workplace.type.form</field>
+		<field name="model">hse.risk.workplace.type</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="4">
+						<field name="code"/>
+						<field name="name"/>
+						<field name="company_id"/>
+					</group>
+				</sheet>
+				<!-- <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div> -->
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_risk_workplace_type_tree" model="ir.ui.view">
+		<field name="name">hse.risk.workplace.type.tree</field>
+		<field name="model">hse.risk.workplace.type</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="code"/>
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_hse_risk_workplace_type" model="ir.actions.act_window">
+		<field name="name">Эрсдэлийн үнэлгээ/ажлын байрны төрөл/</field>
+		<field name="res_model">hse.risk.workplace.type</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Workplace config-->
+	<record id="view_hse_risk_workplace_config_form" model="ir.ui.view">
+		<field name="name">Эрсдэлийн үнэлгээ тохиргоо/ажлын байр/</field>
+		<field name="model">hse.risk.workplace.config</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="4">
+					<field name="code"/>
+					<field name="zereglel"/>
+					<field name="category_id"/>
+					<field name="risk_consequences"/>
+					<field name="tailbar"/>
+					<field name="level"/>
+					<field name="level_about"/>
+					<field name="company_id"/>
+				</group>
+				<!-- <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div> -->
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_risk_workplace_config_tree" model="ir.ui.view">
+		<field name="name">Эрсдэлийн үнэлгээ тохиргоо/ажлын байр/</field>
+		<field name="model">hse.risk.workplace.config</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="code"/>
+				<field name="category_id"/>
+				<field name="risk_consequences"/>
+				<field name="level"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_hse_risk_workplace_config" model="ir.actions.act_window">
+		<field name="name">Эрсдэлийн үнэлгээ тохиргоо/Ажлын байр/</field>
+		<field name="res_model">hse.risk.workplace.config</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_rules_document_type_form" model="ir.ui.view">
+		<field name="name">hse.rules.document.type.form</field>
+		<field name="model">hse.rules.document.type</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="company_id"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_rules_document_type_tree" model="ir.ui.view">
+		<field name="name">hse.rules.document.type.tree</field>
+		<field name="model">hse.rules.document.type</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_rules_document_type_search" model="ir.ui.view">
+		<field name="name">hse.rules.document.type.search</field>
+		<field name="model">hse.rules.document.type</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="company_id"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_rules_document_type" model="ir.actions.act_window">
+		<field name="name">Үндсэн бичиг баримтын төрөл</field>
+		<field name="res_model">hse.rules.document.type</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- sms tempalte -->
+	<record id="view_text_template_form" model="ir.ui.view">
+		<field name="name">text.template.form</field>
+		<field name="model">text.template</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="type"/>
+					<field name="company_id"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_text_template_tree" model="ir.ui.view">
+		<field name="name">text.template.tree</field>
+		<field name="model">text.template</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="type"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_text_template" model="ir.actions.act_window">
+		<field name="name">СМС төрөл</field>
+		<field name="res_model">text.template</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

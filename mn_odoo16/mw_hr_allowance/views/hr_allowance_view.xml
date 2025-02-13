@@ -1,0 +1,152 @@
+<odoo>
+    <record id="hr_employee_view_form2_allow" model="ir.ui.view">
+			<field name="name">hr.hr.employee.view.form2.mw</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_user']" position="after">
+				<button name="action_hr_allowance" type="object" class="oe_stat_button" icon="fa-money">
+					<field string="Тэтгэмж" widget="statinfo" name ='allowance_count'/>
+				</button>
+			</xpath>
+		</field>
+	</record>
+     <record id="hr_allowance_filter_view" model="ir.ui.view">
+        <field name="name">hr.allowance.filter</field>
+        <field name="model">hr.allowance</field>
+        <field name="arch" type="xml">
+            <search string="Decision">
+                <field name="employee_id"/>
+                <group>
+                    <filter string="Баталсан" name="state_done" domain="[('state', '=', 'done')]"/>
+                    <filter name="year" context="{'group_by':'date:year'}" string="Жил" />
+                    <filter name="month" context="{'group_by':'date:month'}" string="Сар" />
+					<filter  name="type" context="{'group_by':'type'}"  string="Төрөл"/>
+                    <filter  name="state_c" context="{'group_by':'state'}"  string="Төлөв"/>
+					<filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                 </group>
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="hr_allowance_form_view">
+        <field name="name">hr.allowance.form</field>
+        <field name="model">hr.allowance</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+            <header>
+                <button name="action_send" type="object" class="oe_highlight" string=" Илгээх" states='draft'/>
+                <button name="action_done" type="object" class="oe_highlight" string=" Батлах" states='sent'/>
+                <button name="action_draft" type="object" class="oe_highlight" string=" Ноороглох" states='sent,done'/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,done"
+                        statusbar_colors='{"draft":"gray","sent":"blue","done":"blue"}'/>
+            </header>
+            <sheet>
+            <group>
+                <group>
+                    <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="employee_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="job_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="company_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                </group>
+                <group>
+                    <field name="allowance_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="type" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="amount" attrs="{'readonly':[('state','!=','draft')]}" force_save = '1'/>
+                    <field name="request_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                </group>
+            </group>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" />
+                <field name="message_ids" widget="mail_thread" />
+            </div>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="hr_allowance_tree_view">
+        <field name="name">hr.allowance.tree</field>
+        <field name="model">hr.allowance</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <field name="company_id"/>
+                <field name="allowance_id"/>
+                <field name="type"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="hr_allowance_action">
+        <field name="name">Хөнгөлөлт хангамжийн багц</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.allowance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_allowance_tree_view"/>
+         <field name="context">{'search_default_year': 1,'search_default_month': 1,'search_default_state_c': 1}</field>
+        <field name="search_view_id" ref="hr_allowance_filter_view"/>
+    </record>
+
+    <record model="ir.ui.view" id="hr_allowance_name_form_view">
+        <field name="name">hr.allowance.name.form</field>
+        <field name="model">hr.allowance.name</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <sheet>
+            <group>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="amount"/>
+                <field name="once_in_year"/>
+            </group>
+        </sheet>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="hr_allowance_name_tree_view">
+        <field name="name">hr.allowance.name.tree</field>
+        <field name="model">hr.allowance.name</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="hr_allowance_name_action">
+        <field name="name">Хөнгөлөлт хангамжийн бүртгэл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.allowance.name</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_allowance_name_tree_view"/>
+       
+        
+    </record>
+
+    <record model="ir.ui.view" id="view_payment_request_form_mw">
+        <field name="name">payment.request.form.my</field>
+        <field name="inherit_id" ref="mw_account_payment_request.view_payment_request_form_my"/>
+        <field name="model">payment.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='narration_id']" position="after">
+                <field name='allowance_id'/>
+            </xpath>
+        </field>
+    </record>
+    
+    <menuitem id="hr_allowance_menu" 
+        name ='Тэтгэмж' 
+        parent="hr.menu_hr_root"
+        sequence="18"/>
+     <menuitem id="hr_allowance_name_menu" parent="hr.menu_config_employee" action="hr_allowance_name_action" sequence="11"/>
+
+    <menuitem id="allowance_form_menu" 
+        parent="mw_hr_allowance.hr_allowance_menu"
+        action="hr_allowance_action"
+        sequence="1"/>
+</odoo>

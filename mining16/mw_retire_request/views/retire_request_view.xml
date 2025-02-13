@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Sequences for  -->
+	<record id="seq_retire_request" model="ir.sequence">
+		<field name="name">Retire Request</field>
+		<field name="code">retire.request</field>
+		<field name="prefix">RR%(y)s%(month)s-</field>
+		<field name="padding">3</field>
+		<field name="company_id" eval='False'/>
+	</record>
+
+	<!-- <record model='ir.ui.view' id='retire_request_tree_view'>
+		<field name="name">Батлагчын шийдвэр</field>
+		<field name="model">dynamic.flow.history</field>
+		<field name="arch" type="xml">
+			<form string="Vehicle">
+				<field name="decision_description" widget="text"/>
+			</form>
+			<footer>
+				<button icon="oe_highlight" string="Батлах" special="save"/>
+				<button icon="oe_link" special="cancel" string="Хаах"/>
+			</footer>
+		</field>
+	</record> -->
+
+	<record model='ir.ui.view' id='retire_request_form_view'>
+		<field name="name">Актлах бүртгэл</field>
+		<field name="model">retire.request</field>
+		<field eval="2" name="priority"/>
+		<field name="arch" type="xml">
+			<form string="Technic form">
+				<header>
+					<button name="action_draft_stage" type="object" string="Ноороглох" class="btn-muted" attrs="{'invisible': [('state_type','=','draft')]}"/>
+					<button name="action_back_stage" type="object" string="Буцах" class="btn-warning" attrs="{'invisible': [('state_type','=','draft')]}"/>
+					<button name="view_retire_description" type="object" string="Батлах" class="btn-success" attrs="{'invisible': [('state_type','=','done')]}"/>
+					<button name="action_cancel_stage" type="object" string="Цуцлах" states="working" class="btn-danger" attrs="{'invisible': [('state_type','in',['draft','cancel'])]}"/>
+					<field name="state_type" invisible="1"/>
+					<field name="flow_line_id" widget="statusbar"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" />
+							<field name="flow_id" options="{'no_create':True}"/>
+							<field name="branch_id" options="{'no_create':True}"/>
+							<field name="respondent_id" options="{'no_create':True}"/>
+							<field name="description" />
+							<field name="technic_id" string="Technic" options="{'no_create':True}" invisible="context.get('retire_type', False) not in ['technic','tire']" required="context.get('retire_type', False) in ['technic','tire']" 
+								domain="[('technic_type','in',['excavator','dump','dozer','grader','loader','wheel_excavator','wheel_dozer','tank_truck', 'water_truck', 'service_car', 'fire_truck','ambulance_car','mechanizm','forklift','transportation_vehicle','passenger_bus','achaanii_mashin','drill','indvv','light_tower','electric_generator','air_compressor','welding_machine','heater','dolli','asphalt_flatener','transfer_trailer','transfer_truck','small_service_car'])]" />
+							<field name="equipment_id" string="Equipment" options="{'no_create':True}" invisible="context.get('retire_type') != 'equipment'" required="context.get('retire_type', False) == 'equipment'" 
+								domain="[('technic_type','not in',['excavator','dump','dozer','grader','loader','wheel_excavator','wheel_dozer','tank_truck', 'water_truck', 'service_car', 'fire_truck','ambulance_car','mechanizm','forklift','transportation_vehicle','passenger_bus','achaanii_mashin','drill','indvv','light_tower','electric_generator','air_compressor','welding_machine','heater','dolli','asphalt_flatener','transfer_trailer','transfer_truck'])]"/>
+						</group>
+						<group>
+							<field name="date" />
+							<field name="company_id" options="{'no_create':True}"/>
+							<field name="amount_total" />
+							<!-- <field name="tire_id" options="{'no_create':True}" invisible="context.get('retire_type', False) != 'tire'" required="context.get('retire_type', False) == 'tire'"/> -->
+							<field name="component_id" options="{'no_create':True}" invisible="context.get('retire_type', False) not in ['component', 'parts']" required="context.get('retire_type', False) in ['component', 'parts']"/>
+							<field name="product_id" options="{'no_create':True}" invisible="context.get('retire_type', False) != 'parts'" required="context.get('retire_type', False) == 'parts'"/>
+							<field name="retire_type" readonly="1" groups="base.group_no_one"/>
+						</group>
+						<group>
+							<field name="attachment_ids" widget="many2many_binary"/>
+						</group>
+						<button name="get_technic_tires" type="object" string="Дугуй татах" invisible="context.get('retire_type', False) != 'tire'" class="fa fa-download btn-primary btn-large col-md-6"/>
+					</group>
+					<notebook>
+						<page string="Дугуй" invisible="context.get('retire_type', False) != 'tire'">
+							<label for="tire_line_ids" string="Дугуйнууд" />
+							<field name="tire_line_ids" nolabel="1">
+								<tree editable="top">
+									<!-- <field name="name"/> -->
+									<field name="tire_id"/>
+									<field name="position"/>
+									<field name="is_retire" widget="boolean_toggle"/>
+									<!-- <field name="serial_number"/>
+									<field name="total_km"/>
+									<field name="tread_depreciation_percent"/>
+									<field name="current_position"/> -->
+								</tree>
+							</field>
+						</page>
+						<page string="Батлах урсгалын түүх" name="flow_history">
+							<field name="history_flow_ids">
+								<tree >
+									<field name="user_id" />
+									<field name="date" />
+									<field name="flow_line_id" />
+									<field name="spend_time" />
+									<field name="spend_day" />
+									<field name="decision_description" optional="show" readonly="1" class="text-wrap"/>
+									<field name="company_id" optional="hide" />
+								</tree>
+								<form>
+									<sheet>
+										<group>
+											<group>
+												<field name="user_id" readonly="1"/>
+												<field name="date" readonly="1"/>
+												<field name="flow_line_id" readonly="1"/>
+												<field name="spend_time" readonly="1"/>
+											</group>
+											<group>
+												<field name="spend_day" readonly="1"/>
+												<field name="decision_description" readonly="1" class="text-wrap"/>
+												<field name="company_id" readonly="1"/>
+											</group>
+										</group>
+									</sheet>
+								</form>
+							</field>
+						</page>
+						<page string="Бусад мэдээлэл" name="other_info" groups="base.group_no_one">
+							<group >
+								<field name="state_type" />
+								<field name="is_not_edit" />
+								<field name="flow_line_next_id" />
+								<field name="next_state_type" />
+								<field name="flow_line_back_id" />
+							</group>
+						</page>
+						</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" />
+					<field name="message_ids" />
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.ui.view' id='retire_request_tree_view'>
+		<field name="name">Актны жагсаалт</field>
+		<field name="model">retire.request</field>
+		<field eval="2" name="priority"/>
+		<field name="arch" type="xml">
+			<tree string="Vehicle"> 
+				<!-- decoration-bf="state=='draft'" decoration-danger="state=='stopped'" 
+				decoration-muted="state=='inactive'" decoration-info="state=='parking'" 
+				decoration-warning="state=='repairing'" decoration-success="state=='working'" multi_edit="1"> -->
+				<field name="name" optional="show"/>
+				<field name="date" />
+				<field name="branch_id" />
+				<field name="respondent_id" />
+				<field name="amount_total" />
+				<field name="company_id"/>
+				<field name="flow_id" />
+				<field name="flow_line_id" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="retire_request_search_view">
+		<field name="name">Акт шүүлтүүр</field>
+		<field name="model">retire.request</field>
+		<field eval="2" name="priority"/>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="respondent_id"/>
+				<field name="company_id"/>
+				<field name="flow_id"/>
+				<group expand="1" string="Filters">
+					<!-- <filter name="working" string="Ажиллаж байгаа"
+						domain="[('state','=','working'),('is_active','=',False)]"/> -->
+					<filter string="Актлагдсан" domain="[('state_type','=','done')]"
+						name="retired"/>
+					<!-- <filter string="Parking" domain="[('state','=','parking')]"
+						name="parking"/>
+					<filter string="Баталгаат" domain="[('with_warrenty','=',True)]"
+						name="warrenty"/>
+					<filter string="Галын системтэй" domain="[('with_fire_system','=',True)]" name="fire_system"/>
+					<filter string="Идэвхигүй" domain="[('is_active','=',True)]" name="is_active"/> -->
+				</group>
+				<group expand="1" string="Group By...">
+					<filter name="groupby_status" context="{'group_by':'flow_id'}"
+						string="Урсгалаар"/>
+					<!-- <filter name="groupby_model" context="{'group_by':'model_id'}"
+						string="Модел загвар"/>
+					<filter name="groupby_type" context="{'group_by':'technic_type'}"
+						string="Техникийн төрөл"/>
+					<filter name="groupby_owner" context="{'group_by':'owner_type'}"
+						string="Эзэмшигчийн төрөл"/>
+					<filter name="groupby_manufactured_date" context="{'group_by':'manufactured_date'}"
+						string="Үйлдвэрлэсэн огноо"/>
+					<filter name="groupby_department" context="{'group_by':'department_id'}"
+						string="Хэлтэс"/>
+					<filter name="groupby_branch" context="{'group_by':'branch_id'}"
+						string="Салбар"/> -->
+				</group>
+			</search>
+		</field>
+	</record>
+	
+	<record model='ir.actions.act_window' id='action_technic_retire_request'>
+		<field name="name">Техник Актлах хүсэлт</field>
+		<field name="res_model">retire.request</field>
+		<field name="view_mode">tree,kanban,form</field>
+		<field name="view_id" ref="retire_request_tree_view"/>
+		<field name="domain">[('retire_type','=','technic')]</field>
+		<field name="context">{"search_default_working" : True, "retire_type": 'technic'}</field>
+		<field name="search_view_id" ref="retire_request_search_view" />
+		<field name="view_ids"
+					eval="[(5,0,0),(0,0,{'view_mode':'tree',
+							'view_id': ref('mw_retire_request.retire_request_tree_view')}),
+							(0,0,{'view_mode':'form',
+							'view_id': ref('mw_retire_request.retire_request_form_view')})]"/>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_equipment_retire_request'>
+		<field name="name">Тоног төхөөрөмж Актлах хүсэлт</field>
+		<field name="res_model">retire.request</field>
+		<field name="view_mode">tree,kanban,form</field>
+		<field name="view_id" ref="retire_request_tree_view"/>
+		<field name="domain">[('retire_type','=','equipment')]</field>
+		<field name="context">{"search_default_working" : True, "retire_type": 'equipment'}</field>
+		<field name="search_view_id" ref="retire_request_search_view" />
+		<field name="view_ids"
+					eval="[(5,0,0),(0,0,{'view_mode':'tree',
+							'view_id': ref('mw_retire_request.retire_request_tree_view')}),
+							(0,0,{'view_mode':'form',
+							'view_id': ref('mw_retire_request.retire_request_form_view')})]"/>
+	</record>
+							
+	<record model='ir.actions.act_window' id='action_tire_retire_request'>
+		<field name="name">Дугуй Актлах хүсэлт</field>
+		<field name="res_model">retire.request</field>
+		<field name="view_mode">tree,kanban,form</field>
+		<field name="view_id" ref="retire_request_tree_view"/>
+		<field name="domain">[('retire_type','=','tire')]</field>
+		<field name="context">{"search_default_working" : True, "retire_type": 'tire'}</field>
+		<field name="search_view_id" ref="retire_request_search_view" />
+		<field name="view_ids"
+					eval="[(5,0,0),(0,0,{'view_mode':'tree',
+							'view_id': ref('mw_retire_request.retire_request_tree_view')}),
+							(0,0,{'view_mode':'form',
+							'view_id': ref('mw_retire_request.retire_request_form_view')})]"/>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_component_retire_request'>
+		<field name="name"> Компонент Актлах хүсэлт</field>
+		<field name="res_model">retire.request</field>
+		<field name="view_mode">tree,kanban,form</field>
+		<field name="view_id" ref="retire_request_tree_view"/>
+		<field name="domain">[('retire_type','=','component')]</field>
+		<field name="context">{"search_default_working" : True, "retire_type": 'component'}</field>
+		<field name="search_view_id" ref="retire_request_search_view" />
+		<field name="view_ids"
+					eval="[(5,0,0),(0,0,{'view_mode':'tree',
+							'view_id': ref('mw_retire_request.retire_request_tree_view')}),
+							(0,0,{'view_mode':'form',
+							'view_id': ref('mw_retire_request.retire_request_form_view')})]"/>
+	</record>
+	
+	<record model='ir.actions.act_window' id='action_parts_retire_request'>
+		<field name="name">Сэлбэг Актлах хүсэлт</field>
+		<field name="res_model">retire.request</field>
+		<field name="view_mode">tree,kanban,form</field>
+		<field name="view_id" ref="retire_request_tree_view"/>
+		<field name="domain">[('retire_type','=','parts')]</field>
+		<field name="context">{"search_default_working" : True, "retire_type": 'parts'}</field>
+		<field name="search_view_id" ref="retire_request_search_view" />
+		<field name="view_ids"
+					eval="[(5,0,0),(0,0,{'view_mode':'tree',
+							'view_id': ref('mw_retire_request.retire_request_tree_view')}),
+							(0,0,{'view_mode':'form',
+							'view_id': ref('mw_retire_request.retire_request_form_view')})]"/>
+	</record>
+
+	<!-- Хянагчийн шийдвэр -->
+
+	<record id="retire_approve_description_form_view" model="ir.ui.view">
+		<field name="name">retire.approve.description</field>
+		<field name="model">retire.approve.description</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="retire_id" readonly="1"/>
+						</group>
+					</group>
+					<label for="decision_description" string="Шийдвэр"/>
+					<field name="decision_description" widget="text" nolabel="1" required="1" class="alert alert-success"/>
+				</sheet>
+				<footer>
+					<button icon="fa-check" string="Батлах" name="action_approve" type="object" class="btn-success"/>
+					<!-- <button icon="oe_highlight" string="Батлах" special="save"/> -->
+					<button icon="fa-close" special="cancel" string="Үл хэрэгсэх" class="btn-warning"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_retire_approve_description'>
+		<field name="name">Хянагчын шийвдэр</field>
+		<field name="res_model">retire.approve.description</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="retire_approve_description_form_view"/>
+		<field name="target">new</field>
+	</record>
+</odoo>

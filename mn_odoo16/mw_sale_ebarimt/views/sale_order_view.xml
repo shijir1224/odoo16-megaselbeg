@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- 
+    <record id="view_company_property_form_inherit" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="etax_url"/>
+                </xpath>
+            </field>
+        </record> -->
+
+    <!-- Sale order Rerurn INVOICE -->
+    <record id="sale_order_form_inherit_ebarimt" model="ir.ui.view">
+        <field name="name">sale.order.form.ebarimt</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Ибаримт" groups="mw_sale_ebarimt.group_sale_ebarimt" name="ebarimt">
+                        <group>
+                            <button 
+                                name="create_ebarimt"
+                                type="object"
+                                icon="fa-calculator" string="Ибаримт өгөх"/>
+                            <button 
+                                name="print_ebarimt"
+                                type="object"
+                                icon="fa-print" string="Ибаримт хэвлэх" attrs="{'invisible' : [('ebarimt_state', '=', 'draft')]}"/>
+                        </group>
+                        <group col="4">
+                            <field name="is_zahialsan_toonoos_ebarimt"/>
+                            <field name="ebarimt_type" force_save="1"
+                                attrs="{'readonly':[('ebarimt_state','=','sent')]}"/>
+                            <field name="ebarimt_inv_type" force_save="1"
+                                attrs="{'readonly':[('ebarimt_state','=','sent')]}"/>
+                            <field name="total_ebarimt" readonly="1"/>
+                            <field name="total_vat" readonly="1"/>
+<!--                            <field name="noat_amount" readonly="1"/>-->
+                            <field name="total_citytax" readonly="1"/>
+                            <field name="lottery" readonly="1" invisible="1"
+                                groups="mw_sale_ebarimt.group_sale_ebarimt_returner"/>
+                            <field name="ddtd" readonly="1"/>
+                        </group>
+                        <group col="4" attrs="{'invisible':[('ebarimt_type','!=','company')]}">
+                            <field name="organization_register"
+                                attrs="{'readonly':[('ebarimt_state','=','sent')]}"/>
+                            <field name="organization_name" readonly="1" force_save="1"/>
+                            <!-- <field name="is_free_tax_type"/> -->
+                        </group>
+                        <group col="4">
+                            <field name="ebarimt_note" readonly="1"
+                                groups="mw_sale_ebarimt.group_sale_ebarimt_returner"/>
+                            <field name="ebarimt_state" readonly="1"/>
+                            <field name="ebarimt_return_amount" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="return_success" readonly="1"/>
+                            <button name="action_ebarimt_draft" string="Ибаримт Ноороглох" type="object"  attrs="{'invisible' : [('ebarimt_state', '=', 'sent')]}"
+                                groups="mw_sale_ebarimt.group_sale_ebarimt_returner"/>
+                            <button name="action_returnBill" string="Ибаримт Буцаах" type="object" attrs="{'invisible' : [('ebarimt_state', '=', 'return')]}"
+                                groups="mw_sale_ebarimt.group_sale_ebarimt_returner"/>
+                            <button name="modify_ebarimt" string="Ибаримт засварлах" type="object" attrs="{'invisible' : ['|','|',('ebarimt_state', 'in', ['return','draft']), ('ebarimt_return_amount','=',0), ('ebarimt_type','=','none')]}"
+                                groups="mw_sale_ebarimt.group_sale_ebarimt_returner"/>
+                        </group>
+                        <group>
+                            <field name="qrdata" readonly="1" invisible="1"
+                                groups="mw_sale_ebarimt.group_sale_ebarimt_returner"/>
+                            <newline/>
+                            <field name="ebarimt_log_note" nolabel="1" colspan="4"
+                                groups="base.group_no_one"/>
+                        </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Search -->
+    <record id="view_sales_order_filter_inherit_ebarimt" model="ir.ui.view">
+        <field name="name">sale.order.search.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='name']" position="after">-->
+<!--                <filter string="Е-баримт өгөх эсэх" domain="[('with_e_tax','=',True)]" -->
+<!--                    name="with_e_tax"/>-->
+<!--            </xpath>-->
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                <separator/>
+                <filter name="ebarimt_type" string="Е-баримт төрөл" domain="[]" 
+                    context="{'group_by':'ebarimt_type'}"/>
+                <filter name="ebarimt_state" string="Е-баримт төлөв" domain="[]" 
+                    context="{'group_by':'ebarimt_state'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sequence_ebarimt_suffix_sequence" model="ir.sequence">
+        <field name="name">И баримт баримтын ДДДугаар SALE ORDER</field>
+        <field name="code">ebarimt.suffix.so</field>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="True" name="use_date_range"/>
+        <field eval="False" name="company_id"/>
+        <field name="padding">6</field>
+    </record>
+
+    <!-- CRON ================================= -->
+    <record id="cron_send_etax_data" model="ir.cron">
+        <field name="name">SaleOrder E-TAX send data - КРОН</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._action_sendData()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+</odoo>

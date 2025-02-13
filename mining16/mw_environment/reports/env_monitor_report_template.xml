@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="env_monitor_report_template">
+        <!--<link rel='stylesheet' type="text/css" href="'%s/mw_environment/static/src/css/report.css' % base_url" />-->
+        <style type="text/css">
+            table{
+                width:100%;
+                border-collapse:collapse;
+                page-break-inside:avoid;
+                border: 1px solid #999;
+                table-layout: fixed;
+            }
+            table th{
+                font-size:12px;
+                font-weight:bold;
+                height:40px;
+                text-align:center;
+                vertical-align:middle;
+                border: 1px solid #CCC;
+            }
+            table td{
+                font-size:12px;
+                padding:5px 10px;
+                border: 1px solid #CCC;
+            }
+            table caption{
+                font-size:16px;
+                font-weight:bold;
+                padding:50px 0px 10px;
+            }
+            .right{
+                text-align:right;
+            }
+            .center{
+                text-align:center;
+            }
+            .strong{
+                font-weight:bold;
+            }
+            img{
+                display:inline-block;
+                float:right;
+            }
+        </style>
+
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <div class="oe_structure" />
+
+                    <div>
+                        <img t-att-src="'%s/mw_environment/static/src/img/mw_logo.png' % base_url" width="150" />
+
+                        <h3>Байгаль орчны алба</h3>
+                        <p>Үйлдвэр, уурхай: <strong><t t-esc="mining_name" /></strong></p>
+                        <p>Шинжилгээний цэг: <strong><t t-esc="location_name" /></strong></p>
+                        <p>Шинжлүүлсэн үзүүлэлт: <strong><t t-esc="monitor_name" /></strong></p>
+                    </div>
+
+                    <table border="1">
+                        <caption>Хяналт шинжилгээний харьцуулсан тайлан</caption>
+                        <thead>
+                            <tr>
+                                <th style="width:5%;">№</th>
+                                <th>Химийн найрлага</th>
+                                <th>Байх ёстой хэмжээ</th>
+                                <t t-foreach="cols" t-as="col">
+                                    <th class="center"><span t-esc="col"/></th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <tbody>
+                            <t t-foreach="rows" t-as="doc">
+                                <tr>
+                                    <td class="center"><span t-esc="i"/></td>
+                                    <td class="center"><span t-esc="doc['name']"/></td>
+                                    <td class="center"><span t-esc="doc['normal_start']"/> - <span t-esc="doc['normal_end']"/> <span t-esc="doc['uom']"/></td>
+                                    <t t-foreach="cols" t-as="col">
+                                        <td class="center"><span t-esc="doc[col]"/></td>
+                                    </t>
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                            </t>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- <record id="action_env_monitor_report_template"
+        model="env.monitor.report"
+        string="Monitor Report" report_type="qweb-pdf"
+        name="env_monitor_report_template"
+        file="env_monitor_report_template"
+        attachment_use="False"
+        menu="False"/>
+
+    <record id="action_env_monitor_report_template" model="ir.actions.report">
+        <field name="paperformat_id"  ref="env_report_landscape_paperformat"/>
+    </record> -->
+
+    <record id="action_env_monitor_report_template" model="ir.actions.report">
+        <field name="name">Tree Report</field>
+        <field name="model">env.monitor.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mw_environment.env_monitor_report_template</field>
+        <field name="report_file">mw_environment.env_monitor_report_template</field>
+        <field name="print_report_name">'Monitor Report'</field>
+        <field name="binding_model_id" ref="model_env_monitor_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

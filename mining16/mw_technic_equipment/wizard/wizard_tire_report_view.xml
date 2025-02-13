@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="wizard_tire_report_view" model="ir.ui.view">
+            <field name="name">Tire report</field>
+            <field name="model">wizard.tire.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4">
+                        <label string="Эхлэх, дуусах хоёр өдөр тайлант хугацаанд орно!" colspan="4" for="date_start"/>
+                        <newline/>
+                        <field name="date_start" />
+                        <field name="date_end" />
+
+                        <field name="technic_ids" colspan="4"
+                            options="{'no_create':True}" widget="many2many_tags"/>
+                        <field name="tire_ids" colspan="4"
+                            options="{'no_create':True}" widget="many2many_tags"/>
+                   </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                        <button name="export_tire_new_report" string="Дугуйн тайлан" 
+                            type="object" colspan="1" class="oe_highlight"/>
+                        <button name="export_report" string="Татах" 
+                            type="object" colspan="1" class="oe_highlight"/>
+                        <button name="see_report" string="Харах" type="object" 
+                            colspan="1" class="oe_highlight"/>
+                        <button name="tire_history_on_technic_report" 
+                            string="Техник дээрх дугуйн түүх татах" 
+                            help="Техник дээрх дугуйн түүхийн тайлан"
+                            type="object" colspan="1" class="oe_highlight"/>
+                        <button name="tire_detailed_history_report" 
+                            string="Дугуйн дэлгэрэнгүй түүх татах" 
+                            help="Техник дээрх дугуйн түүхийн тайлан"
+                            type="object" colspan="1" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_technic_tire_report" model="ir.actions.act_window">
+            <field name="name">tire report</field>
+            <field name="res_model">wizard.tire.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_tire_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+    
+</odoo>

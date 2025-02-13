@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="bank_report_view" model="ir.ui.view">
+            <field name="name">bank.report.wizard</field>
+            <field name="model">bank.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group>
+                        <group>
+                            <field name="year" />
+                            <field name="month" />
+                            <field name="type" />
+                        </group>
+                        <group>
+                            <field name="company_id" options="{'no_create':True}" />
+                            <field name="sector_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                            <field name="bank_id"  options="{'no_create':True}"/>
+                            <field name="is_not_account" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_bank_report" model="ir.actions.act_window">
+            <field name="name">Банкинд илгээх тайлан</field>
+            <field name="res_model">bank.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bank_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_finance_salary_report" name="Тайлан" parent="menu_finance_salary"/>
+        <menuitem id="menu_bank_report" action="action_bank_report" 
+        parent="menu_finance_salary_report" sequence="4" groups='group_salary_hybo'/>
+
+    </data>
+</openerp>

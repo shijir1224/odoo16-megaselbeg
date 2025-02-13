@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="EasyPrintMenu" t-inherit="web.ActionMenus" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('o_cp_action_menus')]" position="inside">
+			<Dropdown t-if="printItems.length" class="'d-inline-block'" togglerClass="'btn btn-primary'" hotkey="'shift+o'">
+				<t t-set-slot="toggler">
+					<i class="me-md-1 fa fa-print"/>
+					<span class="o_dropdown_title">Easy Print</span>
+				</t>
+				<div class="o_menu_item oe_share_gdoc_item dropdown-item" 
+					t-if="printItems.length"
+					t-att-class="{ highlight: highlighted }"
+					t-on-click="() => on_click_easy_print"/>
+			</Dropdown>
+		</xpath>
+	</t>
+
+</templates>

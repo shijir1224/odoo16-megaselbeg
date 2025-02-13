@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_stock_quant_report_tree_mw_stock_account">
+        <field name="name">stock.quant.report.tree.stock.account</field>
+        <field name="model">stock.quant.report</field>
+        <field name="inherit_id" ref="mw_stock.view_stock_quant_report_tree"/>
+        <field eval="10" name="priority"/>
+        <field name="arch" type="xml">
+            <field name="product_uom_id" position="after">
+                <field name="value" optional="hide"/>
+                <field name="value_sum" optional="show" sum="SUM"/>
+                <field name="zarah_negj_price" optional="show"/>
+                <field name="zarah_niit_price" optional="show" sum="SUM"/>
+                <field name="bohir_ashig" optional="show" sum="SUM"/>
+                <field name="value_old" optional="show" sum="SUM" groups="base.group_no_one"/>
+                <field name="currency_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="quant_report_search_view_mw_stock_account" model="ir.ui.view">
+        <field name="name">stock.quant.report.search.inherit</field>
+        <field name="model">stock.quant.report</field>
+        <field name="inherit_id" ref="mw_stock.quant_report_search_view"/>
+        <field eval="10" name="priority"/>
+        <field name="arch" type="xml">
+            <search position='inside'>
+                <filter string="Өртөг нь зарах үнээс их" name="urtug_ih" domain="[('bohir_ashig','&lt;',0)]"/>
+            </search>
+            <field name="product_id" position="after">
+                <field name="zarah_negj_price"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

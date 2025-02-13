@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="mining_blast_drilling_root_menu"
+			name="Drilling Blast"
+			groups="mw_mining.group_drilling_user,mw_mining.group_blast_user"
+			web_icon="mw_mining,static/drilling_icon2.png"
+			sequence="15"/>
+						<!-- icon="fa-wrench" -->
+
+
+	<!-- <menuitem id="mining_plan_menu" parent="mw_mining.mining_blast_drilling_root_menu" name="Plan" sequence="3"/>
+		<menuitem id="mining_blast_plan_master_menu" parent="mw_mining.mining_plan_menu" action="action_mining_blast_plan_master" groups="mw_mining.group_blast_manager" sequence="10"/>
+		<menuitem id="mining_blast_plan_menu" parent="mw_mining.mining_plan_menu" action="action_mining_blast_plan" groups="mw_mining.group_blast_user" sequence="20"/>
+		<menuitem id="mining_blast_dash_menu" parent="mw_mining.mining_plan_menu" action="action_mining_blast_dashboard" groups="mw_mining.group_blast_user" sequence="30"/>  -->
+
+	 <menuitem id="mining_actual_menu" parent="mw_mining.mining_blast_drilling_root_menu" name="Actual" sequence="5"/> 
+		<menuitem id="mining_blast_menu" parent="mw_mining.mining_actual_menu" action="mw_mining.action_mining_blast" groups="mw_mining.group_blast_user"/>
+		<menuitem id="mining_drilling_menu" parent="mw_mining.mining_actual_menu" action="mw_mining.action_mining_drilling" groups="mw_mining.group_drilling_user"/>
+
+	<!-- <menuitem id="mining_report_menu" parent="mw_mining.mining_blast_drilling_root_menu" name="Report" sequence="88"/>
+		<menuitem id="mining_drilling_report_menu" parent="mw_mining.mining_report_menu" action="mining_drilling_report_action" groups="mw_mining.group_drilling_user"/>
+		<menuitem id="mining_blast_report_menu" parent="mw_mining.mining_report_menu" action="mining_blast_report_action" groups="mw_mining.group_blast_user"/>
+		<menuitem id="mining_blast_product_report_menu" parent="mw_mining.mining_report_menu" action="mining_blast_product_report_action" groups="mw_mining.group_blast_user"/> -->
+
+	<!-- <menuitem id="menu_mining_b_d_configuration" parent="mw_mining.mining_blast_drilling_root_menu" name="Configuration" sequence="99"/>
+		<menuitem id="mining_location_menu" parent="mw_mining.menu_mining_b_d_configuration" action="mw_mining.action_mining_location" string="Блок"/>
+		<menuitem id="mining_blast_product_menu" parent="mw_mining.menu_mining_b_d_configuration" action="action_mining_blast_product"/>
+		<menuitem id="mining_hole_menu" parent="mw_mining.menu_mining_b_d_configuration" action="mw_mining.action_mining_hole"/> -->
+
+</odoo>

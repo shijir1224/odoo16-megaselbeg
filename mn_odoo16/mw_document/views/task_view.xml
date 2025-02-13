@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <menuitem id="task_menu_id" name="Үүрэг даалгавар" parent="menu_document_main" sequence="6"/>
+
+    <record id="task_register_seq" model="ir.sequence">
+        <field name="name">task register</field>
+        <field name="code">task.register</field>
+        <field name="padding">5</field>
+        <field eval="1" name="company_id"/>
+    </record>
+
+    <record id="task_register_filter" model="ir.ui.view">
+       <field name="name">task.register_filter Search</field>
+       <field name="model">task.register</field>
+       <field name="arch" type="xml">
+           <search string="Decision">
+               <group>
+                    <field name="name"/>
+	                <field name="number"/>
+		        </group>
+               <group expand="0" string="Group By...">
+                    <filter string="Сараар" name='months' context="{'group_by':'date:month'}" help="Сар cараар"/>
+                    <filter string="Огноо" name='date' context="{'group_by':'date:year'}"/>
+                    <filter string="ҮД-ын утга" name='gr_name' context="{'group_by':'name'}" help="ҮД-ын утга"/>           
+               </group>
+           </search>
+       </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_task_register_form">
+        <field name="name">Үүрэг даалгавар</field>
+        <field name="model">task.register</field>
+        <field name="arch" type="xml">
+            <form string="Task register">
+                <header>
+                </header>
+                <sheet>
+                    <group string='Үүрэг даалгавар үүсгэх' > 
+                        <group>
+                            <field name="number" />        
+                            <field name="employee" options="{'no_create': True,'no_open': True}"/>           
+                            <field name="date"  />        
+                        </group>
+                        <group>
+                            <field name="end_date" /> 
+                            <field name="name"  />
+                            <field name="res_company_id" options="{'no_create':True}"/>    
+                            <field name="minute_id" options="{'no_create':True}"/> 
+                        </group>
+                    </group>
+                        <notebook>
+			            	<page  string="Даалгавар хуваарилалт" >
+		                        <field name="assignment_lines">
+		                            <tree string="Lines"  editable="bottom">
+                                        <field name="assignment_employee_id" options="{'no_create':True}"/>
+		                                <field name="description"  />
+                                        <field name="num_description"/>
+                                        <field name="performance_percent" widget="percentage"/>
+		                            </tree>
+		                        </field>
+		                    </page>
+		                </notebook>
+                     
+                        <group string="Хөндлөнгийн үнэлгээ">
+                            <group>
+                                <field name="num_employee_id" options="{'no_create': True,'no_open': True}"/> 
+                                <field name="num_department_id" options="{'no_create':True}"/>
+                                <field name="num_job_id" options="{'no_create':True}"/>  
+                            </group>
+                            <group>
+                                <field name="mark_date"/>
+                                <field name="mark" widget="percentage" />
+                                <field name="mark_description" />
+                            </group>
+                        </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="task_register_tree" model="ir.ui.view">
+        <field name="name">task.register.tree</field>
+        <field name="model">task.register</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name='number'/>
+                <field name='date'/>
+                <field name="end_date"/>
+                <field name="send_date"/>
+                <field name='mark' widget="percentage"/>    
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_register_view">
+        <field name="name">task.register.graph</field>
+        <field name="model">task.register</field>
+        <field name="arch" type="xml">
+            <graph string="task graph">
+                <field name="date" type="measure"/>
+                <field name="employee" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record  id="task_register_calendar_view" model="ir.ui.view">
+        <field name="name">task.register.calendar</field>
+        <field name="model">task.register</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar 
+                    date_start="create_date"
+                    mode="month"
+                    quick_add="False">
+                <field name="date" />
+                <field name="employee"/>
+                <field name="end_date"/>
+            </calendar>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="phone_number_payment_pivot_view">
+            <field name="name">Үүрэг даалгавар </field>
+            <field name="model">task.register</field>
+            <field name="arch" type="xml">
+                <pivot string="terms payment pivot">  
+					<field name="date" />
+                    <field name="employee"/>
+                    <field name="end_date" />
+                </pivot>
+            </field>
+    </record>
+    <!-- <record id="cron_update_task_change" model="ir.cron">
+        <field name="name">Үүрэг даалгавар сануулга</field>
+        <field name="model_id" ref="model_task_register"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._update_task_change()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record> -->
+
+    <record model='ir.actions.act_window' id="action_task_register">
+        <field name="name">Үүрэг даалгавар</field>
+        <field name="res_model">task.register</field>
+        <field name="view_mode">tree,form,graph,calendar,pivot</field>
+        <field name="search_view_id" ref="task_register_filter"/>
+    </record>
+    <menuitem id="tasks_menu_id" name="Үүрэг даалгавар" parent="task_menu_id" action="action_task_register" sequence="1"/>
+    
+</odoo>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="technic_equipment_production_view_id" model="ir.ui.view">
+		<field name="name">technic.equipment.production.view</field>
+		<field name="model">technic.equipment</field>
+		<field name="inherit_id" ref="mw_technic_equipment.technic_equipment_form"/>
+		<field name="arch" type="xml">
+            <button name="see_inspections" position="before">
+                <button type="object" class="oe_stat_button" icon="fa-bar-chart-o" string="Бүтээл" name="see_productions" groups="mw_mining.group_mining_user">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value" style="font-size: 10px;">
+                            <field name="production_count"/>М3
+                        </span>
+                        <span class="o_stat_value" style="font-size: 10px; color: #720000;">
+                            <field name="res_count"/> RECC
+                        </span>
+                        <!-- <span class="o_stat_text">Бүтээл</span> -->
+                    </div>
+                </button>
+                
+                <button type="object" class="oe_stat_button" icon="fa-bar-chart-o" string="Төл Энэ Жил" name="see_plan" groups="mw_mining.group_mining_user">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value" style="font-size: 10px;">
+                            <field name="plan_this_year_production"/>М3
+                        </span>
+                        <span class="o_stat_value" style="font-size: 10px; color: #720000;">
+                            <field name="plan_this_year_time" widget="float_time"/>H
+                        </span>
+                        <!-- <span class="o_stat_text">Төл Энэ Жил</span> -->
+                    </div>
+                </button>
+            </button>
+			    <notebook position="inside">
+                    <page string="Мото цаг" groups="mw_mining.group_mining_user">
+                            <!-- <group string="Засварын удаан зогсох цаг"> -->
+                                <label for="default_hour_ids" string="Засварын удаан зогсох цаг"/>
+                                <field name="default_hour_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="cause_id" options="{'no_create':True}" required="1"/>
+                                        <field name="repair_system_id" options="{'no_create':True}" required="1"/>
+                                    </tree>
+                                </field>
+                            <!-- </group> -->
+                            <field name="moto_hour_ids" nolabel="1">
+                                <tree>
+                                    <field name="branch_id" />
+                                    <field name="operator_names" />
+                                    <field name="motohour_time" sum="Нийлбэр"/>
+                                    <field name="motohour_date" />
+                                    <field name="shift" />
+                                </tree>
+                            </field>
+                    </page>
+                    <page string="Бүтээл" groups="mw_mining.group_mining_user">
+                        <field name="production_view_ids" attrs="{'invisible':[('production_view_ids','=',[])]}" nolabel="1">
+                            <tree>
+                                <field name="excavator_id" />
+                                <field name="material_id" />
+                                <field name="res_count" sum="Нийлбэр"/>
+                                <field name="sum_m3" sum="Нийлбэр"/>
+                                <field name="date" />
+                                <field name="shift" />
+                            </tree>
+                        </field>
+                        <field name="production_exca_ids" attrs="{'invisible':[('production_exca_ids','=',[])]}" nolabel="1">
+                            <tree>
+                                <field name="dump_id" />
+                                <field name="material_id" />
+                                <field name="res_count" sum="Нийлбэр"/>
+                                <field name="sum_m3" sum="Нийлбэр"/>
+                                <field name="date" />
+                                <field name="shift" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+		</field>
+	</record>
+
+
+    <record id="wizard_create_stopped_technic_plan_view" model="ir.ui.view">
+            <field name="name">Stopped Technic</field>
+            <field name="model">wizard.create.stopped.technic.plan</field>
+            <field name="inherit_id" ref="mw_technic_maintenance.wizard_create_stopped_technic_plan_view"/>
+            <field name="arch" type="xml">
+                <field name="shift" position="after">
+                    <field name="is_cause"/>
+                    <field name="cause_id" attrs="{'invisible':[('is_cause','=',False)],'required':[('is_cause','=',True)]}" options="{'no_open':True, 'no_create':True}"/>
+                    <field name="repair_system_id" attrs="{'invisible':[('is_cause','=',False)],'required':[('is_cause','=',True)]}" options="{'no_open':True, 'no_create':True}"/>
+                </field>
+            </field>
+        </record>
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="form_base_confirm_wizard" model="ir.ui.view">
+        <field name="name">Warning message</field>
+        <field name="model">base.confirm.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Warning message">
+                <group colspan="4">
+                    <field name="message" nolabel="1" readonly="1"/>
+                </group>
+                <footer>
+                    <button name="confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_base_confirm_wizard" model="ir.actions.act_window">
+        <field name="name">Warning message</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">base.confirm.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_base_confirm_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

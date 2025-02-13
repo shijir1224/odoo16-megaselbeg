@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_mining_mh_entry_equipment_form" model="ir.ui.view">
+		<field name="name">mining.daily.entry.equipment</field>
+		<field name="model">mining.daily.entry</field>
+		<field name="inherit_id" ref="mw_mining.view_mining_mh_entry_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='motohour_line']/form/field[@name='technic_id']" position="after">
+				<field name="equipment_id" options="{'no_create': True}"/>
+			</xpath>
+			<xpath expr="//field[@name='motohour_line']/tree/field[@name='technic_id']" position="after">
+				<field name="equipment_id" options="{'no_create': True}"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

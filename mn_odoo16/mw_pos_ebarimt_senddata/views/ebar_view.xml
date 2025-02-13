@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_branch_field_session" model="ir.ui.view">
+        <field name="name">POS Session</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Сүүлд ибаримт ирүүлэх" groups="base.group_no_one">
+                    <group>
+                        <field name="last_ebarimt_senddata"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

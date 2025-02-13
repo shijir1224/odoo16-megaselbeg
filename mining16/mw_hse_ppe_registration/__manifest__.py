@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+{
+    'name' : 'MW HSE PPE Registration',
+    'version' : '0.1',
+    'license': 'LGPL-3',
+    'author' : 'Managewall LLC by Odka',
+    'website' : 'http://www.managewall.mn/',
+    'category' : 'MW HSE',
+    'description': 'ХАБ Нэг бүрийн хамгаалах хэрэгсэл',
+    'depends' : ['base','mw_hr','mw_hse','mw_stock_moves'],
+    'data'   :  [
+        'security/hse_ppe_registration_security.xml',
+        'security/ir.model.access.csv',
+        'views/hse_ppe_registration_view.xml',
+        'wizard/hse_all_report_view.xml',
+        'wizard/hse_report_view.xml',
+        'wizard/ppe_end_date_report_view.xml',
+        'wizard/ppe_report_view.xml',
+        'views/menu_view.xml',
+    ],
+    'init_xml' : [],
+    'demo_xml' : [],
+    'update_xml' : [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

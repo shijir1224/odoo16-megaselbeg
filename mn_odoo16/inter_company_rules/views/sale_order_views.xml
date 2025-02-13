@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">view.order.form.inherit.inter.company.rules</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="before">
+                    <button name="action_send" type="object" class="oe_highlight" string="Захиалга илгээх" states='draft'/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='partner_id']" position='after'>
+                    <field name="is_create_auto_purchase" invisible="1"/>
+                    <field name="auto_warehouse_branch_id" attrs="{'invisible': [('is_create_auto_purchase', '=', False)], 'required': [('is_create_auto_purchase', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_unlock']" position="after">
+                    <button name="test_inter_company_create_purchase_order" 
+                        string="PO үүсгэх" type="object" 
+                        attrs="{'invisible':[('is_create_auto_purchase','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='partner_id']" position='after'>
+                    <field name="auto_warehouse_branch_id" string="Салбар"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="action_inter_sales" model="ir.actions.act_window">
+            <field name="name">Дотоод борлуулалт</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+            <field name="context">{}</field>
+            <field name="domain">[('is_create_auto_purchase', '=', True)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new quotation, the first step of a new sale!
+                </p><p>
+                    Once the quotation is confirmed, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+                </p>
+            </field>
+        </record>
+
+        <record id="sale_order_action_view_inter_sales_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="inter_company_rules.view_order_form"/>
+            <field name="act_window_id" ref="action_inter_sales"/>
+        </record>
+
+        <record id="sale_order_action_view_inter_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="inter_company_rules.view_quotation_tree"/>
+            <field name="act_window_id" ref="action_inter_sales"/>
+        </record>
+                
+        <menuitem id="menu_sale_inter_sales"
+                action="action_inter_sales"
+                parent="sale.sale_order_menu"
+                sequence="5" groups="sales_team.group_sale_salesman"/>
+    </data>
+</odoo>

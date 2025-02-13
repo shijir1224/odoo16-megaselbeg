@@ -1,0 +1,53 @@
+<odoo>
+
+    <record id="view_action_back_description" model="ir.ui.view">
+        <field name="name">action.back.description.form</field>
+        <field name="model">action.back.description</field>
+        <field name="arch" type="xml">
+            <form string="Action back">
+                <group col="4">
+                    <field name="description"/>
+                </group>
+                <footer>
+                    <button string="Буцаах" name='action_to_back' type="object" class="oe_highlight"/>
+                    or
+                    <button string="Болих" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_back_description" model="ir.actions.act_window">
+        <field name="name">Буцаах тайлбар</field>
+        <field name="res_model">action.back.description</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_action_back_description"/>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="view_hr_timetable_line_conf_wizard" model="ir.ui.view">
+        <field name="name">hr.timetable.line.conf.wizard.form</field>
+        <field name="model">hr.timetable.line.conf.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Тохиргоо өөрчлөх">
+                <group col="4">
+                    <field name="date_start"/>
+                    <field name="shift_id" options="{'no_create':True}"/>
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button string="Батлах" name='action_to_done' type="object" class="oe_highlight"/>
+                    or
+                    <button string="Цуцлах" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_hr_timetable_line_conf_wizard" model="ir.actions.act_window">
+        <field name="name">Тохиргоо</field>
+        <field name="res_model">hr.timetable.line.conf.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hr_timetable_line_conf_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

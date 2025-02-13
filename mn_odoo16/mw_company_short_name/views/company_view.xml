@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="res_company_short_form_view" model="ir.ui.view">
+		<field name="name">res.company.form</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//h1[1]" position="attributes">
+				<attribute name="style">display:inline;</attribute>
+			</xpath>
+			<!-- <xpath expr="//h1[1]" position="after">
+				<h2 style="display:inline;">
+					<label for="name" class="oe_edit_only"/>
+					<field name="short_name"/>
+				</h2>
+			</xpath> -->
+			<xpath expr="//h1[1]" position="inside">
+				<!-- <p>Богино нэр</p> -->
+				<label for="short_name" class="oe_edit_only"/>
+				<field name="short_name"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

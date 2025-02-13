@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_expense_calculation_conf_form" model="ir.ui.view">
+		    <field name="name">account.expense.calculation.conf.form</field>
+		    <field name="model">account.expense.calculation.conf</field>
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+		        <form string="config">
+					<group>
+			            <field name="name" select="1"/>
+					</group>			      
+                        <notebook>
+                           <page id="line_tab" name="line_tab" string="Lines">                    
+	                        <field name="line_ids" nolabel="1">
+								<tree editable="bottom">
+						            <field name="name"/>
+						            <field name="amount" sum="Amount"/>
+						            <field name="account_id"/>
+						            <field name="analytic_distribution" widget='analytic_distribution'/>
+						            <field name="branch_id"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="view_account_expense_calculation_conf_tree" model="ir.ui.view">
+		    <field name="name">account.expense.calculation.conf.tree</field>
+		    <field name="model">account.expense.calculation.conf</field>
+		    <field name="type">tree</field>
+		    <field name="arch" type="xml">
+		        <tree string="config">
+		            <field name="name"/>
+		        </tree>
+		    </field>
+		</record>
+		
+		<record id="action_account_expense_calculation_conf" model="ir.actions.act_window">
+		    <field name="name">Зардал Аккурэл тохиргоо</field>
+		    <field name="res_model">account.expense.calculation.conf</field>
+		    <field name="view_mode">tree,form</field>
+<!--             <field name="search_view_id" ref="view_account_cash_move_search"/> -->
+            <field name="view_id" ref="view_account_expense_calculation_conf_tree"/>
+		</record>
+		
+
+        <record id="view_account_expense_calculation_form" model="ir.ui.view">
+		    <field name="name">account.expense.calculation.form</field>
+		    <field name="model">account.expense.calculation</field>
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+		        <form string="config">
+					 <header>
+				      <button name="compute" type="object" class="oe_highlight" string="Тооцоолох" states="draft"/><!-- ,computed -->
+<!-- 				      <button name="create_move" type="object" class="oe_highlight" string="Гүйлгээ үүсгэх" states="computed"/> -->
+				      <field widget="statusbar" options="{'clickable': '1'}" name="state"/>
+				    </header>					        
+					<group>
+						<group>
+				            <field name="name" select="1"/>
+							<field name="partner_id"></field>
+				            <field name="account_id" select="1"/>
+							<field name="amount" string="Хуваарилах зардал" select="1"/>
+				            <field name="date" select="1"/>
+				            <field name="debit_acc_id" select="1"/>
+				            <field name="expense_conf_id"/>
+						</group>	
+						<group>
+				            <field name="journal_id"/>
+				            <field name="is_month" select="1"/>
+				            <field name="number_day" select="1" attrs="{'invisible': [('is_month', '=', True)]}"/>
+				            <field name="method_number" select="1" attrs="{'invisible': [('is_month', '=', False)]}"/>
+							<field name="end_date"></field>
+				            <field name="value_residual" select="1"/>
+				            <!-- <field name="conf_id" select="1"/> -->
+				            <field name="analytic_distribution" widget='analytic_distribution'/>
+				            <field name="brand_id" select="1"/>
+				            <field name="branch_id"/>
+<!-- 				            <field name="move_id" select="1"/> -->
+						</group>
+					</group>								      
+                        <notebook>
+                           <page id="line_tab" name="line_tab" string="Lines">                    
+	                        <field name="line_ids" nolabel="1">
+							<tree editable="bottom">
+					            <field name="name"/>
+					            <field name="amount" sum="Amount"/>
+					            <field name="depreciation_date"/>
+					            <field name="remaining_value"/>
+					            <field name="depreciated_value"/>
+					            <field name="move_id" select="1"/>
+			                    <button name="button_validate_line" string="Батлах" type="object" icon="fa-bars" attrs="{'invisible': [('move_id', '=', True)]}" optional="show"/>
+							</tree>
+							</field>
+						</page>	
+					</notebook>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="view_account_expense_calculation_tree" model="ir.ui.view">
+		    <field name="name">account.expense.calculation.tree</field>
+		    <field name="model">account.expense.calculation</field>
+		    <field name="type">tree</field>
+		    <field name="arch" type="xml">
+		        <tree string="config">
+		            <field name="name"/>
+		        </tree>
+		    </field>
+		</record>
+		
+		<record id="action_account_expense_calculation" model="ir.actions.act_window">
+		    <field name="name">Зардал Аккурэл</field>
+		    <field name="res_model">account.expense.calculation</field>
+		    <field name="view_mode">tree,form</field>
+		</record>
+		
+        <menuitem id="menu_action_account_expense_allocation_root" parent="account.menu_finance_entries" name="Зардал Аккурэл">
+			<menuitem action="action_account_expense_calculation_conf" id="menu_action_account_expense_calculation_conf" sequence="1" />
+			<menuitem action="action_account_expense_calculation" id="menu_action_account_expense_calculation" sequence="2"/>
+        </menuitem>        		
+                
+	</data>
+</odoo>

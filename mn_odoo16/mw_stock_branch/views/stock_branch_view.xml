@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_product_tree_mw" model="ir.ui.view">
+        <field name="name">product.stock.tree.inherit.mw</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.view_stock_product_tree"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="attributes">
+                <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+            </field>
+            <field name="qty_available" position="after">
+                <field name="qty_available_branch" attrs="{'invisible':[('type', '!=', 'product')]}" optional="show"/>
+            </field>
+            <field name="virtual_available" position="attributes">
+                <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_product_template_tree_mw" model="ir.ui.view">
+        <field name="name">product.template.stock.tree.inherit.mw</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="attributes">
+                <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+            </field>
+            <field name="qty_available" position="after">
+                <field name="qty_available_branch" attrs="{'invisible':[('type', '!=', 'product')]}" optional="show"/>
+            </field>
+            <field name="virtual_available" position="attributes">
+                <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_template_form_view_procurement_button_stock_branch">
+        <field name="name">product.template_procurement.stock.branch</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <button name="action_open_quants" position="attributes">
+                <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+            </button>
+            <button name="action_product_tmpl_forecast_report" position="attributes">
+                <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+            </button>
+            <button name="action_open_quants" position="after">
+                <button class="oe_stat_button"
+                        name="action_open_quants_branch"
+                        icon="fa-cubes"
+                        type="object" attrs="{'invisible':[('type', '!=', 'product')]}" 
+                        groups="mw_stock_branch.group_stock_by_branch">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="qty_available_branch" widget="statinfo" nolabel="1" class="mr4"/>
+                                <field name="uom_name"/>
+                            </span>
+                            <span class="o_stat_text">Үлдэгдэл Өөрийн</span>
+                        </div>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_form_view_procurement_button_mw">
+        <field name="name">product.product.procurement.mw</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <data>
+                <button name="action_open_quants" position="attributes">
+                    <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+                </button>
+                <button name="action_product_forecast_report" position="attributes">
+                    <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+                </button>
+                <button name="action_open_quants" position="after">
+                    <button class="oe_stat_button"
+                            name="action_open_quants_branch"
+                            icon="fa-cubes"
+                            type="object" attrs="{'invisible':[('type', '!=', 'product')]}" 
+                            groups="mw_stock_branch.group_stock_by_branch">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="qty_available_branch" widget="statinfo" nolabel="1" class="mr4"/>
+                                    <field name="uom_name"/>
+                                </span>
+                                <span class="o_stat_text">Үлдэгдэл Өөрийн</span>
+                            </div>
+                    </button>
+                </button>
+                
+            </data>
+        </field>
+    </record>
+
+
+     <record id="product_template_search_form_view_stock_mw" model="ir.ui.view">
+        <field name="name">product.template.search.stock.form.mw</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_search_form_view_stock"/>
+        <field name="arch" type="xml">
+            <filter name="real_stock_available" position="after">
+                <filter name="real_stock_available_branch" string="Үлдэгдэлтэй Бараа Салбар" domain="[('qty_available_branch','&gt;',0)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="stock_product_search_form_view_mw_branch" model="ir.ui.view">
+        <field name="name">product.product.search.stock.form.mw.branch</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.stock_product_search_form_view"/>
+        <field name="arch" type="xml">
+            <filter name="real_stock_available" position="after">
+                <filter name="real_stock_available_branch" string="Үлдэгдэлтэй Бараа Салбар" domain="[('qty_available_branch','&gt;',0)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_template_kanban_stock_view_mw">
+        <field name="name">Product Template Kanban Stock MW</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_kanban_stock_view"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="attributes">
+                <attribute name="groups">!mw_stock_branch.group_stock_by_branch</attribute>
+            </field>
+            <field name="qty_available" position="after">
+                <field name="qty_available_branch" groups="mw_stock_branch.group_stock_by_branch"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- REPORT by BRANCH -->
+    
+    <record id="product_detailed_income_expense_view_mw_branch" model="ir.ui.view">
+        <field name="name">product.detailed.income.expense.wizard.branch</field>
+        <field name="model">product.detailed.income.expense</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_detailed_income_expense_view"/>
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="attributes">
+                <attribute name="domain">[('access_user_ids','in',[uid])]</attribute>
+            </field>
+        </field>
+    </record>
+    
+
+    <record id="stock_picking_type_form_branch_extended_stock" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.branch.extended.stock</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="branch.stock_picking_type_form_branch_extended"/>
+        <field name="arch" type="xml">
+            <field name="branch_id" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+        </field>
+    </record>
+
+
+
+    <record id="view_res_branch_form_mw_stock_branch" model="ir.ui.view">
+        <field name="name">res.branch.form.mw.stock.branch</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="branch.view_res_branch_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="diff_partner_id" required="1"/>
+            </field>
+        </field>
+	</record>
+
+    <record id="mw_inv_view_inventory_form_inherit_stock_brach" model="ir.ui.view">
+        <field name="name">stock.inventory.mw.inv.inherit.stock.branch</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="mw_stock_inv_add.mw_inv_view_inventory_form_inherit"/>
+        <field name="arch" type="xml">
+            <field name="diff_partner_id" position="attributes">
+                <attribute name="attrs">{'readonly': ['|',('state','in',['done','cancel']),('diff_partner_id','!=',False)], 'required': [('is_invoice_diff','=',True)]}</attribute>
+            </field>
+            <field name="diff_partner_id" position="after">
+                <field name="branch_id" readonly="0" domain="[('user_ids','in',[uid])]" force_save="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="mw_inv_view_inventory_tree_stock_brach" model="ir.ui.view">
+        <field name="name">stock.inventory.tree.stock.branch</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="mw_stock.view_inventory_tree"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="branch_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="view_inventory_filter_mw_inherit_stock_branch" model="ir.ui.view">
+        <field name="name">stock.inventory.filter.mw.inherit.stock.branch</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="mw_stock.view_inventory_filter"/>
+        <field name="arch" type="xml">
+            <field name="product_ids" position="after">
+                <field name="branch_id"/>
+            </field>
+            <filter name="status" position="after">
+                <filter string="Салбар" name="gr_branch" domain="[]" context="{'group_by': 'branch_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>

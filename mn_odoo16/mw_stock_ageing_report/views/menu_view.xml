@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_stock_ageing_report_balance" action="action_stock_ageing_report_balance" parent="stock.menu_warehouse_report" sequence="4" groups="mw_stock_ageing_report.group_stock_ageing_reporter"/>
+    <menuitem id="menu_product_ageing_opening_root" parent="stock.menu_stock_inventory_control" groups="base.group_erp_manager" sequence="101" name="Насжилт"/>
+    <menuitem action="action_product_ageing_opening" id="menu_product_ageing_opening" parent="menu_product_ageing_opening_root" groups="base.group_erp_manager" sequence="1"/>
+    <menuitem action="action_product_ageing_opening_wizard" id="menu_product_ageing_opening_wizard" parent="menu_product_ageing_opening_root" groups="base.group_erp_manager" sequence="2"/>
+    <menuitem id="menu_product_ageing_opening_root" parent="stock.menu_stock_inventory_control" groups="base.group_erp_manager" sequence="101" name="Насжилт"/>
+    <menuitem action="action_product_ageing_opening" id="menu_product_ageing_opening" parent="menu_product_ageing_opening_root" groups="base.group_erp_manager" sequence="1"/>
+    <menuitem action="action_product_ageing_opening_wizard" id="menu_product_ageing_opening_wizard" parent="menu_product_ageing_opening_root" groups="base.group_erp_manager" sequence="2"/>
+    <menuitem id="menu_stock_ageing_wizard" action="action_stock_ageing_wizard" parent="stock.menu_warehouse_report" sequence="3" groups="mw_stock_ageing_report.group_stock_ageing_reporter"/>
+    <menuitem id="menu_stock_turn_wizard" action="action_stock_turn_wizard" parent="stock.menu_warehouse_report" sequence="5" groups="mw_stock_ageing_report.group_stock_ageing_reporter"/>
+</odoo>

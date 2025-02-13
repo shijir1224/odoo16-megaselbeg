@@ -1,0 +1,385 @@
+<odoo>
+	<menuitem id="menu_finance_salary" name="Цалин" web_icon="mw_salary,static/Salary.png" sequence="75"/>
+    <menuitem id="menu_other_parent_salary" name="Бусад цалин" parent="menu_finance_salary" sequence="40" groups='mw_salary.group_salary_hybo'/>
+	<menuitem id="menu_finance_salary_configuration" name="Тохиргоо" parent="menu_finance_salary" sequence="50" groups='mw_salary.group_salary_hybo'/>
+ 	<!-- Даатгуулагчийн төрөл -->
+        <record model="ir.ui.view" id="insured_type_form">
+            <field name="name">insured.type.form</field>
+            <field name="model">insured.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Hr Shift time">
+                	<header>
+						<button name="done_action" string="Батлах" states="draft" class="oe_highlight" type="object"/>
+						<button name="draft_action" string="Ноороглох" states="done" class="oe_highlight" type="object"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,done" />
+					</header>
+                    <sheet>
+                    	<group>
+                            <group>
+                        		<field name="code"/> 
+                                <field name="is_compute_pit"/> 
+                            </group>
+                            <group>
+                        		<field name="name"/> 
+                                <field name="is_compute_pitt"/> 
+                            </group>
+                    	</group>
+                        <group>
+                            <group>
+                                <field name="tetgever"/> 
+                                <field name="tetgemj"/> 
+                                <field name="eruul_mend"/> 
+                                <field name="ajilguidel"/>  
+                                <field name="uo_procent"/> 
+                                <field name="shi_procent"/> 
+                            </group>     
+                            <group>
+                                <field name="o_tetgever"/> 
+                                <field name="o_tetgemj"/> 
+                                <field name="o_eruul_mend"/> 
+                                <field name="uo_shi_procent"/> 
+                                <field name="o_ajilguidel"/> 
+                                <field name="o_shi_procent"/>   
+                            </group>            
+                        </group>
+                        <group>
+                            <group>
+                                <field name="lower_limit"/> 
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="insured_type_tree">
+            <field name="name">insured.type.tree</field>
+            <field name="model">insured.type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Shift time">
+                	<field name="code"/> 
+                    <field name="name"/> 
+                    <field name="is_compute_pit"/> 
+                    <field name="is_compute_pitt"/> 
+                    <field name="tetgever" optional='hide'/> 
+                    <field name="o_tetgever" optional='hide'/>   
+                    <field name="tetgemj" optional='hide'/> 
+                    <field name="o_tetgemj" optional='hide'/> 
+                    <field name="eruul_mend" optional='hide'/> 
+                    <field name="o_eruul_mend" optional='hide'/> 
+                    <field name="ajilguidel" optional='hide'/>  
+                    <field name="o_ajilguidel" optional='hide'/> 
+                    <field name="uo_procent" optional='hide'/> 
+                    <field name="uo_shi_procent" optional='hide'/> 
+                    <field name="shi_procent"/> 
+                    <field name="o_shi_procent"/>   
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_insured_type" model="ir.actions.act_window">
+            <field name="name">Даатгуулагчийн төрөл</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">insured.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="insured_type_tree"/>
+        </record>
+
+        <menuitem action="action_insured_type" id="insured_type_shi_menu"
+            name="Даатгуулагчийн төрөл" parent="menu_finance_salary_configuration" sequence="11"/>
+
+	<!-- ХАОАТ тохиргоо -->
+        <record model="ir.ui.view" id="personal_income_tax_configure_form">
+            <field name="name">personal.income.tax.configure.form</field>
+            <field name="model">personal.income.tax.configure</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Hr Shift time">
+                    <sheet>
+                        <group colspan="2" col='4'>
+                            <field name="name"/> 
+                            <field name="amount_wage_down"/> 
+                            <field name="discount"/>  
+                            <field name="amount_wage_top"/>  
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="personal_income_tax_configure_tree">
+            <field name="name">personal.income.tax.configure.tree</field>
+            <field name="model">personal.income.tax.configure</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Shift time">
+                	<field name="name"/> 
+                	<field name="amount_wage_down"/> 
+                    <field name="amount_wage_top"/>   
+                    <field name="discount"/>  
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_personal_income_tax_configure" model="ir.actions.act_window">
+            <field name="name">ХАОАТ хөнгөлөлтийн тохиргоо</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">personal.income.tax.configure</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="personal_income_tax_configure_tree"/>
+        </record>
+
+        <menuitem action="action_personal_income_tax_configure" id="personal_income_tax_configure_menu"
+            name="ХАОАТ хөнгөлөлтийн тохиргоо" parent="menu_finance_salary_configuration" sequence="13"/>
+
+        <record id="hr_contract_view_inherit_form" model="ir.ui.view">
+	        <field name="name">hr.contract.form</field>
+	        <field name="model">hr.contract</field>
+	        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='job_id']" position="after">
+					<field name="employee_type"/>
+					<field name="identification_id"/>
+				</xpath>
+				<!-- <xpath expr="//field[@name='department_id']" position="replace">
+					<field name="department_id"/>
+				</xpath>
+				<xpath expr="//field[@name='job_id']" position="replace">
+					<field name="job_id"/>
+				</xpath> -->
+	        	<xpath expr='//page[1]' position="replace">
+                    <page string="Цалин">
+                        <group>
+                            <group >
+                                <field name="wage" string='Үндсэн цалин'/>
+                                <field name="salary_type"/>
+                                <field name="is_pit"/>
+                                <field name="res_currency_id"/>
+                            </group>
+                            <group col='4'>
+                                <field name="average_wage"/>
+                                <field name="advance_procent"/>
+                                <field name="insured_type_id"/>
+                                <field name="is_not_long_year"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            <xpath expr='//page[2]' position="replace">
+                <page string="Гэрээний нөхцөл">
+                    <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                </page>
+            </xpath>
+	        </field>
+	    </record>
+
+	    <record id="hr_contract_view_inherit_tree" model="ir.ui.view">
+	        <field name="name">hr.contract.tree</field>
+	        <field name="model">hr.contract</field>
+	        <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+	        <field name="arch" type="xml">
+				<xpath expr="//field[@name='resource_calendar_id']" position="replace">
+					<field name="employee_type"/>
+				</xpath>
+	        </field>
+	    </record>
+
+	    <record id="hr_contract_view_inherit_search" model="ir.ui.view">
+            <field name="name">hr.contract.search</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="after">
+	                <filter name="employee_type" string="Ажилтны төлөв" domain="[]" context="{'group_by': 'employee_type'}" />
+	            </xpath>
+            </field>
+        </record>
+
+	    <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
+            <field name="name">Contracts</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('employee_id', '!=', False)]</field>
+            <field name="context">{'search_default_employee_type': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create new contracts.
+              </p>
+            </field>
+        </record>
+
+	    <menuitem
+        name="Contracts"
+        parent="menu_finance_salary_configuration"
+        id="hr_contract.hr_menu_contract" action="hr_contract.action_hr_contract" sequence="1"/>
+
+		<record id="view_hr_allounce_deduction_category_tree" model="ir.ui.view">
+			<field name="name">hr.allounce.deduction.category.tree</field>
+			<field name="model">hr.allounce.deduction.category</field>
+			<field name="arch" type="xml">
+				<tree string="Order Line" >
+					<field name="number" />
+					<field name="name" />
+					<field name="code" />
+					<field name="type" />
+					<field name="fixed_type" />
+					<field name="is_advance" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_hr_allounce_deduction_category_form" model="ir.ui.view">
+			<field name="name">hr.allounce.deduction.category.form</field>
+			<field name="model">hr.allounce.deduction.category</field>
+			<field name="arch" type="xml">
+				<form string="Salary Line">
+                    <group >
+                        <group >
+        					<field name="number" />
+                        </group>
+                        <group >
+        					<field name="name" />
+                        </group>
+                    </group>
+					<group>
+                        <group>
+    						<field name="code" />
+    						<field name="type" />
+    						<field name="fixed_type" />
+    						<field name="salary_type" />
+                            <field name="raw_query" attrs="{'invisible':[('fixed_type','!=','query')],'required':[('fixed_type','=','query')]}" />
+                            <field name="res_company_id" />
+                            <field name="work_location_id" />
+                            <field name="work_location_ids" widget='many2many_tags'/>
+                        </group>
+                        <group >
+                            <field name="is_advance" />
+                            <field name="is_tree" />
+                            <field name="is_ndsh" />
+                            <field name="is_average" />
+                            <field name="is_average_hour" />
+                            <field name="is_mail" />
+
+                        </group>
+					</group>
+                    <group >
+                        <field name="tomyo" attrs="{'invisible':[('fixed_type','not in',('hour_balance','tomyo'))],'required':[('fixed_type','in',('hour_balance','tomyo'))]}" />
+                    </group>
+                    <group >
+                        <field name="hour_ids" widget="many2many_tags" attrs="{'invisible':[('fixed_type','not in',('hour_balance'))],'required':[('fixed_type','in',('hour_balance'))]}"/>
+                    </group>
+                    <group >
+                        <field name="hour_minus_ids" widget="many2many_tags" attrs="{'invisible':[('fixed_type','not in',('hour_balance'))]}"/>
+                    </group>
+                    <group >
+                        <field name="hour_is_ids" widget="many2many_tags" attrs="{'invisible':[('fixed_type','not in',('hour_balance'))]}"/>
+                    </group>
+                    <group >
+                        <field name="depend_ids" attrs="{'invisible':[('fixed_type','not in',('depend'))],'required':[('fixed_type','in',('depend'))]}" />
+                    </group>
+
+                    <group string ='Дансны тохиргоо'>
+                        <group >
+                            <field name="property_account_salary_expenses_id" />
+                            <!-- <field name="property_account_salary_add_expenses_id" /> -->
+                        </group>
+                        <group >
+                            <!-- <field name="property_account_shi_expenses_id" /> -->
+                            <field name="expense_type"/>
+                        </group>
+                    </group>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_hr_allounce_deduction_category_tree" model="ir.actions.act_window">
+			<field name="name">Нэмэгдэл суутгалын тохиргоо</field>
+			<field name="res_model">hr.allounce.deduction.category</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_hr_allounce_deduction_category_tree" />
+		</record>
+
+		<menuitem action="action_hr_allounce_deduction_category_tree"
+			id="menu_action_hr_allounce_deduction_category_tree" parent="menu_finance_salary_configuration" />
+
+
+        <!-- Данс тохируулах -->
+        <record model="ir.ui.view" id="salary_account_conf_form">
+            <field name="name">salary.account.conf.form</field>
+            <field name="model">salary.account.conf</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Дансны тохиргоо">
+                    <sheet>
+                    	<group>
+                            <group>
+                        		<field name="company_id"/> 
+                        		<field name="work_location_id"/> 
+                        		<field name="journal_id"/> 
+                                <field name="account_payable_id"/> 
+                                <field name="account_ndsh_id"/> 
+                                <field name="account_pit_payable_id"/> 
+                            </group>
+                            <group>
+                        		<field name="partner_id"/> 
+                        		<field name="ndsh_partner_id"/> 
+                                <field name="pit_partner_id"/> 
+                            </group>
+                    	</group>
+                       
+                    </sheet>
+                    <div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="salary_account_conf_tree">
+            <field name="name">salary.account.conf.tree</field>
+            <field name="model">salary.account.conf</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Shift time">
+                	<field name="partner_id"/> 
+                	<field name="journal_id"/> 
+                    <field name="ndsh_partner_id"/> 
+                    <field name="pit_partner_id"/> 
+                    
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_salary_account_conf" model="ir.actions.act_window">
+            <field name="name">Дансны тохиргоо</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salary.account.conf</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="salary_account_conf_tree"/>
+        </record>
+
+        <menuitem action="action_salary_account_conf" id="salary_account_conf_menu"
+            name="Дансны тохиргоо" parent="menu_finance_salary_configuration" sequence="12"/>
+
+</odoo>

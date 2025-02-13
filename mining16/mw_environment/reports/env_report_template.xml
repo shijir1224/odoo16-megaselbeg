@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="env_monthly_report_template">
+        <style type="text/css">
+            table{
+                width:100%;
+                border-collapse:collapse;
+                page-break-inside:avoid;
+                border: 1px solid #999;
+            }
+            table th{
+                font-size:12px;
+                font-weight:bold;
+                height:40px;
+                text-align:center;
+                vertical-align:middle;
+                border: 1px solid #CCC;
+            }
+            table td{
+                font-size:12px;
+                padding:5px 10px;
+                border: 1px solid #CCC;
+            }
+            table caption{
+                font-size:16px;
+                font-weight:bold;
+                padding:50px 0px 10px;
+            }
+            .right{
+                text-align:right;
+            }
+            .center{
+                text-align:center;
+            }
+            .strong{
+                font-weight:bold;
+            }
+            img{
+                display:inline-block;
+                float:right;
+            }
+        </style>
+
+
+
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <div class="oe_structure" />
+
+                    <div>
+                        <img t-att-src="'%s/mw_environment/static/src/img/mw_logo.png' % base_url" width="150" />
+
+                        <h3><t t-esc="title" /></h3>
+                        <p>Үйлдвэр, уурхай: <strong><t t-esc="mining" /></strong></p>
+                        <p>Тайлант хугацаа: <strong><t t-esc="year_month" /></strong></p>
+                    </div>
+
+                    <table border="1">
+                        <caption>1. Байгаль орчны сургалтын мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Суралцагчид</th>
+                                <th>Сургалтын сэдэв</th>
+                                <th><t t-esc="heading" /></th>
+                                <th>Жилийн өссөн дүн</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="merge" t-value="False"/>
+                        <t t-set="month" t-value="0"/>
+                        <t t-set="year" t-value="0"/>
+                        <tbody>
+                            <t t-foreach="training" t-as="doc">
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <t t-if="doc['trainee_type'] != merge">
+                                            <td t-att-rowspan="doc['len']" style="text-align: center"><span t-esc="doc['trainee_type']"/></td>
+                                        </t>
+                                        <td><span t-esc="doc['topic']"/></td>
+                                        <td class="right"><span t-esc="doc['notraining']"/></td>
+                                        <td class="right"><span t-esc="doc['alltraining']"/></td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-set="merge" t-value="doc['trainee_type']"/>
+                                    <t t-set="month" t-value="month+doc['notraining']"/>
+                                    <t t-set="year" t-value="year+doc['alltraining']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="3" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="month"/></td>
+                                    <td class="right strong"><span t-esc="year"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>2. Байгаль орчны хяналт шалгалтын мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th colspan="2">Хяналт шалгалтын төрөл</th>
+                                <th><t t-esc="heading" /></th>
+                                <th>Жилийн өссөн дүн</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="merge" t-value="False"/>
+                        <t t-set="month" t-value="0"/>
+                        <t t-set="year" t-value="0"/>
+                        <tbody>
+                            <t t-foreach="inspection" t-as="doc">
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <t t-if="doc['category'] != merge">
+                                            <td t-att-rowspan="doc['len']" style="text-align: center"><span t-esc="doc['category']"/></td>
+                                        </t>
+                                        <td><span t-esc="doc['inspector']"/></td>
+                                        <td class="right"><span t-esc="doc['noinspection']"/></td>
+                                        <td class="right"><span t-esc="doc['allinspection']"/></td>
+                                        <t t-set="merge" t-value="doc['category']"/>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-set="month" t-value="month+doc['noinspection']"/>
+                                    <t t-set="year" t-value="year+doc['allinspection']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="3" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="month"/></td>
+                                    <td class="right strong"><span t-esc="year"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>3. Байгаль орчны зөрчлийн мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Аюул осол / зөрчил</th>
+                                <th><t t-esc="heading" /> гарсан тоо</th>
+                                <th>Үүнээс арилгасан</th>
+                                <th>Жилийн өссөн дүн</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1"/>
+                            <t t-set="month" t-value="0"/>
+                            <t t-set="year" t-value="0"/>
+                            <t t-foreach="accident" t-as="doc">
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <td><span t-esc="doc['voilation']"/></td>
+                                        <td class="right"><span t-esc="doc['noviolation']"/></td>
+                                        <td class="right"><span t-esc="doc['fixedviolation']"/></td>
+                                        <td class="right"><span t-esc="doc['allviolation']"/></td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-set="month" t-value="month+doc['noviolation']"/>
+                                    <t t-set="year" t-value="year+doc['allviolation']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="2" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="month"/></td>
+                                    <td></td>
+                                    <td class="right strong"><span t-esc="year"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>4. Ус ашиглалтын хэмжээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Зориулалт</th>
+                                <th>Эх хүүсвэр</th>
+                                <th><t t-esc="heading" /></th>
+                                <th>Жилийн өссөн дүн</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="merge" t-value="False"/>
+                        <t t-set="month" t-value="0"/>
+                        <t t-set="year" t-value="0"/>
+                        <tbody>
+                            <t t-foreach="water" t-as="doc">
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <t t-if="doc['dedication'] != merge">
+                                            <td t-att-rowspan="doc['len']" style="text-align: center"><span t-esc="doc['dedication']"/></td>
+                                        </t>
+                                        <td><span t-esc="doc['source']"/></td>
+                                        <td class="right"><span t-esc="doc['nowater']"/></td>
+                                        <td class="right"><span t-esc="doc['allwater']"/></td>
+                                        <t t-set="merge" t-value="doc['dedication']"/>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-set="month" t-value="month+doc['nowater']"/>
+                                    <t t-set="year" t-value="year+doc['allwater']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="3" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="month"/></td>
+                                    <td class="right strong"><span t-esc="year"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>5. Ахуйн бохир усны хаягдлын мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Ахуйн бохир ус</th>
+                                <th><t t-esc="heading" /></th>
+                                <th>Жилийн өссөн дүн</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <t t-foreach="used_water" t-as="doc">
+                                    <tr>
+                                        <td class="center">1</td>
+                                        <td>Гарсан хэмжээ</td>
+                                        <td class="right"><span t-esc="doc['nowater']"/></td>
+                                        <td class="right"><span t-esc="doc['allwater']"/></td>
+                                    </tr>
+                                </t>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>6. Хог хаягдлын мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Хог хаягдлын төрөл</th>
+                                <th><t t-esc="heading" /> /тонн/</th>
+                                <th>Дахин ашигласан /тонн/</th>
+                                <th>Жилийн өссөн дүн /тонн/</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1"/>
+                            <t t-set="merge" t-value="False"/>
+                            <t t-set="amount" t-value="0"/>
+                            <t t-set="recycle" t-value="0"/>
+                            <t t-set="allamount" t-value="0"/>
+                            <t t-foreach="waste" t-as="doc">
+                                    <t t-if="doc['category'] != merge">
+                                        <t t-if="i != 1">
+                                            <tr>
+                                                <td colspan="2" class="center">Нийт</td>
+                                                <td class="right"><span t-esc="amount"/></td>
+                                                <td class="right"><span t-esc="recycle"/></td>
+                                                <td class="right"><span t-esc="allamount"/></td>
+                                            </tr>
+                                        </t>
+                                        <tr><td colspan="5" class="center"><span t-esc="doc['category']"/></td></tr>
+                                        <t t-set="amount" t-value="0"/>
+                                        <t t-set="recycle" t-value="0"/>
+                                        <t t-set="allamount" t-value="0"/>
+                                    </t>
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <td><span t-esc="doc['waste']"/></td>
+                                        <td class="right"><span t-esc="doc['amount']"/></td>
+                                        <td class="right"><span t-esc="doc['reused_amount']"/></td>
+                                        <td class="right"><span t-esc="doc['allamount']"/></td>
+
+                                        <t t-set="i" t-value="i+1"/>
+                                        <t t-set="merge" t-value="doc['category']"/>
+                                        <t t-set="amount" t-value="amount+doc['amount']"/>
+                                        <t t-set="recycle" t-value="recycle+doc['reused_amount']"/>
+                                        <t t-set="allamount" t-value="allamount+doc['allamount']"/>
+                                    </tr>
+                            </t>
+                            <tr>
+                                    <td colspan="2" class="center">Нийт</td>
+                                    <td class="right"><span t-esc="amount"/></td>
+                                    <td class="right"><span t-esc="recycle"/></td>
+                                    <td class="right"><span t-esc="allamount"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>7. Газар хөндөлтийн мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Байршил</th>
+                                <th><t t-esc="heading" /> өртсөн /га/</th>
+                                <th>Жилийн өссөн дүн /га/</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="month" t-value="0"/>
+                        <t t-set="year" t-value="0"/>
+                        <tbody>
+                            <t t-foreach="land" t-as="doc">
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <td><span t-esc="doc['location']"/></td>
+                                        <td class="right"><span t-esc="doc['amount']"/></td>
+                                        <td class="right"><span t-esc="doc['allamount']"/></td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-set="month" t-value="month+doc['amount']"/>
+                                    <t t-set="year" t-value="year+doc['allamount']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="2" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="month"/></td>
+                                    <td class="right strong"><span t-esc="year"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>8. Нөхөн сэргээлтийн мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Байршил</th>
+                                <th>Нөхөн сэргээлтийн ангилал</th>
+                                <th>Нөхөн сэргээлтийн төрөл</th>
+                                <th><t t-esc="heading" /> /га/</th>
+                                <th>Жилийн өссөн дүн /га/</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="merge" t-value="False"/>
+                        <t t-set="merge2" t-value="False"/>
+                        <t t-set="month" t-value="0"/>
+                        <t t-set="year" t-value="0"/>
+                        <tbody>
+                            <t t-foreach="rehab" t-as="doc">
+                                <tr>
+                                    <td class="center"><span t-esc="i"/></td>
+                                    <t t-if="doc['location'] != merge">
+                                        <td t-att-rowspan="doc['len']" style="text-align: center"><span t-esc="doc['location']"/></td>
+                                    </t>
+                                    <t t-if="doc['location'] != merge or doc['category'] != merge2">
+                                        <td t-att-rowspan="doc['len2']" style="text-align: center"><span t-esc="doc['category']"/></td>
+                                    </t>
+                                    <td><span t-esc="doc['type']"/></td>
+                                    <td class="right"><span t-esc="doc['amount']"/></td>
+                                    <td class="right"><span t-esc="doc['allamount']"/></td>
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                                <t t-set="merge" t-value="doc['location']"/>
+                                <t t-set="merge2" t-value="doc['category']"/>
+                                <t t-set="month" t-value="month+doc['amount']"/>
+                                <t t-set="year" t-value="year+doc['allamount']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="4" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="month"/></td>
+                                    <td class="right strong"><span t-esc="year"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>9. Амьтны үзэгдлийн мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Байршил</th>
+                                <th>Үзэгдсэн амьтад </th>
+                                <th>Жилийн өссөн дүн </th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="month" t-value="0"/>
+                        <t t-set="year" t-value="0"/>
+                        <tbody>
+                            <t t-foreach="animal" t-as="doc">
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <td><span t-esc="doc['animal']"/></td>
+                                        <td class="right"><span t-esc="doc['noanimal']"/></td>
+                                        <td class="right"><span t-esc="doc['allanimal']"/></td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-set="month" t-value="month+doc['noanimal']"/>
+                                    <t t-set="year" t-value="year+doc['allanimal']"/>
+                            </t>
+                            <tr>
+                                    <td colspan="2" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="month"/></td>
+                                    <td class="right strong"><span t-esc="year"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>10. Байгаль орчныг хамгаалахад зарцуулсан зардлын мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Бараа материал, Үйлчилгээний төрөл</th>
+                                <th><t t-esc="heading" /> /төг/</th>
+                                <th>Жилийн өссөн дүн /төг/</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1"/>
+                            <t t-set="merge" t-value="False"/>
+                            <t t-set="amount" t-value="False"/>
+                            <t t-set="allamount" t-value="False"/>
+                            <t t-set="total" t-value="False"/>
+                            <t t-set="totalall" t-value="False"/>
+                            <t t-foreach="expense" t-as="doc">
+                                    <t t-if="doc['category'] != merge">
+                                        <t t-if="i != 1">
+                                            <tr>
+                                                <td colspan="2" class="center">Дүн</td>
+                                                <td class="right"><span t-esc="'{0:,.2f}'.format(int(amount))"/> ₮</td>
+                                                <td class="right"><span t-esc="'{0:,.2f}'.format(int(allamount))"/> ₮</td>
+                                            </tr>
+                                        </t>
+                                        <tr><td colspan="4" class="center"><span t-esc="doc['category']"/></td></tr>
+                                        <t t-set="amount" t-value="0"/>
+                                        <t t-set="allamount" t-value="0"/>
+                                    </t>
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <td><span t-esc="doc['type']"/></td>
+                                        <td class="right"><span t-esc="'{0:,.2f}'.format(int(doc['amount']))"/> ₮</td>
+                                        <td class="right"><span t-esc="'{0:,.2f}'.format(int(doc['allamount']))"/> ₮</td>
+
+                                        <t t-set="i" t-value="i+1"/>
+                                        <t t-set="merge" t-value="doc['category']"/>
+                                        <t t-set="amount" t-value="amount+doc['amount']"/>
+                                        <t t-set="allamount" t-value="allamount+doc['allamount']"/>
+                                        <t t-set="total" t-value="total+doc['amount']"/>
+                                        <t t-set="totalall" t-value="totalall+doc['allamount']"/>
+                                    </tr>
+                            </t>
+                            <tr>
+                                    <td colspan="2" class="center">Дүн</td>
+                                    <td class="right"><span t-esc="'{0:,.2f}'.format(int(amount))"/> ₮</td>
+                                    <td class="right"><span t-esc="'{0:,.2f}'.format(int(allamount))"/> ₮</td>
+                            </tr>
+                            <tr>
+                                    <td colspan="2" class="center strong">Нийт</td>
+                                    <td class="right strong"><span t-esc="'{0:,.2f}'.format(int(total))"/> ₮</td>
+                                    <td class="right strong"><span t-esc="'{0:,.2f}'.format(int(totalall))"/> ₮</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="1">
+                        <caption>11. Ногоон байгууламжийн арчилгааны мэдээ</caption>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Үйл ажиллагаа</th>
+                                <th>Ногоон байгууламжийн байршил</th>
+                                <th>Хэмжих нэгж</th>
+                                <th>Тоо хэмжээ</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="1"/>
+                        <tbody>
+                            <t t-foreach="garden" t-as="doc">
+                                    <tr>
+                                        <td class="center"><span t-esc="i"/></td>
+                                        <td><span t-esc="doc['activity']"/></td>
+                                        <td><span t-esc="doc['garden_location']"/></td>
+                                        <td><span t-esc="doc['uom']"/></td>
+                                        <td class="right"><span t-esc="doc['amount']"/></td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_env_monthly_report_template" model="ir.actions.report">
+        <field name="name">ISR</field>
+        <field name="model">env.monthly.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">env_monthly_report_template</field>
+        <field name="report_file">env_monthly_report_template</field>
+        <field name="print_report_name">'ISR-%s' % object.name</field>
+        <field name="paperformat_id" ref="env_report_portrait_paperformat"/>
+        <field name="attachment">'ENV-' + object.name + '.pdf'</field>
+        <field name="attachment_use">False</field>
+    </record>
+
+    <!-- <record 
+        id="action_env_monthly_report_template"
+        model="env.monthly.report"
+        string="Сарын мэдээний тайлан" 
+        report_type="qweb-pdf"
+        name="env_monthly_report_template"
+        file="env_monthly_report_template"
+        attachment_use="False"
+        menu="False"
+    /> -->
+
+    <!-- <record id="action_env_monthly_report_template" model="ir.actions.report">
+        <field name="paperformat_id"  ref="env_report_portrait_paperformat"/>
+    </record> -->
+
+</odoo>

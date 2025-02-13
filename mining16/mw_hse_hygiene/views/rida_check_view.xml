@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for  -->
+	 <record id="sequence_rida_check" model="ir.sequence">
+        <field name="name">Rida Check</field>
+        <field name="code">rida.check</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="view_rida_check_form" model="ir.ui.view">
+        <field name="name">rida.check.form</field>
+        <field name="model">rida.check</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+					<button name="action_draft" string="Буцааж ноороглох" states="done" type="object" class="btn-danger" groups="mw_hse_hygiene.group_hse_hygiene_manager"/>
+					<button name="action_done" class="btn-success" string="Батлах" states="draft" type="object"  icon="fa-check-square-o"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done" readonly="1"/>
+				</header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="review" style="white-space: normal;word-break: break-all;" content="width=2000px, initial-scale=1.0"/>
+                    </group>
+                    <separator string="Арчдас авах гадаргуу" colspan="2"/>
+                    <field name="rida_check_line_ids" nolabel="1" >
+                        <tree editable="bottom">
+                            <field name="surface_area"/>
+                            <field name="pollution_level"/>
+                            <field name="description"/>
+                            <field name="parent_id" optional="hide"/>
+                        </tree>
+                    </field>
+            </sheet>
+                <div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="view_rida_check_tree" model="ir.ui.view">
+        <field name="name">rida.check.tree</field>
+        <field name="model">rida.check</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-success="state == 'done'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="review" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_rida_check_search" model="ir.ui.view">
+        <field name="name">rida.check.search</field>
+        <field name="model">rida.check</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="review"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_rida_check" model="ir.actions.act_window">
+        <field name="name">Rida Check</field>
+        <field name="res_model">rida.check</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

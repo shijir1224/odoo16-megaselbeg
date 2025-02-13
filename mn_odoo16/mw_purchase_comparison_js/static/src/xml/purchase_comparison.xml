@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template_purchase_comparison" name="Purchase Comparison" xml:space="preserve">
+	<t t-name="mw_purchase_comparison_js.PurchaseComparison" owl="1">
+		<div class="oe_purchase_comparison">
+			<button type="button" class="btn btn-primary o_form_button_save" data-hotkey="s" t-on-click.stop="() => this.saveButton({closable: true})">Save</button>
+			<table class="comparison" style="border-radius: 1px; border: 1px solid;">
+				<tr>
+					<th id="default_field"></th>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<th colspan="5">
+							<a href="#" t-on-click="doPartnerInfo" t-att-data-partner-id="partner.partner_id">
+								<t t-esc="partner.partner_name"/>
+							</a>
+						</th>
+					</t>
+				</tr>
+				<tr>
+					<td>Тайлбар</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5">
+							<input type="text" class="input_text_wrap" wrap="soft" t-att-id="partner.description_id" t-att-value="partner.description_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+						</td> 
+					</t>
+				</tr>
+				<tr>
+					<td>Хөнгөлөлт(%)</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5">
+							<input type="text" max="100" t-att-id="partner.discount_id" t-att-value="partner.discount_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+						</td> 
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Үнэлгээ</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5" style="background-color: #e7e7e7"></td> 
+					</t>
+				</tr>
+				<tr>
+					<td>Чанар</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5">
+							<input type="text" t-att-id="partner.quality_id" t-att-value="partner.quality_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+						</td> 
+					</t>
+				</tr>
+				<tr>
+					<td>Үнэ</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5">
+							<input type="text" t-att-id="partner.price_id" t-att-value="partner.price_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+						</td> 
+					</t>
+				</tr>
+				<tr>
+					<td>Бусад үзүүлэлт (төлбөрийн нөхцөл, нийлүүлэх хугацаа)</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5">
+							<input type="text" t-att-id="partner.other_id" t-att-value="partner.other_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+						</td> 
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Нийт оноо</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5">
+							<div style="text-align: center; font-weight: bold;" t-att-id="partner.total_point_id">
+								<span><t t-esc="partner.total_point_value"/></span>
+							</div>
+						</td>
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Ложистик болон нэмэлт зардал</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5" style="background-color: #e7e7e7"></td> 
+					</t>
+				</tr>
+				<tr>
+					<td>Нийлүүлэх хугацаа (хоног)</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5"><input type="text" t-att-id="partner.honog_id" t-att-value="partner.niiluuleh_hugatsaa_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/></td> 
+					</t>
+				</tr>
+				<tr>
+					<td>Тээвэр, Татвар</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5"><input type="text" t-att-id="partner.teever_tatvar_id" t-att-value="partner.teever_tatvar_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/></td> 
+					</t>
+				</tr>
+				<tr>
+					<td>Даатгал, бусад нэмэлт зардал</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5"><input type="text" t-att-id="partner.insurance_other_expense_id" t-att-value="partner.insurance_other_expense_value" t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/></td> 
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Нийт зардал</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5">
+							<div style="text-align: center; font-weight: bold;" t-att-id="partner.total_expense_id">
+								<span><t t-esc="partner.total_expense_value"/></span>
+							</div>
+						</td> 
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Барааны мэдээлэл</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5" style="background-color: #e7e7e7"></td> 
+					</t>
+				</tr>
+				<tr>
+					<td></td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td style="text-align: center">Нэгжийн үнэ</td>
+						<td style="text-align: center">Хөнгөлөлт(%)</td>
+						<td style="text-align: center">Тоо хэмжээ</td>
+						<td style="text-align: center">Нийт үнэ</td>
+						<td style="text-align: center">Худалдан авах?</td>
+					</t>
+				</tr>
+				<t t-foreach="products" t-as="product" t-key="product_index">
+					<tr>
+						<td>
+							<a href="#" t-on-click="doProductInfo" t-att-td-product-id="product.product_id">
+								<t t-esc="product.product_name"/>
+							</a>
+						</td>
+						<t t-foreach="partners" t-as="partner" t-key="partner_index">
+							<td>
+								<input type="text" 
+								t-att-id="product.product_id + partner.partner_id * 5" 
+								t-att-value="product_price_list[product.product_id + partner.partner_id * 5] || 0"
+								t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+							</td>
+							<td>
+								<input type="text" 
+								t-att-id="product.product_id + partner.partner_id * 12" 
+								t-att-value="product_price_list[product.product_id + partner.partner_id * 12] || 0" 
+								t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+							</td>
+							<td>
+								<div style="text-align: center"><span><t t-esc="product.product_qty"/></span></div>
+							</td>
+							<td>
+								<div style="text-align: center" t-att-id="product.product_id + partner.partner_id * 32">
+									<span><t t-esc="(product_price_list[product.product_id + partner.partner_id * 32] || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+								</div>
+							</td>
+							<td style="text-align: center">
+								<input class="checkBoxType" type="checkbox" t-on-change="onCheckboxChange" 
+								t-att-id="product.product_id + partner.partner_id * 22" 
+								t-att-checked="product_vote_list[product.product_id + partner.partner_id * 22]" 
+								t-att-disabled="(start_flow_line_id != flow_line_id) ? true : false"/>
+							</td>
+						</t>
+					</tr>
+				</t>
+				<tr>
+					<td></td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="2" style="text-align: center">Хөнгөлөлтгүй</td>
+						<td colspan="2" style="text-align: center">Хөнгөлөлт хассан</td>
+						<td></td>
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Нийт дүн /Валютаар/</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="2">
+							<div style="text-align: center;" t-att-id="partner.total_price_id">
+								<span><t t-esc="(partner.total_price_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td colspan="2">
+							<div style="text-align: center;" t-att-id="partner.discount_total_price_id">
+								<span><t t-esc="(partner.discount_total_price_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td></td>
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Нийт дүн /Төгрөгөөр/</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="2">
+							<div style="text-align: center;" t-att-id="partner.currency_amount_id">
+								<span><t t-esc="(partner.currency_amount_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td colspan="2">
+							<div style="text-align: center;" t-att-id="partner.discount_currency_amount_id">
+								<span><t t-esc="(partner.discount_currency_amount_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td></td>
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Сонгосон барааны нийт дүн /Валютаар/</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="2">
+							<div style="text-align: center; font-weight: bold;" t-att-id="partner.voted_total_price_id">
+								<span><t t-esc="(partner.voted_total_price_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td colspan="2">
+							<div style="text-align: center; font-weight: bold;" t-att-id="partner.discount_voted_total_price_id">
+								<span><t t-esc="(partner.discount_voted_total_price_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td></td>
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Сонгосон барааны нийт дүн /Төгрөгөөр/</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="2">
+							<div style="text-align: center; font-weight: bold;" t-att-id="partner.voted_currency_amount_id">
+								<span><t t-esc="(partner.voted_currency_amount_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td colspan="2">
+							<div style="text-align: center; font-weight: bold;" t-att-id="partner.voted_discount_currency_amount_id">
+								<span><t t-esc="(partner.voted_discount_currency_amount_value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"/></span>
+							</div>
+						</td>
+						<td></td>
+					</t>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; background-color: #e7e7e7">Санал хураалт</td>
+					<t t-foreach="partners" t-as="partner" t-key="partner_index">
+						<td colspan="5" style="background-color: #e7e7e7"></td> 
+					</t>
+				</tr>
+				<t t-foreach="voteUsers" t-as="user" t-key="user_index">
+					<tr>
+						<td>
+							<t t-esc="user.vote_user"/>
+						</td>
+						<t t-foreach="partners" t-as="partner" t-key="partner_index">
+							<td colspan="5" style="text-align: center">
+								<input type="checkbox" 
+									t-att-id="user.vote_id + partner.partner_id * 12" 
+									t-att-checked="user_vote_list[user.vote_id + partner.partner_id * 12]" 
+									t-att-disabled="(user.vote_id != flow_line_id) ? true : false"/>
+							</td>
+						</t>
+					</tr>
+				</t>
+			</table>
+		</div>
+	</t>
+</templates>

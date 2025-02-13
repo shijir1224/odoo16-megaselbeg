@@ -1,0 +1,50 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_budget_configuration_account_user,account.budget.configuration account_user,model_mw_account_budget_configuration,account.group_account_user,1,0,0,0
+access_account_budget_configuration_budget_user,account.budget.configuration budget_user,model_mw_account_budget_configuration,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_account_budget_configuration_invoice,account.budget.configuration invoice,model_mw_account_budget_configuration,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_account_budget_configuration_line_account_user,account.budget.configuration_line account_user,model_mw_account_budget_configuration_line,account.group_account_user,1,0,0,0
+access_account_budget_configuration_line_budget_user,account.budget.configuration_line budget_user,model_mw_account_budget_configuration_line,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_account_budget_configuration_line_invoice,account.budget.configuration_line invoice,model_mw_account_budget_configuration_line,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_nw_account_budget_account_user,mw.account.budget account_user,model_mw_account_budget,account.group_account_user,1,0,0,0
+access_nw_account_budget_budget_user,mw.account.budget budget_user,model_mw_account_budget,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_nw_account_budget_invoice,mw.account.budget invoice,model_mw_account_budget,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_mw_account_budget_line_account_user,mw.account.budget _line account_user,model_mw_account_budget_line,account.group_account_user,1,0,0,0
+access_mw_account_budget_line_budget_user,mw.account.budget _line budget_user,model_mw_account_budget_line,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_mw_account_budget_line_invoice,mw.account.budget _line invoice,model_mw_account_budget_line,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_mw_account_budget_period_line_account_user,mw.account.budget _line period_account_user,model_mw_account_budget_period_line,account.group_account_user,1,0,0,0
+access_mw_account_budget_period_line_budget_user,mw.account.budget _line period_budget_user,model_mw_account_budget_period_line,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_mw_account_budget_period_line_invoice,mw.account.budget _line period_invoice,model_mw_account_budget_period_line,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_mw_account_budget_items_account_user,mw.account.budget_budget_items_user,model_mw_account_budget_items,account.group_account_user,1,0,0,0
+access_mw_account_budget_items_budget_user,mw.account.budget_items_budget_user,model_mw_account_budget_items,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_mw_account_budget_items_invoice,mw.account.budget_items_invoice,model_mw_account_budget_items,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_mw_account_budget_period_line_line_account_user,mw.account.budget _line_line period_account_user,model_mw_account_budget_period_line_line,account.group_account_user,1,0,0,0
+access_mw_account_budget_period_line_line_budget_user,mw.account.budget _line_line period_budget_user,model_mw_account_budget_period_line_line,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_mw_account_budget_period_line_line_invoice,mw.account.budget _line_line period_invoice,model_mw_account_budget_period_line_line,account.group_account_invoice,1,1,1,0
+,,,,,,,
+access_mw_account_company_budget_account_user,mw.account.budget company_budget period_account_user,model_mw_account_company_budget,account.group_account_user,1,0,0,0
+access_mw_account_company_budget_budget_user,mw.account.budget company_budget period_budget_user,model_mw_account_company_budget,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_mw_account_company_budget_invoice,mw.account.budget company_budget period_invoice,model_mw_account_company_budget,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_nw_account_budget_history_account_user,mw.account.budget account_user,model_budget_flow_history,account.group_account_user,1,1,1,0
+access_nw_account_budget_history_user,mw.account.budget budget_user,model_budget_flow_history,mw_account_budget.group_mn_budget_accountant,1,1,1,1
+access_nw_account_budget_history_invoice,mw.account.budget invoice,model_budget_flow_history,account.group_account_invoice,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_mw_account_budget_change_line_line_account_user,mw.account.budget change_line_user,model_mw_account_budget_change_line,account.group_account_user,1,0,0,0
+access_mw_account_budget_change_line_line_budget_user,mw.account.budget change_line_user,model_mw_account_budget_change_line,mw_account_budget.group_mn_budget_change_all,1,1,1,1
+,,,,,,,
+access_mw_account_budget_change_line_account_user,mw.account.budget change_user,model_mw_account_budget_change,account.group_account_user,1,0,0,0
+access_mw_account_budget_change_line_budget_user,mw.account.budget change_user,model_mw_account_budget_change,mw_account_budget.group_mn_budget_change_all,1,1,1,1

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_edit_partner_tags_form_view" model="ir.ui.view">
+        <field name="name">wizard.edit.partner.tags.form</field>
+        <field name="model">wizard.edit.partner.tags</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="partner_ids" options="{'no_create':True}" 
+                        nolabel="1" colspan="4"
+                        widget="many2many_tags" placeholder="Харилцагчийг сонгоно уу"/>
+                    <field name="partner_category_ids" options="{'no_create':True}" 
+                        nolabel="1" colspan="4"
+                        widget="many2many_tags" placeholder="Пайз/Ангилал сонгоно уу"/>
+                </group>
+                <group col="4">
+                    <field name="edit_type"/>
+                </group>
+                <footer>
+                    <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                    <button name="action_edit_tags" string="Засах" type="object"
+                        icon="fa-file-excel-o" colspan="1" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_edit_partner_tags" model="ir.actions.act_window">
+        <field name="name">Edit partner tags</field>
+        <field name="res_model">wizard.edit.partner.tags</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_edit_partner_tags_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            action="action_wizard_edit_partner_tags" 
+            id="menu_edit_partner_tags"
+            name="Харилцагчийн пайз засах"
+            parent="contacts.res_partner_menu_config" sequence="30"/>
+</odoo>

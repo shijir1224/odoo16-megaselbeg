@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="seq_account_exchange_request" model="ir.sequence">
+            <field name="name">Exchange Request</field>
+            <field name="code">account.exchange.request</field>
+            <field name="prefix">PR %(year)s/%(month)s</field>
+            <field name="padding">4</field>
+            <field eval="False" name="company_id"/>
+        </record>
+    </data>
+</openerp>

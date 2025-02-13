@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_payment_form_inherit" model="ir.ui.view">
+        <field name="name">view.pos.payment.form.inherit</field>
+        <field name="model">pos.payment</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="after">
+                <group string="golomt ipPOS">
+                    <group>
+                      <field name="golomt_status" readonly="1"/>
+                      <field name="golomt_textresponse" readonly="1"/>
+                      <field name="golomt_pan" readonly="1"/>
+                      <field name="golomt_authorizationcode" readonly="1"/>
+                    </group>
+                    <group>
+                      <field name="golomt_terminalid" readonly="1"/>
+                      <field name="golomt_merchantid" readonly="1"/>
+                      <field name="golomt_amount" readonly="1"/>
+                      <field name="golomt_referencenumber" readonly="1"/>
+                    </group>
+                </group>
+           </xpath>
+        </field>
+    </record>
+    
+    <record id="view_pos_payment_method_form_inherit_mw_pos_xb" model="ir.ui.view">
+        <field name="name">pos.payment.method.inherit.mw_pos.form</field>
+        <field name="model">pos.payment.method</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_id']" position="after">
+                <field name="golomt_ok" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mw_view_pos_config_form_inherit_xb" model="ir.ui.view">
+        <field name="name">mw.pos.config.form.xb</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='title']" position="after">
+                <label for="golomt_url" string="golomt url" class="col-lg-3 o_light_label"/>
+                <field name="golomt_url" attrs="{'invisible':[('golomt_ok','=',False)]}" placeholder="http://127.0.0.1:8088/ecrt1000/"/>
+                <label for="golomt_ok" string="golomt?" class="col-lg-3 o_light_label"/>
+                <field name="golomt_ok"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pos_branch_field_session" model="ir.ui.view">
+        <field name="name">POS Session</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_id']" position="after" attrs="{'invisible':[('golomt_ok','=',False)]}">
+                <group>
+                    <field name="golomt_ok" invisible="1"/>
+                    <field name="golomt_udur_undurluh"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

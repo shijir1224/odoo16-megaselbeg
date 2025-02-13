@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+        
+		<record id="view_purchase_return_form" model="ir.ui.view">
+        	<field name="name">purchase.return.form.inherit</field>
+        	<field name="model">purchase.return</field>
+        	<field name="inherit_id" ref="mw_purchase_return.view_purchase_return_form"/>
+        	<field name="arch" type="xml">
+				<xpath expr="//form/sheet//field[@name='return_line']/form//field[@name='not_sent_qty']" position="after">
+					<field name="not_delivered_qty" />
+				</xpath>
+				<xpath expr="//form/sheet//field[@name='return_line']/tree//field[@name='not_sent_qty']" position="after">
+					<field name="not_delivered_qty" />
+				</xpath>
+        	</field>
+        </record>
+
+	</data>
+</odoo>

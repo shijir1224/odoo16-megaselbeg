@@ -1,0 +1,60 @@
+<odoo>
+    <record id="view_department_mw_tree" model="ir.ui.view">
+        <field name="name">hr.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="arch" type="xml">
+            <tree name='tree'> 
+                <field name="name"/>
+                <field name="planned_employees" sum='SUM'/>
+                <field name="vacancies" sum='SUM'/>
+                <field name="total_employee" string='Бүртгэлтэй ажилтны тоо' sum='SUM'/>
+                <field name="working_employee_count" sum='SUM'/>
+                <field name="basic_employees" sum='SUM'/>
+                <field name="trial_employees" sum='SUM'/>
+                <field name="trainee_employees" sum='SUM'/>
+                <field name="maternity_employees" sum='SUM'/>
+                <field name="annual_leave_employees" sum='SUM'/>
+                <field name="contract_workers" sum='SUM'/>
+                <field name="resigned_employees" sum='SUM'/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_department_mw_filter" model="ir.ui.view">
+            <field name="name">hr.department.search</field>
+            <field name="model">hr.department</field>
+            <field name="arch" type="xml">
+                <search string="Departments">
+                    <field name="name" string="Department"/>
+                    <field name="parent_id" />
+                    <!-- <group expand="0" string="Group By">
+                        <filter name="parent_id_group" string="Эцэг" domain="[]" context="{'group_by':'parent_id'}"/>
+                    </group> -->
+                    <searchpanel>
+                        <field name="company_id" string="Компани" enable_counters="1"/>
+                        <field name="parent_id" string="Эцэг" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+             </field>
+        </record>
+
+     <record id="hr_department_mw_tree_action" model="ir.actions.act_window">
+        <field name="name">Орон тоо төлөвлөлт</field>
+        <field name="res_model">hr.department</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_department_mw_tree"/>
+        <field name="search_view_id" ref="view_department_mw_filter"/>
+        <!-- <field name="context">{'search_default_company_id':1,'search_default_parent_id_group':1}</field> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new department
+            </p><p>
+                Odoo's department structure is used to manage all documents
+                related to employees by departments: expenses, timesheets,
+                leaves, recruitments, etc.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="hr_department_mw_tree_action"
+            id="department_parent_menu" parent="mw_hr_applicant.hr_oron_too_menu" />
+</odoo>

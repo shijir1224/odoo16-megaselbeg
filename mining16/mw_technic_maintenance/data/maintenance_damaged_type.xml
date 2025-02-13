@@ -1,0 +1,1820 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+		
+		<!-- Damage type -->
+		<record id="damage_type01" model="maintenance.damaged.type">
+			<field name="name">SERVICE CODE</field>
+			<field name="code">8000</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type1" model="maintenance.damaged.type">
+			<field name="name">PM250</field>
+			<field name="code">8001</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">250 мото-цагийн төлөвлөгөөт үйлчилгээ</field>
+		</record>
+		<record id="damage_type2" model="maintenance.damaged.type">
+			<field name="name">PM500</field>
+			<field name="code">8002</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">500 мото-цагийн төлөвлөгөөт үйлчилгээ</field>
+		</record>
+		<record id="damage_type3" model="maintenance.damaged.type">
+			<field name="name">PM1000</field>
+			<field name="code">8003</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">1000 мото-цагийн төлөвлөгөөт үйлчилгээ</field>
+		</record>
+		<record id="damage_type4" model="maintenance.damaged.type">
+			<field name="name">PM2000</field>
+			<field name="code">8004</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">2000 мото-цагийн төлөвлөгөөт үйлчилгээ</field>
+		</record>
+		<record id="damage_type5" model="maintenance.damaged.type">
+			<field name="name">LUBRICATION тосолгоо хийх</field>
+			<field name="code">8005</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">Тосолгоо</field>
+		</record>
+		<record id="damage_type6" model="maintenance.damaged.type">
+			<field name="name">REFUELING түлш цэнэглэх</field>
+			<field name="code">8006</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">Түлш цэнэглэх</field>
+		</record>
+        <record id="damage_type7" model="maintenance.damaged.type">
+			<field name="name">LOSTTIME сул зогсолт</field>
+			<field name="code">8007</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">Сул зогсолт</field>
+		</record>
+        <record id="damage_type8" model="maintenance.damaged.type">
+			<field name="name">INSPECTION үзлэг</field>
+			<field name="code">8008</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">Үзлэг оношилгоо</field>
+		</record>
+		<record id="damage_type9" model="maintenance.damaged.type">
+			<field name="name">ML7000</field>
+			<field name="code">9001</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">7000 мото-цагийн урсгал засвар</field>
+		</record>
+		<record id="damage_type10" model="maintenance.damaged.type">
+			<field name="name">ML8000</field>
+			<field name="code">9002</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">8000 мото-цагийн урсгал засвар</field>
+		</record>
+		<record id="damage_type11" model="maintenance.damaged.type">
+			<field name="name">ML9000</field>
+			<field name="code">9003</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">9000 мото-цагийн урсгал засвар</field>
+		</record>
+		<record id="damage_type12" model="maintenance.damaged.type">
+			<field name="name">ML10000</field>
+			<field name="code">9004</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">10000 мото-цагийн урсгал засвар</field>
+		</record>
+		<record id="damage_type13" model="maintenance.damaged.type">
+			<field name="name">CC15000</field>
+			<field name="code">10000</field>
+			<field name="parent_id" ref="damage_type01"/>
+			<field name="description">15000 мото-цагийн их засвар</field>
+		</record>
+		
+		<!-- Code 1000 ENGINE -->
+		<record id="damage_type1000" model="maintenance.damaged.type">
+			<field name="name">ENGINE</field>
+			<field name="code">1000</field>
+			<field name="description">Хөдөлгүүр</field>
+		</record>
+		<record id="damage_type1051" model="maintenance.damaged.type">
+			<field name="name">AIR CLEANER</field>
+			<field name="code">1051</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Агаар шүүгч</field>
+		</record>
+		<record id="damage_type1052" model="maintenance.damaged.type">
+			<field name="name">TURBOCHARGER</field>
+			<field name="code">1052</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Турбин</field>
+		</record>
+		<record id="damage_type1063" model="maintenance.damaged.type">
+			<field name="name">AFTERCOOLER</field>
+			<field name="code">1063</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Агаар хөргөгч</field>
+		</record>
+		<record id="damage_type1087" model="maintenance.damaged.type">
+			<field name="name">AIR INLET</field>
+			<field name="code">1087</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Агаарын оруулах хоолой</field>
+		</record>
+		<record id="damage_type1088" model="maintenance.damaged.type">
+			<field name="name">EXHAUST GAS</field>
+			<field name="code">1088</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Утаа гаргах хоолой</field>
+		</record>
+		<record id="damage_type1090" model="maintenance.damaged.type">
+			<field name="name">AIR INLET HEATER</field>
+			<field name="code">1090</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Агаар халаагч</field>
+		</record>
+		<record id="damage_type1101" model="maintenance.damaged.type">
+			<field name="name">CYLINDER HEAD (BARE)</field>
+			<field name="code">1101</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Крышка</field>
+		</record>
+		<record id="damage_type1105" model="maintenance.damaged.type">
+			<field name="name">INLET/EXHAUST VALVE</field>
+			<field name="code">1105</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Оруулах/гаргах клапан</field>
+		</record>
+		<record id="damage_type1106" model="maintenance.damaged.type">
+			<field name="name">PRECHAMBER/NOZZLE ADAPTER</field>
+			<field name="code">1106</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Поршенгийн шатах хөндий</field>
+		</record>
+		<record id="damage_type1121" model="maintenance.damaged.type">
+			<field name="name">VALVE BRIDGE</field>
+			<field name="code">1121</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type1123" model="maintenance.damaged.type">
+			<field name="name">ROCKER ARM</field>
+			<field name="code">1123</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type1124" model="maintenance.damaged.type">
+			<field name="name">CYLINDER HEAD GASKET</field>
+			<field name="code">1124</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Крышканы жийрэг</field>
+		</record>
+		<record id="damage_type1125" model="maintenance.damaged.type">
+			<field name="name">INJECTOR</field>
+			<field name="code">1125</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Инжектор</field>
+		</record>
+		<record id="damage_type1151" model="maintenance.damaged.type">
+			<field name="name">FRONT COVER/HOUSING</field>
+			<field name="code">1151</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Хөдөлгүүрийн урд таг</field>
+		</record>
+		<record id="damage_type1152" model="maintenance.damaged.type">
+			<field name="name">ENGINE MOUNT</field>
+			<field name="code">1152</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Хөдөлгүүрийн лап</field>
+		</record>
+		<record id="damage_type1156" model="maintenance.damaged.type">
+			<field name="name">FLYWHEEL</field>
+			<field name="code">1156</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Маховик</field>
+		</record>
+		<record id="damage_type1157" model="maintenance.damaged.type">
+			<field name="name">FLYWHEEL HOUSING</field>
+			<field name="code">1157</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Маховикны арьс</field>
+		</record>
+		<record id="damage_type1158" model="maintenance.damaged.type">
+			<field name="name">FLYWHEEL RING GEAR</field>
+			<field name="code">1158</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Маховикны цагариг араа</field>
+		</record>
+		<record id="damage_type1160" model="maintenance.damaged.type">
+			<field name="name">CRANKSHAFT FRONT SEAL</field>
+			<field name="code">1160</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Тахир голын урд сальник</field>
+		</record>
+		<record id="damage_type1161" model="maintenance.damaged.type">
+			<field name="name">CRANKSHAFT REAR SEAL</field>
+			<field name="code">1161</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type1162" model="maintenance.damaged.type">
+			<field name="name">TIMING GEAR HOUSING</field>
+			<field name="code">1162</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Хөдөлгүүрийн гал тохируулгын арьс</field>
+		</record>
+		<record id="damage_type1201" model="maintenance.damaged.type">
+			<field name="name">CYLINDER BLOCK</field>
+			<field name="code">1201</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Блок</field>
+		</record>
+		<record id="damage_type1202" model="maintenance.damaged.type">
+			<field name="name">CRANKSHAFT</field>
+			<field name="code">1202</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Тахир гол</field>
+		</record>
+		<record id="damage_type1210" model="maintenance.damaged.type">
+			<field name="name">CAMSHAFT</field>
+			<field name="code">1210</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Нударган гол</field>
+		</record>
+		<record id="damage_type1214" model="maintenance.damaged.type">
+			<field name="name">PISTON</field>
+			<field name="code">1214</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Поршень</field>
+		</record>
+		<record id="damage_type1216" model="maintenance.damaged.type">
+			<field name="name">CYLINDER LINER</field>
+			<field name="code">1216</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Гильз</field>
+		</record>
+		<record id="damage_type1230" model="maintenance.damaged.type">
+			<field name="name">CRANKSHAFT MAIN and ROD BEARING</field>
+			<field name="code">1230</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Тахир голын холхивч</field>
+		</record>
+		<record id="damage_type1803" model="maintenance.damaged.type">
+			<field name="name">AIR COMPRESSOR</field>
+			<field name="code">1803</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Компрессор</field>
+		</record>
+		<record id="damage_type1804" model="maintenance.damaged.type">
+			<field name="name">AIR COMPRESSOR GOVERNOR</field>
+			<field name="code">1804</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Компрессорын тохируулагч хавхлага</field>
+		</record>
+		<record id="damage_type1808" model="maintenance.damaged.type">
+			<field name="name">AIR CONDITIONER LINES</field>
+			<field name="code">1808</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Хөргөлтийн системийн хоолой</field>
+		</record>
+		<record id="damage_type1812" model="maintenance.damaged.type">
+			<field name="name">HEATER HOSE/LINES</field>
+			<field name="code">1812</field>
+			<field name="parent_id" ref="damage_type1000"/>
+			<field name="description">Халаагчийн хоолой, шугам</field>
+		</record>
+	
+		<!-- CODE 1250 FUEL SYSTEM  -->
+		<record id="damage_type1250" model="maintenance.damaged.type">
+			<field name="name">FUEL SYSTEM</field>
+			<field name="code">1250</field>
+			<field name="description">Түлшний систем</field>
+		</record>
+		<record id="damage_type1251" model="maintenance.damaged.type">
+			<field name="name">FUEL INJECTION PUMP</field>
+			<field name="code">1251</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний насос</field>
+		</record>
+		<record id="damage_type1252" model="maintenance.damaged.type">
+			<field name="name">FUEL INJECTION LINES</field>
+			<field name="code">1252</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний шугам</field>
+		</record>
+		<record id="damage_type1256" model="maintenance.damaged.type">
+			<field name="name">FUEL TRANSFER PUMP</field>
+			<field name="code">1256</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний хөөх насос</field>
+		</record>
+		<record id="damage_type1258" model="maintenance.damaged.type">
+			<field name="name">FUEL PRIMING PUMP</field>
+			<field name="code">1258</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний насос</field>
+		</record>
+		<record id="damage_type1259" model="maintenance.damaged.type">
+			<field name="name">FUEL SHUTOFF SOLENOID</field>
+			<field name="code">1259</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Албадан унтраагч</field>
+		</record>
+		<record id="damage_type1260" model="maintenance.damaged.type">
+			<field name="name">PRIMARY FUEL FILTER</field>
+			<field name="code">1260</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний шүүр</field>
+		</record>
+		<record id="damage_type1262" model="maintenance.damaged.type">
+			<field name="name">FUEL FILTER HOUSING/BASE</field>
+			<field name="code">1262</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний шүүрний суурь</field>
+		</record>
+		<record id="damage_type1263" model="maintenance.damaged.type">
+			<field name="name">WATER SEPARATOR</field>
+			<field name="code">1263</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний тунгаагуур</field>
+		</record>
+		<record id="damage_type1264" model="maintenance.damaged.type">
+			<field name="name">GOVERNOR</field>
+			<field name="code">1264</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type1273" model="maintenance.damaged.type">
+			<field name="name">FUEL TANK</field>
+			<field name="code">1273</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний банк</field>
+		</record>
+		<record id="damage_type1274" model="maintenance.damaged.type">
+			<field name="name">FUEL SUPPLY/RETURN LINES</field>
+			<field name="code">1274</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний ирэх, буцахын шугам</field>
+		</record>
+		<record id="damage_type1718" model="maintenance.damaged.type">
+			<field name="name">FUEL PRESSURE SENSOR</field>
+			<field name="code">1718</field>
+			<field name="parent_id" ref="damage_type1250"/>
+			<field name="description">Түлшний даралт мэдрэгч</field>
+		</record>
+
+		<!-- CODE 1300 LUBRICATION SYSTEM  -->
+		<record id="damage_type1300" model="maintenance.damaged.type">
+			<field name="name">LUBRICATION SYSTEM</field>
+			<field name="code">1300</field>
+			<field name="description">Тосолгооны систем</field>
+		</record>
+		<record id="damage_type1302" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL PAN</field>
+			<field name="code">1302</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн кастер</field>
+		</record>
+		<record id="damage_type1304" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL PUMP</field>
+			<field name="code">1304</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн тосны насос</field>
+		</record>
+		<record id="damage_type1306" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL FILTER HOUSING/BASE</field>
+			<field name="code">1306</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн тосны шүүрний суурь</field>
+		</record>
+		<record id="damage_type1307" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL LINES</field>
+			<field name="code">1307</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн тосны шугам</field>
+		</record>
+		<record id="damage_type1308" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL FILTER</field>
+			<field name="code">1308</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн тосны шүүр</field>
+		</record>
+		<record id="damage_type1314" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL COOLER BYPASS VALVE</field>
+			<field name="code">1314</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн тосны хөргөлтийн хавхлага</field>
+		</record>
+		<record id="damage_type1315" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL PRESSURE RELIEF VALVE</field>
+			<field name="code">1315</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн тосны даралтын хавхлага</field>
+		</record>
+		<record id="damage_type1317" model="maintenance.damaged.type">
+			<field name="name">CRANKCASE BREATHER</field>
+			<field name="code">1317</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Амьсгалагч</field>
+		</record>
+		<record id="damage_type1319" model="maintenance.damaged.type">
+			<field name="name">PRELUBRICATION PUMP</field>
+			<field name="code">1319</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Дуудах насос</field>
+		</record>
+		<record id="damage_type1326" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL LEVEL GAUGE/DIPSTICK</field>
+			<field name="code">1326</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Хөдөлгүүрийн тосны шүб</field>
+		</record>
+		<record id="damage_type7510" model="maintenance.damaged.type">
+			<field name="name">GREASE LINES</field>
+			<field name="code">7510</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Товудны шугам</field>
+		</record>
+		<record id="damage_type7516" model="maintenance.damaged.type">
+			<field name="name">LUBRICATION PUMP</field>
+			<field name="code">7516</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Тосолгооны насос</field>
+		</record>
+		<record id="damage_type7517" model="maintenance.damaged.type">
+			<field name="name">LUBRICATING OIL LINES</field>
+			<field name="code">7517</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Тосолгооны шугам</field>
+		</record>
+		<record id="damage_type7540" model="maintenance.damaged.type">
+			<field name="name">AUTOMATIC LUBRICATION SYSTEM</field>
+			<field name="code">7540</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Автомат тосолгооны систем</field>
+		</record>
+		<record id="damage_type7542" model="maintenance.damaged.type">
+			<field name="name">SOS</field>
+			<field name="code">7542</field>
+			<field name="parent_id" ref="damage_type1300"/>
+			<field name="description">Тосны дээжний шинжилгээ</field>
+		</record>
+
+		<!-- CODE 1350 ENGINE COOLING SYSTEM  -->
+		<record id="damage_type1350" model="maintenance.damaged.type">
+			<field name="name">ENGINE COOLING SYSTEM</field>
+			<field name="code">1350</field>
+			<field name="description">Хөдөлгүүрийн хөргөлтийн систем</field>
+		</record>
+		<record id="damage_type1353" model="maintenance.damaged.type">
+			<field name="name">RADIATOR</field>
+			<field name="code">1353</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Радиатор</field>
+		</record>
+		<record id="damage_type1355" model="maintenance.damaged.type">
+			<field name="name">THERMOSTAT/WATER TEMPERATURE REGULATOR</field>
+			<field name="code">1355</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Термостат/усны температур тохируулагч</field>
+		</record>
+		<record id="damage_type1356" model="maintenance.damaged.type">
+			<field name="name">FAN</field>
+			<field name="code">1356</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Сэнс</field>
+		</record>
+		<record id="damage_type1357" model="maintenance.damaged.type">
+			<field name="name">V-BELT(S)</field>
+			<field name="code">1357</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Ремень</field>
+		</record>
+		<record id="damage_type1358" model="maintenance.damaged.type">
+			<field name="name">BELT TENSIONER</field>
+			<field name="code">1358</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Ремень чангалагч</field>
+		</record>
+		<record id="damage_type1359" model="maintenance.damaged.type">
+			<field name="name">FAN DRIVE</field>
+			<field name="code">1359</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Сэнсний хөтлөгч</field>
+		</record>
+		<record id="damage_type1361" model="maintenance.damaged.type">
+			<field name="name">WATER PUMP</field>
+			<field name="code">1361</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Усны насос</field>
+		</record>
+		<record id="damage_type1365" model="maintenance.damaged.type">
+			<field name="name">BRAKE/AXLE OIL COOLER</field>
+			<field name="code">1365</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Тормоз/тэнхлэгний тосны хөргүүр</field>
+		</record>
+		<record id="damage_type1370" model="maintenance.damaged.type">
+			<field name="name">COOLING SYSTEM RELIEF VALVE</field>
+			<field name="code">1370</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Хөргөтийн системийн хавхлага</field>
+		</record>
+		<record id="damage_type1372" model="maintenance.damaged.type">
+			<field name="name">DRAIN VALVE</field>
+			<field name="code">1372</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Юүлэх хавхлага</field>
+		</record>
+		<record id="damage_type1374" model="maintenance.damaged.type">
+			<field name="name">HYDRAULIC OIL COOLER</field>
+			<field name="code">1374</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Гидро системийн хөргүүр</field>
+		</record>
+		<record id="damage_type1375" model="maintenance.damaged.type">
+			<field name="name">TORQUE CONVERTER/TRANSMISSION OIL COOLER</field>
+			<field name="code">1375</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Тосны хөргүүр</field>
+		</record>
+		<record id="damage_type1377" model="maintenance.damaged.type">
+			<field name="name">RADIATOR TANK</field>
+			<field name="code">1377</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Радиаорын бак</field>
+		</record>
+		<record id="damage_type1378" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL COOLER</field>
+			<field name="code">1378</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Хөдөлгүүрийн тосны хөргүүр</field>
+		</record>
+		<record id="damage_type1380" model="maintenance.damaged.type">
+			<field name="name">COOLANT HOSE/LINES</field>
+			<field name="code">1380</field>
+			<field name="parent_id" ref="damage_type1350"/>
+			<field name="description">Хөргүүрийн хоолой, шугам</field>
+		</record>
+
+		<!-- CODE 1400  ELECTRIC SYSTEM -->
+		<record id="damage_type1400" model="maintenance.damaged.type">
+			<field name="name">ELECTRIC SYSTEM</field>
+			<field name="code">1400</field>
+			<field name="description">Цахилгааны систем</field>
+		</record>
+		<record id="damage_type1401" model="maintenance.damaged.type">
+			<field name="name">BATTERY</field>
+			<field name="code">1401</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Аккумлятор</field>
+		</record>
+		<record id="damage_type1402" model="maintenance.damaged.type">
+			<field name="name">BATTERY CABLE</field>
+			<field name="code">1402</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Аккумуляторын кабель</field>
+		</record>
+		<record id="damage_type1405" model="maintenance.damaged.type">
+			<field name="name">ALTERNATOR</field>
+			<field name="code">1405</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Динам</field>
+		</record>
+		<record id="damage_type1408" model="maintenance.damaged.type">
+			<field name="name">WIRING HARNESS</field>
+			<field name="code">1408</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Цахилгааны утас</field>
+		</record>
+		<record id="damage_type1410" model="maintenance.damaged.type">
+			<field name="name">VOLTAGE REGULATOR</field>
+			<field name="code">1410</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Хүчдэл тохируулагч</field>
+		</record>
+		<record id="damage_type1411" model="maintenance.damaged.type">
+			<field name="name">DISCONNECT SWITCH</field>
+			<field name="code">1411</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Салгагч</field>
+		</record>
+		<record id="damage_type1416" model="maintenance.damaged.type">
+			<field name="name">START SWITCH</field>
+			<field name="code">1416</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Асаалтын унтраалга</field>
+		</record>
+		<record id="damage_type1417" model="maintenance.damaged.type">
+			<field name="name">FUSE/CIRCUIT BREAKER PANEL</field>
+			<field name="code">1417</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Гал хамгаалагч/Хэлхээ таслагч</field>
+		</record>
+		<record id="damage_type1422" model="maintenance.damaged.type">
+			<field name="name">RELAY PANEL</field>
+			<field name="code">1422</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Реле</field>
+		</record>
+		<record id="damage_type1435" model="maintenance.damaged.type">
+			<field name="name">CONTROL SWITCH</field>
+			<field name="code">1435</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Хяналтын унтраалга</field>
+		</record>
+		<record id="damage_type1439" model="maintenance.damaged.type">
+			<field name="name">SENSOR</field>
+			<field name="code">1439</field>
+			<field name="parent_id" ref="damage_type1400"/>
+			<field name="description">Цахилгааны мэдрэгч</field>
+		</record>
+
+		<!-- CODE 1450 STARTING SYSTEM -->
+		<record id="damage_type1450" model="maintenance.damaged.type">
+			<field name="name">STARTING SYSTEM</field>
+			<field name="code">1450</field>
+			<field name="description">Асаалтын систем</field>
+		</record>
+		<record id="damage_type1453" model="maintenance.damaged.type">
+			<field name="name">ELECTRIC STARTING MOTOR</field>
+			<field name="code">1453</field>
+			<field name="parent_id" ref="damage_type1450"/>
+			<field name="description">Стартер</field>
+		</record>
+		<record id="damage_type1456" model="maintenance.damaged.type">
+			<field name="name">ETHER STARTING AID</field>
+			<field name="code">1456</field>
+			<field name="parent_id" ref="damage_type1450"/>
+			<field name="description">Эфир</field>
+		</record>
+		<record id="damage_type1462" model="maintenance.damaged.type">
+			<field name="name">AIR START VALVE</field>
+			<field name="code">1462</field>
+			<field name="parent_id" ref="damage_type1450"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE 1900 ENGINE ELECTRONIC CONTROL SYSTEM  -->
+		<record id="damage_type1900" model="maintenance.damaged.type">
+			<field name="name">ENGINE ELECTRONIC CONTROL SYSTEM</field>
+			<field name="code">1900</field>
+			<field name="description">Хөдөлгүүрийн хяналтын систем</field>
+		</record>
+		<record id="damage_type1901" model="maintenance.damaged.type">
+			<field name="name">ENGINE ELECTRONIC CONTROL MODULE</field>
+			<field name="code">1901</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">ЕСМ</field>
+		</record>
+		<record id="damage_type1906" model="maintenance.damaged.type">
+			<field name="name">WATER TEMPERATURE SENSOR</field>
+			<field name="code">1906</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Усны температур мэдрэгч</field>
+		</record>
+		<record id="damage_type1907" model="maintenance.damaged.type">
+			<field name="name">ENGINE SPEED SENSOR</field>
+			<field name="code">1907</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Хөдөлгүүрийн эргэлт мэдрэгч</field>
+		</record>
+		<record id="damage_type1912" model="maintenance.damaged.type">
+			<field name="name">ENGINE SPEED/TIMING SENSOR</field>
+			<field name="code">1912</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type1913" model="maintenance.damaged.type">
+			<field name="name">THROTTLE POSITION SENSOR</field>
+			<field name="code">1913</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Хаазны байрлал мэдрэгч</field>
+		</record>
+		<record id="damage_type1916" model="maintenance.damaged.type">
+			<field name="name">CRANKCASE PRESSURE SENSOR</field>
+			<field name="code">1916</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type1917" model="maintenance.damaged.type">
+			<field name="name">BOOST PRESSURE SENSOR</field>
+			<field name="code">1917</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Агаарын даралт мэдрэгч</field>
+		</record>
+		<record id="damage_type1919" model="maintenance.damaged.type">
+			<field name="name">EXHAUST TEMPERATURE SENSOR</field>
+			<field name="code">1919</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Гарах агаарын температур мэдрэгч</field>
+		</record>
+		<record id="damage_type1921" model="maintenance.damaged.type">
+			<field name="name">INLET AIR TEMPERATURE SENSOR</field>
+			<field name="code">1921</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Орох агаарын температур мэдрэгч</field>
+		</record>
+		<record id="damage_type1922" model="maintenance.damaged.type">
+			<field name="name">FUEL TEMPERATURE SENSOR</field>
+			<field name="code">1922</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Түлшний температур мэдрэгч</field>
+		</record>
+		<record id="damage_type1923" model="maintenance.damaged.type">
+			<field name="name">ATMOSPHERIC PRESSURE SENSOR</field>
+			<field name="code">1923</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Атмосферийн даралт мэдрэгч</field>
+		</record>
+		<record id="damage_type1924" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL PRESSURE SENSOR</field>
+			<field name="code">1924</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Хөдөлгүүрийн тосны даралт мэдрэгч</field>
+		</record>
+		<record id="damage_type1925" model="maintenance.damaged.type">
+			<field name="name">INJECTION ACTUATION PRESSURE SENSOR</field>
+			<field name="code">1925</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Инжектор идэвхижүүлэлтйин даралт мэдрэгч</field>
+		</record>
+		<record id="damage_type1928" model="maintenance.damaged.type">
+			<field name="name">ATMOSPHERIC TEMPERATURE SENSOR</field>
+			<field name="code">1928</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Атмосферийн температур мэдрэгч</field>
+		</record>
+		<record id="damage_type1929" model="maintenance.damaged.type">
+			<field name="name">ENGINE OIL TEMPERATURE SENSOR</field>
+			<field name="code">1929</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Хөдөлгүүрийн тосны температур мэдрэгч</field>
+		</record>
+		<record id="damage_type1932" model="maintenance.damaged.type">
+			<field name="name">TRANSFER GEAR OIL TEMPERATURE SENSOR</field>
+			<field name="code">1932</field>
+			<field name="parent_id" ref="damage_type1900"/>
+			<field name="description">Араан дамжуулгын тосны температур мэдрэгч</field>
+		</record>
+
+		<!-- CODE 3000 TRANSMISSION & DRIVE LINE  -->
+		<record id="damage_type3000" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION and DRIVE LINE</field>
+			<field name="code">3000</field>
+			<field name="description">Кроп, хөтлөх шугам</field>
+		</record>
+		<record id="damage_type3002" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION and TRANSFER GEARS</field>
+			<field name="code">3002</field>
+			<field name="parent_id" ref="damage_type3000"/>
+			<field name="description">Кропны болон дамжуулах араанууд</field>
+		</record>
+		<record id="damage_type3004" model="maintenance.damaged.type">
+			<field name="name">DRIVE TRAIN OIL FILTER</field>
+			<field name="code">3004</field>
+			<field name="parent_id" ref="damage_type3000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3013" model="maintenance.damaged.type">
+			<field name="name">AXLE ARRANGEMENT</field>
+			<field name="code">3013</field>
+			<field name="parent_id" ref="damage_type3000"/>
+			<field name="description">Тэнхлэг</field>
+		</record>
+		<record id="damage_type3016" model="maintenance.damaged.type">
+			<field name="name">DRIVE TRAIN OIL LINES</field>
+			<field name="code">3016</field>
+			<field name="parent_id" ref="damage_type3000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3017" model="maintenance.damaged.type">
+			<field name="name">DRIVE TRAIN OIL TEMPERATURE SENSOR</field>
+			<field name="code">3017</field>
+			<field name="parent_id" ref="damage_type3000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3020" model="maintenance.damaged.type">
+			<field name="name">DRIVE and STEERING AXLE</field>
+			<field name="code">3020</field>
+			<field name="parent_id" ref="damage_type3000"/>
+			<field name="description">Рулийн аппарат</field>
+		</record>
+
+		<!-- CODE 3030 TRANSMISSION  -->
+		<record id="damage_type3030" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION</field>
+			<field name="code">3030</field>
+			<field name="description">Кроп</field>
+		</record>
+		<record id="damage_type3154" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION LINES/HOSES</field>
+			<field name="code">3154</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны шугам, шланг</field>
+		</record>
+		<record id="damage_type3155" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION CLUTCH</field>
+			<field name="code">3155</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны авцуулах холбоо</field>
+		</record>
+		<record id="damage_type3159" model="maintenance.damaged.type">
+			<field name="name">TRANSFER GEARS</field>
+			<field name="code">3159</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Дамжуулах араанууд</field>
+		</record>
+		<record id="damage_type3160" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION PLANETARY</field>
+			<field name="code">3160</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3166" model="maintenance.damaged.type">
+			<field name="name">ROTARY ACTUATOR</field>
+			<field name="code">3166</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Эргэт идэвхижүүлэгч</field>
+		</record>
+		<record id="damage_type3167" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION HYDRAULIC CONTROL</field>
+			<field name="code">3167</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны гидрийн хянах</field>
+		</record>
+		<record id="damage_type3168" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION ELECTRONIC CONTROL</field>
+			<field name="code">3168</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны цахилгаан хянах</field>
+		</record>
+		<record id="damage_type3174" model="maintenance.damaged.type">
+			<field name="name">SHIFT SOLENOID</field>
+			<field name="code">3174</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Дэвшүүлэх солнойд</field>
+		</record>
+		<record id="damage_type3175" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION SPEED SENSOR</field>
+			<field name="code">3175</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны эргэлт мэдрэгч</field>
+		</record>
+		<record id="damage_type3182" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION LUBRICATION RELIEF VALVE</field>
+			<field name="code">3182</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны тосолгооны хавхлага</field>
+		</record>
+		<record id="damage_type3203" model="maintenance.damaged.type">
+			<field name="name">DRIVE PUMP</field>
+			<field name="code">3203</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3061" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION GEARS</field>
+			<field name="code">3061</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Араанууд</field>
+		</record>
+		<record id="damage_type3064" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION CASE</field>
+			<field name="code">3064</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны арьс</field>
+		</record>
+		<record id="damage_type3065" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION CONTROL</field>
+			<field name="code">3065</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны хянах</field>
+		</record>
+		<record id="damage_type3066" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION OIL PUMP</field>
+			<field name="code">3066</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны тосны насос</field>
+		</record>
+		<record id="damage_type3067" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION OIL FILTER</field>
+			<field name="code">3067</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны тосны шүүр</field>
+		</record>
+		<record id="damage_type3073" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION HYDRAULIC CONTROL VALVE</field>
+			<field name="code">3073</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны гидрийн хавхлага</field>
+		</record>
+		<record id="damage_type3074" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION PRESSURE CONTROL VALVE</field>
+			<field name="code">3074</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны даралтын хавхлага</field>
+		</record>
+		<record id="damage_type3080" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION OIL</field>
+			<field name="code">3080</field>
+			<field name="parent_id" ref="damage_type3030"/>
+			<field name="description">Кропны тос</field>
+		</record>
+		
+		<!-- CODE 3100  TORQUE CONVERTER, TORQUE DIVIDER, RETARDER  -->
+		<!-- <record id="damage_type3101" model="maintenance.damaged.type">
+			<field name="name">TORQUE CONVERTER</field>
+			<field name="code">3101</field>
+			<field name="parent_id" ref="damage_type3100"/>
+			<field name="description">Редуктор</field>
+		</record>
+		<record id="damage_type3105" model="maintenance.damaged.type">
+			<field name="name">TORQUE CONVERTER HOUSING</field>
+			<field name="code">3105</field>
+			<field name="parent_id" ref="damage_type3100"/>
+			<field name="description">Редукторын арьс</field>
+		</record>
+		<record id="damage_type3108" model="maintenance.damaged.type">
+			<field name="name">PUMP DRIVE</field>
+			<field name="code">3108</field>
+			<field name="parent_id" ref="damage_type3100"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3120" model="maintenance.damaged.type">
+			<field name="name">RETARDER</field>
+			<field name="code">3120</field>
+			<field name="parent_id" ref="damage_type3100"/>
+			<field name="description">Удаашруулагч</field>
+		</record>
+		<record id="damage_type3141" model="maintenance.damaged.type">
+			<field name="name">TORQUE CONVERTER SPEED SENSOR</field>
+			<field name="code">3141</field>
+			<field name="parent_id" ref="damage_type3100"/>
+			<field name="description">Редукторын эргэлтийн мэдрэгч</field>
+		</record>
+		<record id="damage_type3142" model="maintenance.damaged.type">
+			<field name="name">AUTOMATIC RETARDER CONTROL</field>
+			<field name="code">3142</field>
+			<field name="parent_id" ref="damage_type3100"/>
+			<field name="description"></field>
+		</record> -->
+
+		<!-- CODE 3250  DRIVE LINE/DRIVE AXLE  -->
+		<record id="damage_type3250" model="maintenance.damaged.type">
+			<field name="name">DRIVE LINE/DRIVE AXLE</field>
+			<field name="code">3250</field>
+			<field name="description">Хөтлөх шугам, хөтлөх тэнхлэг</field>
+		</record>
+		<record id="damage_type3251" model="maintenance.damaged.type">
+			<field name="name">UNIVERSAL JOINT</field>
+			<field name="code">3251</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Чагтан гол</field>
+		</record>
+		<record id="damage_type3253" model="maintenance.damaged.type">
+			<field name="name">DRIVE SHAFT</field>
+			<field name="code">3253</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Кардан гол</field>
+		</record>
+		<record id="damage_type3256" model="maintenance.damaged.type">
+			<field name="name">BEVEL GEAR/SHAFT</field>
+			<field name="code">3256</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Конус араа</field>
+		</record>
+		<record id="damage_type3258" model="maintenance.damaged.type">
+			<field name="name">DIFFERENTIAL</field>
+			<field name="code">3258</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Дифференциал</field>
+		</record>
+		<record id="damage_type3260" model="maintenance.damaged.type">
+			<field name="name">AXLE HOUSING ASSEMBLY</field>
+			<field name="code">3260</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Тэнхлэгний арьс /чулак/</field>
+		</record>
+		<record id="damage_type3281" model="maintenance.damaged.type">
+			<field name="name">BEVEL GEAR CASE</field>
+			<field name="code">3281</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Конус арааны арьс</field>
+		</record>
+		<record id="damage_type3282" model="maintenance.damaged.type">
+			<field name="name">AXLE</field>
+			<field name="code">3282</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Тэнхлэг</field>
+		</record>
+		<record id="damage_type3283" model="maintenance.damaged.type">
+			<field name="name">DIFFERENTIAL CASE</field>
+			<field name="code">3283</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Дифференциалын арьс</field>
+		</record>
+		<record id="damage_type3284" model="maintenance.damaged.type">
+			<field name="name">DIFFERENTIAL CARRIER</field>
+			<field name="code">3284</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3288" model="maintenance.damaged.type">
+			<field name="name">ANTI-SPIN CONTROL</field>
+			<field name="code">3288</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type3290" model="maintenance.damaged.type">
+			<field name="name">DIFFERENTIAL TEMPERATURE SENSOR</field>
+			<field name="code">3290</field>
+			<field name="parent_id" ref="damage_type3250"/>
+			<field name="description">Дифференциалын температур мэдрэгч</field>
+		</record>
+
+		<!-- CODE 4000  DRIVE LINE/DRIVE AXLE  -->
+		<record id="damage_type4000" model="maintenance.damaged.type">
+			<field name="name">DRIVE TRAIN</field>
+			<field name="code">4000</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4006" model="maintenance.damaged.type">
+			<field name="name">WHEEL and BRAKE ASSEMBLY</field>
+			<field name="code">4006</field>
+			<field name="parent_id" ref="damage_type4000"/>
+			<field name="description">Дугуй, тормоз</field>
+		</record>
+		<record id="damage_type4808" model="maintenance.damaged.type">
+			<field name="name">DRIVE TRAIN ELECTRONIC CONTROL MODULE (PREPROGRAMMED)</field>
+			<field name="code">4808</field>
+			<field name="parent_id" ref="damage_type4000"/>
+			<field name="description">Хөтлөгчийн ЕСМ</field>
+		</record>
+
+		<!-- CODE 4050  FINAL DRIVE  -->
+		<!-- <record id="damage_type4050" model="maintenance.damaged.type">
+			<field name="name">FINAL DRIVE</field>
+			<field name="code">4050</field>
+			<field name="description">Захын дамжуулагч</field>
+		</record>
+		<record id="damage_type4051" model="maintenance.damaged.type">
+			<field name="name">FINAL DRIVE and WHEEL</field>
+			<field name="code">4051</field>
+			<field name="parent_id" ref="damage_type4050"/>
+			<field name="description">Захын дамжуулагч, дугуй</field>
+		</record>
+		<record id="damage_type4068" model="maintenance.damaged.type">
+			<field name="name">TANDEM DRIVE STUB AXLE</field>
+			<field name="code">4068</field>
+			<field name="parent_id" ref="damage_type4050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4070" model="maintenance.damaged.type">
+			<field name="name">FINAL DRIVE OIL/FILTER</field>
+			<field name="code">4070</field>
+			<field name="parent_id" ref="damage_type4050"/>
+			<field name="description">захын дамжуулагчийн тос, шүүр</field>
+		</record>
+		<record id="damage_type4084" model="maintenance.damaged.type">
+			<field name="name">FINAL DRIVE PLANETARY CARRIERS, HUB and RING GEAR</field>
+			<field name="code">4084</field>
+			<field name="parent_id" ref="damage_type4050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4095" model="maintenance.damaged.type">
+			<field name="name">DRIVE TRAIN RELIEF VALVE</field>
+			<field name="code">4095</field>
+			<field name="parent_id" ref="damage_type4050"/>
+			<field name="description"></field>
+		</record> -->
+
+		<!-- CODE 4150  UNDERCARRIAGE  -->
+		<record id="damage_type4150" model="maintenance.damaged.type">
+			<field name="name">UNDERCARRIAGE</field>
+			<field name="code">4150</field>
+			<field name="description">Явах анги</field>
+		</record>
+		<record id="damage_type4159" model="maintenance.damaged.type">
+			<field name="name">IDLER/IDLER WHEEL</field>
+			<field name="code">4159</field>
+			<field name="parent_id" ref="damage_type4150"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4180" model="maintenance.damaged.type">
+			<field name="name">TRACK ROLLER</field>
+			<field name="code">4180</field>
+			<field name="parent_id" ref="damage_type4150"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE 4200  WHEEL & TIRE  -->
+		<record id="damage_type4200" model="maintenance.damaged.type">
+			<field name="name">WHEEL and TIRE</field>
+			<field name="code">4200</field>
+			<field name="description">Дугуй</field>
+		</record>
+		<record id="damage_type4201" model="maintenance.damaged.type">
+			<field name="name">WHEEL</field>
+			<field name="code">4201</field>
+			<field name="parent_id" ref="damage_type4200"/>
+			<field name="description">Дугуй</field>
+		</record>
+		<record id="damage_type4202" model="maintenance.damaged.type">
+			<field name="name">RIM and TIRE</field>
+			<field name="code">4202</field>
+			<field name="parent_id" ref="damage_type4200"/>
+			<field name="description">Обуд</field>
+		</record>
+		<record id="damage_type4203" model="maintenance.damaged.type">
+			<field name="name">TIRE</field>
+			<field name="code">4203</field>
+			<field name="parent_id" ref="damage_type4200"/>
+			<field name="description">Покрышка</field>
+		</record>
+
+		<!-- CODE 4250  WHEEL & TIRE  -->
+		<record id="damage_type4250" model="maintenance.damaged.type">
+			<field name="name">BRAKING SYSTEM</field>
+			<field name="code">4250</field>
+			<field name="description">Тормозны систем</field>
+		</record>
+		<record id="damage_type4251" model="maintenance.damaged.type">
+			<field name="name">SERVICE BRAKE</field>
+			<field name="code">4251</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description">Ажлын тормоз</field>
+		</record>
+		<record id="damage_type4254" model="maintenance.damaged.type">
+			<field name="name">BRAKE LINING</field>
+			<field name="code">4254</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description">Наклад</field>
+		</record>
+		<record id="damage_type4255" model="maintenance.damaged.type">
+			<field name="name">BRAKE DISC</field>
+			<field name="code">4255</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description">Диск</field>
+		</record>
+		<record id="damage_type4256" model="maintenance.damaged.type">
+			<field name="name">BRAKE CALIPER, HEAD ASSEMBLY</field>
+			<field name="code">4256</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4257" model="maintenance.damaged.type">
+			<field name="name">BRAKE LINES</field>
+			<field name="code">4257</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description">Тормозны шугам</field>
+		</record>
+		<record id="damage_type4258" model="maintenance.damaged.type">
+			<field name="name">BRAKE MASTER CYLINDER</field>
+			<field name="code">4258</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description">Мастер цилиндр</field>
+		</record>
+		<record id="damage_type4260" model="maintenance.damaged.type">
+			<field name="name">WHEEL CYLINDER</field>
+			<field name="code">4260</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4263" model="maintenance.damaged.type">
+			<field name="name">BRAKE ACCUMULATOR</field>
+			<field name="code">4263</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4267" model="maintenance.damaged.type">
+			<field name="name">PARKING BRAKE</field>
+			<field name="code">4267</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description">Зогсоолын тормоз</field>
+		</record>
+		<record id="damage_type4273" model="maintenance.damaged.type">
+			<field name="name">FRICTION PADS</field>
+			<field name="code">4273</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description">Перда диск</field>
+		</record>
+		<record id="damage_type4278" model="maintenance.damaged.type">
+			<field name="name">SECONDARY BRAKE SYSTEM</field>
+			<field name="code">4278</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4285" model="maintenance.damaged.type">
+			<field name="name">AIR DRYER</field>
+			<field name="code">4285</field>
+			<field name="parent_id" ref="damage_type4250"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE 4300  STEERING SYSTEM  -->
+		<record id="damage_type4300" model="maintenance.damaged.type">
+			<field name="name">STEERING SYSTEM</field>
+			<field name="code">4300</field>
+			<field name="description">Жолооны систем</field>
+		</record>
+		<record id="damage_type4301" model="maintenance.damaged.type">
+			<field name="name">STEERING GEAR</field>
+			<field name="code">4301</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4303" model="maintenance.damaged.type">
+			<field name="name">STEERING CYLINDER</field>
+			<field name="code">4303</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4304" model="maintenance.damaged.type">
+			<field name="name">STEERING LINES/HOSES</field>
+			<field name="code">4304</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4305" model="maintenance.damaged.type">
+			<field name="name">STEERING LINKAGE</field>
+			<field name="code">4305</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4306" model="maintenance.damaged.type">
+			<field name="name">STEERING PUMP</field>
+			<field name="code">4306</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4310" model="maintenance.damaged.type">
+			<field name="name">STEERING COLUMN</field>
+			<field name="code">4310</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4312" model="maintenance.damaged.type">
+			<field name="name">STEERING METERING PUMP</field>
+			<field name="code">4312</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4318" model="maintenance.damaged.type">
+			<field name="name">TIE ROD</field>
+			<field name="code">4318</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4322" model="maintenance.damaged.type">
+			<field name="name">STEERING RELIEF VALVE</field>
+			<field name="code">4322</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type4324" model="maintenance.damaged.type">
+			<field name="name">SECONDARY STEERING PUMP</field>
+			<field name="code">4324</field>
+			<field name="parent_id" ref="damage_type4300"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE 5000  IMPLEMENT CONTROLS  -->
+		<record id="damage_type5000" model="maintenance.damaged.type">
+			<field name="name">IMPLEMENT CONTROLS</field>
+			<field name="code">5000</field>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE 5050  IMPLEMENT CONTROLS  -->
+		<record id="damage_type5050" model="maintenance.damaged.type">
+			<field name="name">HYDRAULIC SYSTEM</field>
+			<field name="code">5050</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5051" model="maintenance.damaged.type">
+			<field name="name">HYDRAULIC CONTROL VALVE</field>
+			<field name="code">5051</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5057" model="maintenance.damaged.type">
+			<field name="name">HYDRAULIC HOSES/LINES</field>
+			<field name="code">5057</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5063" model="maintenance.damaged.type">
+			<field name="name">IMPLEMENT CONTROL</field>
+			<field name="code">5063</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5083" model="maintenance.damaged.type">
+			<field name="name">HYDRAULIC HOIST PUMP</field>
+			<field name="code">5083</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5097" model="maintenance.damaged.type">
+			<field name="name">HYDRAULIC OIL TEMPERATURE SENSOR</field>
+			<field name="code">5097</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5070" model="maintenance.damaged.type">
+			<field name="name">PISTON PUMP</field>
+			<field name="code">5070</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5061" model="maintenance.damaged.type">
+			<field name="name">GEAR MOTOR</field>
+			<field name="code">5061</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5067" model="maintenance.damaged.type">
+			<field name="name">CHECK VALVE</field>
+			<field name="code">5067</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5102" model="maintenance.damaged.type">
+			<field name="name">LIFT/HOIST CYLINDER</field>
+			<field name="code">5102</field>
+			<field name="parent_id" ref="damage_type5050"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE 5500  AIR CONTROL SYSTEM  -->
+		<record id="damage_type5500" model="maintenance.damaged.type">
+			<field name="name">AIR CONTROL SYSTEM</field>
+			<field name="code">5500</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5509" model="maintenance.damaged.type">
+			<field name="name">AIR HORN CONTROL VALVE</field>
+			<field name="code">5509</field>
+			<field name="parent_id" ref="damage_type5500"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type5512" model="maintenance.damaged.type">
+			<field name="name">AIR PRESSURE SWITCH</field>
+			<field name="code">5512</field>
+			<field name="parent_id" ref="damage_type5500"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE  6000  IMPLEMENTS -->
+		<record id="damage_type6000" model="maintenance.damaged.type">
+			<field name="name">IMPLEMENTS</field>
+			<field name="code">6000</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type6060" model="maintenance.damaged.type">
+			<field name="name">BLADE /bulldozer/</field>
+			<field name="code">6060</field>
+			<field name="parent_id" ref="damage_type6000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type6700" model="maintenance.damaged.type">
+			<field name="name">WORK TOOL</field>
+			<field name="code">6700</field>
+			<field name="parent_id" ref="damage_type6000"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type6800" model="maintenance.damaged.type">
+			<field name="name">GROUND ENGAGING TOOLS (GET)</field>
+			<field name="code">6800</field>
+			<field name="parent_id" ref="damage_type6000"/>
+			<field name="description">Газартай харьцах эд анги</field>
+		</record>
+		<record id="damage_type7006" model="maintenance.damaged.type">
+			<field name="name">TRUCK</field>
+			<field name="code">7006</field>
+			<field name="parent_id" ref="damage_type6000"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE  7050  FRAME -->
+		<record id="damage_type7050" model="maintenance.damaged.type">
+			<field name="name">FRAME</field>
+			<field name="code">7050</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7063" model="maintenance.damaged.type">
+			<field name="name">SWING GEAR/BEARING</field>
+			<field name="code">7063</field>
+			<field name="parent_id" ref="damage_type7050"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7051" model="maintenance.damaged.type">
+			<field name="name">MAIN FRAME</field>
+			<field name="code">7051</field>
+			<field name="parent_id" ref="damage_type7050"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE  7150  GUARD -->
+		<record id="damage_type7150" model="maintenance.damaged.type">
+			<field name="name">GUARD</field>
+			<field name="code">7150</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7151" model="maintenance.damaged.type">
+			<field name="name">CRANKCASE GUARD</field>
+			<field name="code">7151</field>
+			<field name="parent_id" ref="damage_type7150"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7153" model="maintenance.damaged.type">
+			<field name="name">BOTTOM GUARD</field>
+			<field name="code">7153</field>
+			<field name="parent_id" ref="damage_type7150"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7155" model="maintenance.damaged.type">
+			<field name="name">RADIATOR GUARD</field>
+			<field name="code">7155</field>
+			<field name="parent_id" ref="damage_type7150"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7192" model="maintenance.damaged.type">
+			<field name="name">WHEEL CHOCK</field>
+			<field name="code">7192</field>
+			<field name="parent_id" ref="damage_type7150"/>
+			<field name="description"></field>
+		</record>
+
+
+		<!-- CODE  7200  SUSPENSION -->
+		<record id="damage_type7200" model="maintenance.damaged.type">
+			<field name="name">SUSPENSION</field>
+			<field name="code">7200</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7201" model="maintenance.damaged.type">
+			<field name="name">SUSPENSION CYLINDER</field>
+			<field name="code">7201</field>
+			<field name="parent_id" ref="damage_type7200"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7203" model="maintenance.damaged.type">
+			<field name="name">PANHARD/STABILIZER ROD </field>
+			<field name="code">7203</field>
+			<field name="parent_id" ref="damage_type7200"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7213" model="maintenance.damaged.type">
+			<field name="name">REAR SUSPENSION CYLINDER </field>
+			<field name="code">7213</field>
+			<field name="parent_id" ref="damage_type7200"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7220" model="maintenance.damaged.type">
+			<field name="name">AUTOMATIC GRADE CONTROL </field>
+			<field name="code">7220</field>
+			<field name="parent_id" ref="damage_type7200"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7227" model="maintenance.damaged.type">
+			<field name="name">SUSPENSION LEVELING SYSTEM </field>
+			<field name="code">7227</field>
+			<field name="parent_id" ref="damage_type7200"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7230" model="maintenance.damaged.type">
+			<field name="name">SUSPENSION LINK </field>
+			<field name="code">7230</field>
+			<field name="parent_id" ref="damage_type7200"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE  7250   -->
+		<record id="damage_type7250" model="maintenance.damaged.type">
+			<field name="name">BODY</field>
+			<field name="code">7250</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7251" model="maintenance.damaged.type">
+			<field name="name">HOOD</field>
+			<field name="code">7251</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7252" model="maintenance.damaged.type">
+			<field name="name">FENDER</field>
+			<field name="code">7252</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7253" model="maintenance.damaged.type">
+			<field name="name">PLATFORM/DECK</field>
+			<field name="code">7253</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7254" model="maintenance.damaged.type">
+			<field name="name">LADDER/STEP</field>
+			<field name="code">7254</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7255" model="maintenance.damaged.type">
+			<field name="name">WALKWAY</field>
+			<field name="code">7255</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7256" model="maintenance.damaged.type">
+			<field name="name">HANDRAIL</field>
+			<field name="code">7256</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7258" model="maintenance.damaged.type">
+			<field name="name">DUMP BODY</field>
+			<field name="code">7258</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7266" model="maintenance.damaged.type">
+			<field name="name">ROPS MOUNT</field>
+			<field name="code">7266</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7267" model="maintenance.damaged.type">
+			<field name="name">BODY PANEL</field>
+			<field name="code">7267</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7269" model="maintenance.damaged.type">
+			<field name="name">BODY LINER</field>
+			<field name="code">7269</field>
+			<field name="parent_id" ref="damage_type7250"/>
+			<field name="description"></field>
+		</record>
+
+		<!-- CODE  7300   -->
+		<record id="damage_type7300" model="maintenance.damaged.type">
+			<field name="name">OPERATOR STATION</field>
+			<field name="code">7300</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7301" model="maintenance.damaged.type">
+			<field name="name">CAB</field>
+			<field name="code">7301</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7304" model="maintenance.damaged.type">
+			<field name="name">CAB HEATER</field>
+			<field name="code">7304</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7305" model="maintenance.damaged.type">
+			<field name="name">WINDOW WIPER</field>
+			<field name="code">7305</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7306" model="maintenance.damaged.type">
+			<field name="name">WINDSHIELD WASHER</field>
+			<field name="code">7306</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7307" model="maintenance.damaged.type">
+			<field name="name">SEAT/ARM CUSHION</field>
+			<field name="code">7307</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7308" model="maintenance.damaged.type">
+			<field name="name">CAB DOOR</field>
+			<field name="code">7308</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7309" model="maintenance.damaged.type">
+			<field name="name">HEATER and AIR CONDITIONER</field>
+			<field name="code">7309</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7310" model="maintenance.damaged.type">
+			<field name="name">WINDOW GLASS</field>
+			<field name="code">7310</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7312" model="maintenance.damaged.type">
+			<field name="name">SEAT ASSEMBLY</field>
+			<field name="code">7312</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7319" model="maintenance.damaged.type">
+			<field name="name">MIRROR</field>
+			<field name="code">7319</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7327" model="maintenance.damaged.type">
+			<field name="name">SEAT BELT</field>
+			<field name="code">7327</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7338" model="maintenance.damaged.type">
+			<field name="name">ANTENNA</field>
+			<field name="code">7338</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7347" model="maintenance.damaged.type">
+			<field name="name">CAMERA MONITOR</field>
+			<field name="code">7347</field>
+			<field name="parent_id" ref="damage_type7300"/>
+			<field name="description"></field>
+		</record>
+
+
+		<!-- CODE  7400  PROTECTION DEVICES, ALARMS & INDICATORS -->
+		<record id="damage_type7400" model="maintenance.damaged.type">
+			<field name="name">PROTECTION DEVICES, ALARMS and INDICATORS</field>
+			<field name="code">7400</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7402" model="maintenance.damaged.type">
+			<field name="name">WARNING HORN</field>
+			<field name="code">7402</field>
+			<field name="parent_id" ref="damage_type7400"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7406" model="maintenance.damaged.type">
+			<field name="name">BACK-UP ALARM</field>
+			<field name="code">7406</field>
+			<field name="parent_id" ref="damage_type7400"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7419" model="maintenance.damaged.type">
+			<field name="name">FIRE EXTINGUISHER</field>
+			<field name="code">7419</field>
+			<field name="parent_id" ref="damage_type7400"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7422" model="maintenance.damaged.type">
+			<field name="name">LOW LIQUID LEVEL SWITCH/SENSOR</field>
+			<field name="code">7422</field>
+			<field name="parent_id" ref="damage_type7400"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7424" model="maintenance.damaged.type">
+			<field name="name">BODY RETAINING PIN</field>
+			<field name="code">7424</field>
+			<field name="parent_id" ref="damage_type7400"/>
+			<field name="description"></field>
+		</record>
+
+
+		<!-- CODE  7450  GAUGES & INDICATORS -->
+		<record id="damage_type7450" model="maintenance.damaged.type">
+			<field name="name">GAUGES and INDICATORS</field>
+			<field name="code">7450</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7451" model="maintenance.damaged.type">
+			<field name="name">INSTRUMENT PANEL/CONTROL PANEL</field>
+			<field name="code">7451</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description">Багажны самбар, хяналтын самбар</field>
+		</record>
+		<record id="damage_type7459" model="maintenance.damaged.type">
+			<field name="name">TRANSMISSION GEAR/SHIFT INDICATOR</field>
+			<field name="code">7459</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7461" model="maintenance.damaged.type">
+			<field name="name">AIR PRESSURE GAUGE</field>
+			<field name="code">7461</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description">Агаарын даралт хэмжигч</field>
+		</record>
+		<record id="damage_type7462" model="maintenance.damaged.type">
+			<field name="name">TACHOMETER</field>
+			<field name="code">7462</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description">Хөдөлгүүрийн Мото/цаг хэмжигч</field>
+		</record>
+		<record id="damage_type7463" model="maintenance.damaged.type">
+			<field name="name">SPEEDOMETER</field>
+			<field name="code">7463</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description">Хурд хэмжигч</field>
+		</record>
+		<record id="damage_type7478" model="maintenance.damaged.type">
+			<field name="name">SERVICE METER</field>
+			<field name="code">7478</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7481" model="maintenance.damaged.type">
+			<field name="name">FUEL LEVEL GAUGE</field>
+			<field name="code">7481</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description">Түлшний түвшин хэмжигч</field>
+		</record>
+		<record id="damage_type7490" model="maintenance.damaged.type">
+			<field name="name">ELECTRONIC MONITORING SYSTEM/PANEL</field>
+			<field name="code">7490</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7493" model="maintenance.damaged.type">
+			<field name="name">GROUND SPEED SENSOR</field>
+			<field name="code">7493</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7494" model="maintenance.damaged.type">
+			<field name="name">PAYLOAD MONITOR SYSTEM</field>
+			<field name="code">7494</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7498" model="maintenance.damaged.type">
+			<field name="name">THERMOCOUPLE</field>
+			<field name="code">7498</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7499" model="maintenance.damaged.type">
+			<field name="name">MAGNETIC SWITCH</field>
+			<field name="code">7499</field>
+			<field name="parent_id" ref="damage_type7450"/>
+			<field name="description"></field>
+		</record>
+
+
+		<!-- CODE  7550  COMMON SUBJECTS -->
+		<record id="damage_type7550" model="maintenance.damaged.type">
+			<field name="name">COMMON SUBJECTS</field>
+			<field name="code">7550</field>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7551" model="maintenance.damaged.type">
+			<field name="name">BEARINGS</field>
+			<field name="code">7551</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7553" model="maintenance.damaged.type">
+			<field name="name">FASTENERS, CONNECTORS and HARDWARE</field>
+			<field name="code">7553</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7555" model="maintenance.damaged.type">
+			<field name="name">SEALS and GASKETS</field>
+			<field name="code">7555</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7556" model="maintenance.damaged.type">
+			<field name="name">WIRE</field>
+			<field name="code">7556</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7557" model="maintenance.damaged.type">
+			<field name="name">INFORMATION/IDENTIFICATION PLATES and TRANSFERS</field>
+			<field name="code">7557</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7560" model="maintenance.damaged.type">
+			<field name="name">COMPARTMENT FLUID LEVEL</field>
+			<field name="code">7560</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7561" model="maintenance.damaged.type">
+			<field name="name">DUO-CONE SEAL</field>
+			<field name="code">7561</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7562" model="maintenance.damaged.type">
+			<field name="name">HYDRAULIC CYLINDERS</field>
+			<field name="code">7562</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+		<record id="damage_type7569" model="maintenance.damaged.type">
+			<field name="name">TROUBLESHOOTING PROCEDURE</field>
+			<field name="code">7569</field>
+			<field name="parent_id" ref="damage_type7550"/>
+			<field name="description"></field>
+		</record>
+</odoo>

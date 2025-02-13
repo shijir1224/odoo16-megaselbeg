@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+		<!-- Групп нэр -->
+		<record id="group_retire_request_user" model="res.groups">
+			<field name="name">Актлах ажилтан</field>
+			<field name="comment">Актлах хүсэлт илгээх ажилтан</field>
+			<field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+			<field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+		</record>
+
+</odoo>

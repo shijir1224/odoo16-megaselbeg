@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sales plan -->
+    <record id="sale_plan_pr_filter_view" model="ir.ui.view">
+        <field name="name">sale.plan.pr.filter</field>
+        <field name="model">sale.plan.pr</field>
+        <field name="arch" type="xml">
+            <search string="Sales master plan">
+                <field name="year"/>
+                <field name="months"/>
+                <filter string="Ноорог" domain="[('state','=','draft')]" name="draft"/>
+                <filter string="Pr Үүссэн" domain="[('state','in',['confirmed','done'])]" name="confirmed"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'state'}" string="State" name="state"/>
+                    <filter string="Year" context="{'group_by':'year'}" name="year"/>
+                    <!-- <filter string="Month" context="{'group_by':'month'}" name="month"/> -->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Нийт тоо харах -->
+    <record id="sale_plan_pr_line_filter_view" model="ir.ui.view">
+        <field name="name">sale.plan.pr.line.filter</field>
+        <field name="model">sale.plan.pr.line</field>
+        <field name="arch" type="xml">
+            <search string="Sales master plan line">
+                <group expand="1" string="Group By...">
+                    <filter name="product_id" context="{'group_by':'product_id'}" string="Product"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_plan_pr_line_pivot11" model="ir.ui.view">
+         <field name="name">sale.plan.pr.line.pivot</field>
+         <field name="model">sale.plan.pr.line</field>
+         <field name="arch" type="xml">
+             <pivot string="Sales Plan Line" disable_linking="True">
+                <!-- <field name="product_id" type="row"/> -->
+                <field name="product_qty" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+    <record id="action_sale_plan_pr_daily_line_pivot" model="ir.actions.act_window">
+        <field name="name">Total quantity</field>
+        <field name="res_model">sale.plan.pr.line</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="sale_plan_pr_line_pivot11"/>
+        <!-- <field name="domain">[('parent_id','in',active_ids)]</field> -->
+        <field name="context">{}</field>
+    </record>
+
+    <!-- MAIN FORM -->
+    <record id="sale_plan_pr_form_view" model="ir.ui.view">
+        <field name="name">sale.plan.pr.form</field>
+        <field name="model">sale.plan.pr</field>
+        <field name="arch" type="xml">
+            <form string="Sales plan">
+                <header>
+                    <button name="action_to_draft" string="Ноороглох"  states="done"
+                        type="object"/>
+                    <button name="action_to_done" class="oe_highlight" string="4. PR үүсгэх"
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done" readonly="1" />
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button 
+                            class="oe_stat_button" icon="fa-table"
+                            name="view_line_plan"
+                            type="object" string="Төлөвлөгөөний Мөр" >
+                        </button>
+                        <button 
+                            class="oe_stat_button" icon="fa-table"
+                            name="view_line_prepare"
+                            type="object" string="Төлөвлөгөөг Бэлдэх" >
+                        </button>
+                        <button 
+                            class="oe_stat_button" icon="fa-table"
+                            name="view_line"
+                            type="object" string="PR үүсгэх Мөр" >
+                        </button>
+                        <button 
+                            class="oe_stat_button" icon="fa-users"
+                            name="view_pr"
+                            type="object" string="PR Харах" 
+                            attrs="{'invisible': [('pr_line_id','=',False)]}">
+                        </button>
+                    </div>
+                
+                    <group col="4">
+                        <field name="pr_warehouse_id" required="1"/>
+                        <field name="pr_flow_id" required="1"/>
+                        <field name="pr_line_id" invisible="1"/>
+                    </group>
+                    <group col="4">
+                        <field name="year" />
+                        <field name="months" widget="many2many_checkboxes"/>
+                    </group>
+                    <!-- <group col="4">
+                        <field name="months" widget="many2many_tags" groups="base.group_no_one"/>
+                    </group> -->
+                    <group col="4" >
+                        <button name="import_line" string="1. Татах Төлөвлөгөөнөөс"  states="draft" type="object" class="btn-warning"
+                            icon="fa-download" colspan="1"/>
+                        <button name="prepare_bom_line" string="2. Төлөвлөгөөг Бэлдэх"  states="draft" type="object" class="btn-warning"
+                             colspan="1"/>
+                        <button name="create_pr_line" string="3. PR Үүсгэх мөр Бэлдэх"  states="draft" type="object" class="btn-success"
+                            icon="fa-arrow-right" colspan="1"/>
+                        <button name="delete_line" string="Бүх мөр Устгах"  states="draft" type="object" class="btn-danger"
+                            icon="fa-delete" colspan="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Төлөвлөгөөний мөр">
+                            <group col="1">
+                                <field name="line_plan_ids" nolabel="1">
+                                    <tree>
+                                        <field name="product_id" options="{'no_create':True}"/>
+                                        <field name="uom_id"/>
+                                        <field name="product_qty" sum="Нийт"/>
+                                        <field name="bom_id" required="1" domain="[('product_tmpl_id.product_variant_ids','in',[product_id])]"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="product_id" options="{'no_create':True}"/>
+                                            <field name="uom_id"/>
+                                            <field name="product_qty" sum="Нийт"/>
+                                            <field name="bom_id"/>
+                                        </group>
+                                        <group col="1">
+                                            <field name="plan_lines" nolabel="1" readonly="1">
+                                                <tree>
+                                                    <!-- <field name="warehouse_id"/> -->
+                                                    <field name="name"/>
+                                                    <field name="branch_id"/>
+                                                    <field name="product_id"/>
+                                                    <field name="uom_id"/>
+                                                    <field name="qty" sum="Нийт"/>
+                                                    <field name="state"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                        <group col="1" string="Бэлдэгдсэн Барааны Мөр">
+                                            <field name="prepare_lines" nolabel="1">
+                                                <tree editable="bottom">
+                                                    <field name="product_id"/>
+                                                    <field name="pre_uom_id"/>
+                                                    <field name="product_qty" sum="Нийт"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Төлөвлөгөөг Бэлдэх">
+                            <group col="1">
+                                <field name="line_pr_pre_bom_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="product_id" options="{'no_create':True}"/>
+                                        <field name="pre_uom_id"/>
+                                        <field name="product_qty" sum="Нийт"/>
+                                        <field name="plan_pr_pre_line_id"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="product_id" options="{'no_create':True}"/>
+                                            <field name="pre_uom_id"/>
+                                            <field name="product_qty" sum="Нийт"/>
+                                            <field name="plan_pr_pre_line_id"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="PR үүсэх мөр">
+                            <group col="1">
+                                <field name="line_pr_create_ids" nolabel="1" colspan="4" mode="tree,form">
+                                    <tree editable="bottom" decoration-muted="pr_line_id!=False">
+                                        <field name="from_name"/>
+                                        <field name="id" groups="base.group_no_one"/>
+                                        <field name="product_id" options="{'no_create':True}"/>
+                                        <field name="uom_id"/>
+                                        <field name="product_qty" sum="Нийт"/>
+                                        <field name="pr_line_id" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="product_id" options="{'no_create':True}"/>
+                                            <field name="uom_id"/>
+                                            <field name="product_qty" sum="Нийт"/>
+                                            <field name="pr_line_id" readonly="1"/>
+                                        </group>
+                                        <group col="1" string="Бүлэглэгдсэн Төлөвлөгөөний мөр">
+                                            <field name="plan_pr_line_ids" nolabel="1">
+                                                <tree editable="bottom">
+                                                    
+                                                    <field name="product_id"/>
+                                                    <field name="uom_id"/>
+                                                    <field name="product_qty" sum="Нийт"/>
+                                                    <field name="bom_id"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_plan_pr_tree_view" model="ir.ui.view">
+        <field name="name">sale.plan.pr.tree</field>
+        <field name="model">sale.plan.pr</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state=='done'">
+                <field name="year"/>
+                <field name="months"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_sale_plan_pr'>
+        <field name="name">Борлуулалт Төлөвлөгөөнөөс PR Үүгэх</field>
+        <field name="res_model">sale.plan.pr</field>
+        <!-- <field name="context">{'search_default_confirmed': 1}</field> -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_mw_sale_plan_pr" parent="mw_purchase_request.purchase_request_root_menu" action="action_sale_plan_pr" sequence="95"/>
+    
+</odoo>

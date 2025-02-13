@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+point_of_sale.access_product_category_manager,product.category manager,product.model_product_category,point_of_sale.group_pos_manager,1,0,0,0
+mrp.access_product_category_mrp_manager,product.category mrp_manager,product.model_product_category,mrp.group_mrp_manager,1,0,0,0
+purchase.access_product_category_purchase_manager,product.category purchase_manager,product.model_product_category,purchase.group_purchase_manager,1,0,0,0
+sale.access_product_category_sale_manager,product.category salemanager,product.model_product_category,sales_team.group_sale_manager,1,0,0,0
+stock.access_product_category_stock_manager,product.category stock_manager,product.model_product_category,stock.group_stock_manager,1,0,0,0
+mw_product.access_product_product_category,product.category user,product.model_product_category,mw_product.group_stock_product_creating,1,0,0,0
+product.access_product_category_manager,product.category.manager,product.model_product_category,group_stock_product_category_creater,1,1,1,1

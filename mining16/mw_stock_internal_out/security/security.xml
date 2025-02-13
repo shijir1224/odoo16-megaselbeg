@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_mw_stock_internal_out">
+            <field name="name">Агуулах дотоод зардал</field>
+            <field name="sequence">30</field>
+        </record>
+       
+        <!-- Бусад зарлага хийх эрхтэй хүн -->
+        <record id="group_mw_stock_internal_out_user" model="res.groups">
+            <field name="name">Агуулах дотоод зардал хийх</field>
+            <field name="comment">Агуулахад бусад зарлага хийх эрх</field>
+            <field name="category_id" ref="mw_stock_internal_out.module_mw_stock_internal_out"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <record id="group_stock_internal_out_all_user" model="res.groups">
+            <field name="name">Агуулах дотоод зардал Бүгдийг Харах</field>
+            <field name="comment">БМ Шаардах хийх</field>
+            <field name="category_id" ref="mw_stock_internal_out.module_mw_stock_internal_out"/>
+        </record>
+        <record model="ir.rule" id="model_stock_product_interout_company_rule_rule_line">
+            <field name="name">Өөрийн компаниар</field>
+            <field name="model_id" ref="mw_stock_internal_out.model_stock_product_interout"/>
+            <field name="domain_force">['|',('company_id','=', False),('company_id', 'in',company_ids)]</field>
+        </record>
+        
+    </data>
+</odoo>

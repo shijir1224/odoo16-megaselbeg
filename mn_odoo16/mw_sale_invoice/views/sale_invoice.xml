@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_property_form_po_inv" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.po.inv</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+                <group name="sale" position="inside">
+                    <field name="sale_method"/>
+                    <field name="sale_receive_invoice"/>
+                    <field name="post_invoice"/>
+                </group>
+        </field>
+    </record>  
+
+    <record id="sale_view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="name">sale.stock.pickingвwithcarrier.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="sale_id" invisible="1"/>
+            </field>
+            <button name="action_cancel" position="after">
+                <button name="create_invoice_so" string="Баримтаас Нэхэмжлэх" groups="sales_team.group_sale_salesman" attrs="{'invisible':['|',('state','!=','done'),('sale_id','=',False)]}" class="btn-primary" type="object"/>
+            </button>
+        </field>
+    </record>
+</odoo>

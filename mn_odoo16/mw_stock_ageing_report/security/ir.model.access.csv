@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_stock_ageing_report_user,stock.ageing.report.user,model_stock_ageing_report,stock.group_stock_user,1,1,1,1
+access_stock_ageing_report_balance_user,stock.ageing.report.balance.user,model_stock_ageing_report_balance,stock.group_stock_user,1,1,1,1
+access_stock_ageing_wizard_user,stock.ageing.wizard.user,model_stock_ageing_wizard,stock.group_stock_user,1,1,1,1
+access_product_ageing_opening_user,product.ageing.opening.user,model_product_ageing_opening,stock.group_stock_user,1,1,1,1
+access_product_ageing_opening_wizard_user,product.ageing.opening.wizard.user,model_product_ageing_opening_wizard,stock.group_stock_user,1,1,1,1
+
+access_stock_turn_report_user,stock.turn.report,model_stock_turn_report,stock.group_stock_user,1,1,1,1
+access_stock_turn_report_balance1_user,stock.turn.report.balance1,model_stock_turn_report_balance1,stock.group_stock_user,1,1,1,1

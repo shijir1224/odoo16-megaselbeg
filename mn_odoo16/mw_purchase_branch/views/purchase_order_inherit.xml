@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="purchase.purchase_rfq" model="ir.actions.act_window">
+		<field name="name"></field>
+		<field name="domain">[('state','not in',('purchase', 'done')),'|',('branch_id.user_ids', 'in',[uid]), ('branch_id', '=',False)]</field>
+	</record>
+	<record id="purchase.purchase_form_action" model="ir.actions.act_window">
+		<field name="name"></field>
+		<field name="domain">[('state','in',('purchase', 'done')),'|',('branch_id.user_ids', 'in',[uid]), ('branch_id', '=',False)]</field>
+	</record>
+</odoo>

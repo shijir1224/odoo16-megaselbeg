@@ -1,0 +1,121 @@
+@charset "utf-8";
+.oe_form div.oe_mining_history_line {
+  height: 20px;
+  overflow-y: scroll;
+}
+table.o_list_table_hover tr:hover td{
+  background-color: #F3FBDB;
+  padding: -5px;
+}
+
+.oe_salary_dynamic_schedule {
+  overflow-x: none;
+  text-align: center;
+  border-bottom: 1px;
+}
+
+.oe_salary_dynamic_schedule table {
+  width: 100%;
+  border-collapse: collapse;  
+}
+.oe_salary_dynamic_schedule td {
+  text-align: center;
+  border-collapse: collapse;
+  vertical-align: text-bottom;
+  border-bottom: 1px;
+  padding: -5px;
+  background: white;
+  border-bottom: 1px;
+  border-top: 1px;
+  border: 1px solid  #656464;
+}
+
+.oe_salary_dynamic_schedule th {
+  background-color: #c4d79b;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;  
+  padding: -5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000000;
+  border-bottom: 1px;
+  border-top: 1px;
+  border: 1px solid  #656464;
+}
+
+.oe_salary_dynamic_schedule .oe_no_emplo_ident_new {
+  background-color: #c4d79b;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;  
+  padding: -5px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #000000;
+  border-bottom: 1px;
+  border-top: 1px;
+  border: 1px solid  #656464;
+}
+
+.oe_salary_dynamic_schedule .oe_no_emplo_col_number {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;  
+  padding: -5px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #000000;
+  border-bottom: 1px;
+  border-top: 1px;
+  border: 1px solid  #656464;
+}
+
+.oe_salary_dynamic_schedule .oe_no_emplo_col {
+  text-align: left;  
+  font-family: "Times New Roman", Times, serif;
+  padding: -5px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #000000;
+  border-bottom: 1px;
+  border-top: 1px;
+  border: 1px solid  #656464;
+}
+
+.oe_salary_dynamic_schedule .oe_body_col {
+  text-align: right;  
+  font-family: "Times New Roman", Times, serif;
+  padding: -5px;
+  font-size: 12px;
+  color: #000000;
+  border-bottom: 1px;
+  border-top: 1px;
+  border: 1px solid  #656464;
+}
+
+.oe_salary_dynamic_schedule .oe_body_col_new {
+  background-color: #c4d79b;
+  text-align: right;  
+  font-family: "Times New Roman", Times, serif;
+  padding: -5px;
+  font-size: 11px;
+  color: #000000;
+  border-bottom: 1px;
+  border-top: 1px;
+  border: 1px solid  #656464;
+}
+
+.oe_salary_dynamic_schedule .oe_body_col:hover {
+  background-color: #F7FCE7;
+  opacity: 0.5;
+}
+
+
+table.stickyHead thead {
+  position: -webkit-sticky;
+  top: 10px;
+  background: grey;
+}
+
+table.stickyHead td,
+table.stickyHead th {
+  padding: 8px 30px;
+}

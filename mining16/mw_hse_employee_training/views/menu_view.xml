@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<menuitem id="menu_hse_training" name="ХАБ Сургалт, Зааварчилгаа" parent="mw_hse.main_menu_hse"  sequence="12"/>
+		<menuitem id="menu_hse_employee_training" name="ХАБ Сургалт Бүгд" parent="menu_hse_training" action="action_hse_employee_training_core" sequence="1"/>
+        <menuitem id="menu_hse_advance_training" name="Урьдчилсан зааварчилгаа" parent="menu_hse_training" action="action_hse_advance_training" sequence="2"/>
+		<menuitem id="menu_elementary_training" name="Анхан шатны зааварчилгаа" parent="menu_hse_training" action="action_hse_elementary_training" sequence="3"/>
+		<menuitem id="menu_regular_training" name="Ээлжит зааварчилгаа" parent="menu_hse_training" action="action_hse_regularly_training" sequence="4"/>
+		<menuitem id="menu_not_regular_training" name="Ээлжит бус зааварчилгаа" parent="menu_hse_training" action="action_hse_not_regularly_training" sequence="5"/>
+		<menuitem id="menu_planned_training" name="Төлөвлөгөөт сургалт" parent="menu_hse_training" action="action_hse_planned_training" sequence="6"/>
+		<menuitem id="menu_contract_employee_training" name="Гэрээт ажилтны зааварчилгаа" parent="menu_hse_training" action="action_hse_contracted_training" sequence="7"/>
+		<menuitem id="menu_guest_training" name="Зочидын зааварчилгаа" parent="menu_hse_training" action="action_hse_guest_training" sequence="8"/>
+		<menuitem id="hse_employee_daily_instruction" name="Өдөр тутмын зааварчилгаа" parent="menu_hse_training" action="action_hse_employee_daily_instruction" sequence="9"/>
+		<menuitem id="menu_hse_employee_training_line" name="ХАБ Сургалтын мөр" parent="menu_hse_training" action="action_hse_employee_training_line" sequence="10"/>
+		<menuitem id="menu_hse_training_config" name="ХАБ Сургалт, зааварчилгаа" parent="mw_hse.menu_hse_config" sequence="11"/>
+			<menuitem id="menu_hse_training_title" name="ХАБ Сургалтын сэдэв" parent="menu_hse_training_config" action="action_hse_training_title" sequence="1"/>
+		
+</odoo>

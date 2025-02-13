@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mining_dpr_report_wizard" model="ir.ui.view">
+        <field name="name"></field>
+        <field name="model">mining.dpr.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="6">
+                    <field name="date"/>
+                    <field name="branch_id" options="{'no_create':True}"/>
+                </group>
+                <footer>
+                    <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                    <button name="export_report_html" string="Татах HTML" type="object"  
+                        icon="fa-file-excel-o" class="btn-success"/>
+                    <button name="export_report_pdf" string="Татах PDF" type="object"  
+                        icon="fa-file-excel-o" class="btn-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mining_dpr_report" model="ir.actions.act_window">
+        <field name="name">DPR Report print</field>
+        <field name="res_model">mining.dpr.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="mining_dpr_report_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

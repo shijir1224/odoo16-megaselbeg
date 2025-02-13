@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_import_view" model="ir.ui.view">
+		<field name="name">purchase order import</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='order_line']" position="before">
+				<div style="margin-bottom: 10px">
+					<span>
+						<button name="action_export" string="Template Export" type="object" icon="fa-file-excel-o" class="btn-warning" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+					</span>
+					<span style="margin-left: 10px">
+						<field name="import_data" attrs="{'invisible': [('state', '!=', 'draft')]}" nolabel="1"/>
+					</span>
+					<span style="margin-left: 10px">
+						<button name="action_import_line" string="Import" type="object" class="btn btn-success fa fa-download" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+					</span>
+				</div>
+			</xpath>
+		</field>
+	</record>
+</odoo>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Salesman route planner -->
+    <record id="salesman_route_planner_filter_view" model="ir.ui.view">
+        <field name="name">salesman.route.planner.filter</field>
+        <field name="model">salesman.route.planner</field>
+        <field name="arch" type="xml">
+            <search string="Sales contract">
+                <field name="name"/>
+                <field name="description"/>
+                <filter string="Draft" domain="[('state','=','draft')]" name="draft"/>
+                <filter string="Confirmed" domain="[('state','in',['confirmed'])]" name="confirmed"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'salesman_id'}" string="Salesman"
+                            name="salesman"/>
+                    <filter context="{'group_by':'state'}" string="State"
+                            name="state"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- MAIN FORM -->
+    <record id="salesman_route_planner_form_view" model="ir.ui.view">
+        <field name="name">salesman.route.planner.form</field>
+        <field name="model">salesman.route.planner</field>
+        <field name="arch" type="xml">
+            <form string="Salesman Route">
+                <header>
+                    <button name="action_to_draft" string="Draft"
+                            type="object" states="confirmed"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Approve"
+                            states="draft" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                    </div>
+                    <group col="4">
+                        <field name="salesman_id" options="{'no_create': True}"/>
+                        <field name="validator_id"/>
+
+                        <field name="day_type"/>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Routes">
+                            <group col="6">
+                                <field name="line_ids" nolabel="1" widget="one2many_list"
+                                       mode="tree">
+                                    <tree string="Lines" class="table_header_freeze"
+                                          editable="bottom">
+                                        <field name="day_type" invisible="1"/>
+                                        <field name="month_days"
+                                               attrs="{'required':[('parent.day_type','=','monthly')],
+                                            'column_invisible':[('parent.day_type','!=','monthly')]}"/>
+                                        <field name="week_day"
+                                               attrs="{'required':[('parent.day_type','=','weekly')],
+                                            'column_invisible':[('parent.day_type','!=','weekly')]}"/>
+                                        <field name="route_ids" options="{'no_create':True}"
+                                               widget="many2many_tags"/>
+                                        <field name="partner_ids" widget="many2many_tags"
+                                               options="{'no_create':True}"/>
+                                    </tree>
+                                    <form string="Lines">
+                                        <group col="4">
+                                            <field name="day_type"/>
+                                            <field name="month_days"
+                                                   attrs="{'invisible':[('day_type', '!=','monthly')],
+                                                'required':[('day_type','=','monthly')]}"/>
+                                            <field name="week_day"
+                                                   attrs="{'invisible':[('day_type', '!=','weekly')],
+                                                'required':[('day_type','=','weekly')]}"/>
+                                            <field name="route_ids" string="Бүс"
+                                                   options="{'no_create':True}" widget="many2many_tags"/>
+                                        </group>
+                                        <group col="2">
+                                            <!--<field name="added_partner_ids" invisible="1"/>-->
+                                            <field name="partner_ids" options="{'no_create':True}"/>
+                                        </group>
+                                        <widget name="salesman_route"/>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="salesman_route_planner_line_form_view" model="ir.ui.view">
+        <field name="name">salesman.route.planner.line.form</field>
+        <field name="model">salesman.route.planner.line</field>
+        <field name="arch" type="xml">
+            <form string="Lines">
+                <group col="4">
+                    <field name="day_type"/>
+                    <field name="month_days"
+                           attrs="{'invisible':[('day_type', '!=','monthly')],
+                                                'required':[('day_type','=','monthly')]}"/>
+                    <field name="week_day"
+                           attrs="{'invisible':[('day_type', '!=','weekly')],
+                                                'required':[('day_type','=','weekly')]}"/>
+                    <field name="route_ids" string="Бүс"
+                           options="{'no_create':True}" widget="many2many_tags"/>
+                </group>
+                <group col="2">
+                    <!--<field name="added_partner_ids" invisible="1"/>-->
+                    <field name="partner_ids" options="{'no_create':True}"/>
+                </group>
+                <widget name="salesman_route"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="salesman_route_planner_tree_view" model="ir.ui.view">
+        <field name="name">salesman.route.planner.tree</field>
+        <field name="model">salesman.route.planner</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="salesman_id"/>
+                <field name="validator_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_salesman_route_planner'>
+        <field name="name">Salesman routes</field>
+        <field name="res_model">salesman.route.planner</field>
+        <!-- <field name="context">{'search_default_confirmed': 1}</field> -->
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('salesman_route_planner_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('salesman_route_planner_form_view')})]"/>
+    </record>
+
+
+    <!-- Salesman route performance -->
+    <record id="salesman_route_performance_line_filter_view" model="ir.ui.view">
+        <field name="name">salesman.route.performance.line.filter</field>
+        <field name="model">salesman.route.performance.line</field>
+        <field name="arch" type="xml">
+            <search string="Route performance">
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <filter string="Successful" domain="[('state','=','successful')]" name="successful"/>
+                <filter string="Lot of stock" domain="[('state','=', 'lot_of_stock')]" name="lot_of_stock"/>
+                <filter string="Closed" domain="[('state','=', 'closed')]" name="closed"/>
+                <filter string="No shop" domain="[('state','=', 'no_shop')]" name="no_shop"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'user_id'}" string="Salesman"
+                            name="salesman"/>
+                    <filter context="{'group_by':'state'}" string="State"
+                            name="state"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- MAIN FORM -->
+    <record id="salesman_route_performance_line_form_view" model="ir.ui.view">
+        <field name="name">salesman.route.performance.line.form</field>
+        <field name="model">salesman.route.performance.line</field>
+        <field name="arch" type="xml">
+            <form string="Route performance">
+                <header>
+                     <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="date_order" readonly="1"/>
+                            <field name="check_route" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="salesman_route_performance_line_tree_view" model="ir.ui.view">
+        <field name="name">salesman.route.performance.line.tree</field>
+        <field name="model">salesman.route.performance.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='successful'">
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <field name="date_order"/>
+                <field name="check_route"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_salesman_route_performance'>
+        <field name="name">Salesman route performance</field>
+        <field name="res_model">salesman.route.performance.line</field>
+        <!-- <field name="context">{'search_default_confirmed': 1}</field> -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

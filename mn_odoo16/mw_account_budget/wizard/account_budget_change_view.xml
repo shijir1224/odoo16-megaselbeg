@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_budget_change" model="ir.ui.view">
+            <field name="name">account.budget.change.form</field>
+            <field name="model">account.budget.change</field>
+            <field name="arch" type="xml">
+                <form string="Account charts">
+                    <group colspan="2">
+                            <field name="name" /> 
+                            <field name="budget_id" /> 
+                            <field name="request_id" /> 
+                    </group>
+                    <footer>
+                        <button string="Change" name="account_budget_change" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_budget_change" model="ir.actions.act_window">
+            <field name="name">Change</field>
+            <field name="res_model">account.budget.change</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_account_budget_change"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

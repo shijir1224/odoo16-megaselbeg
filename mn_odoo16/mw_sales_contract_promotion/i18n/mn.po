@@ -1,0 +1,1809 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_sales_contract_promotion
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20200117\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-29 01:26+0000\n"
+"PO-Revision-Date: 2020-01-29 01:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__product_count
+msgid "# Products"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "1-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "10-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "11-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "12-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "2-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "3-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "4-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "5-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "6-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "7-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "8-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "9-р сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/sales_contract.py:0
+#: code:addons/mw_sales_contract_promotion/models/sales_promotion.py:0
+#, python-format
+msgid ""
+"<div class=\"o_mail_notification\">created <a href=\"#\" "
+"class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_brand_form_view
+msgid "<span class=\"o_stat_text\"> Products</span>"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__account_id
+msgid "Account"
+msgstr "Данс"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__move_id
+msgid "Account move"
+msgstr "Дансны бичилт"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__accountant_id
+msgid "Accountant"
+msgstr "Санхүүч"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_needaction
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_needaction
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_needaction
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__pricelist_type__all
+msgid "All"
+msgstr "Бүгд"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__condition_amount
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__pay_amount
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__condition_type__amount
+msgid "Amount"
+msgstr "Дүн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__amt_invoice_paid
+msgid "Amount Paid"
+msgstr "Төлсөн дүн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__analytic_account_id
+msgid "Analytic Account"
+msgstr "Аналитик данс"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_form_view
+msgid "Approve"
+msgstr "Батлах"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_attachment_count
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_attachment_count
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_attachment_count
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_attachment_count
+msgid "Attachment Count"
+msgstr "Хавсралтын тоо"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__attachment_ids
+msgid "Attackments"
+msgstr "Хавсралт"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__barcode
+msgid "BARCODE"
+msgstr "Баркод"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__brand_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_product__brand_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_template__brand_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__brand_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_plan_pivot_report__brand_id
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__pricelist_type__brand
+msgid "Brand"
+msgstr "Бренд"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_brand_form_view
+msgid "Brand name"
+msgstr "Брендын нэр"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__brand_ids
+msgid "Brands"
+msgstr "Брендүүд"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__condition_type__amount
+msgid "By amount"
+msgstr "Мөнгөн дүнгээр"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__condition_type__brand
+msgid "By brand"
+msgstr "Брендээр"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__condition_type__category
+msgid "By category"
+msgstr "Ангилалаар"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__condition_type__product
+msgid "By product"
+msgstr "Бараагаар"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+msgid "Cancel"
+msgstr "Цуцлах"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__planned_sales_compute__state__cancelled
+msgid "Cancelled"
+msgstr "Цуцлагдсан"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__category_id
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__pricelist_type__category
+msgid "Category"
+msgstr "Ангилал"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__category_ids
+msgid "Categories"
+msgstr "Ангилалууд"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__no_balance
+msgid ""
+"Check хийвэл үнийн дүнд орно.\n"
+"Урамшуулалд орсон мөрийн тоог паданы үлдэгдэлээс хасахгүй үед сонгоно"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Choose category"
+msgstr "Харилцагчийн ангилалыг сонгоно уу"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__ebarimt_type__company
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__tin_type__company
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_pricelist_item_view_search
+msgid "Company"
+msgstr "Компани"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sale_order_form_inherit_view2
+msgid "Compute contract"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+msgid "Compute discount"
+msgstr "Хөнгөлөлт бодох"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sale_order_form_inherit_view2
+msgid "Compute promotion"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__condition_product_line
+msgid "Condition line"
+msgstr "Гэрээ нэмэлт нөхцөл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__condition_type
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__condition_type
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "Condition type"
+msgstr "Нөхцлийн төрөл"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Conditions"
+msgstr "Нэмэлт нөхцөл"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Confirm"
+msgstr "Батлах"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_contract__state__confirmed
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__state__confirmed
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__planned_sales_compute__state__confirmed
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "Confirmed"
+msgstr "Батлагдсан"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__validator_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__validator_id
+msgid "Confirmed by"
+msgstr "Баталсан"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__contract_id
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+msgid "Contract"
+msgstr "Гэрээ"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.contract_promotion_root_menu
+msgid "Contract and Promotion"
+msgstr "Гэрээ & Урамшуулал"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__contract_type
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__contract_type
+msgid "Contract type"
+msgstr "Гэрээний төрөл"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+msgid "Create account move"
+msgstr "Дансны бичилт үүсгэх"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__create_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__create_uid
+msgid "Created by"
+msgstr "Үүсгэсэн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__date
+msgid "Created date"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__create_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "Date"
+msgstr "Огноо"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__account_debit_id
+msgid "Debit Account"
+msgstr "Дебит данс"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__description
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__description
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__description
+msgid "Description"
+msgstr "Тайлбар"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__reward_type__discount
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+msgid "Discount"
+msgstr "Хөнгөлөлт"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__discount_percent
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__discount_percent
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__discount_percent
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__discount_percent
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__discount_percent
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__discount_percent_contract
+msgid "Discount %"
+msgstr "Хөнгөлөлт %"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__discount_amount
+msgid "Discount Amount"
+msgstr "Хөнгөлөлтийн дүн"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+msgid "Discount approve"
+msgstr "Хөнгөлөлтийг зөвшөөрөх"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__discount_percent_contract_month
+msgid "Discount month %"
+msgstr "Сарын хөнгөлөлтийн %"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__discount_percent_coupon
+msgid "Discount promotion %"
+msgstr "Урамшууллын хөнгөлөлт %"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__discount_type
+msgid "Discount type"
+msgstr "Хөнгөлөлтийн төрөл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__display_name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__planned_sales_compute__state__done
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+msgid "Done"
+msgstr "Дууссан"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_contract__state__draft
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__state__draft
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__planned_sales_compute__state__draft
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__ebarimt_state__draft
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Draft"
+msgstr "Ноорог"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__ebarimt_state
+msgid "E-баримт төлөв"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__ebarimt_type
+msgid "Ebarimt type"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__date_end
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__date_end
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__date_end
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__date_end
+msgid "End date"
+msgstr "Дуусах огноо"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__excel_data
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__excel_data
+msgid "Excel file"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.pricelist_import_from_excel_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+msgid "Excel-с импортлох"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__discount_type__amount
+msgid "Fixed amount"
+msgstr "Заасан үнэ"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__fixed_price
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__fixed_price
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__fixed_price_contract
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__reward_type__fixed_price
+msgid "Fixed price"
+msgstr "Заасан үнэ"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_follower_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_follower_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_follower_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_follower_ids
+msgid "Followers"
+msgstr "Дагагчид"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_channel_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_channel_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_channel_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Дагагчид"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_partner_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_partner_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_partner_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sale_order_form_inherit_view2
+msgid "Force cancel"
+msgstr "Шууд цуцлах"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__reward_type__free_product
+msgid "Free product"
+msgstr "Үнэгүй бараа"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_sale_order__is_gift_sale
+msgid "Gift болон эрхийн бичгийн борлуулалт бол сонгоно"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__is_gift_sale
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__is_gift_sale
+msgid "Gift, Эрхийн бичгээр"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.sales_gift_cart_menu
+msgid "Gift, Эрхийн бичиг"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "Group By..."
+msgstr "Бүлэглэх"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__message_needaction
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__message_unread
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_needaction
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_unread
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__message_needaction
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__message_unread
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__message_needaction
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__message_has_error
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__message_has_sms_error
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_has_error
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_has_sms_error
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__message_has_error
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__message_has_sms_error
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__message_has_error
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_pricelist_import_from_excel
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.menu_pricelist_import
+msgid "Import pricelist"
+msgstr "Үнийн хүснэгт импортлох"
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/planned_sales_compute.py:0
+#: code:addons/mw_sales_contract_promotion/models/sales_contract.py:0
+#: code:addons/mw_sales_contract_promotion/models/sales_promotion.py:0
+#, python-format
+msgid "In order to delete a record, it must be draft first!"
+msgstr "Устгах боломжгүй, ноорог байх ёстой"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_is_follower
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_is_follower
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_is_follower
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__journal_id
+msgid "Journal"
+msgstr "Журнал"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line____last_update
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__write_uid
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__write_date
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Lines"
+msgstr "Мөрүүд"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_main_attachment_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_main_attachment_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_main_attachment_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__main_amount_total
+msgid "Main Total"
+msgstr "Үндсэн дүн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__main_price_unit
+msgid "Main price unit"
+msgstr "Үндсэн үнэ"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__condition_max
+msgid "Max"
+msgstr "Дээд"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_has_error
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_has_error
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_has_error
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__condition_min
+msgid "Min"
+msgstr "Доод"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_pricelist_import_from_excel__name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_product_brand__name
+msgid "Name"
+msgstr "Нэр"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__ebarimt_type__none
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__tin_type__none
+msgid "None"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/planned_sales_compute.py:0
+#, python-format
+msgid "Not found Sales contract!"
+msgstr "Гэрээ олдсонгүй"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__note
+msgid "Note"
+msgstr "Тэмдэглэл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__name
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__name
+msgid "Number"
+msgstr "Дугаар"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_needaction_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_needaction_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_needaction_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_has_error_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_has_error_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_has_error_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__message_needaction_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_needaction_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__message_needaction_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__message_has_error_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_has_error_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__message_has_error_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__message_unread_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_unread_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__message_unread_counter
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.sales_pos_promotion_menu
+msgid "POS promotion"
+msgstr "POS урамшуулал"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__is_pos
+msgid "POS урмшуулал эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_pricelist_item_view_search
+msgid "Parent"
+msgstr "Эцэг"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__parent_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__parent_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__parent_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__parent_id
+msgid "Parent ID"
+msgstr "Эцэг ID"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__partner_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__partner_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__partner_id
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_filter_view
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__partner_category_ids
+msgid "Partner category"
+msgstr "Харилцагчийн ангилал"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__payment_amount
+msgid "Payment amount"
+msgstr "Төлбөрийн дүн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_contract__contract_type__per_payment
+msgid "Per payment"
+msgstr "Төлөлт бүрд"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_contract__contract_type__per_sales
+msgid "Per sales"
+msgstr "Борлуулалт бүрд"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__discount_type__percent
+msgid "Percent"
+msgstr "Хувь"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__ebarimt_type__person
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__tin_type__person
+msgid "Person"
+msgstr "Хувь хүн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_planned_sales_compute
+#: model:ir.model,name:mw_sales_contract_promotion.model_planned_sales_compute
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+msgid "Planned sales compute"
+msgstr "Төлөвлөгөөт борлуулалтын хөнгөлөлт"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_planned_sales_compute_line
+msgid "Planned sales compute line"
+msgstr "Төлөвлөгөөт борлуулалтын хөнгөлөлт мөр"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.planned_sales_compute_menu
+msgid "Planned sales contract"
+msgstr "Төлөвлөгөөт борлуулалтын хөнгөлөлт"
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/planned_sales_compute.py:0
+#, python-format
+msgid "Click 'Compute discount' button!"
+msgstr "'Хөнгөлөлт бодох' товч дээр дарна уу!"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__pricelist_line
+msgid "Pricelist line"
+msgstr "Нэмэлт нөхцөл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_pricelist_lines
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.pricelist_lines_menu
+msgid "Pricelist lines"
+msgstr "Үнийн хүснэгтийн мөр"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__priority
+msgid "Priority"
+msgstr "Зэрэглэл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__product_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__product_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__product_id
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__pricelist_type__product
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_pricelist_item_view_search
+msgid "Product"
+msgstr "Бараа"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_product_template
+msgid "Product Template"
+msgstr "Барааны хувилбар"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_brand_list_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_brand_search_view
+msgid "Product brands"
+msgstr "Барааны бренд"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_pricelist_item_view_search
+msgid "Product tempalte"
+msgstr "Барааны хувилбар"
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,name:mw_sales_contract_promotion.group_promotion_manager
+msgid "Promotion manager"
+msgstr "Урамшууллын менежер"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_condition_product_line
+msgid "Promotion product line"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,comment:mw_sales_contract_promotion.group_promotion_manager
+msgid "Promotion, Урамшуулалтын тохиргоо хийх хэрэглэгч"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_condition_product_line__qty
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__condition_qty
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_reward_product_line__qty
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__condition_type__qty
+msgid "Quantity"
+msgstr "Тоо ширхэг"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sale_order_form_inherit_view2
+msgid "Re Compute"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__ebarimt_state__return
+msgid "Returned"
+msgstr "Буцаагдсан"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__reward_product_line
+msgid "Reward line"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__is_reward_product
+msgid "Reward product"
+msgstr "Урамшууллын бараа"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_reward_product_line
+msgid "Reward product line"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__reward_type
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "Reward type"
+msgstr "Урамшууллын төрөл"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Rewards"
+msgstr "Урамшуулал"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_has_sms_error
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_has_sms_error
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_has_sms_error
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__so_id
+msgid "SO"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__line_ids
+msgid "SO lines"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_payment_form_view
+msgid "SO харах"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,name:mw_sales_contract_promotion.group_sale_contract_manager
+msgid "Sale contract manager"
+msgstr "Гэрээний менежер"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__so_id
+msgid "Sale order"
+msgstr "Борлуулалтын захиалга"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_sale_pivot_report
+#: model:ir.model,name:mw_sales_contract_promotion.model_sale_plan_pivot_report
+msgid "Sale pivot report"
+msgstr "Борлуулалтын тайлан"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_sale_order
+msgid "Sales Order"
+msgstr "Борлуулалтын захиалга"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__amount
+msgid "Sales amount"
+msgstr "Борлуулалтын дүн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_sales_contract
+#: model:ir.model,name:mw_sales_contract_promotion.model_mw_sales_contract
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.sales_contract_menu
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+msgid "Sales contract"
+msgstr "Борлуулалтын гэрээ"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_mw_sales_gift_cart
+msgid "Sales gift cart"
+msgstr "Эрхийн бичгийн бүртгэл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__sale_manager_id
+msgid "Sales man"
+msgstr "Борлуулалтын менежер"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.sales_payment_info_menu
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_payment_form_view
+msgid "Sales payment"
+msgstr "Борлуулалтын төлбөр"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.sales_payment_info
+msgid "Sales payment info"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Sales plan"
+msgstr "Борлуулалтын төлөвлөгөө"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_mw_sales_pricelist_line
+msgid "Sales pricelist line"
+msgstr "Гэрээний нэмэлтл нөхцөл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_sales_pos_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_sales_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_mw_sales_promotion
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.sales_promotion_menu
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_pricelist_item_view_search
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "Sales promotion"
+msgstr "Борлуулалтын урамшуулал"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__ebarimt_state__sent
+msgid "Sent"
+msgstr "Илгээсэн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__is_compute_contract
+msgid "Set contract"
+msgstr "Гэрээ бодогдсон"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__is_compute_coupon
+msgid "Set promotion"
+msgstr "Урамшуулал бодогдсон"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__date_start
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__date_start
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__date_start
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_payment_info__date_start
+msgid "Start date"
+msgstr "Эхлэх огноо"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__state
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__state
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__state
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__state
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute_line__state
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_gift_cart_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "State"
+msgstr "Төлөв"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__tin_type
+msgid "Tin type"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_form_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sale_order_form_inherit_view2
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Total"
+msgstr "Нийт"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__total_amount
+msgid "Total amount"
+msgstr "Нийт дүн"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__total_discount_amount
+msgid "Total discount"
+msgstr "Нийт хөнгөлөлт"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__total_payment
+msgid "Total payment"
+msgstr "Нийт төлөлт"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_contract__contract_type__total_payments
+msgid "Total payments"
+msgstr "Нийт төлөлтөөс"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_contract__contract_type__total_sales
+msgid "Total sales"
+msgstr "Нийт борлуулалтаас"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_pricelist_line__pricelist_type
+msgid "Type"
+msgstr "Төрөл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_unread
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_unread
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_unread
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__message_unread_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__message_unread_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__message_unread_counter
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__user_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__user_id
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__user_id
+msgid "User"
+msgstr "Хэрэглэгч"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Validators"
+msgstr "Батлагч"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_form_view
+msgid "Validity"
+msgstr "Ерөнхий нөхцөл"
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__website_message_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__website_message_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__website_message_ids
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_contract__website_message_ids
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__website_message_ids
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__website_message_ids
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_planned_sales_compute__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_form_view
+msgid "code, qty"
+msgstr "Барааны код, Тоо ширхэг"
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.product_brand_form_view
+msgid "e.g. Hosen"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_mw_sales_promotion_change_date
+msgid "mw.sales.promotion.change.date"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_pricelist_import_from_excel
+msgid "pricelist.import.from.excel"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_product_brand
+msgid "product.brand"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model,name:mw_sales_contract_promotion.model_sale_payment_info
+msgid "sale.payment.info"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_sales_gift_cart
+msgid "sales.gift.cart"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__warehouse_ids
+msgid "Агуулах"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Агуулахаар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__condition_condition__or
+msgid "Аль нэг нь"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__filter_product_ids
+msgid "Бараанууд"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.product_brand_action_form
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.menu_product_brand_config_stock
+msgid "Барааны брэнд"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__products_amount
+msgid "Барааны дүн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__validator_id
+msgid "Баталгаажуулсан"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_gift_cart__state__confirmed
+msgid "Батлагдсан"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,comment:mw_sales_contract_promotion.group_sale_contract_accountant
+msgid "Борлуулалтын гэрээг дүгнэгч, батлагч"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,comment:mw_sales_contract_promotion.group_sale_contract_manager
+msgid "Борлуулалтын гэрээний тохиргоо хийх хэрэглэгч"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Борлуулалтын суваг"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,comment:mw_sales_contract_promotion.group_sale_contract_promotion_validator
+msgid "Борлуулалтын хөнгөлөлт, урамшуулал батлах хэрэглэгч"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__is_reward_product__no
+msgid "Борлуулсан бараа"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_order__payment_type__cash
+msgid "Бэлэн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__free_product_type__no_choose_all
+msgid "Бүгдийг өгөх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__free_product_type
+msgid ""
+"Бүглийг өгөх сонгосон бол урамшууллын бараануудыг өгнө, Үгүй бол сонгосон "
+"бараануудаас өгнө"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_all_sale_orders
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.menu_all_sale_orders
+msgid "Бүх Захиалгууд"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__discount_percent_all_lines
+msgid "Бүх барааг хөнгөлөх эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__condition_condition__and
+msgid "Бүх нөхцөл"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_contract__date_contract
+msgid "Гэрээ хийсэн огноо"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.server,name:mw_sales_contract_promotion.cron_check_contract_date_view_ir_actions_server
+#: model:ir.cron,cron_name:mw_sales_contract_promotion.cron_check_contract_date_view
+#: model:ir.cron,name:mw_sales_contract_promotion.cron_check_contract_date_view
+msgid "Гэрээний хугацаа шалгах - КРОН"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__discount_contract_amount_sales
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__discount_contract_amount_sales
+msgid "Гэрээний хөнгөлөлт/борлуулалт бүр/"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__discount_contract_amount_payment
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__discount_contract_amount_payment
+msgid "Гэрээний хөнгөлөлт/төлөлт бүр/"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__is_double_promotion
+msgid "Гэрээтэй урамшуулал өгөх эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__double_promotion_partner_id
+msgid ""
+"Гэрээтэй харилцагчид давхар урамшуулал өгөхгүй үед онцгой нэг харилцагчид "
+"өгөх үед сонгоно"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__double_promotion_partner_id
+msgid "Давхар урамшуулал авах харилцагч"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__is_not_set_amount
+msgid "Дараагийн хөнгөлөлт % авахгүй"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__default_code
+msgid "Дотоод код"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__name
+msgid "Дугаар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.action_orders_not_done
+#: model:ir.ui.menu,name:mw_sales_contract_promotion.menu_sale_order_not_done
+msgid "Дуусаагүй Захиалгууд"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__date_end
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion_change_date__date_to
+msgid "Дуусах огноо"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/sales_promotion.py:0
+#, python-format
+msgid "Дуусах огноо эхлэх өдрөөс бага байна!"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_gift_cart__state__done
+msgid "Дууссан"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Жилээр"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Жолоочоор"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/planned_sales_compute.py:0
+#, python-format
+msgid "Журнал сонгож өгнө үү."
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__readonly_amount
+msgid "Засагдахгүй"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sale_order_form_inherit_view2
+msgid "Захиалгын огноо"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_contract__contract_type__loan_contract
+msgid "Зээлийн гэрээ"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_order__payment_type__loan
+msgid "Зээлээр"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_contract_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_promotion_filter_view
+msgid "Идэвхитэй"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__products_condition_type__amount
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__qty_type__amount
+msgid "Мөнгөн дүнгээр"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__total_discount
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__discount_total
+msgid "Нийт хөнгөлөлт"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_gift_cart__state__draft
+msgid "Ноорог"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/sales_gift_cart.py:0
+#, python-format
+msgid "Ноорог бичлэг устгах боломжтой!"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__with_e_tax
+msgid "НӨАТ авах эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__condition_condition
+msgid "Нөхцлийн бодох арга"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__products_condition_type
+msgid "Нөхцлийн төрөл"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_pricelist_line__condition_type__no_limit
+msgid "Нөхцөлгүй"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/planned_sales_compute.py:0
+#, python-format
+msgid ""
+"Олон гэрээ тохируулсан байна!\n"
+" %s,"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__no_balance
+msgid "Паданы үлдэгдэлээс хасахгүй"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Сараар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.planned_sales_compute_filter_view
+msgid "Сараар бүлэглэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_order__payment_type__cash_bank
+msgid "Сардаа тэглэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__free_product_type__choose
+msgid "Сонголтоор"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__is_double_promotion
+msgid "Сонгосон бол давхар гэрээтэй байсан ч урамшуулал өгнө"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__description
+msgid "Тайлбар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__qty_type
+msgid "Тоо хэмжээний төрөл"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__products_condition_type__qty
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__qty_type__unit
+msgid "Тоо ширхэгээр"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__is_even_level
+msgid "Тэгш шатлалтай эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_payment_form_view
+msgid "Төлбөр хийх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__payment_type
+msgid "Төлбөрийн төрөл"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Төлбөрийн хэлбэрээр"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__state
+msgid "Төлөв"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,name:mw_sales_contract_promotion.group_sale_contract_accountant
+msgid "Төлөвлөгөөт борлуулалт бодох"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__discount_contract_month_amount
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__discount_contract_month_amount
+msgid "Төлөвлөгөөт хөнгөлөлтийн дүн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__amount_free_product
+msgid "Урамшуулал бараа дүн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__is_not_set_amount
+msgid ""
+"Урамшуулалд хамрагдсан бол дараагийн хөнгөлөлт дээр үнийн дүнгийн хөнгөлөлт "
+"авахгүй байх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__discount_coupon_amount
+msgid "Урамшуулалын дүн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.server,name:mw_sales_contract_promotion.cron_check_promotion_date_view_ir_actions_server
+#: model:ir.cron,cron_name:mw_sales_contract_promotion.cron_check_promotion_date_view
+#: model:ir.cron,name:mw_sales_contract_promotion.cron_check_promotion_date_view
+msgid "Урамшуулалын хугацаа шалгах - КРОН"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__discount_coupon_amount
+msgid "Урамшуулалын хөнгөлөлт"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__custom_promotion_product_id
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__sale_pivot_report__is_reward_product__yes
+msgid "Урамшууллын бараа"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sale_order_form_inherit_view_template
+msgid "Урамшууллын бараа нэмэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__is_reward_product
+msgid "Урамшууллын бараа эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_promotion__free_product_type
+msgid "Урамшууллын барааны сонголт"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.mw_sales_promotion_change_date_form
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.pricelist_import_from_excel_form_view
+msgid "Хаах"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields.selection,name:mw_sales_contract_promotion.selection__mw_sales_promotion__qty_type__package
+msgid "Хайрцагаар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__contract_id
+msgid "Хамрагдсан гэрээ"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__promotion_ids
+msgid "Хамрагдсан урамшуулал"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.sales_payment_form_view
+msgid "Харах"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__partner_id
+msgid "Харилцагч"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_planned_sales_compute__is_include_percent
+msgid "Хувь хасаж шилжүүлсэн эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.actions.act_window,name:mw_sales_contract_promotion.mw_sales_promotion_change_date_action
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.mw_sales_promotion_change_date_form
+msgid "Хугацаа сунгах"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__products_condition_type
+msgid "Хэрэв мөнгөн дүнгээр заасан бол барааны тоо хэмжээг тооцохгүй"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_promotion__discount_percent_all_lines
+msgid ""
+"Хэрэв сонгох юм бол падааны бүх бараан дээр хөнгөлөлт үзүүлнэ, Үгүй бол "
+"зөвхөн нөхцөл хангаж бараан дээр хөнгөлнө"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Хүргэлт дуусаагүй"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Хүргэлт дууссан"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_pivot_report__picking_date
+msgid "Хүргэх огноо"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/sale_inherit.py:0
+#, python-format
+msgid "Хүчинтэй Gift, эрхийн бичиг хөнгөлөлт олдсонгүй!"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order__total_discount
+msgid "Хөнгөлөлт"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:res.groups,name:mw_sales_contract_promotion.group_sale_contract_promotion_validator
+msgid "Хөнгөлөлт, урамшуулал батлагч"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,help:mw_sales_contract_promotion.field_mw_sales_gift_cart__bonus_amount
+msgid "Хөнгөлөлтийн дүн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Энэ жил"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Энэ сар"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__date_start
+msgid "Эхлэх огноо"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/planned_sales_compute.py:0
+#, python-format
+msgid "харилцагчийн данс сонгож өгнө үү."
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__main_amount
+msgid "Үндсэн үнэ"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__bonus_amount
+msgid "Үнийн дүн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: code:addons/mw_sales_contract_promotion/models/sales_gift_cart.py:0
+#, python-format
+msgid "Үнийн дүнг оруулна уу!"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_sale_order_line__is_not_set_amount
+msgid "Үнийн дүнд нөлөөлөх эсэх"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__user_id
+msgid "Үүсгэсэн"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model:ir.model.fields,field_description:mw_sales_contract_promotion.field_mw_sales_gift_cart__date
+msgid "Үүсгэсэн огноо"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Өдрөөр"
+msgstr ""
+
+#. module: mw_sales_contract_promotion
+#: model_terms:ir.ui.view,arch_db:mw_sales_contract_promotion.view_sale_order_filter_inherit
+msgid "Өнөөдөр"
+msgstr ""

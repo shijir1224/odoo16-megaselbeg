@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!--  -->
+	<record id="maintenance_parts_move_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.parts.move.filter</field>
+        <field name="model">maintenance.parts.move</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="description"/>
+                <field name="from_technic_id"/>
+                <field name="to_technic_id"/>
+                <field name="description"/>
+                <filter name="this_month" string="This month" domain="[('date_required','like',time.strftime('%%Y-%%m'))]"/>
+                <group expand="1" string="Group By...">
+                    <filter string="Жилээр" context="{'group_by':'date_required:year'}"
+                        name="year"/>
+                    <filter string="Сараар" context="{'group_by':'date_required:month'}"
+                        name="month"/>
+                    <filter string="Өдрөөр" context="{'group_by':'date_required:day'}"
+                        name="day"/>
+                    <filter context="{'group_by' : 'state'}" string="Төлөв"
+                        name="state"/>
+                    <filter context="{'group_by' : 'from_technic_id'}" string="from Техник"
+                        name="from_technic_id"/>
+                    <filter context="{'group_by' : 'to_technic_id'}" string="to Техник"
+                        name="to_technic_id"/>
+            	</group>
+            </search>
+        </field>
+    </record>
+
+	<record id="maintenance_parts_move_form_view" model="ir.ui.view">
+		<field name="name">maintenance.parts.move.form</field>
+		<field name="model">maintenance.parts.move</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        groups="base.group_no_one" />
+                    <button name="action_planner" class="oe_highlight"
+                        string="Засварын төлөвлөгч хянасан"
+                        states="draft" type="object"
+                        groups="mw_technic_maintenance.group_maintenance_planner"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                        statusbar_visible="draft,confirmed" />
+                </header>
+           		<sheet>
+                   <div name="button_box" class="oe_button_box oe_right"/>
+           			<group col="4">
+                        <field name="branch_id"
+                                options="{'no_create':True}"/>
+                        <field name="company_id"/>
+
+                        <field name="date"/>
+                        <field name="date_required"/>
+                        
+                        <field name="is_create_pr"/>
+                        <field name="request_id" attrs="{'invisible':[('is_create_pr','=','False')]}"/>
+                    </group>
+                    <group col="4" string="Шилжилтийн мэдээлэл">
+                        <field name="from_technic_id" options="{'no_create': True}" />
+                        <field name="to_technic_id" options="{'no_create': True}" />
+
+                        <field name="description" nolabel="1" colspan="4" placeholder="Тайлбар..."/>
+
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="Lines" editable="bottom">
+                                <field name="product_id" options="{'no_create':True}"/>
+                                <field name="qty"/>
+                                <field name="uom_id"/>
+                            </tree>
+                        </field>
+
+                        <field name="repairman_id" options="{'no_create': True}" />
+                        <field name="user_id"/>
+
+                        <field name="planner_id"/>
+                        <field name="manager_id"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_parts_move_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.parts.move.tree</field>
+        <field name="model">maintenance.parts.move</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='confirmed'">
+                <field name="description"/>
+                <field name="date_required"/>
+                <field name="from_technic_id"/>
+                <field name="to_technic_id"/>
+                <field name="manager_id"/>
+                <!-- <field name="partsman_id"/> -->
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_parts_move'>
+        <field name="name">maintenance.parts.move.action</field>
+        <field name="res_model">maintenance.parts.move</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

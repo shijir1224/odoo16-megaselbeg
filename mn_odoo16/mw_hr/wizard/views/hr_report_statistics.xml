@@ -1,0 +1,48 @@
+<odoo>
+         <menuitem name="Судалгааны тайлангууд" id="menu_human_recource_statistic_report" sequence="25" parent="menu_human_recource_report" />
+
+         <record id="view_hr_reports_statistics_graph" model="ir.ui.view">
+            <field name="name">hr.reports.statistics.view.pivot</field>
+            <field name="model">hr.reports.statistics.view</field>
+            <field name="arch" type="xml">
+                <pivot string="Employee Summary">
+                    <field name="name" type="row" />
+                    <field name="id" type="row" />
+                    <field name="employee_type" type="col" />
+                </pivot>
+            </field>
+         </record>
+
+        <record id="action_hr_reports_statistics" model="ir.actions.act_window">
+            <field name="name">Статистик тайлан</field>
+            <field name="res_model">hr.reports.statistics.view</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">pivot</field>
+        </record>
+        <menuitem id="menu_hr_reports_statistics" parent="menu_human_recource_statistic_report" sequence="1" action = "action_hr_reports_statistics" />
+
+
+
+        <!-- <record id="view_hr_reports_vacation" model="ir.ui.view">
+            <field name="name">hr.reports.shipt.view.pivot</field>
+            <field name="model">hr.reports.shipt.view</field>
+            <field name="arch" type="xml">
+                <pivot string="Employee Holidays" >
+                    <field name="name" type="row" />
+                    <field name="id" type="row"/>
+                    <field name="name" type="row" />
+                    <field name="year" type="col" />
+                    <field name="month" type="col" />
+                </pivot>
+            </field>
+        </record>
+
+        <record id="action_hr_reports_vacation" model="ir.actions.act_window">
+                <field name="name">Ээлжийн амралтын нэгтгэл</field>
+                <field name="res_model">hr.reports.shipt.view</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="view_mode">pivot</field>
+        </record>
+
+        <menuitem id="menu_hr_reports_vacation" action = "action_hr_reports_vacation" parent="menu_human_recource_statistic_report" sequence="5" /> -->
+</odoo>

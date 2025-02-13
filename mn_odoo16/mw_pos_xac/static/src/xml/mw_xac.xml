@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    
+    <t t-name="AgainXacPopupWidget">
+        <div class="modal-dialog" role="dialog">
+            <div class="popup">
+                <p class="title"><t t-esc=" widget.options.title || 'Confirm ?' " /></p>
+                <p class="body"><t t-esc="  widget.options.body || '' "/></p>
+                <div class="footer">
+                    <div class="button confirm highlight">
+                        Дахин илгээх
+                    </div>
+                    <div class="button cancel">
+                        Цуцлах 
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div  class="modal-dialog">
+            <div class="popup">
+                 <header class="title drag-handle">
+                     <span>Scan QR</span>
+                </header>
+                <img class="class_qr_data" />
+                <input style="visibility:hidden;" id="invoice_id" />
+                <p class="class_inv_response_paid" />
+                <p class="class_inv_response_unpaid" />
+                <footer class="footer centered">
+                    <div class="button" t-on-click="conPopup">
+                        <t t-esc="props.cancelText" />
+                    </div>
+                    <div class="button" t-on-click="checkInv">
+                        <span>Check payment</span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="OrderReceipt">
+        <t t-jquery=".receipt-change" t-operation="after">
+        <div id="xac_for_ticket">
+            <t t-if="order.is_xac_ok_payment">
+                <table style="table-layout: auto; font-size:9px; border-collapse: collapse; border-top:0.3pt solid black; width:100%;">
+                    <tr>
+                        <td>Карт</td>
+                        <td>З/код</td>
+                        <td>RRN</td>
+                        <td>Терминал</td>
+                    </tr>
+                    <t t-foreach="order.xac_paymentlines" t-as="eline">
+                        <t t-if="eline.xac_pan and eline.xac_authorizationcode">
+                            <tr>
+                                <td><t t-esc="eline.xac_pan"/></td>
+                                <td><t t-esc="eline.xac_authorizationcode"/></td>
+                                <td><t t-esc="eline.xac_referencenumber" /></td>
+                                <td><t t-esc="eline.xac_terminalid"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align: center;">ТӨЛСӨН ДҮН: 
+                                    <t t-esc="eline.xac_amount"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </t>
+        </div>
+        </t>
+        <t t-jquery=".pos-sale-ticket" t-operation="after">
+            <t t-if="order.is_xac_ok_payment">
+                <t t-foreach="order.xac_paymentlines" t-as="eline">
+                    <t t-if="eline.xac_pan and eline.xac_authorizationcode">                    
+                        <div class="xac-sale-ticket" style="page-break-before: always; font-size: 10px;">
+                        <table>
+                            <tr>
+                                <td>Terminal ID:<t t-esc="eline.xac_terminalid"/></td>
+                            </tr>
+                            <tr>
+                                <td>Merchant Name:</td>
+                                <td><t t-esc="eline.xac_merchantid"/></td>
+                            </tr>
+                        </table>
+                        <table style="table-layout: auto;">
+                            <tr>
+                                <td colspan="2" style="text-align: center">ХУДАЛДАН АВАЛТ ХАС БАНК</td>
+                                <br/>
+                            </tr>
+                            <tr><td >Card Num:</td><td ><t t-esc="eline.xac_pan"/></td></tr>
+                            <tr><td >RREF NUM:</td><td ><t t-esc="eline.xac_referencenumber"/></td></tr>
+                            <tr><td >APPR CODE:</td><td ><t t-esc="eline.xac_authorizationcode"/></td></tr>
+                            <tr><td colspan="2"><br/></td></tr>
+                            <tr style="font-weight: bold; font-size: 8px; width:30%;">
+                                <td>TOTAL:</td >
+                                <td>MNT <t t-esc="eline.xac_amount"/></td>
+                            </tr>
+                            <tr><td colspan="2"><br/></td></tr>
+                            <tr><td colspan="2" style="text-align: center;">Гарын үсэг:____________________________</td></tr>
+                            <tr><td colspan="2"><br/></td></tr>
+                            <tr><td colspan="2" style="text-align: center;">***********MERCHANT COPY***********</td></tr>
+                        </table>
+                        </div>
+                    </t>
+                </t>
+            
+            </t>
+        </t>
+    </t>
+    <t t-name="GetdoSettlementXac">
+        <t t-if='widget.pos.config.xac_ok'>
+            <div class="getdosettlement_xac">
+                <img class="pos-pinpad-xac" src="/mw_pos_xac/static/src/img/xacbank.png" width="45" height="45"/>
+            </div>
+        </t>
+    </t>
+    
+</templates>

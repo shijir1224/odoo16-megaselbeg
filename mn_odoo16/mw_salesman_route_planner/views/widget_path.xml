@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    Ашиглахгүй байгаа key нь хэрэгтэй болохоор үлдээв-->
+    <template id="assets_backend" name="Salesman routes assets backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARiHnY4KQoQpeo_oQiygA2VbcbvFUAC2c"/>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_set_confirm_user_wizard" model="ir.ui.view">
+        <field name="name">set.confirm.user.form</field>
+        <field name="model">set.confirm.user</field>
+        <field name="arch" type="xml">
+            <form string="Print">
+                <sheet>
+                        <group>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                        <!-- <field name="user_ids" widget="many2many_tags"/> -->
+                        <field name="confirm_user_ids" widget="many2many_tags"/>
+                        </group>
+                </sheet>
+                <footer>
+                    <button string='Батлах' name="action_to_set" type="object" class="btn-primary" confirm="Та итгэлтэй байна уу?"/>
+                    <button string='Бүгдийг шинэчлэх' name="action_to_set_all" type="object" class="btn-danger" confirm="Та бүх батлах хэрэглэгчийг шинэчлэхдээ итгэлтэй байна уу?"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_set_confirm_user_wizard" model="ir.actions.act_window">
+        <field name="name">Батлах хэрэглэгч тохируулах</field>
+        <field name="res_model">set.confirm.user</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_set_confirm_user_wizard"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="mw_set_confirm_users.model_set_confirm_user" />
+        <field name="binding_view_types">list</field>
+    </record>
+    <menuitem id="set_confirm_user_menu" parent="hr.menu_config_employee" action = "action_set_confirm_user_wizard" name='Батлах хэрэглэгч тохируулах' sequence="15"  />
+</odoo>

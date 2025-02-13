@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_sale_limit_user" model="res.groups">
+        <field name="name">Борлуулалтын хязгаарлалт хийх</field>
+        <field name="category_id" ref="base.module_category_sales_sales"/>
+    </record>
+    
+</odoo>

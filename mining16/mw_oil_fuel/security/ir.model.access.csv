@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_oil_fuel_user,oil.fuel,model_oil_fuel,stock.group_stock_user,1,1,1,1
+access_oil_fuel_line_user,oil.fuel.line,model_oil_fuel_line,stock.group_stock_user,1,1,1,1
+
+access_oil_fuel_fuel_report_user,oil.fuel.fuel.report,model_oil_fuel_fuel_report,stock.group_stock_user,1,1,1,1
+
+access_oil_fuel_norm,oil.fuel.norm,model_oil_fuel_norm,stock.group_stock_user,1,0,0,0
+access_oil_fuel_norm_technic,oil.fuel.norm,model_oil_fuel_norm,mw_technic_equipment.group_technic_module_admin,1,1,1,1
+
+
+access_oil_report_product_categ_user,oil.report.product.categ,model_oil_report_product_categ,mw_oil_fuel.group_oil_fuel_user,1,1,1,1

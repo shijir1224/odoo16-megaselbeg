@@ -1,0 +1,161 @@
+<odoo>
+	<!-- Амралтын мөнгө бодох -->
+    <record id="view_vacation_salary_form" model="ir.ui.view">
+        <field name="name">vacation.salary.form</field>
+        <field name="model">vacation.salary</field>
+        <field name="arch" type="xml">
+            <form string="Employee">
+                <header>
+                	<button string="Батлах" name="done_action" type="object" states='draft' class="oe_highlight"/>
+                	<button string="Ноороглох" name="draft_action"  states='done' type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"
+                        statusbar_colors='{"draft":"gray","done":"blue"}'/>
+                </header>
+                <sheet>
+                	<group>
+                		<field name='name' string='Нэр'/>
+                	</group>
+                    <group>
+                    	<group>
+                    		<field name="year" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    		<field name="month" attrs="{'readonly':[('state','!=','draft')]}"/>
+	                    	<field name="type" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name = 'data' attrs="{'readonly':[('state','!=','draft')]}"/> 
+	                    </group>
+	                   	<group>
+	                   		<field name="company_id" options="{'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+	                   		<field name='s_date' attrs="{'readonly':[('state','!=','draft')]}"/>
+	                        <field name='e_date' attrs="{'readonly':[('state','!=','draft')]}"/>
+	                   	</group>
+                    </group>
+                    <button string="Тооцоолох" name="create_plan_line" type="object" class="oe_highlight" states='draft'/>
+                    <button string="Импортлох" name="action_import" icon="fa-sign-in" type="object" class="btn-warning"  attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="print_vacation_detail_report" string="Эксел татах" type="object"/>
+                    <field name="emp_balance_ids" colspan="4" nolabel="1">
+                        <form string="Employee hour balance">
+                            <group col="4" colspan="4">
+                                <field name="employee_id" string='Ажилтан' />
+                                <field name="department_id"  string='Хэлтэс нэгж'/>
+                                <field name="job_id"  string='Албан тушаал'/>
+								<field name='date' />
+                                <field name="sum_day" string='Нийт ажилласан хоног'/>
+                                <field name="sum_wage" string='Нийт бодогдсон цалин'/>
+                                <field name="one_day_wage"/>  
+                                <field name="vacation_day"/>
+                                <field name="description" string='Тайлбар'/>
+                                <!-- <field name="state"/> -->
+                            </group>
+                            <field name="detail_ids" colspan="4" nolabel="1">
+			                    <form string="Details">
+			                        <group col="4" colspan="4">
+			                            <field name="employee_id"/>
+			                            <field name="year" />
+			                            <field name="month"/>
+			                            <field name='amount_tootsson' />
+			                            <field name="worked_day" />
+			                        </group>
+			                    </form>
+			                    <tree string="Details" editable="top">
+			                        <field name="employee_id"/>
+		                            <field name="year" />
+		                            <field name="month"/>
+		                            <field name='amount_tootsson' sum='a'/>
+		                            <field name="worked_day" sum='a'/>
+			                    </tree>
+			                </field>
+	                    </form>
+                        <tree string="Emshployee hour balance" editable="top" decoration-danger="employee_type == 'resigned'" limit='1000'>
+                            <field name="employee_id" string='Ажилтан' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="department_id" string='Хэлтэс нэгж' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="job_id" string='Албан тушаал' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name='before_shift_vac_date'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name='date' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_day" sum='Sum' string='Нийт ажилласан хоног' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sum_wage" sum='Sum' string='Нийт бодогдсон цалин' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="one_day_wage" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="vacation_niit_day" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                            <field name="vacation_day" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="vacation_over_day" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                            <field name="wage_amount" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <!-- <field name="shi" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="pit" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}"/> -->
+                            <field name="wage_over_amount" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                            <field name="wage_sum_amount" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                            <!-- <field name="amount_net" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}"/> -->
+                            <field name="description" string='Тайлбар' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="employee_type" attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                            <field name="state" optional='hide'/>
+                            <button name="view_form" type="object" string="Харах"/>
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right">
+                        <button name="print_vacation_report" string="Хэвлэх" type="object"/>
+					</group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="vacation_salary_tree" model="ir.ui.view">
+        <field name="name">vacation.salary.tree</field>
+        <field name="model">vacation.salary</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='name'/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name='s_date'/>
+                <field name='e_date'/>
+                <field name='state'/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="vacation_salary_action" model="ir.actions.act_window">
+        <field name="name">Амралтын мөнгө</field>
+        <field name="res_model">vacation.salary</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="vacation_salary_menu" parent="menu_other_parent_salary" action="vacation_salary_action"/> 
+
+    <record id="view_vacation_salary_line_form" model="ir.ui.view">
+        <field name="name">vacation.salary.line.form</field>
+        <field name="model">vacation.salary.line</field>
+        <field name="arch" type="xml">
+            <form string="Employee hour balance">
+                <group col="4" colspan="4">
+                    <field name="employee_id" string='Ажилтан' />
+                    <field name="department_id"  string='Хэлтэс нэгж'/>
+                    <field name="job_id"  string='Албан тушаал'/>
+                    <field name='date' />
+                    <field name="sum_day" string='Нийт ажилласан хоног'/>
+                    <field name="sum_wage" string='Нийт бодогдсон цалин'/>
+                    <field name="one_day_wage"/>
+                    <field name="vacation_day"/>
+                    <field name="description" string='Тайлбар'/>
+                </group>
+                <field name="detail_ids" colspan="4" nolabel="1">
+                    <form string="Details">
+                        <group col="4" colspan="4">
+                            <field name="employee_id"/>
+                            <field name="year" />
+                            <field name="month"/>
+                            <field name='amount_tootsson' />
+                            <field name="worked_day" />
+                        </group>
+                    </form>
+                    <tree string="Details" editable="top">
+                        <field name="employee_id"/>
+                        <field name="year" />
+                        <field name="month"/>
+                        <field name='amount_tootsson' sum='a'/>
+                        <field name="worked_day" sum='a'/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

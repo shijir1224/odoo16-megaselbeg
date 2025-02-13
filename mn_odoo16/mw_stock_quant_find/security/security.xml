@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="group_stock_quant_find" model="res.groups">
+	        <field name="name">Үлдэгдэл Хөдөлгөөнөөс Зөрсөнг Олох</field>
+	        <field name="category_id" ref="base.module_category_inventory_inventory"/>
+	    </record>
+    </data>
+</odoo>

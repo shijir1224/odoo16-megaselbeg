@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="camp_order_module_category">
+            <field name="name">Camp модуль</field>
+            <field name="sequence">9</field>
+        </record>
+        <record id="group_camp_order_user" model="res.groups">
+            <field name="name">Camp хэрэглэгч</field>
+            <field name="category_id" ref="mw_camp.camp_order_module_category" />
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        </record>
+        <record id="group_camp_order_admin" model="res.groups">
+            <field name="name">Camp Админ</field>
+            <field name="category_id" ref="mw_camp.camp_order_module_category" />
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        </record>
+    </data>
+</odoo>

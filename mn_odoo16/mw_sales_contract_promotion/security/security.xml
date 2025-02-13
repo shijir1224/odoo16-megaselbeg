@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>     
+        <record id="group_promotion_manager" model="res.groups">
+            <field name="name">Promotion manager</field>
+            <field name="comment">Promotion, Урамшуулалтын тохиргоо хийх хэрэглэгч</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record> 
+        <record id="group_promotion_select_user" model="res.groups">
+            <field name="name">Урамшуулал сонгодог хэрэглэгч</field>
+            <field name="comment">Захиалга дээр урамшуулал сонгох, урамшуулалын бараа сонгох хэрэглэгч</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record> 
+        <record id="group_sale_contract_manager" model="res.groups">
+            <field name="name">Sale contract manager</field>
+            <field name="comment">Борлуулалтын гэрээний тохиргоо хийх хэрэглэгч</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record> 
+
+        <record id="group_contract_promo_compute_user" model="res.groups">
+            <field name="name">Ноорог дээр Гэрээ, Урамшуулах бодох</field>
+            <field name="comment">Ноорог дээр Гэрээ, Урамшуулах бодох хэрэглэгч</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record> 
+
+        <record id="group_sale_contract_accountant" model="res.groups">
+            <field name="name">Төлөвлөгөөт борлуулалт бодох</field>
+            <field name="comment">Борлуулалтын гэрээг дүгнэгч, батлагч</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record> 
+
+        <record id="group_sale_contract_promotion_validator" model="res.groups">
+            <field name="name">Хөнгөлөлт, урамшуулал батлагч</field>
+            <field name="comment">Борлуулалтын хөнгөлөлт, урамшуулал батлах хэрэглэгч</field>
+            <field name="implied_ids" eval="[(4, ref('mw_sales_contract_promotion.group_sale_contract_manager'))]"/>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+        </record> 
+
+        <!-- Domains -->
+    </data>
+</odoo>

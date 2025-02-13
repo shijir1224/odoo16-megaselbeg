@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_asset_history_form" model="ir.ui.view">
+		<field name="name">account.asset.history.form</field>
+		<field name="model">account.asset.history</field>
+		<field name="arch" type="xml">
+			<form string="Asset history" create="0" duplicate="0" edit="0">
+				<sheet>
+					<group>
+						<group>
+							<field name="asset_id"/>
+							<field name="date"/>
+							<field name="action"/>
+							<field name="name"/>
+							<field name="create_date" string="Create Date"/>
+							<field name="company_id"/>
+							<field name="move_id"/>
+							<field name="department_id" options="{'no_create': True}"/>
+                			<field name="partner_id" options="{'no_create': True}"/>
+						</group>
+						<group>
+							<field name="user_id" string="Create User"/>
+							<field name="old_method_number" attrs="{'invisible':[('action','in',('close','sale'))]}"/>
+							<field name="old_method_period" attrs="{'invisible':[('action','in',('close','sale'))]}"/>
+							<field name="old_method_end" attrs="{'invisible':[('action','in',('close','sale'))]}"/>
+							<field name="method_number" />
+							<field name="method_period" />
+							<field name="method_end" />
+							<field name="amount" />
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_asset_history_tree" model="ir.ui.view">
+		<field name="name">account.asset.history.tree</field>
+		<field name="model">account.asset.history</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+    		<tree string="Asset history" create="0" edit="0">
+        		<field name="asset_id" required="1" />
+        		<field name="date" required="1" />
+        		<field name="action" required="1" />
+        		<field name="name"/>
+        		<field name="create_date" string="Create Date"/>
+        		<field name="user_id" required="1" string="Create User"/>
+        		<field name="method_number" />
+        		<field name="method_period" />
+        		<field name="method_end" />
+        		<field name="amount" />
+				<field name="company_id"/>
+    		</tree>
+		</field>
+	</record>
+
+	<record id="view_asset_history_search" model="ir.ui.view">
+		<field name="name">account.asset.history.search</field>
+		<field name="model">account.asset.history</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="asset_id"/>
+				<field name="name"/>
+				<field name="action"/>
+				<field name="department_id"/>
+				<field name="partner_id"/>
+				<filter string="Capitalization asset" name="capital" domain="[('action','=','capital')]"/>
+				<filter string="Revaluation asset" name="revaluation" domain="[('action','=','revaluation')]"/>
+				<filter string="Sale asset" name="sale" domain="[('action','=','sale')]"/>
+				<filter string="Close asset" name="close" domain="[('action','=','close')]"/>
+				<separator/>
+				<filter string="Asset" name="asset_id" domain="[]" context="{'group_by': 'asset_id'}"/>
+				<filter string="Action" name="action" domain="[]" context="{'group_by': 'action'}"/>
+				<filter string="Date" name="date" domain="[]" context="{'group_by': 'date'}"/>
+				<filter string="Company" name="company_id" domain="[]" context="{'group_by': 'company_id'}"/>
+				<filter string="Performer Department" name="department_id" domain="[]" context="{'group_by': 'department_id'}"/>
+				<filter string="Performer Partner" name="partner_id" domain="[]" context="{'group_by': 'partner_id'}"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_asset_history" model="ir.actions.act_window">
+		<field name="name">Asset History</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">account.asset.history</field>
+		<field name="view_mode">tree,form,pivot</field>
+		<field name="view_id" ref="view_asset_history_tree"/>
+		<field name="search_view_id" ref="view_asset_history_search"/>
+	</record>
+
+<!-- 	<menuitem id="menu_asset_history" name="Asset History" parent="menu_account_assets" sequence="4" action="action_asset_history" groups="account.group_account_user"/> -->
+
+	<record id="view_asset_change_history_tree" model="ir.ui.view">
+		<field name="name">account.asset.change.history.tree</field>
+		<field name="model">account.asset.change.history</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+    		<tree string="Asset Use Year Change" create="0" edit="0">
+				<field name="date"/>
+        		<field name="asset_id"/>
+        		<field name="asset_code"/>
+				<field name="old_general_method_number"/>
+				<field name="new_general_method_number"/>
+        		<field name="old_method_number"/>
+				<field name="new_method_number"/>
+				<field name="user_id" string="Create User"/>
+    		</tree>
+		</field>
+	</record>
+</odoo>

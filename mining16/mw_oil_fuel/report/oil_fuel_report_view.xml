@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="oil_fuel_report_view_tree" model="ir.ui.view">
+			<field name="name">oil.fuel.report.tree</field>
+			<field name="model">oil.fuel.report</field>
+			<field name="arch" type="xml">
+				<tree editable="bottom">
+					<field name="oil_id"/>
+					<field name="line_id"/>
+					<field name="date"/>
+					<field name="state"/>
+					<field name="location_id"/>
+					<field name="partner_id"/>
+					<field name="picking_id"/>
+					<field name="technic_id"/>
+					<field name="product_id"/>
+					<field name="product_qty"/>
+					
+				</tree>
+			</field>
+		</record>
+		<record id="oil_fuel_report_view_graph" model="ir.ui.view">
+			<field name="name">oil.fuel.report.graph</field>
+			<field name="model">oil.fuel.report</field>
+			<field name="arch" type="xml">
+				<graph stacked="True">
+					<field name="technic_id" type="col"/>
+					<field name="product_qty" type="measure"/>
+				</graph>
+			</field>
+		</record>
+
+		<record id="oil_fuel_report_view_pivot" model="ir.ui.view">
+			<field name="name">oil.fuel.report.pivot</field>
+			<field name="model">oil.fuel.report</field>
+			<field name="arch" type="xml">
+				<pivot>
+					<field name="categ_id" type="col"/>
+					<field name="oil_type_from" type="row"/>
+					<field name="product_id" type="row"/>
+					<field name="product_qty" type="measure"/>
+				</pivot>
+			</field>
+		</record>
+
+		<record id="oil_fuel_report_view_search" model="ir.ui.view">
+			<field name="name">oil.fuel.report.search</field>
+			<field name="model">oil.fuel.report</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="technic_id"/>
+					<field name="technic_type"/>
+					<field name="owner_type"/>
+					<field name="model_id"/>
+					<field name="technic_setting_id"/>
+					<field name="date"/>
+					<field name="oil_id"/>
+					<field name="line_id"/>
+					<field name="state"/>
+					<field name="location_id"/>
+					<field name="partner_id"/>
+					<field name="picking_id"/>
+					
+					<field name="product_id"/>
+					<field name="product_qty"/>
+					<filter name="own_technic" string="Өөрийн техник" domain="[('owner_type','=','own_asset')]"/>
+					<separator/>
+					<filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+					<filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+					<filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+					<separator/>
+					<filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+					<filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+					<filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+					<filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+					<filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+					<filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+					<filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+					<filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+					<filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+					<filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+					<filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+					<filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+					<group expand="0" string="Group By">
+						<filter string="Техникээр" name="technic_id" context="{'group_by':'technic_id'}"/>
+						<filter string="Техникийн төрлөөр" name="technic_type" context="{'group_by':'technic_type'}"/>
+						<filter string="Эзэмшигчийн төрлөөр" name="owner_type" context="{'group_by':'owner_type'}"/>
+						<filter string="Техникийн моделоор" name="model_id" context="{'group_by':'model_id'}"/>
+						
+						<separator/>
+						<filter string="Өдрөөр" name='day' context="{'group_by':'date:day'}"/>
+						<filter string="Сараар" name='month' context="{'group_by':'date:month'}"/>
+						<filter string="Жилээр" name='year' context="{'group_by':'date:year'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+	   <record id="oil_report_action" model="ir.actions.act_window">
+		   <field name="name">Тосны тайлан</field>
+		   <field name="res_model">oil.fuel.report</field>
+		   <field name="view_mode">pivot,graph,tree</field>
+		   <field name="context">{'search_default_own_technic': True, 'search_default_this_month': True}</field>
+		   <field name="domain">[]</field>
+	   </record>
+
+
+	   <record id="oil_fuel_fuel_report_view_tree" model="ir.ui.view">
+			<field name="name">oil.fuel.fuel.report.tree</field>
+			<field name="model">oil.fuel.fuel.report</field>
+			<field name="arch" type="xml">
+				<tree editable="bottom">
+					<field name="oil_id"/>
+					<field name="line_id"/>
+					<field name="date"/>
+					<field name="state"/>
+					<field name="location_id"/>
+					<field name="partner_id"/>
+					<field name="picking_id"/>
+					<field name="technic_id"/>
+					<field name="product_id"/>
+					<field name="product_qty"/>
+					<field name="current_km"/>
+					<field name="run_hour"/>
+					<field name="production_amount"/>
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="oil_fuel_fuel_report_view_graph" model="ir.ui.view">
+			<field name="name">oil.fuel.fuel.report.graph</field>
+			<field name="model">oil.fuel.fuel.report</field>
+			<field name="arch" type="xml">
+				<graph stacked="True">
+					<field name="technic_id" type="col"/>
+					<field name="product_qty" type="measure"/>
+				</graph>
+			</field>
+		</record>
+
+		<record id="oil_fuel_fuel_report_view_pivot" model="ir.ui.view">
+			<field name="name">oil.fuel.fuel.report.pivot</field>
+			<field name="model">oil.fuel.fuel.report</field>
+			<field name="arch" type="xml">
+				<pivot>
+					<field name="technic_id" type="row"/>
+					<field name="product_id" type="col"/>
+					<field name="product_qty" type="measure"/>
+					<field name="run_hour" type="measure"/>
+					<field name="avg_epx" type="measure"/>
+				</pivot>
+			</field>
+		</record>
+
+		<record id="oil_fuel_fuel_report_view_search" model="ir.ui.view">
+			<field name="name">oil.fuel.fuel.report.search</field>
+			<field name="model">oil.fuel.fuel.report</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="technic_id"/>
+					<field name="technic_type"/>
+					<field name="owner_type"/>
+					<field name="model_id"/>
+					<field name="technic_setting_id"/>
+					<field name="date"/>
+					<field name="oil_id"/>
+					<field name="line_id"/>
+					<field name="state"/>
+					<field name="location_id"/>
+					<field name="partner_id"/>
+					<field name="picking_id"/>
+					<field name="product_id"/>
+					<field name="product_qty"/>
+					<filter name="own_technic" string="Өөрийн техник" domain="[('owner_type','=','own_asset')]"/>
+					<separator/>
+					<filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+					<filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+					<filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+					<separator/>
+					<filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+					<filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+					<filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+					<filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+					<filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+					<filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+					<filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+					<filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+					<filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+					<filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+					<filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+					<filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+					<group expand="0" string="Group By">
+						<filter string="Техникээр" name="technic_id" context="{'group_by':'technic_id'}"/>
+						<filter string="Техникийн төрлөөр" name="technic_type" context="{'group_by':'technic_type'}"/>
+						<filter string="Эзэмшигчийн төрлөөр" name="owner_type" context="{'group_by':'owner_type'}"/>
+						<filter string="Техникийн моделоор" name="model_id" context="{'group_by':'model_id'}"/>
+						
+						<separator/>
+						<filter string="Өдрөөр" name='day' context="{'group_by':'date:day'}"/>
+						<filter string="Сараар" name='month' context="{'group_by':'date:month'}"/>
+						<filter string="Жилээр" name='year' context="{'group_by':'date:year'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+	   <record id="fuel_fuel_report_action" model="ir.actions.act_window">
+		   <field name="name">Түлшний тайлан</field>
+		   <field name="res_model">oil.fuel.fuel.report</field>
+		   <field name="view_mode">pivot,graph,tree</field>
+		   <field name="context">{'search_default_own_technic': True, 'search_default_this_month': True}</field>
+		   <field name="domain">[]</field>
+	   </record>
+
+
+	<menuitem id="oil_report_menu" parent="stock.menu_warehouse_report" sequence="30" action="oil_report_action" groups="mw_oil_fuel.group_oil_fuel_user"/>
+	<menuitem id="fuel_report_menu" parent="stock.menu_warehouse_report" sequence="33" action="fuel_fuel_report_action" groups="mw_oil_fuel.group_oil_fuel_user"/>
+
+</odoo>

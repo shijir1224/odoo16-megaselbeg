@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ########  Техникийн тохиргоо ######## -->
+    <record model='ir.ui.view' id='technic_equipment_setting_tree'>
+        <field name="name">Setting tree</field>
+        <field name="model">technic.equipment.setting</field>
+        <field name="inherit_id" ref="mw_technic_equipment.technic_equipment_setting_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='technic_equipment_setting_form'>
+        <field name="name">Setting form</field>
+        <field name="model">technic.equipment.setting</field>
+        <field name="inherit_id" ref="mw_technic_equipment.technic_equipment_setting_form"/>
+        <field name="arch" type="xml">
+            <field name="model_id" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+                <newline/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

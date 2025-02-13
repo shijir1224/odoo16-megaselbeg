@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="wizard_component_report_view" model="ir.ui.view">
+            <field name="name">Component report</field>
+            <field name="model">wizard.component.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4">
+                        <label string="Эхлэх, дуусах хоёр өдөр тайлант хугацаанд орно!" colspan="4" for="date_start"/>
+                        <newline/>
+                        <field name="date_start" />
+                        <field name="date_end"/>
+                        <!-- <field name="technic_id"/> -->
+                        <field name="technic_ids" widget='many2many_tags'/>
+                        <!-- <field name="product_id"/> -->
+                        <field name="product_ids" widget='many2many_tags'/>
+                        <field name="state"/>
+                   </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                        <button name="export_report" string="Татах"
+                            type="object" colspan="1" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_technic_component_report" model="ir.actions.act_window">
+            <field name="name">component report</field>
+            <field name="res_model">wizard.component.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_component_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+    
+</odoo>

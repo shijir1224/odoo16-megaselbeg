@@ -1,0 +1,106 @@
+<odoo>
+	
+    <record id="view_hr_department_analytic" model="ir.ui.view">
+        <field name="name">hr.department_analytic</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="analytic_account_id"/> 
+            </xpath>
+        </field>
+    </record>
+    
+
+        <record id="view_account_mn_analytic_form" model="ir.ui.view">
+            <field name="name">account.account.analytic.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>   
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='deprecated']" position="after">
+	                <field name="check_balance"/>
+	                <field name="check_analytic"/>
+	                <field name="create_analytic"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="account_analytic_distribution_model_tree_mw" model="ir.ui.view">
+            <field name="name">account.analytic.distribution.model.mw.tree</field>
+            <field name="model">account.analytic.distribution.model</field>
+            <field name="inherit_id" ref="analytic.account_analytic_distribution_model_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='partner_id']" position="before">
+                            <field name="department_id"/>
+                            <field name="branch_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="account_analytic_distribution_model_form_mw" model="ir.ui.view">
+            <field name="name">account.analytic.distribution.model.mw.form</field>
+            <field name="model">account.analytic.distribution.model</field>
+            <field name="inherit_id" ref="analytic.account_analytic_distribution_model_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='partner_id']" position="before">
+                            <field name="department_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>        
+        <record id="account_analytic_filter_model_form_mw" model="ir.ui.view">
+            <field name="name">account.analytic.line.model.mw.form</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='date']" position="after">
+                        <field name="move_line_id"/>
+                    </xpath>
+					<xpath expr="//group[@name='groupby']" position="after">
+						<filter string="Журналын бичилт" name="move_line_id" context="{'group_by':'move_line_id'}"/>
+					</xpath>
+                </data>
+            </field>
+        </record>      
+        
+
+	<record id="view_account_move_line_analytic_filter" model="ir.ui.view">
+		<field name="name">account.move.line.search.mw.pur</field>
+		<field name="model">account.move.line</field>
+		<field name="inherit_id" ref="account.view_account_move_line_filter"/>
+		<field name="arch" type="xml">
+			<search position="inside">
+                <filter string="Шинжилгээний данс" name="group_by_analytic" domain="[]" context="{'group_by': 'analytic_distribution'}"/>
+			</search>
+		</field>
+	</record>
+
+    <record id="view_account_analytic_line_tree_inh" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_id']" position="after">
+                <field name="brand_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_filter_inh" model="ir.ui.view">
+        <field name="name">account.analytic.line.filter</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_id']" position="after">
+                <field name="brand_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_date']" position="after">
+                <filter string="Brand" name="gr_brand" context="{'group_by': 'brand_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

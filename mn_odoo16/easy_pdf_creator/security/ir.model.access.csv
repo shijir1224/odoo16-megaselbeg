@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_pdf_template_generator_user,pdf.template.generator,model_pdf_template_generator,base.group_user,1,1,0,0
+
+access_pdf_template_generator_manager,pdf.template.generator,model_pdf_template_generator,base.group_no_one,1,1,1,1
+
+access_report_pdf_output_user,report.pdf.output,model_report_pdf_output,base.group_user,1,1,1,0

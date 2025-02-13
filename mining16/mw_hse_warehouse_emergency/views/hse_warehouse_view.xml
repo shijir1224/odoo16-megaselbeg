@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_hse_warehouse_emergency_form" model="ir.ui.view">
+		<field name="name">hse.warehouse.emergency.form</field>
+		<field name="model">hse.warehouse.emergency</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="branch_id" options="{'no_create':True}"/>
+							<field name="product_id"/>
+							<field name="uom_id"/>
+							<field name="user_company_id"/>
+							<field name="company_id" options="{'no_create':True}"/>
+						</group>
+						<group>
+							<field name="balance"/>
+							<field name="total_income"/>
+							<field name="total_expenditure"/>
+						</group>
+					</group>
+					<notebook>
+						<page string='Орлогын мэдээ'>
+							<field name='income_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name='date' required="1"/>
+									<field name='income_amount' sum="Sum"/>
+									<field name="uom_id"/>
+									<field name="location_id" options="{'no_create':True}"/>
+									<field name="technic_id" options="{'no_create':True}"/>
+									<field name="review"/>
+								</tree>
+								<form>
+									<group>
+										<field name='date' required="1"/>
+										<field name="income_amount" sum="Sum"/>
+										<field name="parent_id"/>
+										<field name="uom_id"/>
+										<field name="location_id" options="{'no_create':True}"/>
+										<field name="technic_id" options="{'no_create':True}"/>
+										<field name="review"/>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string='Зарлагын мэдээ'>
+							<field name='expenditure_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name='date' required="1"/>
+									<field name='expenditure_amount' sum="Sum"/>
+									<field name="uom_id"/>
+									<field name="location_id" options="{'no_create':True}"/>
+									<field name="technic_id" options="{'no_create':True}"/>
+									<field name="review"/>
+								</tree>
+								<form>
+									<group>
+										<field name='date' required="1"/>
+										<field name='expenditure_amount' sum="Sum"/>
+										<field name="uom_id"/>
+										<field name="parent_id"/>
+										<field name="location_id" options="{'no_create':True}"/>
+										<field name="technic_id" options="{'no_create':True}"/>
+										<field name="review"/>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_warehouse_emergency_tree" model="ir.ui.view">
+		<field name="name">hse.warehouse.emergency.tree</field>
+		<field name="model">hse.warehouse.emergency</field>
+		<field name="arch" type="xml">
+			<tree>
+                <field name="name"/>
+				<field name="product_id"/>
+				<field name="balance" sum="Sum"/>
+				<field name="total_income" sum="Sum"/>
+				<field name="total_expenditure" sum="Sum"/>
+				<field name="uom_id"/>
+				<field name="company_id"/>
+				<field name="branch_id"/>
+            </tree>
+		</field>
+	</record>
+
+	<record id="view_hse_warehouse_emergency_filter" model="ir.ui.view">
+		<field name="name">hse.warehouse.emergency.filter</field>
+		<field name="model">hse.warehouse.emergency</field>
+		<field name="arch" type="xml">
+			<search>
+                <field name="name"/>
+				<field name="product_id"/>
+				<field name="balance"/>
+				<field name="total_income"/>
+				<field name="total_expenditure"/>
+				<field name="uom_id"/>
+				<field name="company_id"/>
+				<field name="branch_id"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="action_hse_warehouse_emergency_view" model="ir.actions.act_window">
+		<field name="name">Агуулахын Мэдээлэл</field>
+		<field name="res_model">hse.warehouse.emergency</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

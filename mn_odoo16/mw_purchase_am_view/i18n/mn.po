@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase_am_view
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-27 08:26+0000\n"
+"PO-Revision-Date: 2023-02-27 08:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__account_id
+msgid "Account"
+msgstr "Данс"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__company_id
+msgid "Company"
+msgstr "Компани"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__user_id
+msgid "Created user"
+msgstr "Үүсгэсэн хэрэглэгч"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__credit
+msgid "Credit"
+msgstr "Кредит"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__debit
+msgid "Debit"
+msgstr "Дебит"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__account_move_line_id
+msgid "Journal item"
+msgstr "Журналын бичилт"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__acc_date
+msgid "Journal item date"
+msgstr "Журналын огноо"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__acc_state
+msgid "Journal item state"
+msgstr "Журналын төлөв"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__po_date
+msgid "PO date"
+msgstr "ХА огноо"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__po_state
+msgid "PO state"
+msgstr "ХА төлөв"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__partner_id
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_acc_view__purchase_id
+msgid "Purchase"
+msgstr "Худалдан авалт"
+
+#. module: mw_purchase_am_view
+#: model:ir.model,name:mw_purchase_am_view.model_purchase_order
+msgid "Purchase Order"
+msgstr "Худалдан авалтын захиалга"
+
+#. module: mw_purchase_am_view
+#: model_terms:ir.ui.view,arch_db:mw_purchase_am_view.view_purchase_acc_view_tree
+msgid "SUM"
+msgstr "Нийт"
+
+#. module: mw_purchase_am_view
+#: model:ir.model,name:mw_purchase_am_view.model_purchase_acc_view
+msgid "purchase acc view"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_order__zamd_amount_debit
+msgid "Замд Дт"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model:ir.model.fields,field_description:mw_purchase_am_view.field_purchase_order__zamd_amount_credit
+msgid "Замд Кр"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model_terms:ir.ui.view,arch_db:mw_purchase_am_view.purchase_order_form_inherit_mw_purchase_am_view
+msgid "Нийт Санхүү Бичилт Харах"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model:ir.actions.act_window,name:mw_purchase_am_view.action_purchase_acc_view_form
+#: model:ir.ui.menu,name:mw_purchase_am_view.menu_purchase_acc_view
+msgid "Санхүү Бичилт Тулгалт"
+msgstr ""
+
+#. module: mw_purchase_am_view
+#: model:res.groups,name:mw_purchase_am_view.group_purchase_am_reconcile_view
+msgid "Худалдан Авалт Санхүү Бичилт Тулгалт Харах"
+msgstr ""

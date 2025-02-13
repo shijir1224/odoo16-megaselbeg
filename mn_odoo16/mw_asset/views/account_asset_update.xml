@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Хөрөнгийн мэдээлэл шинэчлэх -->
+
+	<record id="account_asset_information_action" model="ir.actions.act_window">
+		<field name="name">Update Asset information</field>
+		<field name="res_model">account.asset.update</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	
+	<record id="account_asset_update_view_form" model="ir.ui.view">
+		<field name="name">account.asset.update.view.form</field>
+		<field name="model">account.asset.update</field>
+		<field name="arch" type="xml">
+			<form string="">
+				<group>
+					<group>
+						<field name="owner_id"></field>
+						<field name="department_id"></field>
+						<field name="location_id"></field>
+						<field name="branch_id"></field>
+						<field name="asset_type_id"></field>
+					</group>
+					<group>
+						<field name='prorata_date'/>
+						<field name='method_number'/>
+						<field name="expense_account_id"></field>
+						<field name="analytic_distribution" widget="analytic_distribution" string="Шинжилгээ"/>
+					</group>
+				</group>
+				<group>
+					<field name="asset_ids">
+						<tree>
+							<!-- <field name="code" readonly="1"/> -->
+							<!-- <field name="name" readonly="1"/>
+							<field name="owner_partner_id" readonly="1"/>
+							<field name="owner_department_id" readonly="1"/> -->
+							<!-- <field name="value" sum="SUM" readonly="1"/>
+							<field name="account_analytic_id" readonly="1"/>
+							<field name="location_id" readonly="1"/> -->
+						</tree>
+					</field>
+				</group>
+				<!-- <notebook>
+					<page string="Asset lines">
+						<field name="line_ids">
+							<tree>
+								<field name="asset_id"></field>
+								<field name="expense_account_id"></field>
+								<field name="department_id"></field>
+								<field name="location_id"></field>
+								<field name="owner_id"></field>
+								<field name="analytic_account_id"></field>
+							</tree>
+						</field>
+					</page>
+				</notebook> -->
+				<footer>
+					<button string="Мэдээлэл шинэчлэх" name="change_button" type="object" class="oe_highlight" data-hotkey="q"/>
+					<button string="Батлах" name="done_button" type="object" class="oe_highlight" data-hotkey="q"/>
+					<button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+	<act_window name="Хөрөнгө батлах"
+		res_model="account.asset.update"
+		binding_model="account.asset"
+		view_mode="form"
+		target="new"
+		view_id="account_asset_update_view_form"
+		groups="group_mn_asset_accountant"
+		id="action_doned_asset_update"/>
+
+</odoo>

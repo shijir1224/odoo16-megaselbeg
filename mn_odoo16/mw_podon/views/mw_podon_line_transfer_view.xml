@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for  -->
+    <record id="seq_podon_use_transfer" model="ir.sequence">
+        <field name="name">PODON TRANSFER</field>
+        <field name="code">podon.use.transfer</field>
+        <field name="prefix">PT-%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="view_podon_use_transfer_form" model="ir.ui.view">
+        <field name="name">podon.use.transfer.form</field>
+        <field name="model">podon.use.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Поддон Шилжүүлэг">
+                <header>
+                    <button name="action_to_payment" string="Төлбөрийн хүсэлт үүсгэх" type="object" class="btn-success"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="view_payment" icon="fa-money" type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="payment_count"/></span>
+                                <span class="o_stat_text">Төлбөрийн хүсэлт</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="stock_picking_id" options="{'no_create': True}"/>
+                        <field name="payment_id" options="{'no_create': True}"/>
+                    </group>
+                    <notebook>
+                        <page string='Шилжүүлэг түүх'>
+                            <field name="podon_line_use_transfer_ids" nolabel="1">
+                                <tree string='Шилжүүлэгүүд'>
+                                    <field name="date" options="{'no_create': True}"/>
+                                    <field name="podon_line_in_use_id" options="{'no_create': True}"/>
+                                    <field name="product_id" options="{'no_create': True}"/>
+                                    <field name="amount"/>
+                                    <field name="pre_partner_id" options="{'no_create': True}"/>
+                                    <field name="partner_id" options="{'no_create': True}"/>
+                                    <field name="company_id" options="{'no_create': True}"/>
+                                    <field name="name" optional="hide"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="partner_id" options="{'no_create': True}"/>
+                                        <field name="company_id" options="{'no_create': True}"/>
+                                        <field name="amount"/>
+                                        <field name="podon_line_in_use_id" options="{'no_create': True}"/>
+                                        <field name="product_id" options="{'no_create': True}"/>
+                                        <field name="date" options="{'no_create': True}"/>
+                                        <field name="pre_partner_id" options="{'no_create': True}"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="podon_use_transfer_tree" model="ir.ui.view">
+        <field name="name">podon.use.transfer.tree</field>
+        <field name="model">podon.use.transfer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="stock_picking_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="podon_use_transfer_search" model="ir.ui.view">
+        <field name="name">podon.use.transfer.tree</field>
+        <field name="model">podon.use.transfer</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0">
+					<filter string="Агуулахын баримтаар" name="group_stock_picking_id" domain="[]" context="{'group_by':'stock_picking_id'}"/>
+				</group>
+                <field name="name"/>
+                <field name="stock_picking_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_podon_use_transfer" model="ir.actions.act_window">
+        <field name="name">Поддон шилжүүлэг</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">podon.use.transfer</field>
+        <field name="context">{'search_default_group_stock_picking_id':1}</field>
+        <field name="view_id" ref="podon_use_transfer_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

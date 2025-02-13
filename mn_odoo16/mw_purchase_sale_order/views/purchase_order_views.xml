@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_order_po_create_form" model="ir.ui.view">
+        <field name="name">sale.order.po.create.form</field>
+        <field name="model">sale.order.po.create</field>
+        <field name="arch" type="xml">
+            <form>
+                <!-- <group col="4">
+                    <field name="is_sub_po" widget="boolean_toggle"/>
+                </group> -->
+                <group col="4">
+                    <field name="flow_id" options="{'no_create':True}"  />
+                    <field name="date"/>
+
+                    <field name="partner_id" options="{'no_create':True}"  />
+                    <!-- <field name="user_id" options="{'no_create':True}"  /> -->
+
+                    <field name="for_partner_id" options="{'no_create':True}"  />
+                    <!-- <field name="partner_ids" options="{'no_create':True}" widget="many2many_tags" attrs="{'invisible': [('is_comparison', '=', False)], 'required': [('is_comparison', '=', True)]}"/> -->
+                    <!-- <field name="user_id"/> -->
+                    <!-- <field name="is_comparison" widget="boolean_toggle" attrs="{'invisible': [('is_sub_po','=',True)]}"/> -->
+                    <!-- <field name="date" attrs="{'invisible': [('is_sub_po','=',True)]}"/> -->
+                </group>
+                <!-- <group col="4">
+                    <field name="purchase_sub_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', True)] ,'invisible': [('is_sub_po', '=', False)]}" domain="[('flow_line_id.state_type','=','draft')]"/>
+                </group>
+                <group>
+                    <field name="flow_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', False)] ,'invisible': [('is_sub_po', '=', True)]}"/>
+                    <field name="warehouse_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', False)] ,'invisible': [('is_sub_po', '=', True)]}" domain="[('access_user_ids','in',[uid])]"/>
+                </group> -->
+                <group col="4">
+                    <field name="is_po_qty_edit" widget="boolean_toggle"/>
+                </group>
+                <group>
+                    <field name="line_ids" nolabel="1" force_save="1">
+                        <tree create="false" delete="false" editable="bottom">
+                            <field name="product_id"/>
+                            <!-- <field name="desc"/> -->
+                            <field name="product_residual" readonly="1"/>
+                            <field name="qty"/>
+                            <field name="po_qty" readonly="0" force_save="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="action_done" string="Худалдан авалтын захиалга үүсгэх" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" type="object" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Худалдан Авалтын Захиалга Үүсгэх"
+                res_model="sale.order.po.create"
+                binding_model="sale.order"
+                view_mode="form"
+                view_id = "sale_order_po_create_form"
+                target="new"
+                id="sale_order_po_create_action"/>
+
+    <record id="sale_order_form_inh" model="ir.ui.view">
+        <field name="name">sale.order.inh</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm']" position='after'>
+                <button name="action_create_po" string='Худалдан авалт үүсгэх' type='object' class="btn-primary" attrs="{'invisible':[('state','!=','sale')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

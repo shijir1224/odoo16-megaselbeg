@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Төлөвлөгөө олноор нь цуцлах -->
+    <record id="selected_maintenance_plan_delete_form" model="ir.ui.view">
+        <field name="name">selected.maintenance.plan.delete.form</field>
+        <field name="model">selected.maintenance.plan.delete</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="with_delete"/>
+                </group>
+                <footer>
+                    <button name="action_cancel" string="Олноор нь цуцлах" type="object"
+                        class="btn-primary"/>
+                    <button special="cancel" string="Хаах" type="object" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Олноор нь цуцлах"
+            res_model="selected.maintenance.plan.delete"
+            binding_model="maintenance.plan.line"
+            view_mode="form"
+            view_id = "selected_maintenance_plan_delete_form"
+            target="new"
+            id="selected_maintenance_plan_delete_action"/>
+
+    <!-- Plan -->
+    <record id="maintenance_plan_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.filter</field>
+        <field name="model">maintenance.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="planner_id"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by' : 'planner_id'}" string="Төлөвлөгч"
+                        name="planner"/>
+                    <filter context="{'group_by' : 'state'}" string="Төлөв"
+                        name="state"/>
+                    <filter context="{'group_by' : 'year'}" string="Жилээр"
+                        name="year"/>
+                    <filter context="{'group_by' : 'month'}" string="Сараар"
+                        name="month"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="maintenance_plan_form_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.form</field>
+        <field name="model">maintenance.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        states="confirmed"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" readonly="1" />
+                </header>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                    </div>
+                    <!-- <div name="button_box" class="oe_button_box oe_right">
+                        <button
+                            name="see_expenses_view"
+                            type="object" class="oe_stat_button"
+                            icon="fa-calculator" string="Materials">
+                        </button>
+                    </div> -->
+                    <group col="4">
+                        <field name="branch_id" options="{'no_create':True}"/>
+                        <field name="planner_id"/>
+
+                        <field name="year"/>
+                        <field name="month"/>
+
+                        <label for="description" colspan="2" />
+                        <field name="description" nolabel="1" colspan="2" placeholder="Хийгдэх ажил..."/>
+
+                        <field name="total_amount"/>
+                    </group>
+                    <notebook>
+                        <page string="Төлөвлөгөө" class="oe_page_title" accesskey="M">
+                            <group col="4">
+                                <field name="plan_line" nolabel="1" widget="one2many_list"
+                                    colspan="4">
+                                    <tree string="Lines">
+                                        <field name="name"/>
+                                        <field name="maintenance_type"/>
+                                        <field name="date_required"/>
+                                        <field name="technic_id" options="{'no_create':True}"/>
+                                        <field name="start_odometer"/>
+                                        <field name="work_time"/>
+                                        <field name="description"/>
+                                        <field name="total_amount" sum="Total"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_plan_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.tree</field>
+        <field name="model">maintenance.plan</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'" decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="planner_id"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_plan'>
+        <field name="name">maintenance.plan.action</field>
+        <field name="res_model">maintenance.plan</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<!-- Plan line -->
+    <!-- Sequences for  -->
+    <record id="seq_maintenance_plan_line" model="ir.sequence">
+        <field name="name">Maintenance plan</field>
+        <field name="code">maintenance.plan.line</field>
+        <field name="prefix">MP%(y)s%(month)s-</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval='False'/>
+    </record>
+
+    <!-- Calendar -->
+    <record  id="maintenance_plan_line_calendar_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.line.calendar</field>
+        <field name="model">maintenance.plan.line</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Plan"
+                    date_start="date_required"
+                    color="technic_id"
+                    mode="month"
+                    quick_add="False">
+                <field name="name"/>
+                <field name="technic_id"/>
+                <field name="shift"/>
+                <field name="maintenance_type_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Form -->
+	<record id="maintenance_plan_line_form_view" model="ir.ui.view">
+		<field name="name">maintenance.plan.line.form</field>
+		<field name="model">maintenance.plan.line</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        states="confirmed"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,wo_created,done" readonly="1" />
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                        <button name="test_run_cron" string="RUN cron" type="object"
+                            groups="base.group_no_one"/>
+                    </div>
+                    <div name="button_box" class="oe_button_box">
+                        <!-- <button name="action_to_print" icon="fa-print"
+                            string="Хэвлэх" type="object"/> -->
+                        <button name="create_workorder" icon="fa-wrench"
+                            states="confirmed,wo_created"
+                            string="WO үүсгэх" type="object"/>
+                    </div>
+           			<group col="4">
+                        <field name="branch_id" options="{'no_create':True}"/>
+                        <field name="date_required" required="1"/>
+
+                        <field name="maintenance_type"/>
+                        <field name="contractor_type"/>
+
+                        <field name="technic_id" options="{'no_create': True}" required="1"/>
+                        <field name="start_odometer"/>
+
+                        <field name="work_time" widget="float_time"/>
+                        <field name="man_hours" widget="float_time"/>
+
+                        <field name="total_amount"/>
+                    </group>
+                    <group col="4">
+                        <field name="maintenance_type_id" options="{'no_create': True}"
+                            attrs="{'required':[('maintenance_type','=','pm_service')]}"/>
+                        <field name="pm_priority"/>
+
+                        <field name="description" placeholder="Хийгдэх ажил..."
+                            help="Эвдрэл гэмтэлтэй холбоотой мэдээлэл"/>
+                        <field name="shift"/>
+
+                        <field name="to_delay"/>
+                        <field name="to_delay_description"
+                            attrs="{'required':[('to_delay','=',True)]}"/>
+                        <field name="to_delay_date"
+                            attrs="{'required':[('to_delay','=',True)]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Хэрэгцээт материалиуд" class="oe_page_title" accesskey="M">
+                            <group col="4">
+                                <button name="create_po_request_for_parts" icon="fa-wrench"
+                                    states="confirmed" class="oe_highlight"
+                                    string="Сэлбэг захиалах" type="object" />
+                                <newline/>
+                                <field name="required_material_line" nolabel="1" widget="one2many_list"
+                                    colspan="4">
+                                    <tree string="Lines" editable="bottom" >
+                                        <field name="product_id" options="{'no_create': True}"/>
+                                        <field name="categ_id"/>
+                                        <field name="qty"/>
+                                        <field name="uom_id" />
+                                        <field name="price_unit" invisible="1"/>
+                                        <field name="amount" sum="Total"/>
+                                        <field name="is_pm_material" />
+                                        <field name="warehouse_id" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="REF" class="oe_page_title" accesskey="R">
+                            <group col="4">
+                                <field name="user_id"/>
+                                <field name="planner_id"/>
+
+                                <field name="workorder_id"/>
+                                <field name="workorder_rate"/>
+
+                                <field name="origin"/>
+                                <field name="generator_line_id"/>
+
+                                <field name="ref_plan_id"/>
+
+                                <field name="parent_id"
+                                    attrs="{'invisible':[('parent_id','=',False)]}"/>
+                                <!-- <field name="po_request_id"
+                                    attrs="{'invisible':[('po_request_id','=',False)]}"/> -->
+                            </group>
+                        </page>
+                    </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_plan_line_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.line.tree</field>
+        <field name="model">maintenance.plan.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'"
+                  decoration-info="state=='confirmed'"
+                  decoration-bf="state=='wo_created'" >
+                <field name="name"/>
+                <field name="date_required"/>
+                <field name="shift"/>
+                <field name="maintenance_type"/>
+                <field name="technic_id"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="work_time" sum="Total hours"/>
+                <field name="origin"/>
+                <field name="to_delay" invisible="1"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="maintenance_plan_line_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.plan.line.filter</field>
+        <field name="model">maintenance.plan.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="technic_id"/>
+                <field name="origin"/>
+                <field name="description"/>
+                <field name="planner_id"/>
+
+                <filter name="this_month" string="Энэ сар" domain="[('date_required','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="today" string="Өнөөдөр"
+                    domain="[('date_required','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="no_inspection" string="0.5 харуулахгүй"
+                    domain="[('work_time','!=',0.5)]"/>
+
+                <filter string="Хойшлуулсан төлөвлөгөө" domain="[('to_delay','=',True)]"
+                    name="to_delay"/>
+                <group expand="1" string="Group By...">
+                    <filter string="Жилээр" context="{'group_by':'date_required:year'}"
+                        name="year"/>
+                    <filter string="Сараар" context="{'group_by':'date_required:month'}"
+                        name="month"/>
+                    <filter string="Өдрөөр" context="{'group_by':'date_required:day'}"
+                        name="day"/>
+                    <filter context="{'group_by' : 'planner_id'}" string="Төлөвлөгч"
+                        name="planner_id"/>
+                    <filter context="{'group_by' : 'technic_id'}" string="Техникээр"
+                        name="technic_id"/>
+                    <filter context="{'group_by' : 'maintenance_type'}" string="Засварын төрлөөр"
+                        name="maintenance_type"/>
+                    <filter context="{'group_by' : 'state'}" string="Төлөв"
+                        name="state"/>
+                    <filter context="{'group_by' : 'parent_id'}" string="Сарын төлөвлөгөө"
+                        name="parent_id"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_plan_line'>
+        <field name="name">Төлөвлөгөө</field>
+        <field name="res_model">maintenance.plan.line</field>
+        <field name="context">{'search_default_this_month':1,'search_default_day':1}</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+    <!-- PLAN CRON -->
+    <record id="cron_check_plan_date_view" model="ir.cron">
+        <field name="name">Хийгдэх төлөвлөгөөг шалгах - КРОН</field>
+        <field name="model_id" ref="model_maintenance_plan_line"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._check_plan_date()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <!-- Төлөвлөгөөн дээрээс WO үүсгэх -->
+    <record id="cron_create_wo_from_plan_view" model="ir.cron">
+        <field name="name">Хийгдэх ажлыг үүсгэх - КРОН</field>
+        <field name="model_id" ref="model_maintenance_plan_line"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model._auto_create_wo_from_plan()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <!-- Улиралаас хамааралтай материалын тохиргоо -->
+    <record id="depending_season_material_filter_view" model="ir.ui.view">
+        <field name="name">depending.season.material.filter</field>
+        <field name="model">depending.season.material</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by' :'product_id'}" string="Материал"
+                        name="product_id"/>
+                    <filter context="{'group_by':'state'}" string="Төлөв"
+                        name="state"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="depending_season_material_form_view" model="ir.ui.view">
+        <field name="name">depending.season.material.form</field>
+        <field name="model">depending.season.material</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        states="confirmed"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" readonly="1" />
+                </header>
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="user_id"/>
+
+                        <field name="product_id" options="{'no_create':True}"/>
+                        <field name="replace_product_id" options="{'no_create':True}"/>
+
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="depending_season_material_tree_view" model="ir.ui.view">
+        <field name="name">depending.season.material.tree</field>
+        <field name="model">depending.season.material</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'" decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="replace_product_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_depending_season_material'>
+        <field name="name">Улиралаас хамааралтай материал</field>
+        <field name="res_model">depending.season.material</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

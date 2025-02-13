@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_sale_stock_qty" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.sale.stock.qty.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock_qty"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='free_qty_today']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="string">Үлдэгдэл</attribute>
+                <attribute name="style">style="max-width:200px"</attribute>
+                <attribute name="groups">mw_sale_stock.group_show_product_availability</attribute>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/form//field[@name='free_qty_today']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="string">Үлдэгдэл</attribute>
+                <attribute name="groups">mw_sale_stock.group_show_product_availability</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_line_form_inh_detail" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.inh.detail</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']//tree//field[@name='price_subtotal']" position="after">
+                 <field name="expected_date"  groups="mw_sale_stock.group_expected_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="commitment_date"]' position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_sale_order_lines" model="ir.actions.act_window">
+        <field name="name">Sale order lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="search_view_id" ref="sale.view_sales_order_line_filter"/>
+        <field name="domain">[]</field>
+        <field name="context">{'create': False, 'edit': False, 'search_default_order_reference': 1}</field>
+    </record>
+
+    <menuitem id="menu_sale_order_lines"
+            name="Sale Order Lines"
+            action="action_sale_order_lines"
+            parent="sale.sale_order_menu"
+            sequence="12" groups="sales_team.group_sale_salesman"/>
+</odoo>

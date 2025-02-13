@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+Budgets
+-->
+          
+    <record id="view_consumable_inventory_adjustment_search" model="ir.ui.view">
+        <field name="name">consumable.inventory.adjustment.search</field>
+        <field name="model">consumable.inventory.adjustment</field>
+        <field name="arch" type="xml">
+            <search string="Budgetary Position">
+                <field name="name" filter_domain="[('name','ilike',self)]" string="Configuration"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_consumable_inventory_adjustment_tree" model="ir.ui.view">
+        <field name="name">consumable.inventory.adjustment.tree</field>
+        <field name="model">consumable.inventory.adjustment</field>
+        <field name="arch" type="xml">
+            <tree string="Budgetary Position">
+                <field name="name"/>
+                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_consumable_inventory_adjustment_form">
+        <field name="name">consumable.inventory.adjustment.form</field>
+        <field name="model">consumable.inventory.adjustment</field>
+        <field name="arch" type="xml">
+            <form string="Asset inventory">
+			 <header>
+                    <button
+                        name="action_draft"
+                        string="Set draft"
+                        type="object"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
+                    <button
+                        name="action_confirm"
+                        string="Confirm"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        class="oe_highlight"
+                    />
+                    <button
+                       name="action_print"
+                       string="Print"
+                       type="object"
+                   />
+                    
+                    <button
+                        name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        attrs="{'invisible': [('state', '=', 'cancelled')]}"
+                    />
+                    <button
+                        name="create_lines"
+                        string="Compute"
+                        type="object"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>            
+           	<sheet>
+
+ 			    <div name="button_box" class="oe_button_box">           	
+                    <button string="Тооллогын Мөр" type="object"
+                            name="action_open_inventory_lines"
+                            class="oe_stat_button" icon="fa-exchange"
+                            context="{'no_reference': True}"/> <!--                             attrs="{'invisible':[('state', 'not in', ['done', 'cancel'])]}" -->  
+                  </div>
+                <group col="4">
+                    <field name="name"/>
+                    <field name="branch_id"/>
+                    <field name="owner_dep_id"/>
+                    <field name="category_id"></field>
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                </group>
+				<group name="dates"  col="4">
+		                <field name="owner_emp_id"/>
+                        <!-- <field name="location_id"></field> -->
+                        <field name="all_asset"></field>
+                        <field name="date" />
+                </group>
+                <group col="5">
+                    <field name="import_data_ids" widget="many2many_binary" />
+                    <button name="action_import_inventory" string="Тооллого Импортлох" type="object" icon="fa-arrow-circle-down"  class="btn-success" />
+                </group>
+                <notebook>
+                    <page string="Lines" name="lines">
+                        <field name="line_ids"/>
+                    </page>
+                    <page string="Description" >
+	                    <field name="description"/>
+                    </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="open_consumable_inventory_adjustment_form" model="ir.actions.act_window">
+        <field name="name">АБХМ тооллого</field>
+        <field name="res_model">consumable.inventory.adjustment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_consumable_inventory_adjustment_tree"/>
+        <field name="search_view_id" ref="view_consumable_inventory_adjustment_search"/>
+    </record>
+    
+    <menuitem action="open_consumable_inventory_adjustment_form" id="menu_consumable_inventory_adjustment_form"
+              parent="menu_finance_consumable_material" sequence="102"/>
+    
+    <record model="ir.ui.view" id="view_consumable_inventory_adjustment_line_form">
+        <field name="name">consumable.inventory.adjustment.line.form</field>
+        <field name="model">consumable.inventory.adjustment.line</field>
+        <field name="arch" type="xml">
+            <form string="Asset inventory">
+            <sheet>
+                <group col="4">
+	                 <field name="name"/>
+	                 <field name="code"/>
+                     <field name="asset_id"/>
+	                 <field name="model_asset_id"/>
+	                 <field name="owner_dep_id"/>
+	                 <field name="owner_emp_id"/>
+	                 <field name="branch_id"/>
+	                 <field name="date"/>
+	                 <field name="original_value"/>
+	                 <field name="depreciation_value"/>
+	                 <field name="balance"/>
+	                 <field name="partner_id"/>
+	                 <field name="state"/>
+	                 <field name="result"/>
+               </group>
+<!--                 <group col="2">
+	                 <field name="period_line_ids" nolabel="1"/>
+              </group> -->
+            </sheet>
+            </form>
+        </field>
+    </record>    
+        
+    <record id="view_consumable_inventory_adjustment_line_tree" model="ir.ui.view">
+        <field name="name">consumable.inventory.adjustment.line.tree</field>
+        <field name="model">consumable.inventory.adjustment.line</field>
+        <field name="arch" type="xml">
+            <tree string="Asset inventory" editable="bottom" decoration-success="result == 'counted'" decoration-info="result == 'nocounted'">
+	                 <field name="name"/>
+	                 <field name="code"/>
+                     <field name="asset_id" domain="[('state','!=','progress_done')]"/>
+	                 <field name="model_asset_id"/>
+	                 <field name="owner_dep_id"/>
+	                 <field name="owner_emp_id"/>
+	                 <field name="branch_id"/>
+	                 <field name="date"/>
+	                 <field name="original_value"/>
+	                 <field name="depreciation_value"/>
+	                 <field name="balance"/>
+	                 <field name="partner_id"/>
+	                 <field name="state"/>
+	                 <field name="result"/>
+                    <button name="button_count_line" string="Тоолох" type="object" icon="fa-bars"/>
+	                 <field name="parent_id" invisible="1"/>
+             </tree>
+        </field>
+    </record>
+
+    <record id="open_consumable_inventory_adjustment_line_form" model="ir.actions.act_window">
+        <field name="name">consumable inventory adjustment line from</field>
+        <field name="res_model">consumable.inventory.adjustment.line</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_consumable_inventory_adjustment_line_tree"/>
+    </record>
+
+
+</odoo>

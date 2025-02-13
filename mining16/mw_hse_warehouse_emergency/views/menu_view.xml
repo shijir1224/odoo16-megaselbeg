@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="menu_hse_warehouse_emergency" name="Агуулах/Галын хор/" parent="mw_hse_fire.menu_hse_fire" action="action_hse_warehouse_emergency_view" sequence="6"/>	
+		<menuitem id="menu_hse_warehouse_health" name="Агуулахын Бүртгэл/Бараагаар/" parent="mw_hse_health.menu_hse_health" action="action_hse_warehouse_health_view" sequence="3"/>
+	<menuitem id="hse_warehouse_emergency_config" name="Агуулах/Галын хор/" parent="mw_hse.menu_hse_config" sequence="15"/>
+		<menuitem id="menu_hse_product" name="Бараа" parent="hse_warehouse_emergency_config" action="action_hse_product" sequence="1"/>
+</odoo>

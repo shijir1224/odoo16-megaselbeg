@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- ########  Усны хэмжилт ######## -->
+        <record model='ir.ui.view' id='water_record_tree'>
+            <field name="name">Water.Record.Tree</field>
+            <field name="model">water.record</field>
+            <field name="arch" type="xml">
+                <tree string="Water.Record">
+                    <field name="date"/>
+                    <field name="user_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model='ir.ui.view' id='water_record_form'>
+            <field name="name">Water.Record.form</field>
+            <field name="model">water.record</field>
+            <field name="arch" type="xml">
+                <sheet>
+                    <form string="Water Record form">
+                        <group>
+                        <field name="date" />
+                        <field name="user_od" />
+                        <field name="line_ids" >
+                            <tree editable="top">
+                                <field name="device" />
+                                <field name="date" />
+                                <!-- <field name="start_counter" />
+                                <field name="end_counter" />
+                                <field name="diff_value" /> -->
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="device" />
+                                        <field name="date" />
+                                        <!-- <field name="start_counter" />
+                                        <field name="end_counter" />
+                                        <field name="diff_value" /> -->
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                        </group>
+                    </form>
+                </sheet>
+            </field>
+        </record>
+
+        <!-- <record id="water_record_filter_view" model="ir.ui.view"> -->
+            <!-- <field name="name">water.record.filter</field> -->
+            <!-- <field name="model">water.record</field> -->
+            <!-- <field name="arch" type="xml"> -->
+                <!-- <search> -->
+                   <!-- <field name="name"/> -->
+				<!-- <filter string="Огноо" name="date" context="{'group_by':'date_start'}"/> -->
+                <!-- </search> -->
+            <!-- </field> -->
+        <!-- </record> -->
+        <record model='ir.actions.act_window' id='action_water_record'>
+            <field name="name"> Усны хэмжилт</field>
+            <field name="res_model">water.record</field>
+            <field name="view_mode">tree,form</field>
+		    <field name="context">{'search_default_date': 1}</field>
+        </record>
+</odoo>

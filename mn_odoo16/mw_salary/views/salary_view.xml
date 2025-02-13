@@ -1,0 +1,759 @@
+<odoo>
+
+	<record id="view_department_inherit_form" model="ir.ui.view">
+        <field name="name">hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='manager_id']" position="after">
+				<field name="report_number"/>
+				<field name="account_expense_id"/>
+				<field name="account_allounce_expense_id"/>
+				<field name="account_shi_expense_id"/>
+			</xpath>
+        </field>
+    </record>
+
+	<!-- Сарын нэмэгдэл суутгал татах -->
+		<record id="payroll_vvariable_allounce_deduction_filter" model="ir.ui.view">
+	        <field name="name">payroll.fixed.allounce.deduction Search</field>
+	        <field name="model">payroll.fixed.allounce.deduction</field>
+	        <field name="type">search</field>
+	        <field name="arch" type="xml">
+	            <search string="Variable allounce deduction">
+	                <group col='8' colspan='4'>
+	                    <field name="name"/>
+	                </group>
+	                <group expand="0" string="Group By...">
+	                    <filter name="year" string="Жил" icon="terp-personal" domain="[]" context="{'group_by':'year'}"/>
+	                    <filter name="month" string="Сар" icon="terp-personal" domain="[]" context="{'group_by':'month'}"/>
+	                </group>
+	            </search>
+	        </field>
+	    </record>
+
+		<record id="view_payroll_variable_allounce_deduction_tree" model="ir.ui.view">
+			<field name="name">payroll.fixed.allounce.deduction.tree</field>
+			<field name="model">payroll.fixed.allounce.deduction</field>
+			<field name="arch" type="xml">
+				<tree string="Order Line">
+					<field name="name" />
+					<field name="work_location_id" />
+					<field name="company_id"/>
+					<field name="year" />
+					<field name="month" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_payroll_variable_allounce_deduction_form" model="ir.ui.view">
+			<field name="name">payroll.fixed.allounce.deduction.variable.form</field>
+			<field name="model">payroll.fixed.allounce.deduction</field>
+			<field name="arch" type="xml">
+				<form string="Salary Line">
+					<header>
+						<button name="confirm_action" states="draft" string="Батлах" class="btn-success" type="object"/>
+						<button name="action_cancel" states="confirm" string="Цуцлах" type="object" class="btn-success"/>
+						<button name="action_draft" states="cancel" string="Ноороглох" type="object" class="btn-success"/>
+						<button name="confirm_variable_create" states="draft" string="Ажилчид татах" icon="fa-users" type="object" class="btn-warning"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,cancel,confirm" />
+					</header>
+					
+					<sheet string="Мөрүүд">
+						<div class="oe_title">
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="month" />
+								<field name="year" />
+								<field name="employee_id" options="{'no_create': True}" />
+								<field name="data"/>
+							</group>
+							<group>
+								<field name="company_id" options="{'no_create': True}"/>
+								<field name="work_location_id" options="{'no_create': True}" />
+								<field name="allounce_categ_ids" widget="many2many_tags"/>
+							</group>
+						</group>
+						<button name="action_import_inventory" string="Импортлох" type="object" icon="fa-sign-in" class="btn-danger"/>
+						<button name="add_employee" states="draft" string="Ажилтан нэмэх" type="object" icon="fa-user" class="btn-warning"/>
+						<button name="add_allounce" states="draft" string="НС нэмэх" icon="fa-book" type="object" class="btn-success"/>
+						<notebook>
+							<page string="Мөрүүд">
+								<field name="setup_line" >
+									<tree string="Мөрүүд" limit="2000"  class="table_header_freeze">
+										<field name="ident_id" />
+										<field name="last_name" />
+										<field name="name" />
+										<field name="employee_location" />
+									</tree>
+									<form>
+										<group col="2" colspan="4">
+											<field name="ident_id" />
+											<field name="last_name" />
+											<field name="name" />
+											<field name="employee_location" />
+											<field name="employee_id" options="{'no_create': True}" />
+										</group>
+										<notebook>
+											<page string="Мөрүүд">
+												<field name="setup_line_line">
+													<tree string="Setup lines" editable="bottom">
+														<field name="number" />
+														<field name="category_id" on_change="onchange_category_id(category_id,setup_line_id, context)" />
+														<field name="type" />
+														<field name="is_advance" />
+														<field name="is_tree" />
+														<field name="amount" />
+													</tree>
+												</field>
+											</page>
+										</notebook>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="action_payroll_variable_allounce_deduction_tree" model="ir.actions.act_window">
+			<field name="name">Сарын нэмэгдэл, суутгал тохируулах</field>
+			<field name="res_model">payroll.fixed.allounce.deduction</field>
+			<field name="view_mode">tree,form</field>
+			<field eval="False" name="view_id" />
+			<field name="context">{'search_default_year': 1, 'search_default_month': 1}</field>
+        	<field name="search_view_id" ref="payroll_vvariable_allounce_deduction_filter"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to record a new supplier invoice.
+              </p>
+			</field>
+		</record>
+		<record id="action_payroll_variable_allounce_deduction_tree_view1"
+			model="ir.actions.act_window.view">
+			<field eval="1" name="sequence" />
+			<field name="view_mode">tree</field>
+			<field name="act_window_id" ref="action_payroll_variable_allounce_deduction_tree" />
+		</record>
+
+		<record id="action_payroll_variable_allounce_deduction_tree_view2"
+			model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_payroll_variable_allounce_deduction_form" />
+			<field name="act_window_id" ref="action_payroll_variable_allounce_deduction_tree" />
+		</record>
+
+		<menuitem action="action_payroll_variable_allounce_deduction_tree"
+			id="menu_action_payroll_variable_allounce_deduction_tree" parent="menu_finance_salary" />
+
+<!-- Цалин бодох -->
+	<record id="salary_order_tree" model="ir.ui.view">
+		<field name="name">salary.order.tree</field>
+		<field name="model">salary.order</field>
+		<field name="arch" type="xml">
+			<tree string="Order">
+				<field name="company_id" />
+				<field name="work_location_id" />
+				<field name="date_invoice" />
+				<field name="name" />
+				<field name="type" />
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="salary_order_filter" model="ir.ui.view">
+        <field name="name">salary.order Search</field>
+        <field name="model">salary.order</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Monthly Department hour balance front">
+                <group col='8' colspan='4'>
+                    <field name="name"/>
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter name="location" string="Байршил" icon="terp-personal" domain="[]" context="{'group_by':'company_id'}"/>
+                    <filter name="year" string="Жил" icon="terp-personal" domain="[]" context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар" icon="terp-personal" domain="[]" context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<record id="salary_order_form" model="ir.ui.view">
+		<field name="name">salary.order.form</field>
+		<field name="model">salary.order</field>
+		<field name="priority">2</field>
+		<field name="arch" type="xml">
+			<form string="Salary order" >
+				<header>
+					<button name="compute_create" states="draft" string="Тооцоолох" type="object" class="btn-danger"/>
+					<button name="compute_net_create" string="Татвар НДШ тооцоолох" states='draft' class="btn btn-info" type="object" groups='mw_salary.group_two_salary_compute'/>
+					<button name="send_action" string="Илгээх" states="draft" type="object" class="btn-success" groups='mw_salary.group_salary_hybo'/>
+
+					<button name="confirm_ez_action" string="Хянах" states="send" type="object" class="btn-success" groups='mw_salary.group_confirm_ez_salary'/>
+					<button name="draft_action" string="Ноороглох" states="send" type="object" class="btn-success" groups='mw_salary.group_confirm_ez_salary, mw_salary.group_salary_hybo'/>
+
+					<button name="confirm_action" string="Хянах" states="confirm_ez" type="object" class="btn-success" groups='mw_salary.group_confirm_salary'/>
+					<button name="draft_action" string="Ноороглох" states="confirm_ez" type="object" class="btn-success" groups='mw_salary.group_confirm_salary'/>
+
+
+					<button name="draft_action" string="Ноороглох" states="confirm,done" type="object" class="btn-success" groups='mw_salary.group_done_salary'/>
+					<button name="done_action" string="Батлах" states="confirm" type="object"  class="btn-success" groups='mw_salary.group_done_salary'/>
+
+					<button name="action_send_mail" states="draft" string="Имэйл илгээх"
+							type="object" attrs="{'invisible':[('type','!=','final')]}" class="btn btn-warning"/>
+					<!-- <button name="action_salary_employee_create" states="draft" string="Ажилчдын цалин илгээх"
+						type="object" attrs="{'invisible':[('type','!=','final')]}" class="btn btn-warning"/> -->
+					<!-- <button name="default_amount_id" string="ЭА өгөгдөл илгээх"
+						type="object" class="btn btn-danger" attrs="{'invisible':[('type','!=','final')]}"/> -->
+
+					<field name="state" widget="statusbar" statusbar_visible="draft,send,confirm_ez,confirm,done" />
+				</header>
+				<sheet string="Salary list">
+					<!-- <function id="get_salary_js" model="salary.order"
+               name="get_js"/> -->
+					<div class="oe_title" >
+						<h1>
+							<field name="name"  placeholder="e.g. 2022 оны 08-р сарын сүүл цалин"/>
+						</h1>
+					</div>
+					<group col='3'>
+						<group>
+							<field name="date_invoice" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="year" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="month" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="type"  attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="tree_month_date"  attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="year_sum_date"  attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="is_resgister" attrs="{'readonly': [('state', '!=', 'draft')]}"  groups="base.group_no_one"/>
+							<field name="data" attrs="{'readonly': [('state', '!=', 'draft')]}"  groups="base.group_no_one"/>
+							<button name="action_import_salary" string="Импортлох" type="object" icon="fa-sign-in" attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-danger"  groups="base.group_no_one"/>
+						</group>
+						<group>
+							<field name="company_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
+							<field name="work_location_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
+							<field name="done_director" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="compute_controller" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="preparatory" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+						<group>
+							<field name="journal_id" options="{'no_create': True}"  attrs="{'invisible':[('type','!=','final')]}"/>
+							<!-- <field name="account_id" attrs="{'invisible':[('type','!=','final')]}"/> -->
+							<field name="account_payable_id" attrs="{'invisible':[('type','!=','final')]}"/>
+							<field name="partner_id" attrs="{'invisible':[('type','!=','final')]}"/>
+							<field name="account_ndsh_id" attrs="{'invisible':[('type','!=','final')]}"/>
+							<field name="account_pit_payable_id" attrs="{'invisible':[('type','!=','final')]}"/>
+							<field name="ndsh_partner_id" attrs="{'invisible':[('type','!=','final')]}"/>
+							<field name="pit_partner_id" attrs="{'invisible':[('type','!=','final')]}"/>
+						</group>
+					</group>
+					
+					<button name="print_salary" colspan="1" type="object" class="btn btn-outline-success fa fa-download" string="Эксел татах"/>
+					<field name="department_id" invisible='1' />
+					<field name="salary_type" invisible='1'/>
+					<notebook>
+						<page string="Бодсон цалин">
+                            <group>
+                                <widget name="hr_salary_order"/>
+                            </group>
+                        </page>
+						<page string="Дэлгэрэнгүй">
+							<field name="order_line"> 
+								 <tree string="Order lines" limit="1000" >
+									<field name="number"/>
+									<field name="sequence" widget="handle" />
+									<field name="is_new_employee" />
+									<field name="is_update_salary" />
+									<field name="ident_id" />
+									<field name="last_name" />
+									<field name="name" />
+									<field name="basic" sum="Үндсэн"/>
+									<field name="tree_month_average_wage" sum="Үндсэн"/>
+									<field name="amount_allounce" sum="Нэмэгдэл"/>
+									<field name="amount_deduction" sum="Нийт суутгал"/>
+									<field name="amount_tootsson" sum="Олговол тооцох"/>
+									<field name="amount_net" sum="Гарт олгох"/>
+									<field name="email_address"/>
+									<button name='action_send_mail_emp' type='object' class="btn btn-outline-success" string='Хувь хүнд илгээх'/>
+									<field name="employee_id" />
+									<field name="so_line_line" widget="many2many_tags" optional='hide'/>
+									<field name="so_line_line1" widget="many2many_tags" optional='hide'/>
+								</tree> 
+								<form>
+									<group>
+										<group>
+											<field name="ident_id" />
+											<field name="last_name" />
+											<field name="employee_id" />
+											<field name="name" />
+											<field name="basic" />
+											<field name="order_id" />
+											<field name="contract_id" />
+										</group>
+										<group>
+											<field name="pit_procent"/>
+											<field name="pitt_procent"/>
+											<field name="grade_procent"/>
+											<field name="insured_type_id"/>
+											<field name="email_address"/>
+											<field name="is_pit"/>
+											<field name="pit_id"/>
+											<field name="punishment_procent"/>
+											<field name="year_sum_basic"/>
+										</group>
+									</group>
+									<group>
+										<group  col='3'>
+											<field name="tree_month_average_wage_cr"/>
+										</group>
+										<group>
+											<field name="tree_month_sum_hour_cr"/>
+										</group>
+										<group>
+											<field name="tree_month_sum_wage_cr"/>
+										</group>
+									</group>
+									<group>
+										<group  col='3'>
+											<field name="tree_month_average_wage"/>
+										</group>
+										<group>
+											<field name="tree_month_sum_hour"/>
+										</group>
+										<group>
+											<field name="tree_month_sum_wage"/>
+										</group>
+									</group>
+									<notebook>
+										<page string="Setup lines">
+											<field name="so_line_line">
+												<form string="Setup lines" editable="bottom">
+													<field name="category_id"/>
+													<field name="type" readonly="1" />
+													<field name="every_month" />
+													<field name="is_tree" />
+													<field name="amount" />
+												</form>
+											</field>
+										</page>
+										<page string="Setup lines">
+											<field name="so_line_line1">
+												<form string="Setup lines" editable="bottom">
+													<field name="name"/>
+												</form>
+											</field>
+										</page>
+									</notebook>
+									<group>
+										<group>
+											<field name="amount_allounce" />	
+											<field name="amount_deduction" />
+											<field name="amount_tootsson" />
+											<field name="amount_net" />
+											<field name="pit_amount" />
+										</group>
+										<group>
+											<field name="vacation_amount" sum="ЭА бодох дүн" />
+											<field name="vac_day" sum="ЭА хоног" />
+											<field name="bndsh" />
+											<field name="vacation_day" sum="Ажилласан хоног"/>
+											<field name="pit_discount" />
+										</group>
+									</group>
+								</form>
+							</field>
+							<group class="oe_subtotal_footer oe_right">
+								<field name="amount_total" />
+							</group>
+						</page>
+						
+                        
+						<page string="Татвар нийгмийн даатгал" groups='mw_salary.group_two_salary_compute'>
+		                    <field name="order_line_net">
+		                        
+		                        <tree string="Order lines" limit="1000" editable="bottom">
+		                            <field name="employee_id" />
+		                            <field name="amount_tootsson" />
+		                            <field name="pit_basic" />
+		                            <field name="pit_procent" sum="pit procent"/>
+		                            <field name="shi" sum="pit procent"/>
+		                            <field name="oshi" sum="pit procent"/>
+		                            <field name="pit"  sum="pit procent"/>
+		                            <field name="amount_allounce" sum="Суутгал"/>
+		                            <field name="amount_deduction" sum="Суутгал"/>
+		                            <field name="amount_net_shi" sum="Суутгал"/>
+		                        </tree>
+		                        <form string="Order lines">
+		                            <group col='2'>
+		                                <field name="employee_id" />
+			                            <field name="amount_tootsson" />
+			                            <field name="pit_basic" />
+			                            <field name="pit_procent" sum="pit procent"/>
+			                            <field name="shi" sum="pit procent"/>
+			                            <field name="oshi" sum="pit procent"/>
+			                            <field name="pit"  sum="pit procent"/>
+			                            <field name="amount_allounce" sum="Суутгал"/>
+			                            <field name="amount_deduction" sum="Суутгал"/>
+			                            <field name="amount_net_shi" sum="Суутгал"/>
+		                            </group>
+		                        </form>
+		                    </field>
+		                </page>
+						<page string="Санхүү бичилтүүд">
+							<group>
+								<field name="or_move_id"/>
+								<field name="move_id"/>
+								<field name="bndsh_move_id"/>
+								<field name="ndsh_move_id"/>
+							</group>
+						</page>
+						<!-- <page string="Харагдац" >
+		                    <field name="so_line_line_rltd">
+		                        
+		                        <tree string="Order lines" limit="1000" editable="bottom">
+		                            <field name="employee_id"/>
+		                            <field name="category_id"/>
+									<field name="type" readonly="1" />
+									<field name="every_month" />
+									<field name="is_tree" />
+									<field name="amount" />
+		                        </tree>
+		                    </field>
+		                </page> -->
+
+					</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="action_salary_tree" model="ir.actions.act_window">
+			<field name="name">Цалин бодох</field>
+			<field name="res_model">salary.order</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="salary_order_tree" />
+			<field name="context">{'search_default_location': 1, 'search_default_year': 1, 'search_default_month': 1}</field>
+			<field name="search_view_id" ref="salary_order_filter"/>
+		</record>
+
+		<menuitem action="action_salary_tree" id="menu_action_salary_tree"
+			parent="menu_finance_salary" sequence="2"/>
+
+	<record id="view_salary_order_tree" model="ir.ui.view">
+		<field name="name">salary.order.line.tree</field>
+		<field name="model">salary.order.line</field>
+		<field name="arch" type="xml">
+			<tree string="Order Line">
+				<field name="ident_id" />
+				<field name="last_name" />
+				<field name="name" />
+				<field name="type" />
+				<field name="employee_id" />
+				<field name="basic" />
+				<field name="so_line_line"/>
+					
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_salary_order_form" model="ir.ui.view">
+		<field name="name">salary.order.line.form</field>
+		<field name="model">salary.order.line</field>
+		<field name="arch" type="xml">
+			<form string="Salary Line">
+				<group col="2">	
+					<group>
+						<field name="year" />
+						<field name="month" />
+						<field name="type" />
+					</group>
+					<group>
+						<field name="employee_id" />
+						<field name="name" />
+						<field name="basic" />
+					</group>
+				</group>
+				<notebook>
+					<page string="Setup lines">
+						<field name="so_line_line">
+							<tree string="Setup lines" editable="bottom">
+								<field name="category_id"/>
+								<field name="type" readonly="1" />
+								<field name="every_month" />
+								<field name="is_tree" />
+								<field name="amount" />
+							</tree>
+						</field>
+					</page>
+					<page string="Setup lines">
+						<field name="so_line_line1">
+							<form string="Setup lines" editable="bottom">
+								<field name="name"/>
+							</form>
+						</field>
+					</page>
+				</notebook>
+									
+				<group col="2">
+					<group>
+						<field name="amount_allounce" />
+						<field name="amount_deduction" />
+					</group>
+					<group>
+						<field name="amount_tootsson" />
+						<field name="amount_net" />
+					</group>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_salary_order_line_filter" model="ir.ui.view">
+        <field name="name">salary.order.line.filter</field>
+        <field name="model">salary.order.line</field>
+        <field name="arch" type="xml">
+            <search string="Search Timesheet">
+            	<field name="name" string="Нэр"/>
+            	<field name="employee_id" string="Ажилтан"/>
+                <group expand="0" string="Group By">
+                    <filter name="year" string="Он" domain="[]" context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар" domain="[]" context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="salary_line_employee_pivot_view">
+        <field name="name">salary.order.line.pivot</field>
+        <field name="model">salary.order.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Salary order line pivot">
+                <field name="year" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+	<record id="action_salary_line_employee_tree" model="ir.actions.act_window">
+		<field name="name">Цалингийн мөр</field>
+		<field name="res_model">salary.order.line</field>
+		<field name="view_mode">tree,form,pivot</field>
+		<field name="domain">[]</field>
+		<field name="view_id" ref="view_salary_order_tree" />
+		<field name="context">{'search_default_year':1,'search_default_month':1}</field>
+	</record>
+
+	<menuitem action="action_salary_line_employee_tree" id="menu_action_salary_order_line_tree" 
+			parent="menu_finance_salary" sequence='30'/>
+
+	<record id="view_salary_line_line1_order_tree" model="ir.ui.view">
+		<field name="name">salary.order.line.line1.tree</field>
+		<field name="model">salary.order.line.line1</field>
+		<field name="arch" type="xml">
+			<tree string="Order Line">
+				<field name="name"/>
+				<field name="order_line_id2"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_salary_line_line_order1_form" model="ir.ui.view">
+		<field name="name">salary.order.line.line1.form</field>
+		<field name="model">salary.order.line.line1</field>
+		<field name="arch" type="xml">
+			<form string="Salary Line">
+				<group col="2">	
+					<group>
+						<field name="name"/>
+						<field name="order_line_id2"/>
+					</group>
+				</group>
+				
+			</form>
+		</field>
+	</record>
+
+	<record id="action_salary_line_line1_employee_tree" model="ir.actions.act_window">
+		<field name="name">Lines1</field>
+		<field name="res_model">salary.order.line.line1</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[]</field>
+		<!-- <field name="view_id" ref="view_salary_line_line_order_tree" /> -->
+	</record>
+
+	<menuitem action="action_salary_line_line1_employee_tree" id="menu_action_salary_order_line_line1_tree" 
+			parent="menu_finance_salary" sequence='111'/>
+
+		<record id="view_salary_line_line_order_tree" model="ir.ui.view">
+		<field name="name">salary.order.line.line.tree</field>
+		<field name="model">salary.order.line.line</field>
+		<field name="arch" type="xml">
+			<tree string="Order Line">
+				<field name="name"/>
+				<field name="category_id"/>
+				<field name="type" />
+				<field name="every_month" />
+				<field name="code" />
+				<field name="amount" />
+				<field name="employee_id" optional='hide'/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_salary_line_line_order_form" model="ir.ui.view">
+		<field name="name">salary.order.line.line.form</field>
+		<field name="model">salary.order.line.line</field>
+		<field name="arch" type="xml">
+			<form string="Salary Line">
+				<group col="2">	
+					<group>
+						<field name="category_id" readonly="1"/>
+						<field name="type" readonly="1" />
+						<field name="every_month"  readonly="1"/>
+					</group>
+					<group>
+						<field name="name"  readonly="1"/>
+						<field name="amount"  readonly="1"/>
+					</group>
+				</group>
+				
+			</form>
+		</field>
+	</record>
+
+	<record id="action_salary_line_line_employee_tree" model="ir.actions.act_window">
+		<field name="name">Lines</field>
+		<field name="res_model">salary.order.line.line</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[]</field>
+		<!-- <field name="view_id" ref="view_salary_line_line_order_tree" /> -->
+	</record>
+
+	<menuitem action="action_salary_line_line_employee_tree" id="menu_action_salary_order_line_line_tree" 
+			parent="menu_finance_salary" sequence='110'/>
+
+	<record id="view_employee_salary_mine_tree" model="ir.ui.view">
+			<field name="name">employee.salary.mine.tree</field>
+			<field name="model">employee.salary.mine</field>
+			<field name="arch" type="xml">
+				<tree string="Order Line">
+					<field name="year" />
+					<field name="month" />
+					<field name="employee_id" />
+					<field name="wage" />
+					<field name="day_to_work" optional='hide'/>
+					<field name="hour_to_work" />
+					<field name="worked_day" optional='hide' />
+					<field name="worked_hour" />
+					<field name="irts_tootsson"/>
+					<field name="guitsetgel_tootsson"/>
+					<field name="phone_allounve"/>
+					<field name="vacation"/>
+					<field name="food"/>
+					<field name="overtime_hour"/>
+					<field name="overtime_wage"/>
+					<field name="long_wage"/>
+					<field name="other_nemegdel"/>
+					<field name="sum_nemegdel"/>
+					<field name="amount_tootsson"/>
+					<field name="shi" />
+					<field name="pit_discount"/>
+					<field name="pit" />
+					<field name="uridchilgaa_suutgal" />
+					<field name="phone" />
+					<field name="avlaga" />
+					<field name="other_suutgal" />
+					<field name="niit_suutgal" />
+					<field name="jinhene_olgoh" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_employee_salary_mine_form" model="ir.ui.view">
+			<field name="name">employee.salary.mine.form</field>
+			<field name="model">employee.salary.mine</field>
+			<field name="arch" type="xml">
+				<form string="Salary Line" >
+					<b style="color:#00Cc4d79bC00;font-size:12pt">Танд энэ өдрийн мэнд хүргэе.</b>
+					<group col='4' string='Үндсэн мэдээлэл' style="background:#c4d79b;color:#006600">
+						<field name="year" />
+						<field name="month" />
+						<field name="employee_id" />
+						<field name="wage" />
+						<field name="day_to_work" />		
+						<field name="hour_to_work" />					
+					</group>
+					<group string='Нэмэгдлүүд' style="background:#F7FCE7;color:#006600">
+						<group>
+							<field name="worked_hour" />
+							<field name="overtime_hour" />
+							<field name="guitsetgel_tootsson" />
+							<field name="vacation" />
+							<field name="other_nemegdel"/>
+						</group>
+						<group>
+							<field name="irts_tootsson" />
+							<field name="overtime_wage" />
+							<field name="phone_allounve" />
+							<field name="food" />
+							<field name="sum_nemegdel"/>
+						</group>
+					</group>
+					<group col='4' string='Нийт тооцсон цалин' style="background:#c4d79b;color:#006600">
+						<field name="amount_tootsson" />
+					</group>
+					<group col='4' string='Суутгалууд' style="background:#F7FCE7;color:#006600">
+						<field name="shi" />
+						<field name="pit" />
+						<field name="uridchilgaa_suutgal" />
+						<field name="phone" />
+						<field name="avlaga" />
+						<field name="other_suutgal" />
+						<field name="niit_suutgal" />
+					</group> 
+					<group col='4' string='Олгох' style="background:#c4d79b;color:#006600">
+						<field name="jinhene_olgoh" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+	<record id="view_employee_salary_mine_filter" model="ir.ui.view">
+        <field name="name">employee.salary.mine.filter</field>
+        <field name="model">employee.salary.mine</field>
+        <field name="arch" type="xml">
+            <search string="Search Timesheet">
+            	<field name="employee_id" string="Ажилтан"/>
+                <group expand="0" string="Group By">
+                    <filter name="year" string="Он" domain="[]" context="{'group_by':'year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+	<record id="action_employee_salary_mine" model="ir.actions.act_window">
+		<field name="name">Миний цалин</field>
+		<field name="res_model">employee.salary.mine</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_employee_salary_mine_tree" />
+		<field name="context">{'create':False,'edit':False}</field>
+		<field name="domain">[('employee_id.user_id','=',[uid])]</field>
+		<field name="context">{'search_default_year':1}</field>
+		<field name="search_view_id" ref="view_employee_salary_mine_filter" />
+	</record>
+
+
+	<menuitem action="action_employee_salary_mine" id="menu_action_employee_salary_mine_id" 
+			parent="mw_hr.hr_emp_main_menu" sequence='8'/>
+</odoo>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for  -->
+    <record id="sequence_hse_hazard_report" model="ir.sequence">
+        <field name="name">HSE HazarD Report</field>
+        <field name="code">hse.hazard.report</field>
+        <field name="prefix">АМ%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+	<!-- Hazard Report -->
+	<record id="view_hse_hazard_report_form" model="ir.ui.view">
+		<field name="name">hse.hazard.report.form</field>
+		<field name="model">hse.hazard.report</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_sent_mail" states="draft" string="Илгээх" type="object" class="btn-warning"/>
+					<button name="action_to_assign" states="sent_mail" string="Хувиарлах" type="object" class="btn-warning"/>
+					<button name="action_to_repaired" states="to_assign" string="Зассан" type="object" class="btn-success"/>
+					<button name="action_to_done" states="repaired" string="Дуусгах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<button name="action_to_draft" states="done,sent_mail" string="Ноороглох" help="Буцааж ноороглох" type="object" class="btn-danger"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent_mail,to_assign,repaired,done"/>
+				</header>
+				<sheet>
+					<div class="pull-left">
+                        <label for="name" class="oe_inline" force_save="1"/>
+                        <h1>
+                            <field name="name" force_save='1'/>
+                        </h1>
+                        <field name="id" invisible="1"/>
+                    </div>
+					<group name="hazard_info">
+						<field name="datetime"/>
+						<field name="company_id" readonly="1"/>
+						<field name="branch_id" options="{'no_create':True}"/>
+						<field name="hazard_type"/>
+						<field name="hse_employee_id" options="{'no_create':True}"/>
+						<field name="location_id" options="{'no_create':True}"/>
+						<field name="notify_emp_id" options="{'no_create':True}"/>
+						<field name="attachment_ids" options="{'no_create':True}" widget="many2many_binary" required="1"/>
+					</group>
+					<group>
+						<group>
+							<separator string="Аюулын агуулга"/>
+							<group>
+								<field name="hazard_identification" placeholder="Энэ хэсэгт аюул байршилын дэлгэрэнгүй бичнэ үү" nolabel="1" style="font-size:12pt;font-family:'Times New Roman';resize:both!important;width:700%" class="text-wrap"/>
+							</group>
+						</group>
+						<group>
+							<separator string="Авсан шуурхай арга хэмжээ"/>
+								<field name="corrective_action_to_be_taken" nolabel="1" style="font-size:12pt;font-family:'Times New Roman';resize:both!important;width:700%" class="text-wrap"/>
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="is_hazard_control"/>
+						</group>
+						<group>
+							<field name="control_description"  attrs="{'invisible':[('is_hazard_control','!=',True)]}"/>
+						</group>
+					</group>
+					<group>
+						<separator string="Хувиарласан мэдээлэл" colspan="2" attrs="{'invisible':[('state','=','draft')], 'required':[('state','=','sent_mail')]}"/>
+						<field name="employee_id" options="{'no_create':True}" attrs="{'invisible':[('state','=','draft')], 'required':[('state','=','sent_mail')]}"/>
+						<field name="hazard_category_id" options="{'no_create':True}" attrs="{'invisible':[('state','=','draft')], 'required':[('state','=','sent_mail')]}"/>
+					</group>
+					<group>
+						<separator string="Хариу арга хэмжээ авсан тухай" colspan="4" attrs="{'invisible':[('state','in',['draft','sent_mail'])],'required':[('state','=','to_assign')]}"/>
+						<field name="corrective_action_taken" attrs="{'invisible':[('state','in',['draft','sent_mail'])],'required':[('state','=','to_assign')]}" style="font-size:12pt;font-family:'Times New Roman';resize:both!important;width:700%" class="text-wrap"/>
+						<field name="taken_attachment_ids" widget="many2many_binary" attrs="{'invisible':[('state','in',['draft','sent_mail'])],'required':[('state','=','to_assign')]}"/> 
+						<field name="taken_datetime"  attrs="{'invisible':[('state','in',['draft','sent_mail'])]}"/>
+						<field name="taken_employee_id" attrs="{'invisible':[('state','in',['draft','sent_mail'])]}" options="{'no_create':True}"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_hazard_report_tree" model="ir.ui.view">
+		<field name="name">hse.hazard.report.tree</field>
+		<field name="model">hse.hazard.report</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>  
+				<field name="datetime"/>
+				<field name="branch_id"/>
+				<field name="notify_emp_id"/>
+				<field name="location_id"/>
+				<field name="hazard_type"/>
+				<field name="state"/>
+				<field name="hazard_identification"/>
+				<field name="corrective_action_to_be_taken"/>
+				<field name="corrective_action_taken"/>
+				<field name="taken_datetime"/>
+				<field name="taken_employee_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_hazard_report_filter" model="ir.ui.view">
+		<field name="name">hse.hazard.report.filter</field>
+		<field name="model">hse.hazard.report</field>
+		<field name="arch" type="xml">
+			<search>
+				<!-- <field name="name"/> -->
+				<field name="hazard_type"/>
+				<field name="hazard_identification"/>
+				<field name="corrective_action_to_be_taken"/>
+				<field name="location_id"/>
+				<!-- <field name="notify_emp_id"/> -->
+				<filter name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+				<filter name="is_sent_mail" string="Илгээсэн" domain="[('state','=',('sent_mail'))]"/>
+				<filter name="is_assign" string="Хувиарласан" domain="[('state','=',('to_assign'))]"/>
+				<filter name="is_repaired" string="Засагдсан" domain="[('state','=',('repaired'))]"/>
+				<filter name="is_done" string="Дууссан" domain="[('state','=',('done'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'datetime:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'datetime:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'datetime:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+ 
+	<record id="action_hse_hazard_report" model="ir.actions.act_window">
+		<field name="name">Аюулыг мэдээллэх</field>
+		<field name="res_model">hse.hazard.report</field>
+		<field name="search_view_id" ref="view_hse_hazard_report_filter"/>
+		<field name="view_id" ref="view_hse_hazard_report_tree"/>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_hazard_report_mail" model="ir.ui.view">
+		<field name="name">hse.hazard.report.mail.form</field>
+		<field name="model">hse.hazard.report</field>
+		<field name="arch" type="xml">
+			<form>
+				<field name="mail_line" nolabel="1" >
+					<tree editable="bottom">
+						<field name="mail" widget="email"/>
+					</tree>
+				</field> 
+				<group>
+					<field name="mail_text"/>
+				</group>
+				<footer>
+					<button class="oe_highlight" name="mail_sent" string="Имэйл Илгээх" type="object"/>
+					<button class="oe_link" special="cancel" string="Буцах"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_hse_hazard_report_mail" model="ir.actions.act_window">
+		   <field name="name">Hazard report mail</field>
+		   <field name="res_model">hse.hazard.report</field>
+		   <field name="view_mode">form</field>
+	</record>
+
+	<record id="action_hse_hazard_report_mail_form" model="ir.actions.act_window.view">
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_hse_hazard_report_mail"/>
+		<field name="act_window_id" ref="action_hse_hazard_report_mail"/>
+	</record>
+
+	<!-- Аюулыг мэдээллэх хуудас автомат майл -->
+	<record id="ir_cron_hse_hazard_report" model="ir.cron">
+		<field name="name">Аюулыг мэдээллэх хуудас автомат майл</field>
+		<field name="model_id" ref="model_hse_hazard_report"/>
+		<field name="code">model.get_mail_notice_hazard_report()</field>
+		<field name="state">code</field>
+		<field name="user_id" ref="base.user_root"/>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="priority">9</field>
+		<field name="doall" eval="False"/>
+	</record>
+
+	<!-- Ажлын байрны үзлэг автомат майл -->
+	<record id="ir_cron_hse_workplace_inspection" model="ir.cron">
+		<field name="name">Ажлын байрны үзлэг автомат майл</field>
+		<field name="model_id" ref="model_hse_workplace_inspection"/>
+		<field name="code">model.get_mail_notice_workplace_inspection()</field>
+		<field name="state">code</field>
+		<field name="user_id" ref="base.user_root"/>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="priority">9</field>
+		<field name="doall" eval="False"/>
+	</record>
+
+	<record id="view_res_users_hazard_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.hazard.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="is_hse_emp"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

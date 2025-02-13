@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		<record id="group_stock_product_account_config" model="res.groups">
+	        <field name="name">Product Account config</field>
+	        <!-- <field name="category_id" ref="base.module_category_accounting_and_finance"/> -->
+	    </record>
+        <record id="group_remove_product_account" model="res.groups">
+            <field name="name">Product Account Устгах эрх</field>
+            <field name="category_id" ref="mw_base.module_category_accounting_other_mw"/>
+        </record>                   
+
+    <record model="ir.rule" id="product_account_conf_comp_rule">
+        <field name="name">Product account config multi-company</field>
+        <field name="model_id" ref="model_product_account_config"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+	    
+	</data>
+</odoo>

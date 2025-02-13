@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="view_picking_withcarrier_out_form_in_out" model="ir.ui.view">
+			<field name="name">delivery.stock.picking_withcarrier.form.view.in.out</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='move_ids_without_package']/tree/button[@name='action_show_details']" position="after">
+						<!-- <field name="picking_type_code" invisible="1"/> -->
+						<button name="action_change_product_move" string="Бараан Солих" type="object" icon="fa-cogs" attrs="{'invisible': [('state', 'in', ['done','cancel'])]}" options="{&quot;warn&quot;: true}" groups="mw_stock_in_out_convert_product.group_stock_move_product_change"/>
+						<!-- <button name="action_change_location_move" string="Гарах Байрлал Солих" type="object" icon="fa-arrow-right" attrs="{'invisible': ['|', ('state', 'in', ['done','cancel']), ('picking_type_code','=','incoming')]}" options="{&quot;warn&quot;: true}" groups="mw_stock_in_out_convert_product.group_stock_move_location_change"/> -->
+				</xpath>
+			</field>
+		</record>
+</odoo>

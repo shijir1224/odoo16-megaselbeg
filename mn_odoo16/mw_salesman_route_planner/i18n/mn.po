@@ -1,0 +1,848 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_salesman_route_planner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-03 04:04+0000\n"
+"PO-Revision-Date: 2022-11-03 04:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_pivot
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Analysis"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_form_view
+msgid "Approve"
+msgstr "Батлах"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "April"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "August"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner__day_type__monthly
+msgid "By month"
+msgstr "Сараар"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner__day_type__weekly
+msgid "By week"
+msgstr "Долоо хонгоор"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_report__state__closed
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+msgid "Closed"
+msgstr "Хаагдсан"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner__state__confirmed
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Confirmed"
+msgstr "Батлагдсан"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__validator_id
+msgid "Confirmed by"
+msgstr "Баталсан"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_res_partner
+msgid "Contact"
+msgstr "Харилцах хаяг"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__create_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__create_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__create_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__create_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__create_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__create_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__create_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__date
+msgid "Created date"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__create_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__create_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__create_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__create_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__create_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__create_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__create_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__date_order
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__date_order
+msgid "Date"
+msgstr "Огноо"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "December"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__description
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__description
+msgid "Description"
+msgstr "Тайлбар"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__display_name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner__state__draft
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_form_view
+msgid "Draft"
+msgstr "Ноорог"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner_line__month_days
+msgid "Ex: 1,10,20"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "February"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner_line__week_day__friday
+msgid "Friday"
+msgstr "Баасан"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Group By"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_filter_view
+msgid "Group By..."
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__message_needaction
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__message_has_error
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: code:addons/mw_salesman_route_planner/models/salesman_route_planner.py:0
+#, python-format
+msgid "In order to delete a record, it must be draft first!"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: code:addons/mw_salesman_route_planner/models/salesman_route_planner.py:0
+#, python-format
+msgid "Insert plan lines!"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "January"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "July"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "June"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report____last_update
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__write_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__write_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__write_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__write_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__write_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__write_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__write_uid
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__write_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__write_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__write_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__write_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__write_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__write_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__write_date
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__lat
+msgid "Latitude"
+msgstr "Өргөрөг"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__line_ids
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_form_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_line_form_view
+msgid "Lines"
+msgstr "Мөрүүд"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__lng
+msgid "Longitude"
+msgstr "Уртраг"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+msgid "Lot of stock"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "March"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "May"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.actions.act_window,name:mw_salesman_route_planner.action_res_user_gps_location
+msgid "Mobile sync"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner_line__week_day__monday
+msgid "Monday"
+msgstr "Даваа"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__month_days
+msgid "Month days"
+msgstr "Сарын өдрүүд"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__name
+msgid "Name"
+msgstr "Нэр"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_report__state__no_order
+msgid "No order"
+msgstr "Захиалга аваагүй"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+msgid "No shop"
+msgstr "Дэлгүүр хаалттай"
+
+#. module: mw_salesman_route_planner
+#: code:addons/mw_salesman_route_planner/wizard/wizard_salesman_route_excel_report.py:0
+#, python-format
+msgid "Not found Route Plan!"
+msgstr "Маршрут олдсонгүй!"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "November"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Octomber"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_report__state__other
+msgid "Other"
+msgstr "Бусад"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__parent_id
+msgid "Parent"
+msgstr "Эцэг"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__parent_id
+msgid "Parent ID"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__partner_id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__partner_id
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__partner_ids
+msgid "Partners"
+msgstr "Харилцагч"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_res_company
+msgid "Res company"
+msgstr "Компани"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_res_users
+msgid "Res users"
+msgstr "Хэрэглэгч"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__right_route
+msgid "Right route"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_form_view
+msgid "Route performance"
+msgstr "Маршрут явсан үр дүн"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_form_view
+msgid "Routes"
+msgstr "Маршрут"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_filter_view
+msgid "Sales contract"
+msgstr "Борлуулалтын гэрээ"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__salesman_id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__salesman_id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__user_id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__user_id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__user_ids
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Salesman"
+msgstr "Борлуулагч"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_form_view
+msgid "Salesman Route"
+msgstr "Борлуулагчийн маршрут"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_salesman_route_performance_line
+msgid "Salesman Route Performance Line"
+msgstr "Маршрут үр дүн"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_salesman_route_planner
+msgid "Salesman Route Planner"
+msgstr "Борлуулагчийн Маршрут"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_salesman_route_planner_line
+msgid "Salesman Route Planner Line"
+msgstr "Борлуулагчийн Маршрут мөр"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_salesman_route_map_report
+msgid "Salesman route map report"
+msgstr "Борлуулагчийн маршрутын тайлан"
+
+#. module: mw_salesman_route_planner
+#: model:ir.actions.act_window,name:mw_salesman_route_planner.action_salesman_route_performance
+msgid "Salesman route performance"
+msgstr "Борлуулалгчийн маршрут үр дүн"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_salesman_route_report
+#: model:ir.ui.menu,name:mw_salesman_route_planner.salesman_route_report_menu
+msgid "Salesman route report"
+msgstr "Борлуулагчийн маршрутын тайлан"
+
+#. module: mw_salesman_route_planner
+#: model:ir.actions.act_window,name:mw_salesman_route_planner.action_salesman_route_map_report
+msgid "Salesman routes on map"
+msgstr "Борлуулагчийн маршрут"
+
+#. module: mw_salesman_route_planner
+#: model:ir.ui.menu,name:mw_salesman_route_planner.salesman_route_performance_menu
+msgid "Salesman routes performace"
+msgstr "Борлуулагчийн маршрутын үр дүн"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner_line__week_day__saturday
+msgid "Saturday"
+msgstr "Бямба"
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "September"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__state
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__state
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_filter_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "State"
+msgstr "Төлөв"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__successful
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_report__state__successful
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_performance_line_filter_view
+msgid "Successful"
+msgstr "Амжилттай"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner_line__week_day__sunday
+msgid "Sunday"
+msgstr "Ням"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner_line__week_day__thursday
+msgid "Thursday"
+msgstr "Пүрэв"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__total
+msgid "Total"
+msgstr "Нийт"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner_line__week_day__tuesday
+msgid "Tuesday"
+msgstr "Мягмар"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__state
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__day_type
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__day_type
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__state
+msgid "Type"
+msgstr "Төрөл"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.constraint,message:mw_salesman_route_planner.constraint_salesman_route_planner_salesman_id_uniq
+msgid "Unique salesman!"
+msgstr "Борлуулагч дээр маршрут үүссэн байна!"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__unsuccessful
+msgid "Unsuccessful"
+msgstr "Амжилтгүй"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_user_gps_location__user_id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__user_id
+msgid "User"
+msgstr "Хэрэглэгч"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_res_user_gps_location
+#: model:ir.ui.menu,name:mw_salesman_route_planner.menu_res_user_gps_location
+msgid "User GPS location"
+msgstr "Борлуулагч GPS цэг"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_salesman_route_planner__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_planner_line__week_day__wednesday
+msgid "Wednesday"
+msgstr "Лхагва"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__week_day
+msgid "Week day"
+msgstr "Гариг"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_res_partner_route
+msgid "res partner route"
+msgstr "Харилцагчийн маршрут"
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_wizard_salesman_route_excel_report
+msgid "wizard salesman route excel report"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model,name:mw_salesman_route_planner.model_wizard_salesman_route_report
+msgid "wizard salesman route report"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_performance_line__state__successful
+msgid "Амжилттай"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__salesman_id
+msgid "Борлуулагч"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.ui.menu,name:mw_salesman_route_planner.salesman_route_excel_report_menu
+msgid "Борлуулагчийн маршрутын тайлан"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.ui.menu,name:mw_salesman_route_planner.salesman_route_map_report_menu
+msgid "Борлуулагчийн явсан чиглал"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.actions.act_window,name:mw_salesman_route_planner.action_wizard_salesman_route_report
+msgid "Борлуулалтын тайлан"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_performance_line__state__other
+msgid "Бусад"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.actions.act_window,name:mw_salesman_route_planner.action_res_partner_route
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__name
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_planner_line__route_ids
+#: model:ir.ui.menu,name:mw_salesman_route_planner.menu_res_partner_route
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.view_res_partner_mn_filter
+msgid "Бүсчлэл"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__date_end
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__date_end
+msgid "Дуусах огноо"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Дууссан"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_performance_line__state__no_shop
+msgid "Дэлгүүр татан буугдсан"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:res.groups,comment:mw_salesman_route_planner.group_routes_planner
+msgid "Маршрут төлөвлөгч"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_performance_line__check_route
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_report__check_route
+msgid "Маршрутын дагуу эсэх"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_form_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_planner_line_form_view
+msgid "Маршрутын нэр"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.actions.act_window,name:mw_salesman_route_planner.action_wizard_salesman_route_excel_report
+msgid "Маршрутын тайлан"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_performance_line__state__lot_of_stock
+msgid "Нөөц ихтэй"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_salesman_route_map_report__date
+msgid "Огноо"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.wizard_salesman_route_excel_report_view
+msgid "Татах"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_report__check_route__yes
+msgid "Тийм"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__res_partner_route__route_type__deliverer
+msgid "Түгээлт"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__route_type
+msgid "Төрөл"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__res_partner_route__route_type__saler
+msgid "ХТ"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner__route_id
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_users__route_id
+msgid "ХТ Бүсчлэл"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.actions.act_window,name:mw_salesman_route_planner.action_salesman_route_planner
+#: model:ir.ui.menu,name:mw_salesman_route_planner.salesman_route_menu
+msgid "ХТ Маршрут"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_performance_line__state__closed
+msgid "Хаалттай"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.wizard_salesman_route_excel_report_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.wizard_salesman_route_report_view
+msgid "Хаах"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.wizard_salesman_route_report_view
+msgid "Харах"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__partner_ids
+msgid "Харилцагч"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,help:mw_salesman_route_planner.field_wizard_salesman_route_report__partner_ids
+msgid "Харилцагчаар шүүх"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__driver_id
+msgid "Хариуцагч"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_partner_route__user_ids
+msgid "Холбоотой хэрэглэгч"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.view_res_users_inherit_form
+msgid "Холбоотой чиглэл"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:res.groups,name:mw_salesman_route_planner.group_routes_planner
+msgid "Чиглэл төлөвлөгч"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_res_users__route_ids
+msgid "Чиглэлүүд"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Энэ жил"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Энэ сар"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_excel_report__date_start
+#: model:ir.model.fields,field_description:mw_salesman_route_planner.field_wizard_salesman_route_report__date_start
+msgid "Эхлэх огноо"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.wizard_salesman_route_excel_report_view
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.wizard_salesman_route_report_view
+msgid "Эхлэх, дуусах хоёр өдөр тайлант хугацаанд орно!"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model:ir.model.fields.selection,name:mw_salesman_route_planner.selection__salesman_route_report__check_route__no
+msgid "Үгүй"
+msgstr ""
+
+#. module: mw_salesman_route_planner
+#: model_terms:ir.ui.view,arch_db:mw_salesman_route_planner.salesman_route_report_search
+msgid "Өнөөдөр"
+msgstr ""

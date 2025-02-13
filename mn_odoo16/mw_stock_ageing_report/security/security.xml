@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+	    <record id="group_stock_ageing_reporter" model="res.groups">
+	        <field name="name">Насжилтын Тайлан Харах</field>
+	        <field name="category_id" ref="base.module_category_inventory_inventory"/>
+	    </record>
+	</data>
+</odoo>

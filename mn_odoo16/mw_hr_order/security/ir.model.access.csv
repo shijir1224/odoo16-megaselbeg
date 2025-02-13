@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_hr_order_manager,hr.order,mw_hr_order.model_hr_order,mw_hr_order.group_order_manager,1,1,1,1
+access_hr_order,hr.order,mw_hr_order.model_hr_order,mw_hr_order.group_order_user,1,1,1,1
+
+access_hr_order_line_manager,hr.order.line,mw_hr_order.model_hr_order_line,mw_hr_order.group_order_manager,1,1,1,1
+access_hr_order_line,hr.order.line,mw_hr_order.model_hr_order_line,mw_hr_order.group_order_user,1,1,1,1
+
+access_hr_order_type_admin,hr.order.type,mw_hr_order.model_hr_order_type,mw_hr.group_hr_confirm,1,1,1,1
+access_hr_order_type_manager,hr.order.type,mw_hr_order.model_hr_order_type,mw_hr_order.group_order_manager,1,1,1,0

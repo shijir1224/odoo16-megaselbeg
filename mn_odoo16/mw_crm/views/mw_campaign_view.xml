@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mw_campaign_tree" model="ir.ui.view">
+        <field name="name">mw.campaign.tree</field>
+        <field name="model">mw.campaign</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_ids"/>
+                <field name="state"/>
+                <field name="activity_type_id" optional="hide"/>
+                <field name="lead_type" optional="hide"/>
+                <field name="sale_type" optional="hide"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="actual_percent" widget="progressbar"/>
+                <field name="niit_ajiluud" sum="SUM"/>
+                <field name="sanuulsan_ajiluud" sum="SUM"/>
+                <field name="biyelesen_ajiluud" sum="SUM"/>
+                <field name="amjiltgui_ajiluud" sum="SUM"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mw_campaign_filter" model="ir.ui.view">
+        <field name="name">mw.campaign.filter</field>
+        <field name="model">mw.campaign</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_ids"/>
+                <field name="state"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <filter name="gr_state" string="Төлөв" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mw_campaign_form" model="ir.ui.view">
+        <field name="name">mw.campaign.form</field>
+        <field name="model">mw.campaign</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" states="planned" string="Батлах" class="oe_highlight" type="object"/>
+                    <button name="action_plan" states="draft" string="Төлөвлөх" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="planned" string="Ноороглох" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="view_lead" icon="fa-dollar" type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="lead_count"/></span>
+                                <span class="o_stat_text">Leads</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Аянууд......"/></h1>
+                    </div>
+                    <group col="6">
+                        <field name="date_start" required="1"/>
+                        <field name="date_end" required="1"/>
+                        <field name="actual_percent" widget="progressbar"/>
+                        <field name="lead_type" required="1"/>
+                        <field name="sale_type"/>
+                        <field name="campaign_activity_type_id" force_save="1" options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <group col="7">
+                        <field name="campaign_type" widget="radio" states="draft"/>
+                        <button name="assign_user" string="Хуваарилах" type="object" attrs="{'invisible': [('state', 'not in', 'draft')]}" class="btn-success"/>
+                        <button name="remove_line" string="Бүх Мөр устгах" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}" class="btn-danger" icon="fa-remove"/>
+                    </group>
+                    <notebook>
+                        <page string="Борлуулалт">
+                            <group>
+                                <field name="lead_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="user_id"/>
+                                        <field name="user_company_ids" invisible="1"/>
+                                        <field name="partner_id"/>
+                                        <field name="phone"/>
+                                        <field name="street" optional="hide"/>
+                                        <field name="website" optional="hide"/>
+                                        <field name="partner_name" optional="show"/>
+                                        <field name="contact_name" optional="show"/>
+                                        <field name="type" optional="show"/>
+                                        <!-- <field name="planned_revenue" sum="SUM"/> -->
+                                        <field name="team_id"/>
+                                        <field name="stage_id"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Харилцагч импорт">
+                            <group col="1">
+                                <div class="alert alert-info alert-dismissible text-left" 
+                                    role="alert" 
+                                    attrs="{'invisible': [('warning_messages','=',False)]}">
+                                    <a href="#" class="close" data-dismiss="alert" 
+                                        aria-label="close">x</a>
+                                    <field name="warning_messages" force_save="1"/>
+                                </div>
+                                <field name="warning_messages_not" invisible="1"/>
+                            </group>
+                            <group col="4">
+                                <field name="import_file_id" class="oe_edit_only" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                                <button name="cold_call_import" string="Масс дуудлага импортлох" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}" class="btn-warning" icon="fa-download"/>
+                                <button name="export_template" string="Темплати экспортлох" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}" class="btn-success" icon="fa-print"/>
+                            </group>
+                            <group string="Оруулсан мөр" attrs="{'invisible': [('campaign_type', '=', 'from_partner')]}">
+                                <field name="import_lines" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="partner_name"/>
+                                        <field name="partner_id" optional="hide"/>
+                                        <field name="partner_phone"/>
+                                        <field name="partner_mail"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group col="1" string="Харилцагчаас" attrs="{'invisible': [('campaign_type', '=', 'from_line')]}">
+                                <field name="partner_ids" nolabel="1" force_save="1"/>
+                            </group>
+                        </page>
+                        <page string="Борлуулагч">
+                            <group col="1">
+                                <field name="user_ids" nolabel="1" create="1" >
+                                    <tree create="1" delete="1" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="login"/>
+                                    </tree>
+                                </field>
+                                <field name="visible_departments" widget="many2many_tags" groups="base.group_no_one" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="mw_campaign_action" model="ir.actions.act_window">
+        <field name="name">Аян</field>
+        <field name="res_model">mw.campaign</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="crm_lead_all_leads_campaign">
+        <field name="name">Аяны лист</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">tree,kanban,graph,pivot,calendar,form,activity</field>
+        <field name="domain">[('mw_campaign_id','!=',False)]</field>
+        <field name="search_view_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="context">{
+                'default_type':'lead',
+                'search_default_type': 'lead',
+                'search_default_to_process':1,
+            }
+        </field>
+    </record>
+
+    <menuitem id="menu_mw_campaign" name="Аян" sequence="9" parent="crm.crm_menu_root"/>
+        <menuitem id="menu_mw_campaign_m" name="Аянууд" action="mw_crm.mw_campaign_action" sequence="5" parent="mw_crm.menu_mw_campaign"/>
+        <menuitem id="menu_mw_campaign_lead" action="crm_lead_all_leads_campaign" sequence="8" parent="mw_crm.menu_mw_campaign"/>
+
+</odoo>

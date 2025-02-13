@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_plan_pr_report_tree_view" model="ir.ui.view">
+            <field name="name">sale.plan.pr.report.tree.view</field>
+            <field name="model">sale.plan.pr.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="plan_pr_id"/>
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="bom_id"/>
+                    <field name="product_qty"/>
+                    <field name="product_qty_actual"/>
+                    <field name="year"/>
+                    <!-- <field name="month"/> -->
+                    <field name="user_id"/>
+                    <field name="pr_warehouse_id"/>
+                    <field name="pr_flow_id"/>
+                    <field name="pr_line_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_plan_pr_report_form_view" model="ir.ui.view">
+            <field name="name">sale.plan.pr.report.form.view</field>
+            <field name="model">sale.plan.pr.report</field>
+            <field name="arch" type="xml">
+               <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="plan_pr_id"/>
+                            <field name="product_id"/>
+                            <field name="uom_id"/>
+                            <field name="bom_id"/>
+                            <field name="product_qty"/>
+                            <field name="product_qty_actual"/>
+                            <field name="year"/>
+                            <!-- <field name="month"/> -->
+                            <field name="user_id"/>
+                            <field name="pr_warehouse_id"/>
+                            <field name="pr_flow_id"/>
+                            <field name="pr_line_id"/>
+                            <field name="state"/>
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="sale_plan_pr_report_pivot" model="ir.ui.view">
+             <field name="name">sale.plan.pr.report.pivot</field>
+             <field name="model">sale.plan.pr.report</field>
+             <field name="arch" type="xml">
+                <pivot string="Analysis">
+                    <field name="categ_id" type="row"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="product_qty_actual" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="sale_plan_pr_report_search" model="ir.ui.view">
+            <field name="name">sale.plan.pr.report.search</field>
+            <field name="model">sale.plan.pr.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="bom_id"/>
+                    <field name="product_qty"/>
+                    <field name="year"/>
+                    <!-- <field name="month"/> -->
+                    <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Бараа" name="gr_product" context="{'group_by':'product_id'}"/>
+                        <filter string="Ангилал" name="gr_categ" context="{'group_by':'categ_id'}"/>
+                        <filter string="Төлөв" context="{'group_by':'state'}" name="gr_state"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='action_sale_plan_pr_report'>
+            <field name="name">Борлуулалт Төлөвлөгөөнөөс PR Үүгэсэн</field>
+            <field name="res_model">sale.plan.pr.report</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">pivot,tree,form</field>
+        </record>
+        <menuitem id="menu_mw_sale_plan_pr_report" parent="mw_purchase_request.purchase_request_report" action="action_sale_plan_pr_report" sequence="95"/>
+    </data>
+</odoo>

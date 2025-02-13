@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!--  -->
+	<record id="maintenance_year_other_expense_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.year.other.expense.filter</field>
+        <field name="model">maintenance.year.other.expense</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date_year"/>
+            </search>
+        </field>
+    </record>
+    
+	<record id="maintenance_year_other_expense_form_view" model="ir.ui.view">
+		<field name="name">maintenance.year.other.expense.form</field>
+		<field name="model">maintenance.year.other.expense</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноорогдох" type="object" />
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"  
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" readonly="1"  
+                        statusbar_visible="draft,confirmed" />
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+           			<group col="4">
+                        <field name="date_year"/>
+                        <field name="total_amount"/>
+
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="Lines" editable="bottom">
+                                <field name="name"/>
+                                <field name="qty" sum="Total"/>
+                                <field name="amount" sum="Total"/>
+                            </tree>
+                        </field>
+                    </group>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_year_other_expense_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.year.other.expense.tree</field>
+        <field name="model">maintenance.year.other.expense</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_year"/>
+                <field name="total_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_year_other_expense'>
+        <field name="name">Хэрэглээний зардал</field>
+        <field name="res_model">maintenance.year.other.expense</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

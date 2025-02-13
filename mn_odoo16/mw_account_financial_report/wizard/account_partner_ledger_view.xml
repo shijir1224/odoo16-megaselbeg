@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_partner_ledger_mw_wizard" model="ir.ui.view">
+        <field name="name">General Ledger</field>
+        <field name="model">account.partner.ledger_mw</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main_info">
+                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                </group>
+                <div>
+                    <group name="filters">
+                        <group name="date_range">
+                            <field name="date_range_id" />
+                            <field name="date_from" />
+                            <field name="date_to" />
+                            <field name="fy_start_date" invisible="1" />
+                            <field name="target_move" widget="radio" />
+                        </group>
+                        <group name="other_filters">
+                            <!-- <field name="grouped_by" /> -->
+                            <!-- <field name="centralize" /> -->
+                            <!-- <field name="hide_account_at_0" /> -->
+                            <field name="foreign_currency" />
+                            <field name="show_cost_center" />
+                            <field name="not_group" />
+                        </group>
+                    </group>
+                        <group name="partner_filter" col="4">
+                            <field name="partner_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="partner_categ_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                         </group>
+                    
+                    <notebook>
+                        <page string="Filter accounts">
+                            <group name="account_filter" col="4">
+                                <label for="account_ids" colspan="4" />
+                                <field name="receivable_accounts_only" />
+                                <field name="payable_accounts_only" />
+                                <label for="account_code_from" string="From Code" />
+                                <div>
+                                    <div class="o_row">
+                                        <field name="account_code_from" class="oe_inline" options="{'no_create': True}"/>
+                                        <span class="oe_inline">To</span>
+                                        <field name="account_code_to" class="oe_inline" options="{'no_create': True}"/>
+                                    </div>
+                                </div>
+                                <field name="account_ids" nolabel="1" widget="many2many_tags" options="{'no_create': True}" colspan="4"/>
+                            </group>
+                        </page>
+<!--                         <page string="Filter partners">
+                            <field name="partner_ids" nolabel="1" widget="many2many_tags" options="{'no_create': True}"/>
+                        </page>
+ -->                        <page string="Filter analytic accounts" groups="analytic.group_analytic_accounting">
+                            <field name="cost_center_ids" nolabel="1" widget="many2many_tags" options="{'no_create': True}"/>
+                        </page>
+                    </notebook>
+                </div>
+                <footer>
+                    <div>
+<!--                         <button name="button_export_html" string="View" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button name="button_export_pdf" string="Export PDF" type="object" />
+                        or -->
+                        <button name="button_mw_xlsx" string="Export XLSX" type="object"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </div>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_account_partner_ledger_mw_wizard" model="ir.actions.act_window">
+        <field name="name">Харилцагчийн дэвтэр</field>
+        <field name="res_model">account.partner.ledger_mw</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_partner_ledger_mw_wizard" />
+        <field name="target">new</field>
+    </record>
+    
+    <menuitem 
+                name="Харилцагчийн дэвтэр"
+                action="action_account_partner_ledger_mw_wizard"
+                id="menu_action_account_partner_ledger_mw_wizard"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="10"/>
+                                    
+</odoo>

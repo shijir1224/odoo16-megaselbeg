@@ -1,0 +1,297 @@
+# -*- coding: utf-8 -*-
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
+class CostName(models.Model):
+	_name = 'cost.name'
+	_description = 'Cost Name'
+
+	name = fields.Char(string='Зардлын нэр')
+	active = fields.Boolean(string='Active',default=True)
+class MissionCostLine(models.Model):
+	_name = 'mission.cost.line'
+	_description = 'Mission Cost Line'
+
+	amount = fields.Float(string='Нэгж дүн')
+	count = fields.Integer(string='Тоо хэмжээ')
+	sum = fields.Float(string='Дүн')
+	cost_name_id = fields.Many2one('cost.name', string='Зардлын нэр')
+	desc = fields.Char(string='Тайлбар')
+	parent_id = fields.Many2one('hr.mission',string='Parent')
+
+	@api.onchange('amount','count')
+	def sum_amount(self):
+		self.sum = self.amount * self.count
+	
+class MissionEmployee(models.Model):
+	_name = 'mission.employee'
+	_description = 'Mission Employee'
+
+	employee_id = fields.Many2one('hr.employee',string='Ажилтан', domain=[('is_mission','!=','3')])
+	job_id = fields.Many2one('hr.job',string='Албан тушаал',related='employee_id.job_id')
+	mission_id = fields.Many2one('hr.mission',string='Ажилчид')
+	
+class HrMission(models.Model):
+	_name = 'hr.mission'
+	_description = 'Hr Mission'
+	_inherit = ['mail.thread']
+	
+	def default_employee(self):
+		return self.env.context.get('default_employee_id') or self.env['hr.employee'].search([('user_id', '=',self.env.uid)], limit=1)
+	
+	@api.model
+	def _line_name(self):
+		cons = self.env['cost.name'].search([])
+		lines = []
+		for cc in cons:
+			vals = {
+				'cost_name_id': cc.id
+			}
+			lines.append(vals)
+		print(lines)
+		return lines
+	
+	active = fields.Boolean(string='Active',default=True)
+	name = fields.Char(string='Томилолтын зорилго',required=True)
+	where = fields.Char(string='Томилолтоор явах газар, маршрут',required=True)
+	date_come = fields.Date(string='Явах огноо', tracking=True,required=True)
+	date_back = fields.Date(string='Буцаж ирэх огноо', tracking=True,required=True)
+	employee_id = fields.Many2one('hr.employee', string='Томилолтын ахлагч', default=default_employee, domain=[('is_mission','!=','3')])
+	job_id = fields.Many2one('hr.job', string='Албан тушаал',related='employee_id.job_id')
+	department_id = fields.Many2one('hr.department', string='Алба нэгж',related='employee_id.department_id')
+	number_of_employees = fields.Integer(string='Ажилтаны тоо')
+	is_many = fields.Boolean(string='Олон ажилтан сонгох эсэх', default=False)
+	total = fields.Float(string='Нийт төсөв',compute='_total',  store=True)
+	mission_ids = fields.One2many('mission.employee','mission_id', string='Ажилчид')
+	cost_ids = fields.One2many('mission.cost.line','parent_id', default=_line_name,string='Төсөв')
+	company_id = fields.Many2one('res.company', string='Компани', default=lambda self: self.env.company, required=True)
+	currency_id = fields.Many2one('res.currency', string='Валют',default=lambda self: self.env.user.company_id.currency_id.id)
+	type = fields.Selection([('in',u'Дотоод'),('out',u'Гадаад')],string='Төрөл')
+
+	@api.depends('cost_ids.sum')
+	def _total(self):
+		n=0
+		for obj in self:
+			for line in obj.cost_ids:
+				n+=line.sum
+			obj.total =n
+
+# dynamic flow
+	def _get_dynamic_flow_line_id(self):
+		return self.flow_find().id
+
+	def _get_default_flow_id(self):
+		search_domain = []
+		search_domain.append(
+			('model_id.model', '=', 'hr.mission'))
+		return self.env['dynamic.flow'].search(search_domain, order='sequence', limit=1).id
+
+	visible_flow_line_ids = fields.Many2many('dynamic.flow.line', compute='_compute_visible_flow_line_ids', string='Харагдах төлөв')
+	flow_line_id = fields.Many2one('dynamic.flow.line', string='Төлөв', tracking=True, 
+					index=True, default=_get_dynamic_flow_line_id, copy=False, domain="[('id','in', visible_flow_line_ids)]")
+	history_ids = fields.One2many(
+		'dynamic.flow.history', 'mission_id', 'Түүхүүд')
+	flow_id = fields.Many2one('dynamic.flow', string='Урсгалын тохиргоо', tracking=True,default=_get_default_flow_id, copy=True, required=True,domain="[('model_id.model', '=', 'hr.mission')]")
+
+	flow_line_next_id = fields.Many2one(
+		'dynamic.flow.line', related='flow_line_id.flow_line_next_id',  store=True)
+
+	stage_id = fields.Many2one(
+		'dynamic.flow.line.stage', compute='_compute_flow_line_id_stage_id', string='State', store=True)
+
+	flow_line_back_id = fields.Many2one(
+		'dynamic.flow.line', related='flow_line_id.flow_line_back_id', readonly=True)
+	next_state_type = fields.Char(
+		string='Дараагийн төлөв', compute='_compute_next_state_type')
+	state_type = fields.Char(string='Төлөвийн төрөл',
+							 compute='_compute_state_type', store=True)
+	is_not_edit = fields.Boolean(compute='_compute_is_not_edit')
+	state = fields.Char(string='Төлөв', compute='_compute_state', store=True, index=True)
+	confirm_user_ids = fields.Many2many(
+		'res.users', string='Батлах хэрэглэгчид', compute='_compute_user_ids', store=True, readonly=True)
+	branch_id = fields.Many2one(
+		'res.branch', 'Салбар', default=lambda self: self.env.user.branch_id)
+
+	@api.depends('flow_line_id')
+	def _compute_state(self):
+		for item in self:
+			item.state = item.flow_line_id.state_type
+
+	@api.depends('flow_id.line_ids', 'flow_id.is_amount')
+	def _compute_visible_flow_line_ids(self):
+		for item in self:
+			if item.flow_id:
+				item.visible_flow_line_ids = self.env['dynamic.flow.line'].search(
+					[('flow_id', '=', item.flow_id.id), ('flow_id.model_id.model','=','hr.mission')])
+			else:
+				item.visible_flow_line_ids = []
+
+	@api.depends('flow_line_id.is_not_edit')
+	def _compute_is_not_edit(self):
+		for item in self:
+			item.is_not_edit = item.flow_line_id.is_not_edit
+
+	@api.depends('flow_line_id', 'flow_id.line_ids')
+	def _compute_user_ids(self):
+		for item in self:
+			temp_users = []
+			for w in item.flow_id.line_ids:
+				temp = []
+				try:
+					temp = w._get_flow_users(item.branch_id, item.sudo(
+					).employee_id.department_id, item.sudo().employee_id.user_id).ids
+				except:
+					pass
+				temp_users += temp
+			item.confirm_user_ids = temp_users
+
+	@api.depends('flow_line_id')
+	def _compute_state_type(self):
+		for item in self:
+			item.state_type = item.flow_line_id.state_type
+
+	@api.depends('flow_line_next_id.state_type')
+	def _compute_next_state_type(self):
+		for item in self:
+			item.next_state_type = item.flow_line_next_id.state_type
+
+	api.depends('flow_line_id.stage_id')
+	def _compute_flow_line_id_stage_id(self):
+		for item in self:
+			item.stage_id = item.flow_line_id.stage_id
+
+	def flow_find(self, domain=[], order='sequence'):
+		search_domain = []
+		if self.flow_id:
+			search_domain.append(('flow_id', '=', self.flow_id.id))
+		else:
+			search_domain.append(
+				('flow_id.model_id.model', '=', 'hr.mission'))
+		return self.env['dynamic.flow.line'].search(search_domain, order=order, limit=1)
+
+	@api.onchange('flow_id')
+	def _onchange_flow_id(self):
+		if self.flow_id:
+			if self.flow_id:
+				self.flow_line_id = self.flow_find()
+		else:
+			self.flow_line_id = False
+
+	def action_next_stage(self):
+		next_flow_line_id = self.flow_line_id._get_next_flow_line()
+		if next_flow_line_id:
+			if self.visible_flow_line_ids and next_flow_line_id.id not in self.visible_flow_line_ids.ids:
+				check_next_flow_line_id = next_flow_line_id
+				while check_next_flow_line_id.id not in self.visible_flow_line_ids.ids:
+					temp_stage = check_next_flow_line_id._get_next_flow_line()
+					if temp_stage.id == check_next_flow_line_id.id or not temp_stage:
+						break
+					check_next_flow_line_id = temp_stage
+				next_flow_line_id = check_next_flow_line_id
+
+			if next_flow_line_id._get_check_ok_flow(False, False,self.employee_id.user_id):
+				self.flow_line_id = next_flow_line_id
+				if next_flow_line_id.state_type == 'sent':
+					self.action_sent()
+				if self.flow_line_id.state_type == 'done':
+					self.action_done()
+
+				# History uusgeh
+				self.env['dynamic.flow.history'].create_history(next_flow_line_id, 'mission_id', self)
+				# if self.flow_line_next_id:
+				# 	send_users = self.flow_line_next_id._get_flow_users(False, False,self.employee_id.user_id)
+				# 	if send_users:
+				# 		self.send_chat_next_users(
+				# 			send_users.mapped('partner_id'))
+			else:
+				con_user = next_flow_line_id._get_flow_users(False, False)
+				confirm_usernames = ''
+				if con_user:
+					confirm_usernames = ', '.join(
+						con_user.mapped('display_name'))
+				raise UserError(
+					u'Та батлах хэрэглэгч биш байна\n Батлах хэрэглэгчид %s' % confirm_usernames)
+
+	def action_back_stage(self):
+		back_flow_line_id = self.flow_line_id._get_back_flow_line()
+		if back_flow_line_id:
+			if back_flow_line_id._get_check_ok_flow(self.employee_id.department_id, self.employee_id.user_id):
+				self.flow_line_id = back_flow_line_id
+				self.env['dynamic.flow.history'].create_history(back_flow_line_id, 'mission_id', self)
+			else:
+				raise UserError(_('Буцаах хэрэглэгч биш байна!'))
+
+	def action_cancel_stage(self):
+		flow_line_id = self.flow_line_id._get_cancel_flow_line()
+		if flow_line_id._get_check_ok_flow(False, False):
+			self.flow_line_id = flow_line_id
+			self.env['dynamic.flow.history'].create_history(flow_line_id, 'mission_id', self)
+			self.state_type = 'cancel'
+		else:
+			raise UserError(_('Цуцлах хэрэглэгч биш байна.'))
+
+	def action_draft_stage(self):
+		flow_line_id = self.flow_line_id._get_draft_flow_line()
+		if flow_line_id._get_check_ok_flow():
+			self.flow_line_id = flow_line_id
+			self.state_type = 'draft'
+			self.env['dynamic.flow.history'].create_history(flow_line_id, 'mission_id', self)
+		else:
+			raise UserError(_('Ноорог болгох хэрэглэгч биш байна.'))
+
+	def send_chat_employee(self, partner_ids):
+		state_type = self.flow_line_id.name
+		base_url = self.env['ir.config_parameter'].sudo(
+		).get_param('web.base.url')
+		action_id = self.env.ref('mw_hr.hr_mission_action').id
+		html = u'<b>Томилолтын хүсэлт</b><br/><i style="color: red">%s</i> Ажилтаны үүсгэсэн </br>' % (
+			self.employee_id.name)
+		html += u"""<b><a target="_blank" href=%s/web#id=%s&view_type=form&model=hr.mission&action=%s>%s</a></b>, томилолтын хүсэлт <b>%s</b> төлөвт орлоо""" % (
+				base_url, self.id, action_id, self.name, state_type)
+		self.flow_line_id.send_chat(html, partner_ids)
+
+	def send_chat_next_users(self, partner_ids):
+		state_type = self.flow_line_id.name
+		base_url = self.env['ir.config_parameter'].sudo(
+		).get_param('web.base.url')
+		action_id = self.env.ref('mw_hr.hr_mission_action').id
+		html = u'<b>Томилолтын хүсэлт</b><br/><i style="color: red">%s</i> Ажилтаны үүсгэсэн </br>' % (
+			self.employee_id.name)
+		html += u"""<b><a target="_blank" href=%s/web#id=%s&view_type=form&model=hr.mission&action=%s>%s</a></b>,томилолтын хүсэлт  <b>%s</b> төлөвт орлоо""" % (
+				base_url, self.id, action_id, self.name, state_type)
+		self.flow_line_id.send_chat(html, partner_ids)
+
+	def unlink(self):
+		for bl in self:
+			if bl.state_type != 'draft':
+				raise UserError('Ноорог төлөвтэй биш бол устгах боломжгүй.')
+		return super(HrMission, self).unlink()
+
+	def action_sent(self):
+		if not self.name:
+			self.name = self.env['ir.sequence'].next_by_code('hr.mission')
+		self.state_type = 'sent'
+
+	def action_done(self):
+		self.state_type = 'done'
+		shift_id=self.env['hr.shift.time'].search([('is_work','=','business_trip')])
+		leave = self.env['hr.leave.mw']
+		leave_flow = self.env['dynamic.flow'].search([('model_id.model', '=', 'hr.leave.mw')], order='sequence',limit=1)
+		leave.create({
+			"employee_id": self.employee_id.id,
+			"shift_plan_id": shift_id.id,
+			"date_from": self.date_come,
+			"date_to": self.date_back,
+			"flow_id": leave_flow.id,
+			# "time_from": 9,
+			# "time_to": 18,
+		})
+
+class DynamicFlowHistory(models.Model):
+	_inherit = 'dynamic.flow.history'
+
+	mission_id = fields.Many2one('hr.mission', string='Хүсэлт', ondelete='cascade', index=True)
+
+
+

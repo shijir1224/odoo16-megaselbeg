@@ -1,0 +1,101 @@
+
+
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_mw_hr">
+                <field name="name">Хүний нөөц</field>
+                <field name="sequence">70</field>
+        </record>
+        <record id="group_for_director" model="res.groups">
+            <field name="name">Захирал</field>
+            <field name="category_id" ref="module_mw_hr"/>
+        </record>
+        <record id="group_hr_tr_user" model="res.groups">
+            <field name="name">Тодорхойлолт хүсэлт хэрэглэгч</field>
+            <field name="category_id" ref="module_mw_hr"/>
+        </record>
+        <record id="group_hr_tr_admin" model="res.groups">
+            <field name="name">Тодорхойлолт хүсэлт админ</field>
+            <field name="category_id" ref="module_mw_hr"/>
+            <field name="implied_ids" eval="[(4, ref('group_hr_tr_user'))]"/>
+        </record>
+        
+
+        <record id="group_shift_vacation_user" model="res.groups">
+            <field name="name">Ээлжийн амралт хэрэглэгч</field>
+            <field name="category_id" ref="module_mw_hr"/>
+        </record>
+        <record id="group_shift_vacation_admin" model="res.groups">
+            <field name="name">Ээлжийн амралт админ</field>
+            <field name="category_id" ref="module_mw_hr"/>
+            <field name="implied_ids" eval="[(4, ref('group_shift_vacation_user'))]"/>
+        </record>
+        <record id="group_hr_report" model="res.groups">
+            <field name="name">ХН тайлан</field>
+            <field name="category_id" ref="module_mw_hr"/>
+        </record>
+         <record id="group_hr_confirm" model="res.groups">
+            <field name="name">ХН батлах эрх</field>
+            <field name="category_id" ref="module_mw_hr"/>
+        </record>
+        <record id="group_hr_hide_menu" model="res.groups">
+            <field name="name">Харагдахгүй цэснүүд</field>
+            <field name="category_id" ref="module_mw_hr"/>
+        </record>
+
+<!-- Rule -->
+        <record model="ir.rule" id="domain_hr_tr_company">
+            <field name="name">Тодорхойлолт/Компаниар/</field>
+            <field name="model_id" ref="mw_hr.model_hr_tr"/>
+            <field name="domain_force">
+                ['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record model="ir.rule" id="domain_hr_tr_user">
+            <field name="name">Тодорхойлолт/өөрийн/</field>
+            <field name="model_id" ref="mw_hr.model_hr_tr"/>
+            <field name="domain_force">
+                [('employee_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('mw_hr.group_hr_tr_user'))]"/>
+        </record>
+        <record model="ir.rule" id="domain_hr_tr_confirm_user">
+            <field name="name">Тодорхойлолт/Батлах/</field>
+            <field name="model_id" ref="mw_hr.model_hr_tr"/>
+            <field name="domain_force">
+                [('confirm_user_ids','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('mw_hr.group_hr_tr_user'))]"/>
+        </record>
+        <record model="ir.rule" id="domain_hr_tr_all">
+            <field name="name">Тодорхойлолт/Бүгд/</field>
+            <field name="model_id" ref="mw_hr.model_hr_tr"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('mw_hr.group_hr_tr_admin'))]"/>
+        </record>
+        <!-- ЭА -->
+        <record model="ir.rule" id="domain_shift_vacation_company">
+            <field name="name">Ээлжийн амралт/Компаниар/</field>
+            <field name="model_id" ref="mw_hr.model_shift_vacation_request"/>
+            <field name="domain_force">
+                ['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record model="ir.rule" id="domain_shift_vacation_user">
+            <field name="name">Ээлжийн амралт/өөрийн/</field>
+            <field name="model_id" ref="mw_hr.model_shift_vacation_request"/>
+            <field name="domain_force">
+                [('employee_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('mw_hr.group_shift_vacation_user'))]"/>
+        </record>
+        <record model="ir.rule" id="domain_shift_vacation_confirm_user">
+            <field name="name">Ээлжийн амралт/Батлах/</field>
+            <field name="model_id" ref="mw_hr.model_shift_vacation_request"/>
+            <field name="domain_force">
+                [('confirm_user_ids','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('mw_hr.group_shift_vacation_user'))]"/>
+        </record>
+        <record model="ir.rule" id="domain_shift_vacation_all">
+            <field name="name">Ээлжийн амралт/Бүгд/</field>
+            <field name="model_id" ref="mw_hr.model_shift_vacation_request"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('mw_hr.group_shift_vacation_admin'))]"/>
+        </record>
+    </data>
+</odoo>

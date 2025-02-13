@@ -1,0 +1,588 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_mn_account_currency_equalization
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-28 11:09+0000\n"
+"PO-Revision-Date: 2021-03-28 11:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__entry_count
+msgid "# Entries"
+msgstr "# Бичилтүүд"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "%s - %s"
+msgstr "%s - %s"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_move.py:0
+#, python-format
+msgid ""
+"'%s' account is already equalized. \n"
+"First you must delete currency equalizations on this account which equalized after %s."
+msgstr ""
+"'%s' дансан дээр аль хэдийн ханшийн тэгшитгэл хийгдсэн байна.\n"
+"\n"
+"Та эхлээд уг дансан дээр %s огнооноос хойш хийгдсэн тэгшитгэлүүдийг устгах хэрэгтэй."
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_res_config_settings_form_inherit_currency_equalization
+msgid "<b>Equalize Currency Rate Account</b>"
+msgstr "<b>Валютын ханшийн тэгшитгэлийн дансууд</b>"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_res_config_settings_form_inherit_currency_equalization
+msgid "<b>Equalize Currency Rate</b>"
+msgstr "<b>Валютын ханшийн тэгшитгэл</b>"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__account_id
+msgid "Account"
+msgstr "Данс"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.actions.act_window,name:l10n_mn_account_currency_equalization.action_account_currency_equalization
+#: model:ir.ui.menu,name:l10n_mn_account_currency_equalization.menu_account_currency_equalization
+#: model:ir.ui.menu,name:l10n_mn_account_currency_equalization.menu_parent_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_tree
+msgid "Account Equalize Currency Rate"
+msgstr "Валютын ханшийн тэгшитгэл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__move_id
+msgid "Account Move"
+msgstr "Журналын бичилт"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_needaction
+msgid "Action Needed"
+msgstr "Үйлдэл шаардсан"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Action to Draft"
+msgstr "Ноороглох"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__added_credit
+msgid "Added Credit"
+msgstr "Нэмэгдсэн кредит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__added_debit
+msgid "Added Debit"
+msgstr "Нэмэгдсэн дебит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Added credit"
+msgstr "Нэмэгдсэн кредит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Added debit"
+msgstr "Нэмэгдсэн дебит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__amount_currency
+msgid "Amount Currency"
+msgstr "Валютаарх дүн"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Amount currency"
+msgstr "Валютаарх дүн"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company__exchange_equation_analytic_account_id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings__exchange_equation_analytic_account_id
+msgid "Analytic Account of Exchange Equations"
+msgstr "Ханшийн тэгшитгэлийн шинжилгээний данс"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_attachment_count
+msgid "Attachment Count"
+msgstr "Хавсралтын тоо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__cashflow_id
+msgid "Cashflow Type"
+msgstr "Мөнгөн гүйлгээний төрөл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company__exchange_equation_cashflow_id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings__exchange_equation_cashflow_id
+msgid "Cashflow Type of Exchange Equations"
+msgstr "Ханшийн тэгшитгэлийн мөнгөн гүйлгээний төрөл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.actions.act_window,help:l10n_mn_account_currency_equalization.action_account_currency_equalization
+msgid "Click here to create new account equalize currency rate"
+msgstr "Ханшийн тэгшитгэл үүсгэх"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model,name:l10n_mn_account_currency_equalization.model_res_company
+msgid "Companies"
+msgstr "Компаниуд"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Company"
+msgstr "Компани"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model,name:l10n_mn_account_currency_equalization.model_res_config_settings
+msgid "Config Settings"
+msgstr "Тохиргооны тохируулга"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__create_uid
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__create_uid
+msgid "Created by"
+msgstr "Үүсгэгч"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__create_date
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__credit
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Credit"
+msgstr "Кредит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__currency_id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__currency_id
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Currency"
+msgstr "Валют"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_bank_statement_line__currency_equalized
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_move__currency_equalized
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_payment__currency_equalized
+msgid "Currency Equalized"
+msgstr "Ханш тэгшитгэсэн"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__type
+msgid "Currency Equation Type"
+msgstr "Ханш тэгшитгэх төрөл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__rate
+msgid "Currency rate"
+msgstr "Валютын ханш"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__date
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__date
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Date"
+msgstr "Огноо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__debit
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Debit"
+msgstr "Дебит"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "Delete only draft in state"
+msgstr "Ноорог төлөвтэй үед л устгах боломжтой"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__description
+msgid "Description"
+msgstr "Тайлбар"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__display_name
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__display_name
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Дэлгэрэнгүй нэр"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields.selection,name:l10n_mn_account_currency_equalization.selection__account_currency_equalization__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Draft"
+msgstr "Ноорог"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__equalization_id
+msgid "Equalization"
+msgstr "Тэгшитгэл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Equalize"
+msgstr "Тэгшитгэх"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model,name:l10n_mn_account_currency_equalization.model_account_currency_equalization
+msgid "Equalize Currency Rate"
+msgstr "Валютын ханшийн тэгшитгэл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model,name:l10n_mn_account_currency_equalization.model_account_currency_equalization_line
+msgid "Equalize Currency Rate Line"
+msgstr "Ханшийн тэгшитгэлийн мөр"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Equalize Currency Rates in draft states"
+msgstr "Ноорог төлөвтэй валютын ханшийн тэгшитгэл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Equalize Currency Rates in equalized state"
+msgstr "Тэгшитгэсэн төлөвтэй валютын ханшийн тэгшитгэл"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields.selection,name:l10n_mn_account_currency_equalization.selection__account_currency_equalization__state__equalized
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Equalized"
+msgstr "Тэгшитгэсэн"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_follower_ids
+msgid "Followers"
+msgstr "Дагагчид"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Дагагчид (Сувгууд)"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Дагагчид (Харилцагчид)"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Group By..."
+msgstr "Бүлэглэх.."
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_needaction
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Хэрэв сонгосон бол, шинэ зурвасуудад анхаарал хандуулахыг шаардана."
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_has_error
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Үүнийг сонговол алдаа үүсэх үед зурвасууд ирнэ."
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_is_follower
+msgid "Is Follower"
+msgstr "Дагагч эсэх"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Items"
+msgstr "Зүйлс"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__journal_id
+msgid "Journal"
+msgstr "Журнал"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "Journal Entries"
+msgstr "Журналын бичилтүүд"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model,name:l10n_mn_account_currency_equalization.model_account_move
+msgid "Journal Entry"
+msgstr "Журналын бичилт"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company__exchange_equation_journal_id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings__exchange_equation_journal_id
+msgid "Journal of Exchange Equations"
+msgstr "Ханшийн тэгшитгэлийн журнал"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization____last_update
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line____last_update
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_move____last_update
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company____last_update
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__write_uid
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__write_uid
+msgid "Last Updated by"
+msgstr "Сүүлийн засвар хийсэн"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__write_date
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__write_date
+msgid "Last Updated on"
+msgstr "Сүүлийн засвар хийсэн огноо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__line_ids
+msgid "Lines"
+msgstr "Мөрүүд"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields.selection,name:l10n_mn_account_currency_equalization.selection__account_currency_equalization__type__liquidity
+msgid "Liquidity Accounts"
+msgstr "Мөнгөн хөрөнгийн данс"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "Liquidity Accounts "
+msgstr "Мөнгөн хөрөнгийн данс "
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Үндсэн хавсралт"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_has_error
+msgid "Message Delivery error"
+msgstr "Алдаа үүссэн талаарх зурвас"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_ids
+msgid "Messages"
+msgstr "Зурвасууд"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__name
+msgid "Name"
+msgstr "Нэр"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__new_rate
+msgid "New Currency rate"
+msgstr "Шинэ валютын ханш"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Үйлдлийн тоо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_has_error_counter
+msgid "Number of errors"
+msgstr "Алдааны тоо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Үйлдэл шаардсан зурвасын тоо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Алдааны мэдэгдэл бүхий зурвасын тоо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Уншаагүй зурвасын тоо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__old_rate
+msgid "Old Currency rate"
+msgstr "Хуучин валютын ханш"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__partner_id
+msgid "Partner"
+msgstr "Харилцагч"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields.selection,name:l10n_mn_account_currency_equalization.selection__account_currency_equalization__type__partner
+msgid "Partner Balances"
+msgstr "Харилцагчийн тооцоо"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "Partner Balances "
+msgstr "Харилцагчийн тооцоо "
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__rate_date
+msgid "Rate Date"
+msgstr "Валютын ханшийн огноо"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS илгээлтийн алдаа"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Start"
+msgstr "Эхлэх"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields.selection,name:l10n_mn_account_currency_equalization.selection__account_currency_equalization__state__started
+msgid "Started"
+msgstr "Эхэлсэн"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__state
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__state
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "State"
+msgstr "Төлөв"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid ""
+"There is no unperformed rate exchange gain account defined this company."
+msgstr ""
+"Энэ компанид валютын ханшийн зөрүүний хэрэгжээгүй олзын данс "
+"тодорхойлогдоогүй байна"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid ""
+"There is no unperformed rate exchange loss account defined this company."
+msgstr ""
+"Энэ компанид валютын ханшийн зөрүүний хэрэгжээгүй гарзын данс "
+"тодорхойлогдоогүй байна"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_res_company__unperformed_exchange_gain_account_id
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_res_company__unperformed_exchange_loss_account_id
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_res_config_settings__unperformed_exchange_gain_account_id
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_res_config_settings__unperformed_exchange_loss_account_id
+msgid ""
+"This account will be used when compute currency rate exchange unperformed "
+"gain or loss."
+msgstr ""
+"Энэхүү данс нь систем валютын ханшийн зөрүүгээс хэрэгжээгүй олз гарз бүртгэх"
+" үед хэрэглэгдэнэ."
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__total_credit
+msgid "Total Credit"
+msgstr "Нийт кредит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization_line__total_debit
+msgid "Total Debit"
+msgstr "Нийт дебит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Total credit"
+msgstr "Нийт кредит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_form
+msgid "Total debit"
+msgstr "Нийт дебит"
+
+#. module: l10n_mn_account_currency_equalization
+#: model_terms:ir.ui.view,arch_db:l10n_mn_account_currency_equalization.view_account_currency_equalization_search
+msgid "Type"
+msgstr "Төрөл"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "Unperformed Rate Exchange Gain"
+msgstr "Валютын ханшийн зөрүүний бодит бус олз"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company__unperformed_exchange_gain_account_id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings__unperformed_exchange_gain_account_id
+msgid "Unperformed Rate Exchange Gain Account"
+msgstr "Валютын ханшийн зөрүүний бодит бус олзын данс"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "Unperformed Rate Exchange Loss"
+msgstr "Валютын ханшийн зөрүүний бодит бус гарз"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_company__unperformed_exchange_loss_account_id
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_res_config_settings__unperformed_exchange_loss_account_id
+msgid "Unperformed Rate Exchange Loss Account"
+msgstr "Валютын ханшийн зөрүүний бодит бус гарзын данс"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_unread
+msgid "Unread Messages"
+msgstr "Уншаагүй зурвас"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Уншаагүй зурвасын тоолуур"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,field_description:l10n_mn_account_currency_equalization.field_account_currency_equalization__website_message_ids
+msgid "Website Messages"
+msgstr "Вебсайтын зурвас"
+
+#. module: l10n_mn_account_currency_equalization
+#: model:ir.model.fields,help:l10n_mn_account_currency_equalization.field_account_currency_equalization__website_message_ids
+msgid "Website communication history"
+msgstr "Вебсайтын харилцааны түүх"
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_move.py:0
+#: code:addons/l10n_mn_account_currency_equalization/models/account_move.py:0
+#, python-format
+msgid "You cannot delete currency equalized move."
+msgstr "Та ханшийн тэгшитгэлийн ажил гүйлгээг устгах боломжгүй."
+
+#. module: l10n_mn_account_currency_equalization
+#: code:addons/l10n_mn_account_currency_equalization/models/account_currency_equalization.py:0
+#, python-format
+msgid "equalize currency rate"
+msgstr "валютын ханшийн тэгшитгэл"

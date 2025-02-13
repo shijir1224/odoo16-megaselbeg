@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="view_stock_quant_report_tree_inh">
+		<field name="name">stock.quant.report.tree.inherit</field>
+		<field name="model">stock.quant.report</field>
+		<field name="inherit_id" ref="mw_stock_account.view_stock_quant_report_tree_mw_stock_account"/>
+		<field eval="10" name="priority"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='currency_id']" position='after'>
+				<field name='standard_price' groups='mw_stock_quant_each_price.group_stock_quant_each_price_user'/>
+				<field name='list_price'/>
+				<field name='total_price'/>
+			</xpath>
+			<xpath expr="//field[@name='value']" position='attributes'>
+				<attribute name='groups'>mw_stock_quant_each_price.group_stock_quant_each_price_user</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_purchase_stock_report_tree_inh">
+		<field name="name">purchase.stock.report.tree.inherit</field>
+		<field name="model">purchase.stock.report</field>
+		<field name="inherit_id" ref="mw_purchase_report.purchase_stock_report_report_view_tree"/>
+		<field eval="10" name="priority"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='po_partner_id']" position='attributes'>
+				<attribute name='groups'>mw_stock_quant_each_price.group_purchase_stock_report_user</attribute>
+			</xpath>
+		</field>
+	</record>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_picking_withcarrier_out_form_ttjv" model="ir.ui.view">
+		<field name="name">delivery.stock.picking_withcarrier.form.view.ttjv</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<data>
+				<field name="owner_id" position="after">
+					<field name="in_coming_picking_id" readonly="1" attrs="{'invisible': [('in_coming_picking_id', '=', False)]}"/>
+					<field name="internal_wh_id" attrs="{'invisible': ['|','|',('picking_type_code', 'in', ['outgoing']), ('state', 'not in', ['done']),('in_coming_picking_ids','!=',[])], 'readonly': ['|',('state', 'in', ['cancel']), ('picking_type_code','not in',['incoming','internal'])]}" options="{'no_create': True}"/>
+					<button name="create_internal_from_incoming" string="Дотоод хөдөлгөөн үүсгэх" class="btn btn-warning" type="object" attrs="{'invisible': ['|','|',('picking_type_code', 'in', ['outgoing']), ('state', 'not in', ['done']),('in_coming_picking_ids','!=',[])]}"/>
+					<button name="action_view_in_coming_picking" string="Үүссэн дотоод хөдөлгөөн харах" class="btn btn-warning" type="object" attrs="{'invisible': [('in_coming_picking_ids','=',[])]}"/>
+					<field name="in_coming_picking_ids" invisible="1"/>
+				</field>
+			</data>
+		</field>
+	</record>
+
+</odoo>

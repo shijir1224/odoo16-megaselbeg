@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_power_cabel_tree" model="ir.ui.view">
+        <field name="name">power.cabel.tree</field>
+        <field name="model">power.cabel</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="object_id" options="{'no_create':True}"/>
+                <field name="state"/>
+                <field name="product_id" options="{'no_create':True}"/>
+                <field name="metr"/>
+                <field name="desc"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_cabel_search" model="ir.ui.view">
+        <field name="name">power.cabel.search</field>
+        <field name="model">power.cabel</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="object_id"/>
+                <field name="state"/>
+                <field name="product_id"/>
+                <field name="metr"/>
+                <field name="desc"/>
+                <filter name="gr_date" string="Огноо" context="{'group_by':'date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_cabel_form" model="ir.ui.view">
+        <field name="name">power.cabel.form</field>
+        <field name="model">power.cabel</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="date"/>
+                        <field name="object_id" options="{'no_create':True}"/>
+                        <field name="state"/>
+                        <field name="product_id" options="{'no_create':True}"/>
+                        <field name="metr"/>
+                        <field name="desc"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_cabel_tree" model="ir.actions.act_window">
+        <field name="name">Кабель Судалгаа</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">power.cabel</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

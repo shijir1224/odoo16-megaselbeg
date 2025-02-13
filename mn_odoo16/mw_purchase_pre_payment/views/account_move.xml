@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form_account_payment_inherit" model="ir.ui.view">
+        <field name="name">view_move_form_account_payment_inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="compute_payments_purchase_prepayments" class="oe_stat_button" icon="fa-exchange" type="object"
+                        string="Урьдчилгаа төлбөр"
+                        attrs="{'invisible': ['|','|',('prepayment_count', '=', 0),('move_type', '=', 'entry'),('state', '!=', 'posted')]}"
+                        >
+                    <field string="Урьдчилгаа төлбөр" name="prepayment_count" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

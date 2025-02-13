@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--      <record id="view_hr_employee_interout_extension" model="ir.ui.view">
+        <field name="name">hr.employee.extension</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="see_stock_move" string="COST" type="object"
+                    class="oe_inline oe_right oe_stat_button" icon="fa-usd" groups="mw_stock_moves.group_stock_other_expence_user">
+                    <field name="total_expense"/>
+                </button>
+            </div>
+            <notebook position="inside">
+                <page name='cost' string="Дотоод зардлууд" groups="mw_stock_moves.group_stock_other_expence_user">
+                    <group>
+                        <field name="expense_line_ids" nolabel="1">
+                            <tree string="Lines">
+                                <field name="product_id"/>
+                                <field name="date_required"/>
+                                <field name="branch_id"/>
+                                <field name="department_id"/>
+                                <field name="last_date"/>
+                                <field name="uom_id"/>
+                                <field name="price_unit" invisible="1"/>
+                                <field name="qty" sum="SUM"/>
+                                <field name="available_qty" sum="SUM"/>
+                                <field name="available_qty_template" sum="SUM"/>
+                                <field name="list_price" invisible="1"/>
+                                <field name="sub_total" sum="SUM" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record> -->
+
+</odoo>

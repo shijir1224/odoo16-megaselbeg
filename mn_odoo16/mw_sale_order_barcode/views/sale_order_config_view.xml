@@ -1,0 +1,21 @@
+<odoo>
+
+    <!-- <template id="assets_backend_barcode" name="so barcodes assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" 
+                src="/mw_sale_order_barcode/static/src/js/saleorder_barcode.js"></script>
+        </xpath>
+    </template> -->
+
+    <record id="sale_order_form_inherit_barcode" model="ir.ui.view">
+        <field name="name">sale.order.form.barcode</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='name']" position="after">
+                <field name="id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

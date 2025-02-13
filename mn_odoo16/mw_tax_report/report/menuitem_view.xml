@@ -1,0 +1,13 @@
+<odoo>
+    <data> 
+       
+        <menuitem id="menu_tax_legal_statement_xls" name="Татварын тайлангууд" parent="account.menu_finance_reports"/>
+        
+        <menuitem 
+                name="ААНОАТ-ын тайлан /ТТ-02/"
+                action="mw_tax_report.action_report_mw_tax_report_tt02"
+                id="menu_report_mw_tax_report_tt02"
+                parent="menu_tax_legal_statement_xls"
+                sequence="1"/> 
+    </data>
+</odoo> 

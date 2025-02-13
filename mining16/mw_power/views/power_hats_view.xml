@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_power_hats_total_tree" model="ir.ui.view">
+        <field name="name">power.hats.total.tree</field>
+        <field name="model">power.hats.total</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="day_type"/>
+                <field name="date"/>
+                <field name="desc"/>
+                <field name="state"/>
+                <field name="niit_35_aldagdal" sum="SUM"/>
+                <field name="niit_hereglee" sum="SUM"/>
+                <field name="niit_6_aldagdal" sum="SUM"/>
+                <field name="niit_aldagdal" sum="SUM"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_hats_total_search" model="ir.ui.view">
+        <field name="name">power.hats.total.search</field>
+        <field name="model">power.hats.total</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="desc"/>
+                <field name="day_type"/>
+                <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+                <separator/>
+                <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                <filter name="octomber" string="Octomber" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+                <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                
+                <filter name="gr_year" string="Жил" context="{'group_by':'date:year'}"/>
+                <filter name="gr_month" string="Сар" context="{'group_by':'date:month'}"/>
+                <filter name="gr_day" string="Өдөр" context="{'group_by':'date:day'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_hats_total_form" model="ir.ui.view">
+        <field name="name">power.hats.total.form</field>
+        <field name="model">power.hats.total</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object" states="done"/>
+                    <button name="action_to_done" class="oe_highlight" string="Батлах" states="draft" type="object"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <group col="4">
+                        <field name="date" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="desc" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="day_type"/>
+                        <button name="update_compute" type="object" class="btn-success" string="Бодолт шинэчлэх"/>
+                    </group>
+                    <group string="ХАЦ Мөрүүд">
+                        <field name="lines" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                            <tree decoration-info="category=='tolgoi'" decoration-danger="category=='user1'" decoration-success="category=='user2'" decoration-bf="category=='user3'">
+                                <field name="sequence" widget="handle"/>
+                                <field name="date"/>
+                                <field name="type"/>
+                                <field name="station_id"/>
+                                <field name="category"/>
+                                <field name="desc"/>
+                                <field name="niit_orolt" sum="SUM"/>
+                                <field name="niit_orolt_per"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <div class="row" >
+                            <div class="col-xs-3" >
+                                <label for="niit_35_aldagdal" string="35кВ нийт Алдагдал"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit_35_aldagdal" string="кВт.ц"/>
+                                <field name="niit_35_aldagdal"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="niit_35_aldagdal_per" string="Хувь"/>
+                                <field name="niit_35_aldagdal_per"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" >
+                                <label for="niit_hereglee" string="Нийт Хэрэглээ"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit_hereglee" string="кВт.ц"/>
+                                <field name="niit_hereglee"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="niit_hereglee_per" string="Хувь"/>
+                                <field name="niit_hereglee_per"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" >
+                                <label for="niit_6_aldagdal" string="6кВ нийт Алдагдал"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit_6_aldagdal" string="кВт.ц"/>
+                                <field name="niit_6_aldagdal"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="niit_6_aldagdal_per" string="Хувь"/>
+                                <field name="niit_6_aldagdal_per"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="shugamiin_6_aldagdal" string="6кВ шугамын Алдагдал"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="shugamiin_6_aldagdal" string="кВт.ц"/>
+                                <field name="shugamiin_6_aldagdal"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="shugamiin_6_aldagdal_per" string="Хувь"/>
+                                <field name="shugamiin_6_aldagdal_per"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" >
+                                <label for="niit_aldagdal" string="Нийт Алдагдал"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit_aldagdal" string="кВт.ц"/>
+                                <field name="niit_aldagdal"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="niit_aldagdal_per" string="Хувь"/>
+                                <field name="niit_aldagdal_per"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" >
+                                <label for="niit_aldagdal" string="35кВ Нийт шугам трансформаторын алдагдал
+"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit35_trans_ald" string="кВт.ц"/>
+                                <field name="niit35_trans_ald"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="niit35_trans_ald_per" string="Хувь"/>
+                                <field name="niit35_trans_ald_per"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" >
+                                <label for="niit_gerel_kolonk" string="Гэрэлтүүлэг,колонк"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit_gerel_kolonk" string="кВт.ц"/>
+                                <field name="niit_gerel_kolonk"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="niit_gadnii" string="Нийт Гадны байгууллага /хэрэглээ/"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit_gadnii" string="кВт.ц"/>
+                                <field name="niit_gadnii"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="niit_gadnii_hasaad" string="Нийт хэрэглээ /гадныхыг хасаад/"/>
+                            </div>
+                            <div class="col-xs-3" >
+                                <label for="niit_gadnii_hasaad" string="кВт.ц"/>
+                                <field name="niit_gadnii_hasaad"/>
+                            </div>
+                        </div>
+                        <separator/>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="orgil_tarip" string="ТАРИФ ОРУУЛНА УУ"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="udur_tarip" string="Өдөр"/>
+                                <field name="udur_tarip"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="orgil_tarip" string="Оргил"/>
+                                <field name="orgil_tarip"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="shunu_tarip" string="Шөнө"/>
+                                <field name="shunu_tarip"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" >
+                                <label for="niit_hereglee_tolgoi_udur" string="ТОЛГОЙ"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_tolgoi_udur" string="Өдөр"/>
+                                <field name="niit_hereglee_tolgoi_udur"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_tolgoi_orgil" string="Оргил"/>
+                                <field name="niit_hereglee_tolgoi_orgil"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_tolgoi_shunu" string="Шөнө"/>
+                                <field name="niit_hereglee_tolgoi_shunu"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="tolgoi_niit" string="Нийт"/>
+                                <field name="tolgoi_niit"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="niit_gadnii_udur" string="ГАДНЫ"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_gadnii_udur" string="Өдөр"/>
+                                <field name="niit_gadnii_udur"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_gadnii_orgil" string="Оргил"/>
+                                <field name="niit_gadnii_orgil"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_gadnii_shunu" string="Шөнө"/>
+                                <field name="niit_gadnii_shunu"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_gadnii" string="Нийт"/>
+                                <field name="niit_gadnii"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="niit_hereglee_udur" string="НИЙТ ХЭРЭГЛЭЭ ГАДНЫ ХАСААД"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_udur" string="Өдөр"/>
+                                <field name="niit_hereglee_udur"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_orgil" string="Оргил"/>
+                                <field name="niit_hereglee_orgil"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_shunu" string="Шөнө"/>
+                                <field name="niit_hereglee_shunu"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_gadnii_hasaad" string="Нийт"/>
+                                <field name="niit_gadnii_hasaad"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="niit_hereglee_une_udur" string="НИЙТ ХЭРЭГЛЭЭ ҮНЭ"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_une_udur" string="Өдөр"/>
+                                <field name="niit_hereglee_une_udur"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_une_orgil" string="Оргил"/>
+                                <field name="niit_hereglee_une_orgil"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_une_shunu" string="Шөнө"/>
+                                <field name="niit_hereglee_une_shunu"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_une" string="Нийт"/>
+                                <field name="niit_hereglee_une"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="niit_hereglee_nuat_udur" string="НИЙТ ХЭРЭГЛЭЭ ҮНЭ НӨАТ"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_nuat_udur" string="Өдөр"/>
+                                <field name="niit_hereglee_nuat_udur"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_nuat_orgil" string="Оргил"/>
+                                <field name="niit_hereglee_nuat_orgil"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_nuat_shunu" string="Шөнө"/>
+                                <field name="niit_hereglee_nuat_shunu"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="niit_hereglee_nuat" string="Нийт"/>
+                                <field name="niit_hereglee_nuat"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-3" >
+                                <label for="chadliin_tarip" string="ЧАДАЛ"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="chadliin_tarip" string="ЧАДЛЫН ТАРИФ"/>
+                                <field name="chadliin_tarip"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="chadliin_nuat_tarip" string="ЧАДЛЫН ТАРИФ НӨАТ"/>
+                                <field name="chadliin_nuat_tarip"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="barimt_une" string="БАРИМТЫН ҮНЭ"/>
+                                <field name="barimt_une"/>
+                            </div>
+                            <div class="col-xs-2" >
+                                <label for="sar_honog" string="ХУАНЛИЙН ХОНОГ"/>
+                                <field name="sar_honog"/>
+                            </div>
+                        </div>
+                        <div class="row" attrs="{'invisible':[('day_type','!=','month')]}">
+                            <div class="col-xs-4" >
+                                <label for="niit_une" string="НИЙТ ҮНЭ"/>
+                                <field name="niit_une"/>
+                            </div>
+                            <div class="col-xs-4" >
+                                <label for="dundaj_une" string="ДУНДАЖ ҮНЭ"/>
+                                <field name="dundaj_une"/>
+                            </div>
+                        </div>
+                    </footer>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_hats_total_tree" model="ir.actions.act_window">
+        <field name="name">ХАЦ Өдөр</field>
+        <field name="res_model">power.hats.total</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'hats_day_type':'day'}</field>
+        <field name="domain">[('day_type','=','day')]</field>
+    </record>
+
+    <record id="action_power_hats_total_month_tree" model="ir.actions.act_window">
+        <field name="name">ХАЦ Сар</field>
+        <field name="res_model">power.hats.total</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'hats_day_type':'month'}</field>
+        <field name="domain">[('day_type','=','month')]</field>
+    </record>
+
+    <record id="view_power_hats_tree" model="ir.ui.view">
+        <field name="name">power.hats.tree</field>
+        <field name="model">power.hats</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="type"/>
+                <field name="station_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_hats_search" model="ir.ui.view">
+        <field name="name">power.hats.search</field>
+        <field name="model">power.hats</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="station_id"/>
+                <field name="type"/>
+                
+                <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+                <separator/>
+                <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                <filter name="octomber" string="Octomber" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+                <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                
+                <filter name="gr_year" string="Жил" context="{'group_by':'date:year'}"/>
+                <filter name="gr_month" string="Сар" context="{'group_by':'date:month'}"/>
+                <filter name="gr_day" string="Өдөр" context="{'group_by':'date:day'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_hats_form" model="ir.ui.view">
+        <field name="name">power.hats.form</field>
+        <field name="model">power.hats</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object" states="done"/>
+                    <button name="action_to_done" class="oe_highlight" string="Батлах" states="draft" type="object"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <group col="4">
+                        <field name="date" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="type" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="station_id" attrs="{'readonly':[('state','=','done')],'required':[('type','in',['station','asset'])], 'invisible':[('type','not in',['station','asset'])]}" options="{'no_create': True}"/>
+                        <field name="parent_id" attrs="{'readonly':[('state','=','done')]}" options="{'no_create': True}" domain="[('state','=',state)]"/>
+                    </group>
+                    <group col="2">
+                        <field name="category"/>
+                        <field name="desc"/>
+                        <field name="day_type" invisible="1"/>
+                    </group>
+                    <group string="Мөрүүд">
+                        <field name="lines" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                            <tree editable="bottom" decoration-info="tarip=='shunu'" decoration-danger="tarip =='orgil'" decoration-success="tarip =='udur'">
+                                <field name="sequence" widget="handle"/>
+                                <field name="object_id" options="{'no_create': True}" attrs="{'column_invisible': [('parent.type', 'not in', ['atp_ktp','station','asset'])]}"/>
+                                <field name="orolt" options="{'no_create': True}" attrs="{'column_invisible': [('parent.type', 'not in', ['atp_ktp','station','asset'])]}"/>
+                                <field name="object_selection_id" domain="[('is_hats','=',True),('type','=',parent.type)]" options="{'no_create': True}" attrs="{'column_invisible': [('parent.type', 'in', ['atp_ktp','station','asset'])]}"/>
+                                <field name="user1plus" attrs="{'column_invisible': [('parent.category', 'not in', ['user1'])]}"/>
+                                <field name="user1plusdirect" attrs="{'column_invisible': ['|',('parent.category', 'not in', ['user1']), ('parent.day_type', 'not in', ['month'])]}"/>
+                                <field name="user2plus" attrs="{'column_invisible': [('parent.category', 'not in', ['user2'])]}"/>
+                                <field name="user3plus" attrs="{'column_invisible': [('parent.category', 'not in', ['user3'])]}"/>
+                                <field name="coef"/>
+                                <field name="tarip"/>
+                                <field name="zaalt_e"/>
+                                <field name="zaalt_s"/>
+                                <field name="hats_kv" sum="SUM"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <div class="row">
+                        <div class="col-xs-4" >
+                            <label for="niit_orolt"/>
+                            <field name="niit_orolt"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3" >
+                            <label for="garalt_niit_6_udur" string="6КВ НИЙТ ГАРАЛТ"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="garalt_niit_6_udur" string="Өдөр"/>
+                            <field name="garalt_niit_6_udur"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="garalt_niit_6_orgil" string="Оргил"/>
+                            <field name="garalt_niit_6_orgil"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="garalt_niit_6_shunu" string="Шөнө"/>
+                            <field name="garalt_niit_6_shunu"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="garalt_niit_6_niit" string="Нийт"/>
+                            <field name="garalt_niit_6_niit"/>
+                        </div>
+                    </div>
+                    <div class="row" attrs="{'invisible':[('category','in',['user2'])]}">
+                        <div class="col-xs-3" >
+                            <label for="aldagdal_35_udur" string="35КВ ТР-ЫН АЛДАГДАЛ"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_udur" string="Өдөр"/>
+                            <field name="aldagdal_35_udur"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_orgil" string="Оргил"/>
+                            <field name="aldagdal_35_orgil"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_shunu" string="Шөнө"/>
+                            <field name="aldagdal_35_shunu"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_niit" string="Нийт"/>
+                            <field name="aldagdal_35_niit"/>
+                        </div>
+                    </div>
+                    <div class="row" style="color:blue;" attrs="{'invisible':[('category','in',['user2'])]}">
+                        <div class="col-xs-3" >
+                            <label for="aldagdal_35_udur_per" string=""/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_udur_per" string="Өдөр"/>
+                            <field name="aldagdal_35_udur_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_orgil_per" string="Оргил"/>
+                            <field name="aldagdal_35_orgil_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_shunu_per" string="Шөнө"/>
+                            <field name="aldagdal_35_shunu_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_35_niit_per" string="Нийт"/>
+                            <field name="aldagdal_35_niit_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                    </div>
+                    <div class="row" attrs="{'invisible':[('category','in',['user2'])]}">
+                        <div class="col-xs-3" >
+                            <label for="aldagdal_6_udur" string="6кВ ХБ АЛДАГДАЛ"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_udur" string="Өдөр"/>
+                            <field name="aldagdal_6_udur"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_orgil" string="Оргил"/>
+                            <field name="aldagdal_6_orgil"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_shunu" string="Шөнө"/>
+                            <field name="aldagdal_6_shunu"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_niit" string="Нийт"/>
+                            <field name="aldagdal_6_niit"/>
+                        </div>
+                    </div>
+                    <div class="row" style="color:brown;" attrs="{'invisible':[('category','in',['user2'])]}">
+                        <div class="col-xs-3" >
+                            <label for="aldagdal_6_udur_per" string=""/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_udur_per" string="Өдөр"/>
+                            <field name="aldagdal_6_udur_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_orgil_per" string="Оргил"/>
+                            <field name="aldagdal_6_orgil_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_shunu_per" string="Шөнө"/>
+                            <field name="aldagdal_6_shunu_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="aldagdal_6_niit_per" string="Нийт"/>
+                            <field name="aldagdal_6_niit_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                    </div>
+                    <div class="row" attrs="{'invisible':[('category','in',['user2'])]}">
+                        <div class="col-xs-3" >
+                            <label for="niit_aldagdal_udur" string="НИЙТ АЛДАГДАЛ НИЙТ"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_udur" string="Өдөр"/>
+                            <field name="niit_aldagdal_udur"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_orgil" string="Оргил"/>
+                            <field name="niit_aldagdal_orgil"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_shunu" string="Шөнө"/>
+                            <field name="niit_aldagdal_shunu"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_niit" string="Нийт"/>
+                            <field name="niit_aldagdal_niit"/>
+                        </div>
+                    </div>
+                    <div class="row" style="color:orange;" attrs="{'invisible':[('category','in',['user2'])]}">
+                        <div class="col-xs-3" >
+                            <label for="niit_aldagdal_udur_per" string=""/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_udur_per" string="Өдөр"/>
+                            <field name="niit_aldagdal_udur_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_orgil_per" string="Оргил"/>
+                            <field name="niit_aldagdal_orgil_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_shunu_per" string="Шөнө"/>
+                            <field name="niit_aldagdal_shunu_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                        <div class="col-xs-2" >
+                            <label for="niit_aldagdal_niit_per" string="Нийт"/>
+                            <field name="niit_aldagdal_niit_per"/>
+                            <label for="aldagdal_6_udur_per" string="%"/>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_hats_tree" model="ir.actions.act_window">
+        <field name="name">ХАЦ</field>
+        <field name="res_model">power.hats</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="view_power_hats_line_tree" model="ir.ui.view">
+        <field name="name">power.hats.line.tree</field>
+        <field name="model">power.hats.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="parent_id"/>
+                <field name="date"/>
+                <field name="object_id"/>
+                <field name="object_selection_id"/>
+                <field name="coef"/>
+                <field name="tarip" sum="SUM"/>
+                <field name="zaalt_e" sum="SUM"/>
+                <field name="zaalt_s" sum="SUM"/>
+                <field name="hats_kv" sum="SUM"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_hats_line_pivot" model="ir.ui.view">
+        <field name="name">power.hats.line.pivot</field>
+        <field name="model">power.hats.line</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="object_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_power_hats_line_search" model="ir.ui.view">
+        <field name="name">power.hats.line.search</field>
+        <field name="model">power.hats.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="parent_id"/>
+                <field name="date"/>
+                <field name="object_id"/>
+                <field name="object_selection_id"/>
+                <field name="coef"/>
+                <field name="tarip"/>
+                <field name="zaalt_e"/>
+                <field name="zaalt_s"/>
+                <field name="hats_kv"/>
+                <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+                <separator/>
+                <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                <filter name="octomber" string="Octomber" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+                <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                
+                <filter name="gr_year" string="Жил" context="{'group_by':'date:year'}"/>
+                <filter name="gr_month" string="Сар" context="{'group_by':'date:month'}"/>
+                <filter name="gr_day" string="Өдөр" context="{'group_by':'date:day'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_hats_line_form" model="ir.ui.view">
+        <field name="name">power.hats.line.form</field>
+        <field name="model">power.hats.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="parent_id"/>
+                        <field name="date"/>
+                        <field name="object_id"/>
+                        <field name="object_selection_id"/>
+                        <field name="coef"/>
+                        <field name="tarip"/>
+                        <field name="zaalt_e"/>
+                        <field name="zaalt_s"/>
+                        <field name="hats_kv"/>
+                        <field name="user1plus"/>
+                        <field name="user1plusdirect"/>
+                        <field name="user2plus"/>
+                        <field name="user3plus"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_hats_line_tree" model="ir.actions.act_window">
+        <field name="name">ХАЦ Мөрүүд</field>
+        <field name="res_model">power.hats.line</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="context">{'create': False, 'edit': False, 'write': False, 'group_by': ['parent_id']}</field>
+    </record>
+</odoo>

@@ -1,0 +1,11 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+
+access_hr_terminal_manager,hr.attendance.terminal,model_hr_attendance_terminal,group_attendance_terminal_user,1,1,1,1
+access_terminal_user_line,terminal.user.line,model_terminal_user_line,group_attendance_terminal_user,1,1,1,1
+access_terminal_attendance_line,terminal.attendance.line,model_terminal_attendance_line,group_attendance_terminal_user,1,1,1,1
+
+access_mw_attendance_user,mw.attendance,model_mw_attendance,base.group_user,1,0,0,0
+access_mw_attendance_terminal_user,mw.attendance,model_mw_attendance,group_attendance_terminal_user,1,1,1,1
+
+
+access_attendance_generator,attendance.generator,model_attendance_generator,group_attendance_terminal_user,1,1,1,1

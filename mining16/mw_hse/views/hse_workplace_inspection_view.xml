@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	 <!-- Sequences for  -->
+	 <record id="sequence_hse_workplace_inspection" model="ir.sequence">
+        <field name="name">HSE Workplace Inspection</field>
+        <field name="code">hse.workplace.inspection</field>
+        <field name="prefix">АБҮ%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+	<!-- Workplace Ispection -->
+	<record id="view_hse_workplace_inspection_form" model="ir.ui.view">
+		<field name="name">hse.workplace.inspection.form</field>
+		<field name="model">hse.workplace.inspection</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах" type="object" class="btn-danger" groups="mw_hse.group_hse_manager"/>
+					<button name="action_to_sent_mail" states="draft" string="Илгээх" type="object" class="btn-warning"/>
+					<button name="action_to_repaired" states="sent_mail" string="Засагдсан" type="object" class="btn-success"/>
+					<button name="action_to_done" states="repaired" string="Дуусгах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<button name="action_back_sent_mail" states="repaired" string="Цуцлах" type="object" class="btn-warning" groups="mw_hse.group_hse_manager"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent_mail,repaired,done"/>
+				</header>
+				<sheet>
+					<group>
+						<field name="name"/> 
+						<field name="branch_id" options="{'no_create':True}"/>
+						<field name="department_id" widget="selection" options="{'no_create':True}"/>
+						<field name="part"/>
+						<field name="date"/>
+						<field name="company_id" required="1" options="{'no_create':True}"/>
+					</group>
+					<group string="Багийн гишүүд">
+						<field name="captian_id" options="{'no_create':True}"/>
+						<field name="employee_ids" widget="many2many_tags" domain="[('employee_type','in',['employee','student'])]" options="{'no_create':True}"/>
+						<field name="partner_ids" widget="many2many_tags" options="{'no_create':True}"/>
+					</group>
+					<notebook>	
+						<page string="Ажлын байрны үзлэг" name='workplace_inspection_line'>
+							<field name="wo_is_line" nolabel="1">
+								<tree editable="bottom" decoration-success="is_repaired==True" decoration-danger="is_repaired==False">
+									<field name="location_id" options="{'no_create':True}"/>
+									<field name="hazard_zorchil" required="1"/>
+									<field name="hazard_rating" required="1"/>
+									<field name="attachment_ids" widget="many2many_binary"/>
+									<field name="corrective_action_instructions"/>
+									<field name="when_start" required="1"/>
+									<field name="job_id" readonly="1"/>
+									<field name="taken_employee_id" options="{'no_create':True}" required="1"/>
+									<field name="corrective_action_taken" attrs="{'column_invisible':[('parent.state','=','draft')]}"/>
+									<field name="is_repaired" optional="hide"/>
+									<field name="repair_date" optional="hide"/>
+									<field name="repair_user_id" optional="hide" options="{'no_create':True}"/>
+									<field name="attachment_repair_ids" widget="many2many_binary" attrs="{'column_invisible':[('parent.state','=','draft')]}"/>
+									<field name="state" invisible="1"/>
+									<field name="branch_id" invisible="1"/>
+								</tree>    
+								<form>
+									<group col="4">
+										<field name="location_id" domain="[('company_id', '=',' self.company_id.id')]" options="{'no_create':True}"/>
+										<field name="hazard_zorchil" required="1"/>
+										<field name="hazard_rating" required="1"/>
+										<field name="attachment_ids" widget="many2many_binary"/>
+										<field name="state" invisible="1"/>
+										<field name="corrective_action_instructions"/>
+										<field name="taken_employee_id" options="{'no_create':True}" required="1"/>
+										<field name="job_id" readonly="1"/>
+										<field name="when_start"/>
+										<field name="corrective_action_taken"/>
+										<field name="is_repaired" optional="hide"/>
+										<field name="repair_date" optional="hide"/>
+										<field name="repair_user_id" optional="hide" options="{'no_create':True}"/>
+										<field name="attachment_repair_ids" widget="many2many_binary"/>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string="Бусад мэдээлэл">
+							<field name="mail_line" nolabel="1" readonly="1">
+								<tree>
+									<field name="mail"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					<group>
+						<group>
+							<field name="excel_data"/>
+						</group>
+						<group>
+							<button name="import_from_excel" string="Импортлох" type="object" class="btn-warning" icon="fa-download"/>
+							<button name="export_template" string="Темплати Экспортлох" type="object" class="btn-success"/>
+						</group>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+					<group>
+						<group string="Санал" >
+							<field name="good_job" nolabel="1" style="font-size:12pt;font-family:'Times New Roman';resize:both!important;width:700%" class="text-wrap"/>
+						</group>    
+						<group string="Дүгнэлт">
+							<field name="offer" nolabel="1" style="font-size:12pt;font-family:'Times New Roman';resize:both!important;width:700%" class="text-wrap"/>
+						</group>    
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_workplace_inspection_tree" model="ir.ui.view">
+		<field name="name">hse.workplace.inspection.tree</field>
+		<field name="model">hse.workplace.inspection</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="part"/>
+				<field name="department_id"/>
+				<field name="made_place"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_workplace_inspection_filter" model="ir.ui.view">
+		<field name="name">hse.workplace.inspection.filter</field>
+		<field name="model">hse.workplace.inspection</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="made_place"/>
+				<filter name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+				<filter name="is_sent_mail" string="Илгээсэн" domain="[('state','=',('sent_mail'))]"/>
+				<filter name="is_repaired" string="Зассан" domain="[('state','=',('repaired'))]"/>
+				<filter name="is_done" string="Дууссан" domain="[('state','=',('done'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	<record id="action_hse_workplace_inspection" model="ir.actions.act_window">
+		<field name="name">Ажлын байрны үзлэг</field>
+		<field name="res_model">hse.workplace.inspection</field>
+		<field name="search_view_id" ref="view_hse_workplace_inspection_filter"/>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="action_hse_workplace_inspection_tree" model="ir.actions.act_window.view">
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_hse_workplace_inspection_tree"/>
+		<field name="act_window_id" ref="action_hse_workplace_inspection"/>
+	</record>
+
+	<record id="action_hse_workplace_inspection_form" model="ir.actions.act_window.view">
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_hse_workplace_inspection_form"/>
+		<field name="act_window_id" ref="action_hse_workplace_inspection"/>
+	</record>
+
+	<record id="view_hse_workplace_inspection_mail" model="ir.ui.view">
+		<field name="name">hse.workplace.inspection.mail.form</field>
+		<field name="model">hse.workplace.inspection</field>
+		<field name="arch" type="xml">
+			<form>
+				<field name="mail_line" nolabel="1" >
+					<tree editable="bottom">
+						<field name="mail" widget="email"/>
+					</tree>
+				</field> 
+				<group>
+					<field name="mail_text"/>
+				</group>
+				<footer>
+					<button class="oe_highlight" name="mail_sent" string="Имэйл Илгээх" type="object"/>
+					or
+					<button class="oe_link" special="cancel" string="Буцах"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_hse_workplace_inspection_mail" model="ir.actions.act_window">
+		   <field name="name">Hazard workplace inspection</field>
+		   <field name="res_model">hse.workplace.inspection</field>
+		   <field name="view_mode">form</field>
+	</record>
+
+	<record id="action_hse_workplace_inspection_mail_form" model="ir.actions.act_window.view">
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_hse_workplace_inspection_mail"/>
+		<field name="act_window_id" ref="action_hse_workplace_inspection_mail"/>
+	</record>
+
+	<record id="hse_workplace_inspection_report" model="ir.actions.report">
+        <field name="name">Ажлын байрны үзлэг</field>
+        <field name="model">hse.workplace.inspection</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mw_hse.hse_workplace_inspection_report</field>
+        <field name="report_file">mw_hse.hse_workplace_inspection_report</field>
+        <field name="print_report_name">'Ажлын байрны үзлэг'</field>
+        <field name="binding_model_id" ref="model_hse_workplace_inspection"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

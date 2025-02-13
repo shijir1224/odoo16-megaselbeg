@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    	<template id="assets_common_mining_blast" name="Mining's assets common blast" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/mw_mining/static/css/base.css"/>
+            </xpath>
+		</template>
+        <template id="assets_backend_mining_line_blast" name="Mining assets backend blast" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/mw_mining/static/libs/data.js"></script>
+                <script type="text/javascript" src="/mw_mining/static/libs/drilldown.js"></script>
+                <script type="text/javascript" src="/mw_mining/static/js/grid_mining.js"></script>
+                <script type="text/javascript" src="/mw_mining/static/js/mining_blast.js"></script>
+                <script type="text/javascript" src="/mw_mining/static/js/mining_dashboard.js"></script>
+                <script type="text/javascript" src="/mw_mining/static/js/lib.js"></script>
+                <script type="text/javascript" src="/mw_mining/static/js/plan_view.js"></script>
+            </xpath>
+        </template>
+    
+</odoo>

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+		<record id="technic_inspection_equipment_form" model="ir.ui.view">
+			<field name="name">Technic inspection equipment form</field>
+			<field name="model">technic.inspection</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="action_to_draft" string="Ноороглох" type="object"/>
+						<button name="action_to_open" states="draft" string="Нээх"
+							type="object"  class="oe_highlight"/>
+						<button name="action_to_done" states="open" type="object"
+							class="oe_highlight" string="Дууссан"/>
+						<button name="action_to_cancel" states="open"
+							string="Цуцлах" type="object"/>
+						<!-- <button name="print_inspection_equipment" string="Хэвлэх" icon="fa-print" class="btn-primary" type="object"/> -->
+						<field name="state" widget="statusbar" statusbar_visible="draft,open,done" nolabel="1"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only"/>
+							<h2>
+								<field name="name" class="oe_inline"/>
+							</h2>
+						</div>
+						<!-- <div class="alert alert-danger alert-dismissible text-left" role="alert" attrs="{'invisible': [('reminder_note', '=', False)]}">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+							<field name="reminder_note"/>
+						</div> -->
+						<div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('reminder_note', '=', False)]}">
+							<div class="o_row">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+								<field name="reminder_note"/>
+							</div>
+						</div>
+						<group col="4">
+							<field name="branch_id"
+								options="{'no_create':True}"/>
+								<field name="department_id" readonly= "1"/>
+							<field name="date_inspection"/>
+						</group>
+						<group>
+							<field name="equipment_id" options="{'no_create':True}" required="1"/>
+							<field name="shift"/>
+						</group>
+						<group>
+							<field  name="work_hours"/>
+							<field  name="km_value"/>
+						</group>
+						<group>
+							<field  name="user_id"/>
+							<field  name="inspection_config_id" options="{'no_create':True}" string="Үзлэгийн ангилал"/>
+							<field name="responent_ids" required="1"
+								options="{'no_create':True}" widget="many2many_tags"/>
+						</group>
+						<group col="4">
+							<field name="inspection_type"/>
+							<field name="attachment_ids" widget="many2many_binary" invisible="1"/>
+						</group>
+						<notebook>
+							<page string="Үзлэгийн жагсаалт">
+								<!-- <group col="4"> -->
+									<field name="inspection_line" nolabel="1" >
+										<tree string="Lines" editable="bottom" delete="false" create="false"
+											decoration-danger="is_check==False">
+											<field name="category" readonly="1"/>
+											<field name="number"/>
+											<field name="check_name" readonly="1"/>
+											<field name="is_check"
+												attrs="{'readonly':[('state','=','done')]}"/>
+											<field name="description"/>
+											<field name="attachment_ids" widget="many2many_binary"/>
+											<field name="state" invisible="1"/>
+											<!-- widget="boolean_toggle" -->
+										</tree>
+										<form>
+											<group>
+												<field name="category" readonly="1"/>
+												<field name="number"/>
+												<field name="check_name" readonly="1"/>
+												<field name="is_check"
+													attrs="{'readonly':[('state','=','done')]}"/>
+												<field name="description"/>
+												<field name="attachment_ids" widget="many2many_binary"/>
+												<field name="state" invisible="1"/>
+											</group>
+										</form>
+									</field>
+								<!-- </group> -->
+							</page>
+							<page string="Тэмдэглэлүүд">
+									<div class="oe_clear">
+										<label for="previous_operator_note"/>
+									</div>
+									<field name="previous_operator_note"/>
+
+									<div class="oe_clear">
+										<label for="operator_note"/>
+									</div>
+									<field name="operator_note"/>
+
+									<div class="oe_clear">
+										<label for="maintenance_note"/>
+									</div>
+									<field name="maintenance_note"/>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_equipment_inspection_tree" model="ir.ui.view">
+			<field name="name">Technic inspection tree</field>
+			<field name="model">technic.inspection</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Check List"
+					decoration-muted="state=='cancelled'"
+					decoration-info="state=='open'"
+					decoration-success="state=='done'">
+					<field name="name"/>
+					<field name="branch_id"/>
+					<field name="department_id"/>
+					<field name="date_inspection"/>
+					<field name="inspection_type"/>
+					<field name="equipment_id"/>
+					<field name="equipment_num"/>
+					<field name="responent_ids" />
+					<field name="user_id"/>
+					<field name="state"/>
+					<field name="maintenance_note" optional="hide"/>
+					<field name="operator_note" optional="hide"/>
+					<field name="previous_operator_note" optional="hide"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_equipment_inspection" model="ir.actions.act_window">
+			<field name="name">Тоног төхөөрөмжийн үзлэг</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">technic.inspection</field>
+			<field name="context">{"search_default_groupby_date":True,
+								   "search_default_groupby_day":True,
+								   "inspection_type":"daily"}</field>
+			<field name="domain">[('inspection_type','=','daily')]</field>
+			<field name="view_mode">tree,form,calendar</field>
+			<field name="view_ids"
+					   eval="[(5,0,0),(0,0,{'view_mode':'tree',
+								'view_id': ref('mw_factory_equipment.view_equipment_inspection_tree')}),
+							  (0,0,{'view_mode':'form',
+								'view_id': ref('mw_factory_equipment.technic_inspection_equipment_form')})]"/>
+		</record>
+	
+		<!-- Equipment VIEWs -->
+		<record model='ir.ui.view' id='factory_equipment_form'>
+			<field name="name">Тоног төхөөрөмж бүртгэл</field>
+			<field name="model">factory.equipment</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<form string="Technic form">
+					<header>
+						<button name="action_to_draft" states="stopped,parking" type="object" string="Ноороглох"/>
+						<button name="action_to_parking" type="object" string="Парклах" states="working" />
+						<button name="action_to_stop" type="object" string="Зогсоох" states="working" />
+						<button name="action_to_inactive" type="object" string="Актлах" states="stopped" groups="mw_technic_equipment.group_technic_module_admin"/>
+						<button name="action_to_working" states="draft,stopped,parking" type="object" class="oe_highlight" string="Эхлүүлэх" />
+						<button name="action_to_working" groups="mw_technic_equipment.group_technic_module_admin" type="object" string="Эхлүүлэх" />
+						<button name="manual_increase_odometer" string="Гараар нэмэгдүүлэх" type="object" states="working,parking,repairing" groups="mw_technic_equipment.group_technic_module_odometer_user"/>
+						<button name="move_to_branch" string="Шилжүүлэх" type="object" states="working,parking,repairing"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<div name="button_box" class="oe_button_box">
+							<button
+								name="see_inspections"
+								type="object" class="oe_stat_button oe_right"
+								icon="fa-list-ol" string="Inspections">
+							</button>
+							<button
+								name="see_child_equipments"
+								type="object" class="oe_stat_button oe_right"
+								icon="fa-list-ol" string="Дэд тоног төхөөрөмжүүд"
+								attrs="{'invisible': [('parent_id','=',False)]}">
+							</button>
+							<button
+								name="see_parent_equipment"
+								type="object" class="oe_stat_button oe_right"
+								icon="fa-list-ol" string="Үндсэн тоног төхөөрөмж"
+								attrs="{'invisible': [('parent_id','!=',False)]}">
+							</button>
+							<button
+								name="create_technic_status"
+								type="object" class="oe_right"
+								attrs="{'invisible':[('state','=','draft')]}"
+								icon="fa-question-circle" string="Статус оруулах">
+							</button>
+							<field name='is_active' invisible='1'/>
+							<button
+								name="make_deactive" type="object" string="Идэвхигүй болгох"
+								class="oe_stat_button oe_right" icon="fa-archive"
+								attrs="{'invisible':[('is_active','=',True)]}"
+								groups="mw_technic_equipment.group_technic_module_admin">
+							</button>
+							<button
+								name="make_active" type="object" string="Идэвхижүүлэх"
+								class="oe_stat_button oe_right" icon="fa-archive"
+								attrs="{'invisible':[('is_active','=',False)]}"
+								groups="mw_technic_equipment.group_technic_module_admin">
+							</button>
+							<button
+								name="see_workorders_fac"
+								type="object" class="oe_stat_button oe_right"
+								icon="fa-wrench" string="Work-Orders">
+							</button>
+						</div>
+						<field name="image" widget='image' class="oe_left oe_avatar" style="padding:5px;padding-right: 10px"/>
+						<field name="parent_id" required="0" options="{'no_create':True}"/>
+						<div class="oe_title">
+							<label for="park_number" string="Тоног төхөөрөмжийн нэр" class="oe_inline"/>
+							<h2>
+								<field name="park_number" class="text_wrap"/>
+							</h2>
+						</div>
+						<group string="Тоног төхөөрөмжийн мэдээлэл"> 
+							<group>
+								<field name="park_number" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+								<field name="vin_number" string="Тоног төхөөрөмжийн дугаар" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+								<field name="facility_id" options="{'no_create':True}" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+								<field name="model_id" options="{'no_create':True}"/>
+								<field name="manufactured_date"/>
+								<field name="start_date"/>
+								
+								<field name="total_odometer" string="Ажилласан цаг" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+								<field name="odometer_unit" style="font-weight:bold;font-size:14pt;padding-left:7px" class="oe_inline"/>
+								<!-- <field name="asset_id" options="{'no_create':True}"
+									attrs="{'invisible':[('owner_type','!=','own_asset')]}"/> -->
+								<!-- <field name="is_tbb_report" force_save="1"/> -->
+								<!-- <field name="is_tbb_mining" force_save="1"/> -->
+								<!-- <field name="technic_sub_type" invisible="1"/> -->
+								<!-- <field name="rubber_tired" invisible="1"/> -->
+								<!-- <field name="position_format" invisible="1"/> -->
+								<!-- <button name="force_name" type="object" string="Force" groups="base.group_no_one"/> -->
+							</group>
+							<group>
+								<field name="branch_id" options="{'no_create':True}"/>
+								<field name="owner_type" string="Эзэмшилийн төрөл"/>
+								<field name="company_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create':True}" required="1" string="Kомпани"/>
+								<field name="department_id" options="{'no_create':True}" required="1" string="Хэлтэс"/>
+								<field name="responent_id" options="{'no_create':True}"/>
+								<field name="partner_id" options="{'no_create':True}" string="Холбоотой харилцагч"/>
+								<field name="equipment_setting_id" options="{'no_create':True}"/>
+
+								<field name="color" widget="colorpicker"/>
+								<field name="technic_type" string="Тоног төхөөрөмжийн төрөл"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Дагалдах тоноглол">
+								<field name="components_info" nolabel="1"/>
+								<field name="component_part_line" nolabel="1" context="{'form_view_ref':'mw_factory_equipment.equipment_component_part_form'}">
+									<tree>
+										<field name="name" string="Нэршил"/>
+										<field name="serial_number" string="Дугаар"/>
+										<field name="component_type"/>
+										<field name="date_of_set"/>
+										<field name="total_odometer"/>
+										<field name="set_odometer"/>
+										<field name="state"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Үндсэн үзүүлэлт">
+								<field name="main_attribute_ids" nolabel="1">
+									<tree editable="bottom">
+										<field name="name"/>
+										<field name="value"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Шилжсэн түүх">
+										<label for="move_line_ids" string="Техникийн шилжсэн түүх"/>
+										<field name="move_line_ids" nolabel="1" widget="one2many_list">
+											<tree>
+												<field name="date"/>
+												<field name="old_branch_id"/>
+												<field name="new_branch_id"/>
+												<field name="description"/>
+												<field name="moto_hour"/>
+												<field name="km"/>
+												<field name="user"/>
+											</tree>
+										</field>
+										<field name="retire_attachment_ids" widget="many2many_binary"/>
+							</page>
+							<page string="Санхүүгийн мэдээлэл" name="financial_info">
+								<group string="Дансны мэдээлэл">
+									<field name="account_id"
+										options="{'no_create':True}"/>
+									<field name="account_analytic_id"
+										options="{'no_create':True}"/>
+								</group>
+							</page>
+						 </notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record model='ir.ui.view' id='factory_equipment_tree'>
+			<field name="name">Тоног төхөөрөмжийн жагсаалт</field>
+			<field name="model">factory.equipment</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<tree string="Vehicle"
+					decoration-bf="state=='draft'"
+					decoration-danger="state=='stopped'"
+					decoration-muted="state=='inactive'"
+					decoration-info="state=='parking'"
+					decoration-warning="state=='repairing'"
+					decoration-success="state=='working'"
+					multi_edit="1">
+					<!-- <field name="state_number" optional="show"/> -->
+					<field name="vin_number" string="Тоног төхөөрөмжийн дугаар" optional="show"/>
+					<field name="name" string="Тоног төхөөрөмжийн нэр"/>
+					<field name="facility_id" />
+					<field name="total_odometer" string="Ажилласан цаг"/>
+					<field name="report_order" invisible="1"/>
+					<field name="company_id" optional="hide"/>
+					<field name="partner_id" optional="hide"/>
+					<field name="branch_id" optional="hide"/>
+					<field name="model_id" invisible="1"/>
+					<field name="technic_type" optional="hide"/>
+					<field name="total_km" invisible="1"/>
+					<field name="odometer_unit" invisible="1"/>
+					<field name="manufactured_date" optional="hide"/>
+					<field name="department_id" optional="hide"/>
+					<field name="equipment_setting_id" optional="hide"/>
+					<field name="owner_type" optional="hide"/>
+					<field name="state"/>
+					<field name="responent_id" />
+					<!-- <field name="status_note"/> -->
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="technic_equipment_search">
+			<field name="name">Technic equipment search view</field>
+			<field name="model">factory.equipment</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<search string="Search">
+					<field name="name"/>
+					<field name="state_number"/>
+					<field name="vin_number"/>
+					<field name="park_number"/>
+					<field name="equipment_setting_id"/>
+					<field name="branch_id"/>
+					<group expand="1" string="Filters">
+						<filter name="working" string="Ажиллаж байгаа"
+							domain="[('state','=','working'),('is_active','=',False)]"/>
+						<filter string="Засварлаж байгаа" domain="[('state','=','repairing')]"
+							name="repairing"/>
+						<filter string="Parking" domain="[('state','=','parking')]"
+							name="parking"/>
+						<filter string="Баталгаат" domain="[('with_warrenty','=',True)]"
+							name="warrenty"/>
+						<filter string="Галын системтэй" domain="[('with_fire_system','=',True)]" name="fire_system"/>
+						<filter string="Идэвхигүй" domain="[('is_active','=',True)]" name="is_active"/>
+					</group>
+					<group expand="1" string="Group By...">
+						<filter name="groupby_status" context="{'group_by':'state'}"
+							string="Төлөв"/>
+						<filter name="groupby_model" context="{'group_by':'model_id'}"
+							string="Модел загвар"/>
+						<filter name="groupby_type" context="{'group_by':'technic_type'}"
+							string="Техникийн төрөл"/>
+						<filter name="groupby_owner" context="{'group_by':'owner_type'}"
+							string="Эзэмшигчийн төрөл"/>
+						<filter name="groupby_manufactured_date" context="{'group_by':'manufactured_date'}"
+							string="Үйлдвэрлэсэн огноо"/>
+						<filter name="groupby_department" context="{'group_by':'department_id'}"
+							string="Хэлтэс"/>
+						<filter name="groupby_branch" context="{'group_by':'branch_id'}"
+							string="Салбар"/>
+					</group>
+			   </search>
+			</field>
+		</record>
+
+		<record model='ir.actions.act_window' id='action_factory_equipment'>
+			<field name="name">Тоног төхөөрөмжийн бүртгэл</field>
+			<field name="res_model">factory.equipment</field>
+			<field name="view_mode">tree,kanban,form</field>
+			<field name="view_id" ref="factory_equipment_tree"/>
+			<field name="domain">[]</field>
+			<field name="context">{"search_default_working" : True}</field>
+			<field name="search_view_id" ref="technic_equipment_search" />
+			<field name="view_ids"
+					   eval="[(5,0,0),(0,0,{'view_mode':'tree',
+								'view_id': ref('mw_factory_equipment.factory_equipment_tree')}),
+							  (0,0,{'view_mode':'form',
+								'view_id': ref('mw_factory_equipment.factory_equipment_form')})]"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a new vehicle.
+			  </p><p>
+				You will be able to manage your fleet by keeping track of the
+				contracts, services, fixed and recurring costs, odometers and
+				fuel logs associated to each vehicle.
+			</p><p>
+				OpenERP will warn you when services or contract have to be
+				renewed.
+			  </p>
+			</field>
+		</record>
+
+	<!-- <record id="view_maintenance_workorder_form" model="ir.ui.view">
+		<field name="name">maintenance.workorder.inherit</field>
+		<field name="model">maintenance.workorder</field>
+		<field name="inherit_id" ref="maintenance_workorder_form_view_factory"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="technic_id"]' position="after">
+				<field name="technic_id"/>
+			</xpath>
+		</field>
+	</record> -->
+	<record id="maintenance_plan_generator_inherit" model="ir.ui.view">
+		<field name="name">Maintenance plan inherit</field>
+		<field name="model">maintenance.plan.generator</field>
+		<field name="inherit_id" ref="mw_technic_maintenance.maintenance_plan_generator_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="technic_id"]' position="attributes">
+				<attribute name="attrs">{'invisible': [('technic_id','=',False)]}</attribute>
+			</xpath>
+			<xpath expr='//field[@name="technic_id"]' position="after">
+				<field name="equipment_id" attrs="{'invisible': [('equipment_id','=',False)]}"/>
+			</xpath>
+			<xpath expr="//field[@name='technic_setting_line']/tree/field[@name='last_pm_priority']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='technic_setting_line']/tree/field[@name='last_date']" position="after">
+				<field name="equipment_num"/>
+			</xpath>
+			<xpath expr="//field[@name='technic_setting_line']/tree/field[@name='start_date']" position="after">
+				<field name="responent_id"/>
+			</xpath>
+			<xpath expr="//field[@name='technic_setting_line']/tree/field[@name='technic_id']" position="after">
+				<field name="equipment_id" attrs="{'invisible': [('equipment_id','=',False)]}"/>
+			</xpath>
+			<xpath expr="//field[@name='plan_generated_line']/tree/field[@name='date_plan']" position="after">
+				<field name="equipment_num"/>
+			</xpath>
+			<xpath expr="//field[@name='plan_generated_line']/tree/field[@name='technic_id']" position="after">
+				<field name="equipment_id" attrs="{'invisible': [('equipment_id','=',False)]}"/>
+			</xpath>
+			<xpath expr="//field[@name='plan_generated_line']/tree/field[@name='work_time']" position="after">
+				<field name="responent_id"/>
+			</xpath>
+			<xpath expr="//field[@name='plan_generated_line']/form//field[@name='work_time']" position="after">
+				<field name="responent_id"/>
+			</xpath>
+			<xpath expr="//field[@name='plan_generated_line']/form//field[@name='pm_odometer']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='plan_generated_line']/form//field[@name='pm_priority']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='plan_generated_line']/form//field[@name='technic_id']" position="replace">
+				<field name="equipment_id"/>
+			</xpath>
+			<xpath expr="//field[@name='pm_odometer']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='only_lv_technic']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='clear_odometer_diff']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='is_round_interval']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='generate_type']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr='//field[@name="date"]' position="after">
+				<field name="department_id"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

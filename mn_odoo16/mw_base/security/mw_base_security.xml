@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_accounting_other_mw">
+        <field name="name">Accounting other groups</field>
+        <field name="description">Accounting other groups.</field>
+        <field name="sequence">10</field>
+    </record>
+    
+    <record id="group_mn_base_res_partner_editor" model="res.groups">
+        <field name="name">Partner editor</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_sector_director" model="res.groups">
+        <field name="name">Сектор, үйлдвэр уурхайн дарга</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_department_director" model="res.groups">
+        <field name="name">Алба, Хэсгийн дарга</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+  
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="menu_hse_fire" name="Галын Аюулгүй байдал" parent="mw_hse.main_menu_hse" sequence="5"/>
+		<menuitem id="menu_hse_fire_reference" name="Гал түймрийн нэгдсэн бүртгэл" parent="menu_hse_fire" action="action_hse_fire" sequence="1"/>	
+		<menuitem id="menu_hse_fire_signal_system" name="Галын системийн бүртгэл" parent="menu_hse_fire" action="action_hse_fire_signal_system" sequence="2"/>
+		<menuitem id="menu_hse_fire_lily" name="Сарааны бүртгэл" parent="menu_hse_fire" action="action_hse_fire_lily" sequence="6"/>
+		<menuitem id="menu_hse_fire_config" name="Галын Аюулгүй байдал" parent="mw_hse.menu_hse_config" sequence="10"/>
+			<menuitem id="menu_call_type" name="Дуудлагын төрөл" parent="menu_hse_fire_config" action="action_call_type" sequence="21"/>
+			<menuitem id="menu_fire_switch" name="Гал унтраагуурын бүртгэл" parent="menu_hse_fire_config" action="action_fire_switch" sequence="22"/>
+			<menuitem id="menu_signal_system" name="Дохиоллын бүртгэл" parent="menu_hse_fire_config" action="action_signal_system" sequence="23"/>
+			<menuitem id="menu_fire_lily_number" name="Сарааны бүртгэл" parent="menu_hse_fire_config" action="action_fire_lily_number" sequence="23"/>
+			<menuitem id="menu_camp_register" name="Гэрийн мэдээлэл" parent="menu_hse_fire_config" action="action_camp_register" sequence="23"/>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="account_cashflow_report_view" model="ir.ui.view">
+            <field name="name">Мөнгөн гүйлгээний тайлан</field>
+            <field name="model">account.cashflow.report.new</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group>
+                        <group>
+                            <field name="company_id" widget='selection' string="Компаний нэр"/>
+                            <field name="from_account" invisible="1"/>
+                        </group>
+                        <group>
+                        </group>
+	                   <group>
+                            <field name="date_from" string="Эхлэх огноо"/>
+	                    </group>
+                        <group>
+                            <field name="date_to" string="Дуусах огноо"/>
+                        </group>
+                    <footer col="3" class="oe_right">
+                        <button special="cancel" string="Цуцлах" colspan="2"/>
+                        <button name="check_report" string="Татах" type="object" colspan="2" default_focus="1" icon="fa-print"/>
+                        <!-- <button special="cancel" string="Цуцлах" colspan="2"/> -->
+                    </footer>
+	                </group>
+               	</form>
+            </field>
+        </record>
+
+        <record id="action_account_cashflow_report" model="ir.actions.act_window">
+            <field name="name">Мөнгөн гүйлгээний тайлан</field>
+            <field name="res_model">account.cashflow.report.new</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_cashflow_report_view"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem 
+                name="Мөнгөн гүйлгээний тайлан"
+                action="action_account_cashflow_report"
+                id="menu_action_account_cashflow_report"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="5"/>
+    </data>
+</openerp>

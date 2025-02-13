@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pricelist_import_from_excel_form_view" model="ir.ui.view">
+        <field name="name">pricelist.import.from.excel.form</field>
+        <field name="model">pricelist.import.from.excel</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="name"/>
+                    <field name="excel_data"/>
+                </group>
+                <footer>
+                    <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                    <button name="import_from_excel" string="Excel-с импортлох" type="object"
+                        icon="fa-file-excel-o" colspan="1" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pricelist_import_from_excel" model="ir.actions.act_window">
+        <field name="name">Import pricelist</field>
+        <field name="res_model">pricelist.import.from.excel</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pricelist_import_from_excel_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            action="action_pricelist_import_from_excel" 
+            id="menu_pricelist_import"
+            parent="sale.menu_sale_config" sequence="45"/>
+
+</odoo>

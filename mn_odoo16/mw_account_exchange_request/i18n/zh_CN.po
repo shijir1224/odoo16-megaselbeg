@@ -1,0 +1,1574 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_account_payment_request
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20210527\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-10 01:50+0000\n"
+"PO-Revision-Date: 2022-03-10 01:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__ceo
+msgid " Гүйцэтгэх захирал"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid ""
+"1. Хэрвээ дараах төлбөрийн хүсэлт гаргах бол <span style=\"color: "
+"#00ccff;\">\"Төлбөрийн хүсэлт /Худалдан авалт /\" </span><span "
+"style=\"color: #00ccff;\">цэсээр хүсэлт гаргана уу.</span>"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid ""
+"2. Хэрвээ дараах төлбөрийн хүсэлт гаргах бол <span style=\"color: "
+"#00ccff;\">\"Төлбөрийн хүсэлт /Бусад/\" </span><span style=\"color: "
+"#00ccff;\">цэсээр хүсэлт гаргана уу.</span>"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid ""
+"3. Хэрвээ үндсэн хөрөнгө, хангамжийн зүйл авах бол <span style=\"color: "
+"#00ccff;\">\"Шаардах хуудас\"</span> <span style=\"color: #00ccff;\">цэсээр "
+"хүсэлт гаргана уу.</span>"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/request_template.py:0
+#, python-format
+msgid ""
+"<div class=\"o_mail_notification\">created <a href=\"#\" "
+"class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
+msgstr ""
+"<div class=\"o_mail_notification\">建立<a href=\"#\" "
+"class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "<i class=\"fa fa-times\" title=\"Close the onboarding panel\"/>"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "<span aria-label=\"Close\">&amp;times;</span>"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__access_warning
+msgid "Access warning"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__check_items
+msgid "Accompaniments"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__type
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__type
+msgid "Accompaniments Type"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_graph
+msgid "Account Statistics"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__user_id
+msgid "Accountant"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__action
+msgid "Action"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__description
+msgid "Additional description"
+msgstr "附加说明"
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.action_view_payment_request_all_all
+msgid "All payment request"
+msgstr "账单全部"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__amount
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__amount
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__amount
+msgid "Amount"
+msgstr "金额"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__subtotal
+msgid "Amount in"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_pivot
+msgid "Analysis"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__analytic_id
+msgid "Analytic"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_verify_form
+msgid "Approve"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__approve_user_id
+msgid "Approver"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_assign_account_form
+msgid "Assign"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.account_assign_account
+msgid "Assign accountant"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__attachment_ids
+msgid "Attachment"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__request_template_wkf_notes__action__back
+msgid "Back"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#, python-format
+msgid "Bank Accountant"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__statement_id
+#, python-format
+msgid "Bank Statement"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__request_template_wkf_notes__action__cancel
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_assign_account_form
+msgid "Cancel"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#, python-format
+msgid "Cash Accountant"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#, python-format
+msgid "Cash Statement"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.ui.menu,name:mw_account_payment_request.menu_account_payment_request_root
+#: model:ir.ui.menu,name:mw_account_payment_request.menu_account_payment_request_root_2
+msgid "Cash requests"
+msgstr "请款单"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__categ_ids
+msgid "Category"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Change history"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__checked
+msgid "Checked"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_verify_form
+msgid "Close"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__onboarding_state__closed
+msgid "Closed"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__company_id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__company_id
+msgid "Company"
+msgstr "公司名称"
+
+#. module: mw_account_payment_request
+#: model:ir.ui.menu,name:mw_account_payment_request.next_id_23
+msgid "Configuration"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Confirmed & Done"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__complete_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__complete_date
+msgid "Confirmed Date"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__create_user_id
+msgid "Create User"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__create_ok
+msgid "Create ok"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account_line__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assigned_accountants__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf_line__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify__create_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account_line__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assigned_accountants__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf_line__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify__create_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__date
+msgid "Creation Date"
+msgstr "创建日期"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__currency_id
+msgid "Currency"
+msgstr "货币种类"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_payment_expense__type__customer
+msgid "Customer"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__access_url
+msgid "Customer Portal URL"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__data
+msgid "Data"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__date
+msgid "Date"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__deadline
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Deadline"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__default_check_items
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_narration_form
+msgid "Default Accompaniments"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__department_id
+msgid "Department"
+msgstr "部门"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__department_manager_id
+msgid "Department Manager"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_dynamic_flow__department_ids
+msgid "Departments"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__description
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__description
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__description
+msgid "Description"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account_line__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assigned_accountants__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf_line__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify__display_name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__onboarding_state__done
+msgid "Done"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_dynamic_flow
+msgid "Dynamic Flow"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_dynamic_flow_line
+msgid "Dynamic Flow Line"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_dynamic_flow_history
+msgid "Dynamic Flow history"
+msgstr "动态流动的历史"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__account_id
+msgid "Expense Account"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__type
+msgid "Expense Type"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__db_attach
+msgid "File"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__file_fname
+msgid "File name"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__data_ids
+msgid "Files"
+msgstr "文档"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_payment_expense__type__general
+msgid "General"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Group By..."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__priority__5
+msgid "High"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "History"
+msgstr "历史"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account_line__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assigned_accountants__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf_line__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify__id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__message_needaction
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__message_has_error
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__image_1920
+msgid "Image"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__tax_ids
+msgid "Included Taxes"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Information"
+msgstr "信息"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__is_not_edit
+msgid "Is Not Edit"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__is_business_trip
+msgid "Is business trip"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__onboarding_state__just_done
+msgid "Just done"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account_line____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assigned_accountants____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf_line____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify____last_update
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account_line__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assigned_accountants__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf_line__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify__write_uid
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account_line__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assigned_accountants__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_wkfl_conf_line__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify__write_date
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__priority__0
+msgid "Low"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/wizard/account_make_expense.py:0
+#, python-format
+msgid "Make Bank Expense"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/wizard/account_make_expense.py:0
+#, python-format
+msgid "Make Cash Expense"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.account_payment_expense
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_assign_account_form
+msgid "Make Expense"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item_type__name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__name
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__name
+msgid "Name"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__narration_id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration_item__narration_id
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Narration"
+msgstr "转账理由"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__request_template_wkf_notes__action__next
+msgid "Next"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__priority__3
+msgid "Normal"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__onboarding_state__not_done
+msgid "Not done"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_verify__notes
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__notes
+msgid "Notes"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_payment_expense__partner_id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__partner_id
+msgid "Partner"
+msgstr "合作商"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__bank_statement_line_id
+msgid "Payment Ref."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_confirm_tree
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_tree
+msgid "Payment Request"
+msgstr "请款单"
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_item
+msgid "Payment Request Accompaniments"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_item_type
+msgid "Payment Request Accompaniments Type"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_wkfl_conf
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_wkfl_conf_line
+msgid "Payment Request Conf"
+msgstr "付款请求"
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_account_assign_account
+#: model:ir.model,name:mw_account_payment_request.model_account_payment_expense
+msgid "Payment Request Make Expense"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_narration
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_narration_form
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_narration_search
+msgid "Payment Request Narration"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_narration_item
+msgid "Payment Request Narration Default Accompaniments"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_butsaalt_tailbar
+msgid "Payment Request butsaalt tailbar"
+msgstr "付款请求 - 退货字段"
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_account_assign_account_line
+msgid "Payment Request line"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__department_id
+msgid "Payment Request must be regioned by any department."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_account_assigned_accountants
+msgid "Payment assign line"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_dynamic_flow_history__payment_request_id
+msgid "Payment request"
+msgstr "付钱请求"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__access_url
+msgid "Portal Access URL"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__priority
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Priority"
+msgstr "紧急程度"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__name
+msgid "Reference"
+msgstr "请款单号"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Rejected & Cancelled"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__request_id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__request_id
+msgid "Request"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_request_template_verify
+msgid "Request Template Verify"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_account_assign_account__type
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__type
+msgid "Request Type"
+msgstr "付款方式"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__user_id
+msgid "Requester"
+msgstr "申请人"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_tree
+msgid "SUM"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__access_token
+msgid "Security Token"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__onboarding_state
+msgid "State of the sale onboarding panel"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_dynamic_flow_line__state_type
+msgid "State type"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_payment_expense__type__supplier
+msgid "Supplier"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Update attach"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__user_id
+msgid "User"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.action_request_template_verify
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_verify_form
+msgid "Verification Action"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,help:mw_account_payment_request.field_payment_request__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__wkf_note_ids
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template__wkf_note_ids
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_wkf_notes_form
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_wkf_notes_tree
+msgid "Workflow History"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_request_template_wkf_notes
+msgid "Workflow Notes of Request Template"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_request_template
+msgid "Workflow Request Template"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#, python-format
+msgid "You are not back user"
+msgstr "您目前没有权限退步"
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#, python-format
+msgid "You are not cancel user"
+msgstr "您目前没有权限取消"
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#, python-format
+msgid "You are not draft user"
+msgstr "您没有权限创建草稿"
+
+#. module: mw_account_payment_request
+#: model:ir.model,name:mw_account_payment_request.model_payment_request_desc_line
+msgid "payment.request.desc.line"
+msgstr ""
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_verify_form
+msgid "reject"
+msgstr "拒绝"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__partner
+msgid "Авах газар"
+msgstr "客户"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Автомашины зардал"
+msgstr "汽车的成本"
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/report/cash_and_bank_journal.py:0
+#, python-format
+msgid "Анхааруулга !"
+msgstr "警告"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Арилгах"
+msgstr "排除"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_assign_account__type__bank
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__type__bank
+msgid "Банкны шилжүүлгээр"
+msgstr "通过银行转账"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__products
+msgid "Бараа"
+msgstr "商品"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__request_id
+msgid "Баримт"
+msgstr "收据"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Батлагдаагүй"
+msgstr "不批准"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Батлах"
+msgstr "批准"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__confirm_user_ids
+msgid "Батлах хэрэглэгчид"
+msgstr "确认用户"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__type__talon
+msgid "Бензин талон"
+msgstr "汽油票"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Бичиг хэрэг, Хангамж, элдэв хураамжийн зардал"
+msgstr "文具、用品和各种费用的成本"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_payment_expense_form
+msgid "Болих"
+msgstr "生病的"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Буцааж ноороглох"
+msgstr "返回草稿"
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/models/account_payment_request.py:0
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__butsaalt_tailbar
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_butsaalt_tailbar__butsaalt_tailbar
+#, python-format
+msgid "Буцаалтын тайлбар"
+msgstr "退货说明"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_butsaalt_tailbar_form
+msgid "Буцаах"
+msgstr "返回"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Буцах"
+msgstr "后退"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_assign_account__type__cash
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__type__cash
+msgid "Бэлнээр"
+msgstr "用现金"
+
+#. module: mw_account_payment_request
+#: model:res.groups,comment:mw_account_payment_request.res_groups_account_general_accountant
+#: model:res.groups,name:mw_account_payment_request.res_groups_account_general_accountant
+msgid "Бэлэн мөнгө батлах Ерөнхий нягтлан"
+msgstr "现金审批 总会计师"
+
+#. module: mw_account_payment_request
+#: model:res.groups,comment:mw_account_payment_request.res_groups_account_payment_request_employees
+msgid "Бэлэн мөнгө хүснэ"
+msgstr "现金要求"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__dep_directors
+msgid "Газрын захирал"
+msgstr "系主任"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__name
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Гүйлгээний утга"
+msgstr "交易说明"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_dynamic_flow__desc_temlate
+msgid "Гүйлгээний утга загвар"
+msgstr "交易描述模板"
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.action_payment_request_narration
+#: model:ir.ui.menu,name:mw_account_payment_request.menu_action_payment_request_narration
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_narration_tree
+msgid "Гүйлгээний утга тохируулах"
+msgstr "交易值"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "ДОШ"
+msgstr "保险所得税"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Даатгалын зардал"
+msgstr "保险费用"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Давхар даатгал"
+msgstr "再保险"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_payment_expense_form
+msgid "Данс"
+msgstr "舞蹈"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__flow_line_next_id
+msgid "Дараагийн төлөв"
+msgstr "下一个状态"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__sequence
+msgid "Дараалал"
+msgstr "顺序"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_confirm_tree
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_wkf_notes_tree
+msgid "Дугаар"
+msgstr "数字"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__price_subtotal
+msgid "Дэд дүн"
+msgstr "小计"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__description
+msgid "Дэлгэрэнгүй тайлбар"
+msgstr "详细解释"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Дүн"
+msgstr "金额"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__gen_account
+msgid "Ерөнхий нягтлан"
+msgstr "总会计师"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__is_yurunhii_nybo
+msgid "Ерөнхий нягтлан эсэх"
+msgstr "是否为普通会计师"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__president_ceo
+msgid "Ерөнхийлөгч, эсвэл Гүйцэтгэх захирлын орлогч"
+msgstr "总裁或副首席执行官"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_assign_account__type__pretty
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__type__pretty
+msgid "Жижиг мөнгөн сангаас"
+msgstr "来自一个小基金"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid ""
+"Жич: Эдгээр төлбөрийн хүсэлтийг \"<span style=\"color: #00ccff;\">Төлбөрийн "
+"хүсэлт /Худалдан авалт /</span>\" цэсийг ашиглаж гаргана."
+msgstr "注意：这些付款请求是使用 \"<span style=\"color: #00ccff;\">付款请求"
+"（购买）”</span>\" 菜单进行的."
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid ""
+"Жич: Эдгээр төлбөрийн хүсэлтийг <span style=\"color: #00ccff;\">\"Төлбөрийн "
+"хүсэлт /Бусад/\"</span> цэсийг ашиглаж гаргана."
+msgstr "注意：这些付款请求是使用 \"<span style=\"color: #00ccff;\">付款请求"
+"（其他）”</span>\" 菜单进行的."
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Заавар арилгах"
+msgstr "删除说明"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Илүү төлөлт, эндүүрч ирсэн төлбөр буцах"
+msgstr "退回多付或错误的付款"
+
+#. module: mw_account_payment_request
+#: code:addons/mw_account_payment_request/report/cash_and_bank_journal.py:0
+#, python-format
+msgid "Кассын тайлангийн мөрийн дугаарууд тоо байх ёстой, засна уу."
+msgstr "现金报告中的行号必须是数字，请编辑"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_payment_expense_form
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Компани"
+msgstr "公司"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_assign_account__type__credit_card
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__type__credit_card
+msgid "Кредит картаар"
+msgstr "信用卡"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Маркетинг, борлуулалтын зардал"
+msgstr "营销和销售成本"
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.action_view_payment_request_my_batlah
+#: model:ir.ui.menu,name:mw_account_payment_request.menu_action_view_payment_request_my_batlah
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Миний батлах хүсэлт"
+msgstr "我的批准请求"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Мэргэжлийн үйлчилгээний зардал"
+msgstr "专业服务的成本"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_confirm_tree
+msgid "Мөнгөн дүн"
+msgstr "数量"
+
+#. module: mw_account_payment_request
+#: model:res.groups,comment:mw_account_payment_request.res_groups_cash_accountant
+msgid "Мөнгөн хөрөнгийн нягтлан."
+msgstr "现金会计"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__amount_total_pay
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__price_total
+msgid "Нийт дүн"
+msgstr "全部的"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__amount_tax_pay
+msgid "Нийт татвар"
+msgstr "总税额"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__price_unit
+msgid "Нэгж үнэ"
+msgstr "单价"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__accountant_id
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__accountant
+msgid "Нягтлан"
+msgstr "会计"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Нөхөн төлбөрийн өглөг"
+msgstr "应付赔偿"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_payment_expense_form
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_wkf_notes_tree
+msgid "Огноо"
+msgstr "日期"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__branch_id
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Салбар"
+msgstr "分支"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__fin_director
+msgid "Санхүү хариуцсан захирал"
+msgstr "首席财务官"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__fin_manager
+msgid "Санхүүгийн менежер"
+msgstr "财务经理"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Сургалтын зардал"
+msgstr "培训费用"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__name
+msgid "Тайлбар"
+msgstr "笔记"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__desc_line_ids
+msgid "Тайлбарын мөр"
+msgstr "评论行"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__price_tax
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__tax_id
+msgid "Татвар"
+msgstr "税"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Томилолтын зардал"
+msgstr "旅行开支"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__qty
+msgid "Тоо"
+msgstr "數數"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__qty
+msgid "Тоо хэмжээ"
+msgstr "数量"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__dynamic_flow_line__state_type__computing
+msgid "Тооцоолох"
+msgstr "计算"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_wkf_notes_tree
+msgid "Тэмдэглэл"
+msgstr "笔记"
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.action_view_payment_request_all
+#: model:ir.ui.menu,name:mw_account_payment_request.menu_action_view_payment_request_all_2
+msgid "Төлбөр тооцоо бүгд"
+msgstr "账单全部"
+
+#. module: mw_account_payment_request
+#: model:res.groups,name:mw_account_payment_request.res_groups_cash_accountant
+msgid "Төлбөр тооцооны нягтлан"
+msgstr "结算会计师"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_payment_expense_form
+msgid "Төлбөрийн арга"
+msgstr "付款方法"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Төлбөрийн төрөл"
+msgstr "付款方式"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_desc_line__payment_request_id
+#: model:ir.module.category,name:mw_account_payment_request.module_category_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Төлбөрийн хүсэлт"
+msgstr "付钱请求"
+
+#. module: mw_account_payment_request
+#: model:res.groups,name:mw_account_payment_request.res_groups_account_payment_request_admin
+msgid "Төлбөрийн хүсэлт админ "
+msgstr "付款请求 - 管理员"
+
+#. module: mw_account_payment_request
+#: model:res.groups,name:mw_account_payment_request.res_groups_account_payment_request_employees
+msgid "Төлбөрийн хүсэлт ажилчид"
+msgstr "要求付款 - 员工"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__flow_line_id
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__state
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_request_template_wkf_notes__flow_line_id
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Төлөв"
+msgstr "状态"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__stage_id
+msgid "Төлөв stage"
+msgstr "状态阶段"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Төлөгдсөн"
+msgstr "有薪酬的"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__tulugdsun_dun
+msgid "Төлөгдсөн дүн"
+msgstr "支付的金额"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Төлөгдөөгүй"
+msgstr "没有支付"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_payment_expense_form
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Төлөх"
+msgstr "支付"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__name
+msgid "Төрөл"
+msgstr "类型"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Уншиж танилцсан уу? Тохирох цэсээр хүсэлтээ гаргана уу!"
+msgstr "你读过它吗？请在相应的菜单中提交您的请求"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__flow_id
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Урсгал тохиргоо"
+msgstr "流程的分类"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__history_flow_ids
+msgid "Урсгалын түүхүүд"
+msgstr "流动故事"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Уулзалт, арга хэмжээ, ажиллагсадад олгох тэтгэмжийн зардал"
+msgstr "会议、活动和员工福利的成本"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_butsaalt_tailbar_form
+msgid "Хаах"
+msgstr "关闭"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_search_my
+msgid "Хавсралттай"
+msgstr "随附的"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_narration__flow_hamaarah_id
+msgid "Хамаарах урсгал"
+msgstr "依赖流"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__visible_flow_line_ids
+msgid "Харагдах төлөв"
+msgstr "外貌"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_account_payment_expense_form
+msgid "Харилцагч"
+msgstr "收款单位"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__bank_id
+msgid "Харилцагчийн банк"
+msgstr "客户银行"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__dans_id
+msgid "Харилцагчийн данс"
+msgstr "用户账号"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Харилцагчийн үлдэгдэлээс татах"
+msgstr "从客户余额中提取"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__account_assign_account__type__transfer
+#: model:ir.model.fields.selection,name:mw_account_payment_request.selection__payment_request__type__transfer
+msgid "Хоорондын тооцоо"
+msgstr "中间计算"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Хураамжийн буцаалт цуцлалт"
+msgstr "退款、取消"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Хүсэгч"
+msgstr "申请人"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_confirm_tree
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_wkf_notes_tree
+msgid "Хүсэлт үүсгэсэн"
+msgstr "已创建请求"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Хөнгөлөлт оруулах"
+msgstr "包括折扣"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Хөрөнгийн зардал"
+msgstr "资本成本"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__confirmed_amount
+msgid "Цохсон дүн"
+msgstr "计算金额"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "Цуцлах"
+msgstr "取消"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.payment_request_onboarding_panel
+msgid "Шуудан холбооны зардал"
+msgstr "邮费"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_payment_request_form_my
+msgid "хавсаргасан баримт"
+msgstr "附件文件"
+
+#. module: mw_account_payment_request
+#: model_terms:ir.ui.view,arch_db:mw_account_payment_request.view_request_template_wkf_notes_tree
+msgid "Үйлдэл"
+msgstr "行动"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request_item__price
+msgid "Үнэ"
+msgstr "价钱"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__uglugiin_uldegdel
+msgid "Өглөгийн үлдэгдэл"
+msgstr "应付账款余额"
+
+#. module: mw_account_payment_request
+#: model:ir.model.fields,field_description:mw_account_payment_request.field_payment_request__flow_line_back_id
+msgid "Өмнөх төлөв"
+msgstr "以前的状态"
+
+#. module: mw_account_payment_request
+#: model:ir.actions.act_window,name:mw_account_payment_request.action_view_payment_request_my
+#: model:ir.ui.menu,name:mw_account_payment_request.menu_action_view_payment_request_my_2
+msgid "Өөрийн хүсэлт"
+msgstr "你的申请"

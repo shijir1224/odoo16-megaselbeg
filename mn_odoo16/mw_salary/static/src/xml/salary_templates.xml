@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id='mw_salary'>
+    <t t-name="mw_salary.SalaryOrder" owl="1">
+		<button type="button" class="btn btn-primary o_form_button_save" data-hotkey="s" t-on-click.stop="() => this.tatahButtonClicked_MW({closable: true})">
+			Татах
+		</button>
+        <div id="salary_order" t-att-class="'oe_salary_dynamic_schedule'" style="width:100%;height:50000px" >
+            <div  id="table_header_freeze">
+                <table border="1" class="o_list_table_hover" >
+                    <thead  style="position:sticky ;top:0; width:100%;" >
+                        <th>
+                            <div>
+                                №
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Ажилтны код
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Овог
+                            </div>
+                        </th>
+                        <th >
+                            <div>
+                                Нэр
+                            </div>
+                        </th>
+                        <t t-if="l_line">
+                        <t t-foreach="l_line" t-as="item" t-key="item_index">
+                                <th t-if="item.data.display_name">
+                                    <t t-esc="item.data.display_name"/>
+                                </th>
+                        </t>
+                        </t>
+
+                    </thead>   
+                    <tbody class="ui-sortable"> 
+                        <t t-if="line_ids">
+                        <tr t-foreach="line_ids" t-as="item" t-key="item_index">
+
+                                <td t-att-data-id="rec"  class="oe_no_emplo_col_number">
+                                    <div t-att-data-id="rec">
+                                        <t t-esc="item.data.number"/>
+                                    </div>
+                                </td>
+                            
+                                <td t-att-data-id="rec"  class="oe_no_emplo_col_number">
+                                    <div t-att-data-id="rec">
+                                        <t t-esc="item.data.ident_id"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="rec"  class="oe_no_emplo_col_number">
+                                    <div t-att-data-id="rec">
+                                        <t t-esc="item.data.last_name"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="rec"  class="oe_no_emplo_col_number"  style="position:sticky ;left:0; width:10%">
+                                    <div t-att-data-id="rec">
+                                        <t t-esc="item.data.name"/>
+                                    </div>
+                                </td>
+                                
+                                <t t-if="item.data">
+                                    <t t-foreach="item.data.so_line_line1.records" t-as="ll" t-key="ll_index">
+                                            <td t-if="ll.data.display_name"   class="oe_body_col">
+                                                <t t-esc="ll.data.display_name"/>
+                                            </td>
+                                            <td t-if="!ll.data.display_name"   class="oe_body_col">
+                                                <t t-esc="'0.0'"/>
+                                            </td>
+                                    </t>
+                                </t>                    
+
+                            </tr>
+                        </t>   
+                        <!-- <th>
+                            <div>
+                                
+                            </div>
+                        </th> -->
+                        <!-- <th>
+                            <div>
+                                
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                
+                            </div>
+                        </th> -->
+                        <th>
+                            <div>
+                                
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Нийлбэр дүн
+                            </div>
+                        </th>
+                        
+                        <t t-if="sum_foot">
+                            <t t-foreach='sum_foot' t-as="sum_item" t-key='sum_item_index'>
+                                <th>
+                                    <t t-esc="sum_item"/>
+                                </th>
+                            </t>
+                        </t> 
+                    </tbody>
+                    <!-- <tfood>
+                        <th>
+                            <div>
+                                
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Нийт
+                            </div>
+                        </th>
+                        
+                        <t t-if="widget.sum_foot">
+                            <t t-foreach="widget.sum_foot" t-as="ft" t-key="ft.id">
+                                <th>
+                                    <t t-esc="ft.sum"/>
+                                </th>
+                            </t>
+                        </t> 
+                    </tfood>    -->
+             </table>
+            </div>
+        </div>
+    </t>
+</templates>

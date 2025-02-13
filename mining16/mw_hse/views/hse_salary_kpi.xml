@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="sequence_hse_salary_kpi" model="ir.sequence">
+        <field name="name">HSE salary kpi</field>
+        <field name="code">hse.salary.kpi</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+    <!-- Hse Salary kpi -->
+	<record id="view_hse_salary_kpi_form" model="ir.ui.view">
+		<field name="name">hse.salary.kpi.form</field>
+		<field name="model">hse.salary.kpi</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+					<button name="action_to_download" string="Татах" type="object" class="btn-warning"/>
+					<button name="action_to_draft" states="done" string="Ноороглох"  type="object" class="btn-danger" groups="mw_hse.group_hse_manager"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups="mw_hse.group_hse_manager"/>                   
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<div name="button_box" class="oe_button_box oe_right">
+						<button
+							name="view_line_line" type="object" class="oe_stat_button oe_right" icon="fa-list" string="Дэлгэрэнгүй">
+						</button>
+					</div>
+					<group>
+						<field name="name"/>
+						<field name="branch_id" options="{'no_create':True}"/>
+						<field name="company_id" options="{'no_create':True}"/>
+					</group>
+					<group>
+						<field name="start_date"/>
+						<field name="end_date"/>
+					</group>
+					<field name="salary_kpi_line" nolabel="1">  
+						<tree>
+							<field name="employee_id"/>
+							<field name="department_id"/>
+							<field name="job_id"/>
+							<field name="emp_hse_point"/>
+						</tree>
+					</field>
+				</sheet> 
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_salary_kpi_tree" model="ir.ui.view">
+		<field name="name">hse.salary.kpi.tree</field>
+		<field name="model">hse.salary.kpi</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+                <field name="start_date"/>
+				<field name="end_date"/>
+                <field name="state"/>
+				<field name="branch_id"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+    <record id="view_hse_salary_kpi_filter" model="ir.ui.view">
+		<field name="name">hse.salary.kpi.filter</field>
+		<field name="model">hse.salary.kpi</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+            	<field name="employee_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+				<field name="branch_id"/>
+				<field name="company_id"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_salary_kpi" model="ir.actions.act_window">
+		<field name="name">ХАБ Үнэлгээ</field>
+		<field name="res_model">hse.salary.kpi</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="hse_salary_kpi_line_pivot_view">
+        <field name="name">hse.salary.kpi.line.pivot</field>
+        <field name="model">hse.salary.kpi.line</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="employee_id" type="row"/>
+                <field name="date" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+	<record model="ir.ui.view" id="hse_salary_kpi_line_form_view">
+        <field name="name">hse.salary.kpi.line.form</field>
+        <field name="model">hse.salary.kpi.line</field>
+        <field name="arch" type="xml">
+            <form>
+					<group>
+						<field name="employee_id"/>
+					</group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hse_salary_kpi_line_tree_view">
+        <field name="name">hse.salary.kpi.line.tree</field>
+        <field name="model">hse.salary.kpi.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="kpi_id"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="emp_hse_point"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hse_salary_kpi_line_filter" model="ir.ui.view">
+        <field name="name">hse.salary.kpi.line.filter</field>
+        <field name="model">hse.salary.kpi.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="kpi_id"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="emp_hse_point"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hse_salary_kpi_line" model="ir.actions.act_window">
+        <field name="name">ХАБ Үнэлгээний мөр</field>
+        <field name="res_model">hse.salary.kpi.line</field>
+        <field name="context">{'create':False,'delete':False,'edit':False, 'search_default_gr_parent_id':1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<!-- Hse employee_kpi -->
+	<record id="view_hse_hr_job_form" model="ir.ui.view">
+		<field name="name">hr.job.form</field>
+		<field name="model">hr.job</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name" readonly="1"/>
+					<field name="employee_hse_point"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_hr_job_tree" model="ir.ui.view">
+		<field name="name">hr.job.tree</field>
+		<field name="model">hr.job</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name" readonly="1"/>
+				<field name="employee_hse_point"/>
+			</tree>
+		</field>
+	</record>
+
+    <record id="action_hse_hr_employee_kpi" model="ir.actions.act_window">
+		<field name="name">HSE Employee Kpi</field>
+		<field name="res_model">hr.job</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+			   (0, 0, {'view_mode': 'tree', 'view_id': ref('view_hse_hr_job_tree')}),
+			   (0, 0, {'view_mode': 'form', 'view_id': ref('view_hse_hr_job_form')})]"/>
+	</record>
+
+</odoo>

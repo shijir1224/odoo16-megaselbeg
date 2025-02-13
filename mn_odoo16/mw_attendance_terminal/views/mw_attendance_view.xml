@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+        <record id="view_attendance_inherit_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.inherit.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='worked_hours']" position="after">
+                    <field name="day_shift"/>
+                    <field name="in_date"/>
+                    <field name="work_location_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_mw_attendance_tree" model="ir.ui.view">
+            <field name="name">mw.attendance.tree</field>
+            <field name="model">mw.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="indicator">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="attendance_time"/>
+                    <field name="att_terminal_id"/>
+                    <field name="date"/>
+                    <field name="day_shift"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mw_attendance_form" model="ir.ui.view">
+            <field name="name">mw.attendance.form</field>
+            <field name="model">mw.attendance</field>
+            <field name="arch" type="xml">
+                <form string="execution">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="attendance_time"/>
+                            <field name="att_terminal_id" />
+                            <field name="date"/>
+                            <field name="day_shift"/>
+                        </group>
+                    </sheet>
+                     <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="mw_attendance_filter" model="ir.ui.view">
+            <field name="name">mw.attendance search</field>
+            <field name="model">mw.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Employee" context="{'group_by':'employee_id'}"
+                            name="Employee"/>
+                        <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                        <filter string="Төхөөрөмжийн нэр" name="att_terminal_id" context="{'group_by':'att_terminal_id'}"/>
+                        <filter string="Жилээр" context="{'group_by':'date:year'}" name="year"/>
+                        <filter string="Сараар" context="{'group_by':'date:month'}" name="month"/>
+                        <filter string="Өдрөөр" name="day" context="{'group_by':'date:day'}"/>
+                        <filter string="Хэлтэс" name="department_id" context="{'group_by':'department_id'}"/>
+                        <filter string="Албан тушаал" name="job_id" context="{'group_by':'job_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_mw_attendance_view" model="ir.actions.act_window">
+            <field name="name">Ирц</field>
+            <field name="res_model">mw.attendance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_this_month':1,'search_default_year':1,'search_default_month':1, 'search_default_day':1}</field>
+        </record>
+
+        <record id="action_mw_attendance_my_view" model="ir.actions.act_window">
+            <field name="name">Өөрийн ирц</field>
+            <field name="res_model">mw.attendance</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('employee_id.user_id','=',uid)]</field>
+            <field name="context">{'search_default_this_month':1,'search_default_year':1,'search_default_month':1, 'search_default_day':1}</field>
+        </record>=
+
+        <record id="import_att_view" model="ir.ui.view">
+            <field name="name">import.att.wizard</field>
+            <field name="model">import.att</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <field name="date" />
+                        <field name="employee_id" />
+                    </group>
+                    <footer>
+                        <button string="Ирц үүсгэх" name="import_attendance_create" type="object" class="oe_highlight"/>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_import_att" model="ir.actions.act_window">
+            <field name="name">Балансын ирц импорт хийх</field>
+            <field name="res_model">import.att</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="import_att_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_import_att" 
+                action="action_import_att" 
+                parent="menu_attendance_parent"/>
+        <menuitem action="action_mw_attendance_view"
+                id="menu_attendance"
+                name="Ирц"
+                parent="menu_attendance_parent"
+                sequence="6"/>
+         <menuitem action="action_mw_attendance_my_view"
+                id="menu_attendance_my"
+                name="Өөрийн ирц"
+                parent="menu_attendance_parent"
+                sequence="7"/>
+
+</odoo>

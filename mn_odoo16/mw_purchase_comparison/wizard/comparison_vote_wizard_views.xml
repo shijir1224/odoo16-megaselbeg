@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="form_purchase_order_comparison_vote_wizard" model="ir.ui.view">
+		<field name="name">Vote wizard for purchase comparison</field>
+		<field name="model">purchase.order.comparison.vote.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Vote wizard for purchase comparison">
+				<group colspan="4">
+					<field name="wizard_type" invisible="1"/>
+					<field name="user_ids" widget="many2many_tags" attrs="{'invisible': [('wizard_type', '!=', 'start')],
+																		   'required': [('wizard_type', '=', 'start')]}"
+						   options="{'no_open': True, 'no_create': True}" />
+					<field name="partner_id" attrs="{'invisible': [('wizard_type', '!=', 'primary')],
+													 'required': [('wizard_type', '=', 'primary')]}"
+						   options="{'no_open': True, 'no_create': True, 'no_open': True}" widget="selection"/>
+					<field name="comment" attrs="{'invisible': [('wizard_type', '!=', 'primary')],
+												  'required': [('wizard_type', '=', 'primary')]}"/>
+				</group>
+				<footer>
+					<button name="submit_start" string="Start" type="object" class="btn-primary"
+							attrs="{'invisible': [('wizard_type', '!=', 'start')]}"
+							confirm="Are you sure you want to add these voters?"/>
+					<button name="submit_primary" string="Submit" type="object" class="btn-primary"
+							attrs="{'invisible': [('wizard_type', '!=', 'primary')]}"
+							confirm="Are you sure you want to vote?"/>
+					<button special="cancel" string="Cancel" type="object" class="btn-secondary"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_purchase_order_comparison_vote_wizard" model="ir.actions.act_window">
+		<field name="name">Vote wizard for purchase comparison</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.order.comparison.vote.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="form_purchase_order_comparison_vote_wizard"/>
+		<field name="target">new</field>
+	</record>
+</odoo>

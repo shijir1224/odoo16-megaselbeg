@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <!--Maintenance Dashboard - Company-->
+        <record model="ir.ui.view" id="maintenance_dashboard_01_form_view">
+            <field name="name">Dashboard 01</field>
+            <field name="model">maintenance.dashboard.01</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard" create="false" write="false">
+                    <div>
+                        <group col="4">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="branch_id" options="{'no_create':True}"/>
+                        </group>
+                        <group col="4">
+                            <widget name="maintenance_dashboard_01"/>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_maintenance_dashboard_01">
+            <field name="name">Dashboard 01 action</field>
+            <field name="res_model">maintenance.dashboard.01</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="maintenance_dashboard_01_form_view"/>
+        </record>
+
+        <!-- DB 2 -->
+        <record model="ir.ui.view" id="maintenance_dashboard_02_form_view">
+            <field name="name">Dashboard 02</field>
+            <field name="model">maintenance.dashboard.02</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard" create="false" write="false">
+                    <div>
+                        <group col="4">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="technic_id"
+                                options="{'no_create':True}"/>
+                            <field name="branch_id" options="{'no_create':True}"/>
+                        </group>
+                        <group col="4">
+                            <widget name="maintenance_dashboard_02"/>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_maintenance_dashboard_02">
+            <field name="name">Dashboard 02 action</field>
+            <field name="res_model">maintenance.dashboard.02</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="maintenance_dashboard_02_form_view"/>
+        </record>
+
+        <!-- DB 3 -->
+        <record model="ir.ui.view" id="maintenance_dashboard_03_form_view">
+            <field name="name">Dashboard 03</field>
+            <field name="model">maintenance.dashboard.03</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard" create="false" write="false">
+                    <div>
+                        <group col="4">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="branch_id" options="{'no_create':True}"/>
+                            <button name="export_report" string='Daily info татах' type='object' class="btn btn-success fa fa-download"/>
+                            <button name="export_report_pdf" string='Daily info татах (PDF)' type='object' class="btn btn-success fa fa-download"/>
+                        </group>
+                        <group>
+                            <button name="excel_report" string='Төлөвлөгөө татах Excel' type='object' class="btn btn-success fa fa-download"/>
+                        </group>
+                        <group>
+                            <field name="if_send_mail"/>
+                        </group>
+                        <group col="4" attrs="{'invisible': [('if_send_mail', '=', False)]}">
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <button name="send_mail" string='Мэйл явуулах' type='object' class="btn btn-success"/>
+                        </group>
+                        <group col="4">
+                            <widget name="maintenance_dashboard_03"/>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_maintenance_dashboard_03">
+            <field name="name">Dashboard 03 action</field>
+            <field name="res_model">maintenance.dashboard.03</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="maintenance_dashboard_03_form_view"/>
+        </record>
+
+        <!-- DB 4 -->
+        <record model="ir.ui.view" id="maintenance_dashboard_04_form_view">
+            <field name="name">Dashboard 04</field>
+            <field name="model">maintenance.dashboard.04</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard" create="false" write="false">
+                    <div>
+                        <group col="4">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="branch_id" options="{'no_create':True}"
+                                groups="base.group_no_one"/>
+                        </group>
+                        <group col="4">
+                            <widget name="maintenance_dashboard_04"/>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_maintenance_dashboard_04">
+            <field name="name">Dashboard 04 action</field>
+            <field name="res_model">maintenance.dashboard.04</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="maintenance_dashboard_04_form_view"/>
+        </record>
+
+    
+</odoo>

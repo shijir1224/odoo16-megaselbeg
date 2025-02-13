@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_asset_barcode_print_line,asset.barcode.print.line,model_asset_barcode_print_line,,1,1,1,1
+access_asset_barcode_print,asset.barcode.print,model_asset_barcode_print,,1,1,1,1

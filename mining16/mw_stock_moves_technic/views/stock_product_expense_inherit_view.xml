@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="stock_product_other_expense_form_inherit_view" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.form</field>
+		<field name="model">stock.product.other.expense</field>
+		<field name="inherit_id" ref="mw_stock_moves.stock_product_other_expense_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="department_id"]' position="before">
+				<field name="branch_id" invisible="1"/>
+				<field name="technic_id" options="{'no_create':True}" domain="[('branch_id','=',branch_id)]"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="stock_product_other_expense_technic_filter_view" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.form</field>
+		<field name="model">stock.product.other.expense</field>
+		<field name="inherit_id" ref="mw_stock_moves.stock_product_other_expense_filter_view"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="validator_id"]' position="after">
+				<field name="technic_id"/>
+			</xpath>
+			<xpath expr='//filter[@name="groupby_partner_id"]' position="after">
+				<filter name="gb_technic_id" context="{'group_by' : 'technic_id'}" string="Техникээр"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="stock_product_other_expense_technic_tree_view" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.form</field>
+		<field name="model">stock.product.other.expense</field>
+		<field name="inherit_id" ref="mw_stock_moves.stock_product_other_expense_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="warehouse_id"]' position="after">
+				<field name="technic_id"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="stock_product_other_expense_line_tree_view" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.line.form</field>
+		<field name="model">stock.product.other.expense.line</field>
+		<field name="inherit_id" ref="mw_stock_moves.stock_product_other_expense_line_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="res_partner_id"]' position="after">
+				<field name="technic_id"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="stock_picking_technic_form" model="ir.ui.view">
+		<field name="name">stock.picking.form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="product_id"]' position="after">
+				<field name="technic_id2" string='REF техник' options="{'no_create':True}"/>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

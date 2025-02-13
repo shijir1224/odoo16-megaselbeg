@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="action_consumable_standard_excel"
+            model="consumable.report.standard.ledger"
+            string="Consumable Report"
+            report_type="xlsx"
+            name="mw_consume_order.standard_excel"
+            file="mwconsume_order.standard_excel"/>
+
+    </data>
+</odoo>

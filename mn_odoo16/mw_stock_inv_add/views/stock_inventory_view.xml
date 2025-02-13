@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="mw_inv_view_inventory_form_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.mw.inv.inherit</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="mw_stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group[1]" position="after">
+            	<group col="4" string="Зөрүүгээр Авлага Үүсгэх" groups="mw_stock.group_stock_inv_diff_view">
+                    <field name="is_invoice_diff" force_save="1" readonly="1"/>
+                    <field name="diff_partner_id" force_save="1" attrs="{'readonly': [('state','in',['done','cancel'])], 'required': [('is_invoice_diff','=',True)]}"/>
+                    <field name="account_move_rec_id" readonly="1"/>
+                    <field name="account_move_pay_id" readonly="1"/>
+                </group>
+	        </xpath>
+	    </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+access_discipline_document_manager,discipline.document,mw_hr_discipline.model_discipline_document,mw_hr_discipline.group_discipline_manager,1,1,1,1
+access_discipline_meeting_conclusion_manager,discipline.meeting.conclusion,mw_hr_discipline.model_discipline_meeting_conclusion,mw_hr_discipline.group_discipline_manager,1,1,1,1
+access_warning_document_manager,warning.document,mw_hr_discipline.model_warning_document,mw_hr_discipline.group_discipline_manager,1,1,1,1
+access_warning_type_manager,warning.type,mw_hr_discipline.model_warning_type,mw_hr_discipline.group_discipline_manager,1,1,1,1
+
+
+
+
+access_discipline_document_user,discipline.document,mw_hr_discipline.model_discipline_document,mw_hr_discipline.group_discipline_user,1,1,1,0
+access_discipline_meeting_conclusion_user,discipline.meeting.conclusion,mw_hr_discipline.model_discipline_meeting_conclusion,mw_hr_discipline.group_discipline_user,1,1,1,0
+access_warning_document_user,warning.document,mw_hr_discipline.model_warning_document,mw_hr_discipline.group_discipline_user,1,1,1,0
+access_warning_type_user,warning.type,mw_hr_discipline.model_warning_type,mw_hr_discipline.group_discipline_user,1,1,0,0

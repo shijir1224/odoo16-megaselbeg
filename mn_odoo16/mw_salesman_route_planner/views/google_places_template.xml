@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_mn_gmaps" name="Google Maps Assets">
+    	<script t-attf-src="'https://maps.googleapis.com/maps/api/js?key=AIzaSyARiHnY4KQoQpeo_oQiygA2VbcbvFUAC2c'"></script>
+    </template>
+    <template id="webclient_bootstrap" name="webclient_bootstrap gmaps" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-call-assets='web.assets_common']" position="before">
+            <t t-call="mw_salesman_route_planner.assets_mn_gmaps"/>
+        </xpath>
+    </template>
+</odoo>

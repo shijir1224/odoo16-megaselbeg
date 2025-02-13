@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+    <record model="ir.ui.view" id="enrollment_plan_search_view">
+        <field name="name">enrollment.plan.search</field>
+        <field name="model">enrollment.plan</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="employee contract search">
+                <field name="name"/>
+            
+                <group expand="0" string="Group By">
+                    <filter string="Жил" name="year" domain="[]"  context="{'group_by': 'year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="enrollment_plan_form">
+            <field name="name">enrollment.plan.form</field>
+            <field name="model">enrollment.plan</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Hr company">
+                    <sheet>
+                        <group col='4'>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="year"/>
+                            <field widget="binary" height="64" name="data" filename="file_fname"/>
+                            <field name="file_fname" invisible="1" />
+                        </group>
+                        <button string="Импорт хийх" name="action_import_salary" type="object" icon="fa-upload"  class="btn btn-success"/>
+                        <button string="Мөр үүсгэх" name="enrollment_line_create" type="object" class="btn btn-danger"/>
+                        <button string="Хэвлэх" name="print_enrollment" type="object" icon="fa-print" class="btn btn-warning"/>
+                        <notebook>
+                            <page string='Төлөвлөгөө'>
+                                <field name="line_ids" colspan="4" nolabel="1">
+                                    <form string="Plan">
+                                        <field name="department_id"/>
+                                        <field name="department_name"/>
+                                        <field name="job_id"/>
+                                        <field name="jan"/>
+                                        <field name="feb"/>
+                                        <field name="mar"/>
+                                        <field name="apr"/>
+                                        <field name="may"/>
+                                        <field name="jun"/>
+                                        <field name="jul"/>
+                                        <field name="aug"/>
+                                        <field name="sep"/>
+                                        <field name="oct"/>
+                                        <field name="nov"/>
+                                        <field name="dec"/>
+                                        <field name="comments"/>
+                                    </form>
+                                    <tree string="Plan" editable="bottom">
+                                        <field name="department_id" optional="hide"/>
+                                        <field name="department_name"/>
+                                        <field name="job_id"/>
+                                        <field name="jan" sum='Jan'/>
+                                        <field name="jan_per" sum='Jan'/>
+                                        <field name="feb" sum='Jan'/>
+                                         <field name="feb_per" sum='Jan'/>
+                                        <field name="mar" sum='Jan'/>
+                                         <field name="mar_per" sum='Jan'/>
+                                        <field name="apr" sum='Jan'/>
+                                         <field name="apr_per" sum='Jan'/>
+                                        <field name="may" sum='Jan'/>
+                                         <field name="may_per" sum='Jan'/>
+                                        <field name="jun" sum='Jan'/>
+                                         <field name="jun_per" sum='Jan'/>
+                                        <field name="jul" sum='Jan'/>
+                                         <field name="jul_per" sum='Jan'/>
+                                        <field name="aug" sum='Jan'/>
+                                         <field name="aug_per" sum='Jan'/>
+                                        <field name="sep" sum='Jan'/>
+                                         <field name="sep_per" sum='Jan'/>
+                                        <field name="oct" sum='Jan'/>
+                                         <field name="oct_per" sum='Jan'/>
+                                        <field name="nov" sum='Jan'/>
+                                         <field name="nov_per" sum='Jan'/>
+                                        <field name="dec" sum='Jan'/>
+                                         <field name="dec_per" sum='Jan'/>
+                                        <field name="comments"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="enrollment_plan_tree">
+            <field name="name">enrollment.plan.line.tree</field>
+            <field name="model">enrollment.plan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Hr company">
+                    <field name="name"/>
+                    <field name="year"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_enrollment_plan" model="ir.actions.act_window">
+            <field name="name">Орон тоо төлөвлөлт</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">enrollment.plan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="enrollment_plan_search_view"/>
+            <field name="view_id" ref="enrollment_plan_tree"/>
+        </record> 
+    
+    <record id="hr_applicant_request_search" model="ir.ui.view">
+        <field name="name">hr.applicant.request.search</field>
+        <field name="model">hr.applicant.request</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Ажилтан" context="{'group_by':'employee_id'}"
+                        name="employee_id"/>
+                    <filter string="Албан тушаал" context="{'group_by':'job_id'}" name="job_id"/>
+                    <filter string="Хүсэлт гаргасан хэлтэс" context="{'group_by':'request_department_id'}" name="request_department_id"/>
+                    <filter string="Бүрдүүлэлтийн суваг" name="source_type" context="{'group_by':'source_type'}"/>
+                    <filter string="Төлөв" name="flow_line_id" context="{'group_by':'flow_line_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<record id="hr_applicant_request_form_view" model="ir.ui.view">
+        <field name="name">hr.applicant.request.form</field>
+        <field name="model">hr.applicant.request</field>
+        <field name="arch" type="xml">
+            <form string="HR applicant request">
+                <header>
+                    <button string="Нээлттэй ажлын байр үүсгэх" name="action_open_job_create" type="object" attrs="{'invisible': [('state_type','!=','done')]}" groups="mw_hr_applicant.group_applicant_manager"/>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('state_type','in',['done','cancel'])]}"/>
+                    <button name="action_back_stage" string="Буцаах" class="btn-warning" type="object" attrs="{'invisible': [('state_type','in',['draft','cancel','done'])]}"/>
+                    <button name="action_draft_stage" string="Ноороглох" class="btn-danger" type="object" attrs="{'invisible': [('state_type', 'not in', ['cancel','done'])]}" groups="mw_hr_applicant.group_applicant_manager"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-info" type="object" attrs="{'invisible': [('state_type','in',['draft','cancel'])]}"/>
+                    <!-- <button name="action_to_print" string='Хэвлэх' class="btn oe_inline oe_right oe stat_button" type="object"/> -->
+                    <field name="flow_line_id" widget="statusbar"/>
+                </header>
+                 <sheet>
+                 <group>
+                    <group string="Ажлын байрны ерөнхий мэдээлэл" name='job_info'>
+                        <field name='res_company_id' options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='request_department_id'  options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='job_id' options="{'no_create':True}" domain = "[('id','in',avail_job_ids)]" attrs="{'readonly':[('state_type','!=','draft'),]}"/>
+                        <field name='request_level' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='reason_of_job'  options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='no_of_employee' readonly='1'/>
+                        <field name='no_of_recruitment' readonly='1'/>
+                        <field name='employee_count' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                    </group>
+
+                    <group  string="Боловсрол, туршлага" name='education'>
+                        <field name='education' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='profession' placeholder="Заавал криллээр бичнэ үү!" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='worked_year' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                    </group>
+                    <group string="Захиалгын мэдээлэл" name='request'>
+                        <field name='description_of_role' placeholder="Заавал криллээр бичнэ үү!" attrs="{'readonly':[('state_type','!=','draft')]}" widget='html'/>
+                        <field name='needs' placeholder="Заавал криллээр бичнэ үү!" attrs="{'readonly':[('state_type','!=','draft')]}" widget='html'/>
+                        <field name='description' attrs="{'readonly':[('state_type','!=','draft')]}" string='Бусад тайлбар'/>
+                    </group>
+                    <group string='Бусад'>
+                        <field name='employee_id' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='request_date' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='source_type' attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name='in_employee_date' attrs="{'readonly':[('state_type','!=','draft')]}" required='1'/>
+                        <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1"/>
+                        <field name="flow_id" options="{'no_create':True}" attrs="{'readonly':[('state_type','=','done')]}"/>
+                        <field name="open_job_id" options="{'no_create':True}" readonly='1'/>
+                    </group>
+                    <group>
+                        <field name="state_type" invisible="1"/>
+                        <field name="next_state_type" invisible="1"/>
+                        <field name="flow_line_next_id" invisible="1"/>
+                        <field name="branch_id" invisible="1"/>
+                        <field name="flow_desc" invisible="1"/>
+                        <field name="avail_job_ids" widget = 'many2many_tags' invisible ='1'/>
+                    </group>
+                    </group>
+                    <notebook>
+                        <page string="Захиалгын баталгаажуулалт">
+                            <field name="history_ids" readonly="1"  >
+                                <tree>
+                                    <field name="user_id"/>
+                                    <field name="date"/>
+                                    <field name="flow_line_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_applicant_request_tree_view">
+        <field name="name">hr.applicant.request.tree</field>
+        <field name="model">hr.applicant.request</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state_type=='done'">
+                <field name='request_department_id'/>
+                <field name='job_id'/>
+                <field name='request_date'/>
+                <field name='employee_count'/>
+                <field name="flow_line_id"/>
+                <field name="state_type" invisible='1'/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="action_hr_applicant_request" model="ir.actions.act_window">
+        <field name="name">Хүний нөөцийн захиалга</field>
+        <field name="res_model">hr.applicant.request</field>
+        <field name="context">{'search_default_flow_line_id':1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_applicant_request_tree_view"/>
+    </record>
+
+<!-- Нээлттэй ажлын байр -->
+    <record id="hr_open_job_search" model="ir.ui.view">
+        <field name="name">hr.open.job.search</field>
+        <field name="model">hr.open.job</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Хэлтэс	
+                    " context="{'group_by':'department_id'}"
+                        name="department_id"/>
+                    <filter string="Ажлын байр" context="{'group_by':'job_id'}" name="job_id"/>
+                    <filter string="Огноо" context="{'group_by':'date'}" name="date"/>
+                    <filter string="Зарлагдсан тоо" name="no_of_recruitment" context="{'group_by':'no_of_recruitment'}"/>
+                     <filter string="Төлөв" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_open_job_form">
+        <field name="name">hr.open.job.form</field>
+        <field name="model">hr.open.job</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="hr.open.job">
+                <header>
+                    <button name="action_send" string="Дүүргэгдсэн" class="btn-success" type="object" groups="hr.group_hr_manager"  states='draft'/>
+                    <button name="action_draft" string="Ноороглох"  states='send' class="btn-danger" type="object" groups="hr.group_hr_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,send" statusbar_colors='{"draft":"red","send":"orange",}'/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_hr_applicant_count" type="object" class="oe_stat_button" icon="fa-file">
+                            <field string="Анкет" widget="statinfo" name ='anket_count'/>
+                        </button>
+                    </div>
+                    <group colspan="2"  col="4">
+                        <field name="department_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="job_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="job_name" attrs="{'readonly':[('state','!=','draft')]}" force_save='1'/>
+                        <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="no_of_recruitment" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="res_company_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="anket_count" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="interview_call" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="interview_count" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="no_of_employee" attrs="{'readonly':[('state','!=','draft')]}" string='Тэнцсэн'/>
+                    </group>
+                    <!-- <notebook>
+                        <page string="">
+                            <field name="applicant_emp_ids">
+                                <tree editable="bottom">
+                                    <field name="partner_name"/>
+                                </tree>
+                            </field>
+                        </page>
+                </notebook> -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="hr_open_job_tree">
+        <field name="name">hr.open.job.tree</field>
+        <field name="model">hr.open.job</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="type loc su">
+                <field name="parent_department_id" optional='hide'/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="date"/>
+                <field name="no_of_recruitment" sum='Sum'/>
+                 <field name="anket_count" sum='Sum'/>
+                <field name="interview_call" sum='Sum'/>
+                <field name="interview_count" sum='Sum'/>
+                <field name="no_of_employee" sum='Sum'/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_open_job_pivot_view">
+        <field name="name">hr.open.job.pivot</field>
+        <field name="model">hr.open.job</field>
+        <field name="arch" type="xml">
+            <pivot string="hr.open.job">
+                <field name="no_of_recruitment" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_open_job_graph_view">
+        <field name="name">hr.open.job.graph</field>
+        <field name="model">hr.open.job</field>
+        <field name="arch" type="xml">
+            <graph string="Recieved document graph">
+                <field name="no_of_recruitment" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record  id="hr_open_job_calendar_view" model="ir.ui.view">
+        <field name="name">hr.open.job.calendar</field>
+        <field name="model">hr.open.job</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar 
+                    date_start="date"
+                    mode="month"
+                    quick_add="False">
+                <field name="job_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_hr_open_job" model="ir.actions.act_window">
+        <field name="name">Нээлттэй ажлын байр</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.open.job</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,pivot,calendar,graph</field>
+        <field name="view_id" ref="hr_open_job_tree"/>
+    </record> 
+
+  
+</odoo>

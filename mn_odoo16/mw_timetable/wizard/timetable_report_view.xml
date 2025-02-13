@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="timetable_balance_report_view" model="ir.ui.view">
+            <field name="name">timetable.balance.report.wizard</field>
+            <field name="model">timetable.balance.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <field name="start_date" />
+                        <field name="company_id" options="{'no_create':True}"/>
+                        <field name="end_date" />
+                        <field name="department_id" options="{'no_create':True}"/>
+                        <field name="work_location_id" options="{'no_create':True}"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_timetable_balance_report" model="ir.actions.act_window">
+            <field name="name">Цагийн дэлгэрэнгүй тайлан</field>
+            <field name="res_model">timetable.balance.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="timetable_balance_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_timetable_balance_report" action="action_timetable_balance_report" 
+        parent="mw_timetable.menu_parent_timetable_balance_report" sequence="4"/>
+
+    </data>
+</odoo>

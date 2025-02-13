@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<menuitem id="ppe_registration_menu" parent="mw_hse.main_menu_hse" action="action_ppe_registration_view" sequence="10"/>
+		<menuitem id="hse_ppe_config" name="Нэг бүрийн хамгаалах хэрэгсэл" parent="mw_hse.menu_hse_config" sequence="14"/>
+			<menuitem id="ppe_name_menu" parent="hse_ppe_config" action="action_ppe_name_view" sequence="1"/>
+			<menuitem id="hr_job_hse_menu" parent="hse_ppe_config" action="action_hr_job_hse_view" sequence="2"/>
+
+		<menuitem id="menu_hse_all_pro_ins_report" name="Мэргэжлийн хяналтын тайлан" action="action_hse_all_pro_ins_report" parent="mw_hse.menu_hse_report" sequence="5"/>
+		<menuitem id="menu_hse_employee_report" action="action_hse_employee_report" parent="mw_hse.menu_hse_report" sequence="6"/>
+		<menuitem id="menu_ppe_end_date_report" action="action_ppe_end_date_report" parent="mw_hse.menu_hse_report" sequence="7"/>
+		<menuitem id="menu_ppe_granted_report" action="action_ppe_granted_report" parent="mw_hse.menu_hse_report" sequence="8"/>
+</odoo>

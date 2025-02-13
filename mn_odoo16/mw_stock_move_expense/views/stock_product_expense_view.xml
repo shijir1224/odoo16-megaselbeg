@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_product_other_mw_stock_move_expense" model="ir.ui.view">
+        <field name="name">stock.product.other.expense.mw</field>
+        <field name="model">stock.product.other.expense</field>
+        <field name="inherit_id" ref="mw_stock_moves.stock_product_other_expense_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_expense_line']/tree/field[@name='is_employee']" position="after">
+                <field name="brand_id" optional="hide"/>
+                <field name="allocate_expense" optional="hide"/>
+                <field name="allocation_id" domain="[('expense_type', '=', 'product_expense')]"
+                       options="{'no_quick_create':True,'no_create_edit':True}"
+                       attrs="{'invisible': [('allocate_expense', '=', False)]}"
+                        optional="hide"/>
+                <!-- <field name="analytic_distribution" options="{'no_quick_create':True,'no_create_edit':True}"
+                       optional="show" attrs="{'invisible': [('allocate_expense', '=', True)]}"  widget="analytic_distribution"/> -->
+            </xpath>
+            <xpath expr="//field[@name='product_expense_line']/tree/field[@name='account_id']" position="attributes">
+                <attribute name="attrs">{'invisible': [('allocate_expense', '=', True)]}</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='account_analytic_id']" position="replace"> алдаа өгөөд байхаар дарав type n oor bhiin duulga
+                <field name="analytic_distribution"  widget="analytic_distribution"/>
+            </xpath> -->
+        </field>
+    </record>
+</odoo>

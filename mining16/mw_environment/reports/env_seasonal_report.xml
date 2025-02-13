@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <!-- WIZARD -->
+        <record model="ir.ui.view" id="env_seasonal_report_form">
+            <field name="name">env.seasonal.report.form</field>
+            <field name="model">env.seasonal.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Seasonal Report">
+                    <script>
+                        $(document).ready(function(){
+                            $('.modal-dialog').css({'max-width': '800px'});
+                            $('.modal-content').css({'max-height': '600px'});
+                        });
+                    </script>
+                    <group>
+                        <field name="mining_location" options="{'no_create': True, 'no_open': True}" />
+                        <field name="year" />
+                        <field name="season" />
+                    </group>
+                    <footer>
+                        <button string="Print" name="action_print_report" type="object" icon="fa-print" class="oe_highlight" />
+                        <button string="Cancel" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_env_seasonal_report" model="ir.actions.act_window">
+            <field name="name">Seasonal Report</field>
+            <field name="res_model">env.seasonal.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+</odoo>

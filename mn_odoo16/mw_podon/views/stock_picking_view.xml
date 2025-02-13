@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_picking_podon_inh_form" model="ir.ui.view">
+		<field name="name">stock.picking.podon.inh.form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+            <div name="button_box"  position="inside">
+                <button class="oe_stat_button" name="view_podon_use_tranfser" icon="fa-files-o" type="object" attrs="{'invisible':[('stock_picking_podon_line_ids','=',[])]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="podon_use_transfer_count"/>
+                        </span>
+                        <span class="o_stat_text">Поддон шилжүүлэг дэлгэрэнгүй</span>
+                    </div>
+                </button>
+                <field name="stock_picking_podon_line_ids" invisible="1"/>
+            </div>
+            <notebook position="inside">
+                <page string='Поддон'>
+                    <button name="action_change_partner" class='btn-success' type='object' string='Поддон Шилжүүлэг'/>
+                    <group>
+                        <group>
+                            <field name="podon_use_transfer_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="is_transfer"/>
+                        </group>
+                    </group>
+                    <field name="stock_picking_podon_line_ids" nolabel="1">
+                        <tree editable="bottom" string='Поддоны бүртгэл'  attrs="{'readonly':[('is_transfer','=',True)]}">
+                            <field name="podon_line_in_use_id" options="{'no_create': True}" />
+                            <field name="product_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="count"  readonly="1"/>
+                            <field name="amount" optional="hide"/>
+                            <field name="is_transfer" optional="hide"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+		</field>
+	</record>
+
+
+    <record id="view_stock_picking_podon_line_form" model="ir.ui.view">
+		<field name="name">stock.picking.podon.line.form</field>
+		<field name="model">stock.picking.podon.line</field>
+		<field name="arch" type="xml">
+            <form>
+                <group string='Поддон шилжүүлэг'>
+                    <field name="podon_line_in_use_id" readonly="1"/>
+                    <field name="product_id" options="{'no_create': True}" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="stock_picking_id" readonly="1"/>
+                    <field name="count" readonly="1"/>
+                    <field name="is_transfer"/>
+                </group>
+            </form>
+		</field>
+	</record>
+
+    <record id="view_stock_picking_podon_line_tree" model="ir.ui.view">
+		<field name="name">stock.picking.podon.line.tree</field>
+		<field name="model">stock.picking.podon.line</field>
+		<field name="arch" type="xml">
+            <tree decoration-success="is_transfer== True">
+                <field name="podon_line_in_use_id"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="stock_picking_id"/>
+                <field name="count" optional="hide"/>
+                <field name="is_transfer"  optional="hide"/>
+            </tree>
+		</field>
+	</record>
+
+    <record id="action_stock_picking_podon_line" model="ir.actions.act_window">
+        <field name="name">Поддон шилжүүлэг</field>
+        <field name="res_model">stock.picking.podon.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_stock_picking_podon_line_tree"/>
+    </record>
+
+</odoo>

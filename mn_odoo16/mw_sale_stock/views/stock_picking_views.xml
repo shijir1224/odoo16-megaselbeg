@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_withcarrier_out_form_inherit_cmo" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view.inherit.cmo</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="amount_total_sale" readonly="1" groups="sales_team.group_sale_salesman"/>
+            </xpath>
+
+            <div class="oe_button_box" position="inside">
+                <field name="sale_id" invisible="1"/>
+                <button name="action_view_sale_order"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-dollar" 
+                    attrs="{'invisible': [('sale_id', '=', False)]}">
+                    <span>Борлуулалт 1</span>
+                </button>
+            </div>
+
+        </field>
+    </record>
+
+    
+    <record id="view_picking_internal_search_inherit_cmo" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search.inherit.cmo</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+<!--            <field name="partner_id" position="after">-->
+<!--                <field name="amount_total_sale" filter_domain="[('sale_id.amount_total','ilike',self)]"/>-->
+<!--            </field>-->
+            <filter name="done" position="after">
+                <filter name="today" string="Өнөөдөр" domain="[('scheduled_date','&gt;=',time.strftime('%Y-%m-%d 00:00:00')),('scheduled_date','&lt;',time.strftime('%Y-%m-%d 23:59:59'))]"/>
+                <separator/>
+                <filter name="not_print" string="Хэвлэгдээгүй" domain="[('printed','=',False)]"/>
+                
+            </filter>
+            <filter name="activities_upcoming_all" position="after">
+                <filter string="Өдрөөр Батлагдсан Огноо" name="by_day_done" domain="[]"  context="{'group_by':'date_done:day'}"/>
+                <filter string="Борлуулагчаар" name="sale_user_id" domain="[]"  context="{'group_by':'user_id'}"/>
+                <!-- <filter string="Буцаалтын төрлөөр" name="return_reason" domain="[]"  context="{'group_by':'return_reason'}"/> -->
+            </filter>
+            
+        </field>
+    </record>
+
+    <record id="view_picking_withcarrier_out_vpicktree_inherit_cmo" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.vpicktree.view.inherit.cmo</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="printed" optional="show" readonly="1"/>
+            </field>
+            <field name="partner_id" position="attributes"><attribute name="width">1.6</attribute></field>
+            <field name="origin" position="before">
+                <field name="amount_total_sale" optional="show" readonly="1" groups="sales_team.group_sale_salesman"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="before">
+                    <field name="price_unit_sale" readonly="1" groups="sales_team.group_sale_salesman"/>
+                    <field name="sub_total_sale" readonly="1" sum="Нийт" groups="sales_team.group_sale_salesman"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

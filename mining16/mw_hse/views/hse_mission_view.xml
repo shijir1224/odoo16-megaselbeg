@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+
+	
+	   <!-- Hse Mission Instructions -->
+	   <record id="hse_mission_instructions_view" model="ir.ui.view">
+		<field name="name">HSE Instructions</field>
+		<field name="model">hse.mission.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+		   <form>
+				<div class="alert alert-danger alert-dismissible text-left" 
+					role="alert" 
+					readonly="1">
+					<a href="#" class="close" data-dismiss="alert" 
+						aria-label="close">Доор хавсаргасан заавартай танилцаад чек хийнэ үү!!! (Хамт явах томилолтын багынханд танилцуулга хийнэ үү)</a>
+				</div>
+				<group>
+					<field name="mission_id"/>
+					<field name="is_check"/>
+					<field name="user_id" options="{'no_create':True}"/>
+					<field name="attachment_ids" widget="many2many_binary"/>
+				</group>
+				<footer>
+					<button name="hse_mission_instructions" string="Танилцсан" 
+						type="object" colspan="1"
+						class="btn-success"/>
+					<button string="Хаах" class="btn-danger" special="cancel"/>    
+				</footer>
+		   </form>
+		</field>
+	</record>
+
+	<record id="action_hse_mission_instructions" model="ir.actions.act_window">
+		<field name="name">Hse mission instructions</field>
+		<field name="res_model">hse.mission.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="hse_mission_instructions_view"/>
+		<field name="target">new</field>
+	</record>
+
+
+	<record id="view_hr_mission_hse_form" model="ir.ui.view">
+        <field name="name">hr.mission.hse.form</field>
+        <field name="model">hr.mission</field>
+        <field name="inherit_id" ref="mw_hr.view_hr_mission_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="ХАБ Зааварчилгаа" attrs="{'invisible':[('is_check','=',False)]}">
+                    <group>
+                        <field name="is_check" widget="boolean_toggle" readonly="1"/>
+						<field name="user_id" readonly="1"/>
+						<field name="check_date" readonly="1"/>
+						<field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

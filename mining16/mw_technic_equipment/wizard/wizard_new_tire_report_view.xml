@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <record id="wizard_new_tire_report_view" model="ir.ui.view">
+            <field name="name">New tire report</field>
+            <field name="model">wizard.new.tire.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4">
+                        <field name="date_start" />
+                        <field name="date_end"/>
+                   </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                        <button name="export_report" string="Татах"
+                            type="object" colspan="1" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        <record id="action_new_tire_report" model="ir.actions.act_window">
+            <field name="name">New tire report</field>
+            <field name="res_model">wizard.new.tire.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_new_tire_report_view"/>
+            <field name="target">new</field>
+        </record>
+    
+</odoo>

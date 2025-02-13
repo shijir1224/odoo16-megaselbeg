@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ageing pivot -->
+    <record id="stock_turn_report_tree" model="ir.ui.view">
+            <field name="name">stock.turn.report.pivot.tree</field>
+            <field name="model">stock.turn.report</field>
+            <field name="arch" type="xml">
+            <tree editable="bottom">
+                <!-- <field name="report_id" groups="base.group_no_one"/>
+                <field name="product_tmpl_id"/> -->
+                <field name="product_id"/>
+                <!-- <field name="categ_id"/>
+                <field name="warehouse_id"/>
+                <field name="date_range"/>
+                <field name="date"/>
+                <field name="report_date"/>
+                <field name="qty"/>
+                <field name="in_date_count"/>
+                <field name="in_date_count_mid"/> -->
+            </tree>
+            </field>
+    </record>
+    <record id="stock_turn_report_pivot" model="ir.ui.view">
+            <field name="name">stock.turn.report.pivot</field>
+            <field name="model">stock.turn.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Analysis">
+                <field name="category_id" type="row"/>
+                <field name="category" type="col"/>
+                <field name="used_qty" type="measure"/>
+                <field name="used_total_price" type="measure"/>
+                </pivot>
+            </field>
+    </record>
+
+    <record id="stock_turn_report_search" model="ir.ui.view">
+        <field name="name">stock.turn.report.search</field>
+        <field name="model">stock.turn.report</field>
+        <field name="arch" type="xml">
+            <search string="Analysis">
+                <!-- <field name="product_tmpl_id"/> -->
+                <field name="product_id"/>
+                <!-- <field name="categ_id"/>
+                <field name="warehouse_id"/> -->
+                <!-- <group expand="0" string="Group By">
+                    <filter string="Бараагаар" name="gr_product" context="{'group_by':'product_id'}"/>
+                    <filter string="Агуулахаар" name="gr_warehouse_id" context="{'group_by':'warehouse_id'}"/>
+                    <filter string="Ангилалаар" name="gr_categ_id" context="{'group_by':'categ_id'}"/>
+                </group> -->
+            </search>
+        </field>
+    </record>
+
+    <record id="action_stock_turn_report" model="ir.actions.act_window">
+        <field name="name">Нөөцийн эргэц</field>
+        <field name="res_model">stock.turn.report</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="stock_turn_report_tree"/>
+        <field name="target">current</field>
+    </record>
+
+    <!-- Нөөцийн эргэц балансе -->
+    <record id="stock_turn_report_balance_tree" model="ir.ui.view">
+            <field name="name">stock.turn.report.balance1.pivot.tree</field>
+            <field name="model">stock.turn.report.balance1</field>
+            <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="location_id"/>
+                <field name="categ_id"/>
+                <field name="product_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="onhand_qty"/>
+                <field name="onhand_price_unit"/>
+                <field name="onhand_total_price"/>
+                <field name="used_qty"/>
+                <field name="used_price_unit"/>
+                <field name="used_total_price"/>
+                <field name="transfer_type"/>
+            </tree>
+            </field>
+    </record>
+    <record id="stock_turn_report_balance_pivot" model="ir.ui.view">
+            <field name="name">stock.turn.report.balance1.pivot</field>
+            <field name="model">stock.turn.report.balance1</field>
+            <field name="arch" type="xml">
+                <pivot string="Analysis">
+                <field name="categ_id" type="row"/>
+                <field name="location_id" type="col"/>
+                <field name="onhand_qty" type="measure"/>
+                <field name="onhand_total_price" type="measure"/>
+                <field name="used_qty" type="measure"/>
+                <field name="used_total_price" type="measure"/>
+                </pivot>
+            </field>
+    </record>
+
+    <record id="stock_turn_report_balance_search" model="ir.ui.view">
+        <field name="name">stock.turn.report.balance1.search</field>
+        <field name="model">stock.turn.report.balance1</field>
+        <field name="arch" type="xml">
+            <search string="Analysis">
+                <!-- <field name="product_tmpl_id"/> -->
+                <field name="product_id"/>
+                <!-- <field name="categ_id"/>
+                <field name="warehouse_id"/> -->
+                <!-- <group expand="0" string="Group By">
+                    <filter string="Бараагаар" name="gr_product" context="{'group_by':'product_id'}"/>
+                    <filter string="Агуулахаар" name="gr_warehouse_id" context="{'group_by':'warehouse_id'}"/>
+                    <filter string="Ангилалаар" name="gr_categ_id" context="{'group_by':'categ_id'}"/>
+                </group> -->
+            </search>
+        </field>
+    </record>
+
+    <record id="action_stock_turn_balance_report" model="ir.actions.act_window">
+        <field name="name">Нөөцийн эргэц балансе</field>
+        <field name="res_model">stock.turn.report.balance1</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="stock_turn_report_balance_tree"/>
+        <field name="target">current</field>
+    </record>
+    <!-- <menuitem id="menu_stock_turn_report_balance" 
+		action="action_stock_turn_balance_report" 
+		parent="stock.menu_warehouse_report"
+        string="Нөөцийн эргэц балансе" sequence="4" 
+		groups="base.group_no_one"/> -->
+</odoo>

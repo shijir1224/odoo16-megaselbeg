@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="БМ-ын шаардах"
+		id="root_product_expense_menu" sequence="26" groups="group_stock_other_expence_user" web_icon="mw_stock_moves,views/Shaardah.png"/>
+
+		<menuitem parent="root_product_expense_menu"
+			name="БМ-ын шаардах"
+			id="sub_product_expense_menu" sequence="1"/>
+
+		<menuitem parent="sub_product_expense_menu"
+			name="Миний батлах шаардах хуудас"
+			id="product_expense_menu_my_confirm" sequence="1"
+			action="action_view_product_other_expense_my_confirm" />
+		<menuitem parent="sub_product_expense_menu"
+			name="Миний батласан шаардах хуудас"
+			id="product_expense_menu_my_confirmed" sequence="1"
+			action="action_view_product_other_expense_my_confirmed" />
+		<menuitem parent="sub_product_expense_menu"
+			name="БМ-ын шаардах"
+			id="product_expense_menu" sequence="20" 
+			action="action_stock_product_other_expense" />
+
+		<menuitem parent="root_product_expense_menu" 
+			groups="group_stock_all_user" name="БМ-ын шаардах бүгд"
+			id="product_expense_menu_all" sequence="30" 
+			action="action_stock_product_other_expense_all" />
+
+		<menuitem parent="root_product_expense_menu" 
+			groups="group_stock_report_user"
+			id="product_expense_menu_report" sequence="40"
+			action="product_expense_report_action" />
+
+		<menuitem parent="root_product_expense_menu" 
+			groups="group_stock_all_user" name="Тохиргоо"
+			id="product_expense_menu_config_root" sequence="99"/>
+			
+			<menuitem action="action_mn_transaction_value"
+				id="mn_transaction_value_menu" name="Гүйлгээний утга"
+				parent="product_expense_menu_config_root" sequence="5"/>
+</odoo>

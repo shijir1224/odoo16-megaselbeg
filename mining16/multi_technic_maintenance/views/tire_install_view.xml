@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ##############  Tire install   #################### -->
+    <record id="view_technic_tire_install_tree" model="ir.ui.view">
+        <field name="name">Tire install tree</field>
+        <field name="model">technic.tire.install</field>
+        <field name="inherit_id" ref="mw_technic_equipment.view_technic_tire_install_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+        
+    <record id="view_technic_tire_install_form" model="ir.ui.view">
+        <field name="name">Tire install form</field>
+        <field name="model">technic.tire.install</field>
+        <field name="inherit_id" ref="mw_technic_equipment.view_technic_tire_install_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+                <newline/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

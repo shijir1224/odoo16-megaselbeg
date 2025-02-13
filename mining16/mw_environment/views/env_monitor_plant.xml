@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="env_monitor_plant_tree">
+        <field name="name">env.monitor.plant.tree</field>
+            <field name="model">env.monitor</field>
+            <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Ургамлын Судалгаа"  >
+                <field name="mining_location"/>
+                <field name="monitor_type" string='Шинжлүүлсэн үзүүлэлт'/>
+                <field name="monitor_date"/>
+                <field name="monitor_location"/>
+                <field name="monitor_lab"/>
+                <field name="create_uid" string='Бүртгэсэн'/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="env_monitor_plant_form">
+        <field name="name">env.monitor.plant.form</field>
+        <field name="model">env.monitor</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+                    <button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="mining_location" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="monitor_type" string='Шинжлүүлсэн үзүүлэлт' options="{'no_create': True, 'no_open': True}" domain="[('type','=','monitor_type'),('category','=','monitor5'),('is_active','=', 'active')]"/>
+                            <field name="monitor_lab" widget="radio"/>
+                            <field name='monitor_category' invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="monitor_date"/>
+                            <field name="monitor_location" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="vegetation_area"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Conclusion" string="Ерөнхий дүгнэлт">
+                            <group>
+                                <group>
+                                    <field name="tusgag"/>
+                                    <field name="plant_height"/>
+                                    <field name="biomass"/>
+                                </group>
+                                <group>
+                                    <field name="grind_level"/>
+                                    <field name="properties"/>
+                                    <field name="impact"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="Species" string="Зүйлсийн бүртгэл">
+                            <field name="plant_ids" nolabel="1">
+                                <tree string="Species" editable="bottom" >
+                                    <field name="plant" />
+                                    <field name="species_type" />
+                                    <field name="drude_scaling" />
+                                    <field name="amount" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="env_monitor_plant_pivot" model="ir.ui.view">
+        <field name="name">env.monitor.plant.pivot</field>
+        <field name="model">env.monitor</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Ургамлын Судалгаа">
+                <field name="monitor_type" type="row" />
+                <field name="monitor_date" interval="year" type="col" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="env_monitor_plant_search" model="ir.ui.view">
+        <field name="name">env.monitor.plant.search</field>
+        <field name="model">env.monitor</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="mining_location"/>
+                <group expand="0" string="Бүлэглэх">
+                    <filter name="mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+                    <filter name="year" string="Он" domain="[ ]" context="{'group_by': 'monitor_date:year'}" />
+                    <filter name="month" string="Сар" domain="[ ]" context="{'group_by': 'monitor_date:month'}" />
+                    <filter name="monitor_type" string="Шинжлүүлсэн үзүүлэлт" context="{'group_by':'monitor_type'}"/>
+                    <filter name="monitor_lab" string="Шинжилсэн газар" context="{'group_by':'monitor_lab'}"/>
+                    <filter name="monitor_location" string="Шинжилгээний цэг" context="{'group_by':'monitor_location'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_env_monitor_plant" model="ir.actions.act_window">
+            <field name="name">Ургамлын Судалгаа</field>
+            <field name="res_model">env.monitor</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                                    (0, 0, {'view_mode': 'tree', 'sequence':1, 'view_id': ref('env_monitor_plant_tree')}),
+                                    (0, 0, {'view_mode': 'form', 'sequence':2, 'view_id': ref('env_monitor_plant_form')}),
+                                    (0, 0, {'view_mode': 'graph', 'sequence':3, 'view_id': ref('env_monitor_plant_pivot')})]"/>
+            <field name="search_view_id" ref="env_monitor_plant_search"/>
+            <field name="context">{'default_monitor_category': 'monitor5'}</field>
+            <field name="domain">[('monitor_category', '=', 'monitor5')]</field>
+            <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                    Энд дарж ургамлын судалгааны үзүүлэлтээ оруулна уу.
+                    </p>
+            </field>
+    </record>
+    
+</odoo>

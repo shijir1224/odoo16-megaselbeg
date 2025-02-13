@@ -1,0 +1,101 @@
+<odoo>
+	 <record model="ir.ui.view" id="promotion_request_search">
+        <field name="name">promotion.request.search</field>
+        <field name="model">promotion.request</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string=" promotion search">
+                <field name="employee_id"/>
+				<filter string="Ажилтан" name="employee_id" /> 
+                <filter string="Компани" name="company_id"/>
+                <filter string="Шилжих компани" name="ch_company_id"/>
+                <filter string="Албан тушаал" name="job_id"/>
+                <filter string="Хэлтэс" name="department_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="promotion_request_form">
+        <field name="name">promotion.request.form</field>
+        <field name="model">promotion.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="form">
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('state_type','=','done')]}"/>
+                    <button name="action_back_stage" string="Буцаах" class="btn-warning" type="object" attrs="{'invisible': [('state_type','=','draft')]}" groups="hr.group_hr_manager"/>
+                    <field name="flow_line_id" widget="statusbar"/>
+                    <button name="action_draft_stage" string="Ноороглох" class="btn-danger" type="object" attrs="{'invisible': [('state_type', 'not in', ['cancel','done'])]}" groups="hr.group_hr_manager"/>
+				</header>
+                <sheet>
+                <group>
+                    <group  name="job" string="Одоо ажиллаж буй ажлын байр, албан тушаалын мэдээлэл">
+                        <field name="company_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="name_leader" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="department_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}" />
+                        <field name="lead_job_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="employee_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="job_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="job_date" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+                        <field name="job_degree" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+                    </group>
+					<group name="3" string="Шилжин/дэвшин/сэлгэн ажиллах ажлын байр, албан тушаалын мэдээлэл">
+						<field name="ch_company_id" ttrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="ch_department_id" ttrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="ch_job_id" ttrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+                        <field name="ch_job_degree" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+                        <field name="cause" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+					</group>
+					<group> 
+                        <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+                        <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1" />
+                        <field name="state_type" invisible="1"/>
+                        <field name="next_state_type" invisible="1"/>
+                        <field name="flow_line_next_id" invisible="1"/>
+                        <field name="branch_id" invisible="1"/>
+                    </group>
+                </group>
+					<notebook>
+                        <page string="Төлөвийн түүх">
+                            <field name="history_ids" readonly="1"  >
+                                <tree>
+                                    <field name="user_id"/>
+                                    <field name="date"/>
+                                    <field name="flow_line_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="promotion_request_tree">
+        <field name="name">promotion.request.tree</field>
+        <field name="model">promotion.request</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="request tree">
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <field name="ch_company_id"/>
+                <field name="ch_job_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_promotion_request_view">
+        <field name="name">Шилжин дэвших, шилжүүлэн дэвших,сэлгэн ажиллуулах хүсэлт</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">promotion.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="promotion_request_search"/>
+        <field name="view_id" ref="promotion_request_tree"/>
+    </record>
+    <menuitem action="action_promotion_request_view" id="promotion_request_menu" parent="mw_hr.hr_emp_main_menu" sequence="6"/>
+</odoo>

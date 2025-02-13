@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.module.category" id="module_category_hse_fire">
+			<field name="name">ХАБ Гал түймэр</field>
+			<field name="parent_id" ref="mw_hse.categ_parent_hse"/>
+	</record>
+	<record id="group_hse_fire_user" model="res.groups">
+		<field name="name">ХАБ Гал түймэр хэрэглэгч</field>
+		<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		<field name="category_id" ref="module_category_hse_fire"/>
+	</record>
+	<record id="group_hse_fire_officer" model="res.groups">
+		<field name="name">ХАБ Гал түймэр менежер</field>
+		<field name="category_id" ref="module_category_hse_fire"/>
+		<field name="implied_ids" eval="[(4, ref('group_hse_fire_user'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+</odoo>

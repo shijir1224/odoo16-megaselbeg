@@ -1,0 +1,38 @@
+<odoo>
+
+    <record id="view_payment_request_create" model="ir.ui.view">
+        <field name="name">payment.request.create.form</field>
+        <field name="model">payment.request.create</field>
+        <field name="arch" type="xml">
+            <form string="Action back">
+                <group>
+                    <group>
+                        <field name="year"/>
+                        <field name="month"/>
+                    </group>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="type"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Төлбөрийн хүсэлт үүсгэх" name='create_payment_request' type="object" class="oe_highlight"/>
+                    or
+                    <button string="Хаах" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_payment_request_create" model="ir.actions.act_window">
+        <field name="name">Төлбөрийн хүсэлт үүсгэх</field>
+        <field name="res_model">payment.request.create</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_payment_request_create"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="payment_request_create_menu_id" 
+        action="action_payment_request_create" 
+        parent="menu_finance_salary_report" sequence="10"/>
+
+</odoo>

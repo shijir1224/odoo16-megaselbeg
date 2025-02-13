@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_crm_call_root" name="Дуудлага" sequence="45" web_icon="mw_crm_call,static/img/voip.png"/>
+        <menuitem id="menu_crm_call" parent="menu_crm_call_root" groups="mw_crm_call.group_crm_caller" action="crm_call_action" sequence="9"/>
+        <menuitem id="menu_crm_call_all" parent="menu_crm_call_root" groups="mw_crm_call.group_crm_caller_admin" action="crm_call_action_all" sequence="9"/>
+        <!-- <menuitem id="menu_crm_call_plan" parent="menu_crm_call_root" action="crm_call_plan_action" groups="mw_crm_call.group_crm_caller" sequence="20"/> -->
+        <menuitem id="menu_crm_call_root_conf" name="Тохиргоо"  parent="menu_crm_call_root" sequence="99"/>
+            <menuitem id="menu_crm_call_conf" parent="menu_crm_call_root_conf" groups="mw_crm_call.group_crm_caller_admin" action="crm_call_conf_action" sequence="10"/>
+</odoo>

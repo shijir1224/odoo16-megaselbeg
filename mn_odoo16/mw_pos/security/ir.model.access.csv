@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_ebarimt_tax_type,ebarimt_tax_type user,model_ebarimt_tax_type,point_of_sale.group_pos_user,1,0,0,0
+access_manager_ebarimt_tax_type,ebarimt_tax_type manager,model_ebarimt_tax_type,point_of_sale.group_pos_manager,1,1,1,0
+access_ebarimt_aimag_district,access_ebarimt_aimag_district,model_ebarimt_aimag_district,,1,0,0,0

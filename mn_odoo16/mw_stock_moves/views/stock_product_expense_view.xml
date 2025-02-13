@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Transaction value -->
+    <record id="mn_transaction_value_tree_view" model="ir.ui.view">
+        <field name="name">mn.transaction.value.tree</field>
+        <field name="model">mn.transaction.value</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="active"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="warehouse_id"/>
+                <field name="account_id"/>
+                <field name="analytic_distribution" widget="analytic_distribution"/>
+                <field name="categ_ids"/>
+                <field name="is_employee"/>
+                <field name="is_partner"/>
+                <field name="is_list_pirce_view"/>
+                <field name="flow_ids" widget="many2many_tags"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mn_transaction_value_filter_view" model="ir.ui.view">
+        <field name="name">mn.transaction.value.filter</field>
+        <field name="model">mn.transaction.value</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="warehouse_id"/>
+                <field name="account_id"/>
+                <field name="analytic_distribution" widget="analytic_distribution"/>
+                <field name="categ_ids"/>
+                <field name="product_ids"/>
+                <field name="is_employee"/>
+                <field name="is_partner"/>
+                <field name="is_list_pirce_view"/>
+                <separator/>
+                <group expand="1" string="Group By...">
+                    <filter name="groupby_wh" context="{'group_by' : 'warehouse_id'}" string="Агуулахаар"/>
+                    <filter name="groupby_account_id" context="{'group_by' : 'account_id'}" string="Дансаар"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="mn_transaction_value_form_view" model="ir.ui.view">
+        <field name="name">mn.transaction.value.form</field>
+        <field name="model">mn.transaction.value</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="active"/>
+                            <field name="code"/>
+
+                            <field name="name"/>
+                            <field name="warehouse_id" options="{'no_create': True}"
+                                widget="many2many_tags"/>
+
+                            <field name="company_id"  options="{'no_create': True}" groups="base.group_multi_company"/>
+                            <newline/>
+
+                            <field name="account_id" options="{'no_create': True}"/>
+                            <field name="analytic_distribution" widget="analytic_distribution"/>
+                        </group>
+                        <group>
+                            <field name="categ_ids" options="{'no_create': True}"
+                                widget="many2many_tags"/>
+                            <field name="product_ids" options="{'no_create': True}"
+                                widget="many2many_tags"/>
+
+                            <field name="available_product"/>
+                            <field name="is_employee"/>
+                            <field name="is_partner"/>
+                            <field name="is_list_pirce_view"/>
+                            <field name="choose_fleet"/>
+                            <field name="flow_ids" widget="many2many_tags" domain="[('model_id.model','=','stock.product.other.expense')]"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+            </form>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_mn_transaction_value'>
+        <field name="name">mn.transaction.value.action</field>
+        <field name="res_model">mn.transaction.value</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<!-- Бусад зарлага -->
+    <!-- Sequences for  -->
+    <record id="seq_stock_product_other_expense" model="ir.sequence">
+        <field name="name">Бараа материалын зарлага</field>
+        <field name="code">stock.product.other.expense</field>
+        <field name="prefix">PE%(y)s%(month)s-</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+	<record id="stock_product_other_expense_filter_view" model="ir.ui.view">
+        <field name="name">stock.product.other.expense.filter</field>
+        <field name="model">stock.product.other.expense</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" readonly="1"/>
+                <field name="description"/>
+                <field name="user_id"/>
+                <field name="product_id"/>
+                <field name="validator_id"/>
+                <field name="branch_id"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date_required','like',time.strftime('%%Y-%%m'))]"/>
+<!--                <filter string="Миний батлах хүсэлт" name="my_confirm" domain="[('flow_line_next_id.user_ids','in',[uid])]"/>-->
+                <separator/>
+                <filter name="not_done" string="Дуусаагүй" domain="[('state','not in',['cancel','done','confirmed'])]"/>
+                <filter name="done" string="Дууссан" domain="[('state','=','confirmed')]"/>
+                <group expand="1" string="Group By...">
+                    <filter name="groupby_type" context="{'group_by' : 'warehouse_id'}" string="Агуулахаар"/>
+                    <filter name="groupby_user_id" context="{'group_by' : 'user_id'}" string="Хэрэглэгчээр"/>
+                    <filter name="groupby_department_id" context="{'group_by' : 'department_id'}" string="Хэлтсээр"/>
+                    <filter name="groupby_branch_id" context="{'group_by' : 'branch_id'}" string="Салбараар"/>
+                    <filter name="groupby_stage_id" context="{'group_by' : 'stage_id'}" string="Төлвөөр"/>
+                    <!-- <filter name="groupby_employee_id" context="{'group_by' : 'employee_id'}" string="Ажилтнаар"/> -->
+                    <filter name="groupby_partner_id" context="{'group_by' : 'partner_id'}" string="Ажилтнаар"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<record id="stock_product_other_expense_form_view" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.form</field>
+		<field name="model">stock.product.other.expense</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- <button name="action_to_draft" string="To draft"  states="sent,confirmed" type="object"
+                        />
+                    <button name="action_to_send" class="oe_highlight" string="Sent"  states="draft" type="object"
+                        />
+                    <button name="action_to_confirm" class="oe_highlight" string="Confirm"
+                        states="sent" type="object"/>
+                    <button name="action_to_done" string="Done" class="oe_highlight"
+                        states="confirmed" type="object"/>
+                    <button name="action_to_print" class="oe_highlight"
+                        string="Хэвлэх"  states="sent,confirmed,done" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed,done" readonly="1" /> -->
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in', ['done','cancel'])]}"/>
+                    <field name="flow_line_id" widget="statusbar"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', '!=', 'cancel'),('flow_id','=',False)]}"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'in',['cancel']),('flow_id','=',False)]}"/>
+                    <button name="update_available_qty" string="Үлдэгдэл шалгах" type="object" attrs="{'invisible': [('is_not_edit', '=',True)]}"/>
+                    <button name="update_last_date" string="Сүүлд авсан огноо татах" type="object"/>
+                    <button name="print_word" string="ХЭВЛЭЖ ҮЗЭХ" type="object"/>
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_expense_picking_ids"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-file-o">
+                            <field string="Зарлагын Баримт" name="expense_picking_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group >
+                        <!-- <group > -->
+                            <!-- <field name="employee_id" invisible="1" options="{'no_create': True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/> -->
+                            <group>
+                                <field name="partner_id" invisible="1" options="{'no_create': True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/>
+                                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" readonly="1"/>
+                                <field name="branch_id" options="{'no_create': True}" required='1'/>
+                                <field name="warehouse_id" force_save="1" options="{'no_create': True}" domain="[('access_user_ids','in',[uid])]"/>
+                                <field name="transaction_value_id"
+                                string="Зарлага гүйлгээний төрөл"
+                                attrs="{'required':[('name','=',False)],'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"
+                                options="{'no_create':True, 'no_open':True}"
+                                domain="[('warehouse_id','in',[warehouse_id]),'|',('flow_ids','=',False),('flow_ids','in',[flow_id])]"/>
+                                <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)], 'invisible': [('warehouse_id','=',False)]}" string='Урсгал тохиргоо'/>
+                                <field name="description" string="Тайлбар"
+                                    attrs="{'required':[('transaction_value_id','=',False)], 'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/>
+                                <field name="confirm_user_ids" readonly="1" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="date" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/>
+                                <field name="date_required" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/>
+                                <field name="partner_id" options="{'no_create': True}" force_save="1" string="Хариуцагч"
+                                    attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}" required='1'/>
+                                <field name="department_id" options="{'no_create': True}" readonly="0" force_save="1" required='1'/>
+                                <field name="account_id" options="{'no_create': True}" force_save="1"/>
+                                <field name="analytic_distribution" widget="analytic_distribution" force_save="1"/>
+                                <div>
+                                </div>
+                                <div>
+                                    <button name="set_account_analytic" type="object" string="Данс оноох" class="btn-warning" icon="fa-download" attrs="{'invisible': [('state_type','in',['done', 'cancel'])]}"/>
+                                </div>
+                            </group>
+
+                            <field name="categ_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="product_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="available_product" invisible="1"/>
+                            <field name="state_type" invisible="1"/>
+                            <field name="flow_line_next_id" invisible="1"/>
+                            <field name="is_not_edit" invisible="1"/>
+                            <field name="flow_line_back_id" invisible="1"/>
+                            <field name="location_id" invisible="1"/>
+                            <field name="branch_id" options="{'no_create': True}" invisible="1" force_save="1" required='0'/>
+                            <field name="is_employee" invisible="1"/>
+                            <field name="is_partner" invisible="1"/>
+                            <field name="is_list_pirce_view" invisible="1"/>
+                            <field name="choose_fleet" invisible="1"/>
+                            <button name="all_expense" type="object" string="ALLLLL" class="btn-danger" colspan="2" invisible="1"/>
+                            <!-- <field name="flow_line_next_id"/> -->
+                        <!-- </group> -->
+                    </group>
+                    <notebook>
+                        <page string="Зарлагын мэдээлэл" class="oe_page_title" accesskey="C">
+                            <div>
+                                <span>
+                                    <label for="import_product_ids" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                    <field name="import_product_ids" widget="many2many_tags" class="oe_edit_only" attrs="{'invisible': [('state', '!=', 'draft')]}" domain="[('type','!=','service'),('categ_id','in',categ_ids)]" options="{'no_create': True}"/>
+                                </span>
+                                <span>
+                                    <label for="import_qty" attrs="{'invisible': [('state','!=','draft')]}"/>
+                                    <field name="import_qty" attrs="{'invisible': [('state','!=','draft')]}"/>
+                                </span>
+                                <span style="margin-left: 10px">
+                                    <label for="import_partner_ids" attrs="{'invisible': ['|',('is_employee', '=', False),('state','!=','draft')]}"/>
+                                    <field name="import_partner_ids" widget="many2many_tags" class="oe_edit_only" attrs="{'invisible': ['|',('is_employee', '=', False),('state','!=','draft')]}"/>
+                                </span>
+                                <span style="margin-left: 10px">
+                                    <button name="action_employee_import" type="object" string="Бараа &amp; Ажилтан оруулах импортлох" class="btn-warning oe_edit_only" colspan="2" attrs="{'invisible': [('state','!=','draft')]}"/>
+                                </span>
+                                <span style="margin-left: 10px">
+                                    <button name="action_view_edit_expense_line" type="object" string="Дэлгэрэнгүй Харах Засах" class="btn-danger" colspan="2" invisible="1"/>
+                                </span>
+                            </div>
+                            <field name="product_expense_line" nolabel="1" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}">
+                                <tree string="Lines" editable="bottom" decoration-danger="available_qty==0">
+                                    <field name="product_id" class="text-wrap"  style="max-width:300px" context="{'available_product_con': parent.available_product, 'available_location_id':  parent.location_id}" domain="['|',('id','in',parent.product_ids),('categ_id','child_of',parent.categ_ids)]" options="{'no_create':True, 'no_open':True}"/>
+                                    <field name="product_standard_price" groups="mw_stock_account.group_stock_view_cost" optional="show" sum="SUM"/>
+                                    <field name="product_total_price" groups="mw_stock_account.group_stock_view_cost" optional="hide" sum="SUM"/>
+                                    <field name="product_sale_price" groups="mw_stock_account.group_stock_view_cost" optional="hide" sum="SUM"/>
+                                    <field name="categ_id" invisible="1"/>
+                                    <!-- <field name="product_ids" invisible="1"/> -->
+                                    <field name="is_employee" invisible="1"/>
+                                    <field name="account_id" class="text-wrap"  style="max-width:300px" options="{'no_create':True, 'no_open':True}" optional="hide"/>
+                                    <field name="res_partner_id" attrs="{'column_invisible': [('parent.is_employee', '=', False)], 'required': [('parent.is_employee','=',True)]}" options="{'no_create':True, 'no_open':True}" force_save="1"/>
+                                    <!-- <field name="employee_id" invisible="1" attrs="{'column_invisible': [('parent.is_employee', '=', False)], 'required': [('parent.is_employee','=',True)]}" options="{'no_create':True, 'no_open':True}"/> -->
+                                    <field name="last_date" attrs="{'column_invisible': [('parent.is_employee', '=', False)]}"  optional="hide"/>
+                                    <!-- <field name="fleet_id" attrs="{'column_invisible': [('parent.choose_fleet', '=', False)]}" options="{'no_quick_create':True,'no_create_edit':True}"/> -->
+                                    <!-- <field name="account_analytic_ids"/> -->
+                                    <field name="analytic_distribution" widget="analytic_distribution"/>
+                                    <field name="uom_id"/>
+                                    <field name="price_unit" invisible="1"/>
+                                    <field name="qty" sum="SUM"/>
+                                    <field name="available_qty" sum="SUM"/>
+                                    <field name="available_qty_template" sum="SUM"/>
+                                    <field name="reserved_qty" sum="SUM"/>
+                                    <field name="delivered_qty" sum="SUM" optional="hide"/>
+                                    <field name="move_ids" widget="many2many_tags" invisible="1"/>
+                                    <field name="new_move_ids" widget="many2many_tags" invisible="1"/>
+                                    <field name="list_price" force_save="1" attrs="{'column_invisible': [('parent.is_list_pirce_view', '=', False)], 'required': [('parent.is_list_pirce_view','=',True)]}" options="{'no_create':True, 'no_open':True}"/>
+                                    <field name="sub_total" sum="SUM" attrs="{'column_invisible': [('parent.is_list_pirce_view', '=', False)], 'required': [('parent.is_list_pirce_view','=',True)]}" options="{'no_create':True, 'no_open':True}"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Холбоотой мэдээлэл" class="oe_page_title" accesskey="V">
+                            <group col="2">
+                                <field name="state" readonly="1" />
+                                <label for="user_id" string="User"/>
+                                <div>
+                                    <field name="user_id" class="oe_inline"/> : <field name="date_user" class="oe_inline"/>
+                                </div>
+                                <label for="validator_id" string="Батлагчийн нэр"/>
+                                <div>
+                                    <field name="validator_id" class="oe_inline"/> : <field name="date_validator" class="oe_inline"/>
+                                </div>
+                                <button name="set_partner" type="object" string="Харилцагч оноох(Dev mode)" groups="base.group_no_one"/>
+                            </group>
+                        </page>
+                        <page string="Төлвийн Түүх">
+                            <field name="history_flow_ids" readonly="1"/>
+                            <button name="change_history" type="object" groups="base.group_no_one" string="Change history" class="btn-danger"/>
+                        </page>
+                    </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="stock_product_other_expense_tree_view" model="ir.ui.view">
+        <field name="name">stock.product.other.expense.tree</field>
+        <field name="model">stock.product.other.expense</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'" decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="date_required"/>
+                <field name="partner_id"/>
+                <field name="warehouse_id"/>
+                <field name="description"/>
+                <field name="department_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="stage_id"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_stock_product_other_expense'>
+        <field name="name">Шаардах хуудас</field>
+        <field name="res_model">stock.product.other.expense</field>
+        <field name="context">{'search_default_this_month': 1, 'search_default_not_done': 1, 'search_default_groupby_department_id': 1, 'search_default_groupby_stage_id': 1}</field>
+        <field name="domain">['|','|','|','|','|',('create_uid','=',uid),('employee_id.user_id','=',uid),('partner_id.user_ids.manager_user_ids','in',[uid]),('history_flow_ids.user_id','=',uid),('confirm_user_ids','in',[uid]),('department_id.user_ids','in',[uid])]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_stock_product_other_expense_all'>
+        <field name="name">Шаардах хуудас</field>
+        <field name="res_model">stock.product.other.expense</field>
+        <field name="context">{'search_default_this_month': 1, 'search_default_not_done': 1, 'search_default_groupby_department_id': 1, 'search_default_groupby_stage_id': 1}</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_view_product_other_expense_my_confirm'>
+        <field name="name">Миний батлах хүсэлт</field>
+        <field name="res_model">stock.product.other.expense</field>
+        <field name="domain">[('confirm_user_ids','in', [uid])]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_groupby_department_id': 1, 'search_default_groupby_stage_id': 1}</field>
+        <field name="view_ids"
+			eval="[(5,0,0),
+			    (0,0,{'view_mode':'tree','view_id': ref('stock_product_other_expense_tree_view')}),
+				(0,0,{'view_mode':'form','view_id': ref('stock_product_other_expense_form_view')})
+				]"/>
+    </record>
+	<record id="action_view_product_other_expense_my_confirmed" model="ir.actions.act_window">
+		<field name="name">Миний батласан хүсэлт</field>
+		<field name="res_model">stock.product.other.expense</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('department_id.user_ids','in',[uid])]</field>
+        <field name="context">{'search_default_groupby_department_id': 1, 'search_default_groupby_stage_id': 1}</field>
+		<field name="view_ids"
+			eval="[(5,0,0),
+			    (0,0,{'view_mode':'tree','view_id': ref('stock_product_other_expense_tree_view')}),
+				(0,0,{'view_mode':'form','view_id': ref('stock_product_other_expense_form_view')})
+				]"/>
+	</record>
+    <record id="stock_product_other_expense_line_tree_view" model="ir.ui.view">
+        <field name="name">stock.product.other.expense.line.tree</field>
+        <field name="model">stock.product.other.expense.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="product_id" readonly="1"/>
+                <field name="uom_id" readonly="1"/>
+                <field name="res_partner_id" readonly="1"/>
+                <field name="state_type" invisible="1"/>
+                <field name="is_not_edit" invisible="1"/>
+                <field name="qty" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/>
+                <field name="available_qty" readonly="1"/>
+                <field name="reserved_qty" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_product_other_expense_line_form_view" model="ir.ui.view">
+        <field name="name">stock.product.other.expense.line.form</field>
+        <field name="model">stock.product.other.expense.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="product_id" readonly="1"/>
+                <field name="uom_id" readonly="1"/>
+                <field name="state_type" invisible="1"/>
+                <field name="is_not_edit" invisible="1"/>
+                <field name="qty" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/>
+                <field name="available_qty" readonly="1"/>
+                <field name="reserved_qty" readonly="1"/>
+                <field name="res_partner_id" readonly="1"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_picking_form_inherit_mn_stock_move" model="ir.ui.view">
+        <field name="name">stock.picking.form.view.inherit.mn.stock.move</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+          <data>
+            <div class="oe_button_box" position="inside">
+                <field name="other_expense_id" invisible="1"/>
+                <button name="action_view_other_exepnse_id_mw"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-file-o"
+                    attrs="{'invisible': [('other_expense_id', '=', False)]}">
+                    <span>Шаардах 1</span>
+                </button>
+            </div>
+			<xpath expr="//field[@name='scheduled_date']" position="after">
+				<field name="stock_expense_accountant" invisible="1"/>
+			</xpath>
+          </data>
+        </field>
+    </record>
+
+    <template id="track_po_line_template">
+        <div>
+            <strong>Тоо өөрчлөгдлөө.</strong>
+            <ul>
+                <li><t t-esc="line.product_id.display_name"/>:</li>
+                Тоо: <t t-esc="line.qty" /> -&gt; <t t-esc="float(qty)"/><br/>
+            </ul>
+        </div>
+    </template>
+
+    <template id="track_po_line_template_delete">
+        <div>
+            <strong>Мөр устгасан.</strong>
+            <ul>
+                <li><t t-esc="line.product_id.display_name"/>:</li>
+                Тоо: <t t-esc="line.qty" /><br/>
+            </ul>
+        </div>
+    </template>
+
+    <record id="selected_other_expense_next_form_view" model="ir.ui.view">
+        <field name="name">selected.other.expense.next.form</field>
+        <field name="model">selected.other.expense.next</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="other_expense_ids">
+                    <tree>
+                        <field name="name"/>
+                        <field name="flow_line_id"/>
+                        <field name="state_type"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="multi_next_stage" string="Олноор батлах" type="object" class="btn-success" icon="fa-file"/>
+                    <button special="cancel" string="Хаах" type="object" class="btn-warning"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="selected_other_expense_next_action"
+            name="Олноор нь батлах"
+            res_model="selected.other.expense.next"
+            binding_model="stock.product.other.expense"
+            view_mode="form"
+            view_id = "selected_other_expense_next_form_view"
+            binding_views="list"
+            target="new"/>
+</odoo>

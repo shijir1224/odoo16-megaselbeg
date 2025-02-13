@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="wizard_check_part_qty_viewsub" model="ir.ui.view">
+            <field name="name">Сэлбэгийн үлдэгдэл шалгах</field>
+            <field name="model">wizard.check.part.qty</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <sheet>
+                        <!-- <group col="1"> -->
+                            <label for="product_ids" string="Бараанууд"/>
+                            <field name="product_ids" widget="many2many_tags"
+                                options="{'no_create':True}"/>
+                            <label for="warehouse_ids" string="Агуулахууд"/>
+                            <field name="warehouse_ids" widget="many2many_tags"
+                                options="{'no_create':True}"/>
+
+                        <!-- </group>
+                        <group col="1"> -->
+                            <separator string="Агуулахад"/>
+                            <field name="qty_desc" nolabel="1"/>
+                            <separator string="Хөрвөсөн кодууд"/>
+                            <field name="qtys_desc" nolabel="1"/>
+                            <separator string="Захиалгад"/>
+                            <field name="qty_pr_desc" nolabel="1"/>
+                            <footer>
+                                <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                                <button name="check_part_qty" string="Шалгах" type="object"
+                                    colspan="1" class="oe_highlight"/>
+                            </footer>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_check_part_qtysub" model="ir.actions.act_window">
+            <field name="name">Сэлбэгийн үлдэгдэл шалгах</field>
+            <field name="res_model">wizard.check.part.qty</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_check_part_qty_viewsub"/>
+            <field name="target">new</field>
+        </record>
+
+    
+</odoo>

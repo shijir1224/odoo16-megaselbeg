@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_purchase_add_cost,purchase.add.cost,model_purchase_add_cost,mw_purchase_expense.group_purchase_add_cost_user,1,1,1,1
+access_purchase_acc_view_add,purchase.acc.view.add,model_purchase_acc_view_add,mw_purchase_am_view.group_purchase_am_reconcile_view,1,1,1,1
+access_purchase_add_cost_report,wizard.add.cost.report,model_wizard_add_cost_report,mw_purchase_expense.group_purchase_add_cost_user,1,1,1,1

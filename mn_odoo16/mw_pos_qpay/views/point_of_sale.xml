@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="ebarimt_pos_form_view" model="ir.ui.view">
+            <field name="name">ebarimt.pos.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_subtotal']" position="before">
+                    <field name="amount_tax_vat"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

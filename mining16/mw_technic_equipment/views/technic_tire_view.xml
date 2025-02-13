@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ########  Дугуйн тохиргоо ######## -->
+    <record model='ir.ui.view' id='technic_tire_setting_tree'>
+        <field name="name">Tire Setting tree</field>
+        <field name="model">technic.tire.setting</field>
+        <field name="arch" type="xml">
+            <tree string="Setting">
+                <field name="name" />
+                <field name="norm_tire_size" />
+                <field name="norm_tread_deep" />
+                <field name="norm_moto_hour" />
+                <field name="norm_km" />
+                <field name="odometer_unit" />
+                <field name="purchase_value" />
+                <field name="depreciation_method" />
+                <field name="monthly_odometer_norm" />
+            </tree>
+        </field>
+    </record>
+    <record model='ir.ui.view' id='technic_tire_setting_form'>
+        <field name="name">Tire Setting form</field>
+        <field name="model">technic.tire.setting</field>
+        <field name="arch" type="xml">
+            <form string="Setting form">
+                <sheet>
+                    <group col="4">
+                        <field name="model_id" options="{'no_create':True}"/>
+                        <field name="norm_tire_size" />
+
+                        <field name="norm_tread_deep" />
+                        <field name="norm_pressure" />
+
+                        <field name="norm_moto_hour" />
+                        <field name="norm_km" />
+
+                        <field name="odometer_unit" />
+                        <field name="purchase_value" />
+
+                        <field name="depreciation_method" />
+                        <field name="monthly_odometer_norm" />
+
+                        <field name="warning_percent" />
+                        <field name="warning_2_percent" />
+
+                        <field name="product_id" options="{'no_create':True}"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                    <group col="6">
+                        <field name="width" />
+                        <field name="height" />
+                        <field name="weight" />
+
+                        <field name="tkph" />
+                        <field name="tra_code" />
+                        <field name="tread_type" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="tire_setting_search">
+        <field name="name">Tire setting search</field>
+        <field name="model">technic.tire.setting</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="norm_tire_size"/>
+                <field name="model_id"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'norm_tire_size'}"
+                        string="Дугуйн хэмжээ" name="size"/>
+                    <filter context="{'group_by':'odometer_unit'}"
+                        string="Гүйлтийн нэгж" name="unit"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_tire_setting'>
+        <field name="name">Дугуйн тохиргоо, норм</field>
+        <field name="res_model">technic.tire.setting</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0), 
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('mw_technic_equipment.technic_tire_setting_tree')}),
+				(0, 0, {'view_mode': 'form', 'view_id': ref('mw_technic_equipment.technic_tire_setting_form')})]"
+			   />
+    </record>
+
+    <!-- ########  Техникийн дугуй бүртгэл ######## -->
+    <record model='ir.ui.view' id='technic_tire_tree'>
+        <field name="name">Technic tire tree</field>
+        <field name="model">technic.tire</field>
+        <field name="arch" type="xml">
+            <tree string="Tires" class="table_header_freeze"
+                decoration-warning="warning_deep=='warning'"
+                decoration-danger="working_type=='dont_use'"
+                decoration-muted="state=='retired'">
+                <field name="date_of_record" invisible="1"/>
+                <field name="branch_id"/>
+                <field name="brand_id"/>
+                <field name="serial_number" />
+                <field name="total_moto_hour" sum="Total"/>
+                <field name="total_km" sum="Total"/>
+                <field name="tread_depreciation_percent" widget="percentpie"/>
+                <field name="current_technic_id"/>
+                <field name="current_position"/>
+                <field name="odometer_unit" invisible="1"/>
+                <field name="user_id"/>
+                <field name="working_type" invisible="1"/>
+                <field name="warning_deep" invisible="1"/>
+                <field name="retire_type" invisible="1"/>
+                <field name="retire_tire_type" invisible="1"/>
+                <field name="with_coolant" invisible="1"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='technic_tire_form'>
+        <field name="name">Technic tire form</field>
+        <field name="model">technic.tire</field>
+        <field name="arch" type="xml">
+            <form string="Tire form" version="7.0">
+                <header>
+                    <button name="action_to_use" states="draft" type="object"
+                        string="Шинэ дугуй" class="oe_highlight" icon="fa-cog"/>
+                    <button name="action_to_inactive" states="draft" 
+                        string="Нөөцөнд авах" type="object"
+                        groups="base.group_no_one" />
+                    <button name="action_to_draft" states="new,inactive,repairing" string="To draft"  type="object"
+                       />
+                    <button name="manual_increase_odometer" string="Гараар нэмэгдүүлэх" type="object"
+                        states="using,repairing"
+                        groups="mw_technic_equipment.group_technic_module_odometer_user"/>
+                    <button name="action_to_retire" string="Ашиглалтаас гаргах" type="object"
+                        states="inactive,repairing"/>
+                    <field name="state" widget="statusbar" nolabel="1"
+                        statusbar_visible="draft,new,using,inactive,repairing,retired" />
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box oe_right">
+                        <button
+                            name="get_failure_report"
+                            type="object" class="oe_stat_button oe_right oe_highlight"
+                            icon="fa-file-excel" string="Failure report">
+                        </button>
+                    </div>
+                    <group>
+                        <group >
+                            <field name="branch_id" options="{'no_create':True}"/>
+                            <field name="date_of_record"/>
+                            <field name="date_of_manufactured"/>
+                            <field name="tire_setting_id" options="{'no_create':True}" required="1"/>
+                            <field name="tkph"/>
+                        </group>
+                        <group >
+                            <field name="tra_code"/>
+                            <field name="tread_type"/>
+                            <field name="brand_id" options="{'no_create':True}"/>
+                            <field name="norm_tire_size"/>
+                            <field name="serial_number" widget="CopyClipboardChar"/>
+                            <field name="norm_tread_deep"/>
+                        </group>
+                    </group>
+                    <group col="4" string="Гүйлтийн мэдээлэл">
+                        <group>
+                            <field name="odometer_unit" />
+                            <field name="purchase_value" groups="mw_technic_equipment.group_technic_module_tire_amount_user"/>
+                        </group>
+                        <group>
+                            <field name="total_moto_hour" />
+                            <field name="total_km" />
+                        </group>
+                    </group>
+                    <group  string="Одоогийн мэдээлэл">
+                        <group>
+                            <field name="tread_current_deep"/>
+                            <field name="current_technic_id" readonly="1"/>
+                            <field name="current_position" readonly="1"/>
+                            <field name="technic_odometer" />
+                        </group>
+                        <group>
+                            <field name="tread_depreciation_percent" widget="percentpie"/>
+                            <field name="working_type"/>
+                            <field name="with_coolant"/>
+
+                            <field name="new_or_old"/>
+                            <field name="residual_value" groups="mw_technic_equipment.group_technic_module_tire_amount_user"/>
+                        </group>
+
+                    </group>
+
+                    <notebook>
+                        <page string="Хэрэглэсэн түүх">
+                            <group>
+                                <group >
+                                    <field name="date_of_retired"/>
+                                    <field name="retire_type" atts="{'invisible':[('retire_type','=',False)]}"/>
+                                    <field name="retired_description" atts="{'invisible':[('retired_description','=',False)]}"/>
+                                </group>
+                                <group>
+                                    <field name="retire_tire_type"/>
+                                    <field name="retire_attachment_ids" widget="many2many_binary"/>
+                                </group>
+                            </group>
+                            <field name="tire_used_history" nolabel="1" >
+                                <tree string="Used history" create="false">
+                                    <field name="date"/>
+                                    <field name="tire_odometer" sum="Total"/>
+                                    <field name="tire_km" sum="Total"/>
+                                    <field name="tread_percent"/>
+                                    <field name="technic_id"/>
+                                    <field name="position"/>
+                                    <field name="description"/>
+                                    <field name="create_date"
+                                        groups="base.group_no_one"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Элэгдлийн түүх">
+                            <!-- <widget name="tire_inspection_widget"/> -->
+                            <group col="4">
+                                <field name="tire_inspection_lines" nolabel="1" colspan="4">
+                                    <tree string="Lines" create="false">
+                                        <field name="date"/>
+                                        <field name="parent_id"/>
+                                        <field name="technic_id"/>
+                                        <field name="position"/>
+                                        <field name="deep_average"/>
+                                        <field name="depreciation"/>
+                                        <field name="temperature"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Гүйлтийн түүх">
+                            <field name="excel_data" filename="file_name"
+                                groups="mw_technic_equipment.group_technic_module_admin"/>
+                            <field name="file_name" invisible="1"/>
+                            <button name="import_history" string="Import history" type="object"
+                                groups="mw_technic_equipment.group_technic_module_admin"/>
+                            <field name="tire_depreciation_lines" nolabel="1" >
+                                <tree string="Depreciation history" create="false">
+                                    <field name="date"/>
+                                    <field name="shift"/>
+                                    <field name="tire_odometer"/>
+                                    <field name="technic_id" invisible="1"/>
+                                    <field name="increasing_odometer" sum="Total"/>
+                                    <field name="increasing_km" sum="Total"/>
+                                    <field name="depreciation_percent"/>
+                                    <field name="depreciation_amount" sum="Amount"
+                                        groups="mw_technic_equipment.group_technic_module_tire_amount_user"/>
+                                </tree>
+                                <form string="Depreciation history">
+                                    <group >
+                                        <field name="date"/>
+                                        <field name="shift"/>
+                                        <field name="technic_id"/>
+
+                                        <field name="tire_odometer"/>
+                                        <field name="user_id"/>
+
+                                        <field name="increasing_odometer"/>
+                                        <field name="increasing_km"/>
+
+                                        <field name="depreciation_percent"/>
+                                        <field name="depreciation_amount" sum="Amount"
+                                            groups="mw_technic_equipment.group_technic_module_tire_amount_user"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="asset_technic_tire_search">
+        <field name="name">Tire search</field>
+        <field name="model">technic.tire</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="serial_number"/>
+                <field name="current_technic_id"/>
+                <field name="brand_id"/>
+                <field name="branch_id"/>
+                <group expand="1" string="Filters">
+                    <filter string="Шинэ" domain="[('state','=','new')]"
+                        name="new"/>
+                    <filter name="groupby_using" string="Хэрэглэж байгаа" domain="[('state','=','using')]"/>
+                    <filter string="Нөөцөнд байгаа" domain="[('state','=','inactive')]"
+                        name="inactive"/>
+                    <filter string="Засварлаж байгаа" domain="[('state','=','repairing')]"
+                        name="repairing"/>
+                    <filter string="Актласан" domain="[('state','=','retired')]"
+                        name="retired"/>
+                    <filter string="Элэгдэл ихтэй" domain="[('warning_deep','=','warning')]"
+                        name="warning"/>
+                    <filter string="Coolant-тай" domain="[('with_coolant','=',True)]"
+                        name="with_coolant"/>
+                    <filter string="Шинээр суурьлуулсан" name="new_tire"
+                        domain="[('new_or_old','=','new_tire_set')]"/>
+                    <filter string="Хуучин шилжүүлсэн" name="old_tire"
+                        domain="[('new_or_old','=','old_tire_set')]"/>
+                    <filter string="1-р байрлал" name="current_position" domain="[('current_position','=','1')]"/>
+                    <filter string="2-р байрлал" name="current_position" domain="[('current_position','=','2')]"/>
+                    <filter string="3-р байрлал" name="current_position" domain="[('current_position','=','3')]"/>
+                    <filter string="4-р байрлал" name="current_position" domain="[('current_position','=','4')]"/>
+                    <filter string="5-р байрлал" name="current_position" domain="[('current_position','=','5')]"/>
+                    <filter string="6-р байрлал" name="current_position" domain="[('current_position','=','6')]"/>
+                </group>
+                <group expand="1" string="Group By...">
+                    <filter name="groupby_status" context="{'group_by':'state'}" string="Төлөв"/>
+                    <filter context="{'group_by':'current_technic_id'}" string="Одоогийн техник" name="technic"/>
+                    <filter context="{'group_by':'tire_setting_id'}" string="Дугуйн төрөл"
+                        name="type"/>
+                    <filter context="{'group_by':'brand_id'}" string="Дугуйн брэнд"
+                        name="brand"/>
+                    <filter context="{'group_by':'norm_tire_size'}" string="Дугуйн хэмжээ"
+                        name="size"/>
+                    <filter context="{'group_by':'user_id'}" string="Бүртгэсэн"
+                        name="user"/>
+                    <filter context="{'group_by':'with_coolant'}" string="Coolant"
+                        name="with_coolant_group"/>
+                    <filter name="groupby_new_or_old" context="{'group_by':'new_or_old'}" string="Шинэ хуучин шилжүүлсэн төрөл"/>
+                    <filter context="{'group_by':'current_position'}" string="Одоогийн байрлал"
+                        name="current_position"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_technic_tire'>
+        <field name="name">Дугуйн бүртгэл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">technic.tire</field>
+        <field name="context">{"search_default_groupby_using" : True}</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="view_id" ref="technic_tire_tree"/>
+    </record>
+
+    <!-- Increase -->
+    <record model='ir.ui.view' id='tire_odometer_increase_form'>
+        <field name="name">tire.odometer.increase.form</field>
+        <field name="model">tire.odometer.increase</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="date"/>
+                    <newline/>
+                    <field name="tire_odometer"/>
+                    <field name="tire_km"/>
+                </group>
+                <footer>
+                    <button name="save_and_increase" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Retire -->
+    <record model='ir.ui.view' id='tire_retirement_form'>
+        <field name="name">tire.retirement.form</field>
+        <field name="model">tire.retirement</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="date"/>
+                    <field name="retire_type"/>
+
+                    <field name="description"/>
+                    <field name="retire_tire_type"/>
+
+                    <field name="is_required_attach"/>
+                    <field name="attachment_ids" nolabel="1" widget="many2many_binary" attrs="{'required': False}"/>
+                </group>
+                <footer>
+                    <button name="save_and_retire" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

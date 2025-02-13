@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="wizard_expense_repeat_report_view" model="ir.ui.view">
+            <field name="name">Давтан зарлагын тайлан</field>
+            <field name="model">wizard.expense.repeat.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4">
+                        <label string="Эхлэх, дуусах хоёр өдөр тайлант хугацаанд орно!" colspan="4" for="date_start"/>
+                        <newline/>
+                        <field name="date_start" />
+                        <field name="date_end" />
+                        <field name="technic_id" options="{'no_create': True}"/>
+                   </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                        <button name="export_report" string="Татах" type="object" colspan="1"  
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_expense_repeat_report" model="ir.actions.act_window">
+            <field name="name">Давтан зарлагын тайлан</field>
+            <field name="res_model">wizard.expense.repeat.report</field>
+            
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_expense_repeat_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+    
+</odoo>

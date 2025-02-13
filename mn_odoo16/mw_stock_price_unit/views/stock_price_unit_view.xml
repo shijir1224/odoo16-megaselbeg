@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ 	<!-- stock.price.unit.limit -->
+    <record id="view_stock_price_unit_limit_tree" model="ir.ui.view">
+        <field name="name">stock.price.unit.limit.tree</field>
+        <field name="model">stock.price.unit.limit</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="product_id"/>
+    			<field name="list_price_mw"/>
+    			<field name="standard_price_mw"/>
+                <field name="limit_price_unit_min"/>
+                <field name="limit_price_unit_max"/>
+    		</tree>
+        </field>
+    </record>
+    <record id="view_stock_price_unit_limit_form" model="ir.ui.view">
+        <field name="name">stock.price.unit.limit.form</field>
+        <field name="model">stock.price.unit.limit</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+            	<sheet>
+            		<group col="4">
+                        <field name="create_date" readonly="1"/>
+        				<field name="product_id" required="1"/>
+                        <field name="list_price_mw"/>
+                        <field name="standard_price_mw"/>
+                    </group>
+                    <group>
+                        <field name="limit_price_unit_min"/>
+                        <field name="limit_price_unit_max"/>
+                    </group>
+                    <group>
+                        <button name="import_no_price" type="object" string="Import Zarah une 1-ees baga" class="btn-warning"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_price_unit_limit_filter" model="ir.ui.view">
+	<field name="name">stock.price.unit.limit.filter</field>
+    <field name="model">stock.price.unit.limit</field>
+    <field name="arch" type="xml">
+    	<search string="Search">
+            <field name="product_id"/>
+    		<field name="limit_price_unit_min"/>
+            <field name="limit_price_unit_max"/>
+       	</search>
+    </field>
+	</record>
+
+	<record id="action_stock_price_unit_limit" model="ir.actions.act_window">
+        <field name="name">Барааны Өртөг Хязгаар</field>
+        <field name="res_model">stock.price.unit.limit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem action="action_stock_price_unit_limit"
+        id="mw_stock_price_unit_limit_menu" 
+        parent="stock.menu_stock_config_settings" sequence="1000" groups="group_stock_view_price_unit_conf"/>
+
+     <record id="product_product_form_view_inherit_price_limit" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.price.limi</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Өртөгийн Хязгаар" groups="mw_stock_price_unit.group_stock_view_price_unit_conf">
+                    <field name="cost_limit_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="limit_price_unit_min"/>
+                            <field name="limit_price_unit_max"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+            
+        </field>
+    </record>
+</odoo>
+	    

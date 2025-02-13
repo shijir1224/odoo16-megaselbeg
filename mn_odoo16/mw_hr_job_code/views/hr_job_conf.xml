@@ -1,0 +1,79 @@
+<odoo>
+
+    <record id="job_code_conf_filter_view" model="ir.ui.view">
+        <field name="name">job.code.conf.mn.filter</field>
+        <field name="model">job.code.conf.mn</field>
+		<field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Decision">
+                <field name="name"/>
+                <field name="job_name"/>
+                <field name="percent"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_hr_job_mn" model="ir.ui.view">
+        <field name="name">hr.job.form</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_code']" position="after">
+                <field name="job_conf" options="{'no_create':True}"/>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="job_code_conf_mn_form">
+		<field name="name">job.code.conf.mn.form</field>
+		<field name="model">job.code.conf.mn</field>
+        <field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+            <group>
+				<group>
+                    <field name="basic_group"/>
+                    <field name="sub_group"/>
+                    <field name="small_group"/>
+                    <field name="negj_group"/>
+                    <field name="job_name"/>
+                    <field name="job"/>
+                    <field name="desc"/>
+                </group>
+                <group>
+                    <field name="basic_group_code"/>
+                    <field name="sub_group_code"/>
+                    <field name="small_group_code"/>
+                    <field name="negj_group_code"/>
+                    <field name="name"/>
+                    <field name="percent"/>
+                </group>
+            </group>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="job_code_conf_tree">
+		<field name="name">job.code.conf.mn.tree</field>
+		<field name="model">job.code.conf.mn</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+                <field name="job_name"/>
+                <field name="percent"/>
+                <field name="name"/>
+			</tree>
+		</field>
+	</record>
+		
+	<record model="ir.actions.act_window" id="action_job_code_conf_mn">
+		<field name="name">Ажил мэргэжлийн код тохиргоо</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">job.code.conf.mn</field>
+		<field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="job_code_conf_filter_view"/>
+	</record> 
+
+	<menuitem id="menu_job_code_conf_mn_form"
+		parent="mw_hr.hr_labor_relations_menu"
+		action="action_job_code_conf_mn" 
+		sequence="16"/>
+        
+</odoo>

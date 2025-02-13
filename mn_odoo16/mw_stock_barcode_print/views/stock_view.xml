@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="view_picking_type_form_inherit_mw" model="ir.ui.view">
+        <field name="name">view.picking.type.form.inherit.mw</field>
+        <field name="inherit_id" ref="mw_stock.view_picking_type_form_inherit"/>
+        <field name="model">stock.picking.type</field>
+        <field name="arch" type="xml">
+            <field name="with_print_on_hand" position="after">
+                <field name="with_barcode_print"/>
+            </field>
+        </field>
+    </record>
+</odoo>

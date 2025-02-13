@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+	
+	<record model="ir.ui.view" id="hse_ambulance_view">
+		<field name="name">hse.ambulance.form</field>
+		<field name="model">hse.ambulance</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" string="Буцаах" type="object"  class="btn-danger" states="done"/>
+					<button name="action_to_done" class="btn-success" string="Батлах" states="draft" type="object"/>
+					<field name="state" widget="statusbar" readonly="1" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="branch_id" options="{'no_create':True}"/>
+							<field name="date"/>
+							<field name="company_id"/>
+						</group>
+						<group>
+							<field name="number"/>
+							<field name="uid_id" readonly="1" options="{'no_create':True}"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Дотоод ажилчдын Үзлэг">
+							<field name="line_ids" nolabel="1">
+								<tree>
+									<field name="date" string="Үзлэгт орсон өдөр/цаг минут/"/> 
+									<!-- readonly="1" -->
+									<field name="employee_id" options="{'no_create':True}" required="1"/>
+									<field name="job_id"/>
+									<field name="employee_vat" optional="hide"/>
+									<field name="age_id"/>
+									<field name="employee_gender"/>
+									<field name="department_id"/>
+									<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="additional_diagnosis"/>
+									<field name="decision_type" optional="hide"/>
+									<field name="help_type" widget='selection'/>
+									<field name="note" style="white-space: normal;word-break: break-all;" content="width=1000px, initial-scale=1.0" optional="hide"/>
+									<field name="type_treatment_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="treatment_fre"/>
+									<field name="medicine_name"/>
+									<field name="medicine_number"/>
+									<field name="prescription"/>
+									<!-- <field name="additional_analysis_id"/> -->
+									<field name="employee_id" invisible="1"/>
+									<field name="attachment_ids" widget="many2many_binary" optional="hide"/>
+									<field name="mail_type"/>
+									<field name="hse_employee" widget="many2many_tags"/>
+									<button string="Имэйл илгээх" name="sent_mail" type="object" class="oe_highlight"/>
+									<!-- <button string="Эмийн зарлага" name="action_drug_registration" type="object" class="oe_highlight"/> -->
+								</tree>
+								<form>
+									<group string="Огноо" name="date" >
+											<field name="date" required="1"/>
+											<!-- readonly="1" -->
+									</group>
+									<group name="worker_info">
+										<group string="Ажилтан" name="worker">
+											<field name="employee_id" options="{'no_create':True}" required="1"/>
+											<field name="job_id"/>
+											<field name="employee_vat" optional="hide"/>
+											<field name="age_id"/>
+											<field name="employee_gender"/>
+											<field name="department_id"/>
+										</group>
+										<group string="Онош" name='diagnosis'>
+											<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+											<field name="additional_diagnosis"/>
+											<field name="decision_type"/>
+										</group>
+										<group string="Эм" name="medicine">
+											<field name="medicine_name"/>
+											<field name="medicine_number"/>
+											<field name="prescription"/>
+											<!-- <button string="Эмийн зарлага" name="action_drug_registration" type="object" class="oe_highlight"/> -->
+										</group>
+										<group string="Тэмдэглэл" name="note">
+											<field name="note" style="white-space: normal;word-break: break-all;" content="width=200px, initial-scale=1.0" optional="hide"/>
+										</group>
+									</group>
+									<group name="treatment_other">
+										<group string="Эмчилгээ, Бусад" name="treatment">
+											<field name="type_treatment_ids" options="{'no_create':True}" widget="many2many_tags"/>
+											<field name="treatment_fre"/>
+											<!-- <field name="additional_analysis_id"/> -->
+											<field name="help_type" widget='selection'/>
+										</group>
+										<group string="Имэйл болон файл хавсаргах" name="other">
+											<field name="employee_id" invisible="1"/>
+											<field name="hse_employee" widget="many2many_tags"/>
+											<field name="attachment_ids" widget="many2many_binary" optional="hide"/>
+											<field name="mail_type"/>
+											<button string="Имэйл илгээх" name="sent_mail" type="object" class="oe_highlight"/>
+										</group>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string="Гадны ажилчдын үзлэг">
+							<field name="external_line_ids" nolabel="1">
+								<tree>
+									<field name="date" required="1"/>
+									<field name="partner_id" options="{'no_create':True}" required="1"/>
+									<field name="job"/>
+									<field name="partner_vat"/>
+									<field name="age"/>
+									<field name="gender"/>
+									<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="additional_diagnosis"/>
+									<field name="treatment_type_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="decision_type" optional="hide"/>
+									<field name="note_book" style="white-space: normal;word-break: break-all;" content="width=200px, initial-scale=1.0" optional="hide"/>
+									<field name="treatment_fre"/>
+									<field name="medicine_name"/>
+									<field name="medicine_number"/>
+									<field name="prescription"/>
+									<field name="attachment_ids" widget="many2many_binary"/>
+									<field name="additional_analysis_id"/>
+									<field name="employee_id" invisible="1"/>
+									<field name="mail_type"/>
+									<field name="hse_employee_ids" widget="many2many_binary"/>
+									<button string="Имэйл илгээх" name="sent_mail" type="object" class="oe_highlight"/>
+								</tree>
+								<form>
+									<group string="Огноо">
+											<field name="date" required="1"/>
+											<!--  readonly="1" -->
+									</group>
+									<group name="worker_info">
+										<group string="Ажилтан" name="worker" >
+											<field name="partner_id" options="{'no_create':True}" required="1"/>
+											<field name="job"/>
+											<field name="partner_vat"/>
+											<field name="age"/>
+											<field name="gender"/>
+										</group>
+										<group string="Онош" name='diagnosis'>
+											<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+											<field name="additional_diagnosis"/>
+										</group>
+										<group string="Эм" name="medicine">
+											<field name="medicine_name"/>
+											<field name="medicine_number"/>
+											<field name="prescription"/>
+											<!-- soyolon button -->
+											<!-- <button string="Эмийн зарлага" name="action_drug_registration" type="object" class="oe_highlight"/> -->
+										</group>
+										<group string="Тэмдэглэл" name="note">
+											<field name="note_book" style="white-space: normal;word-break: break-all;" content="width=200px, initial-scale=1.0" optional="hide"/>
+										</group>
+									</group>
+									<group name="treatment_other">
+										<group string="Эмчилгээ, Бусад" name="treatment">
+											<field name="treatment_type_ids" options="{'no_create':True}" widget="many2many_tags"/>
+											<field name="treatment_fre"/>
+											<field name="additional_analysis_id" invisible="1"/>
+										</group>
+										<group string="Имэйл болон файл хавсаргах" name="other">
+											<field name="employee_id" invisible="1"/>
+											<field name="attachment_ids" widget="many2many_binary"/>
+											<field name="mail_type"/>
+											<field name="hse_employee_ids" widget="many2many_tags"/>
+											<button string="Имэйл илгээх" name="sent_mail" type="object" class="oe_highlight"/>
+										</group>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_ambulance_tree" model="ir.ui.view">
+		<field name="name">hse.ambulance.tree</field>
+		<field name="model">hse.ambulance</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="branch_id" options="{'no_create':True}"/>
+				<field name="number"/>
+				<field name="date"/>
+				<field name="uid_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_ambulance_filter" model="ir.ui.view">
+		<field name="name">hse.ambulance.filter</field>
+		<field name="model">hse.ambulance</field>
+		<field name="arch" type="xml">
+			<search>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Жилээр" name='group_year' domain="[]" context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' domain="[]" context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' domain="[]" context="{'group_by':'date:day'}"/>
+				</group>
+				<field name="branch_id"/>
+				<field name="number"/>
+				<field name="date"/>
+				<field name="uid_id"/>
+			</search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_ambulance">
+		<field name="name">Амбулаторийн үзлэг</field>
+		<field name="res_model">hse.ambulance</field>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record model="ir.ui.view" id="hse_ambulance_line_view">
+		<field name="name">hse.ambulance.line.form</field>
+		<field name="model">hse.ambulance.line</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name='name'/>
+					<field name="date"/>
+					<field name="employee_id" options="{'no_create':True}" required="1"/>
+					<field name="job_id"/>
+					<field name="employee_vat"/>
+					<field name="employee_gender"/>
+					<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+					<!-- <field name="disease_ids" options="{'no_create':True}" widget="many2many_tags"/> -->
+					<field name="parent_id"/>
+				</group>
+				<!-- <notebook>
+					<page string="Эмийн зарлага">
+						<field name="drug_expenditure_line" nolabel="1">
+							<tree>
+								<field name="employee_id" options="{'no_create':True}"/>
+								<field name="name" options="{'no_create':True}"/>
+								<field name="balance"/>
+								<field name="expenditure_count" force_save="1"/>
+								<field name="uom_id" options="{'no_create':True}"/>
+								<field name="ambulance_line_id" options="{'no_create':True}" optional="hide"/>
+							</tree>
+						</field>
+					</page>
+				</notebook> -->
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_ambulance_line_tree" model="ir.ui.view">
+		<field name="name">hse.ambulance.line.tree</field>
+		<field name="model">hse.ambulance.line</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name='name'/>
+				<field name="date"/>
+				<field name="employee_id" options="{'no_create':True}" required="1"/>
+				<field name="job_id"/>
+				<field name="employee_vat"/>
+				<field name="employee_gender"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_ambulance_line_filter" model="ir.ui.view">
+		<field name="name">hse.ambulance.line.filter</field>
+		<field name="model">hse.ambulance.line</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name='name'/>
+				<field name="date"/>
+				<field name="employee_id" options="{'no_create':True}" required="1"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="hse_ambulance_line_pivot" model="ir.ui.view">
+		 <field name="name">hse.ambulance.line.pivot</field>
+		 <field name="model">hse.ambulance.line</field>
+		 <field name="arch" type="xml">
+			 <pivot string="Analysis">
+				 <field name="employee_id" type="row"/>
+			 </pivot>
+		 </field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_ambulance_line">
+		<field name="name">Үзлэгийн дэлгэрэнгүй тайлан</field>
+		<field name="res_model">hse.ambulance.line</field>
+		<field name="view_mode">tree,pivot,form</field>
+	</record>
+
+	<record model="ir.ui.view" id="patient_diagnosise_view">
+		<field name="name">patient.diagnosis.form</field>
+		<field name="model">patient.diagnosis</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="code"/>
+					<field name="english_name"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_patient_diagnosis_tree" model="ir.ui.view">
+		<field name="name">patient.diagnosis.tree</field>
+		<field name="model">patient.diagnosis</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="code"/>
+				<field name="english_name"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_patient_diagnosis_filter" model="ir.ui.view">
+		<field name="name">patient.diagnosis.filter</field>
+		<field name="model">patient.diagnosis</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="code"/>
+				<field name="english_name"/>
+			</search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_patient_diagnosis">
+		<field name="name">Онош мэдээлэл</field>
+		<field name="res_model">patient.diagnosis</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record model="ir.ui.view" id="disease_category_view">
+		<field name="name">disease.category.form</field>
+		<field name="model">disease.category</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="english_name"/>
+					<field name="code"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_disease_category_tree" model="ir.ui.view">
+		<field name="name">disease.category.tree</field>
+		<field name="model">disease.category</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="english_name"/>
+				<field name="code"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_category_category_filter" model="ir.ui.view">
+		<field name="name">disease.category.filter</field>
+		<field name="model">disease.category</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="english_name"/>
+				<field name="code"/>
+			</search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_disease_category">
+		<field name="name">Өвчлөл</field>
+		<field name="res_model">disease.category</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_type_treatment_form" model="ir.ui.view">
+		<field name="name">type.treatment.form</field>
+		<field name="model">type.treatment</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="type"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_type_treatment_tree" model="ir.ui.view">
+		<field name="name">type.treatment.tree</field>
+		<field name="model">type.treatment</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="type"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_type_treatment">
+		<field name="name">Эмчилгээний төрөл</field>
+		<field name="res_model">type.treatment</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_medical_examination_before_work_form" model="ir.ui.view">
+		<field name="name">medical.examination.before.work.form</field>
+		<field name="model">medical.examination.before.work</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="employee_id"/>
+						<field name="last_name"/>
+						<field name="first_name"/>
+						<field name="job_id"/>
+						<field name="department_id"/>
+						<field name="Iinspection"/>
+						<field name="measures_taken"/>
+						<field name="result"/>
+						<field name="Reason"/>
+					</group>	
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_medical_examination_before_work_tree" model="ir.ui.view">
+		<field name="name">medical.examination.before.work.tree</field>
+		<field name="model">medical.examination.before.work</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="employee_id"/>
+				<field name="last_name"/>
+				<field name="first_name"/>
+				<field name="job_id"/>
+				<field name="department_id"/>
+				<field name="Iinspection"/>
+				<field name="measures_taken"/>
+				<field name="result"/>
+				<field name="Reason"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_view_medical_examination_before_work">
+		<field name="name">Ажлын өмнөх эрүүл мэндийн үзлэг</field>
+		<field name="res_model">medical.examination.before.work</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- <record id="view_ambulance_employee_inherit_form" model="ir.ui.view">
+		<field name="name">hr.ambulance.employee.inherit.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<notebook position="inside">
+				<page string="Эмчийн үзлэгийн түүх">
+					<field name="ambulance_employee_ids" nolabel="1" colspan="4">
+						<tree>
+							<field name="date"/>
+							<field name="job_id"/>
+							<field name="diagnosis_ids" widget="many2many_tags"/>
+							<field name="disease_ids" widget="many2many_tags"/>
+							<field name="attachment_ids" widget="many2many_binary"/>
+						</tree>
+					</field>
+				</page>    
+			</notebook>
+		</field>
+	</record> -->
+
+
+	<record id="view_drug_expenditure_detail_wizard_form" model="ir.ui.view">
+		<field name="name">drug.expenditure.detail.wizard.form</field>
+		<field name="model">drug.expenditure.detail</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="ambulance_line_id" options="{'no_create':True}"/>
+				</group>
+				<field name="drug_expenditure_line_ids" nolabel="1">
+					<tree editable="bottom">
+						<field name="name" options="{'no_create':True}"/>
+						<field name="balance"/>
+						<field name="expenditure_count" force_save="1"/>
+						<field name="uom_id" options="{'no_create':True}"/>
+					</tree>
+				</field>
+				<footer>
+					<button class="btn-success" name="action_confirm" string="Батлах" type="object"/>
+					<button class="oe_link" special="cancel" string="Буцах"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+</odoo>

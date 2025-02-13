@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_stock_report_turnover" model="res.groups">
+            <field name="name">Эргэцийн тайлан харах</field>
+            <field name="category_id" ref="base.module_category_inventory_inventory"/>
+        </record>
+    </data>
+</odoo>

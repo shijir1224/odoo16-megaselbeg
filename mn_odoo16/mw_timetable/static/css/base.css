@@ -1,0 +1,284 @@
+@charset "utf-8";
+
+.oe_form div.oe_mining_history_line {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.oe_hr_time_schedule {
+  overflow-x: none;
+  width: 100%;
+  object-fit: cover;
+  padding: 0;
+}
+
+.oe_hr_time_schedule table {
+  /* width: 80%; */
+  width: 100% !important;
+  border-collapse: collapse;
+  margin: 0;
+
+}
+
+.oe_hr_time_schedule td {
+  text-align: center;
+  border-collapse: collapse;
+  vertical-align: text-bottom;
+  border-bottom: 1px;
+  height: 22px;
+  background: white;
+  border: #d0d5d1;
+}
+
+.oe_hr_time_schedule th {
+  background-color: #90e890;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #000000;
+  border: #0c0d0d 1px solid;
+}
+
+.oe_hr_time_schedule .oe_no_emplo_col {
+  background-color: #b0ecb0;
+  text-align: left;
+  font-family: "Times New Roman", Times, serif;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 12px;
+  color: #000000;
+}
+
+.oe_hr_time_schedule .oe_no_description_col {
+  background-color: #FFFFFF;
+  text-align: left;
+  font-family: "Times New Roman", Times, serif;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 12px;
+  color: #000000;
+}
+
+.oe_hr_time_schedule .oe_sum_day_col {
+  background-color: #FFFFFF;
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 12px;
+  color: #000000;
+}
+
+.oe_hr_time_schedule .oe_no_emplo_job {
+  background-color: #b0ecb0;
+  text-align: left;
+  font-family: "Times New Roman", Times, serif;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 12px;
+  color: #000000;
+  column-width: 100px;
+}
+
+.oe_hr_time_schedule .oe_no_emplo_ident {
+  background-color: #b0ecb0;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  /*padding: 0px;*/
+  font-size: 12px;
+  color: #000000;
+  /*column-width: 100px;*/
+}
+
+.oe_hr_time_schedule .oe_no_emplo_col_number {
+  background-color: #b0ecb0;
+  border: 1px solid #0c0d0d !important;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  /*padding: 0px;*/
+  font-size: 12px;
+  color: #000000;
+  border: 1px solid #d0d5d1;
+}
+
+.oe_hr_time_schedule .oe_timesheet_row {
+  cursor: pointer;
+}
+
+
+.oe_hr_time_schedule .oe_zero {
+  background-color: #ffffff;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #555151;
+}
+
+.oe_hr_time_schedule .oe_one {
+  background-color: #f0604f;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #faf5f5;
+}
+
+.oe_hr_time_schedule .oe_two {
+  background-color: #f4a361;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #000000;
+}
+
+.oe_hr_time_schedule .oe_three {
+  /*   background-color: transparent; */
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  font-size: 11px;
+  color: #353232;
+  border: 1px solid #9d9797;
+}
+
+.oe_hr_time_schedule .oe_four {
+  background-color: #6cc1ed !important;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #ffffff;
+
+}
+
+.oe_hr_time_schedule .oe_five {
+  background-color: #804a68;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #ffffff;
+}
+
+.oe_hr_time_schedule .oe_six {
+  background-color: #ec7f7f;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #ffffff;
+}
+
+.oe_hr_time_schedule .oe_seven {
+  background-color: #2c8298;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #FFFFFF;
+}
+
+.oe_hr_time_schedule .oe_eight {
+  background-color: #475677;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #FFFFFF;
+}
+
+.oe_hr_time_schedule .oe_nine {
+  background-color: #d6145f;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #faf9f9;
+}
+
+.oe_hr_time_schedule .oe_ten {
+  background-color: #30c381;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #FFFFFF;
+}
+
+.oe_hr_time_schedule .oe_eleven {
+  background-color: #9265b8;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #FFFFFF;
+}
+
+.oe_hr_time_schedule .oe_shift1 {
+  background-color: #a0e79f;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #1e1c1c;
+}
+
+
+.oe_hr_time_schedule .oe_shift2 {
+  background-color: #7bd8ed;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #272424;
+}
+
+.oe_hr_time_schedule .oe_shift3 {
+  background-color: #f3aa7f;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #141212;
+}
+
+
+.oe_hr_time_schedule .oe_shift4 {
+  background-color: #cfa2f5;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #151414;
+}
+
+
+.oe_hr_time_schedule .oe_none {
+  background-color: #f0ebf5;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0px;
+  font-size: 11px;
+  color: #151414;
+}

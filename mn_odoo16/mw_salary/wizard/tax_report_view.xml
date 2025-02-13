@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="tax_salary_report_view" model="ir.ui.view">
+            <field name="name">tax.salary.report.wizard</field>
+            <field name="model">tax.salary.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <!-- <field name="date_start" /> -->
+                        <field name="year" />
+                        <field name="s_month" />
+                        <field name="season" />
+                        <field name="e_month" />
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_tax_salary_report" model="ir.actions.act_window">
+            <field name="name">Татварын тайлан</field>
+            <field name="res_model">tax.salary.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tax_salary_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_tax_salary_report" action="action_tax_salary_report" 
+        parent="menu_finance_salary_report" sequence="9"  groups='group_salary_hybo'/>
+
+    </data>
+</openerp>

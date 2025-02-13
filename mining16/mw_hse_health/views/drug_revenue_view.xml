@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_drug_registration_form" model="ir.ui.view">
+		<field name="name">drug.registration.form</field>
+		<field name="model">drug.registration</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="uom_id" options="{'no_create':True}"/>
+						<field name="balance" force_save="1"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_drug_registration_tree" model="ir.ui.view">
+		<field name="name">hse.drug.registration.tree</field>
+		<field name="model">drug.registration</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="uom_id" options="{'no_create':True}"/>
+				<field name="balance" force_save="1"/>
+            </tree>
+		</field>
+	</record>
+
+	<record id="view_drug_registration_filter" model="ir.ui.view">
+		<field name="name">drug.registration.filter</field>
+		<field name="model">drug.registration</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="uom_id" options="{'no_create':True}"/>
+				<field name="balance"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="action_drug_registration_view" model="ir.actions.act_window">
+		<field name="name">Эмийн Бүртгэл</field>
+		<field name="res_model">drug.registration</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_drug_revenue_form" model="ir.ui.view">
+		<field name="name">hse.drug.revenue.form</field>
+		<field name="model">hse.drug.revenue</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+                    <button name="action_revenued" string="Батлах" type="object" states="draft" class="btn-success" groups="mw_hse_health.group_hse_health_officer"/>
+                    <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,revenued"/>
+                </header>
+				<sheet>
+					<group>
+						<field name="number"/>
+						<field name="company_id" options="{'no_create':True}"/>
+						<field name="user_company_id" invisible="1"/>
+						<field name="employee_id" options="{'no_create':True}"/>
+						<field name="job_id"/>
+						<field name="date"/>
+					</group>
+					<notebook>
+						<page string='Эмийн мэдээлэл'>
+							<field name='line_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name='name'/>
+									<field name='balance' readonly="1"/>
+									<field name="income_count"/>
+									<field name="uom_id" options="{'no_create':True}"/>
+								</tree>
+								<form>
+									<group>
+										<field name='name'/>
+										<field name='balance' readonly="1"/>
+										<field name="income_count"/>
+										<field name="uom_id" options="{'no_create':True}"/>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_drug_revenue_tree" model="ir.ui.view">
+		<field name="name">hse.drug.revenue.tree</field>
+		<field name="model">hse.drug.revenue</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="number"/>
+				<field name="company_id"/>
+				<field name="employee_id"/>
+				<field name="job_id"/>
+				<field name="date"/>
+            </tree>
+		</field>
+	</record>
+
+	<record id="view_hse_drug_revenue_filter" model="ir.ui.view">
+		<field name="name">hse.drug.revenue.filter</field>
+		<field name="model">hse.drug.revenue</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="number"/>
+				<field name="company_id"/>
+				<field name="employee_id"/>
+				<field name="job_id"/>
+				<field name="date"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="action_hse_drug_revenue_view" model="ir.actions.act_window">
+		<field name="name">Эмийн орлого</field>
+		<field name="res_model">hse.drug.revenue</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_hse_drug_expenditure_form" model="ir.ui.view">
+		<field name="name">hse.drug.expenditure.form</field>
+		<field name="model">hse.drug.expenditure</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+                    <button name="action_expenditured" string="Батлах" type="object" states="draft" class="btn-success" groups="mw_hse_health.group_hse_health_officer"/>
+                    <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,expenditured"/>
+                </header>
+				<sheet>
+					<group>
+						<field name="number"/>
+						<field name="company_id" options="{'no_create':True}"/>
+						<field name="employee_id" options="{'no_create':True}"/>
+						<field name="job_id"/>
+						<field name="date"/>
+					</group>
+					<notebook>
+						<page string='Эмийн мэдээлэл'>
+							<field name='line_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name='name'/>
+									<field name='balance' readonly="1"/>
+									<field name="expenditure_count"/>
+									<field name="uom_id" options="{'no_create':True}"/>
+									<field name="expenditure_detail_id" readonly="1"/>
+								</tree>
+								<form>
+									<group>
+										<field name='name'/>
+										<field name='balance'/>
+										<field name="expenditure_count"/>
+										<field name="uom_id" options="{'no_create':True}"/>
+										<field name="expenditure_detail_id" readonly="1"/>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_drug_expenditure_tree" model="ir.ui.view">
+		<field name="name">hse.drug.expenditure.tree</field>
+		<field name="model">hse.drug.expenditure</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="number"/>
+				<field name="company_id"/>
+				<field name="employee_id"/>
+				<field name="job_id"/>
+				<field name="date"/>
+            </tree>
+		</field>
+	</record>
+
+	<record id="view_hse_drug_expenditure_filter" model="ir.ui.view">
+		<field name="name">hse.drug.expenditure.filter</field>
+		<field name="model">hse.drug.expenditure</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="number"/>
+				<field name="company_id"/>
+				<field name="employee_id"/>
+				<field name="job_id"/>
+				<field name="date"/>
+            </search>
+		</field>
+	</record>
+
+	<record id="action_hse_drug_expenditure_view" model="ir.actions.act_window">
+		<field name="name">Эмийн зарлага</field>
+		<field name="res_model">hse.drug.expenditure</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

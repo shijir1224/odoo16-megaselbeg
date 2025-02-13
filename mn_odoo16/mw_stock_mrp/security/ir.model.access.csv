@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_picking_create_production_wizard_user,stock.picking.create.production.wizard.user,model_stock_picking_create_production_wizard,mw_stock_mrp.group_create_production_from_internal_transfer,1,1,1,1

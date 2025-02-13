@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="view_hse_product_form">
+		<field name="name">hse.product.form</field>
+		<field name="model">hse.product</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="english_name"/>
+					<field name="china_name"/>
+					<field name="code"/>
+					<field name="type"/>
+					<field name="uom_id" options="{'no_create':True}"/>
+					<field name="company_id"/>
+					<field name="end_date"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_product_tree" model="ir.ui.view">
+		<field name="name">hse.product.tree</field>
+		<field name="model">hse.product</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="english_name"/>
+				<field name="china_name"/>
+				<field name="code"/>
+				<field name="type"/>
+				<field name="uom_id" options="{'no_create':True}"/>
+				<field name="company_id"/>
+				<field name="end_date"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_category_category_filter" model="ir.ui.view">
+		<field name="name">hse.product.filter</field>
+		<field name="model">hse.product</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="english_name"/>
+				<field name="china_name"/>
+				<field name="code"/>
+				<field name="type"/>
+				<field name="uom_id" options="{'no_create':True}"/>
+				<field name="end_date"/>
+            </search>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_product">
+		<field name="name">Бараа</field>
+		<field name="res_model">hse.product</field>
+		<field name="view_mode">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

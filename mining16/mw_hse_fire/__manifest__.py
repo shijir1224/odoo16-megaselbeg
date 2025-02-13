@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    'name' : 'MW HSE Fire',
+    'version' : '0.1',
+    'license': 'LGPL-3',
+    'author' : 'Managewall LLC by Odka',
+    'website' : 'http://www.managewall.mn/',
+    'category' : 'MW HSE',
+    'description': 'ХАБ Гал түймэр, Онцгой байдал',
+    'depends' : ['base','hr','mw_hr','mw_hse','mw_technic_equipment'],
+    'data'   :  [
+        'security/hse_fire_security.xml',
+        'security/ir.model.access.csv',
+        'views/hse_fire_view.xml',
+        'views/hse_fire_signal_view.xml',
+        'views/hse_fire_lily_view.xml',
+        'views/menu_view.xml',
+    ],
+    'init_xml' : [ ],
+    'demo_xml' : [ ],
+    'update_xml' : [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

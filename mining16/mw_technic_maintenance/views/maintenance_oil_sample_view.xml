@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for  -->
+    <record id="seq_mn_maintenance_oil_sample" model="ir.sequence">
+        <field name="name">Work Order</field>
+        <field name="code">maintenance.oil.sample</field>
+        <field name="prefix">OS%(y)s%(month)s-</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval='False'/>
+    </record>
+
+	<!--  -->
+	<record id="maintenance_oil_sample_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.oil.sample.filter</field>
+        <field name="model">maintenance.oil.sample</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="damaged_type_id"/>
+                <field name="response_type"/>
+                <field name="technic_id"/>
+                <field name="branch_id"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date_sent','like',time.strftime('%%Y-%%m'))]"/>
+                <group expand="1" string="Group By...">
+                    <filter string="Техникээр" context="{'group_by':'technic_id'}"
+                        name="technic_id"/>
+                    <filter string="Жилээр" context="{'group_by':'date_sent:year'}"
+                        name="year"/>
+                    <filter string="Сараар" context="{'group_by':'date_sent:month'}"
+                        name="month"/>
+                    <filter string="Өдрөөр" context="{'group_by':'date_sent:day'}"
+                        name="day"/>
+                    <filter context="{'group_by' : 'response_type'}" string="Хариуны төрөл"
+                        name="response_type"/>
+                    <filter context="{'group_by' : 'state'}" string="Төлөв"
+                        name="state"/>
+                    <filter context="{'group_by' : 'damaged_type_id'}" string="Систем"
+                        name="damaged_type_id"/>
+                    <filter string="Ээлж" domain="" context="{'group_by':'shift'}"
+                        name="shift"/>
+            	</group>
+            </search>
+        </field>
+    </record>
+
+	<record id="maintenance_oil_sample_form_view" model="ir.ui.view">
+		<field name="name">maintenance.oil.sample.form</field>
+		<field name="model">maintenance.oil.sample</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object" />
+                    <button name="action_to_send" class="oe_highlight" string="Илгээх"
+                        states="draft" type="object" />
+                    <button name="action_to_receive" class="oe_highlight" string="Хариу ирсэн"
+                        states="sent_sample" type="object" />
+                    <button name="action_send_checker" string="Тосны Дээжний Хариунаас Мессеж Илгээх" class="btn-warning" type="object"/>   
+                    <button name="action_create_workorder" class="oe_highlight" string="WO үүсгэх"
+                        states="received_response" type="object" />
+                    <button name="action_to_close" class="oe_highlight" string="Хаах"
+                        states="received_response" type="object"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                        statusbar_visible="draft,sent_sample,received_response,closed" />
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+           			<group col="4">
+                        <field name="branch_id"
+                                options="{'no_create':True}"/>
+                        <field name="date"/>
+
+                        <field name="date_sample"/>
+                        <field name="shift"/>
+
+                        <field name="technic_id" options="{'no_create': True}" />
+
+                        <field name="damaged_type_id" options="{'no_create': True}" required="1"/>
+                        <field name="description" nolabel="1" colspan="2" placeholder="Тайлбар..."/>
+                        <field name="date_sent"/>
+                    </group>
+                    <group col="4" string="Machine Information">
+                        <field name="customer_id" options="{'no_create':True}"/>
+                        <field name="mining_site"/>
+                        <field name="technic_id" options="{'no_create': True}" />
+                        <field name="machine_serial"/>
+                        <field name="fleet_number"/>
+                        <field name="technic_odometer"/>
+                    </group>
+                    <group col="4" string="Oil sample information">
+                        <field name="sample_date"/>
+                        <field name="sample_number"/>
+                        <field name="comportment_system"/>
+                        <field name="component_id" />
+                        <field name="component_serial" attrs="{'invisible':[('component_id','=','False')]}"/>
+                        <field name="component_part_number" attrs="{'invisible':[('component_id','=','False')]}"/>
+                        <field name="component_hours" widget="float_time"/>
+                        <field name="oil_type_id" options="{'no_create': True}" required="1"/>
+                        <field name="oil_categ_id"/>
+                        <!-- <field name="oil_brand_id"/> -->
+                        <field name="oil_hours" widget="float_time"/>
+                        <field name="response_type"/>
+                        <field name="comment"/>
+                        <field name="attach_file_ids" widget="many2many_binary" options="{'no_create': True}"/>
+                    </group>
+                    <notebook>
+                        <page string="Reference" class="oe_page_title" accesskey="P"
+                            attrs="{'invisible':[('state','=','draft')]}">
+                            <group col="4">
+                                <field name="response_type"
+                                    attrs="{'required':[('state','=','sent_sample')]}"/>
+                                <field name="response_description"
+                                    attrs="{'required':[('state','=','sent_sample')]}"/>
+
+                                <field name="workorder_id"/>
+                                <field name="response_id"/>
+
+                                <field name="action_description"/>
+                                <field name="date_response"/>
+
+                                <field name="date_close"/>
+                                <field name="attachment"/>
+                            </group>
+                        </page>
+                    </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_oil_sample_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.oil.sample.tree</field>
+        <field name="model">maintenance.oil.sample</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="response_type=='no_action_required'"
+                  decoration-danger="response_type =='action_required'"
+                  decoration-warning="response_type =='monitor_compartment'">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="mining_site"/>
+                <field name="technic_id"/>
+                <field name="machine_serial"/>
+                <field name="fleet_number"/>
+                <field name="technic_odometer"/>
+                <field name="sample_date"/>
+                <field name="sample_number"/>
+                <field name="comportment_system"/>
+                <field name="component_hours"/>
+                <field name="oil_type_id"/>
+                <field name="oil_categ_id"/>
+                <!-- <field name="oil_brand_id"/> -->
+                <field name="oil_hours"/>
+                <field name="response_type"/>
+                <field name="comment"/>
+                <field name="attach_file_ids"/>
+                <field name="state" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_oil_sample'>
+        <field name="name">maintenance.oil.sample.action</field>
+        <field name="res_model">maintenance.oil.sample</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('maintenance_oil_sample_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('maintenance_oil_sample_form_view')})]"/>
+    </record>
+
+
+	<record id="maintenance_oil_sample_manage_form_view" model="ir.ui.view">
+		<field name="name">maintenance.oil.sample.form</field>
+		<field name="model">maintenance.oil.sample</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object" />
+                    <button name="action_to_send" class="oe_highlight" string="Илгээх"
+                        states="draft" type="object" />
+                    <button name="action_to_receive" class="oe_highlight" string="Хариу ирсэн"
+                        states="sent_sample" type="object" />
+                    <button name="action_send_checker" string="Тосны Дээжний Хариунаас Мессеж Илгээх" class="btn-warning" type="object"/>   
+                    <button name="action_create_workorder" class="oe_highlight" string="WO үүсгэх"
+                        states="received_response" type="object" />
+                    <button name="action_to_close" class="oe_highlight" string="Хаах"
+                        states="received_response" type="object"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                        statusbar_visible="draft,sent_sample,received_response,closed" />
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+           			<group col="4">
+                        <field name="branch_id"
+                                options="{'no_create':True}"/>
+                        <field name="date"/>
+
+                        <field name="date_sample"/>
+                        <field name="shift"/>
+
+                        <field name="technic_id" options="{'no_create': True}" />
+                        <field name="technic_odometer"/>
+
+                        <field name="damaged_type_id" options="{'no_create': True}" required="1"/>
+                        <field name="description" nolabel="1" colspan="2" placeholder="Тайлбар..."/>
+                        <field name="oil_type_id" options="{'no_create': True}" required="1"/>
+                        <field name="date_sent"/>
+                    </group>
+                    <notebook>
+                        <page string="Reference" class="oe_page_title" accesskey="P"
+                            attrs="{'invisible':[('state','=','draft')]}">
+                            <group col="4">
+                                <field name="response_type"
+                                    attrs="{'required':[('state','=','sent_sample')]}"/>
+                                <field name="response_description"
+                                    attrs="{'required':[('state','=','sent_sample')]}"/>
+
+                                <field name="workorder_id"/>
+                                <field name="response_id"/>
+
+                                <field name="action_description"/>
+                                <field name="date_response"/>
+
+                                <field name="date_close"/>
+                                <field name="attachment"/>
+                            </group>
+                        </page>
+                    </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="maintenance_oil_sample_manage_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.oil.sample.tree</field>
+        <field name="model">maintenance.oil.sample</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="response_type=='no_action_required'"
+                  decoration-danger="response_type =='action_required'"
+                  decoration-warning="response_type =='monitor_compartment'">
+                <field name="name"/>
+                <field name="shift"/>
+                <field name="date_sent"/>
+                <field name="branch_id"/>
+                <field name="technic_id"/>
+                <field name="response_id"/>
+                <field name="damaged_type_id"/>
+                <field name="oil_type_id"/>
+                <field name="response_type"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_maintenance_oil_sample_manage'>
+        <field name="name">maintenance.oil.sample.action</field>
+        <field name="res_model">maintenance.oil.sample</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('maintenance_oil_sample_manage_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('maintenance_oil_sample_manage_form_view')})]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="account_transaction_balance_report_view" model="ir.ui.view">
+            <field name="name">Transaction Balance</field>
+            <field name="model">account.transaction.balance.report.new</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group colspan="4" col="2" expand="1">
+                    		<group colspan="4" >
+		                   <field name="company_id" widget='selection' />
+		                </group>
+	                        <notebook tabpos="up">
+	                            <page string="Filters">
+				                   <group name='Filters' col="4">
+	                                <field name="date_from" />
+	                                <field name="date_to" />
+	                               </group>	
+	                            </page>
+		                        <page name="accounts" string="Choose accounts" >
+						            <group col="3">
+                                           <field name="branch_id" ></field>
+		                            </group>
+		                        	
+						            <group col="3">
+                                           <field name="chart_account_type" widget="many2many_tags" options="{'no_create': True}"></field>
+		                            </group>
+                                       <field name="chart_account_ids" widget="many2many_tags" colspan="4" nolabel="1"/>
+						            <group col="3">
+						                <field name="journal_ids" widget="many2many_tags" options="{'no_create': True}"/>
+						            </group>
+		                        </page>
+
+	                        </notebook>
+	                    <group colspan="2" col="4">
+	                        <field name="check_balance_method"/>
+	                        <field name="is_categ" />
+	                        <field name="is_currency" string="Валют харуулах?"/>
+	                    </group>
+	                    <separator colspan="2"/>
+ 	                    <group colspan="2">
+	                        <field name="name" invisible="1"/>
+	                        <field name="data" readonly="1" filename="name"/>
+	                    </group>
+
+						<footer col="3" class="oe_right">
+	                        <button icon="fa-times" special="cancel" string="Cancel" colspan="2"/>
+	                        <button icon="fa-print" name="check_report" string="Print" type="object" colspan="2" default_focus="1" />
+	                        <button icon="fa-print" name="print_report_html" string="View" type="object" colspan="2" default_focus="1" />
+        			       </footer>
+	                </group>
+               	</form>
+            </field>
+        </record>
+
+        <record id="action_account_transaction_balance_report" model="ir.actions.act_window">
+            <field name="name">Transaction Balance</field>
+            <field name="res_model">account.transaction.balance.report.new</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_transaction_balance_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_finance_legal_statement_xls" name="Эксел тайлангууд" parent="account.menu_finance_reports"/>
+
+        <menuitem 
+                name="Гүйлгээ баланс"
+                action="action_account_transaction_balance_report"
+                id="menu_action_account_transaction_balance_report"
+                parent="mw_account.menu_finance_legal_statement_xls"
+                sequence="1"/> 
+                
+    </data>
+</odoo>

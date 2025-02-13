@@ -1,0 +1,243 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  margin: 5px;
+  align-content: center;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 1px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  /*margin: 5px;*/
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/*input:checked + .slider {
+  background-color: #2196F3;
+}*/
+
+/*input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+*/
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/* DB3 iin CSS */
+table#tbbk_table th, td{
+  font-size: 12px !important;
+}
+table#tbbk_table td.technic_name{
+  min-width: 215px !important;
+  background-color: #f1f1f1;
+}
+table#tbbk_table td.total_cell{
+  background-color: #f1f1f1;
+}
+.plan_cell:hover{
+  cursor: pointer;
+}
+.tr_line_hover:hover{
+  background-color: rgba(189, 183, 183, 0.5);
+}
+.tr_line_red{
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.tr_line_yellow{
+  background-color: rgba(255, 192, 0, 0.5);
+}
+.tr_line_green{
+  background-color: rgba(20, 180, 60, 0.5);
+}
+.tr_line_grey{
+  background-color: rgba(189, 183, 183, 0.5);
+}
+.tr_line_white{
+  background-color: rgb(255, 255, 255);
+}
+/* TOOLTIPS */
+/* [data-tooltip]:before { */
+    /* needed - do not touch */
+    /* content: attr(data-tooltip);
+    position: absolute;
+    opacity: 0; */
+    /* customizable */
+    /* transition: all 0.15s ease;
+    padding: 9px;
+    font-size: 11pt;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px silver;    
+} */
+
+/* [data-tooltip]:hover:before { */
+    /* needed - do not touch */
+    /* opacity: 1; */
+    /* customizable */
+    /* background: #86FC82;
+    margin-top: -40px;
+    margin-left: 20px;  
+    z-index: 1000;  
+} */
+/* [data-tooltip]:not([data-tooltip-persistent]):before {
+    pointer-events: none;
+} */
+
+/* Булагний CSS ---------------------------------------*/
+.cell_box {
+  position: relative;
+  box-shadow: 0 0 1px rgba(0,0,0,.1);
+}
+.ribbon_2 {
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon_2::before,
+.ribbon_2::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #FFD700;
+}
+.ribbon_2 span {
+  position: absolute;
+  display: block;
+  width: 70px;
+  padding: 10px 4px;
+  background-color: #FFD700;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  text-transform: uppercase;
+  text-align: center;
+}
+.ribbon_2-top-left {
+  top: -2px;
+  left: -2px;
+}
+.ribbon_2-top-left::before,
+.ribbon_2-top-left::after {
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+.ribbon_2-top-left::before {
+  top: 0;
+  right: 0;
+}
+.ribbon_2-top-left::after {
+  bottom: 0;
+  left: 0;
+}
+.ribbon_2-top-left span {
+  right: -2px;
+  top: 2px;
+  transform: rotate(-45deg);
+}
+/* Night */
+.ribbon_2_night {
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon_2_night::before,
+.ribbon_2_night::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #0a0000;
+}
+.ribbon_2_night span {
+  position: absolute;
+  display: block;
+  width: 70px;
+  padding: 10px 4px;
+  background-color: #0a0000;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  text-transform: uppercase;
+  text-align: center;
+}
+.ribbon_2_night-top-left {
+  top: -2px;
+  left: -2px;
+}
+.ribbon_2_night-top-left::before,
+.ribbon_2_night-top-left::after {
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+.ribbon_2_night-top-left::before {
+  top: 0;
+  right: 0;
+}
+.ribbon_2_night-top-left::after {
+  bottom: 0;
+  left: 0;
+}
+.ribbon_2_night-top-left span {
+  right: -2px;
+  top: 2px;
+  transform: rotate(-45deg);
+}
+
+/* TABs CSS -----------------------------------------*/
+.tablink {
+  background-color: #d8d8d8;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 4px 4px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius:3px 3px 0px 0px;
+  width: 25%;
+}
+.tablink:hover {
+  background-color: #777;
+}
+.tabcontent {
+  display: none;
+  text-align: center;
+  padding-top: 23px;
+  display: block;
+  border-radius:3px 3px 0px 0px;
+  box-shadow: 0 0rem 1.8rem #00000080;
+}
+/*==============================================*/

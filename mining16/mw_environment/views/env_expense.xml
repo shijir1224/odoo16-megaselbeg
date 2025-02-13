@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<record model="ir.ui.view" id="env_expense_tree">
+		<field name="name">env.expense.tree</field>
+		<field name="model">env.expense</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Expense" decoration-danger="payment_state=='not_paid'" decoration-success="payment_state=='paided'">
+				<field name="mining_location"/>
+				<field name="expense_category"/>
+				<field name="expense_type"/>
+				<field name="expense_date"/>
+				<field name="amount" sum="Нийт" />
+				<field name="create_uid" string='Бүртгэсэн'/>
+				<field name="payment_state"/>
+				<field name="state" decoration-success="state == 'done' " decoration-warning="state == 'draft'" widget="badge" optional="show"/>
+			</tree>
+		</field>
+	</record>
+
+		<record model="ir.ui.view" id="env_expense_form">
+		<field name="name">env.expense.form</field>
+		<field name="model">env.expense</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцаах"  type="object" class="btn-danger"/>
+					<button name="action_to_done" states="draft" string="Батлах" type="object" class="btn-success" icon="fa-check-square-o" groups='mw_environment.group_env_confirmed'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="mining_location" options="{'no_create': True}"/>
+							<field name="expense_date"/>
+							<field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+							<field name="payment_state" widget="selection" force_save="1"/>
+						</group>
+						<group>
+							<field name="expense_type" options="{'no_create': True, 'no_open': True}"/>
+							<field name="expense_category" options="{'no_create': True, 'no_open': True}"/>
+							<field name="note"/>
+							<field name="department_id" invisible="1"/>
+						</group>
+					</group>
+					<group string='Гэрээний мэдээлэл'>
+						<group>
+							<field name="contract_id"/>
+						</group>
+						<group>
+							<field name="total_paid"/>
+							<field name="total_paided"/>
+							<field name="toal_unpaid"/>
+						</group>
+						<field name="payment_ids" nolabel="1" string='Төлбөрийн хуваарь' attrs="{'invisible':[('contract_id','=',[])]}">
+							<tree string='Төлбөрийн хуваарь'>
+								<field name="paid_date"/>  
+								<field name="paid_amount"/> 
+								<field name="disburse_amount"/>
+							</tree>
+						</field>
+					</group>
+					<field name="attachment_ids" widget="many2many_binary"/>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="env_expense_pivot" model="ir.ui.view">
+		<field name="name">env.expense.pivot</field>
+		<field name="model">env.expense</field>
+		<field name="type">graph</field>
+		<field name="arch" type="xml">
+			<graph string="Expense Summary">
+				<field name="expense_category" type="row"/>
+				<field name="expense_type" type="row"/>
+				<field name="expense_date" interval="year" type="col"/>
+				<field name="amount" type="measure"/>
+			</graph>
+		</field>
+	</record>
+
+	<record id="env_expense_search" model="ir.ui.view">
+		<field name="name">env.expense.search</field>
+		<field name="model">env.expense</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<group>
+					<field name="mining_location"/>
+					<field name="expense_type"/>
+				</group>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="mining_location" string="Уурхай" context="{'group_by':'mining_location'}"/>
+					<filter string="Он" name='group_year' domain="[]" context="{'group_by':'expense_date:year'}"/>
+					<filter string="Ангилал" name="group_expense_category" context="{'group_by':'expense_category'}"/>
+					<filter string="Төрөл" name="group_expense_type" context="{'group_by':'expense_type'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_env_expense" model="ir.actions.act_window">
+			<field name="name">Бараа материал, Үйлчилгээний зардал</field>
+			<field name="res_model">env.expense</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="view_id" ref="env_expense_tree"/>
+			<field name="search_view_id" ref="env_expense_search"/>
+			<field name="help" type="html">
+					<p class="oe_view_nocontent_create">
+					Энд дарж байгаль орчныг хамгаалахад зарцуулсан зардлын бүртгэлээ хийнэ үү.
+					</p>
+			</field>
+	</record>
+	
+</odoo>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+	
+	<record model="ir.ui.view" id="hse_health_reference_view">
+		<field name="name">hse.health.reference.form</field>
+		<field name="model">hse.health.reference</field>
+		<field name="arch" type="xml">
+			<form edit="false" create="false" delete="false" write="false">
+				<div class="oe_inline">
+					<field name="lastname" placeholder="Овог" class="oe_inline"/>
+					<field name="name" placeholder="Нэр" class="oe_inline"/>
+					<field name="vat" placeholder="Регистрийн №" class="oe_inline"/>
+					<field name="phone" placeholder="Утас" class="oe_inline"/>
+					<button name="find" type="object" string="ХАЙХ" class="btn-success oe_inline"/>
+					<field name="company_id"/>
+				</div>
+				<notebook>
+					<page string="Эрүүл мэндийн үзлэг" name="health">
+						<field name="history_ids" nolabel="1">
+							<tree editable="bottom">
+								<field name='type'/>
+								<field name="date"/>
+								<field name="workplace_change"/>
+								<field name="disp_type"/>
+								<field name="additional_analysis_id" options="{'no_create':True}"/>
+								<!-- <field name="when_date"/> -->
+							</tree>
+							<form>
+								<group>
+									<field name='type'/>
+									<field name="date"/>
+									<field name="additional_analysis_id" options="{'no_create':True}"/>
+									<!-- <field name="when_date"/> -->
+									<field name="workplace_change"/>
+									<field name="disp_type"/>
+								</group>
+							</form>
+						</field>
+					</page>
+					<page string="Бие бялдарын түвшин" name="physical">
+						<field name='physical_ids' nolabel="1">
+							<tree editable="bottom">
+								<field name='date'/>
+								<field name="high"/>
+								<field name="weight"/>
+								<field name="weight_index"/>
+								<field name="review" force_save='1'/>
+								<field name="waist_circumference"/>
+							</tree>
+							<form>
+								<group>
+									<field name='parent_id'/>
+									<field name='date'/>
+									<field name="high"/>
+									<field name="weight"/>
+									<field name="weight_index"/>
+									<field name="review" force_save='1'/>
+									<field name="waist_circumference"/>
+								</group>	
+							</form>
+						</field>
+					</page>
+					<page string="Эрт илрүүлэг" name="detection">
+						<field name='detection_ids' nolabel="1">
+							<tree editable="bottom">
+								<field name='date'/>
+								<field name="arterial_blood_pressure"/>
+								<field name="diabetes_risk_score"/>
+								<field name="blood_glucose_level"/>
+							</tree>
+							<form>
+								<field name='parent_id'/>
+								<field name='date'/>
+								<field name="arterial_blood_pressure"/>
+								<field name="diabetes_risk_score"/>
+								<field name="blood_glucose_level"/>
+							</form>
+						</field>
+					</page>
+					<page string="Эрүүл мэндийн асуумж" name="ask">
+						<field name="questionnaire_ids" nolabel="1">
+							<tree editable="bottom">
+								<field name="date"/>
+								<field name="check_head"/>
+								<field name="check_heart"/>
+								<field name="check_breath"/>
+								<field name="check_injury"/>
+								<field name="check_endocrine"/>
+								<field name="check_internal_disease"/>
+								<field name="check_infectious_diseases"/>
+								<field name="check_job_disease"/>
+								<field name="check_Hereditary_disease"/>
+								<field name="check_foot"/>
+								<field name="check_pharynx"/>
+								<field name="check_surgery" />
+								<field name="check_nerve" />
+								<field name="check_eye" />
+								<field name="diagnosis" />
+								<field name="additional_analysis"/>
+								<field name="note"/>
+								<field name="introduce"/>
+							</tree>
+							<form>
+								<group>
+									<field name="date"/>
+									<field name="check_head"/>
+									<field name="check_heart"/>
+									<field name="check_breath"/>
+									<field name="check_injury"/>
+									<field name="check_endocrine"/>
+									<field name="check_internal_disease"/>
+									<field name="check_infectious_diseases"/>
+									<field name="check_job_disease"/>
+									<field name="check_Hereditary_disease"/>
+									<field name="check_foot"/>
+									<field name="check_pharynx"/>
+									<field name="check_surgery" optional="hide"/>
+									<field name="check_nerve" optional="hide"/>
+									<field name="check_eye" optional="hide"/>
+									<field name="diagnosis" optional="hide"/>
+									<field name="additional_analysis" optional="hide"/>
+									<field name="note"/>
+									<field name="introduce"/>
+								</group>
+							</form>
+						</field>
+					</page>
+					<page string="Нарийн мэргэжлийн үзлэг" name="special">
+						<field name='specialist_ids' nolabel="1">
+							<tree editable="bottom">
+								<field name="date"/>
+								<field name='type'/>
+								<field name="hospital_name"/>
+								<field name="doctor_type_ids"/>
+								<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+								<field name="additional_diagnosis"/>
+								<field name="disp_name"/>
+								<!-- <field name="when_date"/> -->
+								<field name="analysis_id_date" />
+								<field name="additional_analysis_id" options="{'no_create':True}"/>
+							</tree>
+							<form>
+								<group>
+									<field name="date"/>
+									<field name='type'/>
+									<field name="hospital_name"/>
+									<field name="doctor_type_ids"/>
+									<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="additional_diagnosis"/>
+									<field name="disp_name"/>
+									<!-- <field name="when_date"/> -->
+									<field name="analysis_id_date" />
+									<field name="additional_analysis_id" options="{'no_create':True}"/>
+								</group>
+							</form>
+						</field>
+					</page>
+				</notebook>
+			</form>
+		</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="action_hse_health_reference">
+		<field name="name">Эрүүл мэндийн мэдээлэл</field>
+		<field name="res_model">hse.health.reference</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="hse_health_reference_view"/>
+		<field name="target">inline</field>
+		<field name="context">{'create':False, 'edit':False, 'delete':False, 'write':False,'save':False}</field>
+	</record>
+</odoo>

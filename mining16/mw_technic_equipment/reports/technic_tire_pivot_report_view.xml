@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <!-- Tire report -->
+        <record id="technic_tire_pivot_report_tree_view" model="ir.ui.view">
+            <field name="name">technic.tire.pivot.report.tree.view</field>
+            <field name="model">technic.tire.pivot.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="tire_id" />
+                    <field name="date_of_manufactured" />
+                    <field name="total_moto_hour" />
+                    <field name="total_km" />
+                    <field name="current_technic_id" />
+                    <field name="current_position" />
+                    <field name="state" />
+               </tree>
+            </field>
+        </record>
+
+        <record id="technic_tire_pivot_report_form_view" model="ir.ui.view">
+            <field name="name">technic.tire.pivot.report.form.view</field>
+            <field name="model">technic.tire.pivot.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group >
+                        <group>
+                            <group>
+                                <field name="tire_id" />
+                                <field name="date_of_manufactured" />
+                                <field name="branch_id" />
+                                <field name="serial_number" />
+                                <field name="working_type" />
+                                <field name="state" />
+                            </group>
+                            <group>
+                                <field name="norm_tread_deep" />
+                                <field name="odometer_unit" />
+                                <field name="purchase_value" />
+                                <field name="residual_value" />
+                                <field name="current_position" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="date_of_retired" />
+                                <field name="model_id" />
+                                <field name="brand_id" />
+                                <field name="norm_tire_size" />
+                                <field name="current_technic_id" />
+                            </group>
+                            <group>
+                                <field name="total_moto_hour" />
+                                <field name="total_km" />
+                                <field name="tread_current_deep" />
+                                <field name="tread_depreciation_percent" />
+                                <field name="warning_deep" />
+                            </group>
+                        </group>
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="technic_tire_pivot_report_pivot" model="ir.ui.view">
+             <field name="name">technic.tire.pivot.report.pivot</field>
+             <field name="model">technic.tire.pivot.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                     <field name="current_technic_id" type="row"/>
+                     <field name="tire_line" type="row"/>
+                     <field name="tread_depreciation_percent" type="measure"/>
+                     <field name="total_moto_hour" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="technic_tire_pivot_report_search" model="ir.ui.view">
+            <field name="name">technic.tire.pivot.report.search</field>
+            <field name="model">technic.tire.pivot.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="current_technic_id"/>
+                    <field name="tire_id"/>
+                    <filter name="using" string="Хэрэглэж байгаа" 
+                        domain="[('state','=','using')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Төлөв" context="{'group_by':'state'}"
+                            name="state"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_technic_tire_pivot_report'>
+            <field name="name">Technic tire pivot</field>
+            <field name="res_model">technic.tire.pivot.report</field>
+            <field name="view_mode">pivot,form</field>
+            <field name="view_id" ref="technic_tire_pivot_report_pivot"/>
+            <field name="context">{"search_default_using" : True}</field>
+        </record>
+
+        <!-- Tire count report -->
+        <record id="technic_tire_count_pivot_report_tree_view" model="ir.ui.view">
+            <field name="name">technic.tire.count.pivot.report.tree</field>
+            <field name="model">technic.tire.count.pivot.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="technic_id" />
+                    <field name="tire_counts" />
+                    <field name="current_counts" />
+                    <field name="less_counts" />
+               </tree>
+            </field>
+        </record>
+
+        <record id="technic_tire_count_pivot_report_form_view" model="ir.ui.view">
+            <field name="name">technic.tire.count.pivot.report.form</field>
+            <field name="model">technic.tire.count.pivot.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group col="4">
+                        <field name="technic_id" />
+                        <field name="tire_counts" />
+                        <field name="current_counts" />
+                        <field name="less_counts" />
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="technic_tire_count_pivot_report_pivot" model="ir.ui.view">
+             <field name="name">technic.tire.count.pivot.report.pivot</field>
+             <field name="model">technic.tire.count.pivot.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                     <field name="technic_id" type="row"/>
+                     <field name="tire_counts" type="measure"/>
+                     <field name="current_counts" type="measure"/>
+                     <field name="less_counts" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="technic_tire_count_pivot_report_search" model="ir.ui.view">
+            <field name="name">technic.tire.count.pivot.report.search</field>
+            <field name="model">technic.tire.count.pivot.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="technic_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_technic_tire_count_report'>
+            <field name="name">Technic tire count pivot</field>
+            <field name="res_model">technic.tire.count.pivot.report</field>
+            <field name="view_mode">pivot,form</field>
+            <field name="view_id" ref="technic_tire_count_pivot_report_pivot"/>
+        </record>
+
+    
+</odoo>

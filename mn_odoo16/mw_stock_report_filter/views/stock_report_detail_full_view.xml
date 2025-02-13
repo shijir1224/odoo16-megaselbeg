@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Income, Expsne Both report -->
+        <record id="stock_report_detail_full_tree_view" model="ir.ui.view">
+            <field name="name">stock.report.detail.full.tree.view</field>
+            <field name="model">stock.report.detail.full</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="date_expected"/>
+                    <field name="picking_id"/>
+                    <field name="location_id"/>
+                    <field name="qty_first" sum="measure"/>
+                    <field name="qty_income" sum="measure"/>
+                    <field name="qty_expense" sum="measure"/>
+                    <field name="qty_sale_out" sum="measure"/>
+                    <field name="qty_sale_in" sum="measure"/>
+                    <field name="qty_purchase_out" sum="measure"/>
+                    <field name="qty_purchase_in" sum="measure"/>
+                    <field name="qty_inventory_out" sum="measure"/>
+                    <field name="qty_inventory_in" sum="measure"/>
+                    <field name="qty_internal_out" sum="measure"/>
+                    <field name="qty_internal_in" sum="measure"/>
+                    <field name="qty_production_in" sum="measure"/>
+                    <field name="qty_production_out" sum="measure"/>
+                    <field name="qty_other_move_in" sum="measure"/>
+                    <field name="qty_other_move_out" sum="measure"/>
+                    <field name="qty_last" sum="measure"/>
+                    <field name="state" />
+               </tree>
+            </field>
+        </record>
+
+        <record id="stock_report_detail_full_pivot2" model="ir.ui.view">
+             <field name="name">stock.report.detail.full.pivot</field>
+             <field name="model">stock.report.detail.full</field>
+             <field name="arch" type="xml">
+                <pivot string="Analysis">
+                    <field name="categ_id" type="row"/>
+                    <field name="qty_first" type="measure"/>
+                    <field name="qty_income" type="measure"/>
+                    <field name="qty_expense" type="measure"/>
+                    <field name="qty_sale_out" type="measure"/>
+                    <field name="qty_sale_in" type="measure"/>
+                    <field name="qty_purchase_out" type="measure"/>
+                    <field name="qty_purchase_in" type="measure"/>
+                    <field name="qty_inventory_out" type="measure"/>
+                    <field name="qty_inventory_in" type="measure"/>
+                    <field name="qty_internal_out" type="measure"/>
+                    <field name="qty_internal_in" type="measure"/>
+                    <field name="qty_production_in" type="measure"/>
+                    <field name="qty_production_out" type="measure"/>
+                    <field name="qty_other_move_in" type="measure"/>
+                    <field name="qty_other_move_out" type="measure"/>
+                    <field name="qty_last" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="stock_report_detail_full_search" model="ir.ui.view">
+            <field name="name">stock.report.detail.full.search</field>
+            <field name="model">stock.report.detail.full</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="partner_id"/>
+                    <field name="picking_id"/>
+                    <field name="date_expected"/>
+                    <field name="warehouse_id"/>
+                    <field name="location_id"/>
+                    <field name="lot_id" groups="stock.group_production_lot"/>
+                    <field name="categ_id"/>
+                    <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                    <filter name="today" string="Өнөөдөр" domain="[('date_expected','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="Энэ сар" domain="[('date_expected','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="Энэ жил" domain="[('date_expected','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date_expected','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date_expected','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date_expected','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date_expected','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date_expected','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date_expected','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date_expected','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date_expected','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date_expected','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="Octomber" domain="[('date_expected','like',time.strftime('%%Y-10'))]"/>
+                    <filter name="november" string="November" domain="[('date_expected','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date_expected','like',time.strftime('%%Y-12'))]"/>
+                    <separator/>
+                    <filter name="location_dest_id_customer" string="Борлуулалтын Зарлага" domain="[('location_dest_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                    <filter name="location_id_customer" string="Борлуулалтын Буцаалт" domain="[('location_id.usage','=','customer'),('picking_id.other_expense_id','=',False)]" />
+                    <filter name="location_id_supplier" string="Худалдан Авалтын Орлого" domain="[('location_id.usage','=','supplier'),('picking_id.other_expense_id','=',False)]" />
+                    <filter name="location_dest_id_supplier" string="Худалдан Авалтын Буцаалт" domain="[('location_dest_id.usage','=','supplier')]" />
+                    <filter name="location_id_inventory" string="Тооллогын Орлого" domain="[('location_id.usage','=','inventory')]" />
+                    <filter name="location_dest_id_inventory" string="Тооллогын Зарлага" domain="[('location_dest_id.usage','=','inventory')]" />
+                    <filter name="is_internal" string="Дотоод Хөдөлгөөн" domain="[('location_id.usage','=','internal'),('location_dest_id.usage','=','internal')]" />
+                    <filter name="is_internal_not" string="Дотоод Хөдөлгөөн Биш" domain="[('transfer_type','!=','internal')]" />
+                    <filter name="location_id_production" string="Үйлдвэр Орлого" domain="[('location_id.usage','=','production')]" />
+                    <filter name="location_dest_id_production" string="Үйлдвэр Зарлага" domain="[('location_dest_id.usage','=','production')]" />
+                    <filter name="is_production_not" string="Үйлдвэрлэл Биш" domain="[('location_dest_id.usage','!=','production'),('location_id.usage','!=','production')]" />
+                    <filter name="other_expense_id_ok" string="БМ Шаардахын гүйлгээ" domain="[('picking_id.other_expense_id','!=',False)]" />
+
+                    <group expand="0" string="Group By">
+                        <filter string="Бараа" name="gr_product" context="{'group_by':'product_id'}"/>
+                        <filter string="Төлөв" name="gr_state" context="{'group_by':'state'}"/>
+                        <filter string="Ангилал" name="gr_categ" context="{'group_by':'categ_id'}"/>
+                        <filter string="Байрлал" name="gr_location_id" context="{'group_by':'location_id'}"/>
+                        <filter string="Агуулах" name="gr_warehouse" context="{'group_by':'warehouse_id'}"/>
+                        <filter string="Харилцагчаар" name="gr_partner_id" context="{'group_by':'partner_id'}"/>
+                        <filter string="Өдрөөр" name="gr_day" context="{'group_by':'date_expected:day'}" help="Pppp"/>
+                        <filter string="Сараар" name="gr_month" context="{'group_by':'date_expected:month'}" help="Pppp"/>
+                        <filter string="Жилээр" name="gr_year" context="{'group_by':'date_expected:year'}" help="Жил жилээр"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_stock_report_detail_full" model="ir.actions.act_window">
+            <field name="name">Барааны Дэлгэрэнгүй Тайлан</field>
+            <field name="res_model">stock.report.detail.full</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="view_id" ref="stock_report_detail_full_pivot2"/>
+            <field name="context">{'search_default_gr_categ': 1}</field>
+            <field name="target">current</field>
+        </record>
+</odoo>

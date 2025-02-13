@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<odoo>
+    <record id="action_report_ebarimt_pos_receipt" model="ir.actions.report">
+        <field name="name">Receipt EBarimt</field>
+        <field name="model">pos.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mw_pos.report_receipt</field>
+        <field name="report_file">mw_pos.report_receipt</field>
+        <field name="paperformat_id" ref="mw_pos.paperformat_pos_receipt"/>
+        <field name="binding_model_id" ref="model_pos_order"/>
+        <field name="binding_type">action</field>
+    </record>
+</odoo>

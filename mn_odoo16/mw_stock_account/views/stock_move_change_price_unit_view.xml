@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- stock.move.change.price.unit -->
+	<record id="view_stock_move_change_price_unit_tree" model="ir.ui.view">
+		<field name="name">stock.move.change.price.unit.tree</field>
+		<field name="model">stock.move.change.price.unit</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="change_price_unit"/>
+				<field name="stock_move_ids"/>
+				<field name="change_desc"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_stock_move_change_price_unit_form" model="ir.ui.view">
+		<field name="name">stock.move.change.price.unit.form</field>
+		<field name="model">stock.move.change.price.unit</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group >
+						<field name="change_price_unit"/>
+					</group>
+					<group>
+						<field name="stock_move_ids" widget="text"/>
+					</group>
+					<group>
+						<field name="change_desc"/>
+					</group>
+					<button name="set_change_price_unit" type="object" icon="fa-check" string="Нэгж Өртөг Өөрчлөх" confirm="Нэгж Өртөг Өөрчлөхдөө Итгэлтэй байна уу ЗАЛУУ!!!" class="btn-danger"/>
+
+					<button name="set_change_price_unit_force" type="object" icon="fa-check" string="Нэгж Өртөг Өөрчлөх FORCE" confirm="Нэгж Өртөг Өөрчлөхдөө Итгэлтэй байна уу ЗАЛУУ!!!" class="btn-danger" groups="base.group_no_one"/>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+
+	<record id="action_stock_move_change_price_unit" model="ir.actions.act_window">
+		<field name="name">Барааны хөдөлгөөний нэгж өртөг өөрчлөх</field>
+		<field name="res_model">stock.move.change.price.unit</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+	</record>
+
+
+	<menuitem action="action_stock_move_change_price_unit" id="mn_stock_move_change_price_unit_menu" parent="stock.menu_stock_config_settings" sequence="10" groups="mw_stock_account.group_stock_move_change_price_unit"/>
+
+	<!-- multi.stock.move.resolve.price.unit -->
+	<record id="view_multi_stock_move_resolve_price_unit_tree" model="ir.ui.view">
+		<field name="name">multi.stock.move.resolve.price.unit.tree</field>
+		<field name="model">multi.stock.move.resolve.price.unit</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="create_date" />
+				<field name="create_uid" />
+				<field name="product_ids" />
+				<field name="cost_method"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="view_multi_stock_move_resolve_price_unit_fitler" model="ir.ui.view">
+		<field name="name">multi.stock.move.resolve.price.unit.filter</field>
+		<field name="model">multi.stock.move.resolve.price.unit</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="create_date" />
+				<field name="create_uid" />
+				<field name="product_ids" />
+			</search>
+		</field>
+	</record>
+
+	<record id="product_template_search_view_mw_inherit" model="ir.ui.view">
+        <field name="name">product.template.search.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="name_haih" string="Таслалаар хайх" context="{'taslal_haih':True}"/>
+            </field>
+        </field>
+    </record>
+	
+	<record id="view_multi_stock_move_resolve_price_unit_form" model="ir.ui.view">
+		<field name="name">multi.stock.move.resolve.price.unit.form</field>
+		<field name="model">multi.stock.move.resolve.price.unit</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<label for="product_ids" string="Бараа"/>
+					<field name="product_ids" widget="many2many_tags" class="col-md-12"/>
+					<group >
+						<group>
+							<field name="company_id"/>
+							<field name="count_product"/>
+						</group>
+						<group>
+							<field name="cost_method"/>
+						</group>
+					</group>
+					<button name="generate_stock_move_resolve_price" type="object" icon="fa-check" string="0. Generate" class="btn-primary"/>
+					<button name="calc_input" type="object" string="1. Тооцоолох" class="btn-warning"/>
+					<button name="calc_first" type="object" string="2. Эхний үлдэгдэлийн Өртөгийг Тооцоолох" class="btn-warning"/>
+					<button name="calc_update" type="object" string="3. Шалгах" class="btn-warning"/>
+					<button name="calc_stock_move_find" type="object" string="4. Зөрүүтэй Хөдөлгөөнийг Олох" class="btn-warning"/>
+					<button name="calc_stock_move_price_unit_resolve" type="object" string="5. Зөрүүтэй Хөдөлгөөнийг Нэгж өртөг Засах" class="btn-success"/>
+					<button name="delete_all_line" type="object" string="Бүх мөр утгах" class="btn-danger"/>
+					<button name="delete_account_move" type="object" string="Санхүү бичилтүүд устгах" class="btn-danger" groups="mw_stock_account.group_stock_change_create_account_move"/>
+					<button name="create_account_move" type="object" string="Санхүү бичилтүүд дахин үүсгэх" class="btn-danger" groups="mw_stock_account.group_stock_change_create_account_move"/>
+					<field name="resolve_ids">
+						<tree>
+							<field name="product_id"/>
+							<field name="cost_method"/>
+						</tree>
+					</field>
+
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+
+	<record id="action_multi_stock_move_resolve_price_unit" model="ir.actions.act_window">
+		<field name="name">Олноор барааны хөдөлгөөний нэгж өртөг өөрчлөх</field>
+		<field name="res_model">multi.stock.move.resolve.price.unit</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+	</record>
+
+
+	<menuitem action="action_multi_stock_move_resolve_price_unit" id="menu_multi_stock_move_resolve_price_unit" parent="stock.menu_stock_config_settings" sequence="10" 
+		groups="mw_stock_account.group_stock_move_change_price_unit"/>
+
+	<!-- stock.move.resolve.price.unit -->
+	<record id="view_stock_move_resolve_price_unit_filterss" model="ir.ui.view">
+		<field name="name">stock.move.resolve.price.unit.filterss</field>
+		<field name="model">stock.move.resolve.price.unit</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="product_id"/>
+			</search>
+		</field>
+	</record>
+	<record id="view_stock_move_resolve_price_unit_tree" model="ir.ui.view">
+		<field name="name">stock.move.resolve.price.unit.tree</field>
+		<field name="model">stock.move.resolve.price.unit</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="product_id"/>
+				<field name="company_id"/>
+				<!-- <field name="stock_move_ids"/>
+				<field name="resolve_desc"/> -->
+			</tree>
+		</field>
+	</record>
+	<record id="view_stock_move_resolve_price_unit_form" model="ir.ui.view">
+		<field name="name">stock.move.resolve.price.unit.form</field>
+		<field name="model">stock.move.resolve.price.unit</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group >
+						<group >
+							<field name="product_id"/>
+							<field name="company_id"/>
+							<field name="cost_method"/>
+							<field name="move_id" readonly="1"/>
+
+						</group>
+						<group >
+							<field name="st_start_date" attrs="{'invisible':[('cost_method','!=','standard')], 'required':[('cost_method','=','standard')]}"/>
+							<field name="st_end_date" attrs="{'invisible':[('cost_method','!=','standard')], 'required':[('cost_method','=','standard')]}"/>
+						</group>
+						<button name="%(action_delete_first_balance)d" string="Partial confirm" type="action" states="open" class="oe_highlight" />
+					</group>
+					<button name="calc_input" type="object" string="1. Тооцоолох" class="btn-warning"/>
+					<button name="calc_first" type="object" string="2. Эхний үлдэгдэлийн Өртөгийг Тооцоолох" class="btn-warning"/>
+					<button name="calc_update" type="object" string="3. Шалгах" class="btn-warning"/>
+					<button name="calc_stock_move_find" type="object" string="4. Зөрүүтэй Хөдөлгөөнийг Олох" class="btn-warning"/>
+					<button name="calc_stock_move_price_unit_resolve" type="object" string="5. Зөрүүтэй Хөдөлгөөнийг Нэгж өртөг Засах" class="btn-success"/>
+					<button name="delete_all_line" type="object" string="Бүх мөр утгах" class="btn-danger"/>
+					<button name="delete_account_move" type="object" string="Санхүү бичилтүүд устгах" class="btn-danger" groups="mw_stock_account.group_stock_change_create_account_move"/>
+					<button name="create_account_move" type="object" string="Санхүү бичилтүүд дахин үүсгэх" class="btn-danger" groups="mw_stock_account.group_stock_change_create_account_move"/>
+					<notebook>
+						<page string="Орлого PO Үйлдвэрлэл">
+							<field name="line_in_ids" nolabel="1">
+								<tree create="false">
+									<field name="stock_move_id_in"/>
+									<field name="date"/>
+									<field name="product_uom_qty"/>
+									<field name="price_unit"/>
+									<field name="umnuh_qty"/>
+									<field name="umnuh_price_unit"/>
+									<field name="umnuh_price_unit_all"/>
+
+									<field name="shinechleh_price_unit"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Эхний үлдэгдэл 2 өөр өртөгөөр зөрүүтэй">
+							<field name="stock_move_fisrt_ids" nolabel="1" readonly="1">
+								<tree create="false">
+									<field name="stock_move_id"/>
+									<field name="date"/>
+									<field name="product_uom_qty"/>
+									<field name="price_unit"/>
+									<field name="new_price_unit"/>
+									<field name="is_updated"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Засах Хөдөлгөөнүүд">
+							<group>
+								<button name="update_svl" type="object" string="SVL update" class="btn-danger"/>
+							</group>
+							<field name="stock_move_ids" nolabel="1" readonly="1">
+								<tree create="false">
+									<field name="stock_move_id"/>
+									<field name="date"/>
+									<field name="product_uom_qty"/>
+									<field name="price_unit"/>
+									<field name="new_price_unit"/>
+									<field name="is_updated"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Warnings">
+							<field name="warning_line_ids" readonly="1">
+								<tree>
+									<field name="name"/>
+								</tree>
+								<form>
+									<group>
+										<field name="name"/>
+										<field name="parent_id"/>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+
+	<record id="action_stock_move_resolve_price_unit" model="ir.actions.act_window">
+		<field name="name">Барааны хөдөлгөөний нэгж өртөг Засах</field>
+		<field name="res_model">stock.move.resolve.price.unit</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+	</record>
+
+	<menuitem action="action_stock_move_resolve_price_unit" id="mn_stock_move_resolve_price_unit_menu" parent="stock.menu_stock_config_settings" sequence="99" groups="mw_stock_account.group_stock_move_change_price_unit"/>
+
+</odoo>
+

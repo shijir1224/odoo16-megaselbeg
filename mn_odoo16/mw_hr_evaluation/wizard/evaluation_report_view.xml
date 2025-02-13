@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="evaluation_report_view" model="ir.ui.view">
+            <field name="name">evaluation.report.wizard</field>
+            <field name="model">evaluation.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <field name="date" />
+                        <field name="year" force-save='1'/>
+                        <field name="company_id" />
+                        <field name="month" force-save='1'/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_evaluation_report" model="ir.actions.act_window">
+            <field name="name">Дэлгэрэнгүй тайлан</field>
+            <field name="res_model">evaluation.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="evaluation_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="parent_menu_evaluation_report" name="Тайлангууд" parent="hr_evaluation_parent_menu" groups="mw_hr_evaluation.group_evaluation_manager"/>
+        <menuitem id="menu_evaluation_report" action="action_evaluation_report" 
+        parent="parent_menu_evaluation_report" sequence="1"/>
+
+    </data>
+</openerp>

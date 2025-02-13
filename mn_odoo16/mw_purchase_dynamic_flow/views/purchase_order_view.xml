@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="purchase_order_form_inherit_mw_purchase" model="ir.ui.view">
+		<field name="name">purchase.order.form.inherit.mw.purchase</field>
+		<field name="model">purchase.order</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr='//form/header' position="replace">
+				<header>
+					<button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object"
+							attrs="{'invisible': ['|','|',('state_type','=','done'),('flow_line_next_id', '=', False),('state', '=', 'comparison')]}"/>
+					<button name="action_back_stage" string="Буцах" class="btn-warning" icon="fa-arrow-left" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel'])]}"/>
+					<button name="create_invoice_hand" icon="fa-pencil-square-o" string="Нэхэмжлэх үүсгэх" type="object"
+							attrs="{'invisible': [('state_type', 'not in',['done','invoice'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close" type="object"
+							attrs="{'invisible': ['|','|',('state_type', 'in',['cancel']),('flow_id','=',False),('state', '=', 'comparison')]}" confirm="Are you sure to cancel the purchase?"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', '!=', 'cancel'),('flow_id','=',False)]}"/>
+				</header>
+			</xpath>
+			<field name="date_order" position="after">
+				<field name="user_id"/>
+				<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+				<field name="confirm_user_ids" widget="many2many_tags"/>
+				<field name="confirm_count" invisible="1"/>
+				<field name="is_not_edit" invisible="1"/>
+			</field>
+			<xpath expr='//field[@name="partner_id"]' position="before">
+				<field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', 'in',['done','cancel'])]}"/>
+			</xpath>
+			<xpath expr='//field[@name="date_order"]' position="before">
+				<field name="state" readonly="1"/>
+				<field name="state_type" invisible="1"/>
+				<field name="flow_line_next_id" invisible="1"/>
+				<field name="flow_line_back_id" invisible="1"/>
+				<field name="categ_ids" readonly="1" invisible="1" />
+			</xpath>
+			<field name="partner_id" position="attributes">
+				<attribute name="attrs">{'readonly': ['|', ('is_not_edit', '=', True), ('state','in',['purchase','cancel'])]}</attribute>
+			</field>
+			<field name="date_order" position="attributes">
+				<attribute name="attrs">{'readonly': ['|', ('is_not_edit', '=', True), ('state','in',['purchase','cancel'])]}</attribute>
+			</field>
+			<field name="company_id" position="attributes">
+				<attribute name="attrs">{'readonly': ['|', ('is_not_edit', '=', True), ('state','in',['purchase','cancel'])]}</attribute>
+			</field>
+			<field name="currency_id" position="attributes">
+				<attribute name="attrs">{'readonly': ['|', ('is_not_edit', '=', True), ('state','in',['purchase','cancel'])]}</attribute>
+			</field>
+			<field name="order_line" position="attributes">
+				<attribute name="attrs">{'readonly': ['|', ('is_not_edit', '=', True), ('state','in',['purchase','cancel'])]}</attribute>
+			</field>
+			<!-- <field name="picking_type_id" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_not_edit', '=', True)]}</attribute>
+			</field> -->
+			<notebook position="inside">
+				<page string="Төлөвийн түүх" name="history">
+					<field name="history_flow_ids" readonly="1"/>
+				</page>
+			</notebook>	
+		</field>
+	</record>
+
+	<record id="purchase_order_view_tree_inherit_mw_purchase" model="ir.ui.view">
+		<field name="name">purchase.order.tree.inherit.mw.purchase</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+		<field name="arch" type="xml">
+			<field name="state" position="replace">
+				<field name="flow_id"/>
+				<field name="state"/>
+				<field name="stage_id" invisible="1"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="purchase_order_filter_inherit_mw_purchase" model="ir.ui.view">
+		<field name="name">purchase.order.filter.inherit.mw.purchase</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+		<field name="arch" type="xml">
+			<search position="inside">
+				<filter string="Төлөв" name="gr_state" domain="[]" context="{'group_by':'stage_id'}"/>
+				<!-- <filter string="Гадаад" name="po_type_gadaad" domain="[('po_type','=','foreign')]"/>
+				<filter string="Дотоод" name="po_type_dotood" domain="[('po_type','=','internal')]"/> -->
+			</search>
+		</field>
+	</record>
+
+	<record id="purchase_order_line_search_mw" model="ir.ui.view">
+		<field name="name">purchase.order.line.search.mw</field>
+		<field name="model">purchase.order.line</field>
+		<field name="inherit_id" ref="purchase.purchase_order_line_search"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search" position="inside">
+				<field name="flow_id"/>
+				<filter string="Урсгалаар" name="gr_flow_id" context="{'group_by':'flow_id'}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_view_search_mw" model="ir.ui.view">
+		<field name="name">purchase.order.mw</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search" position="inside">
+				<filter string="Төлөв PO" name="gr_flow_id" context="{'group_by':'flow_line_id'}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_po_my_approve">
+		<field name="name">Миний батлах худалдан авалт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.order</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'create': False}</field>
+		<field name="domain">[('confirm_user_ids','in',[uid]),('confirm_count','&gt;',0)]</field>
+	</record>
+
+	<menuitem id="po_my_approve_menu"
+		name="Миний батлах худалдан авалт"
+		sequence="0"
+		parent="purchase.menu_procurement_management"
+		action="action_po_my_approve"/>
+</odoo>

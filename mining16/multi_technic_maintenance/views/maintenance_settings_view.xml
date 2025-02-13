@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Maintenance incpection config -->
+    <record id="maintenance_inspection_config_form_view" model="ir.ui.view">
+        <field name="name">maintenance.inspection.config.form</field>
+        <field name="model">maintenance.inspection.config</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_inspection_config_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="maintenance_inspection_config_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.inspection.config.tree</field>
+        <field name="model">maintenance.inspection.config</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_inspection_config_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Experience library -->
+    <record id="maintenance_experience_library_form_view" model="ir.ui.view">
+        <field name="name">maintenance.experience.library.form</field>
+        <field name="model">maintenance.experience.library</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_experience_library_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

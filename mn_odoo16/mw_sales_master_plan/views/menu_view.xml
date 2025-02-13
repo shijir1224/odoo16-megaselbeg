@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem name="Борлуулалтын төлөвлөгөө" parent="sale.sale_menu_root" 
+		id="sales_plan_root_menu" sequence="15" 
+		groups="mw_sales_master_plan.group_sales_planner"/>	
+		<menuitem name="Борлуулалтын төлөвлөгөө" parent="sales_plan_root_menu" 
+			id="sales_master_plan_menu" sequence="2" action="action_sales_master_plan"/>
+		<menuitem name="Харилцагчийн онцгой бараа" parent="sales_plan_root_menu" 
+			id="partner_special_product_plan_menu" 
+			sequence="4" action="action_partner_special_product_plan"/>
+
+		<!-- Report -->
+		<menuitem name="Борлуулалтын төлөвлөгөө" parent="sale.menu_sale_report" 
+			id="sales_plan_report_menu" sequence="26" action="action_wizard_sales_plan_report"/>
+		<menuitem name="Борлуулалтын тайлан" parent="sale.menu_sale_report" 
+			id="sales_report_menu" sequence="28" action="action_wizard_sales_report"/>
+		<!-- <menuitem name="Борлуулалт эксел тайлан" parent="sale.menu_sale_report" 
+			id="sales_excel_report_menu" sequence="29" action="action_wizard_sales_excel_report"/> -->
+ 
+		<!-- Dashboard menu -->
+			<!-- <menuitem name="Dashboard 01" parent="sales_plan_root_menu"
+				id="plan_performance_dashboard_menu" sequence="3" action="action_mw_sales_master_plan_01"/> -->
+</odoo>

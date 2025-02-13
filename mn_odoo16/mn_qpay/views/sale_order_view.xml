@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--     <record id="view_sale_order_line_form_inherit_qpay" model="ir.ui.view">
+        <field name="name">view_sale_order_line_form_inherit_</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet" position='inside'>
+                <group string="QPAY Төлбөр" name="qpay">
+
+                    <group col="4">
+                        <button name="generate_qpay" string="QPay Үүсгэх" class="btn-success" type="object" icon="fa-money" attrs="{'invisible':[('qpay_invoice_id','!=',False)]}"/>
+                        <button name="qpay_check" string="Qpay төлөлт шалгах" class="btn-warning" type="object" icon="fa-money"/>
+                    </group>
+                    <group>
+                        <field name="qpay_invoice_id"/>
+                        <field name="qpay_qr_text"/>
+                        <field name="qpay_short_url"/>
+                        <field name="qpay_payment_status" force_save="1"/>
+                    </group>
+                    <group>
+                        <field name="qpay_qr_image" widget="image"/>
+                    </group>
+                    <group>
+                        <field name="qpay_data"/>
+                        <field name="qpay_check_data"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="view_sale_order_form_inherit_qpay" model="ir.ui.view">
+        <field name="name">view_sale_order_form_inherit_</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="QPay төлбөр">
+                    <field name="qpay_line_ids" >
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="qpay_amount"/>
+			                <field name="qpay_invoice_id" invisible="1"/>
+			                <button name="generate_qpay" string="Qpay үүсгэх" class="btn-warning" type="object" icon="fa-money" optional="hide" attrs="{'invisible':[('qpay_invoice_id','!=',False)]}"/>
+							<field name="qpay_qr_image" widget="image"/>
+							<button name="qpay_check" string="Qpay төлөлт шалгах" class="btn-success" type="object" icon="fa-money" optional="hide"/>
+                        </tree>
+                        <form>
+			                <group string="QPAY Төлбөр" name="qpay">
+			                    <group col="4">
+			                        <button name="generate_qpay" string="QPay Үүсгэх" class="btn-success" type="object" icon="fa-money" attrs="{'invisible':[('qpay_invoice_id','!=',False)]}"/>
+			                        <button name="qpay_check" string="Qpay төлөлт шалгах" class="btn-warning" type="object" icon="fa-money"/>
+			                    </group>
+			                    <group>
+		                            <field name="name"/>
+		                            <field name="qpay_amount"/>			                    
+			                        <field name="qpay_invoice_id"/>
+			                        <field name="qpay_qr_text"/>
+			                        <field name="qpay_short_url"/>
+			                        <field name="qpay_payment_status" force_save="1"/>
+			                    </group>
+			                    <group>
+			                        <field name="qpay_qr_image" widget="image"/>
+			                    </group>
+			                    <group>
+			                        <field name="qpay_data"/>
+			                        <field name="qpay_check_data"/>
+			                    </group>
+			                </group>                       
+			             </form>                        
+                    </field>
+                </page>
+            </notebook>	             
+        </field>
+    </record>
+</odoo>

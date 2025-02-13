@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<record id="doned_asset_continue_form_view" model="ir.ui.view">
+			<field name="name">account.asset.continue</field>
+			<field name="model">account.asset.continue</field>
+			<field name="arch" type="xml">
+				<form string="Mrp Create Consume Material">
+					<sheet>
+							<group col='4'>
+								<field name="date" />
+								<field name="account_id"/>
+								<field name="tax_id" />
+								<field name="journal_id" />
+							</group>
+							<group>
+								<div class="alert alert-danger alert-dismissible text-left" role="alert" attrs="{'invisible': [('info_message', '=', False)]}">
+									<a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+									<field name="info_message" />
+								</div>
+							</group>
+							<group>
+								<field name="asset_ids" nolabel="1">
+									<tree string="Use Consumable Material Tree">
+										<!-- <field name="code" readonly="1"/> -->
+										<!-- <field name="name" readonly="1"/> -->
+										<!-- <field name="employee_id" readonly="1"/> -->
+										<!-- <field name="owner_department_id" readonly="1" optional="hide"/> -->
+										<!-- <field name="value" sum="SUM" readonly="1"/>
+										<field name="value_residual" sum="SUM" readonly="1"/>
+										<field name="date" readonly="1"/> -->
+									</tree>
+								</field>
+							</group>
+							<footer col="3" class="oe_right">
+								<button icon="fa-undo" name="doned_asset_create_move" string="Дахин ашиглах" type="object" colspan="2" class="btn-success"/>
+								<button icon="fa-times" special="cancel" string="Cancel" colspan="1"/>
+							</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="action_doned_asset_continue" model="ir.actions.act_window">
+			<field name="name">Элэгдсэн Хөрөнгө үргэлжлүүлэн ашиглах</field>
+			<field name="res_model">account.asset.continue</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="doned_asset_continue_form_view"/>
+		</record>
+		<act_window name="Дахин ашиглах"
+			res_model="account.asset.continue"
+			binding_model="account.asset.asset"
+			view_mode="tree,form"
+			target="new"
+			view_id="doned_asset_continue_form_view"
+			groups="base.group_no_one"
+			id="action_doned_asset_continue_act"/>
+	</data>
+</odoo>
+	
+    
+    

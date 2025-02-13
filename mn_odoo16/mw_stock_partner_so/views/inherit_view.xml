@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- SML -->
+    <record id="stock_move_line_view_search_inherit" model="ir.ui.view">
+        <field name="name">stock.move.line.search.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search"/>
+        <field name="arch" type="xml">
+            <field name="location_id" position="after">
+                <field name="partner_id" filter_domain="[('move_id.partner_id_non_store','child_of',self)]"/>
+                <field name="so_id" filter_domain="['|',('move_id.sale_line_id.order_id','=',self),('move_id.sale_line_id.order_id','ilike',self)]"/>
+                <field name="po_id" filter_domain="['|',('move_id.purchase_line_id.order_id','=',self),('move_id.purchase_line_id.order_id','ilike',self)]"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_inherit" model="ir.ui.view">
+        <field name="name">stock.move.line.tree</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="partner_id"/>
+                <field name="so_id"/>
+                <field name="po_id"/>
+                <field name="so_price_unit"/>
+                <field name="price_unit_move"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_form_inherit" model="ir.ui.view">
+        <field name="name">stock.move.line.form</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <field name="location_dest_id" position="after">
+                <field name="partner_id"/>
+                <field name="so_id"/>
+                <field name="po_id"/>
+                <field name="so_price_unit"/>
+                <field name="price_unit_move"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Stock Move -->
+    
+    <record id="view_move_search_inherit" model="ir.ui.view">
+        <field name="name">stock.move.search</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="arch" type="xml">
+            <xpath expr='//search' position='inside'>
+            <!-- <field name="date" position="after"> -->
+                <field name="partner_id" filter_domain="[('partner_id_non_store','child_of',self)]"/>
+                <field name="so_id" filter_domain="['|',('sale_line_id.order_id','=',self),('sale_line_id.order_id','ilike',self)]"/>
+                <field name="po_id" filter_domain="['|',('purchase_line_id.order_id','=',self),('purchase_line_id.order_id','ilike',self)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_tree_inherit" model="ir.ui.view">
+        <field name="name">stock.move.tree</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="partner_id_non_store"/>
+                <field name="so_id"/>
+                <field name="po_id"/>
+                <field name="so_price_unit"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">stock.move.form</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="location_dest_id" position="after">
+                <field name="partner_id_non_store"/>
+                <field name="so_id"/>
+                <field name="po_id"/>
+                <field name="so_price_unit"/>
+            </field>
+        </field>
+    </record>
+</odoo>

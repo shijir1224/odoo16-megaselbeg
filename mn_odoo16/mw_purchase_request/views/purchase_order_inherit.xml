@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="purchase_order_form_inherit_mw_purchase_request" model="ir.ui.view">
+			<field name="name">purchase.order.form.inherit.mw.purchase</field>
+			<field name="model">purchase.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<div name="button_box" position="inside">
+					<button name="get_view_purchase_request" type="object" class="oe_stat_button" icon="fa-users"  string="Хүсэлт харах" attrs="{'invisible': [('pr_line_many_ids', '=', False)]}"/>
+				</div>
+				<field name="date_order" position="after">
+					<field name="pr_line_many_ids" invisible="1"/>
+				</field>
+			</field>
+		</record>
+	</data>
+</odoo>

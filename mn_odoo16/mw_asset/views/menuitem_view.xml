@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_account_asset_asset_own_form">
+        <field name="name">Assets</field>
+        <field name="res_model">account.asset</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('view_mw_account_asset_purchase_tree')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('view_mw_account_asset_form')})]"/>
+        <field name="domain">[('owner_id.user_ids','=',[uid])]</field>
+    </record>
+	<menuitem id="menu_account_assets" name="Үндсэн хөрөнгө" sequence="22" web_icon="mw_asset,static/asset.png" groups="group_mw_account_asset_user"/>
+	<menuitem name="Үйлдлүүд" 
+				id="menu_asset_sub_menu" sequence="1"  groups="group_mn_asset_accountant" parent="menu_account_assets"/>
+	<menuitem id="account_asset.menu_action_account_asset_form" action="account_asset.action_account_asset_form" sequence="1" parent="menu_asset_sub_menu"/>
+	<menuitem name="Хөрөнгийн хөдөлгөөн" 
+					action="action_asset_move" 
+					id="menu_asset_move" sequence="5" parent="menu_asset_sub_menu"/>
+	<menuitem name="Капиталжуулах" 
+					action="action_asset_capital" 
+					id="menu_asset_capital" 
+					sequence="8" parent="menu_asset_sub_menu"/>
+	<menuitem name="Актлах" 
+					action="action_asset_act" 
+					id="menu_asset_act" sequence="2" parent="menu_asset_sub_menu"/>
+	<menuitem name="Борлуулалт" 
+					action="action_asset_sell" 
+					id="menu_asset_sell" sequence="2" parent="menu_asset_sub_menu"/>
+	<menuitem name="Дахин үнэлгээ" 
+					action="action_asset_revaluation" 
+					id="menu_asset_revaluation" sequence="6" parent="menu_asset_sub_menu"/>
+	<menuitem id="account_account_asset_location_menu" name="Байрлал"
+					action="action_account_asset_location_view" sequence="10" parent="menu_asset_sub_menu"/>
+	<menuitem id="account_account_asset_type_menu" name="Хөрөнгийн төрөл"
+					action="action_account_asset_type_view" sequence="11" parent="menu_asset_sub_menu"/>
+	<menuitem action="open_account_asset_inventory_form" id="menu_account_asset_inventory_form"
+				sequence="11"  name="Тооллого" parent="menu_asset_sub_menu"/>
+	<menuitem name="Хөрөнгүүд" id="menu_user_asset" sequence="2" action="action_account_asset_asset_own_form" parent="menu_account_assets"/>
+	<menuitem id="menu_account_asset_report" name="Үндсэн хөрөнгийн тайлан" groups="group_mn_asset_accountant" sequence="3" parent="menu_account_assets"/>
+	<menuitem id="menu_account_asset_standard_report" action="mw_asset.action_account_asset_standard_report_menu" name="Үндсэн Хөрөнгийн Дэлгэрэнгүй Тайлан" sequence="2" parent="menu_account_asset_report"/>
+	<menuitem id="account_asset_configuration" name="Тохиргоо" sequence="4" groups="group_mn_asset_accountant" parent="menu_account_assets"/>
+	<menuitem sequence="1" id="account_asset.menu_action_account_asset_model_form" action="account_asset.action_account_asset_model_form" parent="account_asset_configuration"/>
+    <menuitem id="menu_action_account_report_assets"
+              name="Үндсэн Хөрөнгийн Тайлан"
+              action="account_asset.action_account_report_assets"
+              parent="menu_account_asset_report"
+			  groups="group_mn_asset_accountant"
+			  sequence="1"/>
+    <menuitem id="menu_asset_depreciation_confirmation_wizard"
+              name="Хөрөнгийн элэгдэл батлах"
+              action="action_asset_depreciation_confirmation_wizard"
+              parent="account_asset_configuration"
+              sequence="111"
+              />
+
+</odoo>

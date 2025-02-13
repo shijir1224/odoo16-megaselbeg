@@ -1,0 +1,99 @@
+<odoo>
+    <!-- avlaga uglug sanhuugees tatah -->
+    <record id="receivable_payable_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">receivable.payable</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="receivable_payable_form" model="ir.ui.view">
+        <field name="name">receivable.payable.form</field>
+        <field name="model">receivable.payable</field>
+        <field name="arch" type="xml">
+            <form string='Хэрэглэгчийн мэдээлэл'>
+                <header>
+                    <button string="Батлах" name="done_action" type="object" states='draft' class="oe_highlight"/>
+                    <button string="Ноороглох" name="draft_action"  states='done' type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"
+                        statusbar_colors='{"draft":"gray","done":"blue"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="year" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="month" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="company_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="work_location_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field widget="binary" height="64" name="data" filename="file_fname"/>
+                            <field name="file_fname" invisible="1" />
+                        </group>
+                    </group>
+                    <button string="Авлага татах" name="receivable_payable_line" type="object" class="oe_highlight"  attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="print_receivable_payable" string="Хэвлэх" type="object" icon="fa-sign-out"  class="btn-success"/>
+                    <button name="action_import_line" string="Импортлох" type="object" icon="fa-sign-in"  class="btn-warning"/>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="department_id" optional='hide'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                    <field name="job_id" optional='hide'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                    <field name="employee_id"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                    <field name="receivable_payable" sum='Sum' attrs="{'readonly':[('state','!=','draft')]}"/>
+                                    <field name="state"/>
+                                </tree>
+                                <form editable='bottom'>
+                                    <field name="department_id"/>
+                                    <field name="job_id"/>
+                                    <field name="employee_id"/>
+                                    <field name="receivable_payable"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="receivable_payable_tree" model="ir.ui.view">
+        <field name="name">receivable.payable.tree</field>
+        <field name="model">receivable.payable</field>
+        <field name="arch" type="xml">
+            <tree string="Хэрэглэгчийн мэдээлэл">
+                <field name="name"/>
+                <field name="work_location_id"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="receivable_payable_actions" model="ir.actions.act_window">
+        <field name="name">Авлага татах</field>
+        <field name="res_model">receivable.payable</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="receivable_payable_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="receivable_payable_menu_id" parent="mw_salary.menu_other_parent_salary" action="receivable_payable_actions" sequence="8"/>
+</odoo>

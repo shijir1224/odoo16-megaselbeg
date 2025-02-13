@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_tree_jr_mrp_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.tree.view.jr.mrp</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+          <field name="state" position="before">
+                <field name="picking_type_code" invisible="1"/>
+                <field name="internal_approve" force_save="1" widget="boolean_toggle" 
+                attrs="{'readonly': ['|',('picking_type_code', '!=', 'internal'),('state', '=', ['cancel','done'])]}" optional="show"/>
+        	</field>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search_inherit_mw_stock_confirm" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search.inherit.mn.stock.confirm</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <filter name="done" position="after">
+                <separator/>
+                <filter name="internal_approve_ok" string="Дотоод хөд зөвшөөрсөн" domain="[('internal_approve','=',True)]"/>
+                <filter name="internal_approve_no" string="Дотоод хөд зөвшөөргүй" domain="[('internal_approve','!=',True)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_picking_mw_stock_confirm" model="ir.ui.view">
+        <field name="name">stock.mw.stock.confirm</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <button name="action_see_move_scrap" position="after">
+                <button name="send_chat_picking_loc" icon="fa-comment" string="Гарах Агуулах-д Чат" 
+                type="object" class="oe_highlight oe_stat_button" 
+                attrs="{'invisible': ['|',('picking_type_code','!=','internal'),('state', 'in', ['draft','done','cancel'])]}"/>
+                <button name="send_chat_picking_loc_dest" icon="fa-comment" string="Хүрэх Агуулах-д Чат" 
+                type="object" class="oe_highlight oe_stat_button" 
+                attrs="{'invisible': ['|',('picking_type_code','!=','internal'),('state', 'in', ['draft','done','cancel'])]}"/>
+            </button>
+            <field name="location_dest_id" position="after">
+                <field name="internal_approve" force_save="1" widget="boolean_toggle" attrs="{'invisible': ['|',('picking_type_code','!=','internal'),('state', 'in', ['done','cancel'])]}"/>
+            </field>
+
+            <field name="move_line_ids_without_package" position="attributes">
+                <attribute name="attrs">{'readonly': ['|',('internal_approve', '=', True),'|', '|', ('show_operations', '=', False), ('state', '=', 'cancel'), '&amp;', ('state', '=', 'done'), ('is_locked', '=', True)]}</attribute>
+            </field>
+            <field name="move_ids_without_package" position="attributes">
+                <attribute name="attrs">{'readonly': ['|',('internal_approve', '=', True),'|', '&amp;', ('show_operations', '=', True), '|', ('is_locked', '=', True), ('state', '=', 'done'), '&amp;', ('state', '=', 'done'), ('is_locked', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

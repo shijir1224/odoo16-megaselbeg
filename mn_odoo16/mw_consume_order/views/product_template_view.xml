@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="product_template_form_view_inherit_mn_mrp">
+			<field name="name">product.template.barcode</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//group/group/field[@name='detailed_type']" position="after">
+					<field name="is_consum" ></field>
+					<field name="is_depreciate" attrs="{'invisible': [('is_consum', '!=', True)]}"></field>
+					<!-- <field name="register_on_card" attrs="{'invisible': [('is_consum', '!=', True)]}"/> -->
+				</xpath>
+			</field>
+		</record>
+</odoo>

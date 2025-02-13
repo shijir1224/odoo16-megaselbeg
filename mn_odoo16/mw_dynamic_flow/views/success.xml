@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="object_action_next_status" name="Calendar Invitation Page for anonymous users">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+            </t>
+
+            <div class="container">
+                <!-- <div class="o_logo">
+                    <img class="img img-fluid d-block mx-auto" src="/web/binary/company_logo" alt="Logo"/>
+                </div> -->
+                <div style="text-align: center; margin: 16px 0px 16px 0px;">
+                <a style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px" href="JavaScript:window.close()">Хаах</a>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Таны баталсан мэдээлэл</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="o_event_table table table-striped">
+                                <tr>
+                                    <th>Баримтын нэр</th>
+                                    <td><t t-esc="model_model"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Баримтын дугаар</th>
+                                    <td><t t-esc="next_obj.display_name"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Төлөв</th>
+                                    <td><t t-esc="next_obj.flow_line_id.display_name"/> (орсон байна)</td>
+                                </tr>
+                                <tr>
+                                    <th>Алдааны мэдээлэл</th>
+                                    <td><t t-esc="error_msg"/></td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

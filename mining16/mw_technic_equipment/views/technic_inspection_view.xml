@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Sequences for Inspection -->
+        <record id="seq_technic_inspection" model="ir.sequence">
+            <field name="name">Technic inspection</field>
+            <field name="code">technic.inspection</field>
+            <field name="prefix">INS%(y)s%(month)s-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Technic inspection -->
+        <record id="view_technic_inspection_setting_tree" model="ir.ui.view">
+            <field name="name">Technic inspection setting tree</field>
+            <field name="model">technic.inspection.setting</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Check setting">
+                    <field name="name"/>
+                    <field name="item_line"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_technic_inspection_setting_form" model="ir.ui.view">
+            <field name="name">Technic inspection setting form</field>
+            <field name="model">technic.inspection.setting</field>
+            <field name="arch" type="xml">
+                 <form string="Inspect setting">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="attachment_id" filename="file_name"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="reminder_note" />
+                            <field name="company_id"/>
+                            <field name="package_ids" widget="many2many_tags"/>
+                        </group>
+                        <button name="refresh_inspection_package" type="object" string="Багцаас үзлэгийн асуулга татах" class="btn-warning"/>
+                        <notebook>
+                            <page string="Үзлэг хийх жагсаалт">
+                                <field name="item_line" colspan="4" nolabel="1" >
+                                    <tree string="Items">
+                                        <field name="category"/>
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="is_important" widget="boolean_toggle"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_technic_inspection_setting" model="ir.actions.act_window">
+            <field name="name">Technic inspection setting action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">technic.inspection.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_technic_inspection_setting_tree"/>
+        </record>
+
+        <!-- Inspection package -->
+        <record id="view_technic_inspection_package_tree" model="ir.ui.view">
+            <field name="name">Technic inspection package tree</field>
+            <field name="model">technic.inspection.package</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Check package">
+                    <field name="name"/>
+                    <field name="inspection_ids"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_technic_inspection_package_form" model="ir.ui.view">
+            <field name="name">Technic inspection package form</field>
+            <field name="model">technic.inspection.package</field>
+            <field name="arch" type="xml">
+                 <form string="Inspect setting">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="category_id" options="{'no_create': True}"/>
+                        </group>
+                        <notebook>
+                            <page string="Үзлэг хийх жагсаалт">
+                                <field name="inspection_ids" colspan="4" nolabel="1" >
+                                    <tree string="Items">
+                                        <field name="category"/>
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="is_important" widget="boolean_toggle"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_technic_inspection_package" model="ir.actions.act_window">
+            <field name="name">Technic inspection package action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">technic.inspection.package</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_technic_inspection_package_tree"/>
+        </record>
+
+        <!-- ##############  Inspection Item #################### -->
+        <record id="view_technic_inspection_item_tree" model="ir.ui.view">
+            <field name="name">Technic inspection item tree</field>
+            <field name="model">technic.inspection.item</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Inspection setting">
+                    <field name="category"/>
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="is_important" widget="boolean_toggle"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_technic_inspection_item_form" model="ir.ui.view">
+            <field name="name">Technic inspection item form</field>
+            <field name="model">technic.inspection.item</field>
+            <field name="arch" type="xml">
+                <form string="Form">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="number"/>
+                            <field  name="category"/>
+                            <field name="is_important" widget="boolean_toggle"/>
+                            <field name="company_id"/>
+                            <field name="image" widget="image"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_technic_inspection_item_search" model="ir.ui.view">
+            <field name="name">Technic inspection item search</field>
+            <field name="model">technic.inspection.item</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group string="Шүүлт">
+                        <field name="name"/>
+                        <field name="category"/>
+                    </group>
+                    <group expand="1" string="Group by category">
+                        <filter string="Ангилалаар" name="groupby_category" domain=""
+                            context="{'group_by':'category'}"/>
+                        <filter string="Чухал эсэх" domain=""
+                            context="{'group_by':'is_important'}" name="important"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_technic_inspection_item" model="ir.actions.act_window">
+            <field name="name">Үзлэгийн жагсаалт</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">technic.inspection.item</field>
+            <field name="context">{"search_default_groupby_category" : True}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_technic_inspection_item_tree"/>
+        </record>
+
+        <!-- ##############  Technic inspection   #################### -->
+        <record id="view_technic_inspection_tree" model="ir.ui.view">
+            <field name="name">Technic inspection tree</field>
+            <field name="model">technic.inspection</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Check List"
+                    decoration-muted="state=='cancelled'"
+                    decoration-info="state=='open'"
+                    decoration-success="state=='done'">
+                    <field name="name"/>
+                    <field name="branch_id"/>
+                    <field name="date_inspection"/>
+                    <field name="inspection_type"/>
+                    <field name="shift"/>
+                    <field name="technic_id"/>
+                    <field name="operator_id"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                    <field name="maintenance_note" optional="hide"/>
+                    <field name="operator_note" optional="hide"/>
+                    <field name="previous_operator_note" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Calendar -->
+        <record  id="technic_inspection_calendar_view" model="ir.ui.view">
+            <field name="name">technic.inspection.calendar</field>
+            <field name="model">technic.inspection</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar
+                        date_start="date_inspection"
+                        color="technic_id"
+                        mode="month"
+                        quick_add="False">
+                    <field name="name"/>
+                    <field name="technic_id"/>
+                    <field name="odometer_value"/>
+                    <field name="km_value"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_technic_inspection_form" model="ir.ui.view">
+            <field name="name">Technic inspection form</field>
+            <field name="model">technic.inspection</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_to_draft" string="Ноороглох" type="object"/>
+                        <button name="action_to_open" states="draft" string="Нээх"
+                            type="object"  class="oe_highlight"/>
+                        <button name="action_to_done" states="open" type="object"
+                            class="oe_highlight" string="Дууссан"/>
+                        <button name="action_to_cancel" states="open"
+                            string="Цуцлах" type="object"/>
+                        <button name="print_inspection" string="Хэвлэх" icon="fa-print" class="btn-primary" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open,done" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h2>
+                                <field name="name" class="oe_inline" />
+                                <field name="name" class="oe_inline" widget="CopyClipboardButton"/>
+                            </h2>
+                        </div>
+                        <!-- <div class="alert alert-danger alert-dismissible text-left" role="alert" attrs="{'invisible': [('reminder_note', '=', False)]}">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                            <field name="reminder_note"/>
+                        </div> -->
+                        <div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('reminder_note', '=', False)]}">
+                            <div class="o_row">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                                <field name="reminder_note"/>
+                            </div>
+                        </div>
+                        <group col="4">
+                            <field name="branch_id"
+                                options="{'no_create':True}"/>
+                            <field name="date_inspection"/>
+                        </group>
+                        <group>
+                            <field  name="technic_id" options="{'no_create':True}"/>
+                            <field name="shift"/>
+                        </group>
+                        <group>
+                            <field  name="odometer_value"/>
+                            <field  name="km_value"/>
+                        </group>
+                        <group>
+                            <!-- <field  name="category_id"/> -->
+                            <field  name="inspection_config_id"/>
+                        </group>
+                        <group>
+                            <field  name="user_id"/>
+                            <field name="operator_id" required="1"
+                                options="{'no_create':True}"/>
+
+                        </group>
+                        <group col="4">
+                            <field name="inspection_type"/>
+                            <field name="attachment_ids" widget="many2many_binary" invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Үзлэгийн жагсаалт">
+                                <!-- <group col="4"> -->
+                                    <field name="inspection_line" nolabel="1" >
+                                        <tree string="Lines" editable="bottom" delete="false" create="false"
+                                            decoration-danger="is_check==False">
+                                            <field name="category" readonly="1"/>
+                                            <field name="number"/>
+                                            <field name="check_name" readonly="1"/>
+                                            <field name="is_check"
+                                                attrs="{'readonly':[('state','=','done')]}"/>
+                                            <field name="description"/>
+                                            <field name="attachment_ids" widget="many2many_binary"/>
+                                            <field name="state" invisible="1"/>
+                                            <!-- widget="boolean_toggle" -->
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="category" readonly="1"/>
+                                                <field name="number"/>
+                                                <field name="check_name" readonly="1"/>
+                                                <field name="is_check"
+                                                    attrs="{'readonly':[('state','=','done')]}"/>
+                                                <field name="description"/>
+                                                <field name="attachment_ids" widget="many2many_binary"/>
+                                                <field name="state" invisible="1"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                <!-- </group> -->
+                            </page>
+                            <page string="Тэмдэглэлүүд">
+                                    <div class="oe_clear">
+                                        <label for="previous_operator_note"/>
+                                    </div>
+                                    <field name="previous_operator_note"/>
+
+                                    <div class="oe_clear">
+                                        <label for="operator_note"/>
+                                    </div>
+                                    <field name="operator_note"/>
+
+                                    <div class="oe_clear">
+                                        <label for="maintenance_note"/>
+                                    </div>
+                                    <field name="maintenance_note"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_technic_inspection_search" model="ir.ui.view">
+            <field name="name">Technic inspection search</field>
+            <field name="model">technic.inspection</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group string="Filters">
+                        <field name="name"/>
+                        <field name="date_inspection"/>
+                        <field name="technic_id"/>
+                        <field name="branch_id"/>
+                        <filter string="Дууссан" domain="[('state','=','done')]" name="done"/>
+                    </group>
+                    <group expand="0" string="Group by...">
+                        <filter string="Жилээр" context="{'group_by':'date_inspection:year'}"
+                            name="year"/>
+                        <filter string="Сараар" context="{'group_by':'date_inspection:month'}"
+                            name="month" />
+                        <filter string="Өдрөөр" context="{'group_by':'date_inspection:day'}"
+                            name="day"/>
+                        <filter string="Төлөв" icon="terp-stage" domain="" context="{'group_by':'state'}" name="state"/>
+                        <filter string="Техникээр" domain="" context="{'group_by':'technic_id'}"
+                            name="technic"/>
+                        <filter string="Ээлж" domain="" context="{'group_by':'shift'}"
+                            name="shift"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_technic_inspection" model="ir.actions.act_window">
+            <field name="name">Техникийн үзлэг</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">technic.inspection</field>
+            <field name="context">{"search_default_groupby_date":True,
+                                   "search_default_groupby_day":True,
+                                   "inspection_type":"daily"}</field>
+            <field name="domain">[('inspection_type','=','daily')]</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="view_id" ref="view_technic_inspection_tree"/>
+            <field name="view_ids"
+                       eval="[(5,0,0),(0,0,{'view_mode':'tree',
+                                'view_id': ref('view_technic_inspection_tree')}),
+                              (0,0,{'view_mode':'form',
+                                'view_id': ref('view_technic_inspection_form')})]"/>
+        </record>
+
+
+
+<record id="view_technic_inspection_category_tree" model="ir.ui.view">
+            <field name="name">Technic Inspection Category tree</field>
+            <field name="model">technic.inspection.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_technic_inspection_category_form" model="ir.ui.view">
+            <field name="name">Technic Inspection Category form</field>
+            <field name="model">technic.inspection.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_technic_inspection_category" model="ir.actions.act_window">
+            <field name="name">Technic inspection category action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">technic.inspection.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_technic_inspection_category_tree"/>
+        </record>
+</odoo>

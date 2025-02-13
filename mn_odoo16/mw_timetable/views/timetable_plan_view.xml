@@ -1,0 +1,134 @@
+
+<odoo>
+    <record model="ir.ui.view" id="hr_shift_plan_mine_form">
+        <field name="name">hr.shift.plan.mine.form</field>
+        <field name="model">hr.shift.plan.mine</field>
+        <field name="arch" type="xml">
+            <form string="Hr Shift" create='false' delete='false'>
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('state_type','=','done')]}"/>
+                    <button name="action_back_stage" string="Буцаах" class="btn-warning" type="object"/>
+                    <field name="flow_line_id" widget="statusbar"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': [('state_type', '=', 'draft')]}"  groups="hr.group_hr_manager"/>
+                </header>
+                <sheet>
+                    <group >
+                        <group>
+                            <field name="employee_id"  options="{'no_create':True}" attrs="{'readonly': [('state_type','!=','draft')]}"/> 
+                            <field name="department_id" options="{'no_create':True}"/> 
+                            <field name="job_id"  options="{'no_create':True}"/> 
+                            <field name="work_location_id"  options="{'no_create':True}"/> 
+                        </group>
+                        <group>
+                            <field name="start_date" attrs="{'readonly': [('state_type','!=','draft')]}"/> 
+                            <field name="end_date" attrs="{'readonly': [('state_type','!=','draft')]}"/> 
+                            <field name="shift_time_id" options="{'no_create':True, 'no_open':True}" required='1' attrs="{'readonly': [('state_type','!=','draft')]}"/> 
+                            <field name="is_7_2" attrs="{'readonly': [('state_type','!=','draft')]}"/> 
+                            <button name="line_create" string="Мөр үүсгэх" class="btn-danger" type="object" attrs="{'invisible': [('state_type','!=','draft')]}"/>
+                            <field name="re_desc"/>
+                        </group>   
+                        <group string='Тохиргоо'>
+                            <field name="flow_id" options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state_type','!=','draft')]}"/>
+                            <field name="state_type" invisible="1"/>
+                            <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1" />
+                            <field name="next_state_type" invisible="1"/>
+                            <field name="flow_line_next_id" invisible="1"/>
+                            <field name="branch_id" invisible="1"/>  
+                        </group>                    
+                    </group>
+                    <button name="line_update" string="Update" type="object" attrs="{'invisible': [('state_type','!=','draft')]}" class="btn-primary" />
+                    <button name="all_cancel" string="Бүх чагт арилгах" type="object" attrs="{'invisible': [('state_type','!=','draft')]}" class="btn-danger"/>
+                    <button name="all_yes" string="Бүгдийг чагтлах" type="object" attrs="{'invisible': [('state_type','!=','draft')]}" class="btn-success"/>
+                    <button name="date_update" string="Өдөр солих" type="object" attrs="{'invisible': [('state_type','!=','draft')]}" class="btn-warning"/>
+                    <notebook>
+                        <page string="Дэлгэрэнгүй">
+                            <field name="line_ids" nolabel="1" attrs="{'readonly': [('state_type','!=','draft')]}">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="is_update"/>
+                                    <field name="date"/>
+                                    <field name='name' options="{'no_create':True, 'no_open':True}"/>
+                                    <field name="start_time" widget="float_time"/>
+                                    <field name="end_time" widget="float_time"/>
+                                    <field name="lunch_start_time" widget="float_time"/> 
+                                    <field name="lunch_end_time" widget="float_time"/> 
+                                    <field name="compute_sum_time" widget="float_time" force_save="1"/> 
+                                    <field name="compute_sum_lunch" widget="float_time" force_save="1"/>       
+                                    <field name='is_work'/>
+                                </tree>
+                                <form string="Lines">
+                                    <field name="is_update"/>
+                                    <field name="date"/>
+                                    <field name='name' options="{'no_create':True, 'no_open':True}"/>
+                                    <field name="start_time" widget="float_time"/>
+                                    <field name="end_time" widget="float_time"/>
+                                    <field name="lunch_start_time" widget="float_time"/> 
+                                    <field name="lunch_end_time" widget="float_time"/>   
+                                    <field name="compute_sum_time" widget="float_time" force_save="1"/> 
+                                    <field name="compute_sum_lunch" widget="float_time" force_save="1"/>     
+                                    <field name='is_work'/>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Төлөвийн Түүх">
+                            <field name="history_ids" readonly="1"  >
+                                <tree>
+                                    <field name="user_id"/>
+                                    <field name="date"/>
+                                    <field name="flow_line_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="hr_shift_plan_mine_tree">
+        <field name="name">hr.shift.plan.mine.tree</field>
+        <field name="model">hr.shift.plan.mine</field>
+        <field name="arch" type="xml">
+            <tree string="Hr Shift" decoration-danger="state_type=='draft'" decoration-info="state_type=='sent'" decoration-success="state_type=='done'" >
+                <field name="employee_id"/> 
+                <field name="department_id"/> 
+                <field name="job_id"/> 
+                <field name="shift_time_id"/> 
+                <field name="start_date"/> 
+                <field name="end_date"/> 
+                <field name="flow_line_id"/>
+                <field name="state_type" invisible='1'/>
+            </tree>
+        </field>
+    </record>
+    <record id="hr_shift_plan_mine_filter" model="ir.ui.view">
+        <field name="name">hr.shift.plan.mine Search</field>
+        <field name="model">hr.shift.plan.mine</field>
+        <field name="arch" type="xml">
+            <search string="Monthly Department hour balance front">
+                <group col='8' colspan='4'>
+                    <field name="name"/> 
+                    <field name="start_date"/> 
+                    <field name="employee_id"/> 
+                    <field name="shift_time_id"/> 
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter name="year" string="Жил" icon="terp-personal" domain="[]" context="{'group_by':'start_date:year'}"/>
+                    <filter name="month" string="Сар" icon="terp-personal" domain="[]" context="{'group_by':'start_date:month'}"/>
+                    <filter name="mine_shift" string="Зөвхөн өөрийн" icon="terp-personal" domain="[('employee_id.user_id', '=', uid)]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_hr_shift_plan_mine" model="ir.actions.act_window">
+        <field name="name">Төлөвлөгөө</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.shift.plan.mine</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_shift_plan_mine_tree"/>
+        <field name="context">{'search_default_mine_shift': 1,'search_default_year': 1, 'search_default_month': 1}</field>
+        <field name="search_view_id" ref="hr_shift_plan_mine_filter"/>
+    </record>
+</odoo>

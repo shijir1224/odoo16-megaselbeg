@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="technic_equipment_fuel_view_id" model="ir.ui.view">
+		<field name="name">technic.equipment.fuel.view</field>
+		<field name="model">technic.equipment</field>
+		<field name="inherit_id" ref="mw_technic_equipment.technic_equipment_form"/>
+		<field name="arch" type="xml">
+			    <notebook position="inside">
+                    <page string="Түлш зар">
+                        <sheet>
+                            <field name="tulshnii_zarlaga_ids" >
+                                <tree>
+                                    <field name="product_id" />
+                                    <field name="product_qty" sum="Нийлбэр"/>
+                                    <field name="date" />
+                                    <field name="shift" />
+                                </tree>
+                            </field>
+                        </sheet>
+                    </page>
+                </notebook>
+		</field>
+	</record>
+
+    <record id="technic_equipment_oil_view_id" model="ir.ui.view">
+		<field name="name">technic.equipment.oil.view</field>
+		<field name="model">technic.equipment</field>
+		<field name="inherit_id" ref="mw_technic_equipment.technic_equipment_form"/>
+		<field name="arch" type="xml">
+			    <notebook position="inside">
+                    <page name="technic_oil" string="Тос зар">
+                        <sheet>
+                            <field name="tosnii_zarlaga_ids" >
+                                <tree>
+                                    <field name="product_id" />
+                                    <field name="system_type_id"/>
+                                    <field name="product_qty" sum="Нийлбэр"/>
+                                    <field name="date" />
+                                    <field name="shift" />
+                                </tree>
+                            </field>
+                        </sheet>
+                    </page>
+                </notebook>
+		</field>
+	</record>
+
+
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="consolidated_gas_report_form" model="ir.ui.view">
+		<field name="name">Нэгтгэл тайлан</field>
+		<field name="model">consolidated.gas.report</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="mining_location_ids" widget="many2many_tags" options="{'no_create': True, 'no_open':True}"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+				</group>
+				<footer>
+					<button icon="fa-times" special="cancel" string="Хаах" colspan="1" />
+					<button name="export_report" string="Татах" type="object" colspan="1" class="btn-success" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_consolidated_gas_report" model="ir.actions.act_window">
+		<field name="name">Хүлэмжийн хий тайлан/</field>
+		<field name="res_model">consolidated.gas.report</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="consolidated_gas_report_form"/>
+		<field name="target">new</field>
+	</record>
+</odoo>

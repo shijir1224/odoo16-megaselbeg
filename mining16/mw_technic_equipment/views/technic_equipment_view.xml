@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_partner_form_mw_crm" model="ir.ui.view">
+		<field name="name">res.partner.form.mw.crm</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<notebook position="inside">
+				<page string="Техникүүд" groups="mw_technic_equipment.group_technic_module_user">
+					<field name="technic_ids"/>
+				</page>
+			</notebook>
+		</field>
+	</record>
+		<!-- Technic VIEWs -->
+		<record model='ir.ui.view' id='technic_equipment_form'>
+			<field name="name">Technic equipment form</field>
+			<field name="model">technic.equipment</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<form string="Technic form">
+					<header>
+						<button name="action_to_draft" states="stopped,parking" type="object" string="Ноороглох"/>
+						<button name="action_to_parking" type="object" string="Парклах" states="working" />
+						<button name="action_to_stop" type="object" string="Зогсоох" states="working" />
+						<button name="action_to_inactive" type="object" string="Актлах" states="stopped" groups="mw_technic_equipment.group_technic_module_admin"/>
+						<button name="action_to_working" states="draft,stopped,parking" type="object" class="oe_highlight" string="Эхлүүлэх" />
+						<button name="action_to_working" groups="mw_technic_equipment.group_technic_module_admin" type="object" string="Эхлүүлэх" />
+						<button name="manual_increase_odometer" string="Гараар нэмэгдүүлэх" type="object" states="working,parking,repairing" groups="mw_technic_equipment.group_technic_module_odometer_user"/>
+						<button name="move_to_branch" string="Шилжүүлэх" type="object" states="working,parking,repairing"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<field name="image" widget='image' class="oe_left oe_avatar" style="padding:5px;padding-right: 10px"/>
+						<div name="button_box" class="oe_button_box">
+							<button
+								name="see_inspections"
+								type="object" class="oe_stat_button"
+								icon="fa-list-ol" string="Inspections">
+							</button>
+							<!-- <button
+								name="create_technic_status"
+								type="object" class="oe_right"
+								attrs="{'invisible':[('state','=','draft')]}"
+								icon="fa-question-circle" string="Статус оруулах">
+							</button> -->
+							<field name='is_active' invisible='1'/>
+							<button
+								name="make_deactive" type="object" string="Идэвхигүй болгох"
+								class="oe_stat_button" icon="fa-archive"
+								attrs="{'invisible':[('is_active','=',True)]}"
+								groups="mw_technic_equipment.group_technic_module_admin">
+							</button>
+							<button
+								name="make_active" type="object" string="Идэвхижүүлэх"
+								class="oe_stat_button" icon="fa-archive"
+								attrs="{'invisible':[('is_active','=',False)]}"
+								groups="mw_technic_equipment.group_technic_module_admin">
+							</button>
+						</div>
+
+								<div class="oe_title">
+									<label for="park_number" class="oe_edit_only"/>
+									<h2>
+										<field name="park_number" class="oe_inline" />
+										<field name="park_number" class="oe_inline" widget="CopyClipboardButton"/>
+									</h2>
+								</div>
+								<div class="oe_title">
+									<field name="total_odometer" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+									<field name="total_odometer" widget="odometer_widget" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+									<field name="odometer_unit"
+										style="font-weight:bold;font-size:14pt;padding-left:7px"/>
+									<br/>
+									<field name="total_km" />
+									<field name="total_km" widget="odometer_widget"/>
+								</div>
+						<group> 
+							<!-- <group>   -->
+								<group>
+									<field name="branch_id" options="{'no_create':True}"/>
+									<field name="department_id" options="{'no_create':True}" required="1"/>
+									<field name="company_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create':True}" required="1"/>
+									<field name="owner_type" />
+									<field name="partner_id" options="{'no_create':True}"/>
+									<field name="is_tbb_report" force_save="1"/>
+									<field name="is_tbb_mining" force_save="1"/>
+									<field name="technic_setting_id" options="{'no_create':True}"/>
+									<field name="model_id" options="{'no_create':True}"/>
+									<field name="technic_type_id" options="{'no_create':True}"/>
+									<!-- <field name="technic_type" /> -->
+									<!-- <field name="technic_sub_type" invisible="1"/> -->
+									<field name="rubber_tired" invisible="1"/>
+									<field name="position_format" invisible="1"/>
+									<button name="force_name" type="object" string="Force" groups="base.group_no_one"/>
+								</group>
+							<!-- </group> -->
+							<group>
+								<field name="manufactured_date"/>
+								<field name="start_date"/>
+
+								<field name="vin_number" widget="CopyClipboardChar" class="oe_inline" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}" />
+								<field name="program_code"/>
+
+								<field name="state_number" widget="CopyClipboardChar"/>
+								<field name="document_number"/>
+								<field name="engine_serial" attrs="{'readonly':[('state','in',('stopped','working','parking','repairing','inactive'))]}"/>
+								<newline/>
+
+								<!-- <field name="validation_register_id"
+									attrs="{'invisible':[('technic_type','not in',['mechanizm'])], 'required':[('technic_type','in',['mechanizm'])]}"/> -->
+								<field name="color" widget="colorpicker"/>
+
+								<!-- <field name="validation_start_date"
+									attrs="{'invisible':[('technic_type','not in',['mechanizm'])], 'required':[('technic_type','in',['mechanizm'])]}"/>
+								<field name="validation_end_date"
+									attrs="{'invisible':[('technic_type','not in',['mechanizm'])], 'required':[('technic_type','in',['mechanizm'])]}"/> -->
+
+								<field name="with_warrenty"/>
+								<field name="with_fire_system"/>
+								<field name="with_insurance"/>
+							</group>
+						</group>    
+						<group>
+							<group string="Баталгаат хугацааны мэдээлэл"
+								attrs="{'invisible':[('with_warrenty','=',False)]}">
+								<field name="warranty_period" />
+								<field name="warranty_odometer" />
+
+								<field name="warrenty_date"
+									attrs="{'required':[('with_warrenty','=',True)]}"/>
+								<newline/>
+
+								<field name="warranty_info" nolabel="1"
+								/>
+								<button name="test_check_technic_warrenty"
+								type="object" string="Test warrenty"
+								groups="base.group_no_one" />
+							</group>
+							<group string="Галын системийн мэдээлэл"
+								attrs="{'invisible':[('with_fire_system','=',False)]}">
+								<field name="fire_system_brand"
+									attrs="{'required':[('with_fire_system','=',True)]}"/>
+								<field name="fire_system_type"
+									attrs="{'invisible':[('fire_system_brand','in',['fire_hydrant'])],'required':[('with_fire_system','=',True),('fire_system_brand','not in',['fire_hydrant'])]}"/>
+
+								<field name="fire_system_install_date"
+									attrs="{'invisible':[('fire_system_brand','in',['fire_hydrant'])],'required':[('with_fire_system','=',True),('fire_system_brand','not in',['fire_hydrant'])]}"/>
+								<field name="fire_system_state"
+									attrs="{'invisible':[('fire_system_brand','in',['fire_hydrant'])],'required':[('with_fire_system','=',True),('fire_system_brand','not in',['fire_hydrant'])]}"/>
+
+								<field name="fire_system_period"
+									attrs="{'invisible':[('fire_system_brand','in',['fire_hydrant'])],'required':[('with_fire_system','=',True),('fire_system_brand','not in',['fire_hydrant'])]}"/>
+								<field name="fire_system_last_date"
+									attrs="{'invisible':[('fire_system_brand','in',['fire_hydrant'])],'required':[('with_fire_system','=',True),('fire_system_brand','not in',['fire_hydrant'])]}"/>
+
+								<field name="fire_system_next_date"
+									attrs="{'invisible':[('fire_system_brand','in',['fire_hydrant'])],'required':[('with_fire_system','=',True),('fire_system_brand','not in',['fire_hydrant'])]}"/>
+							</group>
+							<group string="Даатгалтай холбоотой мэдээлэл" name="insurance_info"
+								attrs="{'invisible':[('with_insurance','=',False)]}">
+								<field name="insurance_company_name"
+									attrs="{'required':[('with_insurance','=',True)]}" />
+								<field name="insurance_contract_number" />
+								<field name="insurance_date_end"
+									attrs="{'required':[('with_insurance','=',True)]}"/>
+								<field name="insurance_payment_amount"
+									attrs="{'required':[('with_insurance','=',True)]}"/>
+								<newline/>
+								<field name="state_inspection_date_end"
+									attrs="{'required':[('with_insurance','=',True)]}"/>
+								<field name="state_tax_date_end"
+									attrs="{'required':[('with_insurance','=',True)]}"/>
+							</group>
+						</group>
+
+						<!-- <group string="Бусад мэдээлэл">
+							<field name="carrying_capacity" force_save="1"
+								attrs="{'invisible':[('technic_type','not in',['dump','water_truck','achaanii_mashin'])], 'required':[('technic_type','in',['dump','water_truck','achaanii_mashin'])]}"/>
+							<field name="carrying_tonnage" force_save="1"
+								attrs="{'invisible':[('technic_type','not in',['dump','water_truck','service_car','achaanii_mashin'])], 'required':[('technic_type','in',['dump','water_truck','service_car','achaanii_mashin'])]}"/>
+
+							<field name="blade_width"
+								attrs="{'invisible':[('technic_type','not in',['grader'])], 'required':[('technic_type','in',['grader'])]}"/>
+							<field name="blade_capacity"
+								attrs="{'invisible':[('technic_type','not in',['dozer','wheel_dozer'])], 'required':[('technic_type','in',['dozer','wheel_dozer'])]}"/>
+
+							<field name="bucket_capacity" force_save="1"
+								attrs="{'invisible':[('technic_type','not in',['excavator','loader','wheel_excavator'])], 'required':[('technic_type','in',['excavator','loader','wheel_excavator'])]}"/>
+							<field name="lifting_capacity"
+								attrs="{'invisible':[('technic_type','not in',['mechanizm'])], 'required':[('technic_type','in',['mechanizm'])]}"/>
+
+							<field name="power_capacity"
+								attrs="{'invisible':[('technic_type','not in',['light_tower','electric_generator','welding_machine'])], 'required':[('technic_type','in',['light_tower','electric_generator','welding_machine'])]}"/>
+							<field name="electric_current"
+								attrs="{'invisible':[('technic_type','not in',['welding_machine'])], 'required':[('technic_type','in',['welding_machine'])]}"/>
+
+							<field name="pressure_capacity"
+								attrs="{'invisible':[('technic_type','not in',['water_truck','service_car','air_compressor','fire_truck'])], 'required':[('technic_type','in',['water_truck','service_car','air_compressor','fire_truck'])]}"/>
+							<field name="volume"
+								attrs="{'invisible':[('technic_type','not in',['tank_truck','air_compressor','fire_truck'])], 'required':[('technic_type','in',['tank_truck','air_compressor','fire_truck'])]}"/>
+
+							<field name="operating_weight"
+								attrs="{'invisible':[('technic_type','not in',['excavator','loader','dozer','grader','dump','water_truck','service_car','mechanizm','transportation_vehicle','wheel_excavator','wheel_dozer','fire_truck','ambulance_car'])],
+								'required':[('technic_type','in',['excavator','loader','dozer','grader','dump','water_truck','service_car','mechanizm','transportation_vehicle','wheel_excavator','wheel_dozer','fire_truck','ambulance_car'])]}"/>
+							<field name="seats"
+								attrs="{'invisible':[('technic_type','not in',['ambulance_car','transportation_vehicle','passenger_bus'])],'required':[('technic_type','in',['ambulance_car','transportation_vehicle','passenger_bus'])]}"/>
+
+							<field name="vibration_power"
+								attrs="{'invisible':[('technic_type','not in',['indvv'])],
+								'required':[('technic_type','in',['indvv'])]}"/>
+						</group> -->
+
+						<notebook>
+							<page string="Дугуйн мэдээлэл"
+								attrs="{'invisible':[('rubber_tired','=',False)]}">
+								<field name="tire_counts" />
+								<newline/>
+								<div class="row" style="margin:10px;border-style:groove">
+									<div class="col-sm-4">
+										<widget name="tire_position_widget"/>
+									</div>
+									<div class="col-sm-8">
+										<field name="tire_line" nolabel="1"
+												attrs="{'invisible':[('rubber_tired','!=',True)],
+														'required':[('rubber_tired','=',True)]}" >
+											<tree string="Tires"
+												decoration-warning="current_tread_depreciation>90"
+												decoration-danger="warning_deep!='normal'">
+												<field name="position"/>
+												<field name="tire_id"/>
+												<field name="current_odometer_value"/>
+												<field name="technic_odometer"/>
+												<field name="set_tread_depreciation"/>
+												<field name="current_tread_depreciation"/>
+												<field name="warning_deep" invisible="1"/>
+												<field name="date"/>
+											</tree>
+											<form string="Tires">
+												<group>
+													<field name="brand" />
+													<field name="serial" />
+
+													<field name="tire_id"/>
+													<field name="position"/>
+												</group>
+												<group string="Гүйлт">
+													<field name="current_odometer_value"/>
+													<field name="odometer_value"/>
+
+													<field name="odometer_km"/>
+													<field name="technic_odometer"/>
+												</group>
+												<group>
+													<field name="set_tread_depreciation"/>
+													<field name="current_tread_depreciation"/>
+
+													<field name="state"/>
+													<field name="warning_deep"/>
+
+													<field name="new_or_old"/>
+													<field name="date"/>
+												</group>
+											</form>
+										</field>
+									</div>
+								</div>
+							</page>
+							<page string="Компонентын мэдээлэл">
+								<!-- <group> -->
+									<field name="pic_width" invisible="1"/>
+									<field name="pic_height" invisible="1"/>
+
+									<field name="components_info" nolabel="1"/>
+									<field name="component_part_line" nolabel="1">
+										<tree>
+											<field name="sequence"/>
+											<field name="date_of_record"/>
+											<field name="date_of_set"/>
+											<field name="name"/>
+											<field name="total_odometer"/>
+											<field name="set_odometer"/>
+											<field name="state"/>
+										</tree>
+									</field>
+								<!-- </group> -->
+								<!-- <div class="row" style="width:100%">
+									<div class='col-md-6'
+										style="padding: 0px">
+										<widget name="technic_component_detail_viewer"/>
+									</div>
+								</div> -->
+							</page>
+							<page string="Шилжсэн түүх">
+										<label for="move_line_ids" string="Техникийн шилжсэн түүх"/>
+								<!-- <group string="Техникийн шилжсэн түүх"> -->
+										<field name="move_line_ids" nolabel="1" >
+											<tree>
+												<field name="date"/>
+												<field name="old_branch_id"/>
+												<field name="new_branch_id"/>
+												<field name="description"/>
+												<field name="moto_hour"/>
+												<field name="km"/>
+												<field name="user"/>
+											</tree>
+										</field>
+										<field name="retire_attachment_ids" />
+								<!-- </group> -->
+							</page>
+							<!-- <page string="Гүйлтийн түүх">
+										<label for="depreciation_line_ids" string="Техникийн шилжсэн түүх"/>
+										<field name="depreciation_line_ids" nolabel="1" >
+											<tree>
+												<field name="date"/>
+												<field name="current_motoh" groups="base.group_no_one"/>
+												<field name="start_motoh"/>
+												<field name="end_motoh"/>
+												<field name="start_km"/>
+												<field name="end_km"/>
+												<field name="increasing_motoh"/>
+												<field name="increasing_km"/>
+												<field name="odometer_unit"/>
+												<field name="user_id" options="{'no_create': True}"/>
+												<field name="shift"/>
+											</tree>
+										</field>
+							</page> -->
+							<page string="Санхүүгийн мэдээлэл" name="financial_info">
+								<group string="Дансны мэдээлэл">
+									<field name="account_id"
+										options="{'no_create':True}"/>
+									<field name="account_analytic_id"
+										options="{'no_create':True}"/>
+								</group>
+							</page>
+						 </notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record model='ir.ui.view' id='technic_equipment_tree'>
+			<field name="name">Technic equipment tree</field>
+			<field name="model">technic.equipment</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<tree string="Vehicle"
+					decoration-bf="state=='draft'"
+					decoration-danger="state=='stopped'"
+					decoration-muted="state=='inactive'"
+					decoration-info="state=='parking'"
+					decoration-warning="state=='repairing'"
+					decoration-success="state=='working'"
+					multi_edit="1">
+					<field name="state_number" optional="show"/>
+					<field name="name" />
+					<field name="report_order" invisible="1"/>
+					<field name="company_id" optional="hide"/>
+					<field name="partner_id" optional="hide"/>
+					<field name="branch_id"/>
+					<field name="model_id" invisible="1"/>
+					<field name="technic_type"/>
+					<field name="vin_number" optional="show"/>
+					<field name="total_odometer" />
+					<field name="total_km" invisible="1"/>
+					<field name="odometer_unit" invisible="1"/>
+					<field name="manufactured_date" optional="hide"/>
+					<field name="department_id" optional="hide"/>
+					<field name="technic_setting_id" optional="hide"/>
+					<field name="owner_type" optional="hide"/>
+					<field name="state"/>
+					<field name="status_note"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="technic_equipment_search">
+			<field name="name">Technic equipment search view</field>
+			<field name="model">technic.equipment</field>
+			<field eval="2" name="priority"/>
+			<field name="arch" type="xml">
+				<search string="Search">
+					<field name="name"/>
+					<field name="state_number"/>
+					<field name="vin_number"/>
+					<field name="park_number"/>
+					<field name="technic_setting_id"/>
+					<field name="branch_id"/>
+					<group expand="1" string="Filters">
+						<filter name="working" string="Ажиллаж байгаа"
+							domain="[('state','=','working'),('is_active','=',False)]"/>
+						<filter string="Засварлаж байгаа" domain="[('state','=','repairing')]"
+							name="repairing"/>
+						<filter string="Parking" domain="[('state','=','parking')]"
+							name="parking"/>
+						<filter string="Баталгаат" domain="[('with_warrenty','=',True)]"
+							name="warrenty"/>
+						<filter string="Галын системтэй" domain="[('with_fire_system','=',True)]" name="fire_system"/>
+						<filter string="Идэвхигүй" domain="[('is_active','=',True)]" name="is_active"/>
+					</group>
+					<group expand="1" string="Group By...">
+						<filter name="groupby_status" context="{'group_by':'state'}"
+							string="Төлөв"/>
+						<filter name="groupby_model" context="{'group_by':'model_id'}"
+							string="Модел загвар"/>
+						<filter name="groupby_type" context="{'group_by':'technic_type'}"
+							string="Техникийн төрөл"/>
+						<filter name="groupby_owner" context="{'group_by':'owner_type'}"
+							string="Эзэмшигчийн төрөл"/>
+						<filter name="groupby_manufactured_date" context="{'group_by':'manufactured_date'}"
+							string="Үйлдвэрлэсэн огноо"/>
+						<filter name="groupby_department" context="{'group_by':'department_id'}"
+							string="Хэлтэс"/>
+						<filter name="groupby_branch" context="{'group_by':'branch_id'}"
+							string="Салбар"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model='ir.actions.act_window' id='action_technic_equipment'>
+			<field name="name">Техникийн бүртгэл</field>
+			<field name="res_model">technic.equipment</field>
+			<field name="view_mode">tree,kanban,form</field>
+			<field name="view_id" ref="technic_equipment_tree"/>
+			<field name="domain">[]</field>
+			<field name="context">{"search_default_working" : True}</field>
+			<field name="search_view_id" ref="technic_equipment_search" />
+			<field name="view_ids"
+						eval="[(5,0,0),(0,0,{'view_mode':'tree',
+								'view_id': ref('mw_technic_equipment.technic_equipment_tree')}),
+							  (0,0,{'view_mode':'form',
+								'view_id': ref('mw_technic_equipment.technic_equipment_form')})]"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a new vehicle.
+			  </p><p>
+				You will be able to manage your fleet by keeping track of the
+				contracts, services, fixed and recurring costs, odometers and
+				fuel logs associated to each vehicle.
+			</p><p>
+				OpenERP will warn you when services or contract have to be
+				renewed.
+			  </p>
+			</field>
+		</record>
+
+		<!-- Increase -->
+	<record model='ir.ui.view' id='technic_odometer_increase_form'>
+		<field name="name">technic.odometer.increase.form</field>
+		<field name="model">technic.odometer.increase</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="date"/>
+					<newline/>
+					<field name="last_odometer"/>
+					<field name="last_km"/>
+				</group>
+				<footer>
+					<button name="save_and_increase" string="Confirm" type="object" class="btn-primary"/>
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.ui.view' id='technic_retire_history_wizard_form'>
+		<field name="name">technic.retire.history.wizard.form</field>
+		<field name="model">technic.retire.history.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Техник Актлах">
+				<group>
+					<field name="date"/>
+					<field name="user"/>
+
+					<field name="description"/>
+					<newline/>
+					<field name="attachment_ids" nolabel="1" widget="many2many_binary"/>
+				</group>
+				<footer>
+					<button name="technic_retire_history" type="object" string="Шилжүүлэх"
+							class="oe_button oe_form_button_save oe_highlight"/>
+					<button special="cancel" string="Close"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.ui.view' id='technic_move_history_wizard_form'>
+		<field name="name">technic.move.history.wizard.form</field>
+		<field name="model">technic.move.history.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Техник шилжүүлэх">
+				<group>
+					<field name="date"/>
+					<field name="moto_hour"/>
+
+					<field name="km"/>
+					<field name="old_branch_id"/>
+					
+					<field name="new_branch_id"/>
+					<field name="user"/>
+					
+					<field name="description" widget="text"/>
+				</group>
+				<footer>
+					<button name="create_move_history" type="object" string="Шилжүүлэх бүртгэл үүсгэх"
+							class="oe_button oe_form_button_save oe_highlight"/>
+					<button special="cancel" string="Close"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<!-- Warrenty CRON -->
+	<record id="cron_technic_warrenty_view" model="ir.cron">
+		<field name="name">Техникийн баталгаат хугацаа шалгах - КРОН</field>
+		<field name="model_id" ref="model_technic_equipment"/>
+		<field name="state">code</field>
+		<field name="user_id" ref="base.user_root" />
+		<field name="code">model._check_technic_warrenty()</field>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+	</record>
+
+	<!-- Insurance CRON -->
+	<record id="cron_technic_insurance_view" model="ir.cron">
+		<field name="name">Техникийн даатгалын хугацаа шалгах - КРОН</field>
+		<field name="model_id" ref="model_technic_equipment"/>
+		<field name="state">code</field>
+		<field name="user_id" ref="base.user_root" />
+		<field name="code">model._check_technic_insurance()</field>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+	</record>
+
+	<!-- ajiltniii medeelel haruulah  -->
+	<record id="hr_employee_view_form2_technic" model="ir.ui.view">
+		<field name="name">hr.hr.employee.view.form2.mw</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_user']" position="after">
+				<button name="action_technic_eq" type="object" class="oe_stat_button" icon="fa-cog" string="Техник">
+				</button>
+			</xpath>
+		</field>
+	</record>
+	<record id="view_employee_form_mine_technic" model="ir.ui.view">
+		<field name="name">hr.employee.extension.mine</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mine_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//div[@name='button_box']" position="inside">
+				<button name="action_technic_eq" type="object" class="oe_stat_button" icon="fa-cog" string="Техник">
+				</button>
+			</xpath>
+		</field>
+	</record>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="view_account_asset_type_form" model="ir.ui.view">
+        <field name="name">account.asset.type.form</field>
+        <field name="model">account.asset.type</field>
+        <field name="arch" type="xml">
+            <form string="Asset Type">
+                <group>
+                    <group>
+                       <field name="name" required="1"/>
+                    </group>
+                    <group>
+                       <field name="model_id"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+<!--    Хөрөнгийн байрлалын Tree харагдац-->
+	<record id="view_account_asset_type_tree" model="ir.ui.view">
+        <field name="name">account.asset.type.tree</field>
+        <field name="model">account.asset.type</field>
+        <field name="arch" type="xml">
+            <tree string="Asset type" editable="top">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+<!--    Хөрөнгийн байрлалын Search-->
+    <record id="view_account_asset_type_search" model="ir.ui.view">
+        <field name="name">account.asset.type.search</field>
+        <field name="model">account.asset.type</field>
+        <field name="arch" type="xml">
+            <search string="Asset type">
+                <field name="name" string="Asset type Name"/>
+                <field name="model_id" string="Model"/>
+            </search>
+        </field>
+    </record>
+
+<!--    Хөрөнгийн байрлалын Action-->
+    <record id="action_account_asset_type_view" model="ir.actions.act_window">
+        <field name="name">Asset type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

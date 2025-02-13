@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_stock_account_report_view" model="res.groups">
+            <field name="name">Агуулах Санхүү Бичилтийн Дундын Тайлан</field>
+            <field name="category_id" ref="base.module_category_inventory_inventory"/>
+        </record>
+    </data>
+    <record model="ir.rule" id="own_stock_report_account">
+        <field name="name">Өөрийн компаны санхүү бичилтийн тайлан харах</field>
+        <field name="model_id" ref="mw_stock_account_report.model_stock_report_account"/>
+        <!-- Охин компаниараа харах бол -->
+        <!-- <field name="domain_force">['|',('company_id','=', False),('company_id', 'child_of',[user.company_id.id])]</field> -->
+        <!-- Яг үндсэн компаниараа харах бол -->
+        <field name="domain_force">[('company_id','=', user.company_id.id)]</field>
+    </record>
+</odoo>

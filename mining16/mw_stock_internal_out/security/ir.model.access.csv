@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_stock_product_interout_user,stock.product.interout,model_stock_product_interout,mw_stock_internal_out.group_mw_stock_internal_out_user,1,1,1,1
+access_stock_product_interout_line_user,stock.product.interout.line,model_stock_product_interout_line,base.group_user,1,0,0,0
+access_stock_product_interout_line_user,stock.product.interout.line,model_stock_product_interout_line,mw_stock_internal_out.group_mw_stock_internal_out_user,1,1,1,1
+access_stock_product_interout_history_user,stock.product.interout.history,model_stock_product_interout_history,mw_stock_internal_out.group_mw_stock_internal_out_user,1,1,1,1

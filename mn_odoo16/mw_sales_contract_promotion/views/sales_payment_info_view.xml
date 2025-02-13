@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="sales_payment_form_view" model="ir.ui.view">
+		<field name="name">sale.payment.info.form</field>
+		<field name="model">sale.payment.info</field>
+		<field name="arch" type="xml">
+            <form string="Sales payment">
+       		<sheet>
+                    <button name="compute_partner_sale_payment" class="oe_highlight" string="Харах" type="object" />
+                    <button name="get_payment_so_list_mw" class="oe_highlight" string="SO харах" type="object" />
+                    <group>
+	                    <group >
+	                        <field name="name"/>
+	                        <field name="date"/>
+	                        <field name="partner_id" options="{'no_create': True}"/>
+	                        <field name="date_start"/>
+	                        <field name="date_end"/>
+						</group>
+		                    <button name="create_payment" class="oe_highlight" string="Төлбөр хийх" type="object" />
+	                        <field name="so_id"/>
+	                        <field name="pay_amount"/>
+						<group>
+						</group>
+	                     <group>
+	                        <field name="note"/>
+						</group> 
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="sales_payment_tree_view" model="ir.ui.view">
+        <field name="name">sale.payment.info.tree</field>
+        <field name="model">sale.payment.info</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+    
+	<record model='ir.actions.act_window' id='sales_payment_info'>
+        <field name="name">Sales payment info</field>
+        <field name="res_model">sale.payment.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="sales_payment_tree_view"/>
+    </record>    
+
+</odoo>

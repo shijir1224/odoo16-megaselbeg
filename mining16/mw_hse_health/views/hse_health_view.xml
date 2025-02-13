@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_hse_health_form" model="ir.ui.view">
+		<field name="name">hse.health.form</field>
+		<field name="model">hse.health</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="branch_id"/>
+						<field name="user_company_id"/>
+					</group>
+					<group string='Ажилтаны мэдээлэл'>
+						<group>
+							<field name="employee_id" options="{'no_create':True}"/>
+							<field name="employee_vat" readonly="1"/>
+							<field name="gender"/>
+							<field name="birth_year"/>
+							<field name="phone"/>
+							<field name="emergency_phone"/>
+						</group>
+						<group>
+							<field name="job_id"/>
+							<field name="department"/>
+							<field name="create_work_date"/>
+							<field name="company_id" options="{'no_create':True}"/>
+							<field name="live_address"/>
+							<field name="country_of_birth_id" options="{'no_create':True}"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Эмнэлэгийн тусламжын түүх" name="ambulance_line"> 
+							<field name='hse_ambulance_line_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name="date"/>
+									<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="additional_diagnosis"/>
+									<field name="decision_type"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Нарийн мэргэжлийн үзлэг" name="specialist_doctor"> 
+							<field name='specialist_doctor_line_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name="date"/>
+									<field name='type'/>
+									<field name="hospital_name"/>
+									<field name="doctor_type_ids"  options="{'no_create': True}" widget="many2many_tags"/>
+									<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="additional_diagnosis"/>
+									<field name="disp_name"/>
+									<field name="analysis_id_date"/>
+									<field name='employee_id' invisible="1"/>
+									<field name="additional_analysis_id"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Үзлэгийн түүх" name="history_doctor">
+							<field name='history_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name='employee_id' optional="hide"/>
+									<field name="date"/>
+									<field name='type'/>
+									<field name="diagnosis_ids" options="{'no_create':True}" widget="many2many_tags"/>
+									<field name="additional_diagnosis"/>
+									<field name="disp_type"/>
+									<field name="analysis_id_date"/>
+									<field name="employee_id" invisible="1"/>
+									<field name="additional_analysis_id"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Эрүүл мэндийн асуумж" name="price_calculator">
+							<field name="health_questionnaire_line_ids" nolabel="1">
+								<tree >
+									<field name="date"/>
+									<field name="check_head"/>
+									<field name="check_heart"/>
+									<field name="check_breath"/>
+									<field name="check_injury"/>
+									<field name="check_endocrine"/>
+									<field name="check_internal_disease"/>
+									<field name="check_infectious_diseases"/>
+									<field name="check_job_disease"/>
+									<field name="check_Hereditary_disease"/>
+									<field name="check_foot"/>
+									<field name="check_pharynx"/>
+									<field name="check_surgery" optional="hide"/>
+									<field name="check_nerve" optional="hide"/>
+									<field name="check_eye" optional="hide"/>
+									<field name="diagnosis" optional="hide"/>
+									<field name="additional_analysis" optional="hide"/>
+									<field name="note"/>
+									<field name="introduce"/>
+								</tree>
+								<form>
+									<group>
+										<group>
+											<field name="date"/>
+											<field name="check_head"/>
+											<field name="check_heart"/>
+											<field name="check_breath"/>
+											<field name="check_injury"/>
+											<field name="check_endocrine"/>
+											<field name="check_internal_disease"/>
+											<field name="check_infectious_diseases"/>
+											<field name="check_job_disease"/>
+											<field name="check_Hereditary_disease"/>
+										</group>
+										<group>
+											<field name="check_Hereditary_disease"/>
+											<field name="check_foot"/>
+											<field name="check_pharynx"/>
+											<field name="check_surgery" optional="hide"/>
+											<field name="check_nerve" optional="hide"/>
+											<field name="check_eye" optional="hide"/>
+											<field name="diagnosis" optional="hide"/>
+											<field name="additional_analysis" optional="hide"/>
+											<field name="introduce"/>
+										</group>
+									</group>
+									<group>
+										<field name="note"/>
+									</group>
+								</form>
+							</field>
+						</page>
+						<page string='Бие бялдарын хөгжил чийрэгжилтийн түвшин' name="physical_development">
+							<field name='physical_ids' colspan="4" nolabel="1">
+								<tree editable="bottom">
+									<field name='date'/>
+									<field name="high"/>
+									<field name="weight"/>
+									<field name="weight_index"/>
+									<field name="review" force_save='1'/>
+									<field name="waist_circumference"/>
+								</tree>
+								<form>
+									<group>
+										<field name='parent_id'/>
+										<field name='date'/>
+										<field name="high"/>
+										<field name="weight"/>
+										<field name="weight_index"/>
+										<field name="review" force_save='1'/>
+										<field name="waist_circumference"/>
+									</group>	
+								</form>
+							</field>
+						</page>
+						<page string='Эрт илрүүлэг' name="detection"> 
+							<field name='detection_ids' nolabel="1">
+								<tree editable="bottom">
+									<field name='date'/>
+									<field name="arterial_blood_pressure"/>
+									<field name="diabetes_risk_score"/>
+									<field name="blood_glucose_level"/>
+								</tree>
+								<form>
+									<field name='parent_id'/>
+									<field name='date'/>
+									<field name="arterial_blood_pressure"/>
+									<field name="diabetes_risk_score"/>
+									<field name="blood_glucose_level"/>
+								</form>
+							</field>
+						</page>
+						
+						
+					</notebook>
+					<field name='attachment_ids' widget="many2many_binary"/>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_health_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">hse.health</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="employee_id"/>
+				<field name="job_id"/>
+				<field name="gender"/>
+				<field name="birth_year"/>
+				<field name="phone"/>
+				<field name="department"/>
+				<field name="emergency_phone"/>
+				<field name="live_address" optional="hide"/>
+				<field name="create_work_date" optional="hide"/>
+				<field name="country_of_birth_id" optional="hide"/>
+				<field name="company_id" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_specialist_doctor_type_line_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">specialist.doctor.type.line</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name='doctor_type' />
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_health_filter" model="ir.ui.view">
+		<field name="name">hse.health.filter</field>
+		<field name="model">hse.health</field>
+		<field name="arch" type="xml">
+			<search string="hse_danger_registration">
+				<group expand="0">
+					<filter string="Салбар" name="branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<!-- <filter string="Жилээр" name='group_year' domain="[]" context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' domain="[]" context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' domain="[]" context="{'group_by':'date:day'}"/> -->
+				</group>
+				<field name="employee_id"/>
+				<field name="employee_vat"/>
+				<field name="phone"/>
+				<field name="job_id"/>
+				<field name="company_id"/>
+				<field name="gender"/>
+				<field name="birth_year"/>
+				<field name="country_of_birth_id"/>
+				<field name="phone"/>
+				<field name="department"/>
+				<field name="emergency_phone"/>
+				<field name="live_address"/>
+				<field name="create_work_date"/>
+				<field name="company_id"/>
+			</search>
+		</field>
+	</record>
+	<record id="action_specialist_doctor_type_line" model="ir.actions.act_window">
+		<field name="name">Эмч төрөл</field>
+		<field name="res_model">specialist.doctor.type.line</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<record id="action_hse_health_view" model="ir.actions.act_window">
+		<field name="name">Эрүүл мэнд хуудас</field>
+		<field name="res_model">hse.health</field>
+		<field name="context">{'delete':False,'search_default_branch_id':1}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

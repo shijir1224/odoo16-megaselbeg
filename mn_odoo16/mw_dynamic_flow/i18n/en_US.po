@@ -1,0 +1,533 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_dynamic_flow
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20201009\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-11 07:04+0000\n"
+"PO-Revision-Date: 2022-01-11 07:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.object_action_next_status
+msgid "(орсон байна)"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__active
+msgid "Active"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__activity_ok
+msgid "Activity Ok"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__is_activity_with_mail
+msgid "Activity мэйлтэй нь хамт илгээх"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__type__all
+msgid "All"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_pivot
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "Analysis"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "April"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_search
+msgid "Archive"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "August"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__cancel
+msgid "Cancel"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__categ_ids
+msgid "Category"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__chief
+msgid "Chief"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "Company"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__create_uid
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__create_uid
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__create_uid
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__create_date
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__create_date
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__create_date
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "December"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__description
+msgid "Description"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__display_name
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__display_name
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__display_name
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__done
+msgid "Done"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__draft
+msgid "Draft"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.actions.act_window,name:mw_dynamic_flow.open_dynamic_flow_form
+#: model:ir.model,name:mw_dynamic_flow.model_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__flow_id
+#: model:ir.module.category,name:mw_dynamic_flow.module_mw_dynamic_flow
+#: model:ir.ui.menu,name:mw_dynamic_flow.menu_dynamic_flow
+msgid "Dynamic Flow"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.actions.act_window,name:mw_dynamic_flow.action_dynamic_flow_history
+#: model:ir.ui.menu,name:mw_dynamic_flow.menu_dynamic_flow_history
+msgid "Dynamic Flow History"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model,name:mw_dynamic_flow.model_dynamic_flow_line
+msgid "Dynamic Flow Line"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model,name:mw_dynamic_flow.model_dynamic_flow_line_stage
+msgid "Dynamic Flow Line Stage"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model,name:mw_dynamic_flow.model_dynamic_flow_history
+msgid "Dynamic Flow history"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__engineer
+msgid "Engineer"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "February"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__type__fixed
+msgid "Fixed"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__group_id
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__type__group
+msgid "Group"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_search
+msgid "Group By"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__id
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__id
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__id
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__is_mail
+msgid "Is Mail"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__is_not_edit
+msgid "Is Not Edit"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__is_print
+msgid "Is Print"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "January"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "July"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "June"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow____last_update
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history____last_update
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line____last_update
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__write_uid
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__write_uid
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__write_uid
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__write_date
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__write_date
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__write_date
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__line_ids
+msgid "Line"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:res.groups,name:mw_dynamic_flow.group_dynamic_flow_manager
+msgid "Manager"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "March"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__master
+msgid "Master"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "May"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_search
+msgid "Model"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__model_id
+msgid "Model name"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__name
+msgid "Name"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.constraint,message:mw_dynamic_flow.constraint_dynamic_flow_line_stage_name_uniq
+msgid "Name must be unique!"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__type__none
+msgid "None"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "November"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "October"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__parts_user
+msgid "Parts user"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model,name:mw_dynamic_flow.model_res_users
+msgid "Res users"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_tree
+msgid "SUM"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__senior
+msgid "Senior"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__state_type__sent
+msgid "Sent"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "September"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__sequence
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__state_type
+msgid "State type"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__type
+msgid "Type"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__user_id
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__type__user
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+#: model:res.groups,name:mw_dynamic_flow.group_dynamic_flow_user
+msgid "User"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.view_res_users_inherit_form_flost
+msgid "Warehouses"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,help:mw_dynamic_flow.field_dynamic_flow__model_id
+msgid "Your model name"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.object_action_next_status
+msgid "Алдааны мэдээлэл"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.object_action_next_status
+msgid "Баримтын дугаар"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.object_action_next_status
+msgid "Баримтын нэр"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: code:addons/mw_dynamic_flow/models/dynamic_flow.py:0
+#, python-format
+msgid "Батлах"
+msgstr "Confirm"
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__is_mail_batlah
+msgid "Батлах товч майлээр харуулах"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_res_users__manager_user_ids
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.view_res_users_inherit_form_flost
+msgid "Батлах хэрэглэгчид"
+msgstr "Confirm Users"
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__flow_line_next_id
+msgid "Дараагийн төлөв"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__spend_day
+msgid "Зарцуулсан хоног"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__spend_time
+msgid "Зарцуулсан цаг"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__company_id
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__company_id
+msgid "Компани"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__is_amount
+msgid "Мөнгөн дүгээс хамаарсан"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__is_amount_all
+msgid "Мөнгөн дүгээс хамаарсан ALL"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__amount_price_min
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__amount_price_min
+msgid "Мөнгөн дүнгээс бага"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__amount_price_max
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__amount_price_max
+msgid "Мөнгөн дүнгээс их"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__name
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line_stage__name
+msgid "Нэр"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__date
+msgid "Огноо"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__check_type__branch
+msgid "Салбар менежер"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__branch_ids
+msgid "Салбарууд"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.object_action_next_status
+msgid "Таны баталсан мэдээлэл"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__check_type__manager
+msgid "Тухайн хүний менежер"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__flow_line_id
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__stage_id
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.object_action_next_status
+msgid "Төлөв"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.object_action_next_status
+msgid "Хаах"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields.selection,name:mw_dynamic_flow.selection__dynamic_flow_line__check_type__department
+msgid "Хэлтэсийн менежер"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow__user_ids
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__user_ids
+msgid "Хэрэглэгчид"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__check_type
+msgid "Шалгах төрөл"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "Энэ жил"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "Энэ сар"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_line__flow_line_back_id
+msgid "Өмнөх төлөв"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model_terms:ir.ui.view,arch_db:mw_dynamic_flow.dynamic_flow_history_search
+msgid "Өнөөдөр"
+msgstr ""
+
+#. module: mw_dynamic_flow
+#: model:ir.model.fields,field_description:mw_dynamic_flow.field_dynamic_flow_history__user_id
+msgid "Өөрчилсөн Хэрэглэгч"
+msgstr ""

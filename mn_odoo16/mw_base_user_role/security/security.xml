@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="group_mw_base_role_user" model="res.groups">
+        <field name="name">Роль солих эрх</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+	<data noupdate="1">
+	<record id="mw_base_user_rule" model="ir.rule">
+	        <field name="name">mw base user role</field>
+	        <field name="model_id" ref="base_user_role.model_res_users_role"/>
+	        <field name="global" eval="True"/>
+	        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	    </record>
+	</data>
+</odoo>

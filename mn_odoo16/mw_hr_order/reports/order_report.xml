@@ -1,0 +1,74 @@
+
+
+<odoo>
+
+    <record id="hr_order_type1_report_action" model="ir.actions.act_window">
+        <field name="name">Үндсэн ажилтнаар томилогдсон</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_type_1': 1,'search_default_this_month': 1,'create':False}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_type1_report_menu" parent="mw_hr.menu_human_recource_statistic_report" action="hr_order_type1_report_action" /> 
+
+    <record id="hr_order_type3_report_action" model="ir.actions.act_window">
+        <field name="name">Үндсэн цалин өөрчлөгдсөн</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_type_1': 1,'search_default_this_month': 1,'create':False}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_type3_report_menu" parent="mw_hr.menu_human_recource_statistic_report" action="hr_order_type3_report_action" /> 
+
+    <record id="hr_order_type2_report_action" model="ir.actions.act_window">
+        <field name="name">Туршилтын ажилтнууд</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_type_2': 1,'search_default_this_month': 1,'create':False}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_type2_report_menu" parent="mw_hr.menu_human_recource_statistic_report" action="hr_order_type2_report_action" /> 
+
+    <record id="hr_order_type4_report_action" model="ir.actions.act_window">
+        <field name="name">Шилжсэн ажилтнууд</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_type_4': 1,'search_default_this_month': 1,'create':False}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_type4_report_menu" parent="mw_hr.menu_human_recource_statistic_report" action="hr_order_type4_report_action" /> 
+
+    <record id="hr_order_type11_report_action" model="ir.actions.act_window">
+        <field name="name">Тэтгэмж авсан ажилтнууд</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_type_11': 1,'search_default_this_month': 1,'create':False}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_type11_report_menu" parent="mw_hr.menu_human_recource_statistic_report" action="hr_order_type11_report_action" /> 
+
+    <record id="hr_order_type10_report_action" model="ir.actions.act_window">
+        <field name="name">Сахилгын шийтгэл авсан</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_type_10': 1,'search_default_this_month': 1,'create':False}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_type10_report_menu" parent="mw_hr.menu_human_recource_statistic_report" action="hr_order_type10_report_action" /> 
+
+     <record id="hr_order_type6_report_action" model="ir.actions.act_window">
+        <field name="name">Ажлаас гарсан ажилтнууд</field>
+        <field name="res_model">hr.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_order_tree"/>
+        <field name="context">{'search_default_type_6': 1,'search_default_this_month': 1,'create':False}</field>
+        <field name="search_view_id" ref="hr_order_filter_view"/>
+    </record>
+    <menuitem id="hr_order_type6_report_menu" parent="mw_hr.menu_human_recource_statistic_report" action="hr_order_type6_report_action" /> 
+</odoo>

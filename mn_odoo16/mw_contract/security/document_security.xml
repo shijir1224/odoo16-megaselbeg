@@ -1,0 +1,50 @@
+
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_contract">
+                <field name="name">Гэрээ</field>
+                <field name="sequence">30</field>
+        </record>
+        <record id="group_contract_user" model="res.groups">
+            <field name="name">Гэрээний хэрэглэгч</field>
+            <field name="category_id" ref="mw_contract.module_contract"/>
+        </record>
+        <record id="group_contract_manager" model="res.groups">
+            <field name="name">Гэрээний админ</field>
+            <field name="category_id" ref="mw_contract.module_contract"/>
+            <field name="implied_ids" eval="[(4, ref('group_contract_user'))]"/>
+        </record>
+
+<!-- Domain -->
+        <record model="ir.rule" id="domain_contract_document_real_company">
+            <field name="name">Гэрээ/Компаниар/</field>
+            <field name="model_id" ref="mw_contract.model_contract_document_real"/>
+            <field name="domain_force">['|', ('res_company_id', '=', False),('res_company_id', 'in', company_ids)]</field>
+        </record>
+        <record model="ir.rule" id="domain_contract_document_real_user">
+            <field name="name">Гэрээ/Үүсгэсэн өөрийн/</field>
+            <field name="model_id" ref="mw_contract.model_contract_document_real"/>
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('mw_contract.group_contract_user'))]"/>
+        </record>
+        <record model="ir.rule" id="domain_contract_document_real_suggest_user">
+            <field name="name">Гэрээ/Харагдах ажилтнууд/</field>
+            <field name="model_id" ref="mw_contract.model_contract_document_real"/>
+            <field name="domain_force">[('employee_ids.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('mw_contract.group_contract_user'))]"/>
+        </record>
+        <record model="ir.rule" id="domain_contract_document_real_suggest_user">
+            <field name="name">Гэрээ/Батлах хэрэглэгч/</field>
+            <field name="model_id" ref="mw_contract.model_contract_document_real"/>
+            <field name="domain_force">[('confirm_user_ids','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('mw_contract.group_contract_user'))]"/>
+        </record>
+        <record model="ir.rule" id="domain_contract_document_real_all">
+            <field name="name">Гэрээ/Бүгд/</field>
+            <field name="model_id" ref="mw_contract.model_contract_document_real"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('mw_contract.group_contract_manager'))]"/>
+        </record>
+
+    </data>
+</odoo>

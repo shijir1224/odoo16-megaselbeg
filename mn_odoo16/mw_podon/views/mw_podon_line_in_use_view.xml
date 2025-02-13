@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for  -->
+    <record id="seq_podon_line_in_use" model="ir.sequence">
+        <field name="name">PODON LINE IN USE</field>
+        <field name="code">podon.line.in.use</field>
+        <field name="prefix">PLIU-%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="view_podon_line_in_use_form" model="ir.ui.view">
+        <field name="name">podon.line.in.use.form</field>
+        <field name="model">podon.line.in.use</field>
+        <field name="arch" type="xml">
+            <form string="Поддон бүртгэл">
+                <header>
+                    <button name="action_to_act" states="use" string="Актлах"  type="object" class="btn-danger"/>
+                    <button name="action_to_use" states="act" string="Буцаах"  type="object" class="btn-success"/>
+                    <field name="state" widget="statusbar" statusbar_visible="use,act"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id" options="{'no_create': True}" readonly="1"/>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="branch_id" options="{'no_create': True}"/>
+                            <field name="other_expense_id" options="{'no_create': True}"/>
+                            <field name="account_move_id" options="{'no_create': True}"/>
+                            <field name="company_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="location"/>
+                            <field name="quantity_available"/>
+                            <field name="cost_price"/>
+                            <field name="amount"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="podon_line_in_use_tree" model="ir.ui.view">
+        <field name="name">podon.line.in.use.tree</field>
+        <field name="model">podon.line.in.use</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state == 'use'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="amount"/>
+                <field name="other_expense_id"/>
+                <field name="branch_id" options="{'no_create': True}"/>
+                <field name="company_id"/>
+                <field name="account_move_id" optional="hide"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="podon_line_in_use_search" model="ir.ui.view">
+        <field name="name">podon.line.in.use.tree</field>
+        <field name="model">podon.line.in.use</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0">
+					<filter string="Поддоноор" name="group_podon_id" domain="[]" context="{'group_by':'podon_id'}"/>
+				</group>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="other_expense_id"/>
+                <field name="branch_id" options="{'no_create': True}"/>
+                <field name="partner_id"/>
+                <field name="company_id"/>
+                <field name="account_move_id"/>
+                <field name="amount"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_podon_line_in_use" model="ir.actions.act_window">
+        <field name="name">Ашиглалтанд буй Поддон</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">podon.line.in.use</field>
+        <field name="view_id" ref="podon_line_in_use_tree"/>
+        <field name="context">{'search_default_group_podon_id':1}</field>
+        <field name="domain">[('state','=','use')]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_auditlog_log_report_tree">
+        <field name="name">auditlog.log.report.tree</field>
+        <field name="model">auditlog.log.report</field>
+        <field name="arch" type="xml">
+            <tree string="Logs" create="false">
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="res_id"/>
+                <field name="method"/>
+                <field name="user_id"/>
+                <field name="field_id"/>
+                <field name="log_id"/>
+                <field name="old_value"/>
+                <field name="old_value_text"/>
+                <field name="new_value"/>
+                <field name="new_value_text"/>
+            </tree>
+        </field>
+    </record>
+
+   <record id="view_auditlog_log_report_search" model="ir.ui.view">
+        <field name="name">auditlog.log.report.search</field>
+        <field name="model">auditlog.log.report</field>
+        <field name="arch" type="xml">
+            <search string="Logs">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="res_id"/>
+                <field name="user_id"/>
+                <filter name="userd" string="User-d" domain="[('model_id.model','=','res.users')]"/>
+                <filter name="userdnotpass" string="User-d pass bish" domain="[('model_id.model','=','res.users'),('field_id.name','not in',['password','signature'])]"/>
+                <filter name="userd_group" string="User group-d" domain="[('model_id.model','=','res.users'),('field_id.name','=','groups_id')]"/>
+                <group expand="0" string="Group By...">
+                    <filter name="group_by_user_id"
+                        string="User"
+                        domain="[]" context="{'group_by':'user_id'}"/>
+                    <filter name="group_by_model_id"
+                        string="Model"
+                        domain="[]" context="{'group_by':'model_id'}"/>
+                    <filter name="group_by_res_id"
+                        string="Resource ID"
+                        domain="[]" context="{'group_by':'res_id'}"/>
+                    <filter name="group_by_create_date"
+                        string="Date"
+                        domain="[]" context="{'group_by':'create_date'}"/>
+                    <filter name="group_by_http_session"
+                        string="User session"
+                        domain="[]" context="{'group_by':'http_session_id'}"/>
+                    <filter name="group_by_http_request"
+                        string="HTTP Request"
+                        domain="[]" context="{'group_by':'http_request_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_auditlog_log_report_pivot" model="ir.ui.view">
+        <field name="name">auditlog.log.report.pivot</field>
+        <field name="model">auditlog.log.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Logs">
+                <field name="model_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+    
+
+    <record model="ir.actions.act_window" id="action_auditlog_log_report_tree">
+        <field name="name">Logs report</field>
+        <field name="res_model">auditlog.log.report</field>
+        <field name="view_mode">tree,pivot</field>
+    </record>
+
+    <menuitem id="menu_audit_report_logs" name="Logs report"
+        parent="auditlog.menu_audit" action="action_auditlog_log_report_tree" sequence="40"/>
+</odoo>

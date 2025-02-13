@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_power_report_exca_tree" model="ir.ui.view">
+            <field name="name">power.report.exca.tree</field>
+            <field name="model">power.report.exca</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="parent_id"/>
+                    <field name="object_selection_id"/>
+                    <field name="coef"/>
+                    <field name="zaalt_e"/>
+                    <field name="zaalt_s"/>
+                    <field name="hats_kv"/>
+                    <field name="tarip"/>
+                    <field name="date"/>
+                    <field name="sum_m3"/>
+                    <field name="sum_m3_sur"/>
+                    <field name="haritsaa1"/>
+                    <field name="haritsaa2"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_power_report_exca_graph" model="ir.ui.view">
+            <field name="name">power.report.exca.graph</field>
+            <field name="model">power.report.exca</field>
+            <field name="arch" type="xml">
+                <graph stacked="True">
+                     <field name="object_selection_id" type="row"/>
+                     <field name="sum_m3" type="measure"/>
+                     <field name="hats_kv" type="measure"/>
+                     <field name="haritsaa1" type="measure"/>
+                     <field name="haritsaa2" type="measure"/>
+                </graph>
+             </field>
+        </record>
+
+        <record id="view_power_report_exca_pivot" model="ir.ui.view">
+            <field name="name">power.report.exca.pivot</field>
+            <field name="model">power.report.exca</field>
+            <field name="arch" type="xml">
+                <pivot>
+                     <field name="object_selection_id" type="row"/>
+                     <field name="sum_m3" type="measure"/>
+                     <field name="hats_kv" type="measure"/>
+                     <field name="haritsaa1" type="measure"/>
+                     <field name="haritsaa2" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="view_power_report_exca_search" model="ir.ui.view">
+            <field name="name">power.report.exca.search</field>
+            <field name="model">power.report.exca</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="parent_id"/>
+                    <field name="object_selection_id"/>
+                    <field name="coef"/>
+                    <field name="zaalt_e"/>
+                    <field name="zaalt_s"/>
+                    <field name="hats_kv"/>
+                    <field name="tarip"/>
+                    <field name="date"/>
+                    <field name="sum_m3"/>
+                    <field name="sum_m3_sur"/>
+                    <field name="haritsaa1"/>
+                    <field name="haritsaa2"/>
+                    <filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="Octomber" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Date" context="{'group_by':'date'}" name="date"/>
+                        <filter string="Excavator" context="{'group_by':'object_selection_id'}" name="object_selection_id"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_power_report_exca_tree" model="ir.actions.act_window">
+            <field name="name">Экскаваторын Бүтээл ХАЦ</field>
+            <field name="res_model">power.report.exca</field>
+            <field name="view_mode">pivot,graph,tree</field>
+            <field name="context">{"search_default_this_month":1}</field>
+        </record>
+
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+access_mw_dash_data_oil_fuel_orlogo_uld_user,mw.dash.data.oil.fuel.orlogo.uld,model_mw_dash_data_oil_fuel_orlogo_uld,base.group_user,1,1,1,1
+
+
+access_mw_dash_data_fuel,mw.dash.data.fuel,model_mw_dash_data_fuel,base.group_user,1,1,1,1

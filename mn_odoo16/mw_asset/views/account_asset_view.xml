@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_asset_move_line" model="ir.actions.act_window">
+        <field name="name">Asset Move Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.move.line</field>
+        <field name="view_mode">tree</field>
+    </record>
+	<record id="inherit_view_account_asset" model="ir.ui.view">
+		<field name="name">account.asset.view.form.inherit</field>
+		<field name="model">account.asset</field>
+		<field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+		<field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="move_history_open" class="oe_stat_button" icon="fa-exchange" type="object"
+                        string="Шилжүүлгийн түүх"
+                        attrs="{'invisible': ['|',('move_count', '=', 0),('state', '=', 'draft')]}"
+                        >
+                    <field string="Шилжүүлгийн түүх" name="move_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='set_to_cancelled']" position="after">
+                    <button name="asset_close_button" states="open" string="Хөрөнгө хаах" type="object" data-hotkey="e" class="oe_highlight"/>
+            </xpath>
+			<xpath expr='//form/sheet/div[@class="oe_title"]' position="before">
+				<field name="image" widget='image' class="oe_avatar" />
+			</xpath>
+            <xpath expr="//field[@name='prorata_date']" position="replace">
+                <field name="prorata_date" attrs="{'invisible': [('prorata_computation_type', '=', 'none')], 'readonly': [('state', '!=', 'draft')], 'required': [('state', '!=', 'model')]}"/>
+			</xpath>
+			<xpath expr='//group[@name="current_values"]' position="before">
+                <group string="Хөрөнгийн бүртгэл" attrs="{'invisible': [('state', '=', 'model')]}" name="asset_reg">
+                    <field name="code"></field>
+                    <field name="old_code"></field>
+                    <field name="branch_id" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"></field>
+                    <field name="owner_id" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"></field>
+                    <field name="owner_department_id" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"></field>
+                    <field name="barcode" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"></field>
+                    <field name="location_id" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"></field>
+                    <field name="asset_type_id" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')], 'required': [('state', '!=', 'model')]}" domain="[('model_id','=',model_id)]"/>
+                    <field name="first_depreciation_date" invisible="1"></field>
+                    <field name="display_name" invisible="1"/>
+                    <field name="debug_analytic_account" invisible="1"/>
+                    <field name="partner_id" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="invoice_id" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="close_status" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"/>
+                </group>
+			</xpath>
+			<xpath expr="//page[@name='main_page']//group//group[6]" position="after">
+            <!-- <xpath expr="//field[@name='Accounting']" position="after"> -->
+                <group string="Бусад мэдээлэл" attrs="{'invisible': [('state', '=', 'model')]}">
+                    <field name="car_number" />
+                    <field name="car_vat"/>
+                    <field name="car_color"/>
+                    <field name="by_day" groups="base.group_no_one"/>
+                    <field name="collateral"/>
+                    <field name="collateral_partner" attrs="{'invisible': [('collateral', '=', False)]}"/>
+                </group>
+            </xpath>
+			<xpath expr='//field[@name="original_value"]' position="after">
+                <field name="initial_value" invisible="1"/>
+                <field name="capital_value" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="revaluation_value" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"/>
+			</xpath>
+			<xpath expr='//field[@name="already_depreciated_amount_import"]' position="replace">
+             	<field name="is_initial_derp" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"/>
+             	<field name="initial_derp" attrs="{'invisible': [('state', '=', 'model')], 'readonly': [('state', '!=', 'draft')]}"/>
+			</xpath>
+            <xpath expr="//field[@name='depreciation_move_ids']//tree" position="attributes">
+                <attribute name="editable"></attribute>
+            </xpath> 
+		</field>
+	</record>
+	<record id="inherit_view_account_asset_tree" model="ir.ui.view">
+		<field name="name">account.asset.view.form.inherit</field>
+		<field name="model">account.asset</field>
+		<field name="inherit_id" ref="account_asset.view_account_asset_purchase_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="name"]' position="after">
+				<field name="code"/>
+				<field name="old_code"/>
+			</xpath>
+			<xpath expr='//field[@name="value_residual"]' position="after">
+				<field name="partner_id"/>
+				<field name="prorata_date"/>
+				<field name="method_number"/>
+                <field name="owner_id"/>
+                <field name="model_id" optional="hide"/>
+                <field name="asset_type_id" optional="hide"/>
+				<field name="branch_id"/>
+				<field name="location_id"/>
+			</xpath>
+
+		</field>
+	</record>
+	<record id="view_account_asset_location_form" model="ir.ui.view">
+        <field name="name">account.asset.location.form</field>
+        <field name="model">account.asset.location</field>
+        <field name="arch" type="xml">
+            <form string="Asset Location">
+                <group>
+                    <group>
+                       <field name="name" required="1"/>
+                    </group>
+                    <group>
+                       <field name="parent_id"/>
+                       <field name="location_type"/>
+                    </group>
+                </group>
+                <group col="4">
+                    <field name="description" />
+                    <field name="company_id" required="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+<!--    Хөрөнгийн байрлалын Tree харагдац-->
+	<record id="view_account_asset_location_tree" model="ir.ui.view">
+        <field name="name">account.asset.location.tree</field>
+        <field name="model">account.asset.location</field>
+        <field name="arch" type="xml">
+            <tree string="Asset Location">
+                <field name="name"/>
+                <field name="parent_id"/>
+                <field name="location_type"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+<!--    Хөрөнгийн байрлалын Search-->
+    <record id="view_account_asset_location_search" model="ir.ui.view">
+        <field name="name">account.asset.location.search</field>
+        <field name="model">account.asset.location</field>
+        <field name="arch" type="xml">
+            <search string="Asset Location">
+                <field name="name" string="Asset Location Name"/>
+                <field name="parent_id" string="Top Location"/>
+                <filter name="view_type" string="View Type" domain="[('location_type','=','view')]"/>
+                <filter name="simple_type" string="Simple Type" domain="[('location_type','=','simple')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Top Location" name="parent_id" domain="" context="{'group_by':'parent_id'}"/>
+                    <filter string="Company" name="company_id" domain="" context="{'group_by':'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+<!--    Хөрөнгийн байрлалын Action-->
+    <record id="action_account_asset_location_view" model="ir.actions.act_window">
+        <field name="name">Asset Location</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_account_asset_location_search"/>
+        <field name="view_id" ref="view_account_asset_location_tree"/>
+    </record>
+    <record id="view_mw_account_asset_form" model="ir.ui.view">
+        <field name="name">account.asset.mw.form</field>
+        <field name="model">account.asset</field>
+        <field name="arch" type="xml">
+            <form string="Asset" create="false" edit="false">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open"/>
+                </header>
+                <sheet>
+					<div class="oe_button_box" name="button_box">
+                        <button name="move_history_open" class="oe_stat_button" icon="fa-exchange" type="object"
+                                string="Шилжүүлгийн түүх"
+                                attrs="{'invisible': ['|',('move_count', '=', 0),('state', '=', 'draft')]}"
+                                >
+                            <field string="Шилжүүлгийн түүх" name="move_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Laptop iBook"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="acquisition_date"/>
+                            <field name="code"></field>
+                            <field name="owner_id"/>
+                            <field name="owner_department_id"></field>
+                            <field name="serial"/>
+                        </group>
+                        <group>
+                            <field name="original_value" widget="monetary"/>
+                            <field name="currency_id" groups="base.group_multi_currency" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mw_account_asset_purchase_tree" model="ir.ui.view">
+        <field name="name">account.asset.mw.purchase.tree</field>
+        <field name="model">account.asset</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" string="Assets" decoration-info="(state == 'draft')" decoration-muted="(state == 'close')">
+                <field name="name"/>
+                <field name="acquisition_date"/>
+                <field name="code"></field>
+                <field name="owner_id"/>
+                <field name="owner_department_id"></field>
+                <field name="original_value" widget="monetary"/>
+                <field name="currency_id" groups="base.group_multi_currency" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company" invisible="1"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_account_asset_search_inherit" model="ir.ui.view">
+        <field name="name">account.asset.search.inherit</field>
+        <field name="model">account.asset</field>
+		<field name="inherit_id" ref="account_asset.view_account_asset_search"/>
+        <field name="arch" type="xml">
+			<xpath expr='//search/field[@name="name"]' position="replace">
+				<field name="name" filter_domain="['|', ('name','ilike',self), ('code','=like',(self)+'%')]" string="Asset"/>
+				<field name="code" filter_domain="[('code','ilike',(self)+'%')]" string="Код"/>
+				<field name="owner_id" string="Эд хариуцагч"/>
+				<field name="owner_department_id" string="Хэлтэс"/>
+                <field name="asset_type_id" string="Хөрөнгийн төрөл"/>
+			</xpath>
+			<xpath expr='//search/group/filter[@name="month"]' position="after">
+                <filter string="Хөрөнгийн эзэмшигч" name="owner_id" domain="[]" context="{'group_by':'owner_id'}"/>
+                <filter string="Хөрөнгийн төрөл" name="type_id" domain="[]" context="{'group_by':'asset_type_id'}"/>
+			</xpath>
+        </field>
+    </record>
+    <!-- <record id="action_button_running_board" model="ir.actions.server">
+        <field name="name">Хөрөнгө Батлах</field>
+        <field name="model_id" ref="model_account_asset"/>
+        <field name="binding_model_id" ref="model_account_asset"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.new_set_to_validate()</field>
+    </record> -->
+</odoo>

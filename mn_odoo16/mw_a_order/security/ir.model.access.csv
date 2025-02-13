@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+access_a_order_manager,a.order,model_a_order,mw_hr_order.group_order_manager,1,1,1,1
+access_a_order_user,a.order,model_a_order,mw_hr_order.group_order_user,1,1,0,0

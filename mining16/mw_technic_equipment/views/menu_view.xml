@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem name="Техникийн модуль" web_icon="mw_technic_equipment,static/icon.png"
+		groups="group_technic_module_user"
+		id="root_technic_equipment_menu" sequence="30" />
+		<menuitem name="Техникийн менежмент" parent="root_technic_equipment_menu" 
+			id="technic_management_menu" sequence="5"/>
+			
+			<menuitem name="Техникүүд" parent="technic_management_menu" 
+				id="technic_equipments_menu" sequence="1" action="action_technic_equipment" />
+
+			<menuitem name="Компонент эд анги" parent="technic_management_menu" sequence="5"
+				id="technic_component_parts_menu" action="action_technic_component_part" />
+			<menuitem name="Техникийн үзлэг" parent="technic_management_menu" 
+				groups="mw_technic_equipment.group_technic_module_employee,mw_technic_equipment.group_technic_inspection_user"
+				id="technic_inspection_menu" sequence="7" action="action_technic_inspection" />
+
+			<!-- <menuitem name="Техникийн статус бүртгэл" parent="technic_management_menu" 
+				id="technic_equipment_status_menu" sequence="1" 
+				action="action_technic_equipment_log_status" 
+				groups="mw_technic_equipment.group_technic_module_employee"/> -->
+
+		<menuitem name="Дугуйн менежмент" parent="root_technic_equipment_menu" 
+			id="tire_managemt_menu" sequence="7"
+			groups="mw_technic_equipment.group_technic_module_tire_amount_user"/>
+			<menuitem name="Дугуйн бүртгэл" parent="tire_managemt_menu" 
+				id="technic_tire_menu" sequence="10" action="action_technic_tire" />
+			<menuitem name="Дугуйн үзлэг" parent="tire_managemt_menu" 
+				id="tire_inspection_menu" sequence="12" action="action_tire_inspection" />
+			<menuitem name="Дугуй угсрах, салгах" parent="tire_managemt_menu" 
+				id="tire_install_menu" sequence="14" action="action_technic_tire_install" />
+
+			<menuitem name="Tire FORECAST" parent="tire_managemt_menu"
+				id="tire_plan_generator_menu" sequence="25" 
+				action="action_tire_plan_generator" />
+			
+			<menuitem name="Tire IMPORT" parent="tire_managemt_menu"
+				id="tire_import_menu" sequence="50" 
+				action="action_tire_import" />
+		
+
+		<menuitem name="Усны тоолуур" parent="root_technic_equipment_menu" 
+			id="well_water_record_menu" sequence="7"/>
+			<menuitem name="Тооцоолуур" parent="well_water_record_menu" 
+				id="well_water_record_menu_reg" sequence="1" action="action_well_water_record"/>
+			<menuitem name="Цахилгаан тооцоолуур" parent="well_water_record_menu"
+				id="electric_technical_menu" sequence="2" action="action_electric_technical"/>
+		
+		
+
+
+		<menuitem name="Тайлан" parent="root_technic_equipment_menu" 
+			id="technic_report_menu" sequence="9"/>
+			<menuitem name="Техник статусын тайлан" parent="technic_report_menu" 
+				id="log_status_report_menu" sequence="2" 
+				action="action_technic_log_status_pivot_report" />
+			<menuitem name="Техникийн үзлэг" parent="technic_report_menu" 
+				id="technic_inspection_report_menu" sequence="5" 
+				action="action_technic_inspection_pivot_report" />
+			<menuitem name="Defection sheet" parent="technic_report_menu" 
+				id="detection_sheet_report_menu" sequence="8" 
+				action="action_detection_sheet_report" />
+			
+			<menuitem name="Дугуйн тайлан" parent="technic_report_menu" 
+				id="tire_report_menu" sequence="18" 
+				action="action_technic_tire_report" />
+			<menuitem name="Дутуу дугуйн тайлан" parent="technic_report_menu" 
+				id="tire_count_report_menu" sequence="19" 
+				action="action_technic_tire_count_report" />
+			
+			<menuitem name="Компонентийн тайлан" parent="technic_report_menu" 
+				id="component_report_menu" sequence="20" 
+				action="action_technic_component_report" />
+			<menuitem name="Шинэ дугуйн тайлан" parent="technic_report_menu"
+				id="new_tire_report_menu" sequence="21"
+				action="action_new_tire_report"/>
+			<menuitem name="Актлагдсан дугуйн тайлан" parent="technic_report_menu"
+				id="retired_tire_report_menu" sequence="21"
+				action="action_retired_tire_report"/>
+			<menuitem name="1, 2-р байрлалын дугуйн тайлан" parent="technic_report_menu"
+				id="location_tire_report_menu" sequence="21"
+				action="action_location_tire_report"/>
+			<menuitem name="Equipment master sheet" parent="technic_report_menu" 
+				id="master_sheet_report_menu" sequence="22" 
+				action="action_master_sheet_report" />
+			<menuitem name="Баталгааны тайлан" parent="technic_report_menu" 
+				id="equipment_warrenty_report_menu" sequence="25" 
+				action="action_equipment_warrenty_report" />
+			<menuitem name="Галын системийн тайлан" parent="technic_report_menu" 
+				id="equipment_firesystem_report_menu" sequence="26" 
+				action="action_equipment_firesystem_report" />
+
+		<menuitem name="Тохиргоо" parent="root_technic_equipment_menu" 
+			id="technic_configuration_menu" sequence="10"/>
+			<menuitem name="Үйлдвэрлэгч" parent="technic_configuration_menu" 
+				id="technic_brand_menu" sequence="9" action="action_technic_model_brand" />
+			<menuitem name="Модель загвар" parent="technic_configuration_menu" 
+				id="technic_model_menu" sequence="10" action="action_technic_model_model" />
+			<menuitem name="Техникийн төрөл" parent="technic_configuration_menu" 
+				id="technic_type_menu" sequence="10" action="action_technic_type" />
+			
+			<menuitem name="Техникийн тохиргоо, норм" parent="technic_configuration_menu" 
+				id="technic_setting_menu" sequence="11" action="action_technic_equipment_setting" />
+
+			<menuitem name="Дугуйн тохиргоо, норм" parent="technic_configuration_menu" 
+				id="tire_setting_menu" sequence="12" action="action_tire_setting" />
+
+			<menuitem name="Үзлэгийн жагсаалт" parent="technic_configuration_menu" 
+				id="technic_inspection_item_menu" sequence="15" action="action_technic_inspection_item" />
+			<menuitem name="Үзлэгийн багц" parent="technic_configuration_menu" 
+				id="technic_inspection_package_menu" sequence="18" action="action_technic_inspection_package" />
+			<menuitem name="Үзлэгийн төрөл" parent="technic_configuration_menu" 
+				id="technic_inspection_category_menu" sequence="19" action="action_technic_inspection_category" />
+			<menuitem name="Үзлэгийн тохиргоо" parent="technic_configuration_menu" 
+				id="technic_inspection_setting_menu" sequence="20" action="action_technic_inspection_setting" />
+
+			<menuitem name="Компонентийн гүйлт оруулах" parent="technic_configuration_menu" 
+				id="set_component_odometer_menu" sequence="20" action="action_set_component_odometer" />
+			<menuitem name="Дугуйн гүйлт, элэгдэл нөхөж оруулах" 
+				parent="technic_configuration_menu" 
+				groups="base.group_no_one"
+				id="set_tire_odometer_menu" sequence="23" 
+				action="action_set_tire_odometer" />
+			<menuitem name="Худаг бүртгэл" parent="technic_configuration_menu" 
+			id="water_well_menu" sequence="22" action="action_water_well" />
+			
+	
+</odoo>

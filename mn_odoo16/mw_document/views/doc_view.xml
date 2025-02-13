@@ -1,0 +1,405 @@
+<odoo>
+		<menuitem id="menu_document_main" name="Баримт бичиг"  sequence="18" web_icon="mw_document,static/documents.png"/>
+		<menuitem id="configuration_menu" name="Тохиргоо" parent="menu_document_main"  sequence="8" />
+
+		<menuitem id="hr_doc_menu" name ='Албан бичиг' parent="menu_document_main"  sequence="1"/>
+
+	    <record id="received_document_filter" model="ir.ui.view">
+	        <field name="name">received_document Search</field>
+	        <field name="model">received.document</field>
+	        <field name="type">search</field>
+	        <field name="arch" type="xml">
+	            <search string="Received">
+	                <group expand="0" string="Group By...">
+                		<field name = "name"/>
+                		<field name = "number"/>
+                		<field name = "department_id"/>
+						<field name = "employee"/>
+	                </group>
+	                <filter name="today" string="Өнөөдөр" domain="[('registered_date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+		                <filter name="this_month" string="Энэ сар" domain="[('registered_date','like',time.strftime('%%Y-%%m'))]"/>
+		                <filter name="year" string="Энэ жил" domain="[('registered_date','like',time.strftime('%%Y'))]"/>
+		                <separator/>
+		                <filter name="january" string="January" domain="[('registered_date','like',time.strftime('%%Y-01'))]"/>
+		                <filter name="february" string="February" domain="[('registered_date','like',time.strftime('%%Y-02'))]"/>
+		                <filter name="march" string="March" domain="[('registered_date','like',time.strftime('%%Y-03'))]"/>
+		                <filter name="April" string="April" domain="[('registered_date','like',time.strftime('%%Y-04'))]"/>
+		                <filter name="may" string="May" domain="[('registered_date','like',time.strftime('%%Y-05'))]"/>
+		                <filter name="june" string="June" domain="[('registered_date','like',time.strftime('%%Y-06'))]"/>
+		                <filter name="july" string="July" domain="[('registered_date','like',time.strftime('%%Y-07'))]"/>
+		                <filter name="august" string="August" domain="[('registered_date','like',time.strftime('%%Y-08'))]"/>
+		                <filter name="september" string="September" domain="[('registered_date','like',time.strftime('%%Y-09'))]"/>
+		                <filter name="octomber" string="Octomber" domain="[('registered_date','like',time.strftime('%%Y-10'))]"/>
+		                <filter name="november" string="November" domain="[('registered_date','like',time.strftime('%%Y-11'))]"/>
+		                <filter name="december" string="December" domain="[('registered_date','like',time.strftime('%%Y-12'))]"/>
+		                <group expand="0" string="Group By">
+		                    <filter string="Сараар" name='months' context="{'group_by':'registered_date:month'}" help="Pppp"/>
+		                    <filter string="Жилээр" name='years' context="{'group_by':'registered_date:year'}" help="Жил"/>
+							<filter name="dep_id" string="Шилжүүлсэн алба хэлтэс" icon="terp-personal" domain="[]" context="{'group_by':'department_id'}"/>
+		                </group>
+	            </search>
+	        </field>
+	    </record>
+
+    	<record model="ir.ui.view" id="received_document_form_view">
+	        <field name="name">received.document.form</field>
+	        <field name="model">received.document</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Received document form">
+				<header>
+					<button name="action_send" states="draft" string="Хүлээж авах" class="oe_highlight" type="object"/>
+					<button name="action_done" states="accept" string="Батлах" class="oe_highlight" type="object"/>
+					<button name="action_accept" states="send" string="Батлах" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="done,send" string="Ноороглох" type="object" groups = 'mw_document.group_document_manager'/>
+                    <field name="state" widget="statusbar"/>
+				</header>
+				<sheet>
+					<field name="active" invisible="1"/>
+	            	<group>
+		               	<group string="Ирсэн мэдээлэл">
+		               		<field name="number"/>
+		               		<field name="partner_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+		               		<field name="created_date" />
+							<field name="name" />
+		               		<field name="caption"/>
+		               		<field name="has_reply" />
+		                    <field name="reply_date" attrs="{'invisible': [('has_reply', '!=','Yes')]}"/>
+		                    <field name="pages" />
+							<field name='res_company_id' options="{'no_create': True,'no_open': True}" />
+		               	</group>
+		               	<group string="Шилжүүлсэн мэдээлэл" name ='send'>
+			               	<field name="registered_date" />
+							<field name="employee" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+							<field name="department_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}" />
+							<field name="job_id"  options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+			               	<field name="indicate" string='Товч утга'/>
+		               	</group>
+	            	</group>
+	            	<notebook>
+                        <page string="Шийдвэрлэлт" name ='decision_page'>
+                        	<group colspan="4" name='decision'>
+				            	<field name="date_receive" />
+			               		<field name="decided_caption" />
+			               		<field name="decided_info" />
+			               		<field name="decided_date" />
+			               		<field name="data_decide" />
+			               		<field name="amount" />
+			               		<field name="send_doc_id"/>
+			               	</group>
+                   		</page>
+                   		<page string="Буцаах">
+                        	<group col="4">
+				            	<field name="draft_date"/>
+			               		<field name="draft_discription"/>
+			               	</group>
+                   		</page>
+                   	</notebook>
+				</sheet>
+				<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+	            </form>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="received_document_tree_view">
+	        <field name="name">received.document.tree</field>
+	        <field name="model">received.document</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="received document tree" decoration-success="state == 'done'" decoration-warning="state == 'send'">
+	               	<field name="registered_date"/>
+					<field name="partner_id"/>
+					<field name="indicate" string='Товч утга'/>
+					<field name="created_date" />
+					<field name="number"/>
+					<field name="name"/>
+	               	<field name="department_id"/>
+					<field name="employee"/>
+					<field name="decided_info"/>
+					<field name="state"/>
+	            </tree>
+	        </field>
+	    </record>
+
+
+	    <record model="ir.ui.view" id="received_document_pivot_view">
+            <field name="name">received.document.pivot</field>
+            <field name="model">received.document</field>
+            <field name="arch" type="xml">
+                <pivot string="Received document pivot">
+                    <field name="name" />
+                    <field name="employee"/>
+                </pivot>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="received_document_graph_view">
+            <field name="name">received.document.graph</field>
+            <field name="model">received.document</field>
+            <field name="arch" type="xml">
+                <graph string="Received document graph">
+                    <field name="name" />
+                    <field name="employee"/>
+                </graph>
+            </field>
+        </record>
+        <record  id="received_document_calendar_view" model="ir.ui.view">
+            <field name="name">received.document.calendar</field>
+            <field name="model">received.document</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar 
+                        date_start="registered_date"
+                        mode="month"
+                        quick_add="False">
+                    <field name="name"/>
+                    <field name="registered_date"/>
+                </calendar>
+            </field>
+        </record>
+        <!-- cron -->
+		 <!-- <record id="cron_update_received_change" model="ir.cron">
+			<field name="name">Ирсэн баримт</field>
+			<field name="model_id" ref="model_received_document"/>
+			<field name="state">code</field>
+			<field name="user_id" ref="base.user_root" />
+			<field name="code">model._update_received_doc_change()</field>
+			<field name="interval_number">2</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+        </record> -->
+		<!-- <record id="cron_received_change" model="ir.cron">
+			<field name="name">Ирсэн баримт2</field>
+			<field name="model_id" ref="model_received_document"/>
+			<field name="state">code</field>
+			<field name="user_id" ref="base.user_root" />
+			<field name="code">model._send_doc_change()</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+        </record> -->
+
+	    <record model="ir.actions.act_window" id="action_received_document_view">
+	        <field name="name">Ирсэн албан бичиг</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">received.document</field>
+	        <field name="view_mode">tree,form,pivot,calendar,graph</field>
+	        <field name="context">{'search_default_years': 1,'search_default_dep_id': 1}</field>
+	        <field name="search_view_id" ref="received_document_filter"/>
+	     	<field name="view_id" ref="received_document_tree_view"/>
+	    </record>
+	    <menuitem id="received_document_menu" parent="hr_doc_menu" action="action_received_document_view" sequence="1"/> 
+	   
+<!-- document type -->
+    	<record model="ir.ui.view" id="document_type_form_view">
+            <field name="name">document.type.form</field>
+            <field name="model">document.type</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+            	<form string="Document type form" version="7.0">
+            		<field name='name'/>
+            	</form>
+            </field>
+        </record>
+
+	    <record model="ir.ui.view" id="document_type_tree_view">
+	        <field name="name">document.type.tree</field>
+	        <field name="model">document.type</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="Document type tree">
+	               	<field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.actions.act_window" id="action_document_type_tree_view">
+	        <field name="name">Баримтын төрөл</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">document.type</field>
+	        <field name="view_mode">tree,form</field>
+	     	<field name="view_id" ref="document_type_tree_view"/>
+	    </record>
+	    
+<!-- Явсан бичиг -->
+       
+		<record id="send_document_filter" model="ir.ui.view">
+	        <field name="name">send Search</field>
+	        <field name="model">send.document</field>
+	        <field name="arch" type="xml">
+	            <search string="Monthly Department hour balance front">
+	                <group col='8' colspan='4'>
+						<field name="name"/>
+						<field name="document_no"/>
+						<field name="department_id"/>
+	                </group>
+	                <group expand="0" string="Group By...">
+	                    <filter name="res_company_id" string="Компани" icon="terp-personal" domain="[]" context="{'group_by':'res_company_id'}"/>
+	                </group>
+		                <filter name="today" string="Өнөөдөр" domain="[('created_date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+		                <filter name="this_month" string="Энэ сар" domain="[('created_date','like',time.strftime('%%Y-%%m'))]"/>
+		                <filter name="year" string="Энэ жил" domain="[('created_date','like',time.strftime('%%Y'))]"/>
+		                <separator/>
+		                <filter name="january" string="January" domain="[('created_date','like',time.strftime('%%Y-01'))]"/>
+		                <filter name="february" string="February" domain="[('created_date','like',time.strftime('%%Y-02'))]"/>
+		                <filter name="march" string="March" domain="[('created_date','like',time.strftime('%%Y-03'))]"/>
+		                <filter name="April" string="April" domain="[('created_date','like',time.strftime('%%Y-04'))]"/>
+		                <filter name="may" string="May" domain="[('created_date','like',time.strftime('%%Y-05'))]"/>
+		                <filter name="june" string="June" domain="[('created_date','like',time.strftime('%%Y-06'))]"/>
+		                <filter name="july" string="July" domain="[('created_date','like',time.strftime('%%Y-07'))]"/>
+		                <filter name="august" string="August" domain="[('created_date','like',time.strftime('%%Y-08'))]"/>
+		                <filter name="september" string="September" domain="[('created_date','like',time.strftime('%%Y-09'))]"/>
+		                <filter name="octomber" string="Octomber" domain="[('created_date','like',time.strftime('%%Y-10'))]"/>
+		                <filter name="november" string="November" domain="[('created_date','like',time.strftime('%%Y-11'))]"/>
+		                <filter name="december" string="December" domain="[('created_date','like',time.strftime('%%Y-12'))]"/>
+		                <group expand="0" string="Group By">
+		                    <filter string="Сараар" name='months' context="{'group_by':'created_date:month'}" help="Сар сараар"/>
+		                    <filter string="Жилээр" name='years' context="{'group_by':'created_date:year'}" help="Жил жилээр"/>
+		                </group>
+	            </search>
+	        </field>
+	    </record>
+
+    	<record model="ir.ui.view" id="send_document_form_view">
+	        <field name="name">send.document.form</field>
+	        <field name="model">send.document</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Send document form">
+	            <header>
+					<button name="action_send" states="draft" string="Илгээх" class="oe_highlight" type="object"/>
+                    <button name="action_draft" states="done,send" string="Ноороглох" type="object"/>
+                    <field name="state" widget="statusbar"/>
+				</header>
+	            <sheet>
+	            	<field name="active" invisible="1"/>
+	            	<group col="2" colspan="4">
+	            		<group string="Албан бичгийн төсөл">
+							<field name="employee_id"  options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+	            			<field name="department_id"  options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+			               	<field name="job_id"  options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+		               		<field name="created_date" />
+		               		<field name="caption1" />
+		               		<field name="date_hariu" attrs="{'invisible':[('is_hariu','=',False)]}"/>
+		               		<field name="is_hariu" />
+							<field name="in_contract" />
+							<field name='res_company_id' />
+	            		</group>
+		               	<group string="Бүртгэсэн мэдээлэл" >
+							<field name="num_user_id"  options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+		               		<field name="document_no" />
+		               		<field name="name" />
+		               		<field name="registered_date" />
+		               		<field name="partner_id"  options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+		               		<field name="caption" />
+		               		<field name="pages" />
+		               		<field name="received_document_id" />
+		               	</group>
+			        </group>
+					<notebook>
+						<page string="Харах эрхтэй хүмүүс">
+								<group col="2">
+									<field name="employee_ids" options="{'no_create':True,'no_create_edit':True,'no_open':True}">
+										<tree string="Employees"  editable="bottom">
+											<field name="name"/>
+											<field name="job_id"/>
+											<field name="company_id"/>
+										</tree>
+									</field>
+								</group>
+						</page>
+					</notebook>
+	            </sheet>
+	            <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="send_document_tree_view">
+	        <field name="name">send.document.tree</field>
+	        <field name="model">send.document</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="Send document tree" >
+					<field name="partner_id"/>
+	               	<field name="created_date"/>
+	               	<field name="document_no"/>
+	               	<field name="name"/>
+	               	<field name="employee_id"/>
+	               	<field name="department_id"/>
+	            </tree>
+	        </field>
+	    </record>
+	    <record model="ir.ui.view" id="send_document_pivot_view">
+            <field name="name">send.document.pivot</field>
+            <field name="model">send.document</field>
+            <field name="arch" type="xml">
+                <pivot string="Send document pivot">
+                    <field name="name" type="measure"/>
+                    <field name="department_id" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="send_document_graph_view">
+            <field name="name">send.document.graph</field>
+            <field name="model">send.document</field>
+            <field name="arch" type="xml">
+                <graph string="Send document graph">
+                    <field name="name" type="measure"/>
+                    <field name="department_id" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record  id="send_document_calendar_view" model="ir.ui.view">
+            <field name="name">send.document.calendar</field>
+            <field name="model">send.document</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar 
+                        date_start="created_at"
+                        mode="month"
+                        quick_add="False">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                </calendar>
+            </field>
+        </record>
+		 <!-- <record id="cron_update_send_change" model="ir.cron">
+			<field name="name">Явсан баримт</field>
+			<field name="model_id" ref="model_send_document"/>
+			<field name="state">code</field>
+			<field name="user_id" ref="base.user_root" />
+			<field name="code">model._update_send_doc_change()</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+        </record> -->
+	    <record model="ir.actions.act_window" id="action_send_document_tree_view">
+	        <field name="name">Явсан албан бичиг</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">send.document</field>
+	        <field name="view_mode">tree,form,pivot,calendar,graph</field>
+	     	<field name="view_id" ref="send_document_tree_view"/>
+	     	<field name="context">{'search_default_res_company_id': 1, 'search_default_years': 1}</field>
+	        <field name="search_view_id" ref="send_document_filter"/>
+	    </record>
+	    
+	    <menuitem id="send_document_menu" parent="hr_doc_menu" action="action_send_document_tree_view" sequence="2"/>      
+
+		<menuitem id="document_type_menu" parent="configuration_menu" action="action_document_type_tree_view" sequence="2"/>
+
+<!-- Өргөдөл гомдол -->
+<!--Өргөдөл гомдол төрөл -->
+	
+
+     
+
+
+</odoo>

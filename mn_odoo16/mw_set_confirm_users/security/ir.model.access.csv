@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_set_confirm_user_manager,set.confirm.user,mw_set_confirm_users.model_set_confirm_user,hr.group_hr_manager,1,1,1,1

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+		<record id="view_report_mining_operator_analyze_graph" model="ir.ui.view">
+            <field name="name">report.mining.operator.analyze.graph</field>
+            <field name="model">report.mining.operator.analyze</field>
+            <field name="arch" type="xml">
+                <graph string="Operator Analysis">
+                    <field name="branch_id" type="row"/>
+                    <field name="operator_id" type="row"/>
+                    <field name="first_odometer_value" type="measure"/>
+                    <field name="last_odometer_value" type="measure"/>
+                    <!-- <field name="o_motohour_time" type="measure"/> -->
+                    <field name="work_diff_time" type="measure"/>
+                    <field name="motohour_time" type="measure"/>
+                    <field name="repair_time" type="measure"/>
+                    <field name="work_time" type="measure"/>
+                    <field name="production_time" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="report_mining_operator_analyze_pivot1" model="ir.ui.view">
+        <field name="name">report.mining.operator.analyze.pivot1</field>
+        <field name="model">report.mining.operator.analyze</field>
+        <field name="arch" type="xml">
+           	 	<pivot>
+              	  	<!-- <field name="hr_type" type="row"/> -->
+               	 	<field name="operator_id" type="row"/>
+                    <field name="date" type="row"/>
+                    <field name="shift" type="row"/>
+                    <field name="technic_id" type="row"/>
+               	 	<!-- <field name="first_odometer_value" type="measure"/> -->
+                	<!-- <field name="last_odometer_value" type="measure"/> -->
+                	<!-- <field name="o_motohour_time" type="measure"/> -->
+                    <field name="work_diff_time" type="measure"/>
+                    <field name="motohour_time" type="measure"/>
+                    <field name="repair_time" type="measure"/>
+                    <field name="work_time" type="measure"/>
+                    <field name="production_time" type="measure"/>
+                    <field name="dump_production_m3" type="measure"/>
+                    <field name="exca_production_m3" type="measure"/>
+            	</pivot>
+        	</field>
+    	</record>
+
+        <record id="view_report_mining_operator_analyze_form" model="ir.ui.view">
+        <field name="name">report.mining.operator.analyze.form</field>
+        <field name="model">report.mining.operator.analyze</field>
+        <field name="arch" type="xml">
+            <form>
+                 <field name="date"/>
+                 <field name="branch_id"/>
+                 <field name="technic_id"/>
+                 <field name="shift"/>
+                 <field name="part"/>
+                 <field name="operator_id"/>
+                 <field name="last_odometer_value"/>
+                 <field name="first_odometer_value"/>
+                 <!-- <field name="o_motohour_time"/> -->
+                 <field name="work_diff_time" type="measure"/>
+                    <field name="motohour_time" type="measure"/>
+                    <field name="repair_time" type="measure"/>
+                    <field name="work_time" type="measure"/>
+                    <field name="production_time" type="measure"/>
+            </form>
+        </field>
+    	</record>
+    	<record id="view_mining_operator_analyze_tree" model="ir.ui.view">
+        <field name="name">report.mining.operator.analyze.tree</field>
+        <field name="model">report.mining.operator.analyze</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="technic_id"/>
+                <field name="shift"/>
+                <field name="part"/>
+                <field name="operator_id"/>
+                <field name="last_odometer_value"/>
+                <field name="first_odometer_value"/>
+                <!-- <field name="o_motohour_time"/> -->
+                <field name="work_diff_time" type="measure"/>
+                    <field name="motohour_time" type="measure"/>
+                    <field name="repair_time" type="measure"/>
+                    <field name="work_time" type="measure"/>
+                    <field name="production_time" type="measure"/>
+            </tree>
+        </field>
+    </record>
+        <record id="view_mining_report_operator_analyze_search" model="ir.ui.view">
+            <field name="name">report.mining.operator.analyze.search</field>
+            <field name="model">report.mining.operator.analyze</field>
+            <field name="arch" type="xml">
+                <search string="Operator Analysis">
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="shift"/>
+                    <field name="part"/>
+                    <field name="operator_id"/>
+                    <field name="technic_id"/>
+
+                    <filter name="main_oper" string="Main Employee" domain="[('hr_type','=','main_emp')]"/>
+                    <separator/>
+                    <filter name="main_oper_no" string="ETT" domain="[('hr_type','=','no_main_emp')]"/>
+                    <separator/>
+                    <filter name="yesterday" string="Yesterday" domain="[('date','=',(context_today()-datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+                    <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                    <filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+                    <separator />
+                    <group expand="1" string="Group By...">
+                        <filter string="Branch" name="branch" context="{'group_by':'branch_id'}"/>
+                        <filter string="Date (day)" name="gr_day" icon="terp-go-today" context="{'group_by':'date:day'}"/>
+                        <filter string="Date (week)" name="gr_week" icon="terp-go-week" context="{'group_by':'date:week'}"/>
+                        <filter string="Date (month)" name="gr_month" icon="terp-go-month" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (quarter)" name="gr_quarter" icon="terp-go-quarter" context="{'group_by':'date:quarter'}"/>
+                        <filter string="Date (year)" name="gr_year" icon="terp-go-year" context="{'group_by':'date:year'}"/>
+                        <filter string="Shift" name="gr_shift" context="{'group_by':'shift'}"/>
+                        <filter string="Part" name="gr_part" context="{'group_by':'part'}"/>
+                        <filter string="Operator" name="gr_operator" context="{'group_by':'operator_id'}"/>
+                        <filter string="Technic" name="gr_technic" context="{'group_by':'technic_id'}"/>
+                        <filter string="Operator Type" name="gr_operator_type" context="{'group_by':'hr_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_mining_report_operator_analyze_tree" model="ir.actions.act_window">
+            <field name="name">Operator Analysis</field>
+            <field name="res_model">report.mining.operator.analyze</field>
+            <field name="view_mode">pivot,graph,form,tree</field>
+            <field name="search_view_id" ref="view_mining_report_operator_analyze_search"/>
+            <!-- <field name="context">{"search_default_main_oper":1, "search_default_yesterday":1}</field> -->
+            <field name="help"></field>
+        </record>
+
+
+        <record id="report_purchase_create_stock_move_pivot1" model="ir.ui.view">
+            <field name="name">preport operator production analyze pivot</field>
+            <field name="model">report.operator.production.analyze</field>
+            <field name="arch" type="xml">
+                    <pivot>
+                        <!-- <field name="product_id" type="measure"/> -->
+                        <field name="date" type="row"/>
+                        <field name="shift" type="col"/>
+                        <field name="part" type="col"/>
+                        <!-- <field name="product_residual" type="measure"/> -->
+                        <!-- <field name="product_uom_qty" type="measure"/> -->
+                    </pivot>
+                </field>
+            </record>
+
+        <record model='ir.actions.act_window' id='report_purchase_create_stock_move_pivot_action'>
+            <field name="name">Operator production report pivot</field>
+            <field name="res_model">report.operator.production.analyze</field>
+            <field name="view_mode">pivot</field>
+        </record>
+	
+</odoo>

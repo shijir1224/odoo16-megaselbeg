@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="timetable_daily_report_view" model="ir.ui.view">
+            <field name="name">hr.timetable.daily.report.wizard</field>
+            <field name="model">hr.timetable.daily.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4" colspan="4">
+                        <field name="date_from" />
+                        <field name="company_id" options="{'no_create':True}"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="print_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_timetable_daily_report" model="ir.actions.act_window">
+            <field name="name">Ажиллаж буй ажилчдын тайлан</field>
+            <field name="res_model">hr.timetable.daily.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="timetable_daily_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_timetable_daily_report" action="action_timetable_daily_report" 
+        parent="mw_timetable.menu_parent_timetable_balance_report" sequence="4"/>
+
+    </data>
+</odoo>

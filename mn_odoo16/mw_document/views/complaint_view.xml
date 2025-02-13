@@ -1,0 +1,163 @@
+<odoo>
+<!-- Өргөдөл гомдол -->
+		<record model="ir.ui.view" id="complaint_document_search_view">
+            <field name="name">complaint.document.search</field>
+            <field name="model">complaint.document</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="complaint document search">
+					<group expand="0" string="Group By...">
+						<field name="type"/>
+						<field name="complaint_idea"/>
+					</group>
+					<group expand="0" string="Group By...">
+						 <filter name="res_company_id" string="Компани"  domain="[]" context="{'group_by':'res_company_id'}"/>
+	                    <filter name="date" string="Өргөдлийн огноо"  domain="[]" context="{'group_by':'complaint_date'}"/>
+						<filter name="direction" string="Чиглэл"  domain="[]" context="{'group_by':'direction'}"/>
+	                </group>
+                </search>
+            </field>
+        </record>
+    
+    	<record model="ir.ui.view" id="complaint_document_form_view">
+	        <field name="name">complaint.document.form</field>
+	        <field name="model">complaint.document</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Copy document form" version="7.0">
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object" attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцаах" class="btn-warning" icon="fa-arrow-left" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close"  type="object" attrs="{'invisible': ['|',('state_type', 'in',['cancel','draft']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'not in', ['done']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+                </header>
+	            <sheet>
+	            	<group string = 'Өргөдөл' >
+					    <group>
+	            			<field name="type" />
+							<field name="complaint_employee_id" />
+							<field name="direction" />
+							<field name="complaint_job_id" />
+							<field name="res_company_id" />
+		                 	<field name="complaint_department_id" />
+							<field name="complaint_type_ids" />
+							<field name="complaint_date"  />
+							<field name="complaint_idea" />
+							<field name="complaint_end_date" />
+	            	    </group>
+		                <group  string = 'Өргөдөл бүртгэсэн ажилтны  мэдээлэл' > 
+		               	    <field name="employee_id" options="{'no_create': True,'no_open': True}"/>
+		               	    <field name="job_id" options="{'no_create': True,'no_open': True}"/>
+		                 	<field name="department_id" options="{'no_create': True,'no_open': True}" />
+							<field name="date" />
+			            </group>
+						 <group string = 'Шийдвэрлэх эрх бүхий ажилтны мэдээлэл' > 
+		               	    <field name="num_employee_id" options="{'no_create': True,'no_open': True}"/>
+		               	    <field name="num_job_id" options="{'no_create': True,'no_open': True}" />
+		                 	<field name="num_department_id" options="{'no_create': True,'no_open': True}"/>
+			        	</group>
+						<group string = 'Шийдвэрлэсэн мэдээлэл'>
+	            			<field name="complaint_received"/>
+							<field name="complaint_decide_date"/>
+							<field name="complaint_description" />
+	            	    </group>
+                        <group col="4" colspan="4"> 
+                            <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit','=',True)]}" required="1"/>
+                            <field name="state_type" invisible="1"/>
+                            <field name="flow_line_next_id" invisible="1"/>
+                            <field name="flow_line_back_id" invisible="1"/>
+                            <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="is_not_edit" invisible="1"/>
+                        </group>
+					</group>
+	            </sheet>
+				<div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="complaint_document_tree_view">
+	        <field name="name">complaint.document.tree</field>
+	        <field name="model">complaint.document</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree >
+	            	<field name="type"/>
+        			<field name="complaint_end_date"/>
+               		<field name="complaint_decide_date"/>
+	            </tree>
+	        </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="complaint_document_pivot_view">
+            <field name="name">complaint.document.pivot</field>
+            <field name="model">complaint.document</field>
+            <field name="arch" type="xml">
+                <pivot string="complaint document pivot">
+                    <field name="type" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+		<record id="cron_update_complaint_change" model="ir.cron">
+			<field name="name">Өргөдөл баримт</field>
+			<field name="model_id" ref="model_complaint_document"/>
+			<field name="state">code</field>
+			<field name="user_id" ref="base.user_root" />
+			<field name="code">model._end_doc_change()</field>
+			<field name="interval_number">2</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+        </record>
+
+	    <record model="ir.actions.act_window" id="action_complaint_document_tree_view">
+	        <field name="name">Өргөдөл,санал хүсэлт</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">complaint.document</field>
+	        <field name="view_mode">tree,form,pivot</field>
+	     	<field name="view_id" ref="complaint_document_tree_view"/>
+	     	<field name="context">{'search_default_date': 1,'search_default_res_company_id': 1}</field>
+	        <field name="search_view_id" ref="complaint_document_search_view"/>
+	    </record>
+	    
+<!-- 	    <menuitem id="complaint_document_menu" parent="menu_document_main" action="action_complaint_document_tree_view" sequence="1" />   -->
+	    <menuitem id="complaint_document_menu" parent="mw_hr.hr_emp_main_menu" action="action_complaint_document_tree_view" sequence="9" />  
+
+
+		<!--Өргөдөл гомдол төрөл -->
+		<record model="ir.ui.view" id="complaint_type_form_view">
+            <field name="name">Өргөдөл төрөл</field>
+            <field name="model">complaint.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Complaint form" version="7.0">
+            		<field name='name'/>
+					
+            	</form>
+            </field>
+        </record>
+
+	    <record model="ir.ui.view" id="complaint_type_tree_view">
+	        <field name="name">complaint_type_tree</field>
+	        <field name="model">complaint.type</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree string="Complaint tree">
+	               	<field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record model="ir.actions.act_window" id="action_complaint_type_tree_view">
+	        <field name="name">Өргөдөл төрөл</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">complaint.type</field>
+	        <field name="view_mode">tree,form</field>
+	     	<field name="view_id" ref="complaint_type_tree_view"/>
+	    </record>
+		<menuitem id="complaint_document_type_menu" parent="configuration_menu" action="action_complaint_type_tree_view" sequence="3"/> 
+</odoo>

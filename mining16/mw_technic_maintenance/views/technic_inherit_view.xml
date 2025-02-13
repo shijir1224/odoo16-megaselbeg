@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="technic_setting_inherit_form_view" model="ir.ui.view">
+		<field name="name">technic.equipment.setting.form</field>
+		<field name="model">technic.equipment.setting</field>
+		<field name="inherit_id" ref="mw_technic_equipment.technic_equipment_setting_form"/>
+		<field name="arch" type="xml">
+			<notebook position="inside">
+				<page string="PM Засварын тохиргоо">
+					<!-- <group> -->
+						<field name="pm_material_config" nolabel="1">
+							<tree>
+								<field name="priority"/>
+								<field name="maintenance_type_id"/>
+								<field name="interval" />
+								<field name="work_time" widget="float_time"/>
+								<field name="total_man_hours" widget="float_time"/>
+								<field name="total_amount" sum="Total"/>
+								<field name="inspection_setting_id"/>
+							</tree>
+							<form>
+								<group col="4">
+									<field name="maintenance_type_id"
+										options="{'no_create':True}"/>
+									<label for="interval" string="Interval"/>
+									<div name="interval_uom">
+										<field name="interval"/>
+										<span >
+											<field name="interval_uom" class="oe_inline"/>
+										</span>
+									</div>
+
+									<field name="priority"/>
+									<field name="work_time" widget="float_time"/>
+
+									<field name="total_amount" />
+									<field name="total_man_hours" widget="float_time"/>
+
+									<field name="inspection_setting_id"
+										options="{'no_create':True}"/>
+									<button name="copy_pm_lines" string="Copy paste" type="object"
+										groups="mw_technic_maintenance.group_maintenance_planner"/>
+
+								</group>
+								<!-- <group col="4" string="Хэрэглэх материал"> -->
+									<field name="pm_material_line" nolabel="1">
+										 <tree editable="bottom">
+											<field name="template_id" options="{'no_create':True}"/>
+											<field name="material_id" readonly='1'/>
+											<field name="is_depend_season" />
+											<field name="price_unit" />
+											<field name="qty" />
+											<field name="amount" sum="Total"/>
+											<field name="warehouse_id" required="0"
+												options="{'no_create':True}"/>
+										</tree>
+									</field>
+								<!-- </group> -->
+								<!-- <group col="4" string="Ажиллах хүн цагийн мэдээлэл"> -->
+									<field name="employee_man_hour_line" nolabel="1">
+										 <tree editable="bottom">
+											<field name="job_id" options="{'no_create':True}"/>
+											<field name="qty" sum="Нийт"/>
+										</tree>
+									</field>
+									<newline/>
+									<button name="compute_man_hours" 
+										string="Compute man hours" type="object"
+										groups="base.group_no_one"/>
+								<!-- </group> -->
+							</form>
+						</field>
+					<!-- </group> -->
+				</page>
+			</notebook>
+		</field>
+	</record>
+
+	<!-- Technic -->
+	<record id="view_technic_equipment_inherit_form" model="ir.ui.view">
+		<field name="name">technic.equipment.inherit.form</field>
+		<field name="model">technic.equipment</field>
+		<field name="inherit_id" ref="mw_technic_equipment.technic_equipment_form"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="engine_serial"]' position="after">
+				<newline/>
+				<field name="last_pm_priority"/>
+				<field name="last_pm_id" options="{'no_create': True}"/>
+				<field name="last_pm_odometer"/>
+				<field name="last_pm_date"/>
+			</xpath>
+			<xpath expr='//button[@name="see_inspections"]' position="after">
+				<button
+					name="see_workorders"
+					type="object" class="oe_stat_button"
+					icon="fa-wrench" string="Work-Orders">
+				</button>
+			</xpath>
+			<notebook position="inside">
+				<page string="Тосны дээж">
+					<group col="4" string="Тосны дээжний мэдээлэл">
+						<field name="oil_sample_line" nolabel="1" colspan="4">
+							<tree decoration-success="response_type=='no_action_required'"
+								decoration-danger="response_type =='action_required'"
+								decoration-warning="response_type =='monitor_compartment'">
+								<field name="date_sample"/>
+								<field name="technic_odometer"/>
+								<field name="damaged_type_id"/>
+								<field name="oil_type_id"/>
+								<field name="response_id"/>
+								<field name="response_type"/>
+								<field name="response_description"/>
+								<field name="action_description"/>
+								<field name="state"/>
+								<field name="workorder_id"/>
+								<field name="attachment" widget="file"/>
+							</tree>
+						</field>
+					</group>
+				</page>
+			</notebook>
+		</field>
+	</record>
+
+	<!-- Add to inspection -->
+	<record id="view_technic_equipment_setting_form" model="ir.ui.view">
+		<field name="name">technic.equipment.setting.inherit</field>
+		<field name="model">technic.equipment.setting</field>
+		<field name="inherit_id" ref="mw_technic_equipment.technic_equipment_setting_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="is_tbb_mining"]' position="after">
+				<field name="work_time_per_day" optional="show"/>
+				<field name="pm_material_config" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Add to inspection -->
+	<record id="view_technic_inspection_inherit_form" model="ir.ui.view">
+		<field name="name">technic.inspection.inherit.form</field>
+		<field name="model">technic.inspection</field>
+		<field name="inherit_id" ref="mw_technic_equipment.view_technic_inspection_form"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="km_value"]' position="after">
+				<field name="workorder_id"
+					attrs="{'invisible':[('workorder_id','=',False)]}"/>
+				<button name="create_workorder" states="done" string="Create Workorder"
+							type="object" class="oe_highlight"
+							groups="mw_technic_maintenance.group_maintenance_planner"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="action_technic_inspection_pm" model="ir.actions.act_window">
+		<field name="name">Technic inspection PM</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">technic.inspection</field>
+
+		<field name="context">{"search_default_groupby_date":True,
+							   "search_default_groupby_day":True,
+							   "inspection_type":"pm"}</field>
+		<field name="domain">[('inspection_type','=','pm')]</field>
+		<field name="view_mode">tree,form,calendar</field>
+		<field name="view_id" ref="mw_technic_equipment.view_technic_inspection_tree"/>
+	</record>
+
+	<menuitem name="PM үйлчилгээний үзлэг"
+		parent="mw_technic_equipment.technic_management_menu"
+		id="technic_inspection_pm_menu" sequence="8" action="action_technic_inspection_pm" />
+
+	<!-- Setting inherit -->
+	<record id="technic_equipment_setting_form_inherit" model="ir.ui.view">
+		<field name="name">technic.equipment.setting.inherit.form</field>
+		<field name="model">technic.equipment.setting</field>
+		<field name="inherit_id" ref="mw_technic_equipment.technic_equipment_setting_form"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="inspection_config_id"]' position="after">
+				<field name="work_time_per_day" />
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Асуудалтай үзлэгийн ажил үүсгэх -->
+	<record id="technic_inspection_work_form_view" model="ir.ui.view">
+		<field name="name">technic.inspection.work.form</field>
+		<field name="model">technic.inspection.work</field>
+		<field name="arch" type="xml">
+			<form create="false">
+				<header>
+					<button name="action_to_draft" string="Draft" type="object" />
+					<button name="action_create_workorder" class="oe_highlight" string="WO үүсгэх"
+						states="draft" type="object"
+						groups="mw_technic_maintenance.group_maintenance_planner"/>
+					<button name="action_to_close" class="oe_highlight" string="Хаах"
+						states="draft,wo_created" type="object"/>
+					<field name="state" widget="statusbar" readonly="1"
+						statusbar_visible="draft,wo_created,closed" />
+				</header>
+				<sheet>
+					<div class="pull-left">
+						<label for="name" class="oe_inline" />
+						<h1>
+							<field name="name"/>
+						</h1>
+					</div>
+					<group col="4">
+						<field name="branch_id"
+								options="{'no_create':True}"/>
+						<field name="origin"/>
+
+						<field name="inspection_item_id"/>
+						<field name="date_required"/>
+
+						<field name="technic_id" options="{'no_create': True}" />
+						<field name="technic_odometer"/>
+
+						<field name="workorder_id"/>
+						<field name="description" nolabel="1" colspan="2" placeholder="Тайлбар..."/>
+					</group>
+					<group col="4">
+						<field name="date"/>
+						<field name="user_id"/>
+						<field name="date_close"/>
+						<field name="validator_id"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="technic_inspection_work_tree_view" model="ir.ui.view">
+		<field name="name">technic.inspection.work.tree</field>
+		<field name="model">technic.inspection.work</field>
+		<field name="arch" type="xml">
+			<tree create="false">
+				<field name="date"/>
+				<field name="origin"/>
+				<field name="name"/>
+				<field name="inspection_item_id"/>
+				<field name="date_required"/>
+				<field name="branch_id"/>
+				<field name="technic_id"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="technic_inspection_work_filter_view" model="ir.ui.view">
+		<field name="name">technic.inspection.work.filter</field>
+		<field name="model">technic.inspection.work</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="inspection_item_id"/>
+				<field name="technic_id"/>
+				<field name="branch_id"/>
+				<filter name="this_month" string="This month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+				<group expand="1" string="Group By...">
+					<filter string="Жилээр" context="{'group_by':'date:year'}" name="year"/>
+					<filter string="Сараар" context="{'group_by':'date:month'}" name="month"/>
+					<filter string="Өдрөөр" context="{'group_by':'date:day'}" name="day"/>
+					<filter context="{'group_by' : 'state'}" string="State" name="state"/>
+					<filter context="{'group_by' : 'technic_id'}" string="Техник" name="technic_id"/>
+					<filter context="{'group_by' : 'inspection_item_id'}" string="Үзлэгийн нэрээр" name="inspection_item_id"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_technic_inspection_work'>
+		<field name="name">technic.inspection.work.action</field>
+		<field name="res_model">technic.inspection.work</field>
+
+		<field name="context">{'search_default_year':1,'search_default_month':1,'search_default_day':1,'search_default_state':1}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

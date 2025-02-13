@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_weight_form_mw_inherit" model="ir.ui.view">
+		<field name="name">purchase.order.form.mw.inherit</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+				<field name="product_uom_qty" sum="SUM" optional="hide" groups="mw_purchase_expense.group_purchase_add_cost_user"/>
+				<field name="unit_weight" sum="SUM" optional="hide" readonly='0' groups="mw_purchase_expense.group_purchase_add_cost_user"/>
+				<field name="subtotal_weight" sum="SUM" optional="hide" groups="mw_purchase_expense.group_purchase_add_cost_user"/>
+		  </xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_line_tree_inh_mw_add_cost_custom" model="ir.ui.view">
+		<field name="name">purchase.order.line.tree.inh.mw.add.cost.custom</field>
+		<field name="model">purchase.order.line</field>
+		<field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+		<field name="arch" type="xml">
+			<field name="price_unit" position="before">
+				<field name="product_uom_qty" sum="SUM" optional="hide" groups="mw_purchase_expense.group_purchase_add_cost_user"/>
+				<field name="unit_weight" sum="SUM" optional="hide" readonly='0' groups="mw_purchase_expense.group_purchase_add_cost_user"/>
+				<field name="subtotal_weight" sum="SUM" optional="hide" groups="mw_purchase_expense.group_purchase_add_cost_user"/>
+			</field>
+		</field>
+	</record>
+</odoo>

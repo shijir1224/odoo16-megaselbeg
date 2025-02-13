@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_property_mw_sale_ebarimt_form" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit.mw.ebarimt</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+<!--                <field name="tin_type"/>-->
+                <field name="nuat_no"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+			<xpath expr="//div[@data-key='sale_management']" position="inside">
+					<h2>Ebarimt</h2>
+					<div class="row mt16 o_settings_container" name="sale_ebarimt">
+						<div class="col-12 col-lg-6 o_setting_box" id="sale_ebarimt">
+							<div class="o_setting_left_pane"/>
+							<div class="o_setting_right_pane">
+                                 <div class="row">
+                                     <label for="is_with_ebarimt_so" string="Ebarimt олгох?" class="col-lg-3 o_light_label"/>
+                                     <field name="is_with_ebarimt_so"  class="oe_inline"/>
+                                 </div>
+                                 <div class="row">
+                                     <label for="ebarimt_url_so" string="Ebarimt url" class="col-lg-3 o_light_label"/>
+                                     <field name="ebarimt_url_so"  class="oe_inline"/>
+                                 </div>
+                                 <div>
+				                    <label for="eb_district_code_so" string="Disctict code" class="col-lg-3 o_light_label"/>
+				                    <field name="eb_district_code_so"/>
+                                 </div>
+                                 <div>
+				                    <label for="eb_tin_so"  class="col-lg-3 o_light_label"/>
+				                    <field name="eb_tin_so"/>
+                                 </div>
+							</div>
+						</div>
+					</div>
+			</xpath>  <!--         
+            <xpath expr="//div[@id='sale_config_online_confirmation_pay']" position="before">
+                 <h2 groups="base.group_no_one">Ebarimt</h2>
+                 <div class="row mt16 o_settings_container" id="so_ebarimt_section" groups="base.group_no_one">
+                     <div class="col-12 col-lg-6 o_setting_box">
+                         <div class="o_setting_right_pane">
+                                 <div class="row">
+                                     <label for="is_with_ebarimt_so" string="Ebarimt олгох?" class="col-lg-3 o_light_label"/>
+                                     <field name="is_with_ebarimt_so"  class="oe_inline"/>
+                                 </div>
+                                 <div class="row">
+                                     <label for="ebarimt_url_so" string="Ebarimt url" class="col-lg-3 o_light_label"/>
+                                     <field name="ebarimt_url_so"  class="oe_inline"/>
+                                 </div>
+                                 <div class="mt8">
+                                     <field name="is_ebarimt_offline_so" class="oe_inline" />
+                                     <label for="is_ebarimt_offline_so" string="Ebarimt offline" />
+                                 </div>
+                         </div>
+                     </div>
+                 </div>  
+            </xpath> -->
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ebarimt_send_data_log_form">
+        <field name="name">ebarimt.send.data.log.form</field>
+        <field name="model">ebarimt.send.data.log</field>
+        <field name="arch" type="xml">
+            <form string="Ebarimt send data log">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="create_date"/>
+                        <field name="request_url"/>
+                        <field name="response_data"/>
+                        <field name="response_status"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ebarimt_send_data_log_tree">
+        <field name="name">ebarimt.send.data.log.tree</field>
+        <field name="model">ebarimt.send.data.log</field>
+        <field name="arch" type="xml">
+            <tree string="Ebarimt send data log" >
+                <field name="create_date"/>
+                <field name="request_url"/>
+                <field name="response_data"/>
+                <field name="response_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_ebarimt_send_data_log">
+        <field name="name">EBarimt send data log</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ebarimt.send.data.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="ebarimt_send_data_log_tree"/>
+    </record>
+
+    <menuitem parent="sale.menu_sales_config" id="menu_ebarimt_send_data_log" action="action_ebarimt_send_data_log" sequence="10" groups="mw_sale_ebarimt.group_sale_ebarimt"/>
+
+<!--    <record model="ir.ui.view" id="vat_config_so_form">-->
+<!--            <field name="name">vat.config.so.form</field>-->
+<!--            <field name="model">vat.config.so</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="НӨАТ Урамшуулалын системруу мэдээ илгээх" >-->
+<!--                    <header>-->
+<!--                        <button name="action_getInformation" string="getInformation" type="object"/>-->
+<!--                        <button name="action_checkAPI" string="checkAPI" type="object"/>-->
+<!--&lt;!&ndash;                         <button name="action_callFunction" string="callFunction" type="object"/> &ndash;&gt;-->
+<!--&lt;!&ndash;                         <button name="action_put" string="put" type="object"/> &ndash;&gt;-->
+<!--&lt;!&ndash;                         <button name="action_returnBill" string="returnBill" type="object"/> &ndash;&gt;-->
+<!--                        <button name="action_sendData" string="sendData" type="object"/>-->
+<!--                    </header>-->
+<!--                    <sheet>-->
+<!--                        <group col="4" colspan="4">-->
+<!--                            <field name="date"/>-->
+<!--                            <field name="text"/>-->
+<!--                            <field name="company_id"/>-->
+<!--                        </group>-->
+<!--                                -->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        -->
+<!--        <record model="ir.ui.view" id="vat_config_so_tree">-->
+<!--            <field name="name">vat.config.so.tree</field>-->
+<!--            <field name="model">vat.config.so</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="НӨАТ Урамшуулалын системруу мэдээ илгээх" >-->
+<!--                       <field name="date"/>-->
+<!--                       <field name="text"/>-->
+<!--                       <field name="company_id"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        -->
+<!--        <record id="search_vat_config_so_form" model="ir.ui.view">-->
+<!--            <field name="name">search.vat.config.so.form</field>-->
+<!--            <field name="model">vat.config.so</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Хайлт">-->
+<!--                    <field name="date"/>-->
+<!--                    <field name="text"/>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        -->
+<!--        <record model="ir.actions.act_window" id="action_vat_config_so_form">-->
+<!--            <field name="name">НӨАТ Системд мэдээлэл илгээх</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">vat.config.so</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="view_id" eval="vat_config_so_tree"/>-->
+<!--        </record>-->
+<!--        -->
+<!--        <menuitem parent="sale.menu_sales_config" id="send_vat_config_menu" action="action_vat_config_so_form" sequence="10" groups="mw_sale_ebarimt.group_sale_ebarimt"/>-->
+
+
+<!--        <record id="send_vat_data_so" model="ir.cron">-->
+<!--            <field name="name">НӨАТУС мэдээ илгээх /sendData/ SO</field>-->
+<!--            <field name="model_id" ref="model_vat_config_so"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model._action_sendData()</field>-->
+<!--            <field name="interval_number">10</field>-->
+<!--            <field name="interval_type">hours</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--            <field name="doall" eval="False"/>-->
+<!--        </record> -->
+</odoo>

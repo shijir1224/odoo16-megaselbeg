@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="create_payment_request_mw">
+            <field name="name">create.payment.request</field>
+            <field name="model">create.payment.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="amount" string="Нэхэмжлэхийн дүн" readonly="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <field name="line_ids" nolabel="1">
+                        <tree create="false" editable="bottom">
+                            <field name="ref_name"/>
+                            <field name="date" readonly="1"/>
+                            <field name="invoice_amount_residual" sum="SUM" readonly="1"/>
+                            <field name="amount" sum="SUM"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="full_payment_process" string="Илгээх" type="object" class="btn-primary"/>
+                        <button class="btn-default" special="cancel" string="Цуцлах"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_create_payment_request_mw" model="ir.actions.act_window">
+            <field name="name">Төлбөрийн хүсэлт үүсгэх</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">create.payment.request</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="create_payment_request_mw"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="server_create_payment_request_mw" model="ir.actions.server">
+            <field name="name">Төлбөрийн хүсэлт үүсгэх</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="binding_view_types">list</field>
+            <field name="code">action = records.create_payment_request()</field>
+        </record>
+
+    </data>
+</odoo>

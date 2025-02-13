@@ -1,0 +1,168 @@
+<odoo>
+    <record id="view_routing_slip_hr_filter" model="ir.ui.view">
+        <field name="name">routing.slip.hr.search</field>
+        <field name="model">routing.slip.hr</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="employee_id" string="Employee"/>
+                <field name="resigned_type" string="Ажлаас гарсан байдал"/>
+                <filter name="res_company_id" string="Компани" context="{'group_by':'res_company_id'}"/>
+                <filter name="resigned_date" string="Ажлаас гарсан огноо" context="{'group_by':'resigned_date'}"/>
+                <filter name="department_id" string="Хэлтэс" context="{'group_by':'department_id'}"/>
+                <filter name="flow_id" string="Урсгал тохиргоо" context="{'group_by':'flow_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_routing_slip_hr_form" model="ir.ui.view">
+        <field name="name">routing.slip.hr.form</field>
+        <field name="model">routing.slip.hr</field>
+        <field name="arch" type="xml">
+            <form string="Employee">
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('state_type','=','done')]}"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object"/>
+                    <field name="flow_line_id" widget="statusbar"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': [('state_type', '=', 'draft')]}" groups='mw_hr_routing_slip.group_routing_slip_hr_admin'/>
+                </header>
+                <group string='Тойрох хуудас хүсэлт'>
+                    <group>
+                        <field name="employee_id" attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+                        <field name="job_id" attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+                        <field name="department_id" attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+                        <field name="res_company_id" />
+                    </group>
+                    <group>
+                        <field name="engagement_in_company" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name="resigned_date" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name="resigned_type" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                        <field name="resigned_desc" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                    </group>
+                </group>
+                <group string='Ажил хүлээлцэх ажилтан'>
+                    <field name="num_employee_id" attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+                    <field name="num_job_id" attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+                    <field name="num_department_id" attrs="{'readonly':[('state_type','!=','draft')]}" options="{'no_create':True}"/>
+                </group>
+                <group string='Тохиргоо'>
+                    <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                    <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1"/>
+                    <field name="state_type" invisible="1"/>
+                    <field name="next_state_type" invisible="1"/>
+                    <field name="flow_line_next_id" invisible="1"/>
+                    <field name="branch_id" invisible="1"/>
+                </group>
+                <notebook>
+                    <page string="Тойрох">
+                        <field name="line_ids" nolabel="1" attrs="{'readonly':[('state_type','=','done')]}">
+                            <tree string="" editable="bottom" create='false'>
+                                <field name="item_id"/>
+                                <field name="in_sel"/>
+                                <field name="date"/>
+                                <field name="desc"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Төлөвийн Түүх">
+                        <field name="history_ids" readonly="1">
+                            <tree>
+                                <field name="user_id"/>
+                                <field name="date"/>
+                                <field name="flow_line_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_routing_slip_hr_tree" model="ir.ui.view">
+        <field name="name">routing.slip.hr.tree</field>
+        <field name="model">routing.slip.hr</field>
+        <field name="arch" type="xml">
+            <tree string="Employees">
+                <field name="employee_id"/>
+                <field name="engagement_in_company"/>
+                <field name="job_id"/>
+                <field name="resigned_date"/>
+                <field name="department_id"/>
+                <field name="resigned_desc"/>
+                <field name="res_company_id"/>
+                <field name="state_type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="open_view_routing_slip_hr_action" model="ir.actions.act_window">
+        <field name="name">Тойрох хуудас</field>
+        <field name="res_model">routing.slip.hr</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_resigned_date':1,'search_default_res_company_id':1}</field>
+        <field name="view_id" ref="view_routing_slip_hr_tree"/>
+        <field name="search_view_id" ref="view_routing_slip_hr_filter"/>
+    </record>
+    <menuitem id="hr_routing_slip_hr_menu" parent="hr.menu_hr_root" action="open_view_routing_slip_hr_action" sequence="10"/>
+
+<!-- Тохиргоо -->
+    <record model="ir.ui.view" id="routing_slip_hr_line_item_search">
+        <field name="name">routing.slip.hr.line.item.search</field>
+        <field name="model">routing.slip.hr.line.item</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string=" contract search">
+                <field name="name"/>
+                <filter name="company_id" string="Компани" context="{'group_by':'company_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="routing_slip_hr_line_item_form">
+        <field name="name">routing.slip.hr.line.item.form</field>
+        <field name="model">routing.slip.hr.line.item</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="form">
+                <sheet>
+                    <group name='main'>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="routing_slip_hr_line_item_tree_view">
+        <field name="name">routing.slip.hr.line.item.tree</field>
+        <field name="model">routing.slip.hr.line.item</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="contract  tree">
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_routing_slip_hr_line_item_view">
+        <field name="name">Тойрох хуудас тохиргоо</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">routing.slip.hr.line.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name ='context'>{'search_default_company_id':1}</field>
+        <field name="search_view_id" ref="routing_slip_hr_line_item_search"/>
+        <field name="view_id" ref="routing_slip_hr_line_item_tree_view"/>
+    </record>
+    <menuitem id="routing_slip_hr_line_item_menu" parent="hr.menu_human_resources_configuration" action="action_routing_slip_hr_line_item_view" sequence="2" />
+
+
+</odoo>

@@ -1,0 +1,360 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-03 04:43+0000\n"
+"PO-Revision-Date: 2022-06-03 12:54+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: mn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_res_company__auto_create_vendor_bill
+#: model:ir.model.fields,field_description:mw_purchase.field_res_config_settings__auto_create_vendor_bill
+msgid "Auto-create invoice"
+msgstr "Нэхэмжлэхийг автомат үүсгэх"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_res_company__auto_validate_vendor_bill
+#: model:ir.model.fields,field_description:mw_purchase.field_res_config_settings__auto_validate_vendor_bill
+msgid "Auto-validate invoice"
+msgstr "Үүсгэсэн нэхэмжлэхийг автомат батлах"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.res_config_settings_view_form_purchase
+msgid "Auto-validate invoices"
+msgstr "Үүсгэсэн нэхэмжлэхийг автомат батлах"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_report__price_average_currency
+msgid "Average price(currency)"
+msgstr "Дундаж Үнэ(Валют)"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_res_company__is_change_po_uom_to_uom
+#: model:ir.model.fields,field_description:mw_purchase.field_res_config_settings__is_change_po_uom_to_uom
+msgid "Change purchase uom to main uom"
+msgstr "Худалдан авалтын хэмжих нэгжийг үндсэн нэгжээр солих"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_res_config_settings
+msgid "Config Settings"
+msgstr "Тохиргооны тохируулга"
+
+#. module: mw_purchase
+#: model:res.groups,name:mw_purchase.group_set_discount_on_partner
+msgid "Configure purchase discount on partner"
+msgstr "Худалдан авалтын хөнгөлөлтийг харилцагчид тохируулах"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_res_partner
+msgid "Contact"
+msgstr "Харилцах хаяг"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__create_uid
+msgid "Created by"
+msgstr "Үүсгэгч"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order_line__discount
+msgid "Discount(%)"
+msgstr "Хөнгөлөлт(%)"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__display_name
+msgid "Display Name"
+msgstr "Дэлгэрэнгүй нэр"
+
+#. module: mw_purchase
+#: model:ir.model.fields,help:mw_purchase.field_purchase_order_line__tracking
+msgid "Ensure the traceability of a storable product in your warehouse."
+msgstr "Агуулахын нөөцөнд байгаа барааг мөшгин шалгах боломж."
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__excel_data
+msgid "Excel file"
+msgstr "Эксэл файл"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__id
+msgid "ID"
+msgstr "ID"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.res_config_settings_view_form_purchase
+msgid "If you check this, Main uom will be chosen on purchase order lines"
+msgstr "Хэрэв үүнийг сонговол ХА мөр дээр худалдан авалтын бус үндсэн хэмжих нэгж сонгогдож гарч ирнэ"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.pricelist_import_from_excel_form_view
+msgid "Import"
+msgstr "Импортлох"
+
+#. module: mw_purchase
+#: model:ir.actions.act_window,name:mw_purchase.action_pricelist_import_from_excel
+msgid "Import pricelist"
+msgstr "Үнийн хүснэгт импортлох"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.res_config_settings_view_form_purchase
+msgid ""
+"Invoice will be created automatically depending on the product invoice method.<br/>\n"
+"                            If one of the product's invoice method is dependant on order quantity, invoice will be created when PO is validated.<br/"
+">\n"
+"                            If one of the product's invoice methos is dependant on received quantity, invoice will be created when order is delivered."
+msgstr ""
+"Барааны нэхэмжлэл үүсгэх аргаас хамааран автомат нэхэмжлэл үүсгэнэ.<br/>\n"
+"                            Аль нэг барааны нэхэмжлэх арга нь Захиалсан тоон дээр үндэслэх бол захиалга батлахад нэхэмжлэл үүсгэнэ<br/>\n"
+"                            Аль нэг барааны нэхэмжлэх арга нь Хүлээн авсан тоон дээр үндэслэх бол барааны орлого батлахад нэхэмжлэл үүсгэнэ."
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel____last_update
+msgid "Last Modified on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__write_uid
+msgid "Last Updated by"
+msgstr "Сүүлд зассан этгээд"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__write_date
+msgid "Last Updated on"
+msgstr "Сүүлд зассан огноо"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order_line__lot_id
+msgid "Lot"
+msgstr "Цуврал"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order_line__lot_expiration_date
+msgid "Lot end date"
+msgstr "Цувралын дуусах хугацаа"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__solution
+msgid "N rows"
+msgstr ""
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_price_import_from_excel__name
+msgid "Name"
+msgstr "Нэр"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_res_partner__discount_percent
+#: model:ir.model.fields,field_description:mw_purchase.field_res_users__discount_percent
+msgid "PO discount (%)"
+msgstr "ХА хөнгөлөлт(%)"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order_line__price_unit_without_discount
+msgid "Price Unit (without discount)"
+msgstr "Нэгж үнэ (хөнгөлөлтгүй)"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_product_product
+msgid "Product"
+msgstr "Бараа"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_product_template
+msgid "Product Template"
+msgstr "Барааны загвар"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr "Худалдан авалтын захиалга"
+
+#. module: mw_purchase
+#: model:ir.actions.act_window,name:mw_purchase.purchase_order_line_action
+#: model:ir.actions.act_window,name:mw_purchase.purchase_order_line_action_active model:ir.model,name:mw_purchase.model_purchase_order_line
+#: model:ir.ui.menu,name:mw_purchase.menu_purchase_order_line_action
+msgid "Purchase Order Line"
+msgstr "Худалдан авалтын захиалгын мөр"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_purchase_report
+msgid "Purchase Report"
+msgstr "Худалдан авалтын тайлан"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_res_company
+msgid "Res company"
+msgstr "Компани"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_form_mw model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_line_tree_inh_mw
+msgid "SUM"
+msgstr "НИЙТ"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_stock_move
+msgid "Stock Move"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order__taxes_id
+msgid "Taxes"
+msgstr "Татвар"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_report__price_total_currency
+msgid "Total amount(currency)"
+msgstr "Нийт дүн(Валют)"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order_line__tracking
+msgid "Tracking"
+msgstr "Хөтлөлт"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_stock_picking
+msgid "Transfer"
+msgstr "Шилжүүлэг"
+
+#. module: mw_purchase
+#: code:addons/mw_purchase/models/purchase_order.py:0
+#, python-format
+msgid "Unable to cancel purchase order %s as some receptions have already been done."
+msgstr "Зарим хүргэлт батлагдсан байгаа тул %s ХА захиалгыг цуцлах боломжгүй байна."
+
+#. module: mw_purchase
+#: code:addons/mw_purchase/models/purchase_order.py:0
+#, python-format
+msgid "Unable to cancel this purchase order. You must first cancel related vendor bills."
+msgstr "ХА захиалгыг цуцлах боломжгүй байна. Холбоотой нийлүүлэгчийн нэхэмжлэлийг эхлээд цуцлана уу."
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_report__untaxed_total_currency
+msgid "Untaxed amount(currency)"
+msgstr "Татваргүй дүн(Валют)"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_view_form_inherit
+msgid "Update stock move with PO cost"
+msgstr "Агуулахын хөдөлгөөний PO-ийн өртгөөр засах"
+
+#. module: mw_purchase
+#: model:res.groups,name:mw_purchase.group_purchase_use_lot
+msgid "Use lot in purchase order"
+msgstr "Худалдан авалтын дэлгэцэнд цуврал ашиглах"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_product_product__pol_ids
+#: model:ir.model.fields,field_description:mw_purchase.field_product_product__pol_tmpl_ids
+#: model:ir.model.fields,field_description:mw_purchase.field_product_template__pol_tmpl_ids
+msgid "Vendors"
+msgstr "Нийлүүлэгчид"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_form_mw
+msgid "View Lines"
+msgstr "Мөрүүдийг харах"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order__warehouse_id
+msgid "Warehouse"
+msgstr "Агуулах"
+
+#. module: mw_purchase
+#: model:ir.model,name:mw_purchase.model_price_import_from_excel
+msgid "price import from excel"
+msgstr "excel-с дүнг импортлох"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.view_picking_withcarrier_out_form
+msgid "Create invoice"
+msgstr "Нэхэмжлэл үүсгэх"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order_line__is_diff_qty_inv
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_line_search_mw
+msgid "Ordered and Invoiced differentiated"
+msgstr "Захиалсан тоо Нэхэмжилсэн зөрүүтэй"
+
+#. module: mw_purchase
+#: model:ir.actions.act_window,name:mw_purchase.action_import_result_view
+msgid "Import results"
+msgstr "Импортын үр дүн"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_stock_picking__invoice_number
+msgid "Vendor invoice number"
+msgstr "Нийлүүлэгчийн нэхэмжлэхийн дугаар"
+
+#. module: mw_purchase
+#: model:ir.ui.menu,name:mw_purchase.menu_purchase_import
+msgid "Vendor price import"
+msgstr "Нийлүүлэгчийн үнийн импорт"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_filter_inherit_mw_purchase
+msgid "Invoice created"
+msgstr "Нэхэмжилэл Үүсгэсэн"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_filter_inherit_mw_purchase
+msgid "Invoice not created"
+msgstr "Нэхэмжилэл Үүсгээгүй"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_line_search_mw
+msgid "Storable product"
+msgstr "Нөөцлөх бараа"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_line_search_mw
+msgid "Planned date"
+msgstr "Товлогдсон Огноо"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.pricelist_import_from_excel_form_view model_terms:ir.ui.view,arch_db:mw_purchase.wizard_import_result_view
+msgid "Close"
+msgstr "Хаах"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_line_search_mw
+msgid "Consumable product"
+msgstr "Хангамжийн бараа"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.view_account_move_filter_mw_pur
+#: model_terms:ir.ui.view,arch_db:mw_purchase.view_account_move_line_filter_mw_pur
+msgid "Purchase journal item"
+msgstr "Худалдан авалт бичилт"
+
+#. module: mw_purchase
+#: model:ir.actions.act_window,name:mw_purchase.action_purchase_line_product_tree
+#: model_terms:ir.ui.view,arch_db:mw_purchase.product_product_form_view_bom_button
+#: model_terms:ir.ui.view,arch_db:mw_purchase.view_product_supplier_inherit
+msgid "Purchase history"
+msgstr "Худалдан авалтын түүх"
+
+#. module: mw_purchase
+#: model:ir.model.fields,field_description:mw_purchase.field_purchase_order_line__is_diff_receive_inv
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_line_search_mw
+msgid "Received and Invoiced differentiated"
+msgstr "Хүлээж авсан Нэхэмжилсэн зөрүүтэй"
+
+#. module: mw_purchase
+#: model_terms:ir.ui.view,arch_db:mw_purchase.purchase_order_line_search_mw
+msgid "Product with service type"
+msgstr "Үйлчилгээ төрөлтэй бараа"

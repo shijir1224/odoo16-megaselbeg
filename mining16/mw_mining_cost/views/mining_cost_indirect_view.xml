@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mining_cost_indirect_month_tree" model="ir.ui.view">
+        <field name="name">mining.cost.indirect.month.tree</field>
+        <field name="model">mining.cost.indirect.month</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="year_month"/>
+                <field name="exca_percent"/>
+                <field name="dump_percent"/>
+                <field name="exca_amount"/>
+                <field name="dump_amount"/>
+                <field name="sum_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_cost_indirect_month_pivot" model="ir.ui.view">
+        <field name="name">mining.cost.indirect.month.pivot</field>
+        <field name="model">mining.cost.indirect.month</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="year_month" type="row"/>
+                <field name="exca_percent" type="measure"/>
+                <field name="dump_percent" type="measure"/>
+                <field name="exca_amount" type="measure"/>
+                <field name="dump_amount" type="measure"/>
+                <field name="sum_amount" type="measure"/>
+            </pivot>
+         </field>
+    </record>
+
+    <record id="view_mining_cost_indirect_month_search" model="ir.ui.view">
+        <field name="name">mining.cost.indirect.month.search</field>
+        <field name="model">mining.cost.indirect.month</field>
+        <field name="arch" type="xml">
+            <search string="Technic Analysis">
+                <field name="year_month"/>
+                <filter name="gr_year_month" string="Сараар" context="{'group_by': 'year_month'}"/>
+            </search>
+        </field>
+    </record>
+
+   <record id="action_mining_cost_indirect_month_tree" model="ir.actions.act_window">
+        <field name="name">Indirect Cost Month</field>
+        <field name="res_model">mining.cost.indirect.month</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="search_view_id" ref="view_mining_cost_indirect_month_search"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+    <menuitem action="action_mining_cost_indirect_month_tree" id="menu_mining_cost_indirect_month" parent="menu_mining_report_bcm_sub" sequence="20" groups="base.group_no_one"/>
+
+
+    <record id="view_mining_cost_config_indirect_amount_tree" model="ir.ui.view">
+        <field name="name">mining.cost.config.indirect.amount.tree</field>
+        <field name="model">mining.cost.config.indirect.amount</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="technic_id"/>
+                <field name="amount_aml"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mining_cost_config_indirect_amount_pivot" model="ir.ui.view">
+        <field name="name">mining.cost.config.indirect.amount.pivot</field>
+        <field name="model">mining.cost.config.indirect.amount</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date" type="row"/>
+                <field name="amount_aml" type="measure"/>
+            </pivot>
+         </field>
+    </record>
+
+    <record id="view_mining_cost_config_indirect_amount_search" model="ir.ui.view">
+        <field name="name">mining.cost.config.indirect.amount.search</field>
+        <field name="model">mining.cost.config.indirect.amount</field>
+        <field name="arch" type="xml">
+            <search string="Technic Analysis">
+                <field name="technic_id"/>
+                <field name="date"/>
+                <filter name="gr_technic_id" string="Technic" context="{'group_by': 'technic_id'}"/>
+            </search>
+        </field>
+    </record>
+
+   <record id="action_mining_cost_config_indirect_amount_tree" model="ir.actions.act_window">
+        <field name="name">Indirect Cost For Technic</field>
+        <field name="res_model">mining.cost.config.indirect.amount</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="search_view_id" ref="view_mining_cost_config_indirect_amount_search"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+    <menuitem action="action_mining_cost_config_indirect_amount_tree" id="menu_mining_cost_config_indirect_amount" parent="menu_mining_report_bcm_sub" sequence="77"/>
+</odoo>

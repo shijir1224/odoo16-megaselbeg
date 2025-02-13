@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Camp модуль" web_icon="mw_camp,static/odoo_icon.png"
+        groups="mw_camp.group_camp_order_user" id="root_camp_order_menu"
+        sequence="4" />
+
+    <menuitem name="Camp Order" parent="mw_camp.root_camp_order_menu" id="camp_order_id"
+        sequence="1" action="action_camp_order" />
+    <menuitem name="Тайлан" parent="mw_camp.root_camp_order_menu" id="camp_report_menu"
+        sequence="29" />
+    <menuitem name="Camp order report" parent="mw_camp.camp_report_menu"
+        id="camp_order_report_id_menu"
+        sequence="1" action="mw_camp.action_camp_order_report" />
+
+    <menuitem name="Тохиргоо" parent="mw_camp.root_camp_order_menu" id="camp_configuration_menu"
+        sequence="30" />
+    <menuitem name="Өрөөний тохиргоо" parent="mw_camp.camp_configuration_menu"
+        id="camp_room_id_menu"
+        sequence="1" action="mw_camp.action_camp_room" />
+    <menuitem name="Өрөөний төрөл тохиргоо" parent="mw_camp.camp_configuration_menu"
+        id="camp_room_type_id_menu"
+        sequence="1" action="mw_camp.action_camp_room_type" />
+    <menuitem name="Хэлтэс тохиргоо" parent="mw_camp.camp_configuration_menu"
+        id="camp_department_menu"
+        sequence="1" action="mw_camp.action_camp_department" />
+
+</odoo>

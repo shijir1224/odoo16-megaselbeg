@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_qpay" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.qpay</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('app_settings_block')][@data-key='point_of_sale']" position="inside">
+                <h2>QPay integration info</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane" groups="base.group_system">
+                            <label for="qpay_username" class="col-lg-3"/>
+                            <field name="qpay_username"/>
+                            <label for="qpay_password" class="col-lg-3"/>
+                            <field name="qpay_password"/>
+                            <label for="qpay_invoice_code" class="col-lg-3"/>
+                            <field name="qpay_invoice_code"/>
+                            <label for="qpay_login_url" class="col-lg-3"/>
+                            <field name="qpay_login_url"/>
+                            <label for="qpay_refresh_url" class="col-lg-3"/>
+                            <field name="qpay_refresh_url"/>
+                            <label for="qpay_invoice_create_url" class="col-lg-3"/>
+                            <field name="qpay_invoice_create_url"/>
+                            <label for="qpay_invoice_check_url" class="col-lg-3"/>
+                            <field name="qpay_invoice_check_url"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

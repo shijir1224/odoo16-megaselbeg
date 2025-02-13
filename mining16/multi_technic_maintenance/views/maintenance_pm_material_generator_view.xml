@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="maintenance_pm_material_generator_form_view" model="ir.ui.view">
+        <field name="name">maintenance.pm.material.generator.form</field>
+        <field name="model">maintenance.pm.material.generator</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_pm_material_generator_form_view"/>
+        <field name="arch" type="xml">
+            <field name="date" position="before">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

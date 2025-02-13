@@ -1,0 +1,295 @@
+<odoo>
+	<record id="hr_job_hse_filter" model="ir.ui.view">
+		<field name="name">hr.job Search</field>
+		<field name="model">hr.job</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="HR Job">
+				<group expand="0" string="Group By...">
+					<field string="Нэр.." name='name'/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_job_hse_form_view">
+		<field name="name">hr.job.form</field>
+		<field name="model">hr.job</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="TR">
+				<sheet>
+					<group>
+						<field name='name'/>	
+						<field name='company_id'/>	
+						<field name='hse_type'/>
+						<!-- <field name="user_company_id"/> -->
+					</group>
+					
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+
+				</sheet>
+				
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_job_hse_tree_view">
+		<field name="name">hr.job.tree</field>
+		<field name="model">hr.job</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="TR tree" editable='bottom'>
+				<field name='name'/>	
+				<field name='company_id'/>	
+				<field name='hse_type'/>
+				<!-- <field name="user_company_id"/> -->
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_hr_job_hse_view">
+		<field name="name">Албан тушаал</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">hr.job</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="hr_job_hse_filter"/>
+			<field name="view_ids" eval="[(5, 0, 0), 
+			(0, 0, {'view_mode': 'tree', 'view_id': ref('hr_job_hse_tree_view')}), 
+			(0, 0, {'view_mode': 'form', 'view_id': ref('hr_job_hse_form_view')})]"/>
+	</record>
+
+	<record id="product_normal_form_view_inherit" model="ir.ui.view">
+		<field name="name">product.normal.form.view.inherit</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_normal_form_view"/>
+		<field name="arch" type="xml">
+			<notebook position="inside">
+				<page string="Норм">
+					<group>
+						<field name="norm_ids" nolabel="1">
+							<tree editable='bottom'>
+								<field name="type"/>
+								<field name="day"/>
+							</tree>
+						</field>
+					</group>
+				</page>
+			</notebook>
+			
+		</field>
+	</record>
+
+	<record id="ppe_registration_filter" model="ir.ui.view">
+			<field name="name">ppe.registration Search</field>
+			<field name="model">ppe.registration</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="ppe registration">
+					<field name='employee_id'/>
+					<filter name="status" string="Үндсэн ажилчид харах" domain="[('status','=','working')]"/>
+					<filter name="status1" string="Ажлаас гарсан ажилчид харах" domain="[('status','=','resigned')]"/>
+					<filter name="status2" string="Туршилтын ажилчид харах" domain="[('status','=','experiment')]"/>
+					<group expand="0" string="Group By...">
+						<field string="Ажилтан.." name='employee_id'/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="ppe_registration_form_view">
+			<field name="name">ppe.registration.form</field>
+			<field name="model">ppe.registration</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="TR">
+					<header>
+						<button string="Шаардахаас татах" name="line_create" type="object" class="oe_highlight"/>
+					</header>
+					<sheet>
+						<field name="employee_image" widget='image' class="oe_avatar"/>
+						<group>
+							<group>
+								<field name='employee_id'/>
+								<field name='department_id'/>
+								<field name='job_id'/>
+								<field name='phone'/>
+								<field name='user_company_id'/>
+							</group>
+							<group>
+								<field name="branch_id" options="{'no_create':True}"/>
+								<field name='company_id' options="{'no_create':True}"/>
+								<field name='status'/>
+								<field name='engagement_in_company'/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Хамгаалах хэрэгсэл">
+								<field name="line_ids">
+									<tree editable="top">
+										<field name="ppe_id" optional='hide'/>
+										<field name="product_id"/>
+										<field name="date"/>
+										<field name="qty"/>
+										<field name="norm"/>
+										<field name="end_date"/>
+										<field name="description"/>
+										<field name="product_expense_id"/>
+										<field widget="binary" height="64" name="data" filename="file_fname" optional='hide'/>
+										<field name="file_fname" invisible="1" />
+									</tree>
+									<form>
+										<group>
+											<field name="ppe_id"/>
+											<field name="product_id"/>
+											<field name="date"/>
+											<field name="description"/>
+											<field name="product_expense_id"/>
+											<field widget="binary" height="64" name="data" filename="file_fname"/>
+											<field name="file_fname" invisible="1" />
+											<button name="button_registration_not_date" string="Test" class="btn-success" type="object"/>
+										</group>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="ppe_registration_tree_view">
+			<field name="name">ppe.registration.tree</field>
+			<field name="model">ppe.registration</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="TR tree" decoration-danger ="status=='resigned'">
+					<field name='employee_id'/>	
+					<field name='department_id'/>	
+					<field name='job_id'/>	
+					<field name='company_id'/>	
+					<field name='phone'/>	
+					<field name='status'/>	
+					<field name="branch_id" optional="hide"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_ppe_registration_view">
+			<field name="name">Нэг бүрийн хамгаалах хэрэгсэл</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ppe.registration</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="ppe_registration_filter"/>
+			<!-- <field name="context">{'search_default_year': 1,'search_default_month': 1,'search_default_department_id': 1}</field> -->
+		</record>
+
+
+		<record id="cron_ppe_registration_line" model="ir.cron">
+			<field name="name">PPE дуусах  өдөр мэдэгдэх</field>
+			<field name="model_id" ref="model_ppe_registration_line"/>
+			<field name="state">code</field>
+			<field name="user_id" ref="base.user_root" />
+			<field name="code">model._registration_not_date()</field>
+			<field name="interval_number">2</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+		</record>
+
+		<record id="ppe_name_filter" model="ir.ui.view">
+			<field name="name">ppe.name Search</field>
+			<field name="model">ppe.name</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="ppe registration">
+					<group expand="0" string="Group By...">
+						<field string="Нэр.." name='name'/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="ppe_name_form_view">
+			<field name="name">ppe.name.form</field>
+			<field name="model">ppe.name</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="TR">
+					<sheet>
+						<group>
+							<field name='name'/>	
+							<field name='company_id'/>
+						</group>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="ppe_name_tree_view">
+			<field name="name">ppe.name.tree</field>
+			<field name="model">ppe.name</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="TR tree">
+					<field name='name'/>
+					<field name='company_id'/>	
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_ppe_name_view">
+			<field name="name">Нэг бүрийн хамгаалах хэрэгсэл</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ppe.name</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_status':1}</field>
+			<field name="search_view_id" ref="ppe_name_filter"/>
+			<!-- <field name="context">{'search_default_year': 1,'search_default_month': 1,'search_default_department_id': 1}</field> -->
+		</record>
+	<record id="hr_employee_view_form2_mak" model="ir.ui.view">
+		<field name="name">hr.hr.employee.view.form2.mw</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_user']" position="after">
+				<button name="action_ppe_registration" type="object" class="oe_stat_button" icon="fa-life-ring" string="Хангамж">
+				</button>
+			</xpath>
+		</field>
+	</record>
+	<record id="view_employee_form_mine_mak" model="ir.ui.view">
+		<field name="name">hr.employee.extension.mine</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mine_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//div[@name='button_box']" position="inside">
+				<button name="action_ppe_registration" type="object" class="oe_stat_button" icon="fa-life-ring" string="Хангамж">
+				</button>
+			</xpath>
+		</field>
+	</record>
+
+
+	<record id="product_product_form_view_hse" model="ir.ui.view">
+        <field name="name">product.product.form.view.hse</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+			<xpath expr="//field[@name='production_partner_id']" position="after">
+				<field name="is_registration" widget="boolean_toggle"/>
+			</xpath>
+        </field>
+    </record>
+</odoo>

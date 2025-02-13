@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="stock_report_account_tree_view" model="ir.ui.view">
+            <field name="name">stock.report.account.tree.view</field>
+            <field name="model">stock.report.account</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="picking_id"/>
+                    <field name="stock_move_id"/>
+                    <field name="account_move_id"/>
+                    <field name="account_id_debit"/>
+                    <field name="account_id_credit"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="default_code"/>
+                    <field name="barcode"/>
+                    <field name="stock_date"/>
+                    <field name="account_date"/>
+                    <field name="stock_move_price_in"/>
+                    <field name="stock_move_price_out"/>
+                    <field name="account_in"/>
+                    <field name="account_out"/>
+                    <field name="urtug_zuruu_in"/>
+                    <field name="urtug_zuruu_out"/>
+                    <field name="company_id"/>
+               </tree>
+            </field>
+        </record>
+
+        <record id="stock_report_account_pivot2" model="ir.ui.view">
+             <field name="name">stock.report.account.pivot</field>
+             <field name="model">stock.report.account</field>
+             <field name="arch" type="xml">
+                <pivot string="Analysis">
+                    <field name="categ_id" type="row"/>
+                    <field name="stock_move_price_in" type="measure"/>
+                    <field name="stock_move_price_out" type="measure"/>
+                    <field name="account_in" type="measure"/>
+                    <field name="account_out" type="measure"/>
+                    <field name="urtug_zuruu_in" type="measure"/>
+                    <field name="urtug_zuruu_out" type="measure"/>
+                </pivot>
+             </field>
+        </record>
+
+        <record id="stock_report_account_search" model="ir.ui.view">
+            <field name="name">stock.report.account.search</field>
+            <field name="model">stock.report.account</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="account_id_debit"/>
+                    <field name="account_id_credit"/>
+                    <field name="picking_id"/>
+                    <field name="stock_move_id"/>
+                    <field name="account_move_id"/>
+                    <field name="partner_id"/>
+                    <field name="uom_id"/>
+                    <field name="default_code"/>
+                    <field name="barcode"/>
+                    <field name="stock_date"/>
+                    <field name="account_date"/>
+                    <field name="company_id"/>
+                    <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                    <filter name="not_production" string="Үйлдвэрлэл биш" domain="['|',('location_id.usage','!=','production'),('location_dest_id.usage','!=','production')]"/>
+                    <separator/>
+                    <filter name="today" string="Today" domain="[('stock_date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="This Month" domain="[('stock_date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="This Year" domain="[('stock_date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('stock_date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('stock_date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('stock_date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('stock_date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('stock_date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('stock_date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('stock_date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('stock_date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('stock_date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="Octomber" domain="[('stock_date','like',time.strftime('%%Y-10'))]"/>
+                    <filter name="november" string="November" domain="[('stock_date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('stock_date','like',time.strftime('%%Y-12'))]"/>
+                    <separator/>
+                    <filter name="no_account_move_id" string="Санхүү Бичилтгүй" domain="[('account_move_id','=',False)]" />
+                    <filter name="zuruu_date" string="Өдөр зөрүүтэй" domain="[('date_diff','=',True)]" />
+                    <filter name="zuruu_month" string="Сар зөрүүтэй" domain="[('month_diff','=',True)]" />
+                    <filter name="year_month" string="Жил зөрүүтэй" domain="[('year_diff','=',True)]" />
+                    <filter name="ok_ijil_account" string="Харьцсан данс ижил" domain="[('ijil_account','=',True)]" />
+                    <filter name="ok_urtug_zuruu_in" string="Орлого зөрүүтэй" domain="[('urtug_zuruu_in','>',1)]" />
+                    <filter name="ok_urtug_zuruu_out" string="Зарлага зөрүүтэй" domain="[('urtug_zuruu_out','>',1)]" />
+                    <filter name="urtug_zuruu_company" string="Компани зөрүүтэй" domain="[('urtug_zuruu_company','=',False)]" />
+
+                    <group expand="0" string="Group By">
+                        <filter string="Бараа" name="gr_product" context="{'group_by':'product_id'}"/>
+                        <filter string="Ангилал" name="gr_categ" context="{'group_by':'categ_id'}"/>
+                        <filter string="Харилцагчаар" name="gr_partner_id" context="{'group_by':'partner_id'}"/>
+                        <filter string="Өдрөөр" name="gr_day" context="{'group_by':'stock_date:day'}" help="Pppp"/>
+                        <filter string="Сараар" name="gr_month" context="{'group_by':'stock_date:month'}" help="Pppp"/>
+                        <filter string="Жилээр" name="gr_year" context="{'group_by':'stock_date:year'}" help="Жил жилээр"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_stock_report_account" model="ir.actions.act_window">
+            <field name="name">Агуулах Санхүү Бичилтийн Тайлан</field>
+            <field name="res_model">stock.report.account</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="view_id" ref="stock_report_account_pivot2"/>
+            <field name="context">{'search_default_gr_categ': 1,'search_default_this_month': 1}</field>
+            <field name="target">current</field>
+        </record>
+        <menuitem id="menu_stock_report_account"
+		action="action_stock_report_account"
+		parent="stock.menu_warehouse_report" sequence="99"
+		groups="group_stock_account_report_view"/>
+</odoo>

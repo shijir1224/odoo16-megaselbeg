@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		<record id="group_stock_move_product_change" model="res.groups">
+			<field name="name">Барааны хөдөлгөөны барааг хөрвөсөнөөр солих</field>
+			<field name="category_id" ref="base.module_category_inventory_inventory"/>
+		</record>
+
+		<record id="group_stock_move_location_change" model="res.groups">
+			<field name="name">Зарлагын барааны хөдөлгөөны байрлал солих</field>
+			<field name="category_id" ref="base.module_category_inventory_inventory"/>
+		</record>
+	</data>
+</odoo>

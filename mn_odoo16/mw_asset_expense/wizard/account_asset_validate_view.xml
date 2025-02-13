@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="view_account_asset_validate_form" model="ir.ui.view">
+	    <field name="name">account.asset.validate.form</field>
+		<field name="model">account.asset.validate</field>
+		<field name="arch" type="xml">
+			<form string="Validate Asset">
+				<group>
+					<field name="account_id" options="{'no_create': 1}" required="1"/>
+					<field name="purchase_date" required="1"/>
+				</group>
+				<footer>
+					<button name="validate" string="Validate" type="object" class="oe_highlight"/>
+					<button string="Cancel" class="oe_link" special="cancel"/>
+				</footer>
+			</form>
+		</field>
+    </record>
+
+	<record id="action_account_asset_validate" model="ir.actions.act_window">
+        <field name="name">Validate Asset</field>
+        <field name="res_model">account.asset.validate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_asset_validate_form"/>
+        <field name="target">new</field>
+    </record>
+
+	<record id="view_account_asset_validate_all_form" model="ir.ui.view">
+        <field name="name">view.account.asset.validate.all.form</field>
+        <field name="model">account.asset.validate.all</field>
+        <field name="arch" type="xml">
+            <form string="Validate Selected Asset">
+                <group colspan="4" col="4">
+                    <field name="account_id" options="{'no_create_edit': 1}" required="1"/>
+                    <field name="purchase_date" attrs="{'invisible': [('asset_each_date', 'in', True)]}"/>
+                     <field name="asset_each_date"/>
+                </group>
+                <footer>
+					<button name="validate_all" string="Validate All" type="object" class="btn-primary" />
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+           </form>
+        </field>
+    </record>
+
+	<record id="action_account_asset_validate_all" model="ir.actions.act_window">
+        <field name="name">Validate Selected Asset</field>
+        <field name="res_model">account.asset.validate.all</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_asset_validate_all_form"/>
+        <field name="target">new</field>
+    </record>
+
+	 <record id="action_account_asset_validate_all_two" model="ir.actions.act_window">
+        <field name="name">Validate Selected Asset</field>
+        <field name="res_model">account.asset.validate.all</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_asset_validate_all_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_account_asset"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

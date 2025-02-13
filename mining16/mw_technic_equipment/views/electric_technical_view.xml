@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='electric_technical_tree'>
+        <field name="name">electric.technical tree</field>
+        <field name="model">electric.technical</field>
+        <field name="arch" type="xml">
+            <tree string="electric">
+            <field name="date"/>
+                <field name="line_ids">
+                    <tree editable='bottom'>
+                        <field name="shch_butluur"/>
+                        <field name="nuursnii_butluur"/>
+                        <field name="tuuhii_ediin_teerem"/>
+                        <field name="nuursnii_teerem"/>
+                        <field name="ergeh_zuuh"/>
+                        <field name="cement_teerem"/>
+                        <field name="sawlah"/>
+                    </tree>
+                    <form>
+                        <field name="line_id">
+                            <tree editable='bottom'>
+                                <field name="types"/>
+                                <field name="basic_indicator"/>
+                            </tree>
+                            <form>
+                                <field name="types"/>
+                                <field name="basic_indicator"/>
+                            </form>
+                        </field>
+                    </form>
+                </field>
+            </tree>
+        </field>
+    </record>
+    <record model='ir.ui.view' id='electric_technical_form'>
+        <field name="name">electric.technical form</field>
+        <field name="model">electric.technical</field>
+        <field name="arch" type="xml">
+            <form string="Electric Technical form">
+                <group>
+                <field name="date"/>
+                <field name="line_ids"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_electric_technical'>
+        <field name="name">Цахилгаан бүртгэл</field>
+        <field name="res_model">electric.technical</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

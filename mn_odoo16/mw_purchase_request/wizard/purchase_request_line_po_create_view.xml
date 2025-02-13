@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="purchase_request_line_po_create_form" model="ir.ui.view">
+		<field name="name">purchase.request.line.po.create.form</field>
+		<field name="model">purchase.request.line.po.create</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<group>
+						<field name="is_sub_po" widget="boolean_toggle" attrs="{'invisible': [('is_comparison', '=', True)]}"/>
+						<field name="partner_id" options="{'no_create':True}"  attrs="{'invisible': ['|',('is_comparison', '=', True),('is_sub_po','=',True)], 'required': [('is_comparison', '!=', True),('is_sub_po','!=',True)]}"/>
+						<field name="flow_id" options="{'no_create':True}" attrs="{'required':['|',('is_sub_po', '=', False), ('is_comparison', '=', False)], 'invisible': ['|',('is_sub_po', '=', True),('is_comparison', '=', True)]}"/>
+						<field name="purchase_sub_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', True)] ,'invisible': [('is_sub_po', '=', False)]}" domain="[('flow_line_id.state_type','=','draft')]"/>
+					</group>
+					<group>
+						<field name="is_comparison" widget="boolean_toggle" attrs="{'invisible': [('is_sub_po','=',True)]}"/>
+						<field name="date" attrs="{'invisible': [('is_sub_po','=',True)]}"/>
+						<field name="partner_ids" options="{'no_create':True}" widget="many2many_tags"  attrs="{'invisible': [('is_comparison', '=', False)], 'required': [('is_comparison', '=', True)]}"/>
+						<field name="comparison_flow_id" options="{'no_create':True}" attrs="{'required':[('is_comparison', '=', True)], 'invisible': ['|',('is_sub_po', '=', True), ('is_comparison', '=', False)]}"/>
+						<field name="warehouse_id" options="{'no_create':True}" attrs="{'required':[('is_sub_po', '=', False)] ,'invisible': [('is_sub_po', '=', True)]}" domain="[('access_user_ids','in',[uid])]"/>
+					</group>
+				</group>
+				<group>
+					<group>
+						<field name="is_internal" widget="boolean_toggle" attrs="{'invisible': [('is_comparison', '=', True)]}"/>
+					</group>
+				</group>
+				<group attrs="{'invisible': [('is_internal', '=', False)]}">
+					<group>
+						<field name="to_warehouse_id" domain="[('id','!=',warehouse_id)]"/>
+					</group>
+					<group>
+						<field name="picking_date" attrs="{'required': [('is_internal', '=', True)]}"/>
+					</group>
+				</group>
+				<group>
+					<field name="is_po_qty_edit" widget="boolean_toggle"/>
+				</group>
+				<field name="line_ids" nolabel="1" attrs="{'invisible': [('is_po_qty_edit', '=', False)]}">
+					<tree create="false" delete="false" editable="bottom">
+						<field name="pr_line_id" force_save="1" readonly="1" invisible="1"/>
+						<field name="product_id" force_save="1"/>
+						<field name="desc" force_save="1"/>
+						<field name="qty" force_save="1"/>
+						<field name="po_diff_qty" force_save="1"/>
+						<field name="po_qty" readonly="0" force_save="1"/>
+					</tree>
+				</field>
+				<footer>
+					<button name="action_done" string="Худалдан авалтын захиалга үүсгэх" type="object"
+							class="btn-primary"/>
+					<button special="cancel" string="Cancel" type="object" class="btn-default"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="purchase_request_line_po_create_action" model="ir.actions.act_window">
+		<field name="name">Худалдан Авалтын Захиалга Үүсгэх</field>
+		<field name="res_model">purchase.request.line.po.create</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+		<field name="context">{}</field>
+		<field name="binding_model_id" ref="model_purchase_request_line"/>
+		<field name="binding_view_types">list</field>
+	</record>
+
+</odoo>

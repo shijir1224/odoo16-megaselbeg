@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="action_delete_first_balance" model="ir.actions.act_window">
+            <field name="name">Delete first balance</field>
+            <field name="res_model">delete.first.balance</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="partial_bank_confirm_form" model="ir.ui.view">
+            <field name="name">delete.first.balance.form</field>
+            <field name="model">delete.first.balance</field>
+            <field name="arch" type="xml">
+                <form string="Stock partial Picking" version="7.0">
+                    <separator string="Transfer Products" name="product_separator"/>
+                    <field name="statement_id" invisible="1"/>
+                    <field name="bank_lines" domain="[('statement_id','=',statement_id),('state','!=','posted')]">
+                    </field>
+                    <footer>
+                        <button name="confirm" string="Transfer" type="object" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="partial_bank_confirm_line_list" model="ir.ui.view">
+            <field name="name">delete.first.balance.line.list</field>
+            <field name="model">delete.first.balance.line</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Product Moves">
+                            <field name="account_id"/>
+                            <field name="amount" />
+                            <field name="line_id"  invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="partial_bank_confirm_line_form" model="ir.ui.view">
+            <field name="name">delete.first.balance.line.form</field>
+            <field name="model">delete.first.balance.line</field>
+            <field name="arch" type="xml">
+                <form string="Stock Picking Line" version="7.0">
+                    <group col="4">
+                            <field name="account_id"/>
+                            <field name="amount" />
+                            <field name="line_id"  invisible="1"/>
+                    </group>
+                 </form>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_company_form_inherit_mn_qpay" model="ir.ui.view">
+        <field name="name">view.res.company.form.inherit.mn.qpay</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Qpay" name="qpay">
+                    <group>
+                        <group>
+                            <field name="qpay_url"/>
+                            <field name="qpay_username"/>
+                            <field name="qpay_password" password="1"/>
+                            <field name="qpay_invoice_code"/>
+                        </group>
+                        <group>
+                            <field name="qpay_token_type" readonly="1"/>
+                            <field name="qpay_access_token" readonly="1"/>
+                            <field name="qpay_expires_in" readonly="1"/>
+                            <field name="qpay_refresh_token" readonly="1"/>
+                            <field name="qpay_refresh_expires_in" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

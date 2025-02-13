@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="employee_detail_report_view" model="ir.ui.view">
+            <field name="name">hr.hr.employee.detail.report.wizard</field>
+            <field name="model">hr.employee.detail.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="4" colspan="4">
+                        <field name="company_id" options="{'no_create':True}"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_employee_detail_report" model="ir.actions.act_window">
+            <field name="name">Ажилтны товч мэдээлэл тайлан</field>
+            <field name="res_model">hr.employee.detail.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="employee_detail_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_employee_detail_report" action="action_employee_detail_report" parent="mw_hr.menu_human_recource_report" sequence="7" />
+
+    </data>
+</odoo>
+    

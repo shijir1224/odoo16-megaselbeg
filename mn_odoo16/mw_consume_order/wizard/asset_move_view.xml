@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="consume_order_moves_views">
+            <field name="name">consume.order.moves.view</field>
+            <field name="model">consume.order.moves</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Asset Move">
+                    <newline/>
+                    <group>
+                        <group>
+                            <field name="is_qty"/>
+                            <field name="qty"  attrs="{'invisible':[('is_qty','=',False)]}"/>
+                            <field name="date" string="Огноо"/>
+                            <field name="description" colspan="4"/>
+                        </group>
+                        <group>
+                            <field name="branch_id" string="Шинэ салбар"/>
+                            <field name="owner_dep_id" string="Шинэ хэлтэс"/>
+                            <field name="owner_id" string="Шинэ ажилтан" />
+                            <field name="account_id" string="Зардлын данс" />
+                            <!-- <field name="analytic_account_id" string="Шинжилгээний данс" /> -->
+                            <field name="analytic_distribution" widget="analytic_distribution" />
+                        </group>
+ 	                    
+                    </group>
+                    <separator colspan="4"/>
+                    <group colspan="4" col="6">
+                       <button icon="btn-danger" special="cancel" string="Cancel"/>
+                       <button icon="btn-warning" string="Change" name="action_asset_moves" type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+	    
+	    <act_window name="АБХМ шилжүүлэх"
+            res_model="consume.order.moves"
+            binding_model="consumable.material.in.use"
+            view_mode="form"
+            target="new"
+            view_id="consume_order_moves_views"
+            id="action_consume_order_moves"/>
+            
+
+    </data>
+</openerp>

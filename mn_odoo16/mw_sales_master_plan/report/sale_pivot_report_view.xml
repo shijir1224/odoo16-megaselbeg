@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Maintenance Expense report -->
+        <record id="sale_pivot_report_tree_view" model="ir.ui.view">
+            <field name="name">sale.pivot.report.tree.view</field>
+            <field name="model">sale.pivot.report</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="id" />
+                    <field name="so_id" />
+                    <field name="order_date" />
+                    <field name="partner_id" />
+                    <field name="product_id" />
+                    <field name="qty_ordered" sum="Нийт"/>
+                    <field name="qty" sum="Нийт"/>
+                    <field name="amount" sum="Нийт"/>
+                    <field name="amount_order" sum="Нийт"/>
+                    <field name="state" />
+               </tree>
+            </field>
+        </record>
+
+        <record id="sale_pivot_report_form_view" model="ir.ui.view">
+            <field name="name">sale.pivot.report.form.view</field>
+            <field name="model">sale.pivot.report</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group col="4">
+                        <field name="so_id" />
+                        <field name="order_date" />
+                        <field name="product_id" />
+                        <field name="partner_id" />
+                        <field name="qty" sum="Нийт"/>
+                        <field name="amount" sum="Нийт"/>
+                        <field name="main_amount" sum="Нийт"/>
+                        <field name="state" />
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="sale_pivot_report_pivot" model="ir.ui.view">
+             <field name="name">sale.pivot.report.pivot</field>
+             <field name="model">sale.pivot.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                     <field name="user_id" type="row"/>
+                     <field name="partner_id" type="row"/>
+                     <field name="amount_order" type="measure"/>
+                     <field name="amount" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="sale_pivot_report_search" model="ir.ui.view">
+            <field name="name">sale.pivot.report.search</field>
+            <field name="model">sale.pivot.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <filter name="today" string="Өнөөдөр" domain="[('order_date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter name="this_month" string="Энэ сар" domain="[('order_date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="year" string="Энэ жил" domain="[('order_date','like',time.strftime('%%Y'))]"/>
+                    <separator/>
+                    <filter string="Confirmed" domain="[('state','=','confirmed')]" name="confirmed"/>
+                    <filter string="Дууссан" domain="[('state','=','done')]" name="done"/>
+                    <separator/>
+                    <filter name="january" string="January" domain="[('order_date','like',time.strftime('%%Y-01'))]"/>
+                    <filter name="february" string="February" domain="[('order_date','like',time.strftime('%%Y-02'))]"/>
+                    <filter name="march" string="March" domain="[('order_date','like',time.strftime('%%Y-03'))]"/>
+                    <filter name="April" string="April" domain="[('order_date','like',time.strftime('%%Y-04'))]"/>
+                    <filter name="may" string="May" domain="[('order_date','like',time.strftime('%%Y-05'))]"/>
+                    <filter name="june" string="June" domain="[('order_date','like',time.strftime('%%Y-06'))]"/>
+                    <filter name="july" string="July" domain="[('order_date','like',time.strftime('%%Y-07'))]"/>
+                    <filter name="august" string="August" domain="[('order_date','like',time.strftime('%%Y-08'))]"/>
+                    <filter name="september" string="September" domain="[('order_date','like',time.strftime('%%Y-09'))]"/>
+                    <filter name="octomber" string="Octomber" domain="[('order_date','like',time.strftime('%%Y-10'))]"/>
+                    <filter name="november" string="November" domain="[('order_date','like',time.strftime('%%Y-11'))]"/>
+                    <filter name="december" string="December" domain="[('order_date','like',time.strftime('%%Y-12'))]"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                    <field name="order_date"/>
+                    <field name="so_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Product" name="Product" context="{'group_by':'product_id'}"/>
+                        <filter string="Product" name="Category" context="{'group_by':'categ_id'}"/>
+                        <filter string="State" context="{'group_by':'state'}" name="State"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

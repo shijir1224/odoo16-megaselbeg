@@ -1,0 +1,9 @@
+<odoo>
+    <menuitem id="training_parent_menu" name='Сургалт' web_icon="mw_training,static/training.png"/>
+    <menuitem id="training_request_menu" action="action_training_request"  parent="training_parent_menu" sequence="1"/>
+    <menuitem id="training_plan_menu" action="action_training_plan"  parent="training_parent_menu" sequence="2"/>
+    <menuitem id="training_registration_menu" action="action_training_registration"  parent="training_parent_menu" sequence="3"/>
+    <menuitem id="training_conf_menu" parent="training_parent_menu" name='Тохиргоо' sequence="6"/>
+    <menuitem id="training_type_menu" action="action_training_type"  parent="training_conf_menu" sequence="1"/>
+    <menuitem id="training_register_menu" action="action_training_register"  parent="training_conf_menu" sequence="2"/>
+</odoo>

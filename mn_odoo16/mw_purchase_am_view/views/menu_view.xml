@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<menuitem id="menu_purchase_acc_view" action="action_purchase_acc_view_form" parent="purchase.purchase_report_main" sequence="100" groups="mw_purchase_am_view.group_purchase_am_reconcile_view"/>
+</odoo>

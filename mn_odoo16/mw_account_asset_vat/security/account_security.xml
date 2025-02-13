@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+
+    <record id="group_account_asset_vat_accountant" model="res.groups">
+        <field name="name">Хөрөнгийн НӨАТ тооцоолох нягтлан</field>
+        <field name="category_id" ref="base.module_category_accounting_accounting"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+        
+    
+</data>
+</odoo>

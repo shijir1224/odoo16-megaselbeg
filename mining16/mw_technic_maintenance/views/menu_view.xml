@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem name="Ажлын хүсэлт, дуудлага" web_icon="mw_technic_maintenance,static/icon2.png"
+		id="maintenance_request_call_menu" sequence="31" action="action_maintenance_call" />
+	<menuitem name="Сэлбэгийн үлдэгдэл шалгах" web_icon="mw_technic_maintenance,static/selbegiin_uldegdel.png"
+		groups="group_maintenance_spare_user,group_maintenance_spare_uldegdel_user"
+		id="action_wizard_check_part_qty_menu" sequence="32" action="action_wizard_check_part_qtysub" />
+	<menuitem name="Засварын модуль"
+		id="mn_maintenance_root_menu" sequence="30"
+		groups="group_maintenance_user"
+		web_icon="mw_technic_maintenance,static/icon.png"/>
+
+		<menuitem name="Засвар" parent="mn_maintenance_root_menu"
+			id="maintenance_01_menu" sequence="4"/>
+
+			<menuitem name="Work Orders" parent="maintenance_01_menu"
+				id="maintenance_workorder_menu" sequence="5" action="action_maintenance_workorder" />
+			<menuitem name="Work Orders/хянах/" parent="maintenance_01_menu"
+				id="maintenance_workorder_2_menu" sequence="6"
+				action="action_maintenance_workorder_superintendent" />
+
+			<menuitem name="Ажлын хүсэлт, дуудлага" parent="maintenance_01_menu"
+				id="maintenance_call_menu" sequence="10" action="action_maintenance_call" />
+
+			<menuitem name="Засварчны бусад ажил" parent="maintenance_01_menu"
+				id="maintenance_employee_other_job_menu" sequence="12" action="action_maintenance_employee_timesheet_line" groups="base.group_no_one"/>
+
+			<menuitem name="Засварчны бусад ажил бүртгэл" parent="maintenance_01_menu"
+				id="maintenance_employee_other_job_register_menu" sequence="13" action="action_maintenance_employee_other_timesheet_1" />
+
+			<menuitem name="Хэвийн бус үзлэгүүд" parent="maintenance_01_menu"
+				id="inspection_work_menu" sequence="17"
+				action="action_technic_inspection_work" />
+
+			<menuitem name="Тосны дээж" parent="maintenance_01_menu"
+				id="maintenance_oil_sample_menu" sequence="18"
+				action="action_maintenance_oil_sample" />
+
+			<!-- <menuitem name="DEMS мэдээ" parent="maintenance_01_menu"
+				id="maintenance_dems_info_menu" sequence="20"
+				action="action_maintenance_dems_info" /> -->
+
+			<menuitem name="Сэлбэгийн үлдэгдэл шалгах" parent="maintenance_01_menu"
+				id="check_part_qty_menu" sequence="22"
+				groups="group_maintenance_spare_user,group_maintenance_master"
+				action="action_wizard_check_part_qtysub" />
+
+			<menuitem name="Сэлбэг шилжилтийн бүртгэл" parent="maintenance_01_menu"
+				id="maintenance_parts_move_menu" sequence="24"
+				action="action_maintenance_parts_move" />
+			<menuitem name="Сэлбэг хүлээлтийн бүртгэл" parent="maintenance_01_menu"
+				id="maintenance_parts_waiting_menu" sequence="25"
+				action="action_maintenance_parts_waiting"
+				groups="group_maintenance_spare_user"/>
+
+			<menuitem name="Туршлагын сан" parent="maintenance_01_menu"
+				id="maintenance_experience_library_menu" sequence="35"
+				action="action_maintenance_experience_library" />
+
+			<!-- <menuitem name="Засварын ажил Бүх" parent="maintenance_01_menu"
+				groups="group_maintenance_workorder_user"
+				id="maintenance_workorder_menu2" sequence="7" action="action_mn_maintenance_workorder_all" />
+ -->
+ 		<menuitem name="Төлөвлөгөө" parent="mn_maintenance_root_menu"
+			id="maintenance_plan_root_menu" sequence="6"/>
+			<menuitem name="Урьдчилсан төлөвлөлт" parent="maintenance_plan_root_menu"
+				id="plan_generator_menu" sequence="2" action="action_maintenance_plan_generator" />
+
+			<!-- <menuitem name="Сарын төлөвлөгөө" parent="maintenance_plan_root_menu"
+				id="month_plan_menu" sequence="4" action="action_maintenance_plan" /> -->
+			<menuitem name="Техникийн төлөвлөгөө" parent="maintenance_plan_root_menu"
+				id="technic_plan_menu" sequence="5" action="action_maintenance_plan_line" />
+
+			<menuitem name="Төлөвлөгөөт зогсолт үүсгэх" parent="maintenance_plan_root_menu"
+				id="stopped_technic_plan_menu" sequence="9"
+				action="action_wizard_create_stopped_technic_plan" />
+
+			<menuitem name="PM материалын захиалга" parent="maintenance_plan_root_menu"
+				id="pm_material_generate_menu" sequence="17" action="action_maintenance_pm_material_generator" />
+
+			<!-- <menuitem name="Шинэ барааны хүсэлт"
+				parent="mw_technic_maintenance.maintenance_plan_root_menu"
+		        id="new_product_request_maintenance_menu" sequence="20"
+		        action="mw_product.action_new_product_request" /> -->
+	        <menuitem name="Улиралаас хамааралтай материал"
+	        	groups="group_maintenance_planner"
+				parent="mw_technic_maintenance.maintenance_plan_root_menu"
+		        id="depending_season_materia_menu" sequence="22"
+		        action="action_depending_season_material" />
+
+        <menuitem name="Мастер төлөвлөгөө" parent="mn_maintenance_root_menu"
+			id="maintenance_master_plan_root_menu" sequence="7"
+			groups="group_maintenance_planner"/>
+			<menuitem name="Жилийн төлөвлөлт" parent="maintenance_master_plan_root_menu"
+				id="year_plan_generator_menu" sequence="2"
+				action="action_maintenance_year_plan_generator" />
+			<menuitem name="LONG TERM" parent="maintenance_master_plan_root_menu"
+				id="long_term_menu" sequence="15" action="action_maintenance_long_term" />
+			<menuitem name="Дугуйн FORECAST" parent="maintenance_master_plan_root_menu"
+				id="tire_plan_generator_2_menu" sequence="15"
+				action="mw_technic_equipment.action_tire_plan_generator" />
+			<menuitem name="Хэрэглээний зардал" parent="maintenance_master_plan_root_menu"
+				id="year_other_expense_menu" sequence="17"
+				action="action_maintenance_year_other_expense" />
+
+			<menuitem name="Жилийн ТББК, Budget" parent="maintenance_master_plan_root_menu"
+				id="year_tbbk_menu" sequence="25"
+				action="action_wizard_maintenance_year_tbbk" />
+
+		<!-- <menuitem name="Хянах самбар" parent="mn_maintenance_root_menu"
+			id="maintenance_dashboard_menu" sequence="8"/>
+			<menuitem name="Төлөвлөгөө Table" parent="maintenance_dashboard_menu"
+				id="maintenance_db3_menu" sequence="5"
+				action="action_maintenance_dashboard_03" />
+			<menuitem name="Хянах самбар 04" parent="maintenance_dashboard_menu"
+				id="maintenance_db4_menu" sequence="7"
+				action="action_maintenance_dashboard_04" />
+
+			<menuitem name="Хянах самбар / Өдөр" parent="maintenance_dashboard_menu"
+				id="maintenance_db1_menu" sequence="10"
+				action="action_maintenance_dashboard_01" />
+			<menuitem name="Хянах самбар / Сар" parent="maintenance_dashboard_menu"
+				id="maintenance_db2_menu" sequence="15"
+				action="action_maintenance_dashboard_02" /> -->
+
+		<menuitem name="Тайлан" parent="mn_maintenance_root_menu"
+			id="maintenance_report_menu" sequence="9"/>
+			<menuitem name="Засварын ажлын тайлан" parent="maintenance_report_menu"
+				id="maintenance_workorder_material_menu" sequence="4" action="action_wizard_maintenance_workorder" />
+			<menuitem name="Засварын материалын тайлан" parent="maintenance_report_menu"
+				id="maintenance_expense_plan_menu" sequence="5" action="action_wizard_maintenance_expense" />
+			<menuitem name="Засварын ажлын төрлөөр" parent="maintenance_report_menu"
+				id="worktime_reason_report_menu" sequence="7" action="action_worktime_reason_report" />
+			<menuitem name="Засварчны тайлан" parent="maintenance_report_menu"
+				id="repairman_report_menu" sequence="10" action="action_repairman_report" />
+
+			<menuitem name="Сарын мэдээний тайлан" parent="maintenance_report_menu"
+				id="monthly_report_menu" sequence="15"
+				action="action_maintenance_monthly_report" />
+			<menuitem name="Weekly Report" parent="maintenance_report_menu"
+				id="weekly_report_menu" sequence="18"
+				action="action_maintenance_weekly_report" />
+			<menuitem name="Daily Report" parent="maintenance_report_menu"
+				id="daily_report_menu" sequence="20"
+				action="action_maintenance_daily_report" />
+			
+			<menuitem name="Daily Report NEW" parent="maintenance_report_menu"
+				id="daily_report_new_menu" sequence="20"
+				action="wizard_daily_report_action" />
+
+			<menuitem name="Захиалсан сэлбэгийн мэдээлэл" parent="maintenance_report_menu"
+				id="maintenance_pr_line_menu" sequence="25"
+				action="action_wizard_maintenance_pr_line" />
+
+			<menuitem name="SMR report" parent="maintenance_report_menu"
+				id="smr_report_menu" sequence="26"
+				action="action_wizard_smr_report" />
+
+			<menuitem name="Хойшид хийгдэх ажлын мэдээ" parent="maintenance_report_menu"
+				id="check_next_work_description_menu" sequence="28"
+				action="action_wizard_check_next_work_description" />
+
+			<menuitem name="Тосны дээжийн тайлан" parent="maintenance_report_menu"
+				id="oil_sample_report_menu" sequence="30"
+				action="action_wizard_oil_sample_report" />
+			<menuitem name="Сэлбэг хүлээлт, шилжилт" parent="maintenance_report_menu"
+				id="part_waiting_move_report1_menu" sequence="31"
+				action="action_wizard_part_waiting_move" />
+			<menuitem name="Давтан зарлагын тайлан" parent="maintenance_report_menu"
+				id="expense_repeat_report_menu" sequence="34"
+				action="action_expense_repeat_report" />
+
+		<menuitem name="Тохиргоо" parent="mn_maintenance_root_menu"
+			id="maintenance_setting_menu" sequence="11"/>
+			<menuitem name="Техникийн систем" parent="maintenance_setting_menu"
+				id="maintenance_damaged_type_menu" sequence="3" action="action_maintenance_damaged_type" />
+
+			<menuitem name="Эвдрэлийн шалтгаан" parent="maintenance_setting_menu"
+				id="maintenance_damaged_reason_menu" sequence="4" action="action_maintenance_damaged_reason" />
+			<menuitem name="Засварын ажлын төрөл" parent="maintenance_setting_menu"
+				id="maintenance_delay_reason_menu" sequence="7" action="action_maintenance_delay_reason" />
+
+			<menuitem name="Засварын төрөл" parent="maintenance_setting_menu"
+				id="maintenance_type_menu" sequence="17" action="action_maintenance_type" />
+
+			<menuitem name="Үзлэгийн хуваарийн тохиргоо" parent="maintenance_setting_menu"
+				id="maintenance_inspection_config_menu" sequence="19" action="action_maintenance_inspection_config"
+				groups="mw_technic_maintenance.group_maintenance_planner"/>
+
+			<menuitem name="Үнэлгээний тайлбар" parent="maintenance_setting_menu"
+				id="workorder_rate_description_menu" sequence="20" action="action_workorder_rate_description" />
+
+			<menuitem name="Сүүлийн PM оруулах" parent="maintenance_setting_menu"
+				id="set_last_pm_menu" sequence="25" action="action_set_last_pm"
+				groups="mw_technic_maintenance.group_maintenance_planner"/>
+
+</odoo>

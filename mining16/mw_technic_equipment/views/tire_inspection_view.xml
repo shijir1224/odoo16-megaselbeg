@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Sequences for Inspection -->
+        <record id="seq_tire_inspection" model="ir.sequence">
+            <field name="name">Tire inspection</field>
+            <field name="code">tire.inspection</field>
+            <field name="prefix">T-INS%(y)s%(month)s-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- ##############  Tire inspection setting  #################### -->
+        <record id="view_tire_inspection_tree" model="ir.ui.view">
+            <field name="name">Tire inspection tree</field>
+            <field name="model">tire.inspection</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Check List"
+                    decoration-muted="state=='cancelled'"
+                    decoration-info="state=='open'"
+                    decoration-success="state=='done'">
+                    <field name="name"/>
+                    <field name="branch_id"/>
+                    <field name="date_inspection"/>
+                    <field name="inspection_type"/>
+                    <field name="shift"/>
+                    <field name="technic_id"/>
+                    <field name="operator_id"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Calendar -->
+        <record  id="tire_inspection_calendar_view" model="ir.ui.view">
+            <field name="name">tire.inspection.calendar</field>
+            <field name="model">tire.inspection</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar
+                        date_start="date_inspection"
+                        color="technic_id"
+                        mode="month"
+                        quick_add="False">
+                    <field name="name"/>
+                    <field name="technic_id"/>
+                    <field name="last_odometer"/>
+                    <field name="last_km"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_tire_inspection_form" model="ir.ui.view">
+            <field name="name">Tire inspection form</field>
+            <field name="model">tire.inspection</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_to_draft" string="Ноороглох" type="object"
+                            groups="base.group_no_one"/>
+                        <button name="action_to_open" states="draft" string="Нээх"
+                            type="object"  class="oe_highlight"/>
+                        <button name="action_to_done" states="open" type="object"
+                            class="oe_highlight" string="Дууссан"/>
+                        <button name="action_to_cancel" states="open" string="Цуцлах" type="object"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open,done" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <div class="pull-left">
+                            <label for="name" class="oe_inline" />
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="branch_id"
+                                options="{'no_create':True}"/>
+                            <field  name="user_id"/>
+
+                            <field name="date_inspection" required="1"/>
+                            <field name="shift"/>
+
+                            <field name="inspection_type"/>
+                            <newline/>
+
+                            <field  name="technic_id" options="{'no_create':True}"/>
+                            <field  name="validator_id"/>
+
+                            <field  name="last_odometer"/>
+                            <field  name="last_km"/>
+
+                            <field name="operator_id" options="{'no_create': True}"/>
+                            <field name="attachment_ids" widget="many2many_binary" />
+
+                            <!-- <field name="description"/> -->
+                            <field name="employee_idsd" widget="many2many_tags"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Дугуйн мэдээлэл">
+                                <!-- <group col="4"> -->
+                                    <field name="inspection_line" nolabel="1" >
+                                        <tree string="Tire Lines" editable="bottom" delete="false" create="false">
+                                            <field name="position" readonly="1"/>
+                                            <field name="brand_id" readonly="1"/>
+                                            <field name="serial_number" readonly="1"/>
+                                            <field name="tire_id" invisible="1"/>
+                                            <field name="temperature"
+                                                attrs="{'column_invisible':[('parent.inspection_type','!=','operation_inspection'),('parent.inspection_type','!=','warn_inspection')],
+                                                'required': [('parent.inspection_type', '=', 'tread_inspection')]}"
+                                                groups="mw_technic_maintenance.group_maintenance_clerk,mw_technic_equipment.group_technic_module_tire_amount_user" />
+                                            <field name="tread_deep1" required="1"
+                                                attrs="{'column_invisible':[('parent.inspection_type','!=','tread_inspection')]}"/>
+                                            <field name="tread_deep2" required="1"
+                                                attrs="{'column_invisible':[('parent.inspection_type','!=','tread_inspection')]}"/>
+                                            <field name="deep_average" required="1"
+                                                attrs="{'column_invisible':[('parent.inspection_type','!=','tread_inspection')]}"/>
+                                            <field name="depreciation" readonly="1"
+                                                attrs="{'column_invisible':[('parent.inspection_type','!=','tread_inspection')]}"/>
+                                            <field name="pressure" 
+                                                groups="mw_technic_maintenance.group_maintenance_clerk,mw_technic_equipment.group_technic_module_tire_amount_user" required="1"
+                                                attrs="{'column_invisible':[('parent.inspection_type','in','tread_inspection')]}"/>
+                                            <field name='before_temp' readonly='1' attrs="{'column_invisible':[('parent.inspection_type','in','tread_inspection')]}"/>
+                                            <field name='before_pressure' readonly='1' attrs="{'column_invisible':[('parent.inspection_type','in','tread_inspection')]}"/>
+                                            <field name="description"/>
+                                            <field name="tire_status"/>
+                                            <field name="attachment_ids" widget="many2many_binary"/>
+                                        </tree>
+                                    </field>
+                                <!-- </group> -->
+                            </page>
+                            <page string="Тэмдэглэл">
+                                <div class="oe_clear">
+                                    <label for="maintenance_note"/>
+                                </div>
+                                <field name="maintenance_note"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tire_inspection_search" model="ir.ui.view">
+            <field name="name">Tire inspection search</field>
+            <field name="model">tire.inspection</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group string="Filters">
+                        <field name="name"/>
+                        <field name="date_inspection"/>
+                        <field name="technic_id"/>
+                        <field name="branch_id"/>
+                        <filter string="Дууссан" domain="[('state','=','done')]" name="done"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group by...">
+                        <filter string="Жилээр" context="{'group_by':'date_inspection:year'}"
+                            name="year"/>
+                        <filter string="Сараар" context="{'group_by':'date_inspection:month'}"
+                            name="month" />
+                        <filter string="Өдрөөр" context="{'group_by':'date_inspection:day'}"
+                            name="day"/>
+                        <filter string="Төлөв" icon="terp-stage" domain="" context="{'group_by':'state'}" name="state"/>
+                        <filter string="Ээлж" domain="" context="{'group_by':'shift'}"
+                            name="shift"/>
+                        <filter string="Үзлэгийн төрөл" domain=""
+                            context="{'group_by':'inspection_type'}"
+                            name="inspection_type"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_tire_inspection" model="ir.actions.act_window">
+            <field name="name">Дугуйн үзлэг</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tire.inspection</field>
+            <field name="context">{"search_default_groupby_date":True,"search_default_groupby_day":True}</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="view_id" ref="view_tire_inspection_tree"/>
+        </record>
+
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ########  Техникийн COMPONENT бүртгэл ######## -->
+    <record model='ir.ui.view' id='technic_component_part_tree'>
+        <field name="name">Technic component part tree</field>
+        <field name="model">technic.component.part</field>
+        <field name="inherit_id" ref="mw_technic_equipment.technic_component_part_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+    
+    <record model='ir.ui.view' id='technic_component_part_form'>
+        <field name="name">Technic component form</field>
+        <field name="model">technic.component.part</field>
+        <field name="inherit_id" ref="mw_technic_equipment.technic_component_part_form"/>
+        <field name="arch" type="xml">
+            <field name="branch_id" position="after">
+                <field name="company_id" options="{'no_create':True}" groups="base.group_multi_company"/>
+            </field>
+        </field>
+    </record>
+    
+</odoo>

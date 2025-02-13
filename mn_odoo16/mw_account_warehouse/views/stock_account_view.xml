@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="view_account_move_line_wh_form" model="ir.ui.view">
+        <field name="name">account.move.line.extened.wh</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group col="4" groups="stock.group_stock_user">
+                    <field name="stock_warehouse_id" />
+                </group>
+            </notebook>
+        </field>
+    </record>
+    
+   <record id="stock_warehouse_form_branch_цх" model="ir.ui.view">
+        <field name="name">stock.warehouse.form.branch.wh</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="rec_account_id" />
+                <field name="pay_account_id" />  
+                <field name="analytic_distribution" string="Шинжилгээ" widget="analytic_distribution"/>
+            </field>
+        </field>
+    </record>    
+
+</odoo>

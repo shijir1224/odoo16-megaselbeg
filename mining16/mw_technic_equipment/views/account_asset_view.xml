@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_view_account_asset_inherit" model="ir.ui.view">
+		<field name="name">account.asset.form</field>
+		<field name="model">account.asset</field>
+		<field name="inherit_id" ref="mw_asset.inherit_view_account_asset"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='car_number']" position="before">
+				<field name="technic_id" options="{'no_create': True}"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

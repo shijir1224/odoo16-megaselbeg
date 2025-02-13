@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Sales plan -->
+	<record id="partner_special_product_plan_filter_view" model="ir.ui.view">
+        <field name="name">partner.special.product.plan.filter</field>
+        <field name="model">partner.special.product.plan</field>
+        <field name="arch" type="xml">
+            <search string="Sales master plan">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="crm_team_id"/>
+                <field name="salesman_id"/>
+                <filter string="Confirmed" domain="[('state','in',['confirmed'])]" name="confirmed"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by':'salesman_id'}" 
+                        string="Salesman" name="salesman_id"/>
+                    <filter context="{'group_by':'crm_team_id'}" 
+                        string="Team" name="team"/>
+                    <filter context="{'group_by':'state'}" string="State" name="state"/>
+            	</group>
+            </search>
+        </field>
+    </record>
+
+    <!-- MAIN FORM -->
+	<record id="partner_special_product_plan_form_view" model="ir.ui.view">
+		<field name="name">partner.special.product.plan.form</field>
+		<field name="model">partner.special.product.plan</field>
+		<field name="arch" type="xml">
+            <form string="Sales plan">
+                <header>
+                    <button name="action_to_draft" string="Draft"  
+                        type="object"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Approve"  
+                        states="draft" type="object" />
+                    <field name="state" widget="statusbar" 
+                        statusbar_visible="draft,confirmed" readonly="1" />
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="date"/>
+                    </div>
+                    <group col="4">
+                        <field name="crm_team_id" options="{'no_create': True}"/>
+                        <newline/>
+
+                        <field name="salesman_id" options="{'no_create': True}"/>
+                        <field name="must_sale"/>
+                        
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <group col="4" string="Харилцагчийн ангилал">
+                        <field name="partner_category_ids" options="{'no_create': True}"
+                            widget="many2many_tags" nolabel="1"/>
+                    </group>
+                    <group col="4" string="Харилцагчид">
+                        <field name="partner_ids" options="{'no_create': True}"
+                            widget="many2many_tags" nolabel="1"/>
+                    </group>
+                    <group col="4" string="Бараанууд">
+                        <field name="line_ids" nolabel="1" colspan="4" mode="tree" >
+                            <tree string="Lines" editable="bottom">
+                                <field name="product_id" options="{'no_create': True}"/>
+                                <field name="qty" sum="Total"/>
+                            </tree>
+                        </field>
+                    </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="partner_special_product_plan_tree_view" model="ir.ui.view">
+        <field name="name">partner.special.product.plan.tree</field>
+        <field name="model">partner.special.product.plan</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="crm_team_id"/>
+                <field name="salesman_id"/>
+                <field name="partner_category_ids"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model='ir.actions.act_window' id='action_partner_special_product_plan'>
+        <field name="name">Sales master plan</field>
+        <field name="res_model">partner.special.product.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('partner_special_product_plan_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('partner_special_product_plan_form_view')})]"/>
+    </record>
+
+</odoo>

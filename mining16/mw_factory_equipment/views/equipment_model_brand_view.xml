@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- ########  Техникийн тохиргоо ######## -->
+		<record model='ir.ui.view' id='factory_equipment_setting_tree'>
+			<field name="name">Equipment setting tree</field>
+			<field name="model">factory.equipment.setting</field>
+			<field name="arch" type="xml">
+				<tree string="Setting">
+					<field name="name"/>
+					<field name="technic_type" />
+					<field name="model_id"/>
+					<!-- <field name="rubber_tired" optional="show"/> -->
+					<field name="is_tbb_report" optional="show"/>
+					<field name="is_tbb_mining" optional="show"/>
+					<!-- <field name="work_time_per_day" optional="show"/> -->
+					<!-- <field name="pm_material_config" optional="show"/> -->
+					<field name="carrying_capacity" optional="hide"/>
+					<field name="carrying_tonnage" optional="hide"/>
+					<field name="blade_width" optional="hide"/>
+					<field name="blade_capacity" optional="hide"/>
+					<field name="bucket_capacity" optional="hide"/>
+					<field name="lifting_capacity" optional="hide"/>
+					<field name="power_capacity" optional="hide"/>
+					<field name="electric_current" optional="hide"/>
+					<field name="pressure_capacity" optional="hide"/>
+					<field name="volume" optional="hide"/>
+					<field name="operating_weight" optional="hide"/>
+					<field name="seats" optional="hide"/>
+					<field name="vibration_power" optional="hide"/>
+					<field name="body_length" optional="hide"/>
+					<field name="body_width" optional="hide"/>
+					<field name="body_height" optional="hide"/>
+					<field name="operating_weight" optional="hide"/>
+					<field name="engine_type" optional="hide"/>
+					<field name="engine_mark" optional="hide"/>
+					<field name="engine_power" optional="hide"/>
+					<field name="engine_capacity" optional="hide"/>
+					<field name="fuel_tank_capacity" optional="hide"/>
+					<!-- <field name="engine_design" optional="hide"/> -->
+					<!-- <field name="fuel_type" optional="hide"/> -->
+					<!-- <field name="technic_sub_type" invisible="1"/>
+					<field name="odometer_unit" />
+					<field name="transmission" />
+					<field name="fuel_type" />
+					<field name="report_order" />
+					<field name="company_id"/>
+					<button name="set_default_pm_line" string='PM тохиргоо загвар оруулах /Dev Mode/' type="object" groups="base.group_no_one"/> -->
+				</tree>
+			</field>
+		</record>
+		<record model='ir.ui.view' id='factory_equipment_setting_form'>
+			<field name="name">Equipment setting form</field>
+			<field name="model">factory.equipment.setting</field>
+			<field name="priority" eval="1"/>
+			<field name="mode">primary</field>
+			<field name="arch" type="xml">
+				<form string="Setting form">
+					<sheet>
+						<group>
+							<field name="company_id"/>
+						</group>
+						<group col="4" string="Ерөнхий мэдээлэл">
+							<field name="model_id" options="{'no_create':True}"/>
+							<field name="technic_type" />
+
+							<field name="odometer_unit" />
+							<field name="inspection_config_id" options="{'no_create':True}"/>
+
+							<!-- <field name="rubber_tired" /> -->
+
+							<field name="is_plan_by_time" force_save='1'/>
+							<field name="is_tbb_report" force_save='1'/>
+							<field name="is_tbb_mining" force_save='1'/>
+
+							<field name="work_time_per_day" />
+						</group>
+						<!-- <group col="4" string="Баталгааны мэдээлэл">
+							<field name="warranty_period" />
+							<field name="warranty_odometer" />
+						</group> -->
+						<group col="4" string="Үндсэн үзүүлэлт">
+							<field name="carrying_capacity"
+								attrs="{'invisible':[('technic_type','not in',['dump','water_truck','achaanii_mashin'])], 'required':[('technic_type','in',['dump','water_truck','achaanii_mashin'])]}"/>
+							<field name="carrying_tonnage"
+								attrs="{'invisible':[('technic_type','not in',['dump','water_truck','service_car','achaanii_mashin'])], 'required':[('technic_type','in',['dump','water_truck','service_car','achaanii_mashin'])]}"/>
+
+							<field name="blade_width"
+								attrs="{'invisible':[('technic_type','not in',['grader'])], 'required':[('technic_type','in',['grader'])]}"/>
+							<field name="blade_capacity"
+								attrs="{'invisible':[('technic_type','not in',['dozer','wheel_dozer'])], 'required':[('technic_type','in',['dozer','wheel_dozer'])]}"/>
+
+							<field name="bucket_capacity"
+								attrs="{'invisible':[('technic_type','not in',['excavator','loader','wheel_excavator'])], 'required':[('technic_type','in',['excavator','loader','wheel_excavator'])]}"/>
+							<field name="lifting_capacity"
+								attrs="{'invisible':[('technic_type','not in',['mechanizm'])], 'required':[('technic_type','in',['mechanizm'])]}"/>
+
+							<field name="power_capacity"
+								attrs="{'invisible':[('technic_type','not in',['light_tower','electric_generator','welding_machine'])], 'required':[('technic_type','in',['light_tower','electric_generator','welding_machine'])]}"/>
+							<field name="electric_current"
+								attrs="{'invisible':[('technic_type','not in',['welding_machine'])], 'required':[('technic_type','in',['welding_machine'])]}"/>
+
+							<field name="pressure_capacity"
+								attrs="{'invisible':[('technic_type','not in',['water_truck','service_car','air_compressor','fire_truck'])], 'required':[('technic_type','in',['water_truck','service_car','air_compressor','fire_truck'])]}"/>
+							<field name="volume"
+								attrs="{'invisible':[('technic_type','not in',['tank_truck','air_compressor','fire_truck'])], 'required':[('technic_type','in',['tank_truck','air_compressor','fire_truck'])]}"/>
+
+							<field name="operating_weight"
+								attrs="{'invisible':[('technic_type','not in',['excavator','loader','dozer','grader','dump','water_truck','service_car','mechanizm','transportation_vehicle','wheel_excavator','wheel_dozer','fire_truck','ambulance_car'])],
+								'required':[('technic_type','in',['excavator','loader','dozer','grader','dump','water_truck','service_car','mechanizm','transportation_vehicle','wheel_excavator','wheel_dozer','fire_truck','ambulance_car'])]}"/>
+							<field name="seats"
+								attrs="{'invisible':[('technic_type','not in',['passenger_bus'])],'required':[('technic_type','in',['passenger_bus'])]}"/>
+							<field name="vibration_power"
+								attrs="{'invisible':[('technic_type','not in',['indvv'])],
+								'required':[('technic_type','in',['indvv'])]}"/>
+							<field name="work_mass" attrs="{'invisible':[('technic_type','not in',['asphalt_flatener'])]}"/>
+							<field name="length_flat_min" attrs="{'invisible':[('technic_type','not in',['asphalt_flatener'])]}"/>
+							<field name="length_flat_max" attrs="{'invisible':[('technic_type','not in',['asphalt_flatener'])]}"/>
+							<field name="bunker_capacity" attrs="{'invisible':[('technic_type','not in',['asphalt_flatener'])]}"/>
+						</group>
+						<notebook>
+							<page string="Компонентын тохиргоо" name="component">
+								<group col="4">
+									<field name="id" invisible="1"/>
+									<field name="component_config_line2" nolabel="1" colspan="4">
+										<tree>
+											<field name="sequence"/>
+											<field name="component_id" options="{'no_create':True}"/>
+											<field name="norm_odometer" string="Orignal norm"/>
+											<field name="norm_overhaul_odometer"/>
+											<field name="norm_reseal_odometer"/>
+											<field name="norm_dcheck_odometer"/>
+											<field name="work_time" widget="float_time"/>
+											<field name="work_time_overhaul" widget="float_time"/>
+											<field name="work_time_reseal" widget="float_time"/>
+											<field name="qty"/>
+											<field name="position_x"/>
+											<field name="position_y"/>
+										</tree>
+										<form>
+											<group col="4">
+												<field name="sequence"/>
+												<field name="component_id" options="{'no_create':True}"/>
+
+												<field name="norm_odometer" string="Orignal norm"/>
+												<field name="work_time" widget="float_time"/>
+
+												<field name="norm_overhaul_odometer"/>
+												<field name="work_time_overhaul" widget="float_time"/>
+
+												<field name="norm_reseal_odometer"/>
+												<field name="work_time_reseal" widget="float_time"/>
+
+												<field name="norm_dcheck_odometer"/>
+												<field name="work_time_dcheck" widget="float_time"/>
+
+												<field name="qty"/>
+												<newline/>
+
+												<field name="position_x"/>
+												<field name="position_y"/>
+
+												<field name="amount_exchange"/>
+												<field name="amount_overhaul"/>
+
+												<field name="amount_reseal"/>
+												<field name="amount_d_check"/>
+											</group>
+										</form>
+									</field>
+									<newline/>
+									<!-- <field name="pic_width"/>
+									<field name="pic_height"/> -->
+								</group>
+							</page>
+							<page string="PM Засварын тохиргоо">
+								<field name="pm_material_config" nolabel="1">
+									<tree>
+										<field name="priority"/>
+										<field name="maintenance_type_id"/>
+										<field name="interval" />
+										<field name="work_time" widget="float_time"/>
+										<field name="total_man_hours" widget="float_time"/>
+										<field name="total_amount" sum="Total"/>
+										<field name="inspection_setting_id"/>
+									</tree>
+									<form>
+										<group>
+											<group>
+												<field name="maintenance_type_id"
+													options="{'no_create':True}"/>
+												<label for="interval" string="Interval"/>
+												<div name="interval_uom">
+													<field name="interval" class="oe_inline"/>
+													<span >
+														<field name="interval_uom" class="oe_inline"/>
+													</span>
+												</div>
+
+												<field name="priority"/>
+												<field name="work_time" widget="float_time"/>
+											</group>
+											<group>
+												<field name="total_amount" />
+												<field name="total_man_hours" widget="float_time"/>
+
+												<field name="inspection_setting_id"
+													options="{'no_create':True}"/>
+												<button name="copy_pm_lines" string="Copy paste" type="object" class="btn-warning"
+													groups="mw_technic_maintenance.group_maintenance_planner"/>
+											</group>
+										</group>
+										<label for="pm_material_line" string="Хэрэглэх материал"/>
+										<field name="pm_material_line" nolabel="1">
+											<tree editable="bottom">
+												<field name="template_id" options="{'no_create':True}"/>
+												<field name="material_id" readonly='1'/>
+												<field name="is_depend_season" />
+												<field name="price_unit" />
+												<field name="qty" />
+												<field name="amount" sum="Total"/>
+												<field name="warehouse_id" required="0"
+													options="{'no_create':True}"/>
+											</tree>
+										</field>
+										<label for="employee_man_hour_line" string="Ажиллах хүн цагийн мэдээлэл"/>
+										<field name="employee_man_hour_line" nolabel="1">
+											<tree editable="bottom">
+												<field name="job_id" options="{'no_create':True}"/>
+												<field name="qty" sum="Нийт"/>
+											</tree>
+										</field>
+										<newline/>
+										<button name="compute_man_hours" 
+											string="Compute man hours" type="object"
+											groups="base.group_no_one" class="btn-warning"/>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="factory_equipment_setting_search">
+			<field name="name">Equipment setting search view</field>
+			<field name="model">factory.equipment.setting</field>
+			<field name="arch" type="xml">
+				<search string="Search">
+					<field name="name"/>
+					<field name="model_id"/>
+					<group expand="1" string="Group By...">
+						<filter  context="{'group_by' : 'odometer_unit'}"
+							string="Гүйлтийн нэгж" name="unit"/>
+						<filter name="groupby_type" context="{'group_by' : 'technic_type'}"
+							string="Техникийн төрөл"/>
+					</group>
+			   </search>
+			</field>
+		</record>
+
+		<record model='ir.actions.act_window' id='action_factory_equipment_setting'>
+			<field name="name">Тоног төхөөрөмжийн тохиргоо, норм</field>
+			<field name="res_model">factory.equipment.setting</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids"
+        eval="[(5,0,0),(0,0,{'view_mode':'tree','view_id': ref('mw_factory_equipment.factory_equipment_setting_tree')}),
+							(0,0,{'view_mode':'form','view_id': ref('mw_factory_equipment.factory_equipment_setting_form')})]"/>
+		</record>
+
+</odoo>

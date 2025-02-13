@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <record id="wizard_repairman_report_view" model="ir.ui.view">
+            <field name="name">Засварчны ажлын тайлан</field>
+            <field name="model">wizard.repairman.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group col="4">
+                        <label string="Эхлэх, дуусах хоёр өдөр тайлант хугацаанд орно!" colspan="4"
+                            for="date_start"/>
+                        <newline/>
+                        <field name="employee_id" options="{'no_create': True}"/>
+                        <newline/>
+                        <field name="date_start" />
+                        <field name="date_end" />
+                        <field name="date_type" />
+                   </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах" colspan="1"/>
+                        <button name="export_report" string="Татах" type="object" colspan="1"  
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                        <button name="see_report" string="Харах" type="object" colspan="1"  
+                            class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_repairman_report" model="ir.actions.act_window">
+            <field name="name">Засварчны ажлын тайлан</field>
+            <field name="res_model">wizard.repairman.report</field>
+            
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_repairman_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+    
+</odoo>

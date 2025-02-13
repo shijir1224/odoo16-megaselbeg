@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_analytic_line_form_mw_prod_account" model="ir.ui.view">
+            <field name="name">account.analytic.line.form.mw_prod.account</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='account_id']" position="after">
+                        <field name="technic_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_account_analytic_line_tree_mw_prod_account" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree.mw_prod.account</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='account_id']" position="after">
+                        <field name="technic_id"/>
+                        <field name="branch_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_account_analytic_line_filter_mw_prod_account" model="ir.ui.view">
+            <field name="name">account.analytic.line.select.mw_prod.account</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='date']" position="after">
+                        <field name="technic_id"/>
+                        <field name="branch_id"/>
+                    </xpath>
+                    <xpath expr="//group[@name='groupby']" position="after">
+                        <filter string="Technic" name="technic" context="{'group_by':'technic_id'}"/>
+                        <filter string="Branch" name="branch" context="{'group_by':'branch_id'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_line_mw_prod_pivot" model="ir.ui.view">
+            <field name="name">account.analytic.line.mw_prod.pivot</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_pivot"/>
+            <field name="arch" type="xml">
+                <field name="account_id" position="after">
+                    <field name="technic_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

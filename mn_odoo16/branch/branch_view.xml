@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <record id="view_res_branch_form" model="ir.ui.view">
+            <field name="name">res.branch.form</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+            	<form string="Branch Information" version="7.0">
+            		<sheet>
+            			<group cols="4">
+            				<group>
+            					<field name="name"/>
+            					<field name="company_id"/>
+            					<field name="telephone_no"/>
+        					</group>
+        					<group>
+            					<field name="address"/>
+            					<field name="category_id"/>
+                                <field name="user_id"/>
+        					</group>
+            			</group>
+                        <group>
+                            <field name="user_ids"/>
+                        </group>
+                        <group>
+                            <field name="main_user_ids"/>
+                        </group>
+        			</sheet>
+    			</form>
+			</field>
+	</record>
+
+
+	<record id="view_res_branch_tree" model="ir.ui.view">
+		<field name="name">res.branch.tree</field>
+		<field name="model">res.branch</field>
+		<field name="arch" type="xml">
+			<tree string="Branch Information">
+				<field name="name"/>
+    				<field name="category_id"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_res_branch_form" model="ir.actions.act_window">
+		<field name="name">Branch</field>
+		<field name="res_model">res.branch</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem action="action_res_branch_form"
+            id="menu_action_res_branch"
+            parent="base.menu_users"
+            />
+
+    <record id="view_sale_order_branch_added_form1" model="ir.ui.view">
+        <field name="name">sale.order.branch.form.extend</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="client_order_ref" position="before">
+                <field name="branch_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_form_extended" model="ir.ui.view">
+        <field name="name">purchase.order.form.extended</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="branch_id" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_kpis_tree_extended" model="ir.ui.view">
+        <field name="name">purchase.order.tree.extended</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="branch_id"/>
+            </xpath>
+        </field>
+    </record>
+
+   <record id="branch_view_account_journal_form_extended" model="ir.ui.view">
+        <field name="name">account.journal.form.extended</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="branch_id"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_user_form_extended" model="ir.ui.view">
+        <field name="name">res.user.form.extended</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <notebook colspan="4" position="inside">
+                <page name="branch" string="Branch">
+                    <group>
+                        <group string='Allowed Branches'>
+                            <label for="branch_ids"/>
+                            <field name="branch_ids" nolabel="1" widget="many2many_tags"/>
+                        </group>
+                        <group string="Main Branch">
+                            <label for="branch_id"/>
+                            <field name="branch_id" nolabel="1"/>
+                        </group>
+                        <xpath expr="//field[@name='tz']" position="after">
+                            <group colspan="4" string='Cash journal'>
+                                <field name="cash_journal_id" 
+                                    options="{'no_create':True}"/>
+                            </group>
+                        </xpath>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_user_preference_form_extended" model="ir.ui.view">
+        <field name="name">res.user.preference.form.extended</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id" widget="selection"/>
+                </xpath>
+        </field>
+    </record>
+<!-- 
+    <record id="view_account_invoice_branch_form1" model="ir.ui.view">
+        <field name="name">account.invoice.branch.extened</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="date_invoice" position="after">
+                <field name="branch_id"/>
+            </field>
+	        	<xpath expr="//form/sheet/notebook/page/field/tree/field[@name='account_id']" position="after">
+                       <field name="branch_id" />
+			</xpath> 
+            <xpath expr="//field[@name='amount_untaxed']" position="after">
+	              <button name="compute_taxes" colspan="2" class="oe_inline oe_link oe_edit_only" type="object" states="draft" string="compute" groups="account.group_account_invoice"/> 
+            </xpath>
+        </field>
+    </record> 
+
+    <record id="view_account_invoice_supplier_branch_form1" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.branch.extened</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="date_invoice" position="after">
+                <field name="branch_id"/>
+            </field>
+	        	<xpath expr="//form/sheet/notebook/page/field/tree/field[@name='account_id']" position="after">
+                       <field name="branch_id" />
+			</xpath> 
+            <xpath expr="//field[@name='amount_untaxed']" position="after">
+	              <button name="compute_taxes" colspan="2" class="oe_inline oe_link oe_edit_only" type="object" states="draft" string="compute" groups="account.group_account_invoice"/> 
+            </xpath>
+        </field>
+    </record>-->
+
+    
+
+<!-- 
+    <record id="view_account_voucher_branch_wizard_form1" model="ir.ui.view">
+        <field name="name">account.voucher.branch.wizard.extened</field>
+        <field name="model">account.voucher</field>
+        <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="branch_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_voucher_branch_form1" model="ir.ui.view">
+        <field name="name">account.voucher.branch.extened</field>
+        <field name="model">account.voucher</field>
+        <field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="branch_id"/>
+            </field>
+        </field>
+    </record>
+ -->
+    <!--<record id="view_account_bankstatement_branch_form1" model="ir.ui.view">
+        <field name="name">account.bank.statement.branch.extened</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="branch_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_cashregister_branch_form1" model="ir.ui.view">
+        <field name="name">account.cash.register.branch.extened</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+        <field name="arch" type="xml">
+            <field name="period_id" position="after">
+                <field name="branch_id"/>
+            </field>
+        </field>
+    </record>-->
+
+
+    <record id="view_product_product_inherit_form1" model="ir.ui.view">
+        <field name="name">product.product.extened</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="before">
+                <field name="id"/>
+            </xpath>
+        </field>
+    </record>
+
+
+	
+
+
+<record id="view_account_move_line_form" model="ir.ui.view">
+        <field name="name">account.move.line.extened</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
+                <field name="branch_id" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+	<record id="view_account_move_line_tree_mw" model="ir.ui.view">
+        <field name="name">account.move.line.mw</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tax_tag_ids']" position="after">
+                <field name="branch_id" />
+            </xpath>
+        </field>
+    </record>
+
+	<!-- <record id="view_banck_statement_branch_view" model="ir.ui.view">
+        <field name="name">account.bank.statement.branch</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_id']" position="after">
+                <field name="branch_id"/>
+            </xpath>
+           <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
+                <field name="branch_res_id"/>
+                <field name="tax_id"/>
+           </xpath>
+        </field>
+    </record> -->
+    
+    <!-- <record id="view_bank_statement_form" model="ir.ui.view">
+        <field name="name">account.bank.statement.form</field>
+        <field name="model">account.bank.statement</field>
+        <field name="arch" type="xml">
+            <form string="Bank Statement">
+                <header>
+                    <button string="Post" states="open" class="oe_highlight" name="button_post" type="object"/>
+                    <button string="Validate" class="oe_highlight" name="button_validate_or_action" type="object" attrs="{'invisible':['|', '|', ('all_lines_reconciled', '=', False), ('line_ids','=',[]), ('state', '!=', 'posted')]}"/>
+                    <button string="Reset to New" name="button_reopen" type="object" attrs="{'invisible': [('state', '!=', 'posted')]}"/>
+                    <button string="Reset to Processing" name="button_reprocess" type="object" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,posted,confirm"/>
+                </header>
+                <div class="alert alert-warning" role="alert" attrs="{'invisible': ['|', ('previous_statement_id', '=', False), ('is_valid_balance_start', '=', True)]}">
+                    The starting balance <b>doesn't match</b> with the ending balance of the previous bank statement.
+                </div>
+                <sheet>
+                    <field name="all_lines_reconciled" invisible="1"/>
+                    <field name="move_line_count" invisible="1"/>
+                    <field name="country_code" invisible="1"/>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="button_journal_entries" string="Journal Entries" type="object" attrs="{'invisible':[('move_line_count','=', 0)]}" icon="fa-bars"/>
+                    </div>
+
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. BNK/2021/0001"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="previous_statement_id" invisible="1"/>
+                            <field name="is_valid_balance_start" invisible="1"/>
+                            <field name="journal_type" invisible="1"/>
+                            <field name="cashbox_start_id" invisible="1"/>
+                            <field name="cashbox_end_id" invisible="1"/>
+                            <field name="journal_id" domain="[('type', '=', journal_type)]" attrs="{'readonly': [('move_line_count','!=', 0)]}" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="branch_id"/>
+                            <field name="date" attrs="{'readonly': [('state', '!=', 'open')]}" options="{'datepicker': {'warn_future': true}}"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group><group>
+                            <label for="balance_start"/>
+                            <div>
+                                <field name="balance_start" class="oe_inline" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <button name="open_cashbox_id" attrs="{'invisible': ['|',('state','!=','open'),('journal_type','!=','cash')]}" string="→ Count" type="object" class="oe_edit_only oe_link oe_inline" context="{'balance':'start'}"/>
+                            </div>
+                            <label for="balance_end_real"/>
+                            <div>
+                                <field name="balance_end_real" class="oe_inline" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <button name="open_cashbox_id" attrs="{'invisible': ['|',('state','!=','open'),('journal_type','!=','cash')]}" string="→ Count" type="object" class="oe_edit_only oe_link oe_inline" context="{'balance':'close'}"/>
+                            </div>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Transactions" name="statement_line_ids">
+                            <field name="line_ids" attrs="{'readonly': [('state', '!=', 'open')]}" context="{'default_date': date, 'default_journal_id': journal_id}">
+                                <tree string="Statement lines" editable="bottom" decoration-muted="is_reconciled" limit="500">
+
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="is_reconciled" invisible="1"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="partner_bank_id" invisible="1"/>
+                                    <field name="country_code" invisible="1"/>
+
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="date" attrs="{'readonly': [('parent.state', '!=', 'open')]}"/>
+                                    <field name="payment_ref"/>
+                                    <field name="partner_id" attrs="{'readonly': [('parent.state', '!=', 'open')]}" domain="['|', ('parent_id','=', False), ('is_company','=',True)]"/>
+                                    <field name="branch_res_id"/>
+                                    <field name="tax_id"/>
+                                    <field name="ref" optional="hidden"/>
+                                    <field name="narration" string="Notes" optional="hidden"/>
+                                    <field name="transaction_type" optional="hidden"/>
+                                    <field name="amount_currency" optional="hidden" groups="base.group_multi_currency" attrs="{'readonly': [('parent.state', '!=', 'open')]}"/>
+                                    <field name="foreign_currency_id" optional="hidden" groups="base.group_multi_currency" attrs="{'readonly': [('parent.state', '!=', 'open')]}"/>
+                                    <field name="amount" attrs="{'readonly': [('parent.state', '!=', 'open')]}"/>
+                                    <field name="account_number" optional="hidden"/>
+
+                                    <button name="button_undo_reconciliation" type="object" attrs="{'invisible': [('is_reconciled', '=', False)], 'column_invisible': [('parent.state', '!=', 'posted')]}" string="Revert reconciliation" icon="fa-undo"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="balance_end"/>
+                        </div>
+                        <field name="balance_end" nolabel="1" class="oe_subtotal_footer_separator"/>
+                    </group>
+                    <div class="oe_clear"/>
+                </sheet>
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record> -->
+
+    <record id="view_bank_statement_tree_inherit_branch" model="ir.ui.view">
+        <field name="name">account.bank.statement.branch.tree</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_tree"/>
+        <field name="arch" type="xml">
+               <xpath expr="//tree/field[@name='journal_id']" position="after">
+                <field name="branch_id" />
+            </xpath>
+       </field> 
+    </record>    
+<!-- 
+    <record id="view_account_refund_view" model="ir.ui.view">
+        <field name="name">account.refund.view</field>
+        <field name="model">account.invoice.refund</field>
+        <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+        <field name="arch" type="xml">
+            <field name="date_invoice" position="after">
+                <field name="branch_id"/>
+            </field>
+        </field>
+    </record>
+ -->
+	<record id="account_payment_form_with_branch" model="ir.ui.view">
+            <field name="name">account.payment.branch.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="branch_id"
+                           options="{'no_create': True}"/>
+                    <field name="create_uid" readonly="1"
+                           options="{'no_create': True}"/>
+                </field>
+            </field>
+      </record>
+
+
+    <record id="branch_move_extended" model="ir.ui.view">
+            <field name="name">Branch Move</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <field name="ref" position="after">
+						<field name="branch_id"/>
+                </field>
+            </field>
+        </record>
+        
+	<!-- <record id="view_account_asset_asset_form_mw" model="ir.ui.view">
+        <field name="name">account.asset.mw</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_id']" position="after">
+                <field name="branch_id" attrs="{'readonly':[('state','!=','draft')]}" required="1"/>
+            </xpath>
+        </field>
+    </record>
+    
+
+	<record id="view_account_asset_asset_purchase_tree_mw" model="ir.ui.view">
+        <field name="name">account.asset.tree.mw</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_purchase_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='value_residual']" position="after">
+                <field name="branch_id"/>
+            </xpath>
+        </field>
+    </record>             -->
+    
+
+<!-- branch category -->
+    <record id="view_res_branch_category_form" model="ir.ui.view">
+            <field name="name">res.branch.category.form</field>
+            <field name="model">res.branch.category</field>
+            <field name="arch" type="xml">
+            	<form string="Branch Information" version="7.0">
+            		<sheet>
+            			<group cols="4">
+            				<group>
+            					<field name="name"/>
+            					<field name="company_id"/>
+            					<field name="telephone_no"/>
+        					</group>
+        					<group>
+            					<field name="address"/>
+        					</group>
+            			</group>
+        			</sheet>
+    			</form>
+			</field>
+	</record>
+
+
+	<record id="view_res_branch_category_tree" model="ir.ui.view">
+		<field name="name">res.branch.category.tree</field>
+		<field name="model">res.branch.category</field>
+		<field name="arch" type="xml">
+			<tree string="Branch Information">
+				<field name="name"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_res_branch_category_form" model="ir.actions.act_window">
+		<field name="name">Branch category</field>
+		<field name="res_model">res.branch.category</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem action="action_res_branch_category_form"
+            id="menu_action_res_branch_category"
+            parent="base.menu_users"
+            />
+    
+    </data>
+</openerp>

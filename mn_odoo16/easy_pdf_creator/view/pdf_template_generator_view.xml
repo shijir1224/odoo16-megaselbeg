@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- <act_window name="Олноор нь нээх, дуусгах"
+			res_model="selected.maintenance.workorder.open"
+			binding_model="maintenance.workorder"
+			view_mode="form"
+			view_id = "selected_maintenance_workorder_open_form"
+			target="new"
+			id="selected_maintenance_workorder_open_action"/> -->
+
+	<record id="action_pdf_output_view" model="ir.ui.view">
+		<field name="name">action.pdf.output.view</field>
+		<field name="model">report.pdf.output</field>
+		<field name="arch" type="xml">
+			<form string="Report Options" create='false' delete='false' edit='false'>
+				<group col="4">
+					<field name="name" />
+					<field name="data" nolabel="1" readonly="1" filename="name"/>
+				</group>
+				<group col="1">
+					<button icon="gtk-close" special="cancel" string="Close" type="object" colspan='4'/>
+				</group>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_pdf_output_tree_view" model="ir.ui.view">
+		<field name="name">action.pdf.output.tree.view</field>
+		<field name="model">report.pdf.output</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Report Options" create='false' delete='false' edit='false'>
+				<field name="name" select="1"/>
+				<field name="data"/>
+				<field name="date" select="1"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="action_report_pdf_output" model="ir.actions.act_window">
+		<field name="name">pdf Report Output</field>
+		<field name="res_model">report.pdf.output</field>
+		<field name="view_mode">tree,form</field>
+		<field name="target">current</field>
+	</record>
+
+	<!-- <template id="assets_backend" name="PDF template CSS" inherit_id="web.assets_backend">
+		<xpath expr="." position="inside">
+			<link rel="stylesheet" href="/easy_pdf_creator/static/css/base.css"/>
+		</xpath>
+	</template> -->
+
+	<record id="pdf_template_generator_search_view" model="ir.ui.view">
+		<field name="name">pdf.template.generator.search</field>
+		<field name="model">pdf.template.generator</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<field name="name"/>
+				<field name="model_id"/>
+				<group expand="1" string="Group By">
+					<filter string="Model" name="model" context="{'group_by':'model_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record model='ir.ui.view' id='pdf_template_generator_form'>
+		<field name="name">pdf.template.generator.form</field>
+		<field name="model">pdf.template.generator</field>
+		<field name="arch" type="xml">
+			<form string="Temlate form">
+				<sheet>
+					<group string="General">
+						<group>
+							<field name="name"/>
+							<field name="orientation"/>
+							<field name="lang_id"/>
+							<field name="disable_smart_shrinking"/>
+							<field name="page_width" attrs="{'invisible':[('paper_size','!=','custom')],'required':[('paper_size','=','custom')]}"/>
+						</group>
+						<group>
+							<field name="model_id" required="1"/>
+							<field name="paper_size"/>
+							<field name="auto_page_number"/>
+							<field name="company_id" options="{'no_create':True}"/>
+							<field name="page_height" attrs="{'invisible':[('paper_size','!=','custom')],'required':[('paper_size','=','custom')]}"/>
+						</group>
+					</group>
+					<group string="Margins">
+						<group>
+							<field name="margin_top"/>
+							<field name="margin_left"/>
+						</group>
+						<group>
+							<field name="margin_bottom"/>
+							<field name="margin_right"/>
+						</group>
+					</group>
+					<div style="border: 1px solid #dddddd; width:100%%;">
+						<label for="template_text" class="oe_edit_only" string="Template"/>
+						<field name="template_text" placeholder="Insert template" style="border: 1px solid #dddddd;" options="{'codeview': true}"/>
+					</div>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="pdf_template_generator_tree_view" model="ir.ui.view">
+		<field name="name">pdf.template.generator.tree</field>
+		<field name="model">pdf.template.generator</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="company_id"/>
+				<field name="name"/>
+				<field name="lang_id"/>
+				<field name="model_id"/>
+				<field name="paper_size"/>
+				<field name="orientation"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_pdf_template_generator'>
+		<field name="name">Action easy pdf</field>
+		<field name="res_model">pdf.template.generator</field>
+		<field name="search_view_id" ref="pdf_template_generator_search_view"/>
+		<!-- <field name="context">{'search_default_parent':1}</field> -->
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

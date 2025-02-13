@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="mw_view_inventory_form_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.inherit</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="mw_stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <field name="many_categ_ids" position="after">
+                <field name="brand_ids" widget="many2many_tags" attrs="{'required': [('filter_inv','in',['brand'])], 'invisible': [('filter_inv','not in',['brand'])], 'readonly': [('state','in',['confirm','done','cancel'])]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

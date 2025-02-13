@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="menu_hse_danger" name="Байгаль Орчин" parent="mw_hse.main_menu_hse" sequence="4"/>
+		<menuitem id="menu_hse_danger_halm" name="ХАЛМ" parent="menu_hse_danger" action="action_hse_danger_halm" sequence="1"/>
+		<menuitem id="menu_hse_danger_halm_registration" name="Химийн бодисын бүртгэл" parent="menu_hse_danger" action="action_hse_danger_registration" sequence="2"/>	
+		<menuitem id="menu_hse_water_registration" name="Усны бүртгэл" parent="menu_hse_danger" action="action_hse_water_registration" sequence="3"/>
+	<menuitem id="menu_hse_water" name="Байгаль орчин" parent="mw_hse.menu_hse_config" sequence="10"/>
+		<menuitem id="menu_hse_city_code" name="Аймаг/хот" parent="menu_hse_water" action="action_hse_city_code" sequence="1"/>
+		<menuitem id="menu_hse_water_car" name="Машины мэдээлэл" parent="menu_hse_water" action="action_hse_water_car" sequence="2"/>
+		<menuitem id="menu_hse_water_well" name="Худгийн мэдээлэл" parent="menu_hse_water" action="action_hse_water_well" sequence="3"/>
+</odoo>

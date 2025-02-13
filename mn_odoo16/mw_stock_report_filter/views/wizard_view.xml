@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_detailed_income_expense_view_filter" model="ir.ui.view">
+        <field name="name">product.detailed.income.expense wizard filter</field>
+        <field name="model">product.detailed.income.expense</field>
+        <field name="inherit_id" ref="mw_stock_product_report.product_detailed_income_expense_view"/>
+        <field name="arch" type="xml">
+            <button name="open_analyze_view" position="after">
+                <button name="open_analyze_view_full" attrs="{'invisible': [('move_type', '!=', 'income_expense')]}" string="Харах Дэлгэрэнгүй" type="object"  icon="fa-eye" class="btn-warning"/>
+            </button>
+        </field>
+    </record>
+</odoo>

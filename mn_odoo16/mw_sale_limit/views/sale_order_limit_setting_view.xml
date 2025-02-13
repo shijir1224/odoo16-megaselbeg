@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequences for  -->
+    <record id="seq_sale_order_limit_setting" model="ir.sequence">
+        <field name="name">Sale Order Limit Setting</field>
+        <field name="code">sale.order.limit.setting</field>
+        <field name="prefix">SL/</field>
+        <field name="padding">7</field>
+    </record>
+
+    <!-- Дахин захиалах дүрэм -->
+    <record id="sale_order_limit_setting_form" model="ir.ui.view">
+        <field name="name">sale.order.limit.setting.form</field>
+        <field name="model">sale.order.limit.setting</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Draft"  
+                        states="confirmed" type="object" />
+                    <button name="action_to_confirm" class="oe_highlight" 
+                        string="Confirm" states="draft" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" readonly="1" />
+                </header>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <field name="user_id"/>
+                    </div>
+                    <group col="4">
+                        <label for="warehouse_ids" />
+                        <field name="warehouse_ids" colspan="4" nolabel="1"
+                            options="{'no_create':True}" widget="many2many_tags"/>
+                        <label for="product_ids" />
+                        <field name="product_ids" colspan="4" nolabel="1"
+                            options="{'no_create':True}" widget="many2many_tags"/>
+                        <label for="partner_ids" />
+                        <field name="partner_ids" colspan="4" nolabel="1"
+                            options="{'no_create':True}" widget="many2many_tags"/>
+                        <label for="categ_ids" />
+                        <field name="categ_ids" colspan="4" nolabel="1"
+                            options="{'no_create':True}" widget="many2many_tags"/>
+
+                        <field name="min_qty"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_order_limit_setting_tree_view" model="ir.ui.view">
+        <field name="name">sale.order.limit.setting.tree</field>
+        <field name="model">sale.order.limit.setting</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='confirmed'">
+                <field name="name"/>
+                <field name="warehouse_ids" widget="many2many_tags"/>
+                <field name="product_ids" widget="many2many_tags"/>
+                <field name="categ_ids" widget="many2many_tags"/>
+                <field name="min_qty"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_order_limit_setting_filter_view" model="ir.ui.view">
+        <field name="name">sale.order.limit.setting.filter</field>
+        <field name="model">sale.order.limit.setting</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="warehouse_ids"/>
+                <field name="product_ids"/>
+                <field name="categ_ids"/>
+                <field name="user_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_sale_order_limit_setting'>
+        <field name="name">sale.order.limit.setting.action</field>
+        <field name="res_model">sale.order.limit.setting</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Limit Product Settings"
+        groups="mw_sale_limit.group_sale_limit_user"
+        action="action_sale_order_limit_setting" id="menu_sale_limit_setting"
+        parent="sale.menu_sale_config" sequence="51"/>
+
+</odoo>

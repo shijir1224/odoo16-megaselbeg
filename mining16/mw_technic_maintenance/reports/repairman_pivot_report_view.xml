@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+        <!-- Oil sample report -->
+        <record id="repaiman_pivot_report_tree_view" model="ir.ui.view">
+            <field name="name">repaiman.pivot.report.tree.view</field>
+            <field name="model">repaiman.pivot.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree>
+                    <field name="employee_id" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="spend_time" />
+                    <field name="workorder_id" />
+               </tree>
+            </field>
+        </record>
+
+        <record id="repaiman_pivot_report_form_view" model="ir.ui.view">
+            <field name="name">repaiman.pivot.report.form.view</field>
+            <field name="model">repaiman.pivot.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                <sheet>
+                    <group col="4">
+                        <field name="employee_id" />
+                        <field name="date_start" />
+                        <field name="date_end" />
+                        <field name="spend_time" />
+                        <field name="workorder_id" />
+                        <field name="date" />
+                        <field name="notes" />
+                    </group>
+                </sheet>
+               </form>
+            </field>
+        </record>
+
+        <record id="repaiman_pivot_report_pivot" model="ir.ui.view">
+             <field name="name">repaiman.pivot.report.pivot</field>
+             <field name="model">repaiman.pivot.report</field>
+             <field name="arch" type="xml">
+                 <pivot string="Analysis">
+                    <field name="employee_id" type="row"/>
+                    <field name="spend_time" type="measure"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="repaiman_pivot_report_search" model="ir.ui.view">
+            <field name="name">repaiman.pivot.report.search</field>
+            <field name="model">repaiman.pivot.report</field>
+            <field name="arch" type="xml">
+                <search string="Analysis">
+                    <field name="branch_id"/>
+                    <field name="employee_id"/>
+                    <field name="workorder_id"/>
+                    <separator/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Салбар" name="branch" context="{'group_by':'branch_id'}"/>
+                        <filter string="Workorder" name="wo" context="{'group_by':'workorder_id'}"/>
+                        <filter string="Ажилтанаар" name="employee" context="{'group_by':'employee_id'}"/>
+                        <!-- <filter string="Date (day)" icon="terp-go-day" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (week)" icon="terp-go-week" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (month)" icon="terp-go-month" context="{'group_by':'date:month'}"/>
+                        <filter string="Date (quarter)" icon="terp-go-quarter" context="{'group_by':'date:quarter'}"/>
+                        <filter string="Date (year)" icon="terp-go-year" context="{'group_by':'date:year'}"/> -->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_repaiman_pivot_report_view" model="ir.actions.act_window">
+            <field name="name">Repairman action</field>
+            <field name="res_model">repaiman.pivot.report</field>
+            <field name="view_mode">pivot,tree,form</field>
+            <field name="search_view_id" ref="repaiman_pivot_report_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help"></field>
+        </record>
+
+    
+</odoo>

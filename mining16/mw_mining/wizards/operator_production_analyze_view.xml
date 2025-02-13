@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_operator_production_analyze_wiz_form_view" model="ir.ui.view">
+        <field name="name">preport operator production analyze wizard</field>
+        <field name="model">report.operator.production.analyze.wiz</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+           <form>
+                <group col="4">
+                    <field name="date_start" />
+                    <field name="date_end"/>
+                    <!-- <field name="picking_type_id"/> -->
+                </group>
+                <footer>
+                    <button name="action_to_view" string="Харах" type="object" icon="fa-eye" class="btn-success"/>
+                    <button special="cancel" string="Cancel" type="object" class="btn-default"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+    <record id="action_report_operator_production_analyze_wiz" model="ir.actions.act_window">
+        <field name="name">Operator production report</field>
+        <field name="res_model">report.operator.production.analyze.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="report_operator_production_analyze_wiz_form_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

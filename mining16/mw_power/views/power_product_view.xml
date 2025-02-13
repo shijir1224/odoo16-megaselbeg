@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_power_product_tree" model="ir.ui.view">
+        <field name="name">power.product.tree</field>
+        <field name="model">power.product</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="workorder_id"/>
+                <field name="product_id"/>
+                <field name="product_uom_id"/>
+                <field name="product_qty"/>
+                <field name="available_qty"/>
+                <field name="department_id"/>
+                <field name="cost_unit"/>
+                <field name="total_cost"/>
+                <field name="object_id"/>
+                <field name="device_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_product_search" model="ir.ui.view">
+        <field name="name">power.product.search</field>
+        <field name="model">power.product</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="product_uom_id"/>
+                <field name="workorder_id"/>
+                <field name="date"/>
+                <field name="object_id"/>
+                <field name="device_id"/>
+                <field name="product_qty"/>
+                <field name="available_qty"/>
+
+                <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+                <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                <filter name="octomber" string="Octomber" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+                <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                <filter string="Өдөрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                
+                <filter string="Тоног төхөөрөмж/Цахилгаан/" name='gr_object_id' context="{'group_by':'object_id'}"/>
+                <filter string="Тоног төхөөрөмж" name='gr_device_id' context="{'group_by':'device_id'}"/>
+                <filter string="Төлөвөөр" name='gr_state' context="{'group_by':'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_product_form" model="ir.ui.view">
+        <field name="name">power.product.form</field>
+        <field name="model">power.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="date" attrs="{'readonly': [('workorder_id','!=',False)]}" force_save="1"/>
+                        <field name="workorder_id"/>
+                        <field name="object_id" attrs="{'readonly': [('workorder_id','!=',False)]}" required="0"/>
+                        <field name="device_id" attrs="{'readonly': [('workorder_id','!=',False)]}" required="0"/>
+                        <field name="product_id" attrs="{'readonly': [('workorder_id','!=',False)]}"/>
+                        <field name="product_uom_id"/>
+                        <field name="product_qty" attrs="{'readonly': [('workorder_id','!=',False)]}"/>
+                        <field name="available_qty"/>
+                        <field name="department_id"/>
+                        <field name="cost_unit"/>
+                        <field name="total_cost"/>
+                        <field name="state"/>
+                    </group>
+                    <group string="Зарлагын хөдөлгөөн">
+                        <field name="stock_move_ids" nolabel="1" readonly="1">
+                            <tree decoration-muted="state == 'cancel'">
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="product_uom_qty" sum="SUM"/>
+                                <field name="quantity_done" sum="SUM"/>
+                                <field name="state"/>
+                                <field name="picking_id" string="Баримтын Дугаар"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_product_tree" model="ir.actions.act_window">
+        <field name="name">Зарцуулсан БМ</field>
+        <field name="res_model">power.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'create':False, 'edit':False}</field>
+    </record>
+
+    <record id="action_power_product_tree_cabel" model="ir.actions.act_window">
+        <field name="name">Кабель Судалгаа</field>
+        <field name="res_model">power.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('product_id.power_product_config_ids.type','=','cabel')]</field>
+        <field name="context">{}</field>
+    </record>
+
+
+    <record id="view_power_product_report_tree" model="ir.ui.view">
+        <field name="name">power.product.report.tree</field>
+        <field name="model">power.product.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="workorder_id"/>
+                <field name="product_id"/>
+                <field name="product_uom_id"/>
+                <field name="qty_done"/>
+                <field name="price_unit"/>
+                <field name="sum_qty_done"/>
+                <field name="device_type"/>
+                <field name="power_device_id"/>
+                <field name="device_id"/>
+                <field name="asset_id"/>
+                <field name="level_id"/>
+                <field name="work_type_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_product_report_search" model="ir.ui.view">
+        <field name="name">power.product.report.search</field>
+        <field name="model">power.product.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="workorder_id"/>
+                <field name="product_id"/>
+                <field name="product_uom_id"/>
+                <field name="qty_done"/>
+                <field name="price_unit"/>
+                <field name="sum_qty_done"/>
+                <field name="device_type"/>
+                <field name="power_device_id"/>
+                <field name="device_id"/>
+                <field name="asset_id"/>
+                <field name="level_id"/>
+                <field name="work_type_id"/>
+
+                <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                <filter name="year" string="Энэ жил" domain="[('date','like',time.strftime('%%Y'))]"/>
+                <filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+                <filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+                <filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+                <filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+                <filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+                <filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+                <filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+                <filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+                <filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+                <filter name="octomber" string="Octomber" domain="[('date','like',time.strftime('%%Y-10'))]"/>
+                <filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+                <filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+                <filter string="Жилээр" name='gr_year' context="{'group_by':'date:year'}"/>
+                <filter string="Сараар" name='gr_month' context="{'group_by':'date:month'}"/>
+                <filter string="Өдөрөөр" name='gr_day' context="{'group_by':'date:day'}"/>
+                
+                <!-- <filter string="Тоног төхөөрөмж/Цахилгаан/" name='gr_asset_id' context="{'group_by':'asset_id'}"/>
+                <filter string="Тоног төхөөрөмж" name='gr_device_id' context="{'group_by':'device_id'}"/>
+                <filter string="Төлөвөөр" name='gr_state' context="{'group_by':'state'}"/> -->
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_product_report_form" model="ir.ui.view">
+        <field name="name">power.product.report.form</field>
+        <field name="model">power.product.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="date"/>
+                        <field name="workorder_id"/>
+                        <field name="product_id"/>
+                        <field name="product_uom_id"/>
+                        <field name="qty_done"/>
+                        <field name="price_unit"/>
+                        <field name="sum_qty_done"/>
+                        <field name="device_type"/>
+                        <field name="power_device_id"/>
+                        <field name="device_id"/>
+                        <field name="asset_id"/>
+                        <field name="level_id"/>
+                        <field name="work_type_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_power_report_pivot" model="ir.ui.view">
+        <field name="name">product.report.pivot</field>
+        <field name="model">power.product.report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="asset_id" type="row"/>
+                <field name="qty_done" type="measure"/>
+                <field name="price_unit" type="measure"/>
+                <field name="sum_qty_done" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_power_product_report_tree" model="ir.actions.act_window">
+        <field name="name">Зарцуулсан БМ</field>
+        <field name="res_model">power.product.report</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="context">{'search_default_this_month':1}</field>
+    </record> 
+
+
+    <record id="view_power_product_config_tree" model="ir.ui.view">
+        <field name="name">power.product.config.tree</field>
+        <field name="model">power.product.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_product_config_search" model="ir.ui.view">
+        <field name="name">power.product.config.search</field>
+        <field name="model">power.product.config</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="type"/>
+                <filter string="Төрөл" name='gr_type' context="{'group_by':'type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_product_config_form" model="ir.ui.view">
+        <field name="name">power.product.config.form</field>
+        <field name="model">power.product.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                       <field name="product_id"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_product_config_tree" model="ir.actions.act_window">
+        <field name="name">Цахилгааны Бараа Материалын Тохиргоо</field>
+        <field name="res_model">power.product.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_gr_type':1}</field>
+    </record>
+</odoo>

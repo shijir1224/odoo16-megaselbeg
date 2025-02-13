@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record model="res.groups" id="group_stock_quant_each_price_user">
+            <field name="name">Барааны Нэгж Үнэ, Өртөг Харах</field>
+            <field name="category_id" ref="base.module_category_inventory_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+        </record>
+        <record model="res.groups" id="group_purchase_stock_report_user">
+            <field name="name">Орлогын тайлан Харилцагч харах</field>
+            <field name="category_id" ref="base.module_category_inventory_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+        </record>
+</odoo>

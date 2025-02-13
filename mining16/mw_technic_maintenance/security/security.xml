@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+        <!-- Засварын хэрэглэгч -->
+        <record id="group_maintenance_user" model="res.groups">
+            <field name="name">Засварын хэрэглэгч</field>
+            <field name="comment">Засварын хэрэглэгч</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('mw_technic_equipment.group_technic_module_user'))]"/>
+        </record>
+        <record id="group_maintenance_clerk" model="res.groups">
+            <field name="name">Засварын клерк</field>
+            <field name="comment">Maintenance clerk</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_maintenance_user'))]"/>
+        </record>
+        <record id="group_maintenance_master" model="res.groups">
+            <field name="name">Засварын мастер</field>
+            <field name="comment">Засварын мастер</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_maintenance_clerk'))]"/>
+        </record>
+        <record id="group_maintenance_supervisor" model="res.groups">
+            <field name="name">Засварын ахлах</field>
+            <field name="comment">Maintenance supervisor</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_maintenance_master'))]"/>
+        </record>
+        <record id="group_maintenance_planner" model="res.groups">
+            <field name="name">Засварын төлөвлөгч</field>
+            <field name="comment">Засварын төлөвлөгч, хуваарь гаргагч</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_maintenance_user'))]"/>
+        </record>
+        <record id="group_maintenance_superintendent" model="res.groups">
+            <field name="name">Засварын менежер</field>
+            <field name="comment">Manager</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_maintenance_supervisor'))]"/>
+        </record>
+
+        <record id="group_maintenance_spare_user" model="res.groups">
+            <field name="name">Сэлбэгийн хэрэглэгч</field>
+            <field name="comment">Сэлбэгийн үлдэгдэл харах</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+        </record>
+
+        <record id="group_maintenance_spare_uldegdel_user" model="res.groups">
+            <field name="name">Сэлбэгийн үлдэгдэл шалгах хэрэглэгч</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+        </record>
+
+        <record id="group_sending_messages_from_oil_sample" model="res.groups">
+            <field name="name">Тосны дээжний хариунаас мессеж илгээх ажилчид</field>
+            <field name="comment">Тосны дээжний хариунаас мессеж илгээх ажилчид</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+        </record>
+
+        <record id="group_maintenance_warranty_email_user" model="res.groups">
+            <field name="name">Warranty email илгээх хэрэглэгч</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+        </record>
+        
+        <record id="group_maintenance_invoice_user" model="res.groups">
+            <field name="name">WO invoice үүсгэх хэрэглэгч</field>
+            <field name="category_id" ref="mw_technic_equipment.technic_maintenance_module_category"/>
+        </record>
+
+        <!-- CALL domains -->
+        <record model="ir.rule" id="all_maintenance_call">
+            <field name="name">Бүх ажлын хүсэлтийг харах</field>
+            <field name="model_id" ref="mw_technic_maintenance.model_maintenance_call"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" 
+                eval="[(4,ref('mw_technic_equipment.group_technic_module_admin'))]"/>
+        </record>
+
+        <record model="ir.rule" id="department_maintenance_call">
+            <field name="name">Ажлын хүсэлтийг харах</field>
+            <field name="model_id" ref="mw_technic_maintenance.model_maintenance_call"/>
+            <field name="domain_force">
+                ['|','|',('perform_department_id','=',user.department_id.id),('user_id','=',user.id),('branch_id','in',[w.id for w in user.branch_ids])]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+        
+        <record model="ir.rule" id="company_maintenance_oil_sample">
+            <field name="name">Тосны дээж харах</field>
+            <field name="model_id" ref="mw_technic_maintenance.model_maintenance_oil_sample"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="mw_maintenance_user_rule" model="ir.rule">
+            <field name="name">mw maintenance rule</field>
+            <field name="model_id" ref="mw_technic_maintenance.model_maintenance_workorder"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="mw_plan_generator_rule" model="ir.rule">
+            <field name="name">mw plan generator rule</field>
+            <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan_generator"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('branch_id','in', user.branch_ids.ids),('branch_id','=', False)]</field>
+        </record>
+
+        <record id="mw_maintenance_plan_line" model="ir.rule">
+            <field name="name">mw plan rulemaintenance</field>
+            <field name="model_id" ref="mw_technic_maintenance.model_maintenance_plan_line"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('branch_id','in', user.branch_ids.ids),('branch_id','=', False)]</field>
+        </record>
+    
+</odoo>

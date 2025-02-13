@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<menuitem name="Актны менежмент" web_icon="mw_retire_request,static/icon.png"
+			id="retire_management_menu" sequence="30"/>
+		<!-- parent="mw_technic_equipment.root_technic_equipment_menu"  -->
+			
+			<menuitem name="Техник актлах хүсэлтүүд" parent="retire_management_menu" 
+				id="technic_retire_request_menu" sequence="1" action="action_technic_retire_request" />		
+			<menuitem name="Тоног төхөөрөмж актлах хүсэлтүүд" parent="retire_management_menu" 
+				id="equipment_retire_request_menu" sequence="1" action="action_equipment_retire_request" />		
+			<menuitem name="Дугуй актлах хүсэлтүүд" parent="retire_management_menu" 
+				id="tire_retire_request_menu" sequence="1" action="action_tire_retire_request" />		
+			<menuitem name="Компонент актлах хүсэлтүүд" parent="retire_management_menu" 
+				id="component_retire_request_menu" sequence="1" action="action_component_retire_request" />		
+			<menuitem name="Сэлбэг актлах хүсэлтүүд" parent="retire_management_menu" 
+				id="parts_retire_request_menu" sequence="1" action="action_parts_retire_request" />		
+
+			<!-- <menuitem name="Актны батлах урсгал" parent="mw_technic_equipment.technic_configuration_menu" 
+				id="retire_request_flow_setting_menu" sequence="50" action="action_retire_request_flow_setting" /> -->
+</odoo>

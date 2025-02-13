@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_mw_allow_uom" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.mw.allow.uom</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="uom_po_id" position="after">
+                <field name="allowed_uom_ids" domain="[('category_id.uoms_by_categ','in',[uom_id])]" widget="many2many_tags" groups="uom.group_uom"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_form_mw_allow_uom_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.mw.allow.uom.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position="attributes">
+                <attribute name="domain">['|','|',('allowed_product_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_po_ids.product_variant_ids', 'in',[product_id])]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    
+
+    <record id="purchase_order_form_mw_allow_uom_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.mw.allow.uom.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                <attribute name="domain">['|','|',('allowed_product_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_po_ids.product_variant_ids', 'in',[product_id])]</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="sale_order_form_mw_allow_uom_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.mw.allow.uom.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                <attribute name="domain">['|','|',('allowed_product_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_po_ids.product_variant_ids', 'in',[product_id])]</attribute>
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']/form/field[@name='product_uom']" position="attributes">
+                <attribute name="domain">['|','|',('allowed_product_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_ids.product_variant_ids', 'in',[product_id]),('product_tmpl_po_ids.product_variant_ids', 'in',[product_id])]</attribute>
+            </xpath> -->
+        </field>
+    </record>
+
+</odoo>

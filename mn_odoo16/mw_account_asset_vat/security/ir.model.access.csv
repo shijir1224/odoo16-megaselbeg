@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_asset_vat_user,mw_asset.account_asset_vat_user,model_account_asset_vat,mw_account_asset_vat.group_account_asset_vat_accountant,1,1,1,0
+access_account_asset_vat_line_user,mw_asset.account_asset_vat_line_user,model_account_asset_vat_line,mw_account_asset_vat.group_account_asset_vat_accountant,1,1,1,1
+access_account_asset_vat_acc,mw_asset.account_asset_vat_acc_user,model_account_asset_vat,mw_asset.group_mn_asset_accountant,1,1,0,0
+,,,,,,,
+,,,,,,,
+access_account_asset_vat_conf_user,mw_asset.account_asset_vat_conf_user,model_account_asset_vat_conf,mw_account_asset_vat.group_account_asset_vat_accountant,1,1,1,0
+access_account_asset_vat_conf_line_user,mw_asset.account_asset_vat_conf_line_user,model_account_asset_vat_conf_line,mw_account_asset_vat.group_account_asset_vat_accountant,1,1,1,1
+access_account_asset_vat_conf_acc,mw_asset.account_asset_vat__confacc_user,model_account_asset_vat_conf,mw_asset.group_mn_asset_accountant,1,1,0,0

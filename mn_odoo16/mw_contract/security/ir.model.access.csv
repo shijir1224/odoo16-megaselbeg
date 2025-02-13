@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_contract_document_real,contract.document.real,mw_contract.model_contract_document_real,mw_contract.group_contract_user,1,1,1,0
+access_contract_real_flow_history,contract.real.flow.history,mw_contract.model_contract_real_flow_history,mw_contract.group_contract_user,1,1,1,0
+access_contract_template,contract.template,mw_contract.model_contract_template,mw_contract.group_contract_user,1,0,0,0
+access_contract_real_payment_line,contract.real.payment.line,mw_contract.model_contract_real_payment_line,mw_contract.group_contract_user,1,1,1,0
+access_done_contract_reg_user,done.contract.reg,mw_contract.model_done_contract_reg,mw_contract.group_contract_user,1,1,1,0
+access_contract_type_user,contract.type,mw_contract.model_contract_type,mw_contract.group_contract_user,1,1,1,0
+
+
+access_contract_document_real_manager,contract.document.real,mw_contract.model_contract_document_real,mw_contract.group_contract_manager,1,1,1,1
+access_contract_real_flow_history_con_manager,contract.real.flow.history,mw_contract.model_contract_real_flow_history,mw_contract.group_contract_manager,1,1,1,1
+access_contract_template_con_manager,contract.template,mw_contract.model_contract_template,mw_contract.group_contract_manager,1,1,1,1
+access_contract_type_manager,contract.type,mw_contract.model_contract_type,mw_contract.group_contract_manager,1,1,1,1
+access_done_contract_reg_manager,done.contract.reg,mw_contract.model_done_contract_reg,mw_contract.group_contract_manager,1,1,1,1
+access_contract_real_payment_line_con_manager,contract.real.payment.line,mw_contract.model_contract_real_payment_line,mw_contract.group_contract_manager,1,1,1,1

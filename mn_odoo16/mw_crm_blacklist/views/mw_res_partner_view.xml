@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="res_partner_kanban_view_mw_crm_black">
+        <field name="name">res.partner.kanban.mw.crm.black</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <kanban position="inside">
+                <field name="blacklist_type"/>
+            </kanban>
+            <xpath expr="//div[hasclass('oe_kanban_details')]//ul" position="inside">
+                <li t-if="record.blacklist_type.raw_value == 'blacklist' or record.blacklist_type.raw_value == 'greylist'" class="font-weight-bold"><field name="blacklist_type"/></li>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="view_partner_form_mw_crm_black" model="ir.ui.view">
+        <field name="name">res.partner.form.mw.crm.black</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="blacklist_type"/>
+            </field>
+            <div name="button_box" position="after">
+			    <widget name="web_ribbon" title="BLACKLIST" bg_color="bg-danger" attrs="{'invisible': [('blacklist_type', 'not in', ['blacklist'])]}"/>
+                <widget name="web_ribbon" title="GREYLIST" bg_color="bg-danger" attrs="{'invisible': [('blacklist_type', 'not in', ['greylist'])]}"/>
+            </div>
+            <notebook position="inside">
+                <page string="Хар түүх" attrs="{'invisible':[('blacklist_type','not in',['blacklist','greylist'])]}">
+                    <group col="2">
+                        <group col="2">
+                            <field name="blacklist_date" attrs="{'required':[('blacklist_type','in',['blacklist','greylist'])]}"/>
+                            <field name="blacklist_desc" attrs="{'required':[('blacklist_type','in',['blacklist','greylist'])]}"/>
+                        </group>
+                        <group>
+                            <field name="blacklist_history_ids" readonly="1" nolabel="1">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="blacklist_type"/>
+                                    <field name="desc"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_mw_black" model="ir.ui.view">
+        <field name="name">res.partner.select.mw.black</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <field name="blacklist_type"/>
+                <filter name="gr_blacklist_type" string="Хар жагсаалтаар" context="{'group_by': 'blacklist_type'}"/>
+                <filter name="is_blacklist" string="Хар Жасаалтны харилцагч" domain="[('blacklist_type','=','blacklist')]"/>
+                <filter name="is_greylist" string="Саарал Жасаалтны харилцагч" domain="[('blacklist_type','=','greylist')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_mw_black" model="ir.ui.view">
+        <field name="name">res.partner.tree.mw.black</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field name="blacklist_type" optional="show"/>
+                <field name="blacklist_date" optional="show"/>
+                <field name="blacklist_desc" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    
+
+    <record id="res_partner_blacklist_tree" model="ir.ui.view">
+        <field name="name">res.partner.blacklist.tree</field>
+        <field name="model">res.partner.blacklist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="company_type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_blacklist_filter" model="ir.ui.view">
+        <field name="name">res.partner.blacklist.filter</field>
+        <field name="model">res.partner.blacklist</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="sequence"/>
+                <field name="company_type"/>
+            </search>
+        </field>
+    </record>
+    <record id="res_partner_blacklist_form" model="ir.ui.view">
+        <field name="name">res.partner.blacklist.form</field>
+        <field name="model">res.partner.blacklist</field>
+        <field name="inherit_id" ref=""/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="company_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="res_partner_blacklist_action" model="ir.actions.act_window">
+        <field name="name">Хар жагсаалт дүрэм</field>
+        <field name="res_model">res.partner.blacklist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="menu_res_partner_blacklist" action="res_partner_blacklist_action" sequence="199" parent="crm.crm_menu_config"/>
+    <menuitem action="res_partner_blacklist_action" id="menu_res_partner_blacklist_contact" parent="contacts.res_partner_menu_config" sequence="99"/>
+
+
+    <record id="res_partner_black" model="ir.actions.act_window">
+        <field name="name">Хар жагсаалт</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('blacklist_type','!=',False)]</field>
+    </record>
+    
+    <menuitem id="menu_res_partner_black" action="res_partner_black" sequence="10" parent="mw_crm.menu_res_partner_zereglel"/>
+</odoo>

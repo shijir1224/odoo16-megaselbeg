@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="mw_mining.TechnicMotohour">
+        <!-- <span class="oe_technic_motohour_fullscreen">
+            <img class="fs_button" title="Томруулах" height="16" width="16" src="/mw_mining/static/lib/images/fullscreen.png"/>
+        </span>
+        <span class="oe_technic_motohour_refresh">
+            <img class="fs_refresh" title="Сэргээх" height="16" width="16" src="/mw_mining/static/lib/images/refresh.png"/>
+        </span> -->
+        
+            <div id="motohour_fullscreen_div" t-att-class="'oe_technic_motohour'">
+                <table>
+                    <t t-if="widget.mining_mh_causes">
+                        <caption>
+                            <div class="oe_technic_motohour_timeline_head_cause">
+                                    <t t-foreach="widget.mining_mh_causes" t-as="item">
+                                        <div class="oe_technic_motohour_timeline_head_cause_details" t-att-data-cause-name="item.name" t-att-data-cause_id="item.id" title="">
+                                        <t t-esc="item.name"/>
+                                        </div>
+                                    </t>
+                            </div>
+                        </caption>
+                    </t>
+                    <t t-if="widget.motohour_lines">
+                        <tr>
+                            <th>
+                                <div class="oe_technic_motohour_title_technic">
+                                    Техник
+                                </div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_title_operator">Оператор</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Мотоцаг эхэнд</div>
+                            </th>
+                            
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Мотоцаг /гүйсэн/</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Мотоцаг дууссан</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Зөрүү</div>
+                            </th>
+                            <th>
+                                <div  class="oe_technic_motohour_timeline_head">
+                                    <div t-att-class="'oe_technic_motohour_cursor'">
+                                        <div t-att-class="'oe_technic_motohour_cursor_body'">
+                                            <div t-att-class="'oe_technic_motohour_cursor_indicator'"></div>
+                                        </div>
+                                        <div t-att-class="'oe_technic_motohour_cursor_arrow'"></div>
+                                    </div>
+                                    <t t-if="widget.times">
+                                        <t t-foreach="widget.times" t-as="time">
+                                            <div class="oe_technic_motohour_timeline_head_time">
+                                                <t t-esc="time"/>
+                                            </div>    
+                                        </t>
+                                    </t>
+                                    <!-- <div t-att-class="'oe_technic_motohour_cursor_line'"  style="display: block; "></div> -->
+                                </div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Бүтээлтэй ажиласан</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Засварт</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">ТББК</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">ТББК-д орсон эсэх</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Ажиласан цаг</div>
+                            </th>
+                            <th>
+                                <div class="oe_technic_motohour_technic_col">Нийт ажиласан</div>
+                            </th>
+                        </tr>
+                        <tr class="oe_technic_row" t-foreach="widget.motohour_lines"  t-as="technic" >
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row_technic">
+                                        <t t-esc="technic.technic_names"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row_operator" >
+                                        <t t-esc="technic.operator_id"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="technic.first_odometer_value"/>
+                                    </div>
+                                </td>
+                                
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="technic.motohour_time"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="technic.last_odometer_value"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row" t-att-data-="technic.motohour" >
+                                        <t t-esc="diff_odometer_value"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <t t-if="technic.causes">
+                                        <div t-att-data-id="technic.motohour" class="oe_technic_motohour_timeline">
+                                            <t t-foreach="technic.causes" t-as="item">
+                                                <div t-att-data-id="technic.motohour" class="oe_technic_motohour_timeline_cause" t-att-data-start-time="item.line_id" title="">
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </td>
+                                
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="production_time"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="repair_time"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="tbbk"/>%
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-if="is_tbbk">
+                                            Тийм
+                                        </t>
+                                        
+
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="work_time"/>
+                                    </div>
+                                </td>
+                                <td t-att-data-id="technic.motohour">
+                                    <div t-att-data-id="technic.motohour" class="oe_technic_motohour_row">
+                                        <t t-esc="work_diff_time"/>
+                                    </div>
+                                </td>
+                                
+                        </tr>
+                    </t>
+
+                </table>
+            </div>
+        
+    </t>
+</templates>

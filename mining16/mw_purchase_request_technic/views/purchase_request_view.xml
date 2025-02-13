@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    
+        <record model="ir.ui.view" id="purchase_request_inherit_form_view">
+            <field name="name">purchase.request.inherit.form</field>
+            <field name="model">purchase.request</field>
+            <field name="inherit_id" ref="mw_purchase_request.purchase_request_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="after">
+                    <!-- <field name="request_id" invisible='1'/> -->
+                    <field name="technic_id" options="{'no_open':True,'no_create':True}" domain="[('company_id','=', parent.company_id)]"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- purchase.request.line -->
+        <record model="ir.ui.view" id="purchase_request_inherit_line_tree_view">
+            <field name="name">purchase.request.inherit.line.tree</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="mw_purchase_request.purchase_request_line_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <!-- <field name="request_id" invisible='1'/> -->
+                    <field name="technic_id" domain="[('company_id','=', parent.company_id)]"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_request_line_tree_view_techic">
+            <field name="name">purchase.request.inherit.line.tree.tech</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="mw_purchase_request.purchase_request_line_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <!-- <field name="request_id" invisible='1'/> -->
+                    <field name="technic_id" domain="[('company_id','=', parent.company_id)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_request_line_inherit_form_view">
+            <field name="name">purchase.request.line.inherit.form</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="mw_purchase_request.purchase_request_line_form_view"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <!-- <field name="request_id" invisible='1'/> -->
+                    <field name="technic_id" domain="[('company_id','=', parent.company_id)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="purchase_request_line_inherit_search" model="ir.ui.view">
+            <field name="name">purchase.request.line.inherit.search</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="mw_purchase_request.purchase_request_line_search"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="technic_id"/>
+                </field>
+                <filter name="gr_product" position="after">
+                    <filter string="Техникээр" name="technic_id" context="{'group_by':'technic_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="purchase_order_inherit_form_view">
+            <field name="name">purchase.order.inherit.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <!-- <field name="order_id" invisible='1'/> -->
+                    <field name="technic_id" options="{'no_open':True,'no_create':True}" domain="[('company_id','=', parent.company_id)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Technic PR line inherit-->
+        <record id="view_technic_equipment_inherit_form" model="ir.ui.view">
+            <field name="name">technic.equipment.inherit.form</field>
+            <field name="model">technic.equipment</field>
+            <field name="inherit_id" ref="mw_technic_equipment.technic_equipment_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="PR ийн мэдээлэл">
+                        <group col="4" string="Захиалсан сэлбэгийн мэдээлэл">
+                            <field name="pr_request_line" nolabel="1" colspan="4">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="qty"/>
+                                    <field name="desc"/>
+                                    <!-- <field name="request_id"/> -->
+                                    <field name="po_qty"/>
+                                    <field name="purchase_order_ids" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="4" string="Бэлэн байгаа мэдээлэл">
+                            <field name="pr_request_line_po" nolabel="1" colspan="4">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="qty"/>
+                                    <field name="desc"/>
+                                    <!-- <field name="request_id"/> -->
+                                    <field name="po_qty"/>
+                                    <field name="purchase_order_ids" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    <record id="purchase_order_filter_inherit_pr_tech" model="ir.ui.view">
+        <field name="name">purchase.order.filter.inherit.pr.tech</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="name" string="Technic" filter_domain="[('order_line.technic_id','ilike',self)]" context="{}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_line_search_pr_tech" model="ir.ui.view">
+        <field name="name">purchase.order.line.search.pr.tech</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="technic_id"/>
+                <filter name="gr_technic_id" string="Technic" domain="[]" context="{'group_by' : 'technic_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_line_tree_pr_tech" model="ir.ui.view">
+        <field name="name">purchase.order.line.tree.pr.tech</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <!-- <field name="order_id" invisible='1'/> -->
+                <field name="technic_id" domain="[('company_id','=', parent.company_id)]"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

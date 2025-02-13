@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Бусад зарлага -->
+    <!-- Sequences for  -->
+    <record id="seq_stock_product_interout" model="ir.sequence">
+        <field name="name">Бараа материалын зарлага</field>
+        <field name="code">stock.product.interout</field>
+        <field name="prefix">PE%(y)s%(month)s-</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+	<record id="stock_product_interout_filter_view" model="ir.ui.view">
+        <field name="name">stock.product.interout.filter</field>
+        <field name="model">stock.product.interout</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" readonly="1"/>
+                <field name="description"/>
+                <field name="user_id"/>
+                <field name="product_id"/>
+                <field name="validator_id"/>
+                <field name="branch_id"/>
+                <filter name="this_month" string="Энэ сар" domain="[('date_required','like',time.strftime('%%Y-%%m'))]"/>
+<!--                <filter string="Миний батлах хүсэлт" name="my_confirm" domain="[('flow_line_next_id.user_ids','in',[uid])]"/>-->
+                <separator/>
+                <filter name="not_done" string="Дуусаагүй" domain="[('state','not in',['cancel','done','confirmed'])]"/>
+                <filter name="done" string="Дууссан" domain="[('state','=','confirmed')]"/>
+                <group expand="1" string="Group By...">
+                    <filter name="groupby_type" context="{'group_by' : 'warehouse_id'}" string="Агуулахаар"/>
+                    <filter name="groupby_user_id" context="{'group_by' : 'user_id'}" string="Хэрэглэгчээр"/>
+                    <filter name="groupby_department_id" context="{'group_by' : 'department_id'}" string="Хэлтсээр"/>
+                    <filter name="groupby_branch_id" context="{'group_by' : 'branch_id'}" string="Салбараар"/>
+                    <!-- <filter name="groupby_employee_id" context="{'group_by' : 'employee_id'}" string="Ажилтнаар"/> -->
+                    <filter name="groupby_partner_id" context="{'group_by' : 'partner_id'}" string="Ажилтнаар"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<record id="stock_product_interout_form_view" model="ir.ui.view">
+		<field name="name">stock.product.interout.form</field>
+		<field name="model">stock.product.interout</field>
+		<field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="To draft"  states="confirmed" type="object"
+                        />
+                    <button name="action_to_confirm" class="oe_highlight" string="Confirm"
+                        states="draft" type="object"/>
+                    <button name="action_to_done" string="Done" class="oe_highlight"
+                        states="confirmed" type="object"/>
+                        <!-- 
+                    <button name="action_to_print" class="oe_highlight"
+                        string="Хэвлэх"  states="sent,confirmed,done" type="object"/>-->
+                    <field name="state" widget="statusbar" readonly="1" /> 
+                    <button name="update_last_date" string="Сүүлд авсан огноо татах" type="object"/>
+                    <button name="print_word" string="ХЭВЛЭЖ ҮЗЭХ" type="object"/>
+                </header>
+           		<sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_expense_picking_ids"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-file-o">
+                            <field string="Зарлагын Баримт" name="expense_picking_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" invisible="1" options="{'no_create': True}" attrs="{'readonly': [('state', 'in',['done','cancel'])]}"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" readonly="1"/>
+                            <field name="branch_id" options="{'no_create': True}" required='1'/>
+                            <field name="description" nolabel="1" colspan="2" placeholder="Тайлбар..."
+                                attrs="{ 'readonly': [('state', 'in',['done','cancel'])]}"/>
+                        </group>
+                        <group>
+                            <field name="date_required" attrs="{'readonly': [('state', 'in',['done','cancel'])]}"/>
+                            <field name="date" attrs="{'readonly': [('state', 'in',['done','cancel'])]}"/>
+                            <field name="categ_ids" widget="many2many_tags" invisible="1"/>
+                        </group>
+                        <!-- <newline/> -->
+                        <group>
+                            <field name="warehouse_id" force_save="1" options="{'no_create': True}" domain="[('access_user_ids','in',[uid])]"/>
+                            <field name="technic_id"  options="{'no_create':True, 'no_open':True}" force_save="1"/>
+                            <field name="equipment_id"  options="{'no_create':True, 'no_open':True}" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="location_id" invisible="1"/>
+                            <field name="branch_id" options="{'no_create': True}" invisible="1" force_save="1" required='0'/>
+                            <field name="partner_id" options="{'no_create': True}" force_save="1" string="Хариуцагч"
+                                attrs="{'readonly': [('state', 'in',['done','cancel'])]}" required='1'/>
+                            <field name="department_id" options="{'no_create': True}" readonly="0" force_save="1" required='1'/>
+                            <field name="account_id" options="{'no_create': True}" invisible="0" force_save="1"/>
+                            <field name="analytic_distribution" widget="analytic_distribution" force_save="1"/>
+                            <button name="change_accounts"
+                                type="object"
+                                string="Данс оноох"
+                                class="oe_highlight"
+                                colspan="2"/>
+                            <button name="change_analytic_from_partner"
+                                type="object"
+                                string="Ажилтны шинжилгээний данс оноох"
+                                class="oe_highlight"
+                                colspan="2"/>
+                            <button name="change_analytic_from_partner_new"
+                                type="object"
+                                string="Баримтын шинжилгээний данс оноох"
+                                class="oe_highlight"
+                                colspan="2"/>
+                                
+                        </group>
+                    </group>
+                    <group>
+                    </group>
+                    <notebook>
+                        <page string="Зарлагын мэдээлэл" class="oe_page_title" accesskey="C">
+                                    <group attrs="{'invisible': [('state','!=','draft')]}" col='4'>
+                                    </group>
+                                    <field name="product_expense_line" nolabel="1" attrs="{'readonly': [('state', 'in',['done','cancel'])]}">
+                                        <tree string="Lines" editable="bottom" decoration-danger="available_qty==0">
+                                            <field name="product_id" options="{'no_create':True, 'no_open':True}"/>
+                                            <field name="product_standard_price" groups="mw_stock_account.group_stock_view_cost" optional="show"/>
+                                            <field name="product_total_price" groups="mw_stock_account.group_stock_view_cost" optional="show" sum="SUM"/>
+                                            <field name="product_sale_price" groups="mw_stock_account.group_stock_view_cost" optional="hide" sum="SUM"/>
+                                            <field name="categ_id" invisible="1"/>
+                                            <field name="account_id" options="{'no_create':True, 'no_open':True}" optional="show"/>
+                                            <field name="res_partner_id"  options="{'no_create':True, 'no_open':True}" force_save="1"/>
+                                            <field name="technic_id"  options="{'no_create':True, 'no_open':True}" force_save="1"  optional="show"/>
+                                            <field name="equipment_id"  options="{'no_create':True, 'no_open':True}" force_save="1" optional="show"/>
+                                            
+                                            <field name="analytic_distribution" widget="analytic_distribution"/>
+                                            <field name="uom_id"/>
+                                            <field name="price_unit" invisible="1"/>
+                                            <field name="qty" sum="SUM"/>
+                                            <field name="available_qty" sum="SUM"/>
+                                            <field name="available_qty_template" sum="SUM" optional="hide"/>
+                                            <field name="reserved_qty" sum="SUM" optional="hide"/>
+                                            <field name="list_price" force_save="1" options="{'no_create':True, 'no_open':True}"/>
+                                            <field name="sub_total" sum="SUM"  options="{'no_create':True, 'no_open':True}"/>
+                                        </tree>
+                                    </field>
+                        </page>
+                        <page string="Холбоотой мэдээлэл" class="oe_page_title" accesskey="V">
+                            <group col="2">
+                                <field name="state" readonly="1" />
+                                <label for="user_id" string="User"/>
+                                <div>
+                                    <field name="user_id" class="oe_inline"/> : <field name="date_user" class="oe_inline"/>
+                                </div>
+                                <label for="validator_id" string="Батлагчийн нэр"/>
+                                <div>
+                                    <field name="validator_id" class="oe_inline"/> : <field name="date_validator" class="oe_inline"/>
+                                </div>
+                                <button name="set_partner" type="object" string="Харилцагч оноох(Dev mode)" groups="base.group_no_one"/>
+                            </group>
+                        </page>
+                        <page string="Төлвийн Түүх">
+                            <button name="change_history" type="object" groups="base.group_no_one" string="Change history" class="btn-danger"/>
+                        </page>
+                    </notebook>
+				</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="stock_product_interout_tree_view" model="ir.ui.view">
+        <field name="name">stock.product.interout.tree</field>
+        <field name="model">stock.product.interout</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'" decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="date_required"/>
+                <field name="partner_id"/>
+                <field name="warehouse_id"/>
+                <field name="description"/>
+                <field name="department_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+<!-- 
+	<record model='ir.actions.act_window' id='action_stock_product_interout'>
+        <field name="name">Шаардах хуудас</field>
+        <field name="res_model">stock.product.interout</field>
+        <field name="domain">['|','|','|','|','|',('create_uid','=',uid),('employee_id.user_id','=',uid),('partner_id.user_ids.manager_user_ids','in',[uid]),('history_flow_ids.user_id','=',uid),('confirm_user_ids','in',[uid]),('department_id.user_ids','in',[uid])]</field>
+        <field name="view_mode">tree,form</field>
+    </record> -->
+
+    <record model='ir.actions.act_window' id='action_stock_product_interout_all'>
+        <field name="name">Дотоод зарлага</field>
+        <field name="res_model">stock.product.interout</field>
+        <field name="context">{'search_default_this_month': 1 }</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="stock_product_interout_line_tree_view" model="ir.ui.view">
+        <field name="name">stock.product.interout.line.tree</field>
+        <field name="model">stock.product.interout.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="product_id" readonly="1"/>
+                <field name="uom_id" readonly="1"/>
+                <field name="res_partner_id" readonly="1"/>
+                <field name="qty" attrs="{'readonly': [('parent.state', 'in',['done','cancel'])]}"/>
+                <field name="available_qty" readonly="1"/>
+                <field name="reserved_qty" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_product_interout_line_form_view" model="ir.ui.view">
+        <field name="name">stock.product.interout.line.form</field>
+        <field name="model">stock.product.interout.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="product_id" readonly="1"/>
+                <field name="uom_id" readonly="1"/>
+                <field name="qty" attrs="{'readonly': [('parent.state', 'in',['done','cancel'])]}"/>
+                <field name="available_qty" readonly="1"/>
+                <field name="reserved_qty" readonly="1"/>
+                <field name="res_partner_id" readonly="1"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_picking_form_inherit_mn_stock_move" model="ir.ui.view">
+        <field name="name">stock.picking.form.view.inherit.mn.stock.move</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+          <data>
+            <div class="oe_button_box" position="inside">
+                <field name="interout_id" invisible="1"/>
+                <button name="action_view_interout_id_mw"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-file-o"
+                    attrs="{'invisible': [('interout_id', '=', False)]}">
+                    <span>Дотоод зарлага 1</span>
+                </button>
+            </div>
+			<xpath expr="//field[@name='scheduled_date']" position="after">
+				<field name="stock_expense_accountant" invisible="1"/>
+			</xpath>
+          </data>
+        </field>
+    </record>
+
+    <template id="track_po_line_template">
+        <div>
+            <strong>Тоо өөчилөгдлөө.</strong>
+            <ul>
+                <li><t t-esc="line.product_id.display_name"/>:</li>
+                Тоо: <t t-esc="line.qty" /> -&gt; <t t-esc="float(qty)"/><br/>
+            </ul>
+        </div>
+    </template>
+
+    <template id="track_po_line_template_delete">
+        <div>
+            <strong>Мөр устгасан.</strong>
+            <ul>
+                <li><t t-esc="line.product_id.display_name"/>:</li>
+                Тоо: <t t-esc="line.qty" /><br/>
+            </ul>
+        </div>
+    </template>
+
+</odoo>

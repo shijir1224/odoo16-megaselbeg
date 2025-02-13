@@ -1,0 +1,406 @@
+<odoo>
+
+<!-- Сургалтын бүртгэл -->
+    <record model="ir.ui.view" id="training_register_form">
+        <field name="name">training.register.form</field>
+        <field name="model">training.register</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="type_id" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_register_tree">
+        <field name="name">training.register.tree</field>
+        <field name="model">training.register</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="name"/>
+                <field name="type_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="action_training_register" model="ir.actions.act_window">
+        <field name="name">Сургалтын бүртгэл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.register</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="training_type_form">
+        <field name="name">training.type.form</field>
+        <field name="model">training.type</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <sheet>
+                    <group col="4">
+                        <field name="type"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_type_tree">
+        <field name="name">training.type.tree</field>
+        <field name="model">training.type</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_training_type" model="ir.actions.act_window">
+        <field name="name">Сургалтын төрөл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+<!-- Сургалтын хүсэлт -->
+    <record model="ir.ui.view" id="training_request_form">
+        <field name="name">training.request.form</field>
+        <field name="model">training.request</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                 <header>
+                    <button string="Илгээх" name="action_to_sent" type="object" states='draft' class="oe_highlight" />
+                    <button string="Хүлээж авах" name="action_to_done" type="object" states='sent' class="oe_highlight" groups='mw_training.group_training_manager'/>
+                    <button string="Ноороглох" name="action_to_draft" type="object" states='sent,done' class="oe_highlight" groups='mw_training.group_training_manager'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,done,cancel"
+                        statusbar_colors='{"draft":"gray","send":"blue"}'/>
+                </header>         
+                <sheet>
+                    <group name='req'>
+                        <group>
+                            <field name="year" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="month" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="name_id" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="type" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="company_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="department_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="exigency" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="sum_payment" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="emp_count" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="create_date" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook colspan="6">
+                        <page string="Оролцогчийн мэдээлэл" name='employees'>
+                            <field name="employee_ids" editable="bottom" attrs="{'readonly': [('state', '!=','draft')]}">
+                                <tree string="Employees">
+                                    <field name="name"/>
+                                    <field name="department_id" options="{'no_create': True}"/>
+                                    <field name="job_id" options="{'no_create': True}"/>
+                                    <field name="company_id" options="{'no_create': True}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+      <record model="ir.ui.view" id="training_request_tree">
+        <field name="name">training.request.tree</field>
+        <field name="model">training.request</field>
+        <field name="arch" type="xml">
+            <tree string="Training request">
+                <field name="name_id"/>
+                <field name="type"/>
+                <field name="year"/>
+                <field name="department_id" />
+                <field name="company_id" />
+            </tree>
+        </field>
+    </record>
+    <record  id="training_request_calendar_view" model="ir.ui.view">
+        <field name="name">training.request.calendar</field>
+        <field name="model">training.request</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar 
+                    quick_add="False">
+                <field name="name_id"/>
+                <field name="year"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="action_training_request" model="ir.actions.act_window">
+        <field name="name">Сургалтын хүсэлт</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.request</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+
+<!-- Сургалтын төлөвлөгөө -->
+    <record model="ir.ui.view" id="training_plan_form">
+        <field name="name">training.plan.form</field>
+        <field name="model">training.plan</field>
+        <field name="arch" type="xml">
+            <form string="Сургалтын төлөвлөгөө">
+                 <header>
+                    <button string="Илгээх" name="action_to_sent" type="object" states='draft' class="oe_highlight" />
+                    <button string="Батлах" name="action_to_done" type="object" states='sent' class="oe_highlight" groups='mw_training.group_training_manager'/>
+                    <button string="Ноороглох" name="action_to_draft" type="object" states='sent,done' class="oe_highlight" groups='mw_training.group_training_manager'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,done,cancel"
+                        statusbar_colors='{"draft":"gray","send":"blue"}'/>
+                </header>        
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="year" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="month" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="company_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="create_date" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <button name="create_plan_line" string="Төлөвлөгөө татах" type="object" attrs="{'invisible': [('state', '!=','draft')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly': [('state', '!=','draft')]}">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="name_id"/>
+                                    <field name="department_id"  options="{'no_create': True}"/>
+                                    <field name="emp_count"/>
+                                    <field name="budget"/>
+                                    <field name="company_id" options="{'no_create': True}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record  id="training_plan_calendar_view" model="ir.ui.view">
+        <field name="name">training.plan.calendar</field>
+        <field name="model">training.plan</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar date_start="month"
+                    mode="month"
+                    quick_add="False">
+                <field name="year"/>
+                <field name="month"/>
+                <field name="company_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_plan_tree">
+        <field name="name">training.plan.tree</field>
+        <field name="model">training.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Training plan">
+                <field name="year"/>
+                 <field name="month"/>
+                <field name="company_id"/>
+                 <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_training_plan" model="ir.actions.act_window">
+        <field name="name">Сургалтын төлөвлөгөө</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.plan</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+
+<!-- Surgalt -->
+    <record model="ir.ui.view" id="training_registration_form">
+        <field name="name">training.registration.form</field>
+        <field name="model">training.registration</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <header>
+                    <button string="Эхлүүлэх" name="action_to_sent" type="object" states='draft' class="oe_highlight" />
+                    <button string="Дуусгах" name="action_to_done" type="object" states='sent' class="oe_highlight" />
+                     <button string="Цуцлах" name="action_to_cancel" type="object" states='sent,done' class="oe_highlight" />
+                    <button string="Ноороглох" name="action_to_draft" type="object" states='sent,done,cancel' class="oe_highlight" groups='mw_training.group_training_manager'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,done,cancel"
+                        statusbar_colors='{"draft":"gray","send":"blue"}'/>
+                </header>         
+                <sheet>
+                    <group name='head' colspan='4' col='4'>
+                        <field name="type"  required='1' attrs="{'readonly': [('state', '!=','draft')]}"/>
+                        <field name="name_id" attrs="{'readonly': [('state', '!=','draft')]}" required='1'/>
+                    </group>
+                    <group name='body'>
+                        <group>
+                            <field name="organization" attrs="{'readonly': [('state', '!=','draft')],'invisible':[('type','!=','out')]}"/>
+                            <field name="country_name" attrs="{'readonly': [('state', '!=','draft')],'invisible':[('type','!=','abroad')]}"/>
+                            <field name="department_id" attrs="{'readonly': [('state', '!=','draft')],'invisible':[('type','!=','in')]}" options="{'no_create': True}"/>
+                            <field name="company_id" options="{'no_create': True}" required='1'/>
+                            <field name="meaning" attrs="{'readonly': [('state', '!=','draft')]}" required='1'/>
+                            <field name="result"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="subject" attrs="{'readonly': [('state', '!=','draft')],'invisible':[('type','!=','in')]}"/>
+                            <field name="employee_cost"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="cost"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="evaluation"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="employee_id" attrs="{'readonly': [('state', '!=','draft')],'invisible':[('type','!=','in')]}" options="{'no_create': True}" required='0'/>
+                            <field name="start_date"  attrs="{'readonly': [('state', '!=','draft')]}" required='1'/>
+                            <field name="end_date"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="create_date"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="time"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="plan_employee_count" attrs="{'readonly': [('state', '!=','draft')],'invisible':[('type','!=','in')]}"/>
+                            <field name="study_employee_count"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                            <field name="not_employee_count"  attrs="{'readonly': [('state', '!=','draft')]}"/>
+                        </group>
+                    </group>
+                    <group col='2' string='Ирц импортлох'> 
+                        <field name="file"/>
+                        <button string="Ирц импортлох" name="action_import" type="object" states='draft' class="btn btn-outline-danger fa fa-download" groups='mw_training.group_training_manager'/>
+                    </group>
+                     <notebook>
+                        <page string="Ирц">
+                            <field name="line_ids" colspan="4" nolabel="1">
+                                <form string="Ирц">
+                                    <group col="4" colspan="4">
+                                        <field name="job_id" options="{'no_create': True}"/>
+                                        <field name="t_employee_id" options="{'no_create': True}" />
+                                        <field name="score" />
+                                        <field name="reason" />
+                                        <field name="attendance"/>
+                                    </group>
+                                </form>
+                                <tree string="Ирц" editable="bottom">
+                                    <field name="t_employee_id" options="{'no_create': True}" />
+                                    <field name="job_id" options="{'no_create': True}"/>
+                                    <field name="score" sum='Sum'/>
+                                    <field name="reason" />
+                                    <field name="attendance"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_registration_tree">
+        <field name="name">training.registration.tree</field>
+        <field name="model">training.registration</field>
+        <field name="arch" type="xml">
+            <tree string="Training plan">
+                <field name="name_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="plan_employee_count"/>
+                <field name="study_employee_count"/>
+                <field name="cost"/>
+                <field name="company_id" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record  id="training_registration_calendar_view" model="ir.ui.view">
+        <field name="name">training.registration.calendar</field>
+        <field name="model">training.registration</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar
+                    date_start="create_date"
+                    mode="month"
+                    quick_add="False">
+                <field name="name_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_registration_pivot_view">
+        <field name="name">training.registration.pivot</field>
+        <field name="model">training.registration</field>
+        <field name="arch" type="xml">
+            <pivot string="Received document pivot">
+                <field name="name_id" type="row"/>
+                <field name="create_date" type="col"/>
+            </pivot>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="training_registration_graph_view">
+        <field name="name">training.registration.graph</field>
+        <field name="model">training.registration</field>
+        <field name="arch" type="xml">
+            <graph string="contract document graph">
+                <field name="name_id" type="measure"/>
+                <field name="create_date" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_training_registration" model="ir.actions.act_window">
+        <field name="name">Сургалт хөгжил</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.registration</field>
+        <field name="view_mode">tree,form,calendar,pivot,graph</field>
+    </record>
+
+    <record id="hr_employee_train_view" model="ir.ui.view">
+			<field name="name">hr.hr.employee.view.form2.mw</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_user']" position="after">
+				<button name="action_hr_training" type="object" class="oe_stat_button" icon="fa-graduation-cap">
+					<field string="Сургалт" widget="statinfo" name ='training_count'/>
+				</button>
+			</xpath>
+		</field>
+	</record>
+    <record id="view_employee_form_mine" model="ir.ui.view">
+		<field name="name">hr.employee.extension.mine</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mine_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//div[@name='button_box']" position="inside">
+				<button name="action_hr_training" type="object" class="oe_stat_button" icon="fa-graduation-cap">
+					<field string="Сургалт" widget="statinfo" name ='training_count'/>
+				</button>
+			</xpath>
+		</field>
+    </record>
+</odoo>

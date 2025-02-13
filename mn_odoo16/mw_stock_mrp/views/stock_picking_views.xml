@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_form_view" model="ir.ui.view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group/group/field[@name='origin']" position="after">
+                <field name="created_production_id"/>
+                <button name="print_line" colspan="1" type="object" string="Print" icon="fa fa-print" class="btn-primary" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search" model="ir.ui.view">
+            <field name="name">stock.picking.select</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/filter[@name='backorder']" position="after">
+                    <separator/>
+                    <filter string="Үйлдвэрлэлийн захиалга үүсгэсэн" name="created_production" domain="[('created_production_id', '!=', False)]"/>
+                    <filter string="Үйлдвэрлэлийн захиалга үүсгээгүй" name="no_created_production" domain="[('created_production_id', '=', False)]"/>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

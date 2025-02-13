@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="stock_picking_form_mw_inherit" model="ir.ui.view">
+		<field name="name">stock.picking.form.mw.inherit</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<header position="inside">
+				<button name="update_price_unit_purchase" groups="base.group_no_one" string="Update POL" type="object"/>
+			</header>
+		</field>
+	</record>
+
+	<record id="view_picking_withcarrier_out_vpicktree_inherit_stock_price" model="ir.ui.view">
+		<field name="name">delivery.stock.picking_withcarrier.vpicktree.view.inherit.stock.price</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.vpicktree"/>
+		<field name="arch" type="xml">
+			<field name="origin" position="before">
+				<field name="amount_total_purchase" sum="SUM" optional="show" readonly="1" groups="purchase.group_purchase_manager"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+		<field name="name">delivery.stock.picking_withcarrier.form.view</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<data>
+				<xpath expr="//field[@name='origin']" position="after">
+					<field name="purchase_id" invisible="1"/>
+					<field name="amount_total_purchase" attrs="{'invisible': [('purchase_id', '=', False)]}" readonly="1" groups="purchase.group_purchase_manager"/>
+				</xpath>
+				<xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="before">
+					<field name="price_unit_purchase" attrs="{'column_invisible': [('parent.purchase_id', '=', False)]}" optional="show" readonly="1" groups="purchase.group_purchase_manager"/>
+					<field name="sub_total_purchase" attrs="{'column_invisible': [('parent.purchase_id', '=', False)]}" optional="show" readonly="1" sum="Нийт" groups="purchase.group_purchase_manager"/>
+				</xpath>
+			</data>
+		</field>
+	</record>
+</odoo>

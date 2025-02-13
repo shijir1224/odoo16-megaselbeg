@@ -1,0 +1,236 @@
+<odoo>
+<!-- <record id="hr_applicant_view_search_ber" model="ir.ui.view">
+        <field name="name">hr.applicant.view.search</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <filter string="Давхцал" name="duplicate" context="{'is_duplicate': 1}"/>
+            </xpath>
+        </field>
+    </record>
+     -->
+    <record model="ir.ui.view" id="hr_applicant_view_inherit_form">
+        <field name="name">Applicants - Recruitment Form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="replace">
+                <group string="Contract" name="recruitment_contract">
+                    <label for="salary_expected"/>
+                    <div class="o_row">
+                        <field name="salary_expected"/>
+                        <span attrs="{'invisible':[('salary_expected_extra','=',False)]}"> + </span>
+                        <field name="salary_expected_extra" placeholder="Extra advantages..."/>
+                    </div>
+                    <label for="salary_proposed"/>
+                    <div class="o_row">
+                        <field name="salary_proposed"/>
+                        <span attrs="{'invisible':[('salary_proposed_extra','=',False)]}"> + </span>
+                        <field name="salary_proposed_extra" placeholder="Extra advantages..."/>
+                    </div>
+                    <field name="availability" string='Ажилд орох боломжтой огноо'/>
+                </group>
+            </xpath>
+            <xpath expr="//sheet/div[2]" position="replace">
+                <div class="o_employee_avatar">
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                </div>
+                <group>
+                    <group string='Ажлын байр'>
+                        <field name="job_id" string='Сонирхож буй ажлын байр' options="{'no_create':True}"/>
+                        <field name="job_id_other" string='Сонирхож буй бусад ажлын байр' options="{'no_create':True}"/>
+                        <field name="is_ita"/>
+                        <field name="company_id" invisible="0" options='{"no_open":True}' />
+                    </group>
+                    <group  string='Хүсч буй цалин'>
+                        <field name="salary_expected" string='Дээд'/>
+                        <field name="salary_proposed" string='Доод'/>
+                        <field name="date"/>
+                        <field name="availability" string='Ажилд орох боломжтой огноо'/>
+                    </group>
+                </group>
+                <group string='Ерөнхий мэдээлэл'>
+                <group>
+                    <field name="family_name" widget="phone"/>
+                    <field name="last_name"/>
+                    <field name="partner_name"/>
+                    <field name="register"/>
+                    <field name="birthday"/>
+                    <field name="age"/>
+                    <field name="sex"/>
+                    <field name="address"/>
+                    <field name="per_address"/>
+                    <field name="partner_phone" widget="phone"/>
+                    <field name="partner_mobile" widget="phone" string='Яаралтай үед холбоо барих дугаар'/>
+                    <field name="bank_account"/>
+                </group>
+                <group>
+                    <field name="email_from" widget="email"/>
+                    <field name="linkedin_profile" widget="url" string='Сошиол сүлжээний хаяг' placeholder='Facebook, Twitter г.м'/>
+                    <field name="driver_license" placeholder='B,C,D,E,M'/>
+                    <field name="driver_year"/>
+                    <field name="driver_number"/>
+                    <field name="heigth"/>
+                    <field name="weigth"/>
+                    <field name="boot_size"/>
+                    <field name="shirt_size"/>
+                    <field name="pants_size"/>
+                    <field name="source_id" string='Ажлын зарын талаарх эх сурвалж'/>
+                    <field name="is_work_site"/>
+                    <field name="is_married"/>
+                    <!-- <field name="is_medical_check" />
+                    <field name="medical_check_date" attrs="{'invisible':[('is_medical_check','!=',True)]}"/> -->
+                    <field name="date_closed" invisible='1'/>
+                    <field name="applicant_emp_id" invisible='0'/>
+                    <field name="categ_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page string="БОЛОВСРОЛ">
+                <label for="school_line_ids" string='Боловсрол'  />
+                    <field name="school_line_ids">
+                        <tree editable="bottom">
+							<field name="country_id"/>
+							<field name="name"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+							<field name="job"/>
+							<field name="education_level"/>
+							<field name="honest"/>
+						</tree>
+                    </field>
+                    <label for="course_line_ids" string='Сургалт'/>
+                    <field name="course_line_ids">
+                        <tree editable="bottom">
+							<field name="organization_name"/>
+                            <field name="start_date"/>
+							<field name="end_date"/>
+							<field name="job"/>
+						</tree>
+                    </field>
+                </page>
+                <page string="ХӨДӨЛМӨР ЭРХЛЭЛТИЙН БАЙДАЛ">
+                <label for="employment_ids" string='Ажлын туршлага'/>
+                    <field name="employment_ids">
+                        <tree editable="bottom">
+							<field name="organization"/>
+							<field name="job_title"/>
+							<field name="entered_date"/>
+							<field name="resigned_date"/>
+							<field name="resigned_reason"/>
+							<field name="wage"/>
+                            <field name="role"/>
+                            <field name="number"/>
+						</tree>
+                    </field>
+                    <label for="work_desc" string='Хэрэв та 6 сараас дээш хугацаанд ажил эрхлээгүй бол шалтгаанаа бичнэ үү'/>
+                    <field name="work_desc"/>
+                </page>
+                <page string="ГЭР БҮЛИЙН БАЙДАЛ">
+                <label for="family_line_ids" string='Гэр бүлийн байдал'/>
+                    <field name="family_line_ids">
+                        <tree editable="bottom">
+							<field name="family_member_id"/>
+							<field name="name"/>
+							<field name="birth_year"/>
+							<field name="current_job"/>
+							<field name="contact"/>
+						</tree>
+                    </field>
+                    <label for="family_rel_line_ids" string='Ураг төрлийн байдал'/>
+                    <field name="family_rel_line_ids">
+                        <tree editable="bottom">
+							<field name="family_member_id"/>
+							<field name="name"/>
+							<field name="birth_year"/>
+							<field name="current_job"/>
+							<field name="contact"/>
+						</tree>
+                    </field>
+                </page>
+                <page string="УР ЧАДВАРЫН МЭДЭЭЛЭЛ">
+                    <label for="language_line_ids"  string="Гадаад хэлний мэдлэг" attrs="{'invisible':[('is_ita','=',False)]}"/>
+					<field name="language_line_ids" attrs="{'invisible':[('is_ita','=',False)]}" >
+						<tree  editable="bottom">
+							<field name="language_name" options="{'no_create': True}"/>
+							<field name="listening_skill"/>
+							<field name="speaking_skill"/>
+							<field name="reading_skill"/>
+							<field name="writing_skill"/>
+						</tree>
+					</field>
+                    <label for="software_skill_line_ids" string="Программын мэдлэг" attrs="{'invisible':[('is_ita','=',False)]}"/>
+					<field name="software_skill_line_ids" attrs="{'invisible':[('is_ita','=',False)]}">
+						<tree  editable="bottom">
+							<field name="name"/>
+							<field name="software_level"/>
+							<field name="name_description"/>
+						</tree>
+					</field>
+                    <label for="technic_ids" string="Ур чадварын түвшин: 3-маш сайн, 2-дунд, 1-анхан шат, 0-мэдэхгүй," attrs="{'invisible':[('is_ita','=',True)]}"/>
+					<field name="technic_ids" attrs="{'invisible':[('is_ita','=',True)]}">
+						<tree  editable="bottom">
+							<field name="name"/>
+							<field name="years"/>
+							<field name="level"/>
+						</tree>
+					</field>
+                </page>
+                <page string="БУСАД" name='other'>
+                <label for="prize_ids" string="Гавъяа шагнал"/>
+					<field name="prize_ids">
+						<tree  editable="bottom">
+                            <field name="prize_type"/>
+                            <field name="prize_comity"/>
+							<field name="prize_name_id" options="{'no_create': True}"/>
+							<field name="prize_date"/>
+                            <field name="desc"/>
+						</tree>
+					</field>
+                <label for="degree_ids" string="Таны урлаг спортын авъяас"/>
+					<field name="degree_ids">
+						<tree  editable="bottom">
+							<field name="direction"/>
+							<field name="spent_time"/>
+							<field name="name"/>
+						</tree>
+					</field>
+                <group string='Таны хувь хүний онцлог'>
+                    <field name="advantage"/>
+                    <field name="disadvantage"/>
+                </group>
+                <label for="family_employee_ids" string="Таны найз нөхөд эсвэл хамаатан садан манай байгууллагад ажилладаг эсэх"/>
+					<field name="family_employee_ids">
+						<tree  editable="bottom">
+							<field name="member_id" options="{'no_create': True}"/>
+							<field name="employee_id" options="{'no_create': True}"/>
+                            <field name="department_id" options="{'no_create': True}"/>
+                            <field name="job_id" options="{'no_create': True}"/>
+						</tree>
+					</field>
+                <label for="introduce" string="Таны өөрийгөө илэрхийлэх хэсэг"/>
+                <field name="introduce"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_employee_add" model="ir.ui.view">
+        <field name="name">hr.employee.extension</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="mw_hr_additional.view_employee_form_add"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='course_line_ids']" position="replace">
+                <field name="course_line_ids">
+                    <tree editable="bottom">
+                        <field name="organization_name"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="job"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

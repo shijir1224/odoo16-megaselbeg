@@ -1,0 +1,145 @@
+<odoo>
+<!-- Ерөнхий цагийн төлөвлөгөө харагдац -->
+    <record id="view_hr_timetable_form" model="ir.ui.view">
+        <field name="name">hr.timetable.form</field>
+        <field name="model">hr.timetable</field>
+        <field name="arch" type="xml">
+            <form string="Employee">
+                <header>
+                    <button name="action_lock" string="Цоожлох" states="draft" class="btn btn-info" icon = 'fa-lock' type="object"/>
+                    <button name="action_send" string="Илгээх" states="lock" class="btn btn-primary" type="object" />
+                    <button name="action_confirm" string="Хянах" states="send" class="btn btn-warning" type="object" groups='mw_timetable.group_timetable_manager'/>
+                    <button name="action_done" string="Батлах" states="confirm" class="btn btn-info" type="object" groups='mw_timetable.group_timetable_manager'/>
+                    <button name="action_draft" string="Буцаах" states="lock,send" class="btn btn-danger" type="object" />
+                    <button name="action_draft" string="Буцаах" states="confirm,done" class="btn-danger" type="object" groups='mw_timetable.group_timetable_manager'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,lock,send,confirm,done"/>
+                </header>
+                <sheet>
+                    <group style="background:#E5FFE5;">
+                        <group>
+                            <field name='name' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name='year' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name='month' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name='date_from' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name='date_to' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="is_attendance" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="is_mining" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="is_limit" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="is_late" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <!-- <field name="is_plan" attrs="{'readonly': [('state','!=','draft')]}"/> -->
+                            <!-- <field name="only_attendance" attrs="{'readonly': [('state','!=','draft')]}"/> -->
+                            <field name="month_da" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="work_location_id" options='{ "no_create": True}' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name='department_id' attrs="{'readonly': [('state','!=','draft')]}" options='{ "no_create": True}'/>
+                            <field name="company_id"/>
+                            <field name="employee_id" readonly='0'/>
+                            <field widget="binary" height="64" name="data" filename="file_fname"/>
+                            <field name="file_fname" invisible="1" />
+                        </group>
+                    </group>
+                    <button name="create_line"  states="draft" string="Ажилчид татах/Мэдээлэл шинэчлэх/" type="object" class="btn btn-info"/>
+                    <button name="import_attendance" string="Ирц татах" states="draft,lock"  type="object" class="btn btn-warning"/>
+                    <button name="set_hr_attendance" string="Ирц татах" states="draft,lock"  type="object" class="btn btn-warning"/>
+                    <button name="import_holiday_time" string="Хүсэлт нэгтгэх" states="draft,lock"  type="object" class="btn btn-success" />
+                    <button name="cancel_holiday_time" string="Хүсэлт цуцлах" states="draft,lock"  type="object" class="btn btn-danger" />
+                    <button name="date_update" string="Update" states="done" type="object" class="btn btn-danger"  groups="mw_timetable.group_timetable_manager"/>
+                    <button name="print_timetable" string="Эксел татах" type="object" class="btn btn-outline-dark fa fa-download"/>
+                    <button name="print_timetable_import" string="Импортлох файл татах" type="object" class="btn btn-outline-danger fa fa-download"/>
+                    <button name="action_import_timetable" string="Импортлох" type="object" class="btn btn-outline-success"  states="draft,lock"/>
+                    <notebook>
+                        <page string="Цаг">
+                            <widget name="hr_monthly_timesheet"  />
+                        </page>
+                        <page string="Дэлгэрэнгүй">
+
+                            <field name="line_ids" attrs="{'readonly': [('state','not in',('draft','lock'))]}">
+                                <tree limit = '1000'>
+                                     <field name="sequence" />
+                                    <field name="identification_id" />
+                                    <field name="employee_id" options="{'no_create':True}" />
+                                    <field name="department_id"  options="{'no_create':True}" />
+                                    <field name="job_id"  options="{'no_create':True}" />
+                                    <field name="year"/>
+                                    <field name="month"/>
+                                    <field name="shift_id" options="{'no_create':True}"/>
+                                    <field name='line_ids' widget="many2many_tags"  optional='hide'/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Тохиргоо">
+                            <group>
+                                <field name="employee_ids" attrs="{'readonly': [('state','not in',('draft','lock'))]}" options='{ "no_create": True}' widget='many2many_tags'/>
+                                <button name="create_add_data_pool" states="draft,lock" string="Ажилтан нэмэх" type="object"  class="btn btn-primary" confirm = 'Та сонгосон ажилтнуудыг төлөвлөгөөн дээр нэмэх гэж байна. Итгэлтэй байна уу?'/>
+                            </group>
+                            <group>
+                                <button name="import_holiday_time_emp" states="draft,lock" string="Хүсэлт нэгтгэх/Ажилтнаар/" type="object"  class="btn btn-warning"/>
+                                <button string="Ирц татах/Ажилтнаар/" states="draft,lock" name="import_attendance_emp" type="object" class="btn btn-info" />
+                            </group>
+                            <group string='Сонгосон огнооны хооронд ээлж солих'>
+                                <field name="sh_date_from" attrs="{'readonly': [('state','not in',('draft','lock'))]}"/>
+                                <field name="sh_date_to" attrs="{'readonly': [('state','not in',('draft','lock'))]}"/>
+                                <field name="shift_id" options="{'no_create':True}" attrs="{'readonly': [('state','not in',('draft','lock'))]}"/>
+                            </group>
+                            <group attrs="{'invisible': [('state','not in',('draft','lock'))]}">
+                                <button string="Ээлж солих/Бүгд/" states="draft,lock" name="action_update_shift" type="object" class="btn btn-warning" attrs="{'invisible': [('is_attendance','!=',True)]}"   help='Сонгосон огнооны хооронд тухайн ээлжээр бүх хүний ээлж солигдоно'/>
+                                <button string="Ээлж солих/Ажилтнаар/" states="draft,lock" name="action_update_shift_emp" type="object" class="btn btn-info" attrs="{'invisible': [('is_attendance','!=',True)]}"   help='Сонгосон огнооны хооронд тухайн ээлжээр сонгосон ажилдын ээлж солигдоно !!'/>
+                            </group>
+                            <group string='Гарсан  орсон ирц цэнэглэх' col='4' >
+                                <field name="up_date_from"  attrs="{'readonly': [('state','not in',('draft','lock'))]}"/>
+                                <field name="up_date_to"  attrs="{'readonly': [('state','not in',('draft','lock'))]}"/>
+                                <button string="Ирц цэнэглэх" states="draft,lock" name="action_update_attendance" type="object" class="btn btn-warning"  help='Сонгосон өдөр ирцийг цэнэглэнэ' confirm = 'Та итгэлтэй байна уу?'/>
+                            </group>
+                            <field name="timetable_line_line_rltd"  readonly="1"  widget="one2many_tags" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_timetable_tree" model="ir.ui.view">
+        <field name="name">hr.timetable.tree</field>
+        <field name="model">hr.timetable</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='name'/>
+                <field name="shift_id"  optional='hide'/>
+                <field name='department_id'/>
+                <field name='year'/>
+                <field name='month'/>
+                <field name='state'/>
+                <field name='line_ids' widget="one2many_tags" optional='hide'/>
+                <field name="timetable_line_line_rltd"  readonly="1" widget="one2many_tags" optional='hide'/>
+            </tree>
+        </field>
+    </record>
+    <record id="hr_timetable_filter" model="ir.ui.view">
+        <field name="name">hr.timetable.Search</field>
+        <field name="model">hr.timetable</field>
+        <field name="arch" type="xml">
+            <search string="Monthly Department hour balance front">
+                <group col='8' colspan='4'>
+                    <field name="name"/>
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter name="work_location_id" string="Ажлын байршил" domain="[]" context="{'group_by':'work_location_id'}"/>
+                    <filter name="year" string="Жил" icon="terp-personal" context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар" icon="terp-personal" context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_timetable_action" model="ir.actions.act_window">
+        <field name="name">Цагийн төлөвлөгөө</field>
+        <field name="res_model">hr.timetable</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hr_timetable_filter"/>
+        <field name="context">{'search_default_work_location_id':1,'search_default_year':1,'search_default_month':1}</field>
+    </record>
+</odoo>

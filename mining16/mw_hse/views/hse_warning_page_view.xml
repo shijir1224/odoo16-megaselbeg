@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+
+	<record id="sequence_hse_warning_page" model="ir.sequence">
+        <field name="name">HSE Warning Page</field>
+		<field name="code">hse.warning.page</field>
+        <field name="prefix">СХ%(y)s%(month)s%(day)s-</field>
+        <field name="padding">4</field>
+		<field name="number_next_actual">1</field>
+    </record>
+
+ 	<!-- Warning page -->
+	<record id="view_hse_warning_page_form" model="ir.ui.view">
+		<field name="name">hse.warning.page.form</field>
+		<field name="model">hse.warning.page</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="end" string="Ноороглох" type="object" class="btn-danger"/>
+					<button name="action_to_done" states="sent" string="Илгээх" type="object" class="btn-warning" icon="fa-check-square-o"/>
+					<button name="action_to_sent" states="draft" string="Боловсруулах" type="object" class="btn-warning" icon="fa-arrow-right"/>
+					<button name="action_to_end" states="done" string="Дуусгах" type="object" class="btn-success" icon="fa-arrow-right"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent,done,end"/>
+				</header>
+				<sheet>
+					<group col="6">
+						<field name="name"/>
+						<field name="date"/>
+						<field name="branch_id" options="{'no_create':True}"/>
+						<field name="company_id" options="{'no_create':True}"/>
+					</group>
+					<separator string="Болсон явдлын талаарх товч" colspan="2"/>
+					<group>
+						<field name="desc"/>
+						<field name="Issues_consider"/>
+						<field name="preventive_measures"/>
+						<field name="other"/>
+						<field name="attachment_ids" widget="many2many_binary"/>
+					</group>
+					<group>
+						<field name="notf_type" widget="selection"/>
+						<field name="template_id" attrs="{'required':[('notf_type','!=','email')], 'invisible':[('notf_type','!=','sms')]}" options="{'no_create':True}"/>
+						<field name="employee_ids" widget="many2many_tags" attrs="{'required':[('notf_type','!=','email')], 'invisible':[('notf_type','!=','sms')]}" options="{'no_create':True}"/>
+						<field name="mail_send_user_ids" widget="many2many_tags" attrs="{'required':[('notf_type','!=','sms')], 'readonly':[('state','!=','draft')], 'invisible':[('notf_type','!=','email')]}" options="{'no_create':True}"/>
+						<field name="sms_text" invisible="1"/>
+					</group>
+					<group col="6">
+						<field name="developed_by" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="developed_position" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="developed_by_date" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="check_by" attrs="{'invisible':[('state','=','draft')]}"/>
+						<field name="check_position" attrs="{'invisible':[('state','in',['draft','sent'])]}"/>
+						<field name="check_by_date" attrs="{'invisible':[('state','in',['draft','sent'])]}"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_hse_warning_page_tree" model="ir.ui.view">
+		<field name="name">hse.warning.page.tree</field>
+		<field name="model">hse.warning.page</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="company_id"/>
+				<field name="Issues_consider"/>
+				<field name="developed_by"/>
+				<field name="developed_by_date"/>
+				<field name="check_by"/>
+				<field name="check_by_date"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_hse_warning_page_filter" model="ir.ui.view">
+		<field name="name">hse.warning.page.filter</field>
+		<field name="model">hse.warning.page</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+				<filter name="is_sent" string="Боловсруулсан" domain="[('state','=',('sent'))]"/>
+				<filter name="is_done" string="Хянасан" domain="[('state','=',('done'))]"/>
+				<filter name="is_end" string="Дууссан" domain="[('state','=',('end'))]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Компани" name="group_company_id" domain="[]" context="{'group_by':'company_id'}"/>
+					<filter string="Жилээр" name='group_year' context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' context="{'group_by':'date:day'}"/>
+				</group>
+				<field name="name"/>
+				<field name="date"/>
+				<field name="branch_id"/>
+				<field name="company_id"/>
+				<field name="Issues_consider"/>
+				<field name="developed_by"/>
+				<field name="developed_by_date"/>
+				<field name="check_by"/>
+				<field name="check_by_date"/>
+				<field name="state"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_hse_warning_page_action" model="ir.actions.act_window">
+		<field name="name">Сэрэмжлүүлгийн хуудас</field>
+		<field name="res_model">hse.warning.page</field>
+		<field name="context">{'warning_page':True}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

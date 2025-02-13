@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_general_ledger_filters_branch" inherit_id="account_financial_report.report_general_ledger_filters">
+        <xpath expr="//div[@class='act_as_row labels']" position="inside">
+                <div class="act_as_cell">Branch</div>
+	       </xpath>
+        <xpath expr="//div[@class='act_as_row']" position="inside">
+                <div class="act_as_cell">
+                    <t t-if="o.branch_id"><span t-field="o.branch_id.name"/></t>
+                    <t t-if="not o.branch_id">All</t>
+                </div>
+		</xpath>	       
+    </template>
+
+</odoo>

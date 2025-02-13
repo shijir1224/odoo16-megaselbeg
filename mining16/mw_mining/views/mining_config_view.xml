@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model='ir.ui.view' id='view_mining_default_hour_tree'>
+		<field name="name">mining.default.hour.tree</field>
+		<field name="model">mining.default.hour</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Location" editable="top">
+				<field name="start_date"/>
+				<field name="end_date"/>
+				<field name="technic_id" options="{'no_create':True}" required="1"/>
+				<field name="cause_id" options="{'no_create':True}" required="1"/>
+				<field name="repair_system_id" options="{'no_create':True}" required="1"/>
+			</tree>
+		</field>
+	</record>
+	<record model='ir.ui.view' id='view_mining_default_hour_form'>
+		<field name="name">mining.default.hour.form</field>
+		<field name="model">mining.default.hour</field>
+		<field name="arch" type="xml">
+			<form string="Location" >
+				<sheet>
+					<group>
+						<field name="start_date"/>
+						<field name="end_date"/>
+						<field name="technic_id" options="{'no_create':True}" required="1"/>
+						<field name="cause_id" options="{'no_create':True}" required="1"/>
+						<field name="repair_system_id" options="{'no_create':True}" required="1"/>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_mining_default_hour_filter" model="ir.ui.view">
+		<field name="name">mining.default.hour.filter</field>
+		<field name="model">mining.default.hour</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="start_date"/>
+				<field name="end_date"/>
+				<field name="technic_id"/>
+				<field name="cause_id"/>
+				<field name="repair_system_id"/>
+				<group expand="0" >
+					<filter string="Technic" name="group_technic_id" domain="[]" context="{'group_by':'technic_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record> 
+	<record model='ir.actions.act_window' id='action_mining_default_hour'>
+		<field name="name">Technic repair default cause</field>
+		<field name="res_model">mining.default.hour</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+	</record>
+
+	<!-- Mining.location  -->
+	<record model='ir.ui.view' id='view_mining_location_tree'>
+		<field name="name">mining.location.tree</field>
+		<field name="model">mining.location</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Location" editable="top">
+				<field name="name"/>
+				<field name="where"/>
+				<field name="branch_id" options="{'no_create': True}"/>
+				<field name="is_drilling"/>
+				<field name="is_blasting"/>
+			</tree>
+		</field>
+	</record>
+	<record model='ir.ui.view' id='view_mining_location_form'>
+		<field name="name">mining.location.form</field>
+		<field name="model">mining.location</field>
+		
+		<field name="arch" type="xml">
+			<form string="Location" >
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="where"/>
+						<field name="branch_id" options="{'no_create': True}"/>
+					</group>
+					<group>
+						<field name="is_drilling"/>
+						<field name="is_blasting"/>
+					</group>
+					<!-- <notebook>
+					<page string="History of Location">
+							<group groups="mw_mining.group_mining_mineral_coal">
+								<separator string="For Location Blast" groups="mw_mining.group_mining_mineral_coal" colspan="4"/>
+								<div class="oe_mining_history_line">
+									<field name="for_blast_line" nolabel="1"  >
+										<tree  colors="green:date!=False">
+											<field name="date"/>
+											<field name="blast_number"/>
+											<field name="blast_soil_m3"/>
+											<field name="blast_coal_m3"/>
+											<field name="blast_sum_m3"/>
+											<field name="description"/>
+										</tree>
+									</field>
+								</div>
+							</group>
+							<group>
+								<group>
+									<separator string="For Location Production" colspan="4"/>
+									<div class="oe_mining_history_line">
+										 <field name="for_production_line" nolabel="1" >
+											<tree  colors="green:date!=False">
+												<field name="date"/>
+												<field name="shift"/>
+												<field name="material_id"/>
+												<field name="sum_m3"/>
+											</tree>
+										</field>
+									</div>
+								</group>
+								
+								<group>
+									<separator string="From Location Production" colspan="4"/>
+									<div class="oe_mining_history_line">
+										<field name="from_production_line" nolabel="1">
+											<tree  colors="red:date!=False">
+												<field name="date"/>
+												<field name="shift"/>
+												<field name="material_id"/>
+												<field name="sum_m3"/>
+											</tree>
+										</field>
+									</div>
+								</group>
+							</group>
+					</page>
+					</notebook> -->
+				</sheet>
+				
+			</form>
+		</field>
+	</record>
+	<record id="view_mining_location_filter" model="ir.ui.view">
+		<field name="name">mining.location.filter</field>
+		<field name="model">mining.location</field>
+		<field name="arch" type="xml">
+			<search string="Mining Location">
+				<field name="name"/>
+				<field name="where"/>
+				<field name="branch_id" options="{'no_create': True}"/>
+				<field name="is_drilling"/>
+				<field name="is_blasting"/>
+				<group expand="0" >
+					<filter string="Branch" name="group_branch_id" icon="terp-go-branch" domain="[]" context="{'group_by':'branch_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record> 
+	<record model='ir.actions.act_window' id='action_mining_location'>
+		<field name="name">Block</field>
+		<field name="res_model">mining.location</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_group_branch_id': 1,}</field>
+	</record>
+	
+	<!-- Mining.motohours.cause -->
+		<record model='ir.ui.view' id='view_mining_motohours_cause_tree'>
+			<field name="name">mining.motohours.cause.tree</field>
+			<field name="model">mining.motohours.cause</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Cause" editable="top" >
+					<field name="name"/>
+					<field name="cause_name"/>
+					<field name="cause_type"/>
+					<field name="branch_id"/>
+					<field name="concentrator_name" invisible="1"/>
+					<field name="calc_production"/>
+					<field name="calc_actual"/>
+					<field name="is_repair"/>
+					<field name="is_injury"/>
+					<field name="is_middle"/>
+					<field name="color" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+		<record model='ir.ui.view' id='view_mining_motohours_cause_form'>
+			<field name="name">mining.motohours.cause.form</field>
+			<field name="model">mining.motohours.cause</field>
+			
+			<field name="arch" type="xml">
+				<form string="Motohour Cause"  >
+					<sheet>
+						<group>
+							<field name="name"/>
+							<field name="cause_name"/>
+							<field name="cause_type"/>
+							<field name="branch_id"/>
+							<field name="calc_production"/>
+							<field name="calc_actual"/>
+							<field name="is_repair"/>
+							<field name="is_injury"/>
+							<field name="is_middle"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model='ir.actions.act_window' id='action_mining_motohours_cause'>
+			<field name="name">Mining motohours cause</field>
+			<field name="res_model">mining.motohours.cause</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{}</field>
+			<field name="domain">[]</field>
+		</record>
+		
+
+		<!-- Mining.concentrator.cause
+		<record model='ir.ui.view' id='view_mining_concentrator_cause_tree'>
+			<field name="name">mining.concentrator.cause.tree</field>
+			<field name="model">mining.concentrator.cause</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Cause" editable="top">
+					<field name="name"/>
+					<field name="cause_name"/>
+				</tree>
+			</field>
+		</record>
+		 <record model='ir.ui.view' id='view_mining_concentator_cause_form'>
+			<field name="name">mining.concentrator.cause.form</field>
+			<field name="model">mining.concentrator.cause</field>
+			
+			<field name="arch" type="xml">
+				<form string="Concentrator Cause"  >
+					<sheet>
+						<group>
+							<field name="name"/>
+							<field name="cause_name"/>
+						</group>
+					</sheet>
+					
+				</form>
+			</field>
+		</record>
+		<record model='ir.actions.act_window' id='action_mining_concentrator_cause'>
+			<field name="name">Mining concentrator cause</field>
+			<field name="res_model">mining.concentrator.cause</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{}</field>
+			<field name="domain">[]</field>
+		</record> -->
+		
+	   
+		
+		<!-- Mining.motohours.cause.type -->
+		<record model='ir.ui.view' id='view_mining_motohours_cause_type_tree'>
+			<field name="name">mining.motohours.cause.type.tree</field>
+			<field name="model">mining.motohours.cause.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Type" editable="top">
+					<field name="type_name"/>
+					<field name="type"/>
+					<field name="color"/>
+					<field name="level"/>
+				</tree>
+			</field>
+		</record>
+		<record model='ir.ui.view' id='view_mining_motohours_cause_type_form'>
+			<field name="name">mining.motohours.cause.type.form</field>
+			<field name="model">mining.motohours.cause.type</field>
+			
+			<field name="arch" type="xml">
+				<form string="Cause type"  >
+					<sheet>
+						<group>
+							<field name="type_name"/>
+							<field name="type"/>
+							<field name="color"/>
+							<field name="level"/>
+						</group>
+					</sheet>
+					
+				</form>
+			</field>
+		</record>
+
+		<record model='ir.actions.act_window' id='action_mining_motohours_cause_type'>
+			<field name="name">Type</field>
+			<field name="res_model">mining.motohours.cause.type</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	<!-- Mining.hole  -->
+	<record model='ir.ui.view' id='view_mining_hole_tree'>
+		<field name="name">mining.hole.tree</field>
+		<field name="model">mining.hole</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Hole" editable="top">
+				<field name="name"/>
+				<field name="branch_id" options="{'no_create': True}" />
+				<field name="location_id" options="{'no_create': True}" domain="[('branch_id','in',[branch_id])]" required="1"/>
+				<field name="tusliin_gun_m"/>
+			</tree>
+		</field>
+	</record>
+	<record model='ir.ui.view' id='view_mining_hole_form'>
+		<field name="name">mining.hole.form</field>
+		<field name="model">mining.hole</field>
+		
+		<field name="arch" type="xml">
+			<form string="Hole" >
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="branch_id" options="{'no_create': True}"/>
+						</group>
+						<group>
+							<field name="location_id" options="{'no_create': True}" domain="[('branch_id','in', [branch_id])]"/>
+							<field name="tusliin_gun_m"/>
+						</group>
+					</group>
+				</sheet>
+				
+			</form>
+		</field>
+	</record>
+	<record id="view_mining_hole_filter" model="ir.ui.view">
+		<field name="name">mining.hole.filter</field>
+		<field name="model">mining.hole</field>
+		<field name="arch" type="xml">
+			<search string="Mining Hole">
+				<group expand="0">
+					<filter string="Location" name="group_location" icon="terp-go-location" domain="[]" context="{'group_by':'location_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record> 
+	<record model='ir.actions.act_window' id='action_mining_hole'>
+		<field name="name">Hole</field>
+		<field name="res_model">mining.hole</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_group_location': 1,}</field>
+	</record>
+
+	
+
+	<record id="view_mining_material_form" model="ir.ui.view">
+		<field name="name">mining material form</field>
+		<field name="model">mining.material</field>
+		<field name="arch" type="xml">
+			<form string="Product" >
+				<sheet>
+					<div class="oe_title">
+						<label for="name"/>
+						<h1><field name="name" class="oe_inline"/></h1>
+					</div>
+					<group>
+						<group>
+							<field name="code"/>
+							<field name="is_productivity"/>
+							<field name="bcm_coefficient"/>
+							<field name="lcm_coefficient"/>
+						</group>
+						<group>
+							<field name="mining_product_type"/>
+							<field name="branch_id"/>
+							<field name="product_id"/>
+						</group>
+						<!-- <field name="technic_configure_line" invisible="1">
+							<tree>
+								<field name="technic_setting_id"/>
+								<field name="body_capacity_m3"/>
+								<field name="body_capacity_tn"/>
+							</tree>
+						</field> -->
+					</group>
+					
+						   
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_mining_material_tree" model="ir.ui.view">
+		<field name="name">mining.material.tree</field>
+		<field name="model">mining.material</field>
+		<field  name="priority" eval="15"/>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Mining Products">
+				<field name="name"/>
+				<field name="mining_product_type"/>
+				<field name="branch_id"/>
+				<field name="product_id"/>
+				<field name="is_productivity"/>
+				<field name="bcm_coefficient"/>
+				<field name="lcm_coefficient"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_mining_material_filter" model="ir.ui.view">
+		<field name="name">mining.material.filter</field>
+		<field name="model">mining.material</field>
+		<field name="arch" type="xml">
+			<search string="Mining Pile">
+				<field name="name"/>
+				<field name="code"/>
+				<field name="branch_id"/>
+				<field name="product_id"/>
+				<field name="mining_product_type"/>
+				<group expand="1" string="Filters">
+					<filter name="productivity" string="Бүтээлд тооцох" domain="[('is_productivity','=',True)]"/>
+				</group>
+				<group expand="0" string="Group By...">
+					<filter string="Салбараар" name="group_branch_id" icon="terp-personal" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Бараагаар" name="group_material" icon="terp-go-material" domain="[]" context="{'group_by':'product_id'}"/>
+					<filter string="Бүтээлд тооцох эсэхээр" name="group_productivity" icon="terp-go-productivity" domain="[]" context="{'group_by':'is_productivity'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id='action_mining_material' model='ir.actions.act_window' >
+		<field name="name">Material Type</field>
+		<field name="res_model">mining.material</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+		<field name="domain">[]</field>
+	</record>
+
+
+	<record id="view_mining_pile_filter" model="ir.ui.view">
+		<field name="name">mining.pile.filter</field>
+		<field name="model">mining.pile</field>
+		<field name="arch" type="xml">
+			<search string="Mining Pile">
+				<field name="name"/>
+				<field name="material_id"/>
+				<field name="branch_id"/>
+				<group expand="1" string="Filters">
+					<filter name="concentrator" string="Баяжуулах" domain="[('is_concentrator','=',True)]"/>
+				</group>
+				<group expand="0" string="Group By...">
+					<filter string="Салбар" name="group_branch_id" icon="terp-personal" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Материал" name="group_material" icon="terp-go-material" domain="[]" context="{'group_by':'material_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="view_mining_pile_tree" model="ir.ui.view">
+		<field name="name">mining.pile.tree</field>
+		<field name="model">mining.pile</field>
+		<field name="arch" type="xml">
+			<tree string="Mining Pile">
+				<field name="branch_id"/>
+				<field name="name"/>
+				<field name="material_id" invisible="1"/>
+				<field name="material_type" invisible="1"/>
+				<field name="pile_location"/>
+				<field name="measurement_date"/>
+				<field name="balance_by_report_m3"/>
+				<field name="balance_by_report_tn" groups="mw_mining.group_mining_mineral_coal"/>
+				<field name="balance_by_measurement_m3"/>
+				<field name="balance_by_measurement_tn" groups="mw_mining.group_mining_mineral_coal"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="view_mining_pile_form" model="ir.ui.view">
+		<field name="name">mining.pile.form</field>
+		<field name="model">mining.pile</field>
+		<field name="arch" type="xml">
+			<form string="Mining Pile">
+			<header>
+					<button name="action_to_closed" string="Close" type="object" />
+					<button name="action_to_opened" string="Open" type="object" />
+					<field name="state" widget="statusbar"/>
+			</header>
+			<sheet>
+				<group>
+					<group>
+						<field name="name"/>
+						<field name="material_id" options="{'no_create': True}" required="1"/>
+						<field name="pile_location"/>
+						<field name="is_concentrator"/>
+						<field name="concentrator_id" attrs="{'invisible': [('is_concentrator', '=', False)]}"/>
+					</group>
+					<group>
+						<field name="branch_id" options="{'no_create': True}"/>
+						<field name="balance_by_report_m3"/>
+						<field name="balance_by_report_tn" groups="mw_mining.group_mining_mineral_coal"/>
+						<field name="balance_by_measurement_m3" readonly="1"/>
+						<field name="balance_by_measurement_tn" groups="mw_mining.group_mining_mineral_coal"/>
+					</group>
+				</group>
+				<notebook>
+					<page string="History of Pile">
+						<!-- <group> -->
+							<!-- <group> -->
+								<separator string="For Pile Production" colspan="4"/>
+								<div class="oe_mining_history_line">
+									<field name="for_production_line" nolabel="1" editable="False">
+										<tree  >
+											<field name="date"/>
+											<field name="shift"/>
+											<field name="material_id"/>
+											<field name="sum_m3"/>
+											<field name="sum_tn" groups="mw_mining.group_mining_mineral_coal"/>
+										</tree>
+									</field>
+								</div>
+							<!-- </group> -->
+							<!-- <group> -->
+								<separator string="From Pile Production" colspan="4"/>
+								<div class="oe_mining_history_line">
+									<field name="from_production_line" nolabel="1">
+										<tree  >
+											<field name="date"/>
+											<field name="shift"/>
+											<field name="material_id"/>
+											<field name="sum_m3"/>
+											<field name="sum_tn" groups="mw_mining.group_mining_mineral_coal"/>
+										</tree>
+									</field>
+								</div>
+							<!-- </group> -->
+						<!-- </group> -->
+						<group>
+							<group groups="mw_mining.group_mining_mineral_gold">
+								<separator string="From Pile Concentrator" colspan="4"/>
+								<div class="oe_mining_history_line">
+									<field name="from_concentrator_line" nolabel="1" >
+										<tree  >
+											<field name="date"/>
+											<field name="shift"/>
+											<field name="production_amount"/>
+										</tree>
+									</field>
+								</div>
+							</group>
+							<group groups="mw_mining.group_mining_mineral_coal">
+								<separator string="From Pile Coal Sales" colspan="4"/>
+								<div class="oe_mining_history_line">
+									<field name="from_coal_sales_line" nolabel="1">
+										<tree  >
+											<field name="date"/>
+											<field name="sales_amount_tn"/>
+											<field name="sales_amount_m3"/>
+										</tree>
+									</field>
+								</div>
+							</group>
+						</group>
+					</page>
+					<page string="Information">
+						<group>
+							<group>
+								<field name="measurement_date"/>
+								<field name="replace_measurement_uid"/>
+								<!-- <field name="state"/> -->
+							</group>
+							<!-- <group> -->
+								<separator string="Survey Measurement" colspan="4"/>
+								<div class="oe_mining_history_line">
+									<field name="measurement_line" nolabel="1">
+										<tree  >
+											<field name="date"/>
+											<field name="balance_by_measurement_m3"/>
+											<field name="is_replace"/>
+										</tree>
+									</field>
+								</div>
+							<!-- </group> -->
+						</group>
+					</page>
+				</notebook>
+			</sheet>
+			<div class="oe_chatter">
+				<field name="message_ids" widget="mail_thread"/>
+			</div>
+			
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_mining_pile'>
+		<field name="name">Pile</field>
+		<field name="res_model">mining.pile</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_group_branch_id': 1,'search_default_group_material': 1}</field>
+	</record>
+
+	<!-- Уурхайн жагсаалт -->
+	<record id="view_mining_location_type_filter" model="ir.ui.view">
+		<field name="name">mining.location.type.filter</field>
+		<field name="model">mining.location.type</field>
+		<field name="arch" type="xml">
+			<search string="Mining Pile">
+				<group expand="0" string="Group By...">
+					<filter string="Салбар" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="view_mining_location_type_tree" model="ir.ui.view">
+		<field name="name">mining.location.type.tree</field>
+		<field name="model">mining.location.type</field>
+		<field name="arch" type="xml">
+			<tree string="Mining Pile" editable="top">
+				<field name="name"/>
+				<field name="branch_id" options="{'no_create': True}"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_mining_location_type'>
+		<field name="name">Уурхай</field>
+		<field name="res_model">mining.location.type</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+	</record>
+
+	<!-- Mining.technic.configure -->
+	<record id="view_mining_technic_configure_form" model="ir.ui.view">
+		<field name="name">mining.technic.configure.form</field>
+		<field name="model">mining.technic.configure</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="technic_setting_id" options="{'no_create': True}"/>
+							<field name="carrying_capacity"/>
+							<field name="branch_id" options="{'no_create': True}"/>
+						</group>
+						<group>
+							<field name="material_id" options="{'no_create': True}" />
+							<field name="body_capacity_m3"/>
+							<field name="body_capacity_tn" groups="mw_mining.group_mining_mineral_coal"/>
+						</group>
+					</group>
+				</sheet>
+				
+			</form>
+		</field>
+	</record>
+	<record id="view_mining_technic_configure_tree" model="ir.ui.view">
+		<field name="name">mining.technic.configure.tree</field>
+		<field name="model">mining.technic.configure</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="technic_setting_id"/>
+				<field name="carrying_capacity"/>
+				<field name="branch_id"/>
+				<field name="material_id"/>
+				<field name="body_capacity_m3"/>
+				<field name="body_capacity_tn" groups="mw_mining.group_mining_mineral_coal"/>   
+			</tree>
+		</field>
+	</record>
+	<record id="action_mining_technic_configure" model="ir.actions.act_window">
+		<field name="name">Technic Heaped Configure</field>
+		<field name="res_model">mining.technic.configure</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record id="view_mining_dispatcher_import_config_form" model="ir.ui.view">
+		<field name="name">mining.dispatcher.import.config.form</field>
+		<field name="model">mining.dispatcher.import.config</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col="6">
+						<field name="branch_id" options="{'no_create': True}"/>
+						<field name="type"/>
+						<field name="technic_name_col"/>
+						<field name="exca_name_row" attrs="{'invisible': [('type', '=', 'motoh')]}"/>
+						<field name="exca_name_col" attrs="{'invisible': [('type', '=', 'motoh')]}"/>
+						<field name="last_motoh_col"/>
+						<field name="last_km_col"/>
+						<field name="firstname_col"/>
+						<field name="lastname_col"/>
+						<field name="block_row"/>
+						<field name="level_row"/>
+						<field name="pile_col"/>
+						<field name="haul_distance_col"/>
+					</group>
+					<group>
+						<field name="lines">
+							<tree editable="bottom">
+								<field name="sequence" widget="handle" options="{'no_create': True}"/>
+								<field name="cause_id" attrs="{'column_invisible': [('parent.type', '=', 'prod')], 'required':[('parent.type','!=','prod')]}"/>
+								<field name="material_id" options="{'no_create': True}" attrs="{'column_invisible': [('parent.type', '=', 'motoh')], 'required':[('parent.type','!=','motoh')]}"/>
+								<field name="col"/>
+							</tree>
+						</field>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_mining_dispatcher_import_config_tree" model="ir.ui.view">
+		<field name="name">mining.dispatcher.import.config.tree</field>
+		<field name="model">mining.dispatcher.import.config</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="branch_id"/>
+				<field name="type"/>
+				<field name="technic_name_col"/>
+				<field name="exca_name_row"/>
+				<field name="exca_name_col"/>
+				<field name="last_motoh_col"/>
+				<field name="last_km_col"/>
+				<field name="firstname_col"/>
+				<field name="lastname_col"/>
+				<field name="block_col"/>
+				<field name="level_col"/>
+				<field name="pile_col"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_mining_dispatcher_import_config" model="ir.actions.act_window">
+		<field name="name">Disp Import Config</field>
+		<field name="res_model">mining.dispatcher.import.config</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model='ir.ui.view' id='view_mining_hab_category_tree'>
+		<field name="name">mining.hab.category.tree</field>
+		<field name="model">mining.hab.category</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Type" editable="top">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="branch_id"/>
+			</tree>
+		</field>
+	</record>
+	<record model='ir.ui.view' id='view_mining_hab_category_type_form'>
+		<field name="name">mining.hab.category.form</field>
+		<field name="model">mining.hab.category</field>
+		<field name="arch" type="xml">
+			<form string="Cause type"  >
+				<sheet>
+					<group>
+						<field name="sequence"/>
+						<field name="name"/>
+						<field name="branch_id"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_mining_hab_category'>
+		<field name="name">Ажиллах хүч</field>
+		<field name="res_model">mining.hab.category</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('branch_id.user_ids','in',[uid])]</field>
+	</record>
+
+	<record model='ir.ui.view' id='view_mining_dpr_logo_tree'>
+		<field name="name">mining.dpr.logo.tree</field>
+		<field name="model">mining.dpr.logo</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Type" editable="top">
+				<field name="logo"/>
+				<field name="branch_id"/>
+			</tree>
+		</field>
+	</record>
+	<record model='ir.ui.view' id='view_mining_dpr_logo_type_form'>
+		<field name="name">mining.dpr.logo.form</field>
+		<field name="model">mining.dpr.logo</field>
+		<field name="arch" type="xml">
+			<form string="Cause type"  >
+				<sheet>
+					<group>
+						<field name="logo"/>
+						<field name="branch_id"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='action_mining_dpr_logo'>
+		<field name="name">DPR logo</field>
+		<field name="res_model">mining.dpr.logo</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('branch_id.user_ids','in',[uid])]</field>
+	</record>
+</odoo>

@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="action_selected_mining_daily_entry" model="ir.actions.server">
+			<field name="name">Олноор нь шинэчлэх</field>
+			<field name="model_id" ref="mw_mining.model_mining_daily_entry"/>
+			<field name="groups_id" eval="[(4, ref('mw_mining.group_mining_dispatcher'))]"/>
+			<field name="binding_model_id" ref="mw_mining.model_mining_daily_entry"/>
+			<field name="state">code</field>
+			<field name="code">records.button_dummy()</field>
+		</record>
+
+		<record id="mining_daily_entry_grid_prod" model="ir.ui.view">
+			<field name="name">mining.daily.entry.grid.prod</field>
+			<field name="model">mining.daily.entry</field>
+			<field name="arch" type="xml">
+				<grid string="DPR" create="true" edit="false">
+					<field name="branch_id" type="row"/>
+					<field name="date" type="col">
+						<range name="month" string="Month" span="month" step="day"/>
+						<range name="year" string="Year" span="year" step="month"/>
+						<range name="week" string="Week" span="week" step="day"/>
+					</field>
+					<field name="sum_soil_m3" type="measure" widget="float" />
+					<!-- options="{'digits':[0,0], 'not_zero':'not_zero'}" -->
+				</grid>
+			</field>
+		</record>
+
+		<record id="view_mining_daily_entry_tree" model="ir.ui.view">
+			<field name="name">mining.daily.entry.tree</field>
+			<field name="model">mining.daily.entry</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Production" 
+					decoration-danger="state=='draft'"
+					decoration-success="state=='approved'">
+					<field name="date"/>
+					<field name="shift"/>
+					<field name="master_id"/>
+					<field name="user_id"/>
+					<field name="branch_id"/>
+					<field name="sum_soil_m3"/>
+					<field name="sum_mineral_m3" groups="mw_mining.group_mining_mineral_gold"/>
+					<field name="sum_coal_tn" groups="mw_mining.group_mining_mineral_coal"/>
+					<field name="sum_res_count"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_mining_daily_entry_form" model="ir.ui.view">
+			<field name="name">mining.daily.entry.form</field>
+			<field name="model">mining.daily.entry</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Daily Entry"  >
+					<header>
+						<button name="action_to_approved" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+						<button name="action_to_draft" states="approved" string="Draft" type="object"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+					</header>
+					<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button class="oe_stat_button"
+							name="view_line_production"
+							string="See details"
+							icon="fa-th-list"
+							type="object"
+							>
+
+						</button>
+					</div>
+						<group>
+							<group>
+								<field name="date"/>
+								<field name="shift"/>
+								<field name="part"/>
+							</group>
+							<group>
+								<field name="user_id"/>
+								<field name="branch_id" widget="selection" />
+								<field name="master_id"/>
+							</group>
+						</group>
+						<group string="Excel import section" >
+							<group >
+								<group>
+									<!-- <button name="action_export" string="Template export" type="object" icon="fa-file-excel-o" invisible="1"/> -->
+									<field name="import_data_production_id" states="draft" widget="many2many_binary" class="oe_edit_only"/>
+								</group>
+								<group>
+									<button name="action_import" states="draft" class="btn btn-success fa fa-download" string="Click Import Production" type="object"/>
+									<button name="action_call_func_own" string="Compute" type="object" class="oe_highlight" groups="base.group_no_one"/>
+									<button name="action_call_func" string="Compute ALL" type="object" class="oe_highlight" groups="base.group_no_one"/>
+								</group>
+							</group>
+						</group>
+						<separator string="Productivity" />
+						<!-- <group> -->
+							<field name="production_line" nolabel="1">
+								<tree editable="bottom">
+									<field name="dump_id" domain="[('branch_id','=',parent.branch_id),('technic_type', 'in', ['dump','achaanii_mashin'])]" />
+									<field name="material_id" options="{'no_create':True, 'no_open':True}" />
+									<field name="coal_layer" groups="mw_mining.group_mining_mineral_coal" attrs="{'readonly':[('domain_material_type','!=',False)]}" optional="hide"/>
+									<field name="is_stone" groups="mw_mining.group_mining_mineral_coal" attrs="{'readonly':[('domain_material_type','!=',False)]}" optional="hide"/>
+									<field name="domain_material_type" invisible="1"/>
+									<field name="the_from" optional="hide"/>
+									<field name="haul_distance" optional="hide" sum="Нийт"/>
+									<field name="from_pile" domain="[('material_id','=',material_id),('branch_id','=',parent.branch_id), ('id','!=',for_pile), ('state','=','opened')]" attrs="{'required':[('the_from','=','pile')]}"  options="{'no_create':True, 'no_open':True}" optional="show"/>
+									<field name="from_location" domain="[('branch_id','=',parent.branch_id)]" attrs="{'required':[('the_from','=','location')]}"   options="{'no_create':True, 'no_open':True}" optional="show"/>
+									<field name="level" optional="show"/>
+									<field name="res_count" optional="show"/>
+									<field name="the_for" optional="show"/>
+									<field name="for_pile"  domain="[('material_id','=',material_id),('branch_id','=',parent.branch_id), ('id','!=',from_pile), ('state','=','opened')]" attrs="{'required':[('the_for','=','pile')]}" options="{'no_create':True, 'no_open':True}" optional="show"/>
+									<field name="for_location" domain="[('branch_id','=',parent.branch_id)]" attrs="{'required':[('the_for','=','location')]}" options="{'no_create':True, 'no_open':True}" optional="show"/>
+
+									<field name="excavator_id" domain="[('branch_id','=',parent.branch_id),('technic_type', 'in', ['excavator','wheel_excavator','wheel_loader','loader'])]" options="{'no_create':True, 'no_open':True}" optional="show"/>
+									<field name="body_capacity_m3" readonly="0" optional="show" force_save='1' />
+									<field name="body_capacity_tn" groups="mw_mining.group_mining_mineral_coal" readonly="0" optional="show" force_save='1'/>
+									<field name="is_production" optional="show"/>
+									<field name="sum_m3" readonly="1" sum="Total"/>
+									<field name="sum_tn" readonly="1" sum="Total" groups="mw_mining.group_mining_mineral_coal" optional="show"/>
+									<field name="sum_m3_petram" readonly="1" sum="Total" optional="hide"/>
+									<field name="sum_tn_petram" readonly="1" sum="Total" optional="hide"/>
+									<field name="sum_m3_puu" readonly="1" sum="Total" optional="hide"/>
+									<field name="sum_tn_puu" readonly="1" sum="Total" optional="hide"/>
+								</tree>
+							</field>
+						<!-- </group> -->
+						<group class="oe_subtotal_footer oe_right">
+
+							<field name="sum_soil_m3"/>
+							<field name="sum_mineral_m3" groups="mw_mining.group_mining_mineral_gold"/>
+							<field name="sum_coal_tn" groups="mw_mining.group_mining_mineral_coal"/>
+							<field name="sum_res_count"/>
+							<field name="average_haul_distance" />
+							<button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+
+						  </group>
+						<div class="oe_clear"/>
+						<notebook >
+							<page string="Ээлжийн тайлбар">
+								<field name="notes" placeholder="Terms and conditions..." nolabel="1"/>
+								<separator string="Уурхайн дарга"/>
+								<field name="foot_info" nolabel="1"/>
+							</page>
+							<page string="Засварын мэдээ">
+								<field name="repair_info" nolabel="1"/>
+							</page>
+							<page string="ХАБ мэдээ" >
+								<group>
+									<field name="hab_info" nolabel="1"/>
+								</group>
+								<field name="hab_line" nolabel="1">
+									<tree editable="bottom">
+										<field name="sequence" widget="handle"/>
+										<field name="categ_id" domain="[('branch_id','=',parent.branch_id)]" nolabel="1" options="{'no_create':True}"/>
+										<field name="qty" sum="SUM"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+					<!-- <div class="oe_chatter">
+						<field name="message_follower_ids"/>
+						<field name="message_ids"/>
+					</div> -->
+				</form>
+			</field>
+		</record>
+
+		<record id="view_mining_daily_entry_filter" model="ir.ui.view">
+		<field name="name">mining.daily.entry.filter</field>
+		<field name="model">mining.daily.entry</field>
+		<field name="arch" type="xml">
+			<search string="Search">
+				<field name="date"/>
+				<field name="shift"/>
+				<field name="master_id"/>
+				<field name="user_id"/>
+				<field name="technic_id" filter_domain="['|','|', ('motohour_line.technic_id','like',self), ('production_line.dump_id','like',self), ('production_line.excavator_id','like',self)]"/>
+				<filter icon="terp-approved" name="is_approved" string="Approved" domain="[('state','=',('approved'))]" help="Approved Production Data"/>
+				<filter icon="terp-draft" name="is_draft" string="Draft" domain="[('state','=',('draft'))]" help="Draft Production Data"/>
+				<separator/>
+				<filter name="today" string="Today" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+				<filter name="this_month" string="This Month" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+				<filter name="year" string="This Year" domain="[('date','like',time.strftime('%%Y'))]"/>
+				<separator/>
+				<filter name="january" string="January" domain="[('date','like',time.strftime('%%Y-01'))]"/>
+				<filter name="february" string="February" domain="[('date','like',time.strftime('%%Y-02'))]"/>
+				<filter name="march" string="March" domain="[('date','like',time.strftime('%%Y-03'))]"/>
+				<filter name="April" string="April" domain="[('date','like',time.strftime('%%Y-04'))]"/>
+				<filter name="may" string="May" domain="[('date','like',time.strftime('%%Y-05'))]"/>
+				<filter name="june" string="June" domain="[('date','like',time.strftime('%%Y-06'))]"/>
+				<filter name="july" string="July" domain="[('date','like',time.strftime('%%Y-07'))]"/>
+				<filter name="august" string="August" domain="[('date','like',time.strftime('%%Y-08'))]"/>
+				<filter name="september" string="September" domain="[('date','like',time.strftime('%%Y-09'))]"/>
+				<filter name="octomber" string="October" domain="[('date','like',time.strftime('%%Y-10'))]" />
+				<filter name="november" string="November" domain="[('date','like',time.strftime('%%Y-11'))]"/>
+				<filter name="december" string="December" domain="[('date','like',time.strftime('%%Y-12'))]"/>
+
+				<group expand="0" string="Group By...">
+						<filter string="Салбар" name="group_branch_id" icon="terp-go-project" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="Өдөрөөр" name='group_day' context="{'group_by':'date'}"/>
+						<filter string="Ээлжээр" name="group_shift" icon="terp-go-shift" domain="[]" context="{'group_by':'shift'}"/>
+				</group>
+		   	</search>
+		</field>
+		</record>
+		<record model="ir.ui.view" id="mining_daily_entry_calendar">
+			<field name="name">mining.daily.entry.calendar</field>
+			<field name="model">mining.daily.entry</field>
+			<field name="priority" eval="2"/>
+			<field name="arch" type="xml">
+				<calendar string="Calendar View" date_start="date" color="user_id">
+					<field name="branch_id"/>
+					<field name="shift"/>
+					<field name="part"/>
+					<field name="state"/>
+					<field name="user_id"/>
+					<field name="sum_soil_m3"/>
+					<field name="sum_mineral_m3" groups="mw_mining.group_mining_mineral_gold"/>
+					<field name="sum_coal_tn" groups="mw_mining.group_mining_mineral_coal"/>
+					<field name="sum_res_count"/>
+				</calendar>
+			</field>
+		</record>
+		<record id="action_mining_daily_entry" model="ir.actions.act_window">
+			<field name="name">Production Entry</field>
+			<field name="res_model">mining.daily.entry</field>
+			<field name="context">{'daily_type': 'production'}</field>
+			<!-- <field name="view_mode">tree,form,calendar</field> -->
+			<field name="view_mode">grid,tree,form,calendar</field>
+		</record>
+
+		<!-- Mining.motohour.entry -->
+		<record id="view_mining_mh_entry_tree" model="ir.ui.view">
+			<field name="name">mining.mh.entry.tree</field>
+			<field name="model">mining.daily.entry</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Motohour" 
+					decoration-danger="state=='draft'"
+					decoration-success="state=='approved'">
+					<field name="date"/>
+					<field name="shift"/>
+					<field name="user_id"/>
+					<field name="branch_id"/>
+					<field name="sum_motohour_time" widget="float_time" sum="Нийт"/>
+					<field name="sum_work_time" widget="float_time" sum="Нийт"/>
+					<field name="sum_production_time" widget="float_time" sum="Нийт"/>
+					<field name="sum_repair_time" widget="float_time" sum="Нийт"/>
+					<field name="sum_tbbk"/>
+					<field name="count_technic"/>
+					<field name="sum_tbbk_count"/>
+					<field name="state"/>
+					<field name="notes" optional="hide"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_mining_mh_entry_form" model="ir.ui.view">
+			<field name="name">mining.mh.entry.form</field>
+			<field name="model">mining.daily.entry</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Motohour Entry"  >
+					<header>
+						<button name="action_to_approved" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+						<button name="action_to_check" states="draft" string="Check" type="object" class="btn-danger"/>
+						<button name="action_to_draft" states="approved" string="Draft" type="object"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="date"/>
+								<field name="shift"/>
+								<field name="part"/>
+							</group>
+							<group>
+								<field name="user_id" options="{'no_create': True}"/>
+								<field name="branch_id" widget="selection" />
+								<field name="master_id" options="{'no_create': True}"/>
+							</group>
+						</group>
+						<group string="Excel import section" >
+							<!-- <group > -->
+								<group>
+									<field name="night_row" attrs="{'readonly': [('state','!=','draft')]}"/>
+									<field name="is_fixing" attrs="{'readonly': [('state','!=','draft')]}" groups="mw_mining.group_mining_fix_motoh" />
+								</group>
+								<group>
+									<field name="import_data_id" widget="many2many_binary" attrs="{'readonly': [('state','!=','draft')]}"/>
+									<button name="action_import" states="draft" class="btn-success fa fa-download" string="Click Import Motohour" type="object"/>
+								</group>
+								<!-- <field name="import_employee_id" widget="many2many_binary" groups="base.group_no_one"/> -->
+								<!-- <button name="action_call_func_own" string="Compute" type="object" class="oe_highlight"/>
+								<button name="action_call_func2" string="Compute ALL" type="object" class="oe_highlight" groups="base.group_no_one"/> -->
+								<!-- <button name="action_import_employee" string="Operator import" type="object" class="btn btn-success fa fa-download" groups="base.group_no_one"/> -->
+								<!-- <button name="action_export" string="Template Export" type="object" icon="fa-file-excel-o" invisible="1"/> -->
+							<!-- </group> -->
+						</group>
+						<separator string="Technic" />
+						<group >
+							<group  states="draft">
+								<!-- <group> -->
+									<field name="import_technic_ids" options="{'no_create': True}" states="draft" widget="many2many_tags" domain="[('odometer_unit','=','motoh'),('branch_id','=',branch_id),('id','not in',mh_line_technic_ids)]"/>
+									<field name="remove_technic_ids" options="{'no_create': True}" states="draft" widget="many2many_tags" domain="[('id','in',mh_line_technic_ids)]"/>
+								<!-- </group> -->
+								<!-- <group> -->
+									<button name="action_import_custom_technic" states="draft" string="Enter the selected technique" type="object" class="btn btn-warning"/>
+									<button name="action_remove_custom_technic" states="draft" string="Delete the selected technique" type="object" class="btn btn-warning"/>
+								<!-- </group> -->
+							</group>
+							<group >
+								<!-- <group> -->
+									<button name="import_technic" states="draft" string="All technic import" type="object" colpan="1" />
+									<button name="remove_technic" states="draft" string="Remove the technic" type="object" colpan="1" />
+									<button name="remove_technic_force" states="draft" string="Бүх техникүүдийг устгах" type="object" colpan="1" />
+								<!-- </group> -->
+								<!-- <group> -->
+									<field name="mh_line_technic_ids" widget="many2many_tags" invisible="1"/>
+								<!-- </group> -->
+							</group>
+						</group>
+
+						<group>
+							<!-- <widget name="technic_motohour">
+							</widget> -->
+
+						</group>
+						<!-- <group> -->
+
+							<field name="motohour_line" editable="bottom" nolabel="1" invisible="0">
+								<form>
+									<group  >
+										<group >
+											<field name="technic_id" />
+											<field name="state" invisible="1"/>
+											<field name="date" invisible="1"/>
+											<field name="branch_id" invisible="1"/>
+											<field name="last_km"/>
+											<field name="is_tbbk" groups="base.group_no_one"/>
+											<field name="is_medium_technic" groups="mw_mining.group_mining_mineral_coal"/>
+											<field name="is_medium_technic" invisible="1" groups="!mw_mining.group_mining_mineral_coal"/>
+											<!-- <field name="domain_operator" invisible="1"/> -->
+										</group>
+										<group>
+											 <!-- <field name="first_odometer_value"/> -->
+											<field name="first_odometer_value" attrs="{'readonly':['|',('state','=','approved'),('is_medium_technic','=',False)]}"/>
+											<field name="last_odometer_value"/>
+											<field name="diff_odometer_value"/>
+											<field name="motohour_time"/>
+										</group>
+										<group>
+											<field name="work_time"  widget="float_time"/>
+											<field name="production_time" widget="float_time"/>
+											<field name="repair_time" widget="float_time"/>
+											<field name="work_diff_time"  widget="float_time"/>
+										</group>
+									</group>
+
+									<!-- <group> -->
+										<!-- <group> -->
+											<field name="motohour_cause_line" nolabel="1" >
+												<tree   editable="bottom" >
+													<field name="cause_id" context="{'tree_view_ref':'mining.view_mining_motohours_cause_tree'}"/>
+													<field name="start_time" widget="float_time"/>
+													<field name="is_repair" invisible="1"/>
+													<!-- <field name="work_order_id" domain="['|',('technic_id','=',parent.technic_id),('technic_id','=',False),('state','in',['open','done','confirmed']),('branch_id','=',parent.branch_id)]" attrs="{'readonly':[('is_repair','=',False)]}"/> -->
+
+													<field name="repair_system_id" options="{'no_open': True, 'no_create': True}" force_save="1"/>
+													<field name="location_id" domain="[('branch_id','=',parent.branch_id)]"/>
+													<field name="description"/>
+													<!-- <field name="job_description" invisible="1"/> -->
+													<field name="diff_time" widget="float_time" invisible="1"/>
+													<field name="color" invisible="1"/>
+													<field name="is_medium_technic" invisible="1"/>
+													<!-- {'invisible': ['|',('is_mining_product', '=', False),('type', '!=', 'service')]} -->
+													<field name="percentage" attrs="{'readonly':[('is_medium_technic','=',False),],'invisible':[('is_medium_technic','=',False),]}"/>
+												</tree>
+											</field>
+										<!-- </group>
+										<group> -->
+											<field name="operator_line" nolabel="1" >
+													<tree editable="bottom">
+														<!-- <field name="operator_id" domain="[('id','in',parent.domain_operator[0][2])]"/> -->
+														<field name="operator_id" options="{'no_create': True}"/>
+														<field name="last_odometer_value"/>
+														<field name="o_motohour_time"/>
+													</tree>
+											</field>
+										<!-- </group> -->
+									<!-- </group> -->
+								</form>
+								<tree>
+									<field name="technic_id"/>
+									<field name="first_odometer_value"/>
+									<field name="state" readonly="1"/>
+									<field name="motohour_cause_line" invisible="1"/>
+									<field name="last_km"/>
+								</tree>
+							</field>
+						<!-- </group> -->
+						<group class="oe_subtotal_footer oe_right">
+							<group>
+								<field name="sum_motohour_time" widget="float_time"/>
+								<field name="sum_work_time" widget="float_time"/>
+								<field name="sum_production_time" widget="float_time"/>
+								<field name="sum_repair_time" widget="float_time"/>
+							</group>
+							<group>
+								<field name="sum_tbbk"/>
+								<field name="sum_tbbk_sum"/>
+							</group>
+							<group>
+								<field name="count_technic"/>
+								<field name="sum_tbbk_count"/>
+							</group>
+						</group>
+						<notebook >
+							<page string="Ээлжийн тайлбар">
+								<field name="notes" placeholder="Terms and conditions..." nolabel="1"/>
+								<separator string="Уурхайн дарга"/>
+								<field name="foot_info" nolabel="1"/>
+							</page>
+							<page string="Засварын мэдээ">
+								<field name="repair_info" nolabel="1"/>
+							</page>
+							<page string="ХАБ мэдээ" >
+								<group>
+									<field name="hab_info" nolabel="1"/>
+								</group>
+								<field name="hab_line" nolabel="1">
+									<tree editable="bottom">
+										<field name="categ_id" domain="[('branch_id','=',parent.branch_id)]" nolabel="1" options="{'no_create':True}"/>
+										<field name="qty" sum="SUM"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+					<!-- <div class="oe_chatter">
+						<field name="message_follower_ids"/>
+						<field name="message_ids"/>
+					</div> -->
+				</form>
+
+			</field>
+		</record>
+		<!-- <record id="view_mining_mh_entry_grid" model="ir.ui.view">
+			<field name="name">mining.daily.entry.grid.prod</field>
+			<field name="model">mining.daily.entry</field>
+			<field name="arch" type="xml">
+				<grid string="SMU" create="true" edit="false">
+					<field name="branch_id" type="row"/>
+					<field name="date" type="col">
+						<range name="month" string="Month" span="month" step="day"/>
+						<range name="year" string="Year" span="year" step="month"/>
+						<range name="week" string="Week" span="week" step="day"/>
+					</field>
+					<field name="sum_motohour_time" type="measure" widget="float" options="{'digits':[0,0], 'not_zero':'not_zero'}"/>
+				</grid>
+			</field>
+		</record> -->
+
+		<record id="action_mining_mh_entry" model="ir.actions.act_window">
+			<field name="name">Motohour Entry</field>
+			<field name="res_model">mining.daily.entry</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="context">{'daily_type': 'motohour'}</field>
+			<field name="view_mode">tree,form,calendar</field>
+			<!-- <field name="view_mode">grid,tree,form,calendar</field> -->
+		</record>
+
+		<record id="action_mining_mh_entry_tree" model="ir.actions.act_window.view">
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_mining_mh_entry_tree"/>
+			<field name="act_window_id" ref="action_mining_mh_entry"/>
+		</record>
+		<record id="action_mining_mh_entry_form" model="ir.actions.act_window.view">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_mining_mh_entry_form"/>
+			<field name="act_window_id" ref="action_mining_mh_entry"/>
+		</record>
+
+		<!-- <record id="action_mining_mh_entry_grid" model="ir.actions.act_window.view">
+			<field name="view_mode">grid</field>
+			<field name="view_id" ref="view_mining_mh_entry_grid"/>
+			<field name="act_window_id" ref="action_mining_mh_entry"/>
+		</record> -->
+
+<!-- Line  -->
+	<record id="view_mining_motohour_entry_line" model="ir.ui.view">
+			<field name="name">mining.motohour.entry.line.form</field>
+			<field name="model">mining.motohour.entry.line</field>
+			<field name="arch" type="xml">
+				<form string="Motohour Cause Entry" >
+					<sheet>
+					<group   name="general">
+						<group >
+							<field name="technic_id" />
+							<field name="state" invisible="1"/>
+							<field name="date" invisible="1"/>
+							<field name="branch_id" invisible="1"/>
+							<field name="last_km"/>
+							<field name="is_tbbk" groups="base.group_no_one"/>
+							<field name="is_medium_technic" groups="mw_mining.group_mining_mineral_coal"/>
+							<!-- <field name="domain_operator" invisible="1"/> -->
+						</group>
+						<group>
+							<field name="first_odometer_value" />
+							<field name="last_odometer_value"/>
+							<field name="diff_odometer_value"/>
+							<field name="motohour_time"/>
+						</group>
+						<group>
+							<field name="work_time"  widget="float_time"/>
+							<field name="production_time" widget="float_time"/>
+							<field name="repair_time" widget="float_time"/>
+							<field name="work_diff_time"  widget="float_time"/>
+						</group>
+						<field name="shift" invisible="1"/>
+						<field name="id" invisible="1"/>
+					</group>
+
+					<!-- <group  name="lines"> -->
+						<!-- <group> -->
+							<field name="motohour_cause_line" nolabel="1" context="{'parent_shift': shift,'parent_id':id}">
+									<tree   editable="bottom" >
+										<field name="motohour_cause_id" invisible="1"/>
+										<field name="cause_id" options="{'no_open':True, 'no_create':True}" attrs="{'readonly':[('is_not_remove_group','=',False),('is_not_remove','=',True)]}"
+											domain="[('id','in',view_cause_ids)]"/>
+										<field name="view_cause_ids" widget="many2many_tags" invisible="1"/>
+										<field name="start_time" widget="float_time" context="{'last_start_time': start_time}"/>
+										<field name="r_start_time" groups="base.group_no_one" readonly="1"/>
+										<field name="is_not_remove" attrs="{'readonly':[('is_not_remove_group','=',False)]}"/>
+										<field name="is_not_remove_group" invisible="1"/>
+										<field name="is_repair" invisible="1"/>
+
+										<field name="repair_system_id" options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('is_repair','=',False)], 'required':[('is_repair','=',True)]}" force_save="1"/>
+										<field name="description"/>
+										<field name="location_id" domain="[('branch_id','=',parent.branch_id)]"/>
+										<!-- <field name="job_description" invisible="1"/> -->
+										<field name="diff_time" widget="float_time"/>
+
+										<field name="cause_time_minute" groups="base.group_no_one" force_save="1" readonly="1"/>
+										<field name="color" invisible="1"/>
+										<field name="is_medium_technic" invisible="1"/>
+										<!-- {'invisible': ['|',('is_mining_product', '=', False),('type', '!=', 'service')]} -->
+										<field name="percentage" attrs="{'readonly':[('is_medium_technic','=',False),],'invisible':[('is_medium_technic','=',False),]}"/>
+									</tree>
+							</field>
+						<!-- </group>
+						<group> -->
+							<field name="operator_line" nolabel="1" >
+									<tree editable="bottom">
+										<!-- <field name="operator_id" domain="[('id','in',parent.domain_operator[0][2])]"/> -->
+										<field name="operator_id"/>
+										<field name="last_odometer_value"/>
+										<field name="o_motohour_time"/>
+									</tree>
+							</field>
+						<!-- </group> -->
+					<!-- </group> -->
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_mining_motohour_cause" model="ir.actions.act_window">
+			   <field name="name">Motohour Cause Entry</field>
+			   <field name="res_model">mining.motohour.entry.line</field>
+			   <field name="view_mode">form</field>
+		</record>
+	
+</odoo>

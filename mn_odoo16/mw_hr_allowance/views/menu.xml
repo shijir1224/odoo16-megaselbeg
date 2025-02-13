@@ -1,0 +1,18 @@
+<odoo>  
+    <!-- <menuitem id="hr_allowance_menu" 
+        name ='Тэтгэмж' 
+        parent="hr.menu_hr_root"
+        sequence="18"/>
+
+     <menuitem id="allowance_form_menu" 
+         parent="hr_allowance_menu"
+        action="hr_allowance_action"
+        sequence="1"/>
+
+     <menuitem id="hr_allowance_name_menu" 
+        parent="hr.menu_config_employee"
+        action="hr_allowance_name_action"
+        sequence="11"/> -->
+    
+    
+</odoo>

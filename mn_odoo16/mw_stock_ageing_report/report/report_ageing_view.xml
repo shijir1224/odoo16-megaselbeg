@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Ageing pivot -->
+	<record id="stock_ageing_report_pivot_tree" model="ir.ui.view">
+			<field name="name">stock.ageing.report.pivot.tree</field>
+			<field name="model">stock.ageing.report</field>
+			<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="report_id" groups="base.group_no_one"/>
+				<field name="product_tmpl_id"/>
+				<field name="product_id"/>
+				<field name="categ_id"/>
+				<field name="warehouse_id"/>
+				<field name="date_range"/>
+				<field name="date"/>
+				<field name="report_date"/>
+				<field name="qty"/>
+				<field name="in_date_count"/>
+				<field name="in_date_count_mid"/>
+			</tree>
+			</field>
+	</record>
+	<record id="stock_ageing_report_pivot" model="ir.ui.view">
+			<field name="name">stock.ageing.report.pivot</field>
+			<field name="model">stock.ageing.report</field>
+			<field name="arch" type="xml">
+				<pivot string="Analysis">
+				<field name="categ_id" type="row"/>
+				<field name="date_range" type="col"/>
+				<field name="qty" type="measure"/>
+				<field name="total_price" type="measure"/>
+				</pivot>
+			</field>
+	</record>
+
+	<record id="stock_ageing_report_search" model="ir.ui.view">
+		<field name="name">stock.ageing.report.search</field>
+		<field name="model">stock.ageing.report</field>
+		<field name="arch" type="xml">
+			<search string="Analysis">
+				<field name="product_tmpl_id"/>
+				<field name="product_id"/>
+				<field name="categ_id"/>
+				<field name="warehouse_id"/>
+				<group expand="0" string="Group By">
+					<filter string="Бараагаар" name="gr_product" context="{'group_by':'product_id'}"/>
+					<filter string="Агуулахаар" name="gr_warehouse_id" context="{'group_by':'warehouse_id'}"/>
+					<filter string="Ангилалаар" name="gr_categ_id" context="{'group_by':'categ_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_stock_ageing_report" model="ir.actions.act_window">
+		<field name="name">Насжилтийн Тайлан</field>
+		<field name="res_model">stock.ageing.report</field>
+		<field name="view_mode">tree,pivot</field>
+		<field name="view_id" ref="stock_ageing_report_pivot_tree"/>
+		<field name="target">current</field>
+	</record>
+		
+
+	<record id="stock_ageing_report_balance_pivot_tree" model="ir.ui.view">
+			<field name="name">stock.ageing.report.balance.pivot.tree</field>
+			<field name="model">stock.ageing.report.balance</field>
+			<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="product_tmpl_id"/>
+				<field name="product_id"/>
+				<field name="categ_id"/>
+				<field name="warehouse_id"/>
+				<field name="date"/>
+				<field name="date"/>
+				<field name="qty"/>
+			</tree>
+			</field>
+	</record>
+	<record id="stock_ageing_report_balance_pivot" model="ir.ui.view">
+			<field name="name">stock.ageing.report.balance.pivot</field>
+			<field name="model">stock.ageing.report.balance</field>
+			<field name="arch" type="xml">
+				<pivot string="Analysis">
+				<field name="categ_id" type="row"/>
+				<field name="qty" type="measure"/>
+				<field name="total_price" type="measure"/>
+				</pivot>
+			</field>
+	</record>
+
+	<record id="stock_ageing_report_balance_search" model="ir.ui.view">
+		<field name="name">stock.ageing.report.balance.search</field>
+		<field name="model">stock.ageing.report.balance</field>
+		<field name="arch" type="xml">
+			<search string="Analysis">
+				<field name="product_tmpl_id"/>
+				<field name="product_id"/>
+				<field name="categ_id"/>
+				<field name="warehouse_id"/>
+				<group expand="0" string="Group By">
+					<filter string="Бараагаар" name="gr_product" context="{'group_by':'product_id'}"/>
+					<filter string="Агуулахаар" name="gr_warehouse_id" context="{'group_by':'warehouse_id'}"/>
+					<filter string="Ангилалаар" name="gr_categ_id" context="{'group_by':'categ_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_stock_ageing_report_balance" model="ir.actions.act_window">
+		<field name="name">Насжилтийн Тайлан Balance</field>
+		<field name="res_model">stock.ageing.report.balance</field>
+		<field name="view_mode">tree,pivot</field>
+		<field name="view_id" ref="stock_ageing_report_balance_pivot_tree"/>
+		<field name="target">current</field>
+	</record>
+</odoo>

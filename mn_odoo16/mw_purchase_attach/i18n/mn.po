@@ -1,0 +1,96 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_purchase_attach
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0-20220525\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-07 03:16+0000\n"
+"PO-Revision-Date: 2022-07-07 03:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_purchase_attach
+#: model_terms:ir.ui.view,arch_db:mw_purchase_attach.purchase_order_view_form_attach
+msgid "Attach"
+msgstr "Хавсралт"
+
+#. module: mw_purchase_attach
+#: model_terms:ir.ui.view,arch_db:mw_purchase_attach.purchase_order_view_form_attach
+msgid "Attached document"
+msgstr "Хавсаргасан баримт"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__type
+msgid "Attachment type"
+msgstr "Хавсралтын төрөл"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order__check_items
+msgid "Check Items"
+msgstr ""
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__checked
+msgid "Checked"
+msgstr "Шалгасан эсэх"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__create_uid
+msgid "Created by"
+msgstr "Үүсгэсэн этгээд"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__id
+msgid "ID"
+msgstr ""
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__data
+msgid "Insert file"
+msgstr "Файл оруулах"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach____last_update
+msgid "Last Modified on"
+msgstr "Сүүл зассан огноо"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__write_uid
+msgid "Last Updated by"
+msgstr "Сүүл зассан этгээд"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mw_purchase_attach
+#: model:ir.model,name:mw_purchase_attach.model_purchase_order
+msgid "Purchase Order"
+msgstr "Худалдан авалтын захиалга"
+
+#. module: mw_purchase_attach
+#: model:ir.model.fields,field_description:mw_purchase_attach.field_purchase_order_attach__po_attach_id
+msgid "Purchase order"
+msgstr "Худалдан авалтын захиалга"
+
+#. module: mw_purchase_attach
+#: model:ir.model,name:mw_purchase_attach.model_purchase_order_attach
+msgid "Purchase order attach"
+msgstr ""

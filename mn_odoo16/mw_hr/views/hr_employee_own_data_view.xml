@@ -1,0 +1,249 @@
+<odoo>
+<!-- Тохиргоо -->
+    <record model="ir.ui.view" id="view_employee_location_form">
+		<field name="name">hr.employee.location.form</field>
+		<field name="model">hr.employee.location</field>
+		<field name="arch" type="xml">
+			<form string="Аймаг/хот">
+					<field name="name"/>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="employee_location_tree_view">
+		<field name="name">hr.employee.location.tree</field>
+		<field name="model">hr.employee.location</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name='name' />
+			</tree>
+		</field>
+	</record>
+		
+	<record id="action_employee_location" model="ir.actions.act_window">
+		<field name="name">Аймаг/Хот</field>
+		<field name="res_model">hr.employee.location</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="view_employee_location_sub_form">
+		<field name="name">hr.employee.location.sub.form</field>
+		<field name="model">hr.employee.location.sub</field>
+		<field name="arch" type="xml">
+			<form string="Сум/Дүүрэг">
+				<group col="4" colspan="4">
+                    <field name="employee_location_id"/>
+					<field name="name"/>
+                    <field name="shifr"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="employee_location_sub_tree_view">
+		<field name="name">hr.employee.location.sub.tree</field>
+		<field name="model">hr.employee.location.sub</field>
+		<field name="arch" type="xml">
+			<tree >
+				<field name="employee_location_id"/>
+                <field name="name"/>
+                <field name="shifr"/>
+			</tree>
+		</field>
+	</record>
+		
+	<record id="action_employee_location_sub" model="ir.actions.act_window">
+		<field name="name">Сум/Дүүрэг</field>
+		<field name="res_model">hr.employee.location.sub</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+        <record model="ir.ui.view" id="hr_employee_family_member_search_view">
+            <field name="name">hr.employee.family.member.search</field>
+            <field name="model">hr.employee.family.member</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string=" document search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_family_member_form_view">
+            <field name="name">hr.employee.family.member.form</field>
+            <field name="model">hr.employee.family.member</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="form">
+                <sheet>
+                    <group col="4">
+                        <field name="name" string='Таны хэн болох'/>
+                        <field name="is_children" string='Хүүхэд эсэх'/>
+                    </group>
+                </sheet>
+                </form>  
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_family_member_tree_view">
+            <field name="name">hr.employee.family.member.tree</field>
+            <field name="model">hr.employee.family.member</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" string='Таны хэн болох'/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_hr_employee_family_member">
+            <field name="name">Гэр бүлийн мэдээлэл</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee.family.member</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="hr_employee_family_member_search_view"/>
+            <field name="view_id" ref="hr_employee_family_member_tree_view"/>
+        </record>
+
+       
+
+        <!-- <record id="resume_line_view_form" model="ir.ui.view">
+            <field name="name">hr.resume.line.form</field>
+            <field name="model">hr.resume.line</field>
+            <field name="inherit_id" ref="hr_skills.resume_line_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Resumé">
+                        <group>
+                            <group colspan='4'>
+                                <field name="line_type_id"/>
+                                <field name="name" string='Хаана' required="True"/>
+                                <field name="description" placeholder="Мэргэжил эсвэл албан тушаал оруулна уу"/>
+                                <field name="date_start" required="True"/>
+                                <field name="date_end"/>
+                                <field name="display_type" invisible='1'/>
+                            </group>
+                        </group>
+                    </form>
+                </xpath>
+            </field>
+        </record> -->
+
+        <!-- <record id="hr_employee_view_form_mw" model="ir.ui.view">
+            <field name="name">hr.employee.view.form.inherit.resume</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_skills.hr_employee_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='public']/div/div[1]/field[@name='resume_line_ids']/tree/field[@name='line_type_id']" position="after">
+                    <field name="where"/>
+                </xpath>
+            </field>
+        </record> -->
+
+		<record id="hr_kanban_view_employee_mw" model="ir.ui.view">
+			<field name="name">hr.employee.kanban.mw</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="before">
+					<span><field name="last_name"/> </span>
+				</xpath>
+			</field>
+		</record>
+
+        <!--Ажилтаны лавлах -->
+	 <!-- <record id="view_employee_form_other_mw" model="ir.ui.view">
+		<field name="name">hr.employee.extension.other</field>
+		<field name="model">hr.employee</field>
+		<field name="arch" type="xml">
+			<form string="Order" create='false' delete='false'>  
+				<sheet>
+					<group>
+						<group>
+							<field name="last_name" readonly='1'/>
+							<field name="name" string='Нэр' readonly='1'/>
+							<field name="identification_id" string='Ажилтны код' readonly='1'/>
+                            <field name="employee_type" readonly='1'/>
+                            <field name="work_email" readonly='1'/>
+                            <field name="work_phone" readonly='1'/>
+						</group>
+                        <group>
+                            <field name="department_id" options="{'no_create': True,'no_open': True}" readonly='1' />
+                            <field name="job_id" options="{'no_create': True,'no_open': True}" readonly='1'/>
+                            <field name="parent_id" options="{'no_create': True,'no_open': True}" readonly='1'/>
+                            <field name="company_id" options="{'no_create': True,'no_open': True}"  readonly='1'/>
+                            <field name="work_location_id" options="{'no_create': True,'no_open': True}"  context="{'default_address_id': False}" readonly='1'/>
+                        </group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	 <record id="hr_employee_other_view_kanban" model="ir.ui.view">
+           <field name="name">hr.employee.kanban</field>
+           <field name="model">hr.employee</field>
+           <field name="priority">10</field>
+           <field name="arch" type="xml">
+               <kanban class="o_hr_employee_kanban" js_class="hr_employee_kanban" sample="1">
+                   <field name="image_128" />
+                   <templates>
+                       <t t-name="kanban-box">
+                       <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                           <field name="avatar_128" widget="image" class="o_kanban_image_fill_left" options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}"/>
+
+                            <div class="oe_kanban_details">
+                               <div class="o_kanban_record_top">
+                                   <div class="o_kanban_record_headings">
+                                       <strong class="o_kanban_record_title">
+                                            <span> <field name="last_name" placeholder="Employee's Last Name"/> </span>
+											<field name="name" placeholder="Employee's Name"/>
+                                       </strong>
+                                       <span t-if="record.job_id.raw_value" class="o_kanban_record_subtitle"><field name="job_id"/></span>
+                                   </div>
+                               </div>
+                               <ul>
+                                   <li t-if="record.work_email.raw_value" class="o_text_overflow"><field name="work_email" /></li>
+                                   <li t-if="record.work_phone.raw_value" class="o_force_ltr"><field name="work_phone" /></li>
+                               </ul>
+                           </div>
+                       </div>
+                       </t>
+                   </templates>
+               </kanban>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="hr_employee_other_tree_view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="identification_id"/>
+                    <field name="last_name"/>
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <!-- <field name="employee_type"/> -->
+                    <field name="work_email" />
+                    <field name="mobile_phone" optional='show'/>
+                    <field name="work_phone" optional='show'/>
+                    <field name="parent_id" optional='hide'/>
+                    <field name="company_id" optional='hide'/>
+                </tree>
+            </field>
+        </record>
+
+	<record id="action_hr_employee_other_mw_view" model="ir.actions.act_window">
+		<field name="name">Ажилтны лавлах</field>
+		<field name="res_model">hr.employee</field>
+		<field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain">[('employee_type','!=','resigned')]</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('hr_employee_other_tree_view')})]"
+                /> 
+	</record>
+	
+</odoo>

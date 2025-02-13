@@ -1,0 +1,496 @@
+<odoo>
+    <!-- Мөрүүд -->
+     <record id="view_hr_timetable_line_form" model="ir.ui.view">
+        <field name="name">hr.timetable.line.form</field>
+        <field name="model">hr.timetable.line</field>
+        <field name="arch" type="xml">
+            <form string="Цагийн төлөвлөгөө">
+                <group col="4">
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="employee_id"   options="{'no_create':True, 'no_open':True}" />
+                    <field name="department_id"  options="{'no_create':True, 'no_open':True}" />
+                    <field name="job_id"  options="{'no_create':True, 'no_open':True}" />
+                    <field name="shift_id" options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state','not in',('draft','lock'))]}"/>
+                    <field name='description' attrs="{'readonly': [('state','not in',('draft','lock'))]}"/>
+                    <field name="state" />
+                    <field name="sequence" />
+                    <button string="Тохиргоо өөрчлөх" name="%(mw_timetable.action_hr_timetable_line_conf_wizard)d" type="action" class="btn btn-primary" icon = 'fa-gear' states='draft,lock'/>
+                </group>
+                <button name="view_form" string="Томруулж харах" type="object"  class="btn btn-info" icon = 'fa-search-plus'/>
+                <button name="line_update" string="Update" type="object"  states='draft,lock'/>
+                <button name="all_cancel" string="Бүх чагт арилгах" type="object"  states='draft,lock'/>
+                <button name="all_yes" string="Бүгдийг чагтлах" type="object"  states='draft,lock'/>
+                <field name="line_ids" colspan="4" attrs="{'readonly': [('state','not in',('draft','lock'))]}">
+                    <form string="Timetable">
+                        <group col="4" colspan="4">
+                            <field name="number"/>
+                            <field name="date"/>
+                            <field name="name" />
+                            <field name="is_work_schedule"/>
+                            <field name="shift_plan_id" options="{'no_create':True, 'no_open':True}" force_save='1'/>
+                            <field name="shift_attribute_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="hour_to_work" />
+                            <field name="sign_in" />
+                            <field name="sign_out" />
+                            <field name="worked_hour"  force_save='1'/>
+                            <field name="delayed_min" />
+                            <field name="early_min"/>
+                            <field name="tourist_hour" />
+                            <field name="overtime_hour" />
+                            <field name="sick_hour" />
+                            <field name="holiday_worked_hour" />
+                            <field name="free_hour" />
+                            <field name="free_wage_hour" />
+                            <field name="vacation_day" />
+                            <field name="sickness_hour" />
+                            <field name="busines_trip_hour" />
+                            <field name="over_work_night" />
+                             <field name="over_work_day" />
+                            <field name="night_hour" />
+                        </group>
+                    </form>
+                    <tree string="Timetable" editable="top" limit="1000" >
+                        <field name="number"  optional='hide' groups="base.group_no_one"/>
+                        <field name="is_update" optional='hide'/>
+                        <field name="is_not_tourist" optional='hide'/>
+                        <field name="is_request" optional='hide' groups="base.group_no_one"/>
+                        <field name="is_public_holiday" optional='hide'/>
+                        <field name="date" optional='show'/>
+                        <field name="name" optional='hide' />
+                        <field name="month" optional='hide' />
+                        <field name="work_location_id" options='{ "no_create": True}' optional='hide'/>
+                        <field name="color" optional="hide" groups="base.group_no_one"/>
+                        <field name="is_work_schedule" optional='hide'  class="text-wrap" groups="base.group_no_one"/>
+                        <field name="shift_plan_id" options="{'no_create':True, 'no_open':True}" optional='show' force_save='1' class="text-wrap"/>
+                        <field name="shift_attribute_id"  optional='hide' options="{'no_create':True, 'no_open':True}"  class="text-wrap"/>
+                        <field name="hour_to_work" sum='Sum'/>
+                        <!-- орох гарах цаг болон орсон гарсан цагууд -->
+                        <field name="sign_in"  optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="sign_out"  optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="start_time"  optional='hide' class="text-wrap"/>
+                        <field name="end_time" optional='hide' class="text-wrap"/>
+                        <field name="sign_in_emp" optional='show' class="text-wrap" />
+                        <field name="sign_out_emp" optional='show' class="text-wrap"/>
+                        <!-- Тооцоолол -->
+                        <field name="worked_hour" sum='Sum' readonly='0' force_save='1'/>
+                        <field name="night_hour" sum='Sum' optional='show' force_save='1'/>
+                        <field name="worked_salary_hour" sum='Sum' readonly='0' force_save='1'/>
+                        <field name="out_working_hour" sum='Sum'  optional='hide'/>
+                        <field name="online_working_hour" sum='Sum'  optional='hide'/>
+                        <field name="training_hour" sum='Sum'  optional='hide'/>
+                        <field name="outage_hour" sum='Sum'  optional='hide'/>
+                        <field name="delayed_min" sum='Sum' optional='hide'/>
+                        <field name="early_min"  sum='Sum' optional='hide'/>
+                        <field name="long_min"  sum='Sum' optional='hide'/>
+                        <field name="tourist_hour" sum='Sum' optional='hide' force_save='1'/>
+                        <field name="overtime_hour" sum='Sum' />
+                        <field name="req_overtime_hour" sum='Sum' optional='hide' />
+                        <field name="accumlated_hour"  optional='hide' sum='SUm'/>
+                        <field name="holiday_worked_hour" sum='Sum' optional='hide' force_save='1'/>
+                        <field name="free_wage_hour" sum='Sum'/>
+                        <field name="parental_hour" sum='Sum' optional='hide'/>
+                        <field name="free_hour" sum='Sum'/>
+                        <field name="sick_hour" sum='Sum'/>
+                        <field name="busines_trip_hour" sum='Sum' />
+                        <field name="vacation_day" sum='Sum' optional='hide'/>
+                        <field name="sickness_hour" sum='Sum' optional='hide'/>
+                        <field name="over_work_night" sum='Sum' optional='hide'/>
+                        <field name="over_work_day" sum='Sum' optional='hide'/>
+                        <!-- Тохиргооны цагууд -->
+                        <field name="lunch_start_time"  optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="lunch_end_time" optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="in_limit_start" optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="in_limit_end" optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="out_limit_start"  optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="out_limit_end" optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="late_s" optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <field name="out_s" optional='hide' class="text-wrap" groups="base.group_no_one"/>
+                        <!-- Хүсэлтийн огноо -->
+                        <field name="leave_request_start" class="text-wrap" groups="base.group_no_one" optional='hide'/>
+                        <field name="leave_request_end" class="text-wrap" groups="base.group_no_one" optional='hide'/>
+                    </tree>
+                </field>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="hr_timetable_line_tree" model="ir.ui.view">
+        <field name="name">hr.timetable.line.tree</field>
+        <field name="model">hr.timetable.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='year'/>
+                <field name='month'/>
+                <field name="identification_id" />
+                <field name="employee_id" />
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="shift_id" />
+                <field name='description'/>
+                <field name="state" />
+                <field name="line_ids" force_save='1' widget="one2many_tags" groups="base.group_no_one"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_hr_timetable_line_search" model="ir.ui.view">
+        <field name="name">hr.timetable.line.search</field>
+        <field name="model">hr.timetable.line</field>
+        <field name="arch" type="xml">
+            <search string="Lines">
+                <group col='8' colspan='4'>
+                    <field name="employee_id"/>
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter name="year" string="Жил" icon="terp-personal" domain="[]" context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар" icon="terp-personal" domain="[]" context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+     <record id="hr_timetable_line_gantt" model="ir.ui.view">
+        <field name="name">hr.timetable.line</field>
+        <field name="model">hr.timetable.line</field>
+        <field name="arch" type="xml">
+            <gantt  string="Operations" default_group_by="employee_id" create="0" delete="0"
+                plan="0" date_stop="date_from" date_start="date_from" 
+                decoration-success="state == 'done'"
+                decoration-warning="state == 'cancel'"
+                display_unavailability="1"
+                color="employee_id"
+                sample="1"
+                form_view_id="%(view_hr_timetable_line_form)d">
+                <field name="employee_id"/>
+                <field name="state"/>
+                <field name="year"/>
+                <field name="month"/>
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row g-0">
+                            <div class="col">
+                                <ul class="ps-1 mb-0 list-unstyled">
+                                    <li><strong>Start Date: </strong> <t t-out="date_from.format('L LTS')"/></li>
+                                    <li><strong>Stop Date: </strong> <t t-out="userTimezoneStopDate.format('L LTS')"/></li>
+                                    <li><strong>employee_id: </strong> <t t-out="employee_id[1]"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+    <record id="hr_timetable_line_action" model="ir.actions.act_window">
+        <field name="name">Бүртгэлийн мөрүүд</field>
+        <field name="res_model">hr.timetable.line</field>
+        <field name="view_mode">tree,form,gantt</field>
+        <field name="context">{'search_default_group_year':1,'search_default_group_month':1}</field>
+    </record>
+<!-- Ажилтанд харагдах хэсэг -->
+    <record id="view_hr_timetable_line_line_form" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line.form</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="arch" type="xml">
+            <form string="Timetable">
+                <group col="4" colspan="4">
+                    <field name="number"/>
+                    <field name="employee_id" />
+                    <field name="department_id" force_save='1'/>
+                    <field name="job_id" force_save='1'/>
+                    <field name="date"/>
+                    <field name="name" force_save='1' readonly='0'/>
+                    <field name="color"/>
+                    <field name="is_public_holiday"/>
+                    <field name="shift_plan_id" options="{'no_create':True, 'no_open':True}" force_save='1'/>
+                    <field name="month" force_save='1'/>
+                    <field name="shift_attribute_id" options="{'no_create':True, 'no_open':True}"/>
+                    <field name="hour_to_work" />
+                    <field name="sign_in" />
+                    <field name="sign_out" />
+                    <field name="worked_hour" />
+                    <field name="delayed_min" />
+                    <field name="early_min" />
+                    <field name="overtime_hour" />
+                    <field name="sick_hour" />
+                    <field name="holiday_worked_hour" />
+                    <field name="free_hour" />
+                    <field name="free_wage_hour" />
+                    <field name="vacation_day" />
+                    <field name="sickness_hour" />
+                    <field name="busines_trip_hour" />
+                    <field name="out_working_hour"/>
+                    <field name="online_working_hour"/>
+                </group>                          
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_timetable_line_line_tree" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line.tree</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="worked_hour==0 and hour_to_work!=0" decoration-success="hour_to_work==0">
+                <field name="is_request"/>
+                <field name="is_public_holiday"/>
+                <field name="employee_id"/>
+                <field name="department_id" force_save='1' options="{'no_create':True, 'no_open':True}"/>
+                <field name="job_id"  force_save='1' options="{'no_create':True, 'no_open':True}"/>
+                <field name="date"/>
+                <field name="name"  force_save='1'  readonly='0'/>
+                <field name="color" optional="hide" force_save='1' />
+                <field name="shift_plan_id" optional="show" options="{'no_create':True, 'no_open':True}" force_save='1'/>
+                <field name="month" force_save='1'/>
+                <field name="shift_attribute_id" optional="hide" options="{'no_create':True, 'no_open':True}"/>
+                <field name="hour_to_work" sum='Sum'/>
+                <field name="sign_in" optional="hide"/>
+                <field name="sign_out" optional="hide"/>
+                <field name="sign_in_emp" optional='show' />
+                <field name="sign_out_emp" optional='show' />
+                <field name="worked_hour" sum='Sum' />
+                <field name="out_working_hour" sum='Sum'  optional='hide'/>
+                <field name="online_working_hour" sum='Sum'  optional='hide'/>
+                 <field name="outage_hour" sum='Sum'  optional='hide'/>
+                <field name="delayed_min" sum='Sum' optional='show'/>
+                <field name="early_min"  sum='Sum' optional='hide'/>
+                <field name="long_min"  sum='Sum' optional='hide'/>
+                <field name="overtime_hour" sum='Sum' optional='show'/>
+                <field name="sick_hour" sum='Sum' optional='show' force_save='1' />
+                <field name="holiday_worked_hour" string='Баяраар ажилласан'/>
+                <field name="free_hour" sum='Sum' optional='show'/>
+                <field name="free_wage_hour" sum='Sum' optional='show'/>
+                <field name="vacation_day" sum='Sum' optional="hide" />
+                <field name="sickness_hour" sum='Sum' optional='show'/>
+                <field name="busines_trip_hour"  optional="hide" sum='Sum'/>
+                <field name="accumlated_hour"  optional='hide' sum='SUm'/>
+                <field name="in_limit_start"/>
+                <field name="in_limit_end"/>
+                <field name="out_limit_start" />
+                <field name="out_limit_end"/>
+            </tree>
+        </field>
+    </record>
+    <record  id="hr_timetable_line_line_pivot_view" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line.pivot</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date"/>
+                <field name="department_id"/>
+                <field name="employee_id" type="row"/>
+                <field name="job_id"/>
+                <field name="worked_salary_hour" type="measure"/>
+                <field name="worked_hour" type="measure"/>
+                <field name="delayed_min" type="measure"/>
+                <field name="shift_attribute_id"/>
+            </pivot>
+        </field>
+    </record>
+    <record  id="hr_timetable_line_line_calendar_view" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line.calendar</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar date_start="date" mode="month" quick_add="True">
+                <field name="name"/>
+                <field name="date"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="hr_timetable_line_line_filter" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="arch" type="xml">
+            <search string="Lines">
+                <group col='8' colspan='4'>
+                    <field name="employee_id"/>
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter name="year" string="Жил" icon="terp-personal" context="{'group_by':'date:year'}"/>
+                    <filter name="month" string="Сар" icon="terp-personal" context="{'group_by':'date:month'}"/>
+                    <filter name="day" string="Өдөр" icon="terp-personal" context="{'group_by':'date:day'}"/>
+                    <filter name="department" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}"/>
+                    <filter name="job" string="Албан тушаал" icon="terp-personal" context="{'group_by':'job_id'}"/>
+                    <filter name="emp" string="Ажилтан" icon="terp-personal" context="{'group_by':'employee_id'}"/>
+                    <filter name="this_month" string="Энэ сар" domain="[('date','like',time.strftime('%%Y-%%m'))]"/>
+                    <filter name="today" string="Өнөөдөр" domain="[('date','like',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <separator/>
+                    <filter name="delayed_min" string="Хоцролттой ажилчид" icon="terp-personal"  domain="[('delayed_min','>',0)]" />
+                    <filter name="working" string="Ажилласан цагтай" icon="terp-personal"  domain="[('worked_hour','>',0)]" />
+                    <filter name="overtime" string="Илүү цагтай" icon="terp-personal"  domain="[('overtime_hour','>',0)]" />
+                    <filter name="other" string="Бусад/чөлөө,томилолт/" icon="terp-personal"  domain="[('free_hour','>',0),('free_wage_hour','>',0),('sick_hour','>',0)]" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_timetable_line_line_gantt" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="arch" type="xml">
+            <gantt  string="Operations" default_group_by="employee_id" create="0" delete="0"
+                plan="0" date_stop="date" date_start="date" 
+                decoration-success="state == 'done'"
+                decoration-warning="state == 'cancel'"
+                display_unavailability="1"
+                color="is_work_schedule"
+                sample="1"
+                form_view_id="%(view_hr_timetable_line_line_form)d">
+                <field name="employee_id"/>
+                <field name="state"/>
+                <field name="year"/>
+                <field name="month"/>
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row g-0">
+                            <div class="col">
+                                <ul class="ps-1 mb-0 list-unstyled">
+                                    <li><strong>Start Date: </strong> <t t-out="date.format('L LTS')"/></li>
+                                    <li><strong>Stop Date: </strong> <t t-out="userTimezoneStopDate.format('L LTS')"/></li>
+                                    <li><strong>employee_id: </strong> <t t-out="employee_id[1]"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+    <record id="hr_timetable_line_line_action" model="ir.actions.act_window">
+        <field name="name">Ирцийн шинжилгээ</field>
+        <field name="res_model">hr.timetable.line.line</field>
+        <field name="view_mode">pivot,gantt,tree,form,calendar</field>
+        <field name="context">{'search_default_this_month':1}</field>
+        <field name="search_view_id" ref="hr_timetable_line_line_filter"/>
+    </record>
+    <!-- Ажилтан өөрийн цагийн нэгтгэл харах -->   
+    <record id="view_hr_timetable_line_line_mine_form" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line.form</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="arch" type="xml">
+            <form string="Timetable" create='false' edit ='false' delete='false'>
+                <group col="4" colspan="4"  style="background-color:#8bd3f7;">
+                    <field name="employee_id" readonly='1'/>
+                    <field name="shift_plan_id" readonly='1' options="{'no_create':True, 'no_open':True}" force_save='1'/>
+                    <field name="month" force_save='1'/>
+                    <field name="date" readonly='1'/>
+                    <field name="shift_attribute_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                    <field name="sign_in_emp" readonly='1'/>
+                    <field name="hour_to_work" readonly='1'/>
+                    <field name="sign_out_emp" readonly='1'/>
+                </group> 
+                <group> 
+                    <group col="4" colspan="4" string='Ажилласан цаг' style="fbackground-color:#b1fced;"> 
+                        <field name="worked_salary_hour" readonly='1'/>
+                        <field name="worked_hour" readonly='1'/>
+                        <field name="overtime_hour" readonly='1'/>
+                        <field name="holiday_worked_hour" readonly='1'/>
+                        <field name="free_wage_hour" readonly='1'/>
+                        <field name="busines_trip_hour" readonly='1'/>
+                        <field name="out_working_hour" readonly='1'/>
+                        <field name="online_working_hour" readonly='1'/>
+                         <field name="outage_hour" sum='Sum'  readonly='1'/>
+                    </group>      
+                    <group col="4" colspan="4" string='Ажиллаагүй цаг'  style="background-color:#dcf5bf;"> 
+                        <field name="delayed_min" readonly='1'/>
+                        <field name="early_min" readonly='1'/>
+                        <field name="sick_hour" readonly='1'/>
+                        <field name="free_hour" readonly='1'/>
+                        <field name="vacation_day" readonly='1'/>
+                        <field name="sickness_hour" readonly='1'/>
+                    </group>   
+                </group>                      
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+   
+    <record id="hr_timetable_line_line_mine_tree" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line.tree</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="arch" type="xml">
+            <tree create='false' edit ='false' delete='false'>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="shift_plan_id" optional="show" options="{'no_create':True, 'no_open':True}" force_save='1'/>
+                <field name="month" force_save='1'/>
+                <field name="shift_attribute_id" optional="hide" options="{'no_create':True, 'no_open':True}"/>
+                <field name="sign_in_emp" optional='show' />
+                <field name="sign_out_emp" optional='show' />
+                <field name="hour_to_work" sum='Sum'/>
+                <field name="worked_salary_hour" sum='Sum'/>
+                <field name="worked_hour" sum='Sum' />
+                <field name="out_working_hour" sum='Sum'  optional='hide'/>
+                <field name="online_working_hour" sum='Sum'  optional='hide'/>
+                <field name="delayed_min" sum='Sum' optional='show'/>
+                <field name="overtime_hour" sum='Sum' optional='show'/>
+                <field name="sick_hour" sum='Sum' optional='show'/>
+                <field name="holiday_worked_hour" optional='show'/>
+                <field name="free_hour" sum='Sum' optional='show'/>
+                <field name="free_wage_hour" sum='Sum' optional='show'/>
+                <field name="vacation_day" sum='Sum' optional="hide" />
+                <field name="sickness_hour" sum='Sum' optional='show'/>
+                <field name="busines_trip_hour"  optional="hide" sum='Sum'/>
+                <field name="accumlated_hour"  optional='hide' sum='SUm'/>
+                 <field name="is_request" optional='hide'/>
+            </tree>
+        </field>
+    </record>
+    <record  id="hr_timetable_line_line_mine_calendar_view" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line.calendar</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar date_start="date" mode="month" quick_add="False" color="is_work_schedule"  event_open_popup="true">
+                <field name="name" filters='1'/>
+                <field name="is_work_schedule" filters='1'/>
+                <field name="sign_in_emp"/>
+                <field name="sign_out_emp"/>
+                <field name="hour_to_work"/>
+                <field name="worked_salary_hour"/>
+                <field name="worked_hour"/>
+                <field name="delayed_min"/>
+                <field name="sickness_hour"/>
+                <field name="date"/>
+            </calendar>
+        </field>
+    </record>
+     <record id="hr_timetable_line_line_mine_filter" model="ir.ui.view">
+        <field name="name">hr.timetable.line.line</field>
+        <field name="model">hr.timetable.line.line</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Lines">
+                <group col='8' colspan='4'>
+                    <field name="employee_id"/>
+                </group>
+                <group expand="0" string="Group By...">
+                    <filter name="year" string="Жил" icon="terp-personal" context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар" icon="terp-personal" context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_timetable_line_line_mine_action" model="ir.actions.act_window">
+        <field name="name">Цагийн бүртгэл</field>
+        <field name="res_model">hr.timetable.line.line</field>
+        <field name="view_mode">calendar,pivot,tree,form</field>
+        <field name="context">{'search_default_year':1,'search_default_emp':1}</field>
+        <field name="domain">[('employee_id.user_id', 'in', [uid])]</field>
+        <field name="search_view_id" ref="hr_timetable_line_line_mine_filter"/>
+         <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'calendar', 'view_id': ref('hr_timetable_line_line_mine_calendar_view')}), 
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('hr_timetable_line_line_mine_tree')}), 
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_hr_timetable_line_line_mine_form')})]"/>
+    </record>
+
+</odoo>

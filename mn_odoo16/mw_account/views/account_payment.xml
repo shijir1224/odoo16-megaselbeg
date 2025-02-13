@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_account_payment_mn" model="ir.ui.view">
+        <field name="name">account.payment.mn</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>   
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="cash_type_id"/>
+                <field name="statement_line_id"/>
+            </xpath>
+            <xpath expr="//button[@name='button_open_journal_entry']" position="after">
+                <button name="button_open_statement_line"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-bars">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Хуулга</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_payment_register_mn" model="ir.ui.view">
+        <field name="name">account.payment.register.mn</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>   
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_date']" position="after">
+                <field name="cash_type_id"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_power_implements_tree" model="ir.ui.view">
+        <field name="name">power.implements.tree</field>
+        <field name="model">power.implements</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="coefficient"/>
+                <field name="level_id"/>
+                <field name="asset_id"/>
+                <field name="group_id"/>
+                <field name="categ_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_implements_search" model="ir.ui.view">
+        <field name="name">power.implements.search</field>
+        <field name="model">power.implements</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="number"/>
+                <field name="mark"/>
+                <field name="coefficient"/>
+                <field name="level_id"/>
+                <field name="asset_id"/>
+                <field name="group_id"/>
+                <field name="categ_id"/>
+                <filter name="gr_level_id" string="Хүчдэл" context="{'group_by':'level_id'}"/>
+                <filter name="gr_group_id" string="Станц" context="{'group_by':'group_id'}"/>
+                <filter name="gr_categ_id" string="Ангилал" context="{'group_by':'categ_id'}"/>
+                <filter name="gr_asset_id" string="Хөрөнгө" context="{'group_by':'asset_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_implements_form" model="ir.ui.view">
+        <field name="name">power.implements.form</field>
+        <field name="model">power.implements</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!-- <button name="view_implements"
+                            type="object" class="oe_stat_button" icon="fa-cogs">
+                            <field string="Тоноглолууд" name="implements_count" widget="statinfo"/>
+                        </button> -->
+                    </div>
+                    <field name="image_medium" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Тоноглолийн Нэр"/>
+                        <h1><field name="name" placeholder="Тоноглолийн Нэр"/></h1>
+                    </div>
+                    <group col="4">
+                        <field name="number"/>
+                        <field name="mark"/>
+                        <field name="coefficient"/>
+                        <field name="level_id"/>
+                    </group>
+                    <group col="2">
+                        <field name="asset_id" options="{'no_create':True}"/>
+                        <field name="group_id" options="{'no_create':True}" force_save="1" readonly="1"/>
+                        <field name="categ_id" options="{'no_create':True}" force_save="1" readonly="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="power_implements_kanban">
+        <field name="name">power.implements.kanban</field>
+        <field name="model">power.implements</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="image_small"/>
+                <field name="categ_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('power.implements', 'image_small', record.id.raw_value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <strong>
+                                        Хөрөнгө: <t t-esc="record.categ_id.value"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_power_implements_tree" model="ir.actions.act_window">
+        <field name="name">Тоноглолууд</field>
+        <field name="res_model">power.implements</field>
+        <field name="context">{'search_default_gr_group_id': True, 'search_default_gr_categ_id': True, 'search_default_gr_asset_id': True}</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+
+    <record id="view_power_warehouse_config_tree" model="ir.ui.view">
+        <field name="name">power.warehouse.config.tree</field>
+        <field name="model">power.warehouse.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="warehouse_id"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_warehouse_config_search" model="ir.ui.view">
+        <field name="name">power.warehouse.config.search</field>
+        <field name="model">power.warehouse.config</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="warehouse_id"/>
+                <field name="type"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_warehouse_config_form" model="ir.ui.view">
+        <field name="name">power.warehouse.config.form</field>
+        <field name="model">power.warehouse.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="warehouse_id"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_warehouse_config_tree" model="ir.actions.act_window">
+        <field name="name">Цахилгааны Агуулахын Тохиргоо</field>
+        <field name="res_model">power.warehouse.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_power_category_tree" model="ir.ui.view">
+        <field name="name">power.category.tree</field>
+        <field name="model">power.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="parent_id"/>
+                <field name="main_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_category_search" model="ir.ui.view">
+        <field name="name">power.category.search</field>
+        <field name="model">power.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="main_type"/>
+                <field name="parent_id"/>
+                <filter name="gr_mani_type" string="Type" context="{'group_by':'main_type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_category_form" model="ir.ui.view">
+        <field name="name">power.category.form</field>
+        <field name="model">power.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_implements"
+                            type="object" class="oe_stat_button" icon="fa-cogs">
+                            <field string="Тоноглолууд" name="implements_count" widget="statinfo"/>
+                        </button>
+                        <button name="view_eo"
+                            type="object" class="oe_stat_button" icon="fa-building-o">
+                            <field string="Electrical Orders" name="eo_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <field name="image_medium" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Хөрөнгийн Нэр"/>
+                        <h1><field name="name" placeholder="Хөрөнгийн Нэр"/></h1>
+                    </div>
+                    <group col="2">
+                        <field name="main_type" required="1" readonly="1" force_save="1"/>
+                        <field name="parent_id" options="{'no_create':True}" domain="[('main_type','=','blbl')]"/>
+                    </group>
+                    <group col="4">
+                        <field name="is_hats" attrs="{'invisible':[('main_type','not in',['asset','categ'])]}"/>
+                        <field name="orolt" attrs="{'invisible':[('main_type','not in',['asset','categ'])]}"/>
+                    </group>
+                    <!-- <group col="1" string="Реле хамгаалалтын тавил" attrs="{'invisible':[('relay_ids','=',[])]}">
+                        <field name="relay_ids" nolabel="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="sec1"/>
+                                <field name="sec2"/>
+                                <field name="sec3"/>
+                                <field name="sec4"/>
+                                <field name="sec5"/>
+                                <field name="sec6"/>
+                                <field name="sec7"/>
+                                <field name="sec8"/>
+                                <field name="sec9"/>
+                                <field name="sec10"/>
+                                <field name="sec11"/>
+                                <field name="sec12"/>
+                                <field name="sec13"/>
+                            </tree>
+                        </field>
+                    </group> -->
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="power_category_kanban">
+        <field name="name">power.category.kanban</field>
+        <field name="model">power.category</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="image_small"/>
+                <field name="implements_count"/>
+                <field name="eo_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('power.category', 'image_small', record.id.raw_value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <strong>
+                                        <t t-esc="record.implements_count.value"/> Тоноглолууд
+                                    </strong>
+                                </div>
+                                <div>
+                                    <strong>
+                                        <t t-esc="record.eo_count.value"/> EO's
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_power_category_tree_asset" model="ir.actions.act_window">
+        <field name="name">Хөрөнгө</field>
+        <field name="res_model">power.category</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'main_type':'asset'}</field>
+         <field name="domain">[('main_type', '=', 'asset')]</field>
+    </record>
+
+    <record id="action_power_category_tree_group" model="ir.actions.act_window">
+        <field name="name">Станц</field>
+        <field name="res_model">power.category</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'main_type':'group'}</field>
+         <field name="domain">[('main_type', '=', 'group')]</field>
+    </record>
+
+    <record id="action_power_category_tree_categ" model="ir.actions.act_window">
+        <field name="name">Ангилал</field>
+        <field name="res_model">power.category</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'main_type':'categ'}</field>
+         <field name="domain">[('main_type', '=', 'categ')]</field>
+    </record>
+
+    <record id="view_power_selection_tree" model="ir.ui.view">
+        <field name="name">power.selection.tree</field>
+        <field name="model">power.selection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="number"/>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_selection_search" model="ir.ui.view">
+        <field name="name">power.selection.search</field>
+        <field name="model">power.selection</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="['|','|','|',('name','ilike',self),('number','ilike',self),('department_id','ilike',self),('technic_id','ilike',self)]"/>
+                <field name="number"/>
+                <field name="type"/>
+                <field name="department_id"/>
+                <field name="technic_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_selection_form" model="ir.ui.view">
+        <field name="name">power.selection.form</field>
+        <field name="model">power.selection</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="number"/>
+                        <field name="name" required="1"/>
+                        <field name="type"/>
+                    </group>
+                    <group col="4" attrs="{'invisible':[('type','!=','object')]}">
+                        <field name="department_id" options="{'no_create':True}" />
+                    </group>
+                    <group col="4" attrs="{'invisible':[('type','!=','technic')]}">
+                        <field name="technic_id" options="{'no_create':True}"/>
+                    </group>
+                    <group col="4" attrs="{'invisible':[('type','!=','company_department')]}">
+                        <field name="hr_department_id" options="{'no_create':True}"/>
+                    </group>
+                    <group col="4">
+                        <field name="is_hats"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_selection_tree" model="ir.actions.act_window">
+        <field name="name">Сонголтуудын Тохиргоо</field>
+        <field name="res_model">power.selection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'group_by': ['type']}</field>
+    </record>
+
+
+     <record id="view_power_eo_user_tree" model="ir.ui.view">
+        <field name="name">power.eo.user.tree</field>
+        <field name="model">power.eo.user</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_ids" widget="many2many_tags"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_power_eo_user_search" model="ir.ui.view">
+        <field name="name">power.eo.user.search</field>
+        <field name="model">power.eo.user</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_ids"/>
+                <field name="type"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_power_eo_user_form" model="ir.ui.view">
+        <field name="name">power.eo.user.form</field>
+        <field name="model">power.eo.user</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="user_ids" widget="many2many_tags"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_power_eo_user_tree" model="ir.actions.act_window">
+        <field name="name">Цахилгааны Бараа Батлагч</field>
+        <field name="res_model">power.eo.user</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

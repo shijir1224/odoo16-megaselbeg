@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_01">
+		<div id='dashboardContainer01' class="oe_claim_dashoard_01">
+			<table>
+				<!-- Charts -->
+				<div id="company_total_chart" style="width:100%;height:300px" class="chart_div_border">
+					<b>Company total chart</b></div>
+				<div id="company_monthly_chart" style="width:100%;height:300px" class="chart_div_border">
+					<b>Company monthly chart</b></div>
+				<div id="company_monthly_qty_chart" style="width:100%;height:300px" class="chart_div_border">
+					<b>Company monthly qty chart</b></div>
+				<div id="amount_performance_chart" style="width:100%;height:400px"
+					class="chart_div_border">
+					<b>1</b></div>
+				<div id="qty_performance_chart" style="width:100%;height:400px"
+					class="chart_div_border">
+					<b>1 qty</b></div>
+				<table style="width:100%;height:200px">
+					<!-- PIE -->
+					<tr>
+						<td>
+							<div id="company_total_pie_chart" style="width:100%;height:250px" 
+								class="chart_div_border">
+								<b>PIE</b></div>
+						</td>
+						<td>
+							<div id="company_total_qty_pie_chart" style="width:100%;height:250px"
+								class="chart_div_border">
+								<b>PIE qty</b></div>
+						</td>
+					</tr>
+					<!-- DONUT -->
+					<tr>
+						<td  style="width:50%;height:200px">
+							<div id="amount_donut_chart" class="chart_div_border">
+							<b>12 months</b></div>
+						</td>
+						<td style="width:50%;height:200px">
+							<div id="qty_donut_chart" class="chart_div_border">
+							<b>12 months qty</b></div>
+						</td>
+					</tr>
+				</table>
+			</table>
+		</div>
+	</t>
+
+	<!-- <t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_02">
+		<div id='dashboardContainer01' class="oe_claim_dashoard_02">
+			<table>
+				<table style="width:100%;height:250px">
+					<tr>
+						<td style="width:40%;height:250px">
+							<div id="brand_happy_inch_chart" class="chart_div_border">
+							<b>Brand and Happy PIE</b></div>
+						</td>
+						<td style="width:30%;height:250px">
+							<div id="brand_pie_chart" class="chart_div_border">
+							<b>Brand pie</b></div>
+						</td>
+						<td style="width:30%;height:250px">
+							<div id="happy_pie_chart" class="chart_div_border">
+							<b>Happy pie</b></div>
+						</td>
+					</tr>
+				</table>
+
+				<div id="cake_total_chart" style="width:100%;height:300px" class="chart_div_border">
+					<b>Бялууны борлуулалт</b></div>
+
+				<div id="cake_amount_performance_chart" style="width:100%;height:350px" class="chart_div_border">
+					<b>Бялууны борлуулалт</b></div>
+				<div id="cake_qty_performance_chart" style="width:100%;height:350px" class="chart_div_border">
+					<b>Бялууны борлуулалт тоо</b></div>
+			</table>
+		</div>
+	</t>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_0202">
+		<div id='dashboardContainer0202' class="oe_claim_dashoard_0202">
+			<table>
+				<div id="cake_days_amount_chart" style="width:100%;height:330px" class="chart_div_border">
+					<b>Бялуу өдрөөр</b></div>
+				<div id="cake_days_qty_chart" style="width:100%;height:330px" class="chart_div_border">
+					<b>Ангилалаар</b></div>
+			</table>
+		</div>
+	</t>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_03">
+		<div id='dashboardContainer03' class="oe_claim_dashoard_03">
+			<table>
+				<div id="company_category_chart" style="width:100%;height:380px" class="chart_div_border">
+					<b>Ангилалаар борлуулалт</b></div>
+				<div id="product_chart" style="width:100%;height:380px" class="chart_div_border">
+					<b>Бүтээгдэхүүний борлуулалт</b></div>
+				<div id="product_by_categ_chart" style="width:100%;height:350px" class="chart_div_border">
+					<b>Бүтээгдэхүүн задаргаа</b></div>
+			</table>
+		</div>
+	</t>
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_0302">
+		<div id='dashboardContainer03' class="oe_claim_dashoard_0302">
+			<table>
+				<div id="product_monthly_chart" style="width:100%;height:320px" class="chart_div_border">
+					<b></b></div>
+				<div id="by_product_chart" style="width:100%;height:340px" class="chart_div_border">
+					<b>Борлуулалт өдрөөр</b></div>
+				<div id="by_product_time_chart" style="width:100%;height:340px" class="chart_div_border">
+					<b>Борлуулалт цагаар</b></div>
+			</table>
+		</div>
+	</t>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_04">
+		<div id='dashboardContainer04' class="oe_claim_dashoard_04">
+			<table>
+				<div id="branch_total_sales_chart" style="width:100%;height:280px"
+					class="chart_div_border">
+					<b>Салбарын борлуулалт</b></div>
+				<div id="branch_monthly_chart" style="width:100%;height:240"
+					class="chart_div_border">
+					<b>Тасгийн 12 сарын борлуулалт</b></div>
+				<div id="branch_monthly_qty_chart" style="width:100%;height:240"
+					class="chart_div_border">
+					<b>Тасгийн 12 сарын борлуулалт</b></div>
+				<div id="branch_sales_chart" style="width:100%;height:300px"
+					class="chart_div_border">
+					<b>Тасгийн борлуулалт</b></div>
+				<table style="width:100%;height:300px">
+					<tr>
+						<td style="width:40%;height:300px">
+						<div id="amount_pie_chart" class="chart_div_border">
+							<b>PIE</b></div>
+						</td>
+					</tr>
+				</table>
+				<div id="by_categ_sales_chart" style="width:100%;height:440px"
+					class="chart_div_border">
+					<b>Ангилалаар</b></div>
+				<br/>
+				<div id="by_categ_sales_qty_chart" style="width:100%;height:440px"
+					class="chart_div_border">
+					<b>Ангилалаар</b></div>
+				<br/>
+			</table>
+		</div>
+	</t>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_05">
+		<div id='dashboardContainer05' class="oe_claim_dashoard_05">
+			<table>
+				<div id="holiday_total_sales_chart" style="width:100%;height:320px"
+					class="chart_div_border">
+					<b>Компаны нийт</b></div>
+				<div id="holiday_sales_chart" style="width:100%;height:320px"
+					class="chart_div_border">
+					<b>Баярын борлуулалт</b></div>
+				<div id="holiday_sales_amount_chart" style="width:100%;height:320px"
+					class="chart_div_border">
+					<b>Баярын борлуулалт</b></div>
+			</table>
+		</div>
+	</t>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_0502">
+		<div id='dashboardContainer0502' class="oe_claim_dashoard_0502">
+			<table>
+				<div id="holiday_sales_detail_chart" style="width:100%;height:350px"
+					class="chart_div_border">
+					<b>Баярын борлуулалт</b></div>
+				<div id="holiday_by_categ_chart" style="width:100%;height:380px"
+					class="chart_div_border">
+					<b>Ангилалаар</b></div>
+				<div id="holiday_by_categ_pie_chart" style="width:100%;height:450px"
+					class="chart_div_border"></div>
+			</table>
+		</div>
+	</t>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_0503">
+		<div id='dashboardContainer0503' class="oe_claim_dashoard_0503">
+			<table>
+				<div id="holiday_new_detail_chart" style="width:100%;height:350px"
+					class="chart_div_border">
+					<b>Баярын борлуулалт шинэ</b></div>
+				<div id="holiday_new_detail_qty_chart" style="width:100%;height:350px"
+					class="chart_div_border">
+					<b>Баярын борлуулалт шинэ</b></div>
+			</table>
+		</div>
+	</t>
+
+	<t t-name="mw_sales_master_plan.SALES_PLAN_DASHBOARD_06">
+		<div id='dashboardContainer06' class="oe_claim_dashoard_06">
+			<table>
+				<div id="time_analyze_sales_chart" style="width:100%;height:300px"
+					class="chart_div_border">
+					<b>Борлуулалт цагаар</b></div>
+			</table>
+		</div>
+	</t> -->
+	
+</templates>

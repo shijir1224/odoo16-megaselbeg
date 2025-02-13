@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_hse_land_permit_registration_form" model="ir.ui.view">
+		<field name="name">hse.land.permit.registration.form</field>
+		<field name="model">hse.land.permit.registration</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<!-- <button name="action_to_sent" states="draft" string="Илгээх" class="btn-warning" type="object" icon="fa-arrow-right"/> -->
+					<button name="action_to_sent_mail" states="draft" string="Илгээх" type="object" class="btn-warning" icon="fa-arrow-right"/>
+					<button name="action_to_done" states="sent" string="Батлах"  class="btn-success" type="object" icon="fa-arrow-right"/>
+					<button name="action_to_draft" states="done" string="Буцааж Ноороглох" type="object" class="btn-danger" groups="mw_hse_dangerous_waste.group_hse_dangerous_officer"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent,done"/>
+				</header>
+				<sheet>
+					<group col="4">
+						<field name="name"/>
+						<field name="create_date"/>
+					</group>
+					<group col='6'>
+						<field name="company_id" options="{'no_create': True}"/>
+						<field name="land_type"/>
+						<field name="date"/>
+						<field name="unloading_stockpile"/>
+						<field name="earthquake_location"/>
+						<field name="end_date"/>
+					</group>
+					<group col="4">
+						<field name="attachment_ids_1"  widget="many2many_binary" nolabel="1"/>
+						<field name="attachment_ids_2"  widget="many2many_binary" nolabel="1"/>
+					</group>
+					<group col='4'>
+						<field name="employee_id" options="{'no_create': True}"/>
+						<field name="job_id"/>
+						<field name="respon_employee_id" options="{'no_create': True}"/>
+						<field name="respon_job_id"/>
+					</group>	
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="view_hse_land_permit_registration_tree" model="ir.ui.view">
+		<field name="name">.tree</field>
+		<field name="model">hse.land.permit.registration</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="create_date"/>
+				<field name="company_id" options="{'no_create': True}"/>
+				<field name="land_type"/>
+				<field name="date"/>
+				<field name="end_date"/>
+				<field name="unloading_stockpile"/>
+				<field name="earthquake_location"/>
+				<field name="employee_id" optional="hide"/>
+				<field name="job_id" optional="hide"/>
+				<field name="respon_employee_id" optional="hide"/>
+				<field name="respon_job_id" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_hse_land_permit_registration_filter" model="ir.ui.view">
+		<field name="name">hse.land.permit.registration.filter</field>
+		<field name="model">hse.land.permit.registration</field>
+		<field name="arch" type="xml">
+			<search string="hse_land_permit_registration">
+                <field name="name"/>
+				<field name="land_type"/>
+				<field name="company_id"/>
+				<field name="date"/>
+				<field name="unloading_stockpile"/>
+				<field name="earthquake_location"/>
+            </search>
+		</field>
+	</record>
+	<record id="action_hse_land_permit_registration" model="ir.actions.act_window">
+		<field name="name">ШХХГХЗ</field>
+		<field name="res_model">hse.land.permit.registration</field>
+		<field name="context">{}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

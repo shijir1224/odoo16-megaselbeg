@@ -1,0 +1,159 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mw_sale_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0-20220525\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-31 13:29+0000\n"
+"PO-Revision-Date: 2022-07-31 13:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.view_picking_withcarrier_out_form_inherit_cmo
+msgid "<span>Борлуулалт 1</span>"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_stock_backorder_confirmation
+msgid "Backorder Confirmation"
+msgstr "Дутагдлын захиалгын баталгаажуулалт"
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_res_config_settings
+msgid "Config Settings"
+msgstr "Тохиргооны тохируулга"
+
+#. module: mw_sale_stock
+#: model:ir.model.fields,field_description:mw_sale_stock.field_sale_order_line__expected_date
+msgid "Expected date"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_stock_immediate_transfer
+msgid "Immediate Transfer"
+msgstr "Даруй шилжүүлэх"
+
+#. module: mw_sale_stock
+#: model:ir.model.fields,field_description:mw_sale_stock.field_sale_order__picking_date
+msgid "Picking Date"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_res_company
+msgid "Res company"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.ui.menu,name:mw_sale_stock.menu_sale_order_lines
+msgid "Sale Order Lines"
+msgstr "Борлуулалтын захиалгын мөр"
+
+#. module: mw_sale_stock
+#: model:ir.actions.act_window,name:mw_sale_stock.action_sale_order_lines
+msgid "Sale order lines"
+msgstr "Борлуулалтын захиалгын мөр"
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_sale_order
+msgid "Sales Order"
+msgstr "Борлуулалтын захиалга"
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Борлуулалтын захиалгын мөр"
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_stock_move
+msgid "Stock Move"
+msgstr "Барааны хөдөлгөөн"
+
+#. module: mw_sale_stock
+#: model:ir.model,name:mw_sale_stock.model_stock_picking
+msgid "Transfer"
+msgstr "Шилжүүлэг"
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.res_config_settings_view_form
+msgid "Автомат үүсгэсэн нэхэмжлэлийг батлах"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.view_picking_internal_search_inherit_cmo
+msgid "Борлуулагчаар"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:res.groups,name:mw_sale_stock.group_expected_date
+msgid "Борлуулалт дээр нийлүүлэх огноо оруулах"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:res.groups,name:mw_sale_stock.group_show_product_availability
+msgid "Борлуулалтын дэлгэцэнд үлдэгдэл харах"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.res_config_settings_view_form
+msgid ""
+"Буцаалтын агуулахын орлого батлагдахад буцаалтын нэхэмжлэл автомат үүснэ."
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model.fields,field_description:mw_sale_stock.field_res_company__auto_create_return_invoice
+#: model:ir.model.fields,field_description:mw_sale_stock.field_res_config_settings__auto_create_return_invoice
+msgid "Буцаалтын нэхэмжлэлийг автомат үүсгэх"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model.fields,field_description:mw_sale_stock.field_stock_picking__amount_total_sale
+msgid "Дэд дүн"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model.fields,field_description:mw_sale_stock.field_stock_move__price_unit_sale
+msgid "Зарах үнэ"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.view_picking_withcarrier_out_form
+msgid "Нийт"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model.fields,field_description:mw_sale_stock.field_stock_move__sub_total_sale
+msgid "Нийт дүн"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.view_picking_internal_search_inherit_cmo
+msgid "Хэвлэгдээгүй"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.view_order_form_inherit_sale_stock_qty
+msgid "Үлдэгдэл"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model:ir.model.fields,field_description:mw_sale_stock.field_res_company__auto_validate_return_invoice
+#: model:ir.model.fields,field_description:mw_sale_stock.field_res_config_settings__auto_validate_return_invoice
+msgid "Үүсгэсэн буцаалтын нэхэмжлэхийг автомат батлах"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.view_picking_internal_search_inherit_cmo
+msgid "Өдрөөр Батлагдсан Огноо"
+msgstr ""
+
+#. module: mw_sale_stock
+#: model_terms:ir.ui.view,arch_db:mw_sale_stock.view_picking_internal_search_inherit_cmo
+msgid "Өнөөдөр"
+msgstr ""

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="pos_config_form_view_ebarimt">
+            <field name="name">pos.config.view.form.for.ebarimt</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='module_pos_restaurant']" position="before">
+                    <h2>Mongolian EBarimt</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="aimag_district_id" class="col-lg-3"/>
+                                <field name="aimag_district_id"/>
+                                <label for="branch_no" class="col-lg-3"/>
+                                <field name="branch_no"/>
+                                <label for="pos_no" class="col-lg-3"/>
+                                <field name="pos_no"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

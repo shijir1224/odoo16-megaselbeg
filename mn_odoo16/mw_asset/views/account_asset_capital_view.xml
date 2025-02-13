@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_asset_capital_line_form" model="ir.ui.view">
+    	<field name="name">account.asset.capital.line.form</field>
+        <field name="model">account.asset.capital.line</field>
+        <field name="arch" type="xml">
+            <form string="Capital Asset Line">
+				<group>
+					<group>
+						<field name="capital_id" readonly="1"/>
+						<field name="asset_id" readonly="1"/>
+						<field name="code" readonly="1"/>
+						<field name="date" readonly="1"/>
+						<field name="manufactured_date" readonly="1"/>
+						<field name="commissioned_date" readonly="1"/>
+						<field name="old_method_period" readonly="1"/>
+						<field name="old_method_number" readonly="1"/>
+						<field name="value" readonly="1"/>
+						<field name="value_depreciated" readonly="1"/>
+						<field name="value_residual" readonly="1"/>
+						<field name="asset_state" readonly="1"/>
+					</group>
+					<group>
+						<field name="type" readonly="1"/>
+						<field name="invoice_line_id" readonly="1"/>
+						<field name="account_id" readonly="1"/>
+						<field name="capital_amount" readonly="1"/>
+						<field name="department_id" readonly="1"/>
+						<field name="partner_id" readonly="1"/>
+						<field name="method_period"/>
+						<field name="method_number"/>
+						<field name="state" readonly="1"/>
+						<field name="description" string="Reason" readonly="1"/>
+						<field name="move_id" readonly="1"/>
+					</group>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_asset_capital_line_tree" model="ir.ui.view">
+    	<field name="name">account.asset.capital.line.tree</field>
+        <field name="model">account.asset.capital.line</field>
+        <field name="arch" type="xml">
+            <tree string="Capital Asset Line" decoration-muted="state=='cancel'" decoration-success="state=='capital'" decoration-danger="state=='draft'"
+				  						   decoration-info="state=='approved'" decoration-bf="state=='waiting'">
+           		<field name="capital_id"/>
+				<field name="date"/>
+				<field name="asset_id"/>
+				<field name="code"/>
+				<field name="manufactured_date"/>
+				<field name="value"/>
+				<field name="value_residual"/>
+				<field name="asset_state"/>
+				<field name="type"/>
+				<field name="capital_amount"/>
+				<field name="department_id" optional="show"/>
+				<field name="partner_id" optional="show"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_asset_capital_form" model="ir.ui.view">
+    	<field name="name">account.asset.capital.form</field>
+        <field name="model">account.asset.capital</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Capital Asset">
+            	<header>
+<!-- 					<button name="action_send" attrs="{'invisible': ['!','&amp;',('state', '=', 'draft'),('is_creator', '=', True)]}" string="Send" type="object" class="oe_highlight"/>
+            		<button name="action_approve" attrs="{'invisible': ['!','&amp;',('state', '=', 'waiting'),('is_validator', '=', True)]}" string="Approve" type="object" class="oe_highlight"/>
+            		<button name="action_capital" states="approved" string="Action Capital" type="object" class="oe_highlight"/>
+					<button name="action_cancel" string="Cancel" type="object"
+							attrs="{'invisible': ['!','&amp;',('state', 'in', ('waiting', 'approved')),('is_validator', '=', True),('state', 'in', ('draft', 'waiting', 'approved', 'cancel'))]}"/>
+					<button name="action_draft"  string="Set to Draft" type="object"
+							attrs="{'invisible': ['!','&amp;',('state', 'in', ('waiting', 'approved', 'cancel')),('is_validator', '=', True)]}"/> -->
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object"
+                            attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"
+                            confirm="Та итгэлтэй байна уу?"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object"
+                            attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in', ['done','cancel'])]}"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object"
+                            attrs="{'invisible': ['|',('state_type', 'in',['done','cancel']),('flow_id','=',False)]}"/>
+                    <!-- <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object"
+                            attrs="{'invisible': ['|',('state_type', 'not in', ['cancel','done']),('flow_id','=',False)]}"/> -->
+            		<field name="flow_line_id" widget="statusbar"/>
+                </header>
+                <sheet>
+					<div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="open_assets"  type="object" icon="fa-pencil">
+                            <field string="Assets" name="asset_count" widget="statinfo" />
+                        </button>
+                		<button name="move_history_open" class="oe_stat_button" icon="fa-exchange" type="object"
+							string="Санхүү бичилт"
+							attrs="{'invisible': [('move_count', '=', 0)]}">
+							<field string="Санхүү бичилт" name="move_count" widget="statinfo"/>
+						</button>
+                    </div>
+                	<h1 class="hidden-xs">
+                        <field name="name" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                    </h1>
+	                <group>
+	                    <group>
+	                        <field name="date"  required="1" attrs="{'readonly':[('is_not_edit','=',True)]}"/><!-- attrs="{'readonly': [('state','!=','draft')]}" -->
+	                        <field name="flow_id" options="{'no_create':True}"
+                               attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+							<field name="branch_id" attrs="{'readonly':[('is_not_edit','=',True)]}" />
+							<field name="is_creator" invisible="1"/>
+	                        <field name="state_type" invisible="1"/>
+	                        <field name="next_state_type" invisible="1"/>
+	                        <field name="flow_line_next_id" invisible="1"/>
+	
+	                        <field name="flow_line_back_id" invisible="1"/>
+	                        <field name="is_not_edit" invisible="1"/>
+							
+	                    </group>
+	                    <group>
+							<field name="company_id" readonly="1" groups="base.group_multi_company"/>
+	                    </group>
+	                </group>
+					<group>
+                        <field name="partner_id" attrs="{'readonly':[('is_not_edit','=',True)]}"></field>
+					    <field name="description" placeholder="Reason:" attrs="{'readonly':[('is_not_edit','=',True)]}"/><!-- attrs="{'readonly': [('state','!=','draft')]}" -->
+                    </group>
+                    <notebook>
+                       	<page string="Assets">
+		                    <field name="line_ids" context="{'description': description}" widget="one2many_list" attrs="{'readonly':[('is_not_edit','=',True)]}"><!-- attrs="{'readonly': [('state','!=','draft')]}"  -->
+		                    	<tree editable="bottom" string="Asset Items">
+									<field name="asset_id" /><!-- domain="[('state','=','open')]" -->
+                                    <field name="code" readonly="1" optional="show"/>
+                                    <field name="date" readonly="1" optional="hide"/>
+                                    <field name="manufactured_date" readonly="1" optional="show"/>
+                                    <field name="commissioned_date" readonly="1" optional="hide"/>
+                                    <field name="value" readonly="1" optional="show"/>
+                                    <field name="value_depreciated" readonly="1" optional="hide"/>
+                                    <field name="value_residual" readonly="1" optional="show"/>
+									<field name="asset_state" readonly="1" optional="show"/>
+									<field name="type"/>
+									<field name="invoice_line_id" attrs="{'readonly': [('type','=','account')], 'required': [('type','=','invoice_line')]}" domain="[('partner_id', '=', partner_id),('move_id.move_type', '=', 'in_invoice'), ('move_id.state', '!=', 'cancel'), ('price_unit', '>', 0)]"/>
+									<field name="account_id" attrs="{'readonly': [('type','=','invoice_line')], 'required': [('type','=','account')]}"/>
+									<field name="capital_amount" optional="show"/>
+									<field name="department_id" optional="show"/>
+									<field name="partner_id" optional="show"/>
+									<field name="description" string="Reason" optional="show"/>
+									<field name="method_period" optional="show"/>
+									<field name="method_number" optional="show"/>
+                                    <field name="state" readonly="1" optional="show"/>
+		                    	</tree>
+								<form>
+									<group>
+										<group>
+											<field name="asset_id"/>
+											<field name="code"/>
+											<field name="date"/>
+											<field name="manufactured_date"/>
+											<field name="commissioned_date"/>
+											<field name="old_method_period"/>
+											<field name="old_method_number"/>
+											<field name="value"/>
+											<field name="value_depreciated"/>
+											<field name="value_residual"/>
+											<field name="asset_state"/>
+										</group>
+										<group>
+											<field name="type"/>
+											<field name="account_id"/>
+											<field name="invoice_line_id"/>
+											<field name="capital_amount"/>
+											<field name="department_id"/>
+											<field name="partner_id"/>
+											<field name="method_period"/>
+											<field name="method_number"/>
+											<field name="state"/>
+											<field name="description" string="Reason"/>
+											<field name="move_id"/>
+										</group>
+									</group>
+								</form>
+		                    </field>
+		            	</page>
+						<page string="Validations">
+							<field name="history_line_ids" readonly="1"/>
+						</page>
+		            </notebook>
+                </sheet>
+				<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+         	</form>
+         </field>
+    </record>
+
+    <record id="view_asset_capital_tree" model="ir.ui.view">
+        <field name="name">account.asset.capital.tree</field>
+        <field name="model">account.asset.capital</field>
+        <field name="arch" type="xml">
+        	<tree string="Capital Asset">
+        		<field name="name"/>
+		    	<field name="date"/>
+		    	<field name="description"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+		        <field name="flow_line_id"/>
+		    </tree>
+    	</field>
+    </record>
+
+	<record id="asset_capital_search" model="ir.ui.view">
+		<field name="name">account.asset.capital.search</field>
+		<field name="model">account.asset.capital</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="asset_id"/>
+				<group expand="0" string="Group by...">
+					<filter string="Company" name="company_id" domain="" context="{'group_by' : 'company_id'}" groups="base.group_multi_company"/>
+					<!-- <filter string="State" name="state" domain="" context="{'group_by':'state'}"/> -->
+					<filter string="Date" name="date" domain="" context="{'group_by' : 'date'}"/>
+				</group>
+		   </search>
+		</field>
+	</record>
+
+    <record id="action_asset_capital" model="ir.actions.act_window">
+        <field name="name">Capital Asset</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.capital</field>
+        <field name="view_mode">tree,form</field>
+       	<field name="view_id" ref="view_asset_capital_tree"/>
+		<field name="search_view_id" ref="asset_capital_search"/>
+    </record>
+
+    <record id="action_asset_capital_two" model="ir.actions.act_window">
+        <field name="name">Capital Asset</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.capital</field>
+        <field name="view_mode">tree,form</field>
+       	<field name="view_id" ref="view_asset_capital_form"/>
+    </record>
+
+	 <record id="action_asset_capital_two" model="ir.actions.act_window">
+        <field name="name">Capital Asset</field>
+        <field name="res_model">account.asset.capital</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_asset_capital_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_account_asset"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+        
+</odoo>

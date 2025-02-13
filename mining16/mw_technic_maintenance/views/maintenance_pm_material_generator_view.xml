@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Plan -->
+    <record id="maintenance_pm_material_generator_filter_view" model="ir.ui.view">
+        <field name="name">maintenance.pm.material.generator.filter</field>
+        <field name="model">maintenance.pm.material.generator</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="user_id"/>
+                <group expand="1" string="Group By...">
+                    <filter context="{'group_by' : 'user_id'}" string="Үүсгэсэн хэрэглэгч"
+                        name="user_id"/>
+                    <filter context="{'group_by' : 'state'}" string="Төлөв"
+                        name="state"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="maintenance_pm_material_generator_form_view" model="ir.ui.view">
+        <field name="name">maintenance.pm.material.generator.form</field>
+        <field name="model">maintenance.pm.material.generator</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_to_draft" string="Ноороглох" type="object"
+                        states="confirmed,done"/>
+                    <button name="action_to_confirm" class="oe_highlight" string="Батлах"
+                        states="draft" type="object" />
+                    <button name="action_to_done" class="oe_highlight" string="Захиалга үүсгэх"
+                        states="confirmed" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" readonly="1" />
+                </header>
+                <sheet>
+                    <div class="pull-left">
+                        <label for="name" class="oe_inline" />
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <div name="button_box">
+                        <button
+                            name="see_expenses_view" states="confirmed,done"
+                            type="object" class="oe_stat_button oe_right"
+                            icon="fa-list" string="Пивот">
+                        </button>
+                        <button
+                            name="export_report" states="confirmed,done"
+                            type="object" class="oe_stat_button oe_right"
+                            icon="fa-file-excel-o" string="ТАТАХ">
+                        </button>
+                        <button
+                            name="generate_lines" states="confirmed"
+                            type="object" class="oe_stat_button oe_right"
+                            icon="fa-plus-square" string="Generate">
+                        </button>
+                    </div>
+                    <group col="4">
+                        <field name="date"/>
+                        <field name="user_id"/>
+                        <field name="warehouse_id"
+                            options="{'no_create':True}"/>
+                    </group>
+                    <notebook>
+                        <page string="Техникийн тохиргоо">
+                            <group col="4">
+                                <button name="import_from_current"
+                                    string="Одоогийн өгөгдлөөс татах"
+                                    states="draft" type="object" class="oe_highlight"
+                                    icon="fa-download" colspan="1"/>
+                                <newline/>
+                                <field name="technic_setting_line" nolabel="1"
+                                    widget="one2many_list"
+                                    colspan="4">
+                                    <tree string="Lines">
+                                        <field name="technic_setting_id" />
+                                        <field name="description" />
+                                        <field name="line_ids" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="technic_setting_id" options="{'no_create':True}"/>
+                                            <newline/>
+                                        </group>
+                                        <group>
+                                            <field name="line_ids" nolabel="1"
+                                                widget="one2many_list">
+                                                <tree string="Lines" editable="bottom">
+                                                    <field name="maintenance_type_id" options="{'no_create':True}"/>
+                                                    <field name="qty" sum="Total"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Захиалах материалууд" class="oe_page_title" accesskey="M">
+                            <group col="4">
+                                <field name="pm_generated_line" nolabel="1" widget="one2many_list"    colspan="4">
+                                    <tree string="Lines" editable="bottom">
+                                        <field name="model_id" readonly="1"/>
+                                        <field name="maintenance_type_id" readonly="1" />
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="default_code" readonly="1"/>
+                                        <field name="qty" sum="Total"/>
+                                        <field name="available_qty" sum="Total" readonly="1"/>
+                                        <field name="order_qty" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_pm_material_generator_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.pm.material.generator.tree</field>
+        <field name="model">maintenance.pm.material.generator</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state =='done'" decoration-info="state=='confirmed'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="maintenance_pm_material_generator_pivot_view" model="ir.ui.view">
+         <field name="name">maintenance.pr.line.report.pivot</field>
+         <field name="model">maintenance.pr.line.report</field>
+         <field name="arch" type="xml">
+             <pivot string="Analysis">
+                 <field name="product_id" type="row"/>
+                 <field name="qty" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_maintenance_pm_material_generator'>
+        <field name="name">PM материалын захиалга</field>
+        <field name="res_model">maintenance.pm.material.generator</field>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

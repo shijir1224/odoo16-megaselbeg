@@ -1,0 +1,71 @@
+<odoo>
+    
+    <template id="print_employee_badge">
+        <t t-value="null">
+        </t>
+    </template>
+    <record id="hr_employee_contract_not_period" model="ir.actions.report">
+        <field name="name">Хугацаагүй ХГэрээ</field>
+        <field name="model">hr.employee.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.employee_contract_not_period</field>
+        <field name="report_file">hr.employee_contract_not_period</field>
+        <field name="print_report_name">'Хугацаагүй ХГэрээ'</field>
+        <field name="binding_model_id" ref="model_hr_employee_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="employee_contract_not_period">
+        <t t-value="null">
+        </t>
+    </template>
+
+    <record id="hr_employee_contract_exp" model="ir.actions.report">
+        <field name="name">Туршилтын гэрээ</field>
+        <field name="model">hr.employee.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.employee_contract_exp</field>
+        <field name="report_file">hr.employee_contract_exp</field>
+        <field name="print_report_name">'Туршилтын гэрээ'</field>
+        <field name="binding_model_id" ref="model_hr_employee_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="employee_contract_exp">
+        <t t-value="null">
+        </t>
+    </template>
+
+    <record id="hr_secret_contrac_exp" model="ir.actions.report">
+        <field name="name">Нууцын гэрээ</field>
+        <field name="model">hr.employee.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.hr_secret_contract</field>
+        <field name="report_file">hr.hr_secret_contract</field>
+        <field name="print_report_name">'Нууцын гэрээ'</field>
+        <field name="binding_model_id" ref="model_hr_employee_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_secret_contract">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_asset_contract_exp" model="ir.actions.report">
+        <field name="name">ЭХБХ гэрээ</field>
+        <field name="model">hr.employee.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.hr_asset_contract</field>
+        <field name="report_file">hr.hr_asset_contract</field>
+        <field name="print_report_name">'ЭХБХ гэрээ'</field>
+        <field name="binding_model_id" ref="model_hr_employee_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_asset_contract">
+        <t t-value="null">
+        </t>
+    </template>
+
+</odoo>

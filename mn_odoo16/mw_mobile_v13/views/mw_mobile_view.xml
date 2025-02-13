@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- STOCK -->
+	<record id="view_stock_return_picking_form_inherit_sale" model="ir.ui.view">
+        <field name="name">stock.return.picking.sale.form</field>
+        <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
+        <field name="model">stock.return.picking</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="picking_id" invisible="1"/>
+                <field name="picking_type_id"  invisible="1"/>
+                <field name="code"/>
+                <field name="return_reason" col="2"
+                    attrs="{'required':[('code','=','outgoing')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_form_inherit_driver" model="ir.ui.view">
+        <field name="name">stock.picking.form.driver.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="location_dest_id" position="after">
+                <field name="driver_user_id" options="{'no_create':True}"/>
+            </field>
+            <field name="origin" position="after">
+                <field name="return_reason" groups="base.group_no_one"/>
+            </field>
+        </field>
+    </record>
+
+	<!-- mw.mobile -->
+	<record id="mw_mobile_tree" model="ir.ui.view">
+		<field name="name">mw.mobile.tree</field>
+		<field name="model">mw.mobile</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="desc"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="mw_mobile_form" model="ir.ui.view">
+		<field name="name">mw.mobile.form</field>
+		<field name="model">mw.mobile</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="insert_value"/>
+					</group>
+					<group col="5">
+						<button name="get_product_product2" string="Бараа татах" type="object"/>
+						<button name="get_res_partner2" string="Харилцагч татах" type="object"/>
+						<button name="get_partner_price_test" string="Get price info" type="object"/>
+						<button name="get_payment_so_list" string="Payment" type="object"/>
+						<button name="create_internal_move_test" string="Дотоод хөдөлгөөн үүсгэх" type="object"/>
+						<button name="create_sale_order2" string="Борлуулалт үүсгэх" type="object"/>
+						<button name="create_back_so_back_order2" string="Хүргэлт дуусгаагүйг дуусгах" type="object"/>
+						<button name="create_salesman_route_test" string="Явсан Маршрутын мэдээлэл оруулах" type="object"/>
+						<button name="test_special_product_plan" 
+							string="Special Test plan" type="object"/>
+						<button name="get_payment_so_product_list_test" string="Test payment" type="object"/>
+
+						<button name="test_create_product_expense" string="Хорогдол тест" 
+							type="object"/>
+						<button name="get_promotion_test" string="Promo татах" 
+							type="object"/>
+					</group>
+					<group groups="base.group_no_one" string="SO update hiih heseg">
+						<field name="so_start_date"/>
+						<field name="so_end_date"/>
+						<button name="compute_return_daralt_qty" string="SO Daraltiig Update hiih" type="object"/>
+					</group>
+					<group>
+						<!-- <button name="get_channel2" string="Чаннел татах" type="object"/> -->
+					</group>
+					<group>
+						<field name="desc"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_mw_mobile" model="ir.actions.act_window">
+		<field name="name">Mobile sync</field>
+		<field name="res_model">mw.mobile</field>
+		<field name="view_mode">tree,form</field>
+		<!-- <field name="context">{'search_default_this_month':1,'search_default_type':1}</field> -->
+	</record>
+	
+	<menuitem id="menu_mw_mobile"
+		name="Mobile sync"
+		action="action_mw_mobile"
+		parent="sale.menu_sale_config"
+		sequence="2"/>
+
+</odoo>
