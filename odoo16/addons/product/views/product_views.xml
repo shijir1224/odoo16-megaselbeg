@@ -88,6 +88,8 @@
                                     <field name="currency_id" invisible="1"/>
                                     <field name="cost_currency_id" invisible="1"/>
                                     <field name="product_variant_id" invisible="1"/>
+                                    <field name="manufacture_code" />
+                                    <field name="tissue_no" />
                                 </group>
                             </group>
                             <group string="Internal Notes">
@@ -147,7 +149,7 @@
         <field name="model">product.template</field>
         <field name="arch" type="xml">
             <search string="Product">
-                <field name="name" string="Product" filter_domain="['|', '|', '|', ('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self)]"/>
+                <field name="name" string="Product" filter_domain="['|', '|', '|', ('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self), ('tissue_no', 'ilike', self), ('manufacture_code', 'ilike', self)]"/>
                 <field name="categ_id" filter_domain="[('categ_id', 'child_of', raw_value)]"/>
                 <separator/>
                 <filter string="Services" name="services" domain="[('type','=','service')]"/>
@@ -200,7 +202,7 @@
             <field name="inherit_id" ref="product.product_template_search_view"/>
             <field name="arch" type="xml">
                 <field name="name" position="replace">
-                    <field name="name" string="Product" filter_domain="['|', '|', ('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self)]"/>
+                    <field name="name" string="Product" filter_domain="['|', '|', ('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self), ('tissue_no', 'ilike', self), ('manufacture_code', 'ilike', self)]"/>
                 </field>
                 <field name="attribute_line_ids" position="replace">
                     <field name="product_template_attribute_value_ids" groups="product.group_product_variant"/>
@@ -254,6 +256,8 @@
                         <group>
                             <group name="codes" string="Codes">
                                 <field name="default_code"/>
+                                <field name="manufacture_code"/>
+                                <field name="tissue_no"/>
                                 <field name="barcode"/>
                                 <field name="type" invisible="1"/>
                             </group>
@@ -335,6 +339,8 @@
                     <field name="priority" widget="priority" nolabel="1" readonly="1"/>
                     <field name="default_code" optional="show" readonly="1"/>
                     <field name="barcode" optional="hide" readonly="1"/>
+                    <field name="manufacture_code" optional="show" readonly="1"/>
+                    <field name="tissue_no" optional="show" readonly="1"/>
                     <field name="name" readonly="1"/>
                     <field name="product_template_variant_value_ids" widget="many2many_tags" groups="product.group_product_variant" readonly="1"/>
                     <field name="company_id" groups="base.group_multi_company" optional="hide" readonly="1"/>
