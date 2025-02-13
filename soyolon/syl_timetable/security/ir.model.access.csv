@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_accumlated_hour_manager,accumlated.hour,model_accumlated_hour,mw_timetable.group_timetable_manager,1,1,1,1
+access_accumlated_hour_user,accumlated.hour,model_accumlated_hour,mw_timetable.group_timetable_user,1,1,1,0
+
+
+access_overtime_hour_manager,overtime.hour,model_overtime_hour,mw_timetable.group_timetable_manager,1,1,1,1
+access_overtime_hour_user,overtime.hour,model_overtime_hour,mw_timetable.group_timetable_user,1,1,1,0

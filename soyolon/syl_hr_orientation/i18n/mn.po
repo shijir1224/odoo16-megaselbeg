@@ -1,0 +1,967 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* employee_orientation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-08 18:01+0000\n"
+"PO-Revision-Date: 2024-06-08 18:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "\" conducted by"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid ",with duration of"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_rate_line__percent__0
+msgid "0%-20%"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_rate_line__percent__1
+msgid "20%-40%"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_rate_line__percent__2
+msgid "40%-60%"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_rate_line__percent__3
+msgid "60%-80%"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_rate_line__percent__4
+msgid "80%-100%"
+msgstr ""
+
+#. module: employee_orientation
+#: model:mail.template,body_html:employee_orientation.orientation_request_mailer
+msgid ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Hello\n"
+"                        <t t-out=\"object.partner_id.name\"></t>,\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        You are requested to conduct orientation program listed below.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Check Line:\n"
+"                        <t t-out=\"object.request_name\"></t>\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Employee:\n"
+"                        <t t-out=\"object.employee_id.name\"></t>\n"
+"                    </p>\n"
+"                    <t t-if=\" object.request_expected_date\">\n"
+"                        <p>\n"
+"                            Expected Date:\n"
+"                            <t t-out=\"object.request_expected_date\"></t>\n"
+"                        </p>\n"
+"                    </t>\n"
+"                    <br>\n"
+"                    <p>\n"
+"                        Thank you!\n"
+"                    </p>\n"
+"                    <br>\n"
+"                    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"                        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"                            <strong style=\"text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"></t>\n"
+"                            </strong>\n"
+"                        </h3>\n"
+"                    </div>\n"
+"                    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"                        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"                            <t t-out=\"object.company_id.partner_id.sudo().with_context(show_address=True).name_get()[0][1]\"></t>\n"
+"                        </span>\n"
+"                        <t t-if=\"object.company_id.phone\">\n"
+"                            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                                Phone:\n"
+"                                <t t-out=\"object.company_id.phone\"></t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\" object.company_id.website\">\n"
+"                            <div>\n"
+"                                Web :\n"
+"                                <a href=\"'%s'%20%20object.company_id.website\">\n"
+"                                    <t t-out=\"object.company_id.website\"></t>\n"
+"                                </a>\n"
+"                            </div>\n"
+"\n"
+"                        </t>\n"
+"                        <p></p>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: employee_orientation
+#: model:mail.template,body_html:employee_orientation.orientation_training_mailer
+msgid ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    <p>\n"
+"                        Hello\n"
+"                        <t t-out=\"object.program_convener_id.name\"></t>,\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        You are requested to conduct\n"
+"                        <t t-out=\"object.program_name\"></t>\n"
+"                        Training program for\n"
+"                        <t t-out=\"object.program_department_id.name\"></t>\n"
+"                        department\n"
+"                        <t t-if=\" object.date_from and object.date_to\">\n"
+"                            from\n"
+"                            <t t-out=\"object.date_from\"></t>\n"
+"                            to\n"
+"                            <t t-out=\"object.date_to\"></t>\n"
+"                        </t>\n"
+"                        .\n"
+"                    </p>\n"
+"                    <br>\n"
+"                    <p>\n"
+"                        Thank you!\n"
+"                    </p>\n"
+"                    <br>\n"
+"                    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"                        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"                            <strong style=\"text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"></t>\n"
+"                            </strong>\n"
+"                        </h3>\n"
+"                    </div>\n"
+"                    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"                        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"                            <t t-out=\"object.company_id.partner_id.sudo().with_context(show_address=True).name_get()[0][1]\"></t>\n"
+"\n"
+"                        </span>\n"
+"                        <t t-if=\" object.company_id.phone\">\n"
+"                            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                                Phone:\n"
+"                                <t t-out=\"object.company_id.phone\"></t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\" object.company_id.website\">\n"
+"                            <div>\n"
+"                                Web :\n"
+"                                <a href=\"'%s'%20%20object.company_id.website\">\n"
+"                                    <t t-out=\"object.company_id.website\"></t>\n"
+"                                </a>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <p></p>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_needaction
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_needaction
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_needaction
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_needaction
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_needaction
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__active
+msgid "Active"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__attachment_id_1
+msgid "Attachment"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_attachment_count
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_attachment_count
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_attachment_count
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_attachment_count
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_attachment_count
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_request__state__cancel
+msgid "Cancel"
+msgstr "Цуцлах"
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_orientation__state__cancel
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_training__state__cancel
+msgid "Canceled"
+msgstr "Цуцласан"
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "Certificate of Participation"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.actions.report,name:employee_orientation.print_pack_certificates
+#: model:ir.model.fields,field_description:employee_orientation.field_hr_employee__certificates
+msgid "Certificates"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_orientation_checklist
+msgid "Checklist"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__checklist_line_ids
+msgid "Checklist Line"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__employee_company_id
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__company_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__company_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__employee_company_id
+msgid "Company"
+msgstr "Компани"
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_orientation__state__complete
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_training__state__complete
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_request__state__complete
+msgid "Completed"
+msgstr "Хүлээн авсан"
+
+#. module: employee_orientation
+#. odoo-python
+#: code:addons/employee_orientation/models/employee_training.py:0
+#: code:addons/employee_orientation/models/orientation_checklist_request.py:0
+#, python-format
+msgid "Compose Email"
+msgstr "Имэйл"
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_orientation__state__confirm
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_training__state__confirm
+msgid "Confirmed"
+msgstr "Хянасан"
+
+#. module: employee_orientation
+#: model_terms:ir.actions.act_window,help:employee_orientation.action_employee_training
+msgid "Create Employee Training Program."
+msgstr "ДЗХ сургалт"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__create_employee
+msgid "Created Employee"
+msgstr "Үүсгэсэн ажилтан"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__create_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__create_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__create_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__create_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__create_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__create_uid
+msgid "Created by"
+msgstr "Үүсгэсэн"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__create_date
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__create_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__create_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__create_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__create_date
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн огноо"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__request_date
+msgid "Date"
+msgstr "Огноо"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__date_from
+msgid "Date From"
+msgstr "Эхлэх"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__date_to
+msgid "Date To"
+msgstr "Дуусах"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__department_id
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__program_department_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__checklist_department_id
+msgid "Department"
+msgstr "Хэлтэс"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__note
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__note_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__note
+msgid "Description"
+msgstr "Тайлбар"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__display_name
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__display_name
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__display_name
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__display_name
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__display_name
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__display_name
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__display_name
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__display_name
+msgid "Display Name"
+msgstr "Нэр"
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_request_form
+msgid "Documents"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_orientation__state__draft
+msgid "Draft"
+msgstr "Ноорог"
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_hr_employee
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__employee_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__employee_id
+msgid "Employee"
+msgstr "Ажилтан"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__training_ids
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+msgid "Employee Details"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__name
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__request_orientation_id
+msgid "Employee Orientation"
+msgstr "Ажилтны дасан зохицох хөтөлбөр"
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_orientation_request
+#: model:mail.template,name:employee_orientation.orientation_request_mailer
+#: model:mail.template,subject:employee_orientation.orientation_request_mailer
+msgid "Employee Orientation Request"
+msgstr "Дасан зохицох хөтөлбөр мөр"
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_employee_training
+msgid "Employee Training"
+msgstr "Сургалт"
+
+#. module: employee_orientation
+#: model:ir.actions.act_window,name:employee_orientation.action_employee_training
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_search
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_tree
+msgid "Employee Training Program"
+msgstr ""
+
+#. module: employee_orientation
+#: model:mail.template,subject:employee_orientation.orientation_training_mailer
+msgid "Employee Training Request"
+msgstr ""
+
+#. module: employee_orientation
+#: model:mail.template,name:employee_orientation.orientation_training_mailer
+msgid "Employee Training program"
+msgstr "Ажилтны сургалт"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__request_expected_date
+msgid "Expected Date"
+msgstr "Хугацаа"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_follower_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_follower_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_follower_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_follower_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_follower_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_partner_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_partner_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_partner_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_partner_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_partner_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__has_message
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__has_message
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__has_message
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__has_message
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__has_message
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "Hours,"
+msgstr "Цаг"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__id
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__id
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__id
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__id
+msgid "ID"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,help:employee_orientation.field_employee_orientation__message_needaction
+#: model:ir.model.fields,help:employee_orientation.field_employee_training__message_needaction
+#: model:ir.model.fields,help:employee_orientation.field_orientation_checklist__message_needaction
+#: model:ir.model.fields,help:employee_orientation.field_orientation_rate_line__message_needaction
+#: model:ir.model.fields,help:employee_orientation.field_orientation_request__message_needaction
+#: model:ir.model.fields,help:employee_orientation.field_rate_question__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,help:employee_orientation.field_employee_orientation__message_has_error
+#: model:ir.model.fields,help:employee_orientation.field_employee_orientation__message_has_sms_error
+#: model:ir.model.fields,help:employee_orientation.field_employee_training__message_has_error
+#: model:ir.model.fields,help:employee_orientation.field_employee_training__message_has_sms_error
+#: model:ir.model.fields,help:employee_orientation.field_orientation_checklist__message_has_error
+#: model:ir.model.fields,help:employee_orientation.field_orientation_checklist__message_has_sms_error
+#: model:ir.model.fields,help:employee_orientation.field_orientation_rate_line__message_has_error
+#: model:ir.model.fields,help:employee_orientation.field_orientation_rate_line__message_has_sms_error
+#: model:ir.model.fields,help:employee_orientation.field_orientation_request__message_has_error
+#: model:ir.model.fields,help:employee_orientation.field_orientation_request__message_has_sms_error
+#: model:ir.model.fields,help:employee_orientation.field_rate_question__message_has_error
+#: model:ir.model.fields,help:employee_orientation.field_rate_question__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_is_follower
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_is_follower
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_is_follower
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_is_follower
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_is_follower
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__job_id
+msgid "Job Title"
+msgstr "Албан тушаал"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation____last_update
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training____last_update
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist____last_update
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line____last_update
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request____last_update
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__write_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__write_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__write_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__write_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__write_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__write_date
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__write_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__write_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__write_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__write_date
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_main_attachment_id
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_main_attachment_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_main_attachment_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_main_attachment_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_main_attachment_id
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__parent_id
+msgid "Manager"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_has_error
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_has_error
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_has_error
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_has_error
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_has_error
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "Minutes, at"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__checklist_name
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__request_name
+msgid "Name"
+msgstr ""
+
+#. module: employee_orientation
+#. odoo-python
+#: code:addons/employee_orientation/models/employee_orientation.py:0
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_training__state__new
+#: model:ir.model.fields.selection,name:employee_orientation.selection__orientation_request__state__new
+#, python-format
+msgid "New"
+msgstr "Шинэ"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_needaction_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_needaction_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_needaction_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_needaction_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_needaction_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_has_error_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_has_error_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_has_error_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_has_error_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_has_error_counter
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,help:employee_orientation.field_employee_orientation__message_needaction_counter
+#: model:ir.model.fields,help:employee_orientation.field_employee_training__message_needaction_counter
+#: model:ir.model.fields,help:employee_orientation.field_orientation_checklist__message_needaction_counter
+#: model:ir.model.fields,help:employee_orientation.field_orientation_rate_line__message_needaction_counter
+#: model:ir.model.fields,help:employee_orientation.field_orientation_request__message_needaction_counter
+#: model:ir.model.fields,help:employee_orientation.field_rate_question__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,help:employee_orientation.field_employee_orientation__message_has_error_counter
+#: model:ir.model.fields,help:employee_orientation.field_employee_training__message_has_error_counter
+#: model:ir.model.fields,help:employee_orientation.field_orientation_checklist__message_has_error_counter
+#: model:ir.model.fields,help:employee_orientation.field_orientation_rate_line__message_has_error_counter
+#: model:ir.model.fields,help:employee_orientation.field_orientation_request__message_has_error_counter
+#: model:ir.model.fields,help:employee_orientation.field_rate_question__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_orientation_rate_line
+msgid "Orientation Rate line"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__orientation_request_ids
+msgid "Orientation Request"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_force_complete_form
+msgid "Pending Lines"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__percent
+msgid "Percent"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_force_complete_form
+msgid "Please make sure that orientations programs are already done."
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_training__state__print
+msgid "Print"
+msgstr "Хэвлэх"
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+msgid "Print Certificates"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__purpose
+msgid "Purpose"
+msgstr "Санал тайлбар"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__name
+msgid "Question"
+msgstr "Асуулт"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__question_id
+msgid "Questions"
+msgstr "Асуултууд"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__rate_id
+msgid "Rate"
+msgstr "Тайлбар"
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_rate_question
+msgid "Rate Question"
+msgstr "Асуулт"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__rate_ids
+msgid "Rate question"
+msgstr "Асуулт"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__responsible_employee_id
+msgid "Responsible Employee"
+msgstr "Удирдлага"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__responsible_department_id
+msgid "Responsible Employee Department"
+msgstr "Удирдлагын хэлтэс"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__responsible_job_id
+msgid "Responsible Employee Job"
+msgstr "Удирдлагын албан тушаал"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__responsible_user_id
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__program_convener_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__partner_id
+msgid "Responsible User"
+msgstr "Хүний нөөц"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__message_has_sms_error
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__message_has_sms_error
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__message_has_sms_error
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__message_has_sms_error
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__message_has_sms_error
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_request_form
+msgid "Send by Email"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,help:employee_orientation.field_orientation_checklist__active
+msgid ""
+"Set active to false to hide the Orientation Checklist without removing it."
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__stage
+msgid "Stage"
+msgstr "Үе шат"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__state
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__state
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__state
+msgid "Status"
+msgstr "Төлөв"
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "This certificate is awarded to"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+msgid "Time Period"
+msgstr "Хугацаа"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__program_name
+#: model:ir.ui.menu,name:employee_orientation.menu_employee_training_child
+msgid "Training Program"
+msgstr "Сургалт"
+
+#. module: employee_orientation
+#: model:ir.model.fields.selection,name:employee_orientation.selection__employee_orientation__state__waiting
+msgid "Waiting"
+msgstr "Хүлээлт"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__website_message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__website_message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_checklist__website_message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_rate_line__website_message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__website_message_ids
+#: model:ir.model.fields,field_description:employee_orientation.field_rate_question__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,help:employee_orientation.field_employee_orientation__website_message_ids
+#: model:ir.model.fields,help:employee_orientation.field_employee_training__website_message_ids
+#: model:ir.model.fields,help:employee_orientation.field_orientation_checklist__website_message_ids
+#: model:ir.model.fields,help:employee_orientation.field_orientation_rate_line__website_message_ids
+#: model:ir.model.fields,help:employee_orientation.field_orientation_request__website_message_ids
+#: model:ir.model.fields,help:employee_orientation.field_rate_question__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_checklist_line
+msgid "checklist.line"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "days,"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "for certifying his/her participation in the training program \""
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.print_pack_template
+msgid "from"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_orientation_force_complete
+msgid "orientation.force.complete"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model,name:employee_orientation.model_report_employee_orientation_print_pack_template
+msgid "report.employee_orientation.print_pack_template"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+msgid "to"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_training__user_id
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_request__user_id
+msgid "users"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+msgid "Батлах"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_checklist_form
+msgid "Гүйцэтгэх үйл явц"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.actions.act_window,name:employee_orientation.action_checklist_line
+#: model:ir.actions.act_window,name:employee_orientation.action_orientation_checklist
+#: model:ir.actions.act_window,name:employee_orientation.action_orientation_request
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__orientation_lines
+#: model:ir.ui.menu,name:employee_orientation.menu_employee_orientation
+#: model:ir.ui.menu,name:employee_orientation.menu_employee_orientation_config_line
+#: model:ir.ui.menu,name:employee_orientation.menu_orientation_checklist_config
+#: model:ir.ui.menu,name:employee_orientation.menu_orientation_request
+#: model_terms:ir.ui.view,arch_db:employee_orientation.checklist_line_search
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_checklist_line_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_checklist_line_tree
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_checklist_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_checklist_search
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_checklist_tree
+msgid "ДЗХ"
+msgstr "ДЗХ асуулга"
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_employee_orientation__orientation_id
+msgid "ДЗХ тохиргоо"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__orientation_id
+msgid "Дасан зохицох"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.actions.act_window,name:employee_orientation.action_employee_orientation
+#: model:ir.ui.menu,name:employee_orientation.menu_employee_orientation_child
+#: model:ir.ui.menu,name:employee_orientation.menu_employee_orientation_config
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_search
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_tree
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_request_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_request_search
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_request_tree
+msgid "Дасан зохицох хөтөлбөр"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_force_complete_form
+msgid "Дуусгах"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_force_complete_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_request_form
+msgid "Дууссан"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+msgid "Дууссан болгох"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+msgid "Мөрүүд"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__line_name
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__name
+msgid "Нэр"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line____last_update
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__write_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete____last_update
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__write_date
+msgid "Сүүлд зассан"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__write_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__write_uid
+msgid "Сүүлд зассан этгээд"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__note
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+msgid "Тэмдэглэл"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__responsible_user_id
+msgid "Хариуцагч"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_training_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_force_complete_form
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_orientation_request_form
+msgid "Цуцлах"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__stage
+msgid "Үе шат"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.ui.view,arch_db:employee_orientation.view_employee_orientation_form
+msgid "Үнэлгээ"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.actions.act_window,name:employee_orientation.view_rate_question_action
+#: model:ir.ui.menu,name:employee_orientation.menu_rate_question_id
+msgid "Үнэлгээний асуулт"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__create_uid
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__create_uid
+msgid "Үүсгэсэн"
+msgstr ""
+
+#. module: employee_orientation
+#: model_terms:ir.actions.act_window,help:employee_orientation.action_checklist_line
+#: model_terms:ir.actions.act_window,help:employee_orientation.action_employee_orientation
+#: model_terms:ir.actions.act_window,help:employee_orientation.action_orientation_checklist
+#: model_terms:ir.actions.act_window,help:employee_orientation.action_orientation_request
+msgid "Үүсгэх"
+msgstr ""
+
+#. module: employee_orientation
+#: model:ir.model.fields,field_description:employee_orientation.field_checklist_line__create_date
+#: model:ir.model.fields,field_description:employee_orientation.field_orientation_force_complete__create_date
+msgid "Үүссэн"
+msgstr ""

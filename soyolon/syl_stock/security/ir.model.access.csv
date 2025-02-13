@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_quality_report,stock.quality.report,model_stock_quality_report,stock.group_stock_user,1,1,1,1
+access_stock_quality_notification,stock.quality.notification,model_stock_quality_notification,stock.group_stock_manager,1,1,1,1
+access_stock_norm_user,stock.norm,model_stock_norm,stock.group_stock_user,1,0,0,0
+access_stock_norm_admin,stock.norm,model_stock_norm,stock.group_stock_manager,1,1,1,1
+access_stock_norm_line_user,stock.norm.line,model_stock_norm_line,stock.group_stock_user,1,0,0,0
+access_stock_norm_line_admin,stock.norm.line,model_stock_norm_line,stock.group_stock_manager,1,1,1,1
+access_stock_norm_types,stock.norm.types,model_stock_norm_types,stock.group_stock_manager,1,1,1,1
+access_user_product_defective_report,user.product.defective.report,model_product_defective_report,stock.group_stock_user,1,1,1,1
+access_user_standart_cost_location_report,user.standart.cost.location.report,model_standart_cost_location_report,stock.group_stock_user,1,1,1,1
+access_user_pr_mail_settings,user.pr.mail.settings,model_pr_mail_settings,stock.group_stock_user,1,1,1,1
+access_user_pr_mail_settings_user_ids,user.pr.mail.settings.user.ids,model_pr_mail_settings_user_ids,stock.group_stock_user,1,1,1,1
+access_user_create_purchase_request,user.create.purchase.request,model_create_purchase_request,stock.group_stock_user,1,1,1,1

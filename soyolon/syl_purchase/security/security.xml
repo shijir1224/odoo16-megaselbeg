@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_order_status_edit_user" model="res.groups">
+		<field name="name">Order status засах хэрэглэгч</field>
+		<field name="category_id" ref="base.module_category_inventory_purchase"/>
+	</record>
+</odoo>

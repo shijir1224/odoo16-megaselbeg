@@ -1,0 +1,91 @@
+<odoo>
+    
+    <record model="ir.ui.view" id="shift_vacation_schedule_form_view_syl">
+        <field name="name">shift.vacation.schedule.form</field>
+        <field name="model">shift.vacation.schedule</field>
+        <field name="inherit_id" ref="mw_hr.shift_vacation_schedule_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="replace">
+				<field name="type"/>
+			</xpath>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="shift_vacation_plan_form_view_syl">
+        <field name="name">shift.vacation.plan.form</field>
+        <field name="model">shift.vacation.plan</field>
+        <field name="inherit_id" ref="mw_hr.shift_vacation_plan_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='count_day']" position="after">
+				<field name="days"/>
+                <field name="startdate"/>
+                <field name="enddate"/>
+			</xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mw_hr.action_shift_vacation_request">
+		<field name="name">Ээлжийн амралтын хүсэлт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">shift.vacation.request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_year': 1}</field>
+		<field name="search_view_id" ref="mw_hr.view_shift_vacation_request_search"/>
+		<field name="view_id" ref="mw_hr.shift_vacation_request_tree_view"/>
+	</record>
+
+
+    <record model="ir.ui.view" id="shift_vacation_request_form_view_syl">
+        <field name="name">shift.vacation.request.form</field>
+        <field name="model">shift.vacation.request</field>
+        <field name="inherit_id" ref="mw_hr.shift_vacation_request_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_year_bef']" position="after">
+                <field name="vac_days" invisible='1'/>
+                <field name="is_rest" attrs="{'invisible': [('state_type','=','draft')]}"/>
+			</xpath>               
+            <xpath expr="//field[@name='enddate']" position="after">
+				<!-- <field name="startdate"  attrs="{'invisible': [('is_personally', '!=', True)]}"/>
+				<field name="enddate"  attrs="{'invisible': [('is_personally', '!=', True)]}"/> -->
+                <!-- <field name="days" attrs="{'invisible': [('is_personally', '!=', True)]}"/> -->
+                <field name="remain_days" attrs="{'invisible': [('is_personally', '!=', True)]}"/>
+				<field name="is_half_rest" attrs="{'invisible':[('remain_days', '=', 0)] }"/>
+				<field name="l_startdate" attrs="{'invisible': [('is_half_rest', '!=', True)]}"/>
+				<field name="l_enddate" attrs="{'invisible': [('is_half_rest', '!=', True)]}"/>
+			</xpath>               
+			<xpath expr="//page[@name='history_flow']" position="after">   
+				<page string="Ээлжийн амралтын түүх">
+                        <field name="history_line_ids" >
+                                <tree string="History" >
+                                   <field name="create_date"/>
+                                  <!--  <field name="date_from"/>
+                                   <field name="date_to"/> -->
+                                   <field name="days"/>
+                                   <field name="work_year_bef"/>
+                                   <field name="startdate"/>
+                                   <field name="enddate"/>
+                                   <field name="before_shift_vac_date"/>
+                                   <field name="payslip_date"/>
+                                </tree>
+                        </field>
+                 </page>
+			</xpath>
+        </field>
+    </record>
+
+<!-- Notification -->
+    <record id="cron_vac_dur" model="ir.cron">
+        <field name="name">УХАТ хүчинтэй хугацаа мэдэгдэх 30 хоног</field>
+        <field name="model_id" ref="model_shift_vacation_schedule"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model.cron_vacation_dur()</field>
+        <field name="interval_number">3</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+
+
+</odoo>

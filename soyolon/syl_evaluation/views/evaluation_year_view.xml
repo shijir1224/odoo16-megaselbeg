@@ -1,0 +1,243 @@
+<odoo>
+
+    <menuitem id="hr_evaluation_plan_main_menu" name = 'Төлөвлөгөө гүйцэтгэл' parent="mw_hr_evaluation.hr_evaluation_parent_menu" sequence='1'/>
+
+    <record id="view_ev_objective_conf_filter" model="ir.ui.view">
+        <field name="name">ev.objective.conf.search</field>
+        <field name="model">ev.objective.conf</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <group>
+                    <field name="name"/>
+                    <field name="descrition"/>
+                    <field name="goal"/>
+                </group>
+                <group expand="0" string="Group By..">
+                    <filter name="department_id" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}" />
+                    <filter name="pillar_goal" string="ЗХ тулгуур зорилго" icon="terp-personal" context="{'group_by':'pillar_goal'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ev_objective_conf_form" model="ir.ui.view">
+        <field name="name">ev.objective.conf.form</field>
+        <field name="model">ev.objective.conf</field>
+        <field name="arch" type="xml">
+            <form string="Стратеги зорилго" delete='false'>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name ='pillar_goal' />
+                            <field name="name"/>
+                            <field name="department_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="descrition"/>
+                            <field name ='goal'/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="ev_objective_conf_tree" model="ir.ui.view">
+        <field name="name">ev.objective.conf.tree</field>
+        <field name="model">ev.objective.conf</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="pillar_goal"/>
+                <field name ='name'/>
+                <field name="goal"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ev_objective_conf_action" model="ir.actions.act_window">
+        <field name="name">Стратиги зорилго</field>
+        <field name="res_model">ev.objective.conf</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_pillar_goal': 1}</field>
+        <field name="search_view_id" ref="view_ev_objective_conf_filter"/>
+    </record>
+
+    <menuitem id="ev_objective_conf_menu" parent="mw_hr_evaluation.hr_evaluation_conf_menu" action="ev_objective_conf_action"  sequence='1'/>
+
+    <record id="view_ev_kpi_conf_filter" model="ir.ui.view">
+        <field name="name">ev.kpi.conf.search</field>
+        <field name="model">ev.kpi.conf</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <group>
+                    <field name="name"/>
+                </group>
+                <group expand="0" string="Group By..">
+                    <filter name="department_id" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ev_kpi_conf_form" model="ir.ui.view">
+        <field name="name">ev.kpi.conf.form</field>
+        <field name="model">ev.kpi.conf</field>
+        <field name="arch" type="xml">
+            <form string="KPI" delete='false'>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="department_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="ev_kpi_conf_tree" model="ir.ui.view">
+        <field name="name">ev.kpi.conf.tree</field>
+        <field name="model">ev.kpi.conf</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name ='name'/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ev_kpi_conf_action" model="ir.actions.act_window">
+        <field name="name">KPI</field>
+        <field name="res_model">ev.kpi.conf</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_pillar_department_id': 1}</field>
+        <field name="search_view_id" ref="view_ev_kpi_conf_filter"/>
+    </record>
+
+    <menuitem id="ev_kpi_conf_menu" parent="mw_hr_evaluation.hr_evaluation_conf_menu" action="ev_kpi_conf_action"  sequence='2'/>
+
+<!-- Жилийн төлөвлөгөө -->
+     <record id="view_hr_evaluation_year_plan_filter" model="ir.ui.view">
+        <field name="name">hr.evaluation.year.plan.search</field>
+        <field name="model">hr.evaluation.year.plan</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <group>
+                    <field name="department_id"/>
+                    <field name="name"/>
+                </group>
+                <group expand="0" string="Group By..">
+                     <filter name="year" string="Он" context="{'group_by':'year'}"/>
+                      <filter name="sprint" string="Улирал" context="{'group_by':'sprint'}"/>
+                    <filter name="department_id" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}"/>
+                    <filter name="state" string="Төлөв" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hr_evaluation_year_plan_form" model="ir.ui.view">
+        <field name="name">hr.evaluation.year.plan.form</field>
+        <field name="model">hr.evaluation.year.plan</field>
+        <field name="arch" type="xml">
+            <form string="Үнэлгээ">
+                <header>
+                    <button string="Илгээх" name="action_send" type="object" states='draft' class="oe_highlight" groups='mw_hr_evaluation.group_evaluation_user'/>
+                    <button string="Дуусгах" name="action_done" type="object" states='sent' class="oe_highlight" />
+                    <button string="Буцаах" name="action_draft" type="object" states='sent,done' class="oe_highlight" groups='mw_hr_evaluation.group_evaluation_manager'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,send,done" statusbar_colors='{"draft":"gray","send":"blue","send":"done"}'/>
+                </header>
+               
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}" required='1'/>
+                            <field name ='year' attrs="{'readonly': [('state', '!=', 'draft')]}"  required='1'/>
+                            <field name ='sprint' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="department_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"  required='1'/>
+                            <field name="company_id" options="{'no_create': True}"/>
+                            <field name="employee_id" options="{'no_create': True}"/>
+                            <field name="n_employee_id" options="{'no_create': True}"/>
+                            <button string="Хэвлэх" name="action_print" type="object" class="oe_highlight"/>
+                        </group>
+                        <field name="line_ids" widget="one2many_list" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                            <tree>
+                                <field name="pillar_goal"/>
+                                <field name="ev_objective_id" options="{'no_create': True}" class="text-wrap" />
+                                <field name="goal" class="text-wrap" />
+                                <field name="descrition" class="text-wrap" />
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="pillar_goal"/>
+                                    <field name="ev_objective_id"/>
+                                </group>
+                                <group>
+                                    <field name="goal"/>
+                                    <field name="descrition"/>
+                                </group>
+                                <group>
+                                    <field name="department_id" force-save='1'/>
+                                    <field name="year" force-save='1'/>
+                                </group>
+                                <group>
+                                    <field name="data"/>
+                                    <button string="Импортлох" name="action_import" type="object" class="oe_highlight" icon = "fa-import"/>
+                                </group>
+                                <field name="line_line_ids" widget="one2many_list">
+                                    <tree editable='bottom'>
+                                        <field name="department_id" optional='hide'/>
+                                        <field name="conf_kpi_id" class="text-wrap" style="max-width:600px" />
+                                        <field name="task" class="text-wrap" style="max-width:600px"/>
+                                        <field name="r_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="a_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="t_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]" optional='hide' string='Delete'/>
+                                          <field name="ts_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="s_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="i_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="month"/>
+                                    </tree>
+                                </field>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_evaluation_year_plan_tree" model="ir.ui.view">
+        <field name="name">hr.evaluation.year.plan.tree</field>
+        <field name="model">hr.evaluation.year.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name ='year'/>
+                <field name ='sprint'/>
+                <field name="department_id"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_evaluation_year_plan_action" model="ir.actions.act_window">
+        <field name="name">Хэлтсийн улирлын төлөвлөгөө</field>
+        <field name="res_model">hr.evaluation.year.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_year': 1}</field>
+        <field name="search_view_id" ref="view_hr_evaluation_year_plan_filter"/>
+    </record>
+
+    <menuitem id="hr_evaluation_year_plan_menu" parent="hr_evaluation_plan_main_menu" action="hr_evaluation_year_plan_action"  sequence='1' groups='syl_evaluation.group_shu_syln'/>
+</odoo>

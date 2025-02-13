@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_sale_price_calculator_user,sale.price.calculator,model_sale_price_calculator,group_sale_price_calculator_user,1,1,1,1
+access_sale_price_calculator_line_user,sale.price.calculator.line,model_sale_price_calculator_line,group_sale_price_calculator_user,1,1,1,1
+access_sale_order_plan,sale.order.plan,model_sale_order_plan,sales_team.group_sale_salesman,1,1,1,1
+access_sale_order_plan_line,sale.order.plan.line,model_sale_order_plan_line,sales_team.group_sale_salesman,1,1,1,1
+access_sale_order_pr_create_admin,sale.order.pr.create,model_sale_order_pr_create,sales_team.group_sale_salesman,1,1,1,1
+access_sale_order_pr_create_line_admin,sale.order.pr.create.line,model_sale_order_pr_create_line,sales_team.group_sale_salesman,1,1,1,1
+access_wizard_sale_team_report_admin,sale.team.report,model_wizard_sale_team_report,sales_team.group_sale_salesman,1,1,1,1
+access_sale_plan_admin,sale.plan,model_sale_plan,sales_team.group_sale_salesman,1,1,1,1
+access_sale_plan_line_admin,sale.plan.line,model_sale_plan_line,sales_team.group_sale_salesman,1,1,1,1
+access_sale_plan_line_second_admin,sale.plan.line.second,model_sale_plan_line_second,sales_team.group_sale_salesman,1,1,1,1
+access_sale_plan_line_third_admin,sale.plan.line.third,model_sale_plan_line_third,sales_team.group_sale_salesman,1,1,1,1
+access_sale_price_calculator_history_user,sale.price.calculator.history,model_sale_price_calculator_history,group_sale_price_calculator_user,1,1,1,1
+access_wizard_sale_report_admin,sale.report,model_wizard_sale_report,sales_team.group_sale_salesman,1,1,1,1

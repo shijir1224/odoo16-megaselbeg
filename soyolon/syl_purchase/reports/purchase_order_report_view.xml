@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="partner_po_report_view" model="ir.ui.view">
+		<field name="name">partner.po.report.form</field>
+		<field name="model">partner.po.report</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<label string="Эхлэх, дуусах хоёр өдөр тайлант хугацаанд орно!" for="date_start" colspan="4"/>
+				<newline/>
+				<group>
+					<group>
+						<field name="date_start"/>
+					</group>
+					<group>
+						<field name="date_end"/>
+					</group>
+				</group>
+				<footer>
+					<button icon="fa-times" special="cancel" string="Хаах"/>
+					<button name="action_export" string="Татах" type="object" class="oe_highlight" icon="fa-file-excel-o"/>
+					<button name="action_view" string="Харах" type="object" class="oe_highlight" icon="fa-eye"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_partner_po_report" model="ir.actions.act_window">
+		<field name="name">Нийлүүлэгчийн гүйцэтгэлийн тайлан</field>
+		<field name="res_model">partner.po.report</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="partner_po_report_view"/>
+		<field name="target">new</field>
+	</record>
+
+	<record id="partner_po_report_list_tree_view" model="ir.ui.view">
+		<field name="name">partner.po.report.list.tree</field>
+		<field name="model">partner.po.report.list</field>
+		<field name="arch" type="xml">
+			<tree create="false" delete="false">
+				<field name="id" invisible="1"/>
+				<field name="po_id"/>
+				<field name="partner_id"/>
+				<field name="delivered_date" optional="hide"/>
+				<field name="quality_qty" optional="hide"/>
+				<field name="deliver_day"/>
+				<field name="delivered_day"/>
+				<field name="delay_day"/>
+				<field name="delay_percent"/>
+				<field name="state"/>
+				<field name="dot_percent"/>
+				<field name="doq_percent"/>
+				<field name="dif_percent"/>
+				<field name="sifot_percent"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id='action_partner_po_report_list' model='ir.actions.act_window'>
+		<field name="name">Нийлүүлэгчийн гүйцэтгэлийн тайлан</field>
+		<field name="res_model">partner.po.report.list</field>
+		<field name="view_id" ref="partner_po_report_list_tree_view"/>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem id="partner_po_report_menu" name="Нийлүүлэгчийн гүйцэтгэлийн тайлан" parent="purchase.purchase_report_main" sequence="298" action="action_partner_po_report"/>
+
+	<!-- <menuitem id="partner_po_report_list_menu" name="Нийлүүлэгчийн гүйцэтгэлийн тайлан лист" parent="purchase.purchase_report_main" sequence="299" action="action_partner_po_report_list"/> -->
+</odoo>

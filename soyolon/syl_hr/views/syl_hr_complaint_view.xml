@@ -1,0 +1,21 @@
+<odoo>
+    	<record model="ir.ui.view" id="syl_complaint_document_form_view">
+	        <field name="name">complaint.document.form</field>
+	        <field name="model">complaint.document</field>
+            <field name="inherit_id" ref="mw_document.complaint_document_form_view"/>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='direction']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='res_company_id']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='complaint_type_ids']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='complaint_idea']" position="after">
+                    <field name="complain_att_ids"  widget="many2many_binary"/>
+                </xpath>
+	        </field>
+	    </record>
+</odoo>

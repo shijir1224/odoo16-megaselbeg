@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="evaluation_plan_report_view" model="ir.ui.view">
+            <field name="name">eval.plan.report.wizard</field>
+            <field name="model">eval.plan.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group>
+                        <field name="year"/>
+                         <field name="month"/>
+                        <field name="department_id"/>
+                        <field name="company_id" />
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object"
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_evaluation_plan_report" model="ir.actions.act_window">
+            <field name="name">Гүйцэтгэлийн нэгтгэл</field>
+            <field name="res_model">eval.plan.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="evaluation_plan_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_evaluation_plan_report" action="action_evaluation_plan_report"
+        parent="mw_hr_evaluation.parent_menu_evaluation_report" sequence="2"/>
+
+<!--Гүйцэтгэлийн урамшууллын тайлан -->
+          <record id="evaluation_cons_report_view" model="ir.ui.view">
+            <field name="name">eval.cons.report.wizard</field>
+            <field name="model">eval.cons.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group>
+                        <field name="year"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object"
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_evaluation_cons_report" model="ir.actions.act_window">
+            <field name="name">Гүйцэтгэлийн урамшууллын тайлан</field>
+            <field name="res_model">eval.cons.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="evaluation_cons_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_evaluation_cons_report" action="action_evaluation_cons_report"
+        parent="mw_hr_evaluation.parent_menu_evaluation_report" sequence="1"/>
+
+
+        <!--Хэлтсүүдийн сарын нэгтгэл тайлан -->
+          <record id="evaluation_department_report_view" model="ir.ui.view">
+            <field name="name">eval.department.report.wizard</field>
+            <field name="model">eval.department.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group>
+                        <field name="year"/>
+                        <field name="month"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object"
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_evaluation_department_report" model="ir.actions.act_window">
+            <field name="name">Хэлтсүүдийн сарын нэгтгэл тайлан</field>
+            <field name="res_model">eval.department.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="evaluation_department_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_evaluation_department_report" action="action_evaluation_department_report"
+        parent="mw_hr_evaluation.parent_menu_evaluation_report" sequence="1"/>
+</odoo>

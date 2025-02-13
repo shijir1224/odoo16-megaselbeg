@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record id="pit_grew_new_report_syl" model="ir.ui.view">
+        <field name="name">pit.grew.new.report.wizard</field>
+        <field name="model">pit.grew.new.report</field>
+        <field name="inherit_id" ref="mw_salary.pit_report_grew_new_view"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='work_location_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</openerp>

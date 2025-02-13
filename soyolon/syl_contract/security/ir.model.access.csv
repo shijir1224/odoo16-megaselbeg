@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+access_contract_part_type_user,contract.part.type,model_contract_part_type,mw_contract.group_contract_user,1,1,1,0
+access_contract__part_type_manager,contract.part.type,model_contract_part_type,mw_contract.group_contract_manager,1,1,1,1
+access_contract_checklist_user,contract.checklist,model_contract_checklist,mw_contract.group_contract_user,1,1,1,0
+access_contract_checklist_manager,contract.checklist,model_contract_checklist,mw_contract.group_contract_manager,1,1,1,1
+access_contract_flow_user,contract.flow.user,model_contract_flow_user,mw_contract.group_contract_manager,1,1,1,1
+
+access_contract_payment_type,contract.payment.type,model_contract_payment_type,mw_contract.group_contract_manager,1,1,1,1
+access_contract_process_type,contract.process.type,model_contract_process_type,mw_contract.group_contract_manager,1,1,1,1
+
+access_contract_document_real,contract.document.real,model_contract_document_real,group_contract_my_confirm,1,1,0,0

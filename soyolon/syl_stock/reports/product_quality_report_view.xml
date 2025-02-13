@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.cron" id="cron_stock_quality_report">
+		<field name="name">Шаардлага хангаагүй барааны тайлан - КРОН</field>
+		<field name="model_id" ref="model_stock_quality_report"/>
+		<field name="state">code</field>
+		<field name="code">model.cron_quality_notification()</field>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+	</record>
+
+	<record id="stock_quality_report_tree_view" model="ir.ui.view">
+		<field name="name">stock.quality.report.tree</field>
+		<field name="model">stock.quality.report</field>
+		<field name="arch" type="xml">
+			<tree create="false" delete="false">
+				<field name="id" invisible="1"/>
+				<field name="product_id"/>
+				<field name="in_coming_picking_id"/>
+				<field name="picking_id"/>
+				<field name="date_done"/>
+				<field name="po_id"/>
+				<field name="po_user_id"/>
+				<field name="is_qualified"/>
+				<field name="no_quality"/>
+				<field name="is_sent" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id='action_stock_quality_report' model='ir.actions.act_window'>
+		<field name="name">Шаардлага хангаагүй барааны тайлан</field>
+		<field name="res_model">stock.quality.report</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem id="stock_quality_report_menu" name="Шаардлага хангаагүй барааны тайлан" parent="stock.menu_warehouse_report" sequence="3" action="syl_stock.action_stock_quality_report"/>
+</odoo>

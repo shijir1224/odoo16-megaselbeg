@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="ndsh_report_syl_view" model="ir.ui.view">
+            <field name="name">ndsh.report.syl.wizard</field>
+            <field name="model">ndsh.report.syl</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group>
+                        <group>
+                            <field name="company_id" />
+                            <field name="year" />
+                        </group>
+                        <group>
+                            <field name="month" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_ndsh_report_syl" model="ir.actions.act_window">
+            <field name="name">НДШ тайлан/SYL/</field>
+            <field name="res_model">ndsh.report.syl</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="ndsh_report_syl_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_ndsh_report_syl" action="action_ndsh_report_syl" 
+        parent="mw_salary.menu_finance_salary_report" sequence="3"  groups='mw_salary.group_salary_hybo'/>
+
+    </data>
+</openerp>

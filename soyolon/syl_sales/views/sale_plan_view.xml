@@ -1,0 +1,111 @@
+<odoo>
+	<record id="sale_plan_form" model="ir.ui.view">
+		<field name="name">Борлуулалтын төлөвлөгөө</field>
+		<field name="model">sale.plan</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group string='Төлөвлөгөөний мэдээлэл'>
+						<group>
+							<field name="name"/>
+							<field name="season"/>
+						</group>
+						<group>
+							<field name="year"/>
+							<button name="download_report" type="object" class="oe_stat_button oe_right oe_highlight" icon="fa-file-excel-o" string="Гүйцэтгэл татах"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Төлөвлөгөө">
+							<div>
+								<p style="font-size: 20px">Эхний төлөвлөгөө</p>
+							</div>
+							<field name="line_ids" nolabel="1">
+								<tree editable="bottom">
+									<field name='type'/>
+									<field name='first' sum='sum'/>
+									<field name='second' sum='sum'/>
+									<field name='third' sum='sum'/>
+									<field name='four' sum='sum'/>
+									<field name='five' sum='sum'/>
+									<field name='six' sum='sum'/>
+									<field name='seven' sum='sum'/>
+									<field name='eight' sum='sum'/>
+									<field name='nine' sum='sum'/>
+									<field name='ten' sum='sum'/>
+									<field name='eleven' sum='sum'/>
+									<field name='twelve' sum='sum'/>
+								</tree>
+							</field>
+							<div>
+								<p style="font-size: 20px">Хүлээгдэж буй бодит</p>
+							</div>
+							<field name="line_ids2" nolabel="1">
+								<tree editable="bottom">
+									<field name='type' optional="show"/>
+									<field name='first' sum='sum'/>
+									<field name='second' sum='sum'/>
+									<field name='third' sum='sum'/>
+									<field name='four' sum='sum'/>
+									<field name='five' sum='sum'/>
+									<field name='six' sum='sum'/>
+									<field name='seven' sum='sum'/>
+									<field name='eight' sum='sum'/>
+									<field name='nine' sum='sum'/>
+									<field name='ten' sum='sum'/>
+									<field name='eleven' sum='sum'/>
+									<field name='twelve' sum='sum'/>
+								</tree>
+							</field>
+							<div>
+								<p style="font-size: 20px">Мөнгөн урсгал, хүлээгдэж буй бодит</p>
+							</div>
+							<field name="line_ids3" nolabel="1">
+								<tree editable="bottom">
+									<!-- <field name='type'/> -->
+									<field name='first' sum='sum'/>
+									<field name='second' sum='sum'/>
+									<field name='third' sum='sum'/>
+									<field name='four' sum='sum'/>
+									<field name='five' sum='sum'/>
+									<field name='six' sum='sum'/>
+									<field name='seven' sum='sum'/>
+									<field name='eight' sum='sum'/>
+									<field name='nine' sum='sum'/>
+									<field name='ten' sum='sum'/>
+									<field name='eleven' sum='sum'/>
+									<field name='twelve' sum='sum'/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="sale_plan_tree" model="ir.ui.view">
+		<field name="name">Борлуулалтын төлөвлөгөө</field>
+		<field name="model">sale.plan</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="year"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='sale_plan_action'>
+		<field name="name">Борлуулалтын төлөвлөгөө</field>
+		<field name="res_model">sale.plan</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name='Төлөвлөгөө' parent="sale.sale_menu_root" id="sale_plan_menu" action="sale_plan_action"/>
+</odoo>

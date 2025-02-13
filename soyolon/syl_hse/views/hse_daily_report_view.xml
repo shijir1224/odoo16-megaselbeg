@@ -1,0 +1,29 @@
+<odoo>
+
+	<record id="view_hse_daily_report_form_syl" model="ir.ui.view">
+        <field name="name">hse.daily.report.form.syl</field>
+        <field name="model">hse.daily.report</field>
+        <field name="inherit_id" ref="mw_hse.view_hse_daily_report_form"/>
+        <field name="arch" type="xml">
+			<xpath expr="//field[@name='daily_report_line']/tree/field[@name='osol_duhsun']" position="attributes">
+                <attribute name="string">Аюултай тохиолдол /Бага түвшин/</attribute>
+            </xpath>
+			<xpath expr="//field[@name='daily_report_line']/tree/field[@name='first_help']" position="attributes">
+                <attribute name="string">Аюултай тохиолдол /дунд түвшин/</attribute>
+            </xpath>
+			<xpath expr="//field[@name='daily_report_line']/tree/field[@name='hosp_help']" position="attributes">
+                <attribute name="string">ЯТХ-н амбулторын үзлэгийн бүртгэл</attribute>
+            </xpath>
+			<xpath expr="//field[@name='daily_report_line']/tree/field[@name='timed_damage']" position="attributes">
+                <attribute name="string">ЯТХ-н ажлын бэлэн байдлын үзлэгийн тоо</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='daily_report_line']/form/group/group/field[@name='work_stopped']" position="after">
+                <field name="osol_duhsun" string='Аюултай тохиолдол /Бага түвшин/' attrs="{'readonly': [('parent.state','=','done')]}" force_save="1"/>
+                <field name="first_help" string='Аюултай тохиолдол /дунд түвшин/' attrs="{'readonly': [('parent.state','=','done')]}" force_save="1"/>
+                <field name="timed_damage" string='ЯТХ-н ажлын бэлэн байдлын үзлэгийн тоо' attrs="{'readonly': [('parent.state','=','done')]}"/>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

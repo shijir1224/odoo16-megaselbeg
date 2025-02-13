@@ -1,0 +1,123 @@
+<odoo>
+    <record id="view_hr_evaluation_plan_filter" model="ir.ui.view">
+        <field name="name">hr.evaluation.plan.search</field>
+        <field name="model">hr.evaluation.plan</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <group>
+                    <field name="department_id"/>
+                </group>
+                <group expand="0" string="Group By..">
+                    <filter name="department_id" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}"/>
+                    <filter name="year" string="Жил" domain="[]" context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар" domain="[]" context="{'group_by':'month'}"/>
+                    <filter name="state" string="Төлөв" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hr_evaluation_plan_form" model="ir.ui.view">
+        <field name="name">hr.evaluation.plan.form</field>
+        <field name="model">hr.evaluation.plan</field>
+        <field name="arch" type="xml">
+            <form string="Үнэлгээ" delete='false'>
+                <header>
+                    <button string="Илгээх" name="action_send" type="object" states='draft' class="oe_highlight" groups='mw_hr_evaluation.group_evaluation_user'/>
+                    <button string="Үнэлсэн" name="action_done" type="object" states='sent' class="oe_highlight" />
+                    <button string="Буцаах" name="action_draft" type="object" states='sent,done' class="oe_highlight" groups='syl_evaluation.group_shu_syln'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,done" statusbar_colors='{"draft":"gray","send":"blue","send":"done"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name ='year' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name ='month' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name ='work_location_id' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="department_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="company_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="employee_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}" required='1'/>
+                            <field name="num_employee_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}" required='1'/>
+                        </group>
+                      
+                        <group>
+                            <field name="kpi_daily" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name ='kpi_daily_head' attrs="{'readonly': [('state', '!=', 'sent')]}"/>
+                           
+                        </group>
+                        <group>
+                            <field name="kpi_head_own" readonly='1'/>
+                            <field name="kpi_head" readonly='1'/>
+                            <field name="kpi_team" readonly='1'/>
+                        </group>
+                         <group>
+                            <group attrs="{'invisible': [('state', '!=', 'draft')]}">
+                                <button string="Төлөвлөгөө татах" name="line_create" type="object" states='draft' class="btn-danger" />
+                                <button string="Ажилтны үнэлгээ үүсгэх" name="line_create_employee" type="object" states='draft' class="btn-info"/>
+                            </group>
+                            <group>
+                                <button string="ӨТА-ын дундаж татах" name="compute_daily" type="object" states='draft' class="btn-success" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                <button string="Хэвлэх" name="action_print" type="object" class="oe_highlight"/>
+                            </group>
+                        </group>
+                        <notebook >
+                            <page string='Үнэлгээ'>
+                                <field name="line_ids"  attrs="{'readonly': [('state', '=', 'done')]}">
+                                    <tree editable='bottom'>
+                                        <field name="conf_kpi_id" class="text-wrap" style="max-width:600px" />
+                                        <field name="task" class="text-wrap" style="max-width:600px" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="r_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags' domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="a_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags' domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="t_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags' domain="[('employee_type','!=','resigned')]" optional='hide'/>
+                                         <field name="ts_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags' domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="s_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="i_employee_ids" options="{'no_create': True}" class="text-wrap" widget='many2many_tags'  domain="[('employee_type','!=','resigned')]"/>
+                                        <field name="kpi" class="text-wrap" sum="Sum"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="name" class="text-wrap"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="kpi_head" class="text-wrap"  attrs="{'readonly': [('state', '!=', 'sent')]}" sum="Sum" />
+                                        <field name="result" class="text-wrap" sum="Sum"  attrs="{'readonly': [('state', '!=', 'sent')]}"/>
+                                        <field name="state" optional='hide'/>
+                                         <field name="is_true" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_evaluation_plan_tree" model="ir.ui.view">
+        <field name="name">hr.evaluation.plan.tree</field>
+        <field name="model">hr.evaluation.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name ='year'/>
+                <field name="department_id"/>
+                <field name="company_id"/>
+                <field name ='kpi_daily_head'/>
+                <field name="kpi_head"/>
+                <field name="kpi_team"/>
+                 <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_evaluation_plan_action" model="ir.actions.act_window">
+        <field name="name">Хэлтсийн сарын төлөвлөгөө гүйцэтгэл</field>
+        <field name="res_model">hr.evaluation.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_year': 1,'search_default_month': 1,'search_default_state': 1}</field>
+        <field name="search_view_id" ref="view_hr_evaluation_plan_filter"/>
+    </record>
+
+    <menuitem id="hr_evaluation_plan_menu" parent="hr_evaluation_plan_main_menu" action="hr_evaluation_plan_action"  sequence='2'  groups='syl_evaluation.group_shu_syln'/>
+</odoo>

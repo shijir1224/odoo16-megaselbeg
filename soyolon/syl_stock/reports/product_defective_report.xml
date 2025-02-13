@@ -1,0 +1,86 @@
+<odoo>
+  <record id="stock_scrap_defeactive_tree" model="ir.ui.view">
+    <field name="name">Stock scrap defective tree</field>
+    <field name="model">stock.scrap</field>
+    <field name="arch" type="xml">
+      <tree create='false' edit='false' delete='false'>
+        <field name='branch_id' optional='show'/>
+        <field name='po_number' optional='show'/>
+        <field name='vehicle_number' optional='show'/>
+        <field name='po_manager' optional='show'/>
+        <field name='income_date' optional='show'/>
+        <field name='supplier' optional='show'/>
+        <field name='product_code' optional='show'/>
+        <field name='product_name' optional='show'/>
+        <field name='uom_id' optional='show'/>
+        <field name='price' sum='Total' optional='show'/>
+        <field name='unit_cost' sum='Total' optional='show'/>
+        <field name='po_qty' sum='Total' optional='show'/>
+        <field name='po_cost' sum='Total' optional='show'/>
+        <field name='def_qty' sum='Total' optional='show'/>
+        <field name='def_cost' sum='Total' optional='show'/>
+        <field name='descriptions' sum='Total' optional='show'/>
+      </tree>
+    </field>
+  </record>
+  <record id="action_stock_scrap_defective" model="ir.actions.act_window">
+    <field name="name">Stock scrap defective action</field>
+    <field name="res_model">stock.scrap</field>
+    <field name="view_mode">tree</field>
+    <field name='domain'>[('state','=','done'),('report_branch','=',True)]</field>
+    <field name="view_id" ref="stock_scrap_defeactive_tree"/>
+  </record>
+  <record model="ir.actions.act_window" id="stock.action_stock_scrap">
+    <field name="name">Scrap Orders</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">stock.scrap</field>
+    <field name="view_mode">tree,form,kanban,pivot,graph</field>
+    <field name="view_id" ref="stock.stock_scrap_tree_view"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Scrap products
+      </p><p>
+        Scrapping a product will remove it from your stock. The product will
+        end up in a scrap location that can be used for reporting purpose.
+      </p>
+    </field>
+  </record>
+  <record id="product_defective_report_form" model="ir.ui.view">
+    <field name="name">Defective product report form</field>
+    <field name="model">product.defective.report</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+       <form>
+        <sheet>
+          <group>
+            <group string='General Info'>
+              <field name='company_id' readonly='1' force_save='1'/>
+              <!-- <field name='department_id'/> -->
+              <field name='branch_ids' widget='many2many_tags'/>
+            </group>
+            <group string='Report Date'>
+              <field name='sdate'/>
+              <field name='edate'/>
+            </group>
+            <group invisible='1'>
+              <field name='user_id' readonly='1' force_save='1'/>
+              <field name='date' readonly='1' force_save='1'/>
+            </group>
+          </group>
+        </sheet>
+        <footer>
+            <button icon="fa-times" special="cancel" string="CLose" class="btn-danger"/>
+            <button name="%(action_stock_scrap_defective)d" string="View" type="action" icon="fa-eye" class="btn-success"/>
+            <button name="get_defective_reports" string="Export" type="object"  icon="fa-file-excel-o" class="btn-success"/>
+        </footer>
+       </form>
+    </field>
+  </record>
+  <record id="action_product_defective_report" model="ir.actions.act_window">
+    <field name="name">Defective product report</field>
+    <field name="res_model">product.defective.report</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="product_defective_report_form"/>
+    <field name="target">new</field>
+  </record>
+</odoo>

@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- purchase order status -->
+	<record id="purchase_order_status_tree_view" model="ir.ui.view">
+		<field name="name">purchase.order.status.tree</field>
+		<field name="model">purchase.order.status</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="type"/>
+				<field name="is_fulfillment"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="purchase_order_status_form_view" model="ir.ui.view">
+		<field name="name">purchase.order.status.form</field>
+		<field name="model">purchase.order.status</field>
+		<field eval="25" name="priority" />
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="type"/>
+						<field name="is_fulfillment"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id='action_purchase_order_status' model='ir.actions.act_window'>
+		<field name="name">Order status</field>
+		<field name="res_model">purchase.order.status</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Purchase order inherit -->
+	<record id="purchase_order_mn_ms_word" model="ir.actions.report">
+		<field name="name">PO-MN</field>
+		<field name="model">purchase.order</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">purchase.purchase_order_mn</field>
+		<field name="report_file">syl_purchase.purchase_request_mn_print</field>
+		<field name="print_report_name">(object.state in ('draft', 'sent') and 'Үнийн санал - %s' % (object.name) or 'Худалдан авалт - %s' % (object.name))</field>
+		<field name="binding_model_id" ref="model_purchase_request"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="purchase_request_mn_print">
+		<t t-value="null">
+		</t>
+	</template>
+
+	<record id="purchase_order_en_ms_word" model="ir.actions.report">
+		<field name="name">PO-EN</field>
+		<field name="model">purchase.order</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">purchase.purchase_order_en</field>
+		<field name="report_file">syl_purchase.purchase_request_en_print</field>
+		<field name="print_report_name">(object.state in ('draft', 'sent') and 'Үнийн санал - %s' % (object.name) or 'Худалдан авалт - %s' % (object.name))</field>
+		<field name="binding_model_id" ref="model_purchase_order"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="purchase_request_en_print">
+		<t t-value="null">
+		</t>
+	</template>
+
+	<record id="purchase_order_filter_syl" model="ir.ui.view">
+		<field name="name">purchase.order.filter</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_partner_stock.purchase_order_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//filter[@name='for_partner_id']" position="attributes">
+				<attribute name="string">Эцсийн хэрэглэгч</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_purchase_order_filter_syl" model="ir.ui.view">
+		<field name="name">purchase.order.filter</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//filter[@name='representative']" position="after">
+				<filter string="Харьцуулалтаар" name="gr_comparison" domain="[]" context="{'group_by': 'comparison_id'}"/>
+			</xpath>
+			<xpath expr="//filter[@name='late_rfqs']" position="after">
+				<filter string="Харьцуулалттай" name="comparison_id" domain="[('comparison_id', '!=', False)]"/>
+				<filter string="Нэгтгэсэн ХА" name="merge_po" domain="[('merge_po', '!=', False)]"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_inherit_mw_purchase_comparison_syl" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_comparison.purchase_order_form_inherit_mw_purchase_comparison"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='comparison_id']" position='after'>
+				<field name="merge_po"/>
+				<field name="merge_comparison"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_view_form_inherit_syl" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='picking_type_id']" position="attributes">
+				<attribute name="domain">[('code','=','incoming'), ('warehouse_id.is_view_po','=',True), '|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]</attribute>
+			</xpath>
+			<xpath expr="//field[@name='effective_date']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_inherit_syl" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_partner_stock.purchase_order_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='for_partner_id']" position="attributes">
+				<attribute name="string">Эцсийн хэрэглэгч</attribute>
+				<attribute name="attrs">{'readonly': [('state', 'in', ['purchase','cancel'])]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_mw_syl" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase.purchase_order_form_mw"/>
+		<field name="arch" type="xml">
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='price_unit_without_discount']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']//field[@name='price_total']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='discount']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+				<attribute name="attrs">{'readonly': [('state','in',('purchase','cancel'))]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='taxes_id']" position="attributes">
+				<attribute name="attrs">{'invisible': [('po_type','=','foreign')]}</attribute>
+				<attribute name="attrs">{'readonly': [('state','in',('purchase','cancel'))]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_view_form_inherit_syl" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='purchase_delivery_invoice']/group/group/field[@name='incoterm_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//page[@name='purchase_delivery_invoice']/group/group/field[@name='incoterm_id']" position="after">
+				<field name="user_emp_id"/>
+			</xpath>
+			<xpath expr="//page[@name='purchase_delivery_invoice']/group/group/field[@name='incoterm_location']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='picking_type_id']" position="attributes">
+				<attribute name="domain">[('return_picking_type_id','!=',False),('code','=','incoming'),('warehouse_id.is_view_po','=',True),('warehouse_id.access_user_ids','in',[uid]),'|',('warehouse_id','=',False),('warehouse_id.company_id','=',company_id)]</attribute>
+			</xpath>
+			<xpath expr="//field[@name='effective_date']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_purchase_order_form_extended_inherit" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="branch.view_purchase_order_form_extended"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='branch_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state','in',['purchase','cancel'])]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='branch_id']" position="after">
+				<field name="deliver_day"/>
+				<field name="delivered_day"/>
+				<field name="delivered_date" invisible="1"/>
+				<field name="quality_qty"/>
+				<div>
+				</div>
+				<div>
+					<button name="action_supplier_received_view" string="Нийлүүлэгч хүлээж авсан" type="object" attrs="{'invisible': [('state_type','!=','done')]}" class="oe_highlight"/>
+				</div>
+				<field name="supplier_desc" readonly="1" attrs="{'invisible': [('state_type','!=','supplier_received')]}"/>
+				<field name="supplier_attach_ids" widget="many2many_binary" readonly="1" attrs="{'invisible': [('state_type','!=','supplier_received')]}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_mw_inherit_inherit" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_expense.purchase_order_form_mw_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='price_unit_stock_move']" position="after">
+				<field name="desc" optional="show" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+				<field name="analytic_distribution" widget="analytic_distribution" optional="hide" groups="analytic.group_analytic_accounting" options="{'product_field': 'product_id', 'business_domain': 'purchase_order'}" attrs="{'readonly': ['|',('detailed_type','!=','service'),('state','in',['purchase','cancel'])], 'required': [('detailed_type','=','service')]}"/>
+			</xpath>
+			<xpath expr="//field[@name='po_type']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='price_unit_product']" position="attributes">
+				<attribute name="string">Нэгж өртөг</attribute>
+			</xpath>
+			<xpath expr="//field[@name='cost_unit']" position="attributes">
+				<attribute name="string">Нэгж зардал</attribute>
+			</xpath>
+			<xpath expr="//field[@name='total_cost_unit']" position="attributes">
+				<attribute name="string">Нийт зардал</attribute>
+			</xpath>
+			<xpath expr="//field[@name='price_unit_stock_move']" position="attributes">
+				<attribute name="string">Нэгжийн нийт өртөг</attribute>
+			</xpath>
+			<xpath expr="//field[@name='price_unit_stock_move']" position="after">
+				<field name="price_total_stock_move" optional="show" sum="Нийт"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_weight_form_mw_inherit_inherit" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_expense_weight.purchase_order_weight_form_mw_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_uom_qty']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='unit_weight']" position="before">
+				<field name="volume" optional="show" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+			</xpath>
+			<xpath expr="//field[@name='unit_weight']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state','in',('purchase','cancel'))]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_supplier_received_form" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="arch" type="xml">
+			<form create="false">
+				<sheet>
+					<div class="pull-left">
+						<label for="name" class="oe_inline"/>
+						<h1>
+							<field name="name" readonly="1"/>
+						</h1>
+					</div>
+					<group>
+						<field name="supplier_desc" required="1"/>
+						<field name="supplier_attach_ids" widget="many2many_binary"/>
+					</group>
+					<footer>
+						<button name="action_supplier_received_stage" string="Хадгалах" type="object" class="btn-success"/>
+						<button special="cancel" string="Хаах" type="object" class="btn-default"/>
+					</footer>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="purchase_order_form_inherit_mw_purchase_syl" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_dynamic_flow.purchase_order_form_inherit_mw_purchase"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_draft_stage']" position="after">
+				<button name="action_partner_send_mail" string="Мэйл илгээх" type="object" icon="fa-share-square" class="btn-warning" attrs="{'invisible': [('state','!=','purchase')]}"/>
+			</xpath>
+			<xpath expr="//button[@name='create_invoice_hand']" position="attributes">
+				<attribute name="attrs">{'invisible': [('state_type', 'not in',['done','invoice','supplier_received'])]}</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_back_stage']" position="attributes">
+				<attribute name="attrs">{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel','supplier_received'])]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_partner_mail_form_view" model="ir.ui.view">
+		<field name="name">purchase.order.partner.mail.form</field>
+		<field name="model">purchase.order</field>
+		<field eval="25" name="priority"/>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="partner_id" readonly="1"/>
+							<field name="file_type"/>
+							<field name="mail_title" placeholder="Enter the email subject"/>
+							<field name="mail_html" placeholder="Enter the email body"/>
+						</group>
+						<group>
+							<field name="partner_mail" placeholder="info@gmail.com"/>
+							<field name="lang_type"/>
+						</group>
+					</group>
+				</sheet>
+				<footer>
+					<button name="action_to_sent_mail" string="Илгээх" type="object" class="btn-primary"/>
+					<button special="cancel" string="Цуцлах" type="object" class="btn-default"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="purchase_order_norinco_soyolon_form">
+		<field name="name">purchase order soyolon</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='price_subtotal']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='qty_received']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='qty_invoiced']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='price_total']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='taxes_id']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+				<attribute name="attrs">{'readonly': [('state', 'in', ('purchase','cancel'))]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position='attributes'>
+				<attribute name="attrs">{'readonly': [('state', 'in', ('purchase','cancel'))]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='partner_ref']" position='attributes'>
+				<attribute name="attrs">{'readonly': [('state_type', 'in', ('done','cancel','supplier_received'))]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='currency_id']" position='attributes'>
+				<attribute name="attrs">{'readonly': [('state', 'in', ('purchase','cancel'))]}</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']" position='attributes'>
+				<attribute name="attrs">{'readonly': [('state', 'in', ('purchase','cancel'))]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="before">
+				<field name="po_type" attrs="{'readonly': [('state','in',['purchase','cancel'])]}"/>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']" position='after'>
+				<field name="product_specification" optional="hide"/>
+				<field name="partner_spec" optional="hide" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+				<field name="warranty_period" optional="show" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+				<field name="lead_time" optional="show" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+				<field name="order_status_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','purchase')]}" optional="show"/>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='price_unit']" position='before'>
+				<field name="product_qty" sum="Нийт" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+				<field name="product_uom_qty" optional="show"/>
+				<field name="qty_received" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))], 'readonly': [('qty_received_method', '!=', 'manual')]}" optional="hide" sum="Нийт"/>
+				<field name="qty_invoiced" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}" optional="hide" sum="Нийт"/>
+				<field name="price_unit_without_discount" sum="Нийт" string="Нэгж үнэ" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+				<field name="discount" string="Хөнгөлөлт" optional="show" attrs="{'readonly': [('state','in',('purchase','cancel'))]}"/>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='price_unit']" position='after'>
+				<field name="price_subtotal" widget="monetary" sum="Нийт" string="Нийт үнэ/нөатгүй/"/>
+				<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]" context="{'default_type_tax_use': 'purchase', 'search_view_ref': 'account.account_tax_view_search'}" attrs="{'readonly': [('state','in',('purchase','cancel'))]}" options="{'no_create': True}" optional="show"/>
+				<field name="price_total" widget="monetary" sum="Нийт" string="Нийт үнэ/нөаттэй/"/>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='price_unit']" position='attributes'>
+				<attribute name="string">Нэгж үнэ/хөнгөлөлттэй/</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='date_planned']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_qty']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='name']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']" position='attributes'>
+				<attribute name="attrs">{'readonly': [('state', 'in', ('cancel'))]}</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='analytic_distribution']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position='after'>
+				<field name="po_type" invisible="1"/>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='taxes_id']" position='attributes'>
+				<attribute name="attrs">{'column_invisible': [('parent.po_type', '=', 'foreign')]}</attribute>
+			</xpath>
+			<xpath expr="//div[@name='date_planned_div']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='user_id']" position='attributes'>
+				<attribute name="string">Хариуцсан ХА ажилтан</attribute>
+			</xpath>
+			<xpath expr="//field[@name='notes']" position='attributes'>
+				<attribute name="placeholder">Худалдааны бусад нөхцөл, журмыг тодорхойлох</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position='attributes'>
+				<attribute name="string">Эцсийн хэрэглэгчид хүргэх огноо</attribute>
+				<attribute name="attrs">{'readonly': [('state', 'in', ['purchase','cancel'])]}</attribute>
+			</xpath>
+			<xpath expr="//page[@name='purchase_delivery_invoice']/group/group[@name='invoice_info']/field[@name='payment_term_id']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+				<attribute name="force_save">1</attribute>
+			</xpath>
+			<xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/control" position="replace">
+			</xpath>
+			<xpath expr="//field[@name='picking_type_id']" position='after'>
+				<field name="country_origin" attrs="{'readonly': [('state','in',['purchase','cancel'])]}"/>
+				<field name="incoterm_id" attrs="{'readonly': [('state','in',['purchase','cancel'])]}" options="{'no_create': True}" force_save="1"/>
+				<field name="incoterm_location" string="Pick-up location" attrs="{'readonly': [('state','in',['purchase','cancel'])]}"/>
+				<field name="payment_term_id" attrs="{'readonly': [('state', 'in', ['purchase','cancel'])]}" options="{'no_create': True}" force_save="1"/>
+				<field name="order_status_id" attrs="{'readonly': [('state','!=','purchase')]}"/>
+				<div>
+				</div>
+				<div>
+					<button name="set_order_status" string="Set order status" type="object" class="oe_highlight"/>
+				</div>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_kpis_tree_soyolon" model="ir.ui.view">
+		<field name="name">purchase.order.tree</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='user_id']" position="attributes">
+				<attribute name="string">Хариуцсан ХА ажилтан</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position="attributes">
+				<attribute name="string">Эцсийн хэрэглэгчид хүргэх огноо</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_view_tree_soyolon" model="ir.ui.view">
+		<field name="name">purchase.order.tree</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='user_id']" position="attributes">
+				<attribute name="string">Хариуцсан ХА ажилтан</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position="attributes">
+				<attribute name="string">Эцсийн хэрэглэгчид хүргэх огноо</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_planned']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='user_id']" position="after">
+				<field name="order_status_id"/>
+				<field name="possible_invoice_amount_currency" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- <record model="ir.ui.menu" id="mw_purchase_comparison.purchase_order_comparison_menu">
+		<field name="name">Харьцуулсан судалгаа</field>
+	</record> -->
+
+	<!-- Purchase add cost -->
+	<record id="purchase_add_cost_form_form_syl" model="ir.ui.view">
+		<field name="name">purchase.add.cost.form.form</field>
+		<field name="model">purchase.add.cost</field>
+		<field name="inherit_id" ref="mw_purchase_expense_custom.purchase_add_cost_form_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='po_line_ids']/tree/field[@name='product_uom']" position='after'>
+				<field name="product_specification" optional="show"/>
+				<field name="volume" optional="show" readonly="1"/>
+			</xpath>
+			<xpath expr="//field[@name='expenses_line']/form/group[2]/group[2]/field[@name='taxes_id']" position='attributes'>
+				<attribute name="attrs">{'invisible': [('is_without_cost','=',True)]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_expenses_form_syl" model="ir.ui.view">
+		<field name="name">purchase.order.expenses.form</field>
+		<field name="model">purchase.order.expenses</field>
+		<field name="inherit_id" ref="mw_purchase_expense.purchase_order_expenses_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='taxes_id']" position='attributes'>
+				<attribute name="attrs">{'invisible': [('is_without_cost','=',True)]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Purchase pre payment -->
+	<record id="purchase_order_form_pre_payment_syl" model="ir.ui.view">
+		<field name="name">purchase.order.formw.mw.pre.payment</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="mw_purchase_pre_payment.purchase_order_form_pre_payment"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='purchase_pre_payment']" position='attributes'>
+				<attribute name="string">Төлбөрийн хуваарь</attribute>
+			</xpath>
+			<xpath expr="//field[@name='initial_invoice_ids']//form//group[1]//group[2]//field[@name='amount']" position='before'>
+				<field name="pre_percent" attrs="{'readonly':[('payment_request_id', '!=',False)]}"/>
+			</xpath>
+			<xpath expr="//field[@name='initial_invoice_ids']//tree//field[@name='currency_rate']" position='after'>
+				<field name="pre_percent"/>
+			</xpath>
+			<xpath expr="//field[@name='initial_invoice_ids']//form//group[1]//group[2]//field[@name='amount']" position='attributes'>
+				<attribute name="force_save">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='initial_invoice_ids']//tree//field[@name='amount']" position='attributes'>
+				<attribute name="force_save">1</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Purchase order comparison inherit -->
+	<record id="purchase_order_comparison_view_form_syl" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.form</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="inherit_id" ref="mw_purchase_comparison.purchase_order_comparison_view_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='date_order']" position='after'>
+				<field name="done_date" readonly="1"/>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position='attributes'>
+				<attribute name="string">Дуусах ёстой огноо</attribute>
+			</xpath>
+			<xpath expr="//field[@name='user_id']" position='attributes'>
+				<attribute name="string">Хариуцсан ХА ажилтан</attribute>
+			</xpath>
+			<xpath expr="//field[@name='branch_id']" position='attributes'>
+				<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_comparison_view_form_dynamic_workflow_syl" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.form</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="inherit_id" ref="mw_purchase_comparison_dynamic_flow.purchase_order_comparison_view_form_dynamic_workflow"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_draft_stage']" position="after">
+				<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close" type="object" attrs="{'invisible': ['|',('state_type', 'in',['cancel','ended']),('flow_id','=',False)]}" confirm="Та цуцлахдаа итгэлтэй байна уу?"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_comparison_view_tree_syl" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.tree</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="inherit_id" ref="mw_purchase_comparison.purchase_order_comparison_view_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position='attributes'>
+				<attribute name="string">Харьцуулалтын дугаар</attribute>
+			</xpath>
+			<xpath expr="//field[@name='user_id']" position='attributes'>
+				<attribute name="string">Хариуцсан ХА ажилтан</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position='attributes'>
+				<attribute name="string">Дуусах ёстой огноо</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position='after'>
+				<field name="done_date"/>
+			</xpath>
+			<xpath expr="//field[@name='name']" position='after'>
+				<!-- <field name="request_department_id" widget="many2many_tags"/> -->
+				<field name="product_ids" widget="many2many_tags"/>
+				<field name="confirm_user_ids" widget="many2many_tags"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="mw_purchase_comparison_dynamic_flow.purchase_order_comparison_my_approve_view_tree" model="ir.ui.view">
+		<field name="name">purchase.order.comparison.my.approve.tree</field>
+		<field name="model">purchase.order.comparison</field>
+		<field name="arch" type="xml">
+			<tree create="false">
+				<field name="name" string="Харьцуулалтын дугаар"/>
+				<field name="product_ids" widget="many2many_tags"/>
+				<field name="confirm_user_ids" widget="many2many_tags"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+				<field name="user_id" widget="many2one_avatar_user" string="Хариуцсан ХА ажилтан"/>
+				<field name="create_date"/>
+				<field name="date_order" string="Дуусах ёстой огноо"/>
+				<field name="done_date"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Чеклэсэн PO нэгтгэх -->
+	<record id="selected_po_merge_form" model="ir.ui.view">
+		<field name="name">selected.po.merge.form</field>
+		<field name="model">selected.po.merge</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="merge_order_id" options="{'no_create': True}"/>
+				</group>
+				<footer>
+					<button name="action_merge_po" string="Нэгтгэх" type="object" class="btn-primary"/>
+					<button special="cancel" string="Хаах" type="object" class="btn-default"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<act_window name="Харьцуулалттай ХА нэгтгэх"
+		res_model="selected.po.merge"
+		binding_model="purchase.order"
+		view_mode="form"
+		target="new"
+		view_id="selected_po_merge_form"
+		id="action_selected_po_merge"/>
+</odoo>

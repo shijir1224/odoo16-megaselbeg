@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Payment request -->
+
+	<record id="view_payment_request_form_my_sl" model="ir.ui.view">
+		<field name="name">payment.request.form.sl</field>
+		<field name="model">payment.request</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_payment_request_form_my"/>
+		<field name="arch" type="xml">
+			<xpath expr="//notebook/page/field[@name='desc_line_ids']/tree/field[@name='sequence']" position="replace">
+				<field name="sequence" x_width="6px"/>
+			</xpath>
+			<xpath expr="//notebook/page/field[@name='desc_line_ids']/tree/field[@name='name']" position="replace">
+				<field name="name" x_width="600px"/>
+			</xpath>
+		</field>
+	</record>
+	<record id="view_payment_request_form_my_sl_expense" model="ir.ui.view">
+		<field name="name">account.payment.expense.form.sl</field>
+		<field name="model">account.payment.expense</field>
+		<field name="inherit_id" ref="mw_account_payment_request.view_account_payment_expense_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='payment_ref']" position="after">
+				<field name="bank_ref"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

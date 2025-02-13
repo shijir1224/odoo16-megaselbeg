@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_hse_salary_kpi_form_inherit" model="ir.ui.view">
+        <field name="name">hse.salary.kpi.form</field>
+        <field name="model">hse.salary.kpi</field>
+        <field name='inherit_id' ref='mw_hse.view_hse_salary_kpi_form'/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='salary_kpi_line']/tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+            <xpath expr="//field[@name='salary_kpi_line']/tree/field[@name='job_id']" position="after">
+                <field name="entered" optional="hide"/>
+                <field name="information_disclosed" optional="hide"/>
+                <field name="previous_inspection" optional="hide"/>
+                <field name="occupational_safety_inspection" optional="hide"/>
+                <field name="reported_hazard" optional="hide"/>
+                <field name="resolved_hazard" optional="hide"/>
+                <field name="used_correctly" optional="hide"/>
+                <field name="qualified_for_job" optional="hide"/>
+                <field name="environment_protection" optional="hide"/>
+                <field name="attended_training" optional="hide"/>
+                <field name="new_proposal" optional="hide"/>
+                <field name="entered_training" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

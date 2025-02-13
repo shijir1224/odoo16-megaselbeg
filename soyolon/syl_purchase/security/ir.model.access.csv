@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_purchase_request_priority,purchase.request.priority,model_purchase_request_priority,mw_purchase_request.group_mw_purchase_request_manager,1,1,1,1
+access_purchase_request_create_selection,purchase.request.create.selection,model_purchase_request_create_selection,mw_purchase_request.group_mw_purchase_request_manager,1,1,1,1
+access_soyolon_pr_report,soyolon.pr.report,model_soyolon_pr_report,mw_purchase_request.group_mw_purchase_request_user,1,1,1,1
+access_product_quality_research,product.quality.research,model_product_quality_research,mw_purchase_request.group_mw_purchase_request_user,1,1,1,1
+access_supplier_research,supplier.research,model_supplier_research,mw_purchase_request.group_mw_purchase_request_user,1,1,1,1
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+access_purchase_order_status,purchase.order.status,model_purchase_order_status,purchase.group_purchase_manager,1,1,1,1
+access_purchase_order_status_view,purchase.order.status,model_purchase_order_status,mw_purchase_request.group_mw_purchase_request_user,1,0,0,0
+access_selected_po_merge,selected.po.merge,model_selected_po_merge,purchase.group_purchase_manager,1,1,1,1
+access_partner_po_report,partner.po.report,model_partner_po_report,purchase.group_purchase_manager,1,1,1,1
+access_partner_po_report_list,partner.po.report.list,model_partner_po_report_list,purchase.group_purchase_manager,1,1,1,1

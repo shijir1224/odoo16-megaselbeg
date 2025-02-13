@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="well_being_report_view" model="ir.ui.view">
+            <field name="name">well.being.report.wizard</field>
+            <field name="model">well.being.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="year"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_well_being_report" model="ir.actions.act_window">
+            <field name="name">Идэвхжүүлэлт тайлан</field>
+            <field name="res_model">well.being.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="well_being_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_well_being_report" id="menu_well_being_report" parent="mw_hr.menu_human_recource_report" sequence='3'/>
+        
+    </data>
+</odoo>

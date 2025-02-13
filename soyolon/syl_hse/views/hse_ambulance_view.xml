@@ -1,0 +1,17 @@
+<odoo>
+
+	<record id="view_hse_ambulance_form" model="ir.ui.view">
+		<field name="name">hse.ambulance.form</field>
+		<field name="model">hse.ambulance</field>
+		<field name="inherit_id" ref="mw_hse_health.hse_ambulance_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='uid_id']" position='after'>
+				<field name="employee_id" widget="selection"/>
+			</xpath>
+			<xpath expr="//field[@name='uid_id']" position='attributes'>
+				<attribute name='string'>Үүсгэсэн хэрэглэгч</attribute>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="cron_reminder_for_expiration" model="ir.cron">
+		<field name="name">Борлуулалтын захиалга дуусах</field>
+		<field name="model_id" ref="model_sale_order"/>
+		<field name="user_id" ref="base.user_root" />
+		<field name="code">model.send_chat_for_expiration()</field>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+		<field name="state">code</field>
+	 </record>
+
+	<!-- <record id="cron_reminder_and_month" model="ir.cron">
+		<field name="name">Төлбөрийн график дуусхаас сарын өмнө мэдэгдэх</field>
+		<field name="model_id" ref="model_sale_order"/>
+		<field name="user_id" ref="base.user_root" />
+		<field name="code">model.send_chat_for_month()</field>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+		<field name="state">code</field>
+	 </record> -->
+
+	<record id="view_sales_order_filter_syl_sales" model="ir.ui.view">
+		<field name="name">sale.order.syl_sales.search.view</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+		<field name="arch" type="xml">
+			<search position="inside">
+				<filter name="is_file" string="Гэрээ оруулаагүй борлуулалт" domain="[('is_file','=',True),('attachment_ids','=',False)]"/>
+			</search>
+			<xpath expr="//field[@name='partner_id']" position="after">
+				<field name="partner_po_number" string="Харилцагчтай холбоотой дугаараар"/>
+				<field name="partner_invoice_number" string="Харилцагчтай холбоотой нэхэмжлэхийн дугаараар"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_order_form_inh" model="ir.ui.view">
+		<field name="name">sale.order.form.inh</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//form/sheet/notebook/page[@name='order_lines']" position="after">
+				<page string="Төлбөрийн график" attrs="{'invisible':[('state','!=','sale')]}">
+					<field name="sale_order_plan_line" nolabel="1" context="{'tree_view_ref': 'sale_order_plan_tree', 'form_view_ref': 'sale_order_plan_form'}"/>
+				</page>
+			</xpath>
+			<xpath expr="//field[@name='user_id']" position="after">
+				<field name="sale_team_members_ids" widget='many2many_tags'/>
+			</xpath>
+			<xpath expr="//field[@name='payment_term_id']" position="after">
+				<field name="quotation_end_date" required="1"/>
+				<field name="is_file"/>
+				<field name="pre_percent"/>
+				<field name="supply_date"/>
+				<field name="time_delay"/>
+				<field name="pr_id" options="{'no_create': True}" attrs="{'invisible': [('pr_id','=',False)]}"/>
+				<field name="pr_state" attrs="{'invisible': [('pr_id','=',False)]}"/>
+				<field name="attachment_ids" widget="many2many_binary" attrs="{'invisible': [('is_file', '=', False)]}"/>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="after">
+				<field name="partner_type" widget="selection"/>
+				<field name="partner_po_number"/>
+				<field name="partner_invoice_number"/>
+				<field name="invoice_date"/>
+				<field name="payment_date"/>
+				<!-- <field name="amount_for_delivery"/> -->
+			</xpath>
+			<xpath expr="//field[@name='source_id']" position="after">
+				<field name="total_amount_text"/>
+				<field name="currency_name"/>
+				<field name="inkonterm"/>
+			</xpath>
+			<xpath expr="//tree/field[@name='price_unit']" position='after'>
+				<field name="pre_payment_amount" optional='hide'/>
+				<field name="pre_payment_percent"/>
+				<field name="balance_amount" optional='hide'/>
+			</xpath>
+			<xpath expr="/form/sheet/notebook" position='inside'>
+				<page string='Үнэ тооцоолол' name="purchase_order">
+					<group string='Үнэ тооцоолол'/>
+					<field name="sale_price_calc_ids" nolabel="1"/>
+					<group string='Үнэ тооцоолол мөр'/>
+					<field name="sale_price_calc_line_ids" nolabel="1"/>
+				</page>
+				<page string='Худалдан авалтын захиалгууд' name="purchase_order" attrs="{'invisible': [('pr_id','=',False)]}">
+					<field name="p_order_ids">
+						<tree>
+							<field name="name"/>
+							<field name="partner_id"/>
+							<field name="date_order"/>
+							<field name="order_status_id"/>
+							<field name="amount_total" invisible="1"/>
+							<field name="stage_id" optional="hide"/>
+							<field name="state" invisible="1"/>
+						</tree>
+					</field>
+				</page>
+				<page string='Имэйл илгээх'>
+					<group>
+						<field name="file_type"/>
+						<field name="partner_mail"/>
+						<field name="mail_title"/>
+						<field name="mail_html"/>
+					</group>
+					<div>
+						<span>
+							<button name="action_to_sent_mail_sale_order_mn" string="Үнийн санал мэйл илгээх" type="object" class="btn-primary"/>
+						</span>
+						<span style = "margin-left: 10px">
+							<button name="action_to_sent_mail_sale_order_s" string="Нэхэмжлэл S0 мэйл илгээх" type="object" class="btn-primary"/>
+						</span>
+						<span style = "margin-left: 10px">
+							<button name="action_to_sent_mail_sale_order_zarlaga" string=" Зарлагын баримт мэйл илгээх" type="object" class="btn-primary"/>
+						</span>
+					</div>
+				</page>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="sale_margin.sale_margin_sale_order">
+		<field name="name">sale.order.margin.view.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='tax_totals']" position="after">
+				<label for="margin" groups="syl_sales.group_sale_margin_user"/>
+				<div class="text-nowrap" groups="syl_sales.group_sale_margin_user">
+					<field name="margin" class="oe_inline"/>
+					<field name="amount_untaxed" invisible="1"/>
+					<span class="oe_inline" attrs="{'invisible': [('amount_untaxed', '=', 0)]}">
+						(<field name="margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+					</span>
+				</div>
+				<label for="pre_amount_all"/>
+				<div class="text-nowrap">
+					<field name="pre_amount_all" class="oe_inline"/>
+				</div>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="sale_margin.sale_margin_sale_order_line_form">
+		<field name="name">sale.order.line.tree.margin.view.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+		   <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
+				<field name="price_subtotal" invisible="1"/>
+				<field name="purchase_price" optional="hide" groups="syl_sales.group_sale_margin_user"/>
+				<field name="margin" optional="hide" groups="syl_sales.group_sale_margin_user"/>
+				<field name="margin_percent" groups="syl_sales.group_sale_margin_user"
+					attrs="{'invisible': [('price_subtotal', '=', 0)]}"
+					optional="hide" widget="percentage"/>
+				<field name="pr_id" optional="hide"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="sale_order_line_view_form_readonly_inherit" model="ir.ui.view">
+		<field name="name">sale.order.inherit</field>
+		<field name="model">sale.order.line</field>
+		<field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+		<field name="arch" type="xml">
+			<field name="price_total" position="after">
+				<field name="pr_id" options="{'no_create': True}" optional='hide'/>
+			</field>
+		</field>
+	</record>
+
+	<record id="sale_order_plan_tree" model="ir.ui.view">
+		<field name="name">sale.order.plan.tree</field>
+		<field name="model">sale.order.plan</field>
+		<field name="arch" type="xml">
+			<tree decoration-warning="state == 'check'" decoration-success="state == 'done'" decoration-danger="state == 'over'">
+				<field name="partner_id"/>
+				<field name="date"/>
+				<field name="amount" sum="Sum"/>
+				<field name="paid_amount" force_save="1" sum="Sum"/>
+				<field name="unpaid_amount" force_save="1" sum="Sum"/>
+				<field name="state" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="sale_order_plan_form" model="ir.ui.view">
+		<field name="name">sale.order.plan.form</field>
+		<field name="model">sale.order.plan</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group col='4'>
+						<field name="partner_id"/>
+						<field name="date" attrs="{'readonly':[('state','=','done')]}"/>
+						<field name="amount" attrs="{'readonly':[('state','=','done')]}"/>
+						<field name="paid_amount" force_save="1"/>
+						<field name="unpaid_amount" force_save="1"/>
+						<field name="state" invisible="1"/>
+					</group>
+					<notebook>
+						<page string="Төлбөр">
+							<field name="sale_order_plan_line">
+								<tree editable="bottom">
+									<field name="date"/>
+									<field name="amount"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="sale_order_plan_search" model="ir.ui.view">
+		<field name="name">sale.order.plan.search</field>
+		<field name="model">sale.order.plan</field>
+		<field name="arch" type="xml">
+			<search>
+				<filter string="Харилцагч" name="partner_id" context="{'group_by':'partner_id'}"/>
+				<filter string="Борлуулалт" name="sale_id" context="{'group_by':'sale_id'}"/>
+				<filter string="Огноо" name="date" context="{'group_by':'date'}"/>
+			</search>
+		</field>
+	</record>
+
+	<record model='ir.actions.act_window' id='sale_order_plan_action'>
+		<field name="name">Төлбөрийн график</field>
+		<field name="res_model">sale.order.plan</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_partner_id': 1, 'search_default_sale_id': 1, 'search_default_date': 1}</field>
+	</record>
+
+    <record model="ir.ui.view" id="sale_order_line_tree_syl_view_inherit">
+        <field name="name">sale.order.line.tree.inherit.syl</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="price_subtotal" position="before">
+                <field name="price_unit"/>
+                <field name="pr_id"/>
+            </field>
+        </field>
+    </record>
+
+	<record id="sale_order_mn_ms_word" model="ir.actions.report">
+		<field name="name">SO-MN</field>
+		<field name="model">sale.order</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">sale.sale_order_mn</field>
+		<field name="report_file">syl_sale.sale_order_mn_print</field>
+		<field name="print_report_name">'Нэхэмжлэл - %s' % (object.partner_id.name)</field>
+		<field name="binding_model_id" ref="model_sale_order"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="sale_order_mn_print">
+		<t t-value="null">
+		</t>
+	</template>
+
+	<menuitem name='Төлбөрийн график' parent="sale.sale_menu_root" id="sale_order_plan_menu" action="sale_order_plan_action"/>
+
+	<record model="ir.ui.view" id="view_order_tree_inherit">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="before">
+                <field name="pr_id" optional="hide"/>
+				<field name="pr_state" optional="hide"/>
+				<field name="supply_date" optional="hide"/>
+				<field name="picking_date_done" optional="hide"/>
+				<field name="time_delay" optional="hide"/>
+				<field name="niit_urtug" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+	<record id="view_product_product_sale_inherit" model="ir.ui.view">
+		<field name="name">product.product.sale.inherit</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_normal_form_view"/>
+		<field name="arch" type="xml">
+			<group name="sale" position="before">
+				<div>
+					<separator string="Борлуулалтын түүх"/>
+					<field name="sol_ids" nolabel="1" readonly="1"/>
+				</div>
+			</group>
+		</field>
+	</record>
+
+</odoo>

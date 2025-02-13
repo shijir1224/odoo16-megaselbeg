@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_account_account_inherit_soyolon_form" model="ir.ui.view">
+        <field name="name">account.account.syl.form</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_temporary']" position="after">
+                <field name="mobile_receivable"/>
+                <field name="clotes_receivable"/>
+                <field name="payment_receivable"/>
+                <field name="is_employee_recpay"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

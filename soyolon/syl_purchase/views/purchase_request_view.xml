@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Purchase request inherit -->
+	<record id="purchase_request_search_inherit" model="ir.ui.view">
+		<field name="name">purchase.request.search</field>
+		<field name="model">purchase.request</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_search"/>
+		<field name="arch" type="xml">
+			<xpath expr="//filter[@name='gr_dep']" position="after">
+				<field name="pr_department_id"/>
+				<filter string="Хүсэлтийн хэлтсээр" name='gr_pr_dep' context="{'group_by':'pr_department_id'}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="purchase_request_form_view_inherit">
+		<field name="name">purchase.request.form</field>
+		<field name="model">purchase.request</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='line_ids']//tree" position="attributes">
+				<attribute name="decoration-danger">create_selection_type=='refused' or is_cancel==True</attribute>
+				<attribute name="decoration-warning">is_late==True</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='desc']" position="attributes">
+				<attribute name="required">0</attribute>
+				<attribute name="string">Тайлбар</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='available_qty']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='is_expense']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='warehouse_id']" position="attributes">
+				<attribute name="required">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date']" position="attributes">
+				<attribute name="readonly">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='priority']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date']" position="attributes">
+				<attribute name="string">Огноо</attribute>
+			</xpath>
+			<xpath expr="//field[@name='branch_id']" position="attributes">
+				<attribute name="string">Байршил</attribute>
+			</xpath>
+			<xpath expr="//button[@name='create_expense_picking']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//button[@name='update_available_qty']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='qty']" position="attributes">
+				<attribute name="invisible">1</attribute>
+				<attribute name="attrs">{'readonly': [('parent.state_type','!=','allowed')]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='uom_id']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='desc_done']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//div[hasclass('alert')]" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='warehouse_id']" position="attributes">
+				<attribute name="domain">[('is_view_po','!=',True)]</attribute>
+			</xpath>
+			<xpath expr="//field[@name='company_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='department_id']" position="after">
+				<field name="pr_department_id" required="1" options="{'no_create': True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)]}"/>
+				<field name="sub_partner_id" options="{'no_create': True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit', '=', True)], 'required': [('type','=','sale')]}"/>
+			</xpath>
+			<xpath expr="//field[@name='is_view_expense']" position="after">
+				<field name="company_id" readonly="1"/>
+			</xpath>
+			<xpath expr="//field[@name='flow_id']" position="after">
+				<field name="type" required="1" attrs="{'readonly': [('state_type', '=','cancel')]}"/>
+			</xpath>
+			<xpath expr="//field[@name='visible_flow_line_ids']" position="after">
+				<field name="visible_state_type" invisible="1"/>
+				<field name="is_reviewed" invisible="1"/>
+			</xpath>
+			<xpath expr="//button[@name='action_cancel_stage']" position="after">
+				<button name="action_export_excel" string="Эксел файл татах" class="oe_stat_button oe_right" icon="fa-file-excel-o" type="object"/>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='product_id']" position="after">
+				<field name="categ_id" optional="show"/>
+				<field name="product_specification" optional="show"/>
+				<field name="product_brand_id" optional="show"/>
+				<field name="date_required" optional="show" required="1"/>
+				<field name="date_expected" optional="show"/>
+				<field name="priority_line" options="{'no_create': True}" optional="show"/>
+				<field name="dedication" optional="show"/>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='desc']" position="after">
+				<field name="available_qty" string="Агуулахын үлдэгдэл" optional="show"/>
+				<field name="requested_qty" optional="show" attrs="{'readonly': [('parent.state_type','not in',['draft','sent'])]}" sum="Нийт"/>
+				<field name="reviewed_qty" optional="show" attrs="{'readonly': [('parent.state_type','!=','reviewed')], 'column_invisible': [('parent.is_reviewed','!=',True)]}" sum="Нийт"/>
+				<field name="approved_qty" optional="show" attrs="{'readonly': [('parent.state_type','!=','agreed')]}" sum="Нийт"/>
+				<field name="qty" string="Шийдвэрлэсэн тоо хэмжээ" optional="show" attrs="{'readonly': [('parent.state_type','!=','allowed')]}" sum="Нийт"/>
+				<field name="create_selection" optional="show" attrs="{'readonly': [('parent.state_type','!=','allowed')], 'required': [('parent.state_type','=','allowed')]}" options="{'no_create': True}"/>
+				<field name="create_selection_type" invisible="1"/>
+				<field name="is_late" invisible="1"/>
+				<field name="product_status" optional="hide"/>
+				<field name="order_status_id" optional="hide" readonly="1"/>
+				<field name="is_fulfillment" optional="hide"/>
+				<field name="fulfillment_date" optional="hide"/>
+				<field name="is_cancel" invisible="1"/>
+				<button name="action_cancel_line" string="Цуцлах" type="object" class="btn-danger" icon="fa-close" attrs="{'invisible': [('is_cancel','=',True)]}"/>
+				<field name="real_cancel_desc" optional="hide" readonly="1"/>
+			</xpath>
+			<xpath expr="//field[@name='line_ids']//tree//field[@name='po_diff_qty']" position="after">
+				<field name="transportation_cost" optional="hide"/>
+				<field name="custom_tax" optional="hide"/>
+				<field name="internal_shipping" optional="hide"/>
+				<field name="internal_costing" optional="hide"/>
+				<field name="order_price_calc" optional="hide"/>
+			</xpath>
+			<xpath expr="//page[1]" position="after">
+				<page string="Өмнөх захиалгын түүх">
+					<div class="alert alert-danger alert-dismissible text-left" role="alert"
+							attrs="{'invisible': [('warning_messages', '=', False)]}">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+						<field name="warning_messages"/>
+					</div>
+				</page>
+			</xpath>
+			<xpath expr="//page[2]" position="after">
+				<page string="Барааны чанарын судалгаа шалгах" name="product_quality_research" attrs="{'invisible': [('state_type','not in',['agreed','reviewed','allowed','decided','done'])]}">
+					<group>
+						<group>
+							<field name="research_start_date" attrs="{'readonly':[('is_not_edit' , '=', True)]}"/>
+						</group>
+						<group>
+							<field name="research_end_date" attrs="{'readonly':[('is_not_edit' , '=', True)]}"/>
+						</group>
+					</group>
+					<div style="margin-bottom:10px">
+						<span>
+							<button name="create_product_quality_research" string="Судалгаа татах" type="object" class="btn-primary" icon="fa-arrow-down"/>
+						</span>
+						<span style="margin-left:10px">
+							<button style="margin-left:10px" name="remove_product_quality_research" string="Мөр устгах" type="object" class="btn-danger" icon="fa-times-circle" attrs="{'invisible':[('product_quality_research_line','=',[])]}"/>
+						</span>
+					</div>
+					<field name="product_quality_research_line" widget="many2many_search_widget">
+						<tree>
+							<field name="product_id"/>
+							<field name="partner_id"/>
+							<field name="pr_id"/>
+							<field name="date"/>
+							<field name="quality"/>
+							<field name="desc"/>
+						</tree>
+					</field>
+				</page>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="purchase_request_tree_view_inherit">
+		<field name="name">purchase.request.tree</field>
+		<field name="model">purchase.request</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="attributes">
+				<attribute name="string">RFP дугаар</attribute>
+			</xpath>
+			<xpath expr="//field[@name='branch_id']" position="attributes">
+				<attribute name="string">Байршил</attribute>
+			</xpath>
+			<xpath expr="//field[@name='priority']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='flow_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='date']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='department_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="pr_department_id"/>
+				<field name="department_id"/>
+				<field name="sub_partner_id"/>
+				<field name="date" string="Огноо"/>
+			</xpath>
+			<xpath expr="//field[@name='stage_id']" position="before">
+				<field name="flow_id"/>
+				<field name="type"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Цэс харагдахгүй болгох -->
+	<record model="ir.ui.menu" id="mw_purchase_request.purchase_request_add_new_menu">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_purchase_request.purchase_request_add_new_all_menu">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_purchase_request.purchase_request_line_my_menu">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_purchase_request.purchase_request_line_all_menu">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.actions.act_window" id="mw_purchase_request.action_purchase_request_view">
+		<field name="name">Миний хүсэлт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('create_uid','=',uid)]</field>
+		<field name="context">{'search_default_gr_state':1}</field>
+		<field name="view_id" ref="mw_purchase_request.purchase_request_tree_view"/>
+	</record>
+
+	<record model="ir.actions.act_window" id="mw_purchase_request.action_purchase_request_all_view">
+		<field name="name">Бүх хүсэлт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.request</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">['|', ('pr_department_id','=',False), ('pr_department_id.user_ids','in',[uid])]</field>
+		<field name="context">{'search_default_gr_flow': 1}</field>
+		<field name="view_id" ref="mw_purchase_request.purchase_request_tree_view"/>
+	</record>
+
+	<!-- Purchase request line inherit -->
+	<record model="ir.ui.view" id="purchase_request_line_form_view_inherit">
+		<field name="name">purchase.request.line.form</field>
+		<field name="model">purchase.request.line</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_line_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='priority']" position="replace">
+				<field name="priority_line"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="purchase_request_line_tree_view_inherit">
+		<field name="name">purchase.request.line.tree</field>
+		<field name="model">purchase.request.line</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_line_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='request_id']" position="attributes">
+				<attribute name="string">RFP дугаар</attribute>
+			</xpath>
+			<xpath expr="//field[@name='product_id']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='uom_id']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='desc']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='branch_id']" position="attributes">
+				<attribute name="string">Байршил</attribute>
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='po_diff_qty']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='po_qty']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='comparison_qty']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='is_over']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='purchase_order_ids']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='po_line_ids']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='desc_req']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='stage_id']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='qty']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='user_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='create_uid']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='internal_picking_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//tree" position="attributes">
+				<attribute name="decoration-danger">create_selection_type=='refused' or is_cancel==True</attribute>
+				<attribute name="decoration-warning">is_late==True</attribute>
+			</xpath>
+			<xpath expr="//field[@name='request_id']" position="after">
+				<field name="type" optional="show"/>
+				<field name="pr_department_id" optional="show"/>
+				<field name="default_code" optional="hide"/>
+				<field name="product_name" optional="show"/>
+				<field name="product_specification" optional="show"/>
+				<field name="dedication" optional="show"/>
+				<field name="requested_qty" string="Хүссэн тоо" optional="show"/>
+				<field name="reviewed_qty" string="Хянасан тоо" optional="hide"/>
+				<field name="approved_qty" string="Зөвшөөрсөн тоо" optional="hide"/>
+				<field name="qty" string="Шийдвэрлэсэн тоо" optional="show"/>
+				<field name="qty_received" string="Хүлээн авсан тоо" optional="show"/>
+			</xpath>
+			<xpath expr="//field[@name='is_over']" position="after">
+				<field name="real_cancel_desc" optional="hide"/>
+				<field name="is_cancel" invisible="1"/>
+				<field name="is_late" invisible="1"/>
+			</xpath>
+			<xpath expr="//field[@name='date']" position="replace">
+				<field name="po_user_date" readonly="1" optional="show"/>
+				<field name="date_required" optional="show"/>
+				<field name="create_selection" optional="show"/>
+				<field name="create_selection_type" invisible="1"/>
+				<field name="user_id" string="Оноогдсон ХА ажилтан" optional="show"/>
+				<field name="po_date_order" optional="show"/>
+				<field name="product_status" optional="show"/>
+				<field name="date_expected" optional="hide"/>
+				<field name="priority_line" optional="hide"/>
+				<field name="order_status_id" optional="hide"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="purchase_request_line_search_inherit">
+		<field name="name">purchase.request.line.search</field>
+		<field name="model">purchase.request.line</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_line_search"/>
+		<field name="arch" type="xml">
+			<xpath expr="//filter[@name='gr_priority']" position="replace">
+				<filter string="Зэрэглэлээр" name="gr_priority" context="{'group_by':'priority_line'}"/>
+				<filter string="Шийдвэрээр" name="gr_create_selection" context="{'group_by':'create_selection'}"/>
+				<filter string="Барааны төлөвөөр" name="gr_product_status" context="{'group_by':'product_status'}"/>
+				<filter string="Төрлөөр" name="gr_type" context="{'group_by':'type'}"/>
+			</xpath>
+			<xpath expr="//filter[@name='yes_receive']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//filter[@name='no_receive']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//filter[@name='cancel']" position="attributes">
+				<attribute name="string">Хүсэлтээр цуцлагдсан</attribute>
+			</xpath>
+			<xpath expr="//filter[@name='to_do']" position="attributes">
+				<attribute name="domain">[('request_id.state_type','=','done'),'|',('po_line_ids','=',False),('po_diff_qty','&gt;',0),('is_over','=',False),('is_cancel','=',False),('create_selection_type','!=','refused')]</attribute>
+			</xpath>
+			<xpath expr="//filter[@name='po_no_create']" position="attributes">
+				<attribute name="domain">[('po_line_ids','=',False),('comp_line_ids','=',False)]</attribute>
+			</xpath>
+			<xpath expr="//filter[@name='cancel']" position="after">
+				<filter name="product_cancel" string="Бараагаар цуцлагдсан" domain="[('is_cancel','=',True)]"/>
+				<filter name="product_late" string="Хоцрогдолтой" domain="[('is_late','=',True),('is_cancel','=',False)]"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="mw_purchase_request.action_purchase_request_line_view">
+		<field name="name">Хүсэлтийн мөр</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.request.line</field>
+		<field name="view_mode">tree,form,pivot</field>
+		<field name="context">{'search_default_gr_request':1}</field>
+		<field name="domain">['|', ('pr_department_id','=',False), ('pr_department_id.user_ids','in',[uid])]</field>
+		<field name="view_id" ref="mw_purchase_request.purchase_request_line_tree_view"/>
+	</record>
+
+	<!-- Миний хянах самбар -->
+	<record id='action_my_purchase_request_line' model='ir.actions.act_window'>
+		<field name="name">Миний хүсэлтийн мөр</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">purchase.request.line</field>
+		<field name="view_mode">tree,form,pivot</field>
+		<field name="context">{'search_default_gr_request':1}</field>
+		<field name="domain">[('create_uid','=',uid)]</field>
+		<field name="view_ids" eval="[(5, 0, 0), 
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('mw_purchase_request.purchase_request_line_tree_view')}),
+				(0, 0, {'view_mode': 'form', 'view_id': ref('mw_purchase_request.purchase_request_line_form_view')})]"/>
+	</record>
+
+	<template id="track_po_line_create_selection_template">
+		<div>
+			<strong>Шийдвэрийн төрөл өөчлөгдлөө.</strong>
+			<ul>
+				<li><t t-esc="line.product_id.display_name"/>:
+				</li>
+				Шийдвэрийн төрөл:
+				<t t-esc="line.create_selection.name"/>
+				-&gt;
+				<t t-esc="uurchlugdsun"/>
+			</ul>
+		</div>
+	</template>
+
+	<template id="track_pr_line_cancel_desc_template">
+		<div>
+			<strong>Бараа цуцлагдлаа.</strong>
+			<ul>
+				<li><t t-esc="line.product_id.display_name"/>:
+				</li>
+				Тайлбар:
+				<t t-esc="uurchlugdsun"/>
+			</ul>
+		</div>
+	</template>
+
+	<template id="track_pr_line_product_status_template">
+		<div>
+			<strong>Барааны төлөв өөрчлөгдлөө.</strong>
+			<ul>
+				<li><t t-esc="line.product_id.display_name"/>:
+				</li>
+				Төлөв:
+				<t t-esc="uurchlugdsun"/>
+			</ul>
+		</div>
+	</template>
+
+	<record id="cancel_line_form" model="ir.ui.view">
+		<field name="name">cancel.line.form</field>
+		<field name="model">purchase.request.line</field>
+		<field name="arch" type="xml">
+			<form create="false">
+				<sheet>
+					<group>
+						<field name="product_id" readonly="1"/>
+						<field name="cancel_desc" required="1"/>
+					</group>
+					<footer>
+						<button name="action_cancel_product" string="Цуцлах" type="object" class="btn-danger"/>
+						<button special="cancel" string="Хаах" type="object" class="btn-default"/>
+					</footer>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<!-- Purchase request line po create -->
+	<record id="purchase_request_line_po_create_form_inh" model="ir.ui.view">
+		<field name="name">purchase.request.line.po.create.form</field>
+		<field name="model">purchase.request.line.po.create</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_line_po_create_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='warehouse_id']" position="attributes">
+				<attribute name="domain">[('access_user_ids','in',[uid]), ('is_view_po','=',True)]</attribute>
+			</xpath>
+			<xpath expr="//field[@name='is_internal']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Purchase request line user set -->
+	<record id="purchase_request_line_user_set_form_inh" model="ir.ui.view">
+		<field name="name">purchase.request.line.user.set.form</field>
+		<field name="model">purchase.request.line.user.set</field>
+		<field name="inherit_id" ref="mw_purchase_request.purchase_request_line_user_set_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='user_id']" position="attributes">
+				<attribute name="string">Оноох ХА ажилтан</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="mw_purchase_request.purchase_request_line_user_set_action_pr" model="ir.actions.act_window">
+		<field name="name">Худалдан Авалтын Ажилтан Оноох</field>
+	</record>
+
+	<!-- Purchase request priority -->
+	<record id="purchase_request_priority_tree_view" model="ir.ui.view">
+		<field name="name">purchase.request.priority.tree</field>
+		<field name="model">purchase.request.priority</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="type"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="purchase_request_priority_form_view" model="ir.ui.view">
+		<field name="name">purchase.request.priority.form</field>
+		<field name="model">purchase.request.priority</field>
+		<field eval="25" name="priority" />
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+						</group>
+						<group>
+							<field name="type"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id='action_purchase_request_priority' model='ir.actions.act_window'>
+		<field name="name">Зэрэглэл</field>
+		<field name="res_model">purchase.request.priority</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Purchase request priority -->
+	<record id="purchase_request_create_selection_form_view" model="ir.ui.view">
+		<field name="name">purchase.request.create.selection.form</field>
+		<field name="model">purchase.request.create.selection</field>
+		<field eval="25" name="priority" />
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="type"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="purchase_request_create_selection_tree_view" model="ir.ui.view">
+		<field name="name">purchase.request.create.selection.tree</field>
+		<field name="model">purchase.request.create.selection</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="type"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id='action_purchase_request_create_selection' model='ir.actions.act_window'>
+		<field name="name">Шийдвэрийн төрөл</field>
+		<field name="res_model">purchase.request.create.selection</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Product quality research -->
+	<record id="product_quality_research_form_view" model="ir.ui.view">
+		<field name="name">product.quality.research.form</field>
+		<field name="model">product.quality.research</field>
+		<field eval="25" name="priority" />
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" string="Ноороглох" class="btn-danger" type="object" icon="fa-arrow-left" attrs="{'invisible':[('state','=','draft')]}"/>
+					<button name="action_to_done" string="Батлах" class="btn-success" type="object" icon="fa-check-square-o" attrs="{'invisible':[('state','=','done')]}"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="product_id" options="{'no_create': True}" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="partner_id" options="{'no_create': True}" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="pr_id" options="{'no_create': True}" attrs="{'readonly':[('state','=','done')]}" domain="[('id','in',avail_pr_ids)]"/>
+							<field name="avail_pr_ids" widget="many2many_tags" invisible="1"/>
+						</group>
+						<group>
+							<field name="date" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="quality" attrs="{'readonly':[('state','=','done')]}"/>
+							<field name="desc" attrs="{'readonly':[('state','=','done')]}"/>
+						</group>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="product_quality_research_tree_view" model="ir.ui.view">
+		<field name="name">product.quality.research.tree</field>
+		<field name="model">product.quality.research</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="product_id"/>
+				<field name="partner_id"/>
+				<field name="pr_id"/>
+				<field name="date"/>
+				<field name="quality"/>
+				<field name="desc"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id='action_product_quality_research' model='ir.actions.act_window'>
+		<field name="name">Барааны чанарын судалгаа</field>
+		<field name="res_model">product.quality.research</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Бэлтгэн нийлүүлэгчийн судалгаа -->
+	<record id="supplier_research_form_view" model="ir.ui.view">
+		<field name="name">supplier.research.form</field>
+		<field name="model">supplier.research</field>
+		<field eval="25" name="priority" />
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="partner_id" options="{'no_create': True}"/>
+						</group>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="supplier_research_tree_view" model="ir.ui.view">
+		<field name="name">supplier.research.tree</field>
+		<field name="model">supplier.research</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="partner_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id='action_supplier_research' model='ir.actions.act_window'>
+		<field name="name">Бэлтгэн нийлүүлэгчийн судалгаа</field>
+		<field name="res_model">supplier.research</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

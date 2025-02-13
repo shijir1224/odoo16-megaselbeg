@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Stock warehouse inherit -->
+	<record id="view_warehouse_inherit" model="ir.ui.view">
+		<field name="name">stock.warehouse.form</field>
+		<field name="model">stock.warehouse</field>
+		<field name="inherit_id" ref="stock.view_warehouse"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='resupply_wh_ids']" position="after">
+				<field name="is_view_po"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="inherit_product_income_expense_report_tree_view" model="ir.ui.view">
+		<field name="name">product.income.expense.report.tree</field>
+		<field name="model">product.income.expense.report</field>
+		<field name="inherit_id" ref='mw_stock_product_report.product_income_expense_report_tree_view'/>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_id']" position='after'>
+				<field name='product_specification'/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="inherit_product_income_expense_report_pivot2" model="ir.ui.view">
+		<field name="name">product.income.expense.report.pivot</field>
+		<field name="model">product.income.expense.report</field>
+		<field name="inherit_id" ref='mw_stock_product_report.product_income_expense_report_pivot2'/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='categ_id']" position='after'>
+				<field name='product_specification' type="row"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="inherit_stock_report_detail_tree_view" model="ir.ui.view">
+		<field name="name">stock.report.detail.tree</field>
+		<field name="model">stock.report.detail</field>
+		<field name="inherit_id" ref='mw_stock_product_report.stock_report_detail_tree_view'/>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_id']" position='after'>
+				<field name='product_specification'/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="inherit_stock_report_detail_pivot2_view" model="ir.ui.view">
+		<field name="name">stock.report.detail.tree</field>
+		<field name="model">stock.report.detail</field>
+		<field name="inherit_id" ref='mw_stock_product_report.stock_report_detail_pivot2'/>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='categ_id']" position='after'>
+				<field name='product_specification' type="row"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

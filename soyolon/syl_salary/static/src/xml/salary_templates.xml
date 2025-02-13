@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id='mw_salary' xml:space="preserve">
+    <t t-name="syl_salary.SalaryOrder" t-inherit="mw_salary.SalaryOrder" t-inherit-mode="extension" owl="1">
+
+		<xpath expr="//th[4]" position="after">
+			<th>
+	            <div>
+	                Цалингийн шатлал
+	            </div>
+	        </th>
+		</xpath>
+	    <xpath expr="//td[4]" position="after">
+			<td t-att-data-id="rec"  class="oe_no_emplo_col_number">
+                <div t-att-data-id="rec">
+                    <t t-esc="item.data.levelname"/>
+                </div>
+            </td>
+		</xpath>
+		
+    </t>
+</templates>

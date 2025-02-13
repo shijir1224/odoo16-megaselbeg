@@ -1,0 +1,68 @@
+<odoo>
+    <record id="shift_change_form_view" model="ir.ui.view">
+        <field name="name">change.shift.form</field>
+        <field name="model">change.shift</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Илгээх" name="action_send" states="draft" type="object" class="oe_highlight"/>
+                    <button string="Батлах" name="action_done"  states="send"  type="object" class="oe_highlight"/>
+                    <button string="Ноороглох" name="action_draft"  type="object" class="oe_highlight"  states="send,done"/>
+                    <field name="state" widget="statusbar" statusbar="draft,send,done," statusbar_colors='{"draft":"red","send":"red","done":"red",}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name ='name' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name ='employee_id' attrs="{'readonly': [('state','!=','draft')]}" options="{'no_create':True}"/>
+                            <field name ='date' attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name ='shift_g' attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name ='project_id' attrs="{'readonly': [('state','!=','draft')]}" options="{'no_create':True}"/>
+                            <button string="Ажилчид татах" name="create_line" type="object" class="oe_highlight"/>
+                            <button string="Хэвлэх" name="action_print" type="object"  icon = "fa-print" class="btn-info" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name = 'employee_ids' attrs="{'readonly': [('state', '!=', 'draft')]}">
+                            <tree editable="bottom">
+                                <field name = "identification_id"/>
+                                <field name = "employee_id" options="{'no_create':True}"/>
+                                <field name = "job_id" options="{'no_create':True}"/>
+                                <field name = "alcohol"/>
+                                <field name = "hab"/>
+                                <field name = "description"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="shift_change_tree_view" model="ir.ui.view">
+            <field name="name">change.shift.tree</field>
+            <field name="model">change.shift</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name = 'name'/>
+                    <field name = 'date'/>
+                    <field name = 'employee_id'/>
+                    <field name = 'shift'/>
+                </tree>
+            </field>
+    </record>
+
+    <record id="shift_change_action" model="ir.actions.act_window">
+        <field name="name">Ээлж солих</field>
+        <field name="res_model">change.shift</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="shift_change_menu" parent="hr.menu_hr_root" action="shift_change_action" sequence="20"/>
+</odoo>

@@ -1,0 +1,17 @@
+<odoo>
+
+	<record id="view_hse_employee_training_form_inherit" model="ir.ui.view">
+		<field name="name">hse.employee.training.form.inherit</field>
+		<field name="model">hse.employee.training</field>
+		<field name="inherit_id" ref="mw_hse_employee_training.view_hse_employee_training_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_to_done']" position='after'>
+				<button name="action_to_download" type="object" class="btn-warning" states="draft" string="Ажилтан татах" attrs="{'invisible': [('type','!=','not_regularly')]}"/>
+			</xpath>
+			<xpath expr="//field[@name='is_sent']" position='after'>
+				<field name="next_training_employee_id" options="{'no_create':True}" attrs="{'invisible': [('type','!=','advance')]}"/>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

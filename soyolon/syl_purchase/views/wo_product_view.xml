@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="wo_product_form_view_inherit">
+		<field name="name">wo.product.form</field>
+		<field name="model">maintenance.workorder</field>
+		<field name="inherit_id" ref="mw_factory_equipment.maintenance_workorder_form_view_factory"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='required_part_line']//field[@name='uom_id']" position='after'>
+                <field name="product_specification" readonly="1"/>
+            </xpath>
+		</field>
+	</record>
+</odoo>

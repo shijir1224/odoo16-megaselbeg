@@ -1,0 +1,13 @@
+<odoo>
+	<record id="view_hse_workplace_inspection_form_id" model="ir.ui.view">
+		<field name="name">hse.workplace.inspection.form</field>
+		<field name="model">hse.workplace.inspection</field>
+		<field name="inherit_id" ref="mw_hse.view_hse_workplace_inspection_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='part']" position='after'>
+				<field name="workplace_hierarchy" widget="selection"/>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

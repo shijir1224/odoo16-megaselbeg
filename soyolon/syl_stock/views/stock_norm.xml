@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="stock_norm_search_view" model="ir.ui.view">
+		<field name="name">Product Standard</field>
+		<field name="model">stock.norm</field>
+		<field name="arch" type="xml">
+			<search string="Search Scrap">
+				<field name="create_date"/>
+			</search>
+		</field>
+	</record>
+	<record id="stock_norm_form_view" model="ir.ui.view">
+		<field name="name">Product Standard</field>
+		<field name="model">stock.norm</field>
+		<field name="arch" type="xml">
+			<form string="Scrap">
+			<header>
+				<button name='action_approve' string='Түгжих' style='border-radius: 25px;' type='object' class='oe_highlight' attrs="{'invisible': [('state','=','approved')]}"/>
+				<field name='state' widget='statusbar'/>
+			</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="date_start" attrs="{'readonly': [('state','=','approved')]}"/>
+							<field name="date_end" attrs="{'readonly': [('state','=','approved')]}"/>
+						</group>
+						<group>
+							<field name="norm_type" attrs="{'readonly': [('state','=','approved')]}"/>
+							<field name='is_type_check' invisible='1'/>
+						</group>
+					</group>
+					<field name="line_ids" attrs="{'readonly': [('state','=','approved')]}">
+						<tree editable="bottom">
+							<field name='norm_type' invisible='1'/>
+							<field name='branch_id' options="{'no_create': True}" attrs="{'column_invisible': [('parent.is_type_check','=',True)],'required': [('norm_type','!=','department')]}"/>
+							<field name='department_id' options="{'no_create': True}" attrs="{'column_invisible': [('parent.is_type_check','=',True)],'required': [('norm_type','!=','department')]}"/>
+							<field name='employee_jobid' options="{'no_create': True}" attrs="{'column_invisible': [('parent.is_type_check','=',False)],'required': [('norm_type','=','department')]}"/>
+							<field name='employee_id' options="{'no_create': True}" attrs="{'column_invisible': [('parent.is_type_check','=',False)],'required': [('norm_type','=','department')]}"/>
+							<field name="product_id" options="{'no_create': True}"/>
+							<field name='uom_id' options="{'no_create': True}"/>
+							<field name="norm_qty"/>
+							<field name='reference_qty' readonly='1' save_force='1'/>
+							<!-- <field name='check_location' invisible='1'/> -->
+							<!-- <field name='check_types' invisible='1'/> -->
+						</tree>
+						<form>
+							<group>
+								<group>
+									<field name='employee_jobid'/>
+									<field name='employee_id' options="{'no_create': True}"/>
+									<field name="product_id" options="{'no_create': True}"/>
+									<field name='uom_id' options="{'no_create': True}"/>
+									<field name="norm_qty"/>
+									<field name='reference_qty'  readonly='1' save_force='1'/>
+									<field name='norm_type' invisible='1'/>
+									<field name='branch_id' options="{'no_create': True}" attrs="{'column_invisible': [('parent.is_type_check','=',True)],'required': [('norm_type','!=','department')]}"/>
+									<field name='department_id' options="{'no_create': True}" attrs="{'column_invisible': [('parent.is_type_check','=',True)],'required': [('norm_type','!=','department')]}"/>
+									<!-- <field name='check_location' invisible='1'/> -->
+									<!-- <field name='check_types' invisible='1'/> -->
+								</group>
+							</group>
+						</form>
+					</field>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids"/>
+					<field name="message_ids"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	<record id="stock_norm_tree_view" model="ir.ui.view">
+		<field name="name">Product Standard</field>
+		<field name="model">stock.norm</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="date_start"/>
+				<field name="date_end"/>
+				<field name="norm_type"/>
+			</tree>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="action_stock_norm">
+		<field name="name">Product Standard</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">stock.norm</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+	</record>
+	<record id="inh_stock_product_other_expense_form_view" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.form</field>
+		<field name="model">stock.product.other.expense</field>
+		<field name='inherit_id' ref='mw_stock_moves.stock_product_other_expense_form_view'/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='date_required']" position='after'>
+				<field name='norm_type' force_save='1' invisible='1'/>
+				<field name='norm_type_emp_check' invisible='1'/>
+				<field name='check_approve_qty' invisible='1'/>
+			</xpath>
+			<xpath expr="//field[@name='product_expense_line']/tree/field[@name='qty']" position='attributes'>
+				<attribute name='invisible'>1</attribute>
+			</xpath>
+			<xpath expr="//group//group[2]//field[@name='partner_id']" position='attributes'>
+				<attribute name='string'>Хүсэлт гаргасан ажилтан</attribute>
+			</xpath>
+			<xpath expr="//group//group[2]//field[@name='partner_id']" position='after'>
+				<field name="account_partner_id" optional="{'no_create': True}"/>
+			</xpath> 
+			<xpath expr="//field[@name='product_expense_line']/tree/field[@name='res_partner_id']" position='attributes'>
+				<attribute name='string'>Барааг ашиглах ажилтан</attribute>
+			</xpath>
+			<xpath expr="//field[@name='product_expense_line']/tree/field[@name='qty']" position='after'>
+				<field name='required_qty' sum="Нийт"/>
+				<field name='approved_qty' sum="Нийт" attrs="{'column_invisible': [('parent.check_approve_qty','=',False)]}"/>
+				<field name='done_qty' sum="Нийт" attrs="{'column_invisible': [('parent.check_approve_qty','=',False)]}"/>
+				<field name='norm_qty' sum="Нийт" readonly='1' force_save='1' optional='show'/>
+				<field name='reference_qty' sum="Нийт" readonly='1' force_save='1'  optional='show'/>
+				<field name='description' optional='show' attrs="{'required':[('check_norm','!=',False)]}"/>
+				<field name='norm_id' invisible='1'/>
+				<field name='check_norm' invisible='1'/>
+				<field name='check_location' invisible='1'/>
+				<field name='check_types' invisible='1'/>
+			</xpath>
+			<xpath expr="//field[@name='product_expense_line']/tree/field[@name='product_id']" position='before'>
+				<field name="norm_type" invisible='1'/>
+				<!-- <field name='partner_id' attrs="{'column_invisible': [('parent.norm_type_emp_check','=',False)],'required': [('norm_type','=','department')]}"/> -->
+			</xpath>
+			<xpath expr="//field[@name='product_expense_line']/tree/field[@name='product_id']" position='after'>
+				<field name="product_code"/>
+			</xpath>
+			<xpath expr="//field[@name='is_employee']" position='attributes'>
+				<attribute name='force_save'>1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='validator_id']" position='after'>
+				<button name="all_other_expense_done_qty" type="object" string="Done qty" class="btn-danger" groups="base.group_no_one"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="stock_product_other_expense_tree_view_inherit" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.form</field>
+		<field name="model">stock.product.other.expense</field>
+		<field name='inherit_id' ref='mw_stock_moves.stock_product_other_expense_tree_view'/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='partner_id']" position='attributes'>
+				<attribute name='string'>Хүсэлт гаргасан ажилтан</attribute>
+			</xpath>
+			<xpath expr="//field[@name='department_id']" position='attributes'>
+				<attribute name='string'>Бараа ашиглах хэлтэс</attribute>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="inherit_mn_transaction_value_form_view" model="ir.ui.view">
+	<field name="name">mn.transaction.value.form</field>
+	<field name="model">mn.transaction.value</field>
+	<field name='inherit_id' ref='mw_stock_moves.mn_transaction_value_form_view'/>
+	<field name="arch" type="xml">
+			<xpath expr="//field[@name='account_id']" position='after'>
+				<field name='analytic_distribution' widget="analytic_distribution"/>
+				<field name='partner_id' options="{'no_create': True}" />
+				<field name='norm_type' />
+			</xpath>
+			<xpath expr="//field[@name='account_id']" position='attributes'>
+				<attribute name='invisible'>0</attribute>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="res_branch_form_view" model="ir.ui.view">
+	<field name="name">res.branch.form</field>
+	<field name="model">res.branch</field>
+	<field name='inherit_id' ref='branch.view_res_branch_form'/>
+	<field name="arch" type="xml">
+			<xpath expr="//field[@name='company_id']" position='after'>
+				<field name="partner_id" options="{'no_create': True}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="res_branch_tree_view" model="ir.ui.view">
+	<field name="name">res.branch.tree</field>
+	<field name="model">res.branch</field>
+	<field name='inherit_id' ref='branch.view_res_branch_tree'/>
+	<field name="arch" type="xml">
+			<xpath expr="//field[@name='company_id']" position='after'>
+				<field name="partner_id" optional="hide"/>
+			</xpath>
+		</field>
+	</record>
+	
+</odoo>

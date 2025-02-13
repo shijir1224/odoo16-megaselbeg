@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="resigned_report_view" model="ir.ui.view">
+            <field name="name">resigned.report.wizard</field>
+            <field name="model">resigned.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="work_location_id" options = "{'no_create' : True}"/>
+                        <field name="date_from" />
+                        <field name="date_to"/>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_resigned_report" model="ir.actions.act_window">
+            <field name="name">Ажлаас гарах үеийн  ярилцлагын тайлан</field>
+            <field name="res_model">resigned.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="resigned_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_resigned_report" id="menu_resigned_report" parent="mw_hr.menu_human_recource_report" sequence='2'/>
+        
+    </data>
+</odoo>

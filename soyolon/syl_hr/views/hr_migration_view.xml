@@ -1,0 +1,135 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_migration_form">
+        <field name="name">hr.migration.form</field>
+        <field name="model">hr.migration</field>
+        <field name="arch" type="xml">
+            <form string='Ажил хүлээлцэх акт'>  
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object" attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцаах" class="btn-warning" icon="fa-arrow-left" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close"  type="object" attrs="{'invisible': ['|',('state_type', 'in',['cancel','draft']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'not in', ['done']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+                </header>
+
+                <sheet>    
+                    <group>
+                        <group>
+                            <group>
+                                <field name="employee_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                <field name="department_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','draft')]}" />
+                                <field name="job_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="salary_code" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','sent')]}"/>
+                                <field name="review_employee_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                <field name="re_desc" attrs="{'readonly': [('state_type', 'not in',['sent','done'])]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string='Шилжилт хөдөлгөөний төрөл'>
+                               <group>
+                                    <group>
+                                        <field name="is_trial" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                        <field name="is_accept" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_fire" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                        <field name="is_migrate" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                    </group>
+                                </group>
+                                <group string='l' attrs="{'invisible': [('is_migrate', '!=', True)]}">
+                                    <group>
+                                        <field name="is_up" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                        <field name="is_down" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_job_migrate" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                        <field name="up_job_id" attrs="{'readonly': [('state_type', '!=','draft')]}" options="{'no_create':True}"/>
+                                    </group>
+                                </group>
+                                <group invisible="1">
+                                    <field name="compute_type" />
+                                    <field name="migrate_type"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </group>              
+                    <notebook>
+                        <page string="Төлөвийн Түүх">
+                            <field name="history_ids" readonly="0"  >
+                                <tree editable='bottom'>
+                                    <field name="user_id"/>
+                                    <field name="date"/>
+                                    <field name="flow_line_id"/>
+                                    <field name="desc"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>   
+                    <group> 
+                        <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit','=',True)]}" required="1"/>
+                         <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1" />
+                    </group>
+                    <group>
+                        <field name="state_type" invisible="1"/>
+                        <field name="flow_line_next_id" invisible="1"/>
+                        <field name="flow_line_back_id" invisible="1"/>
+                        <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="state" invisible="1"/>
+                        <field name="is_not_edit" invisible="1"/>
+                    </group>                   
+                </sheet>    
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_migration_tree">
+        <field name="name">hr.migration.tree</field>
+        <field name="model">hr.migration</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string='Шилжилт хөдөлгөөн' >
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_hr_migration">
+        <field name="name">Шилжилт хөдөлгөөний хуудас</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.migration</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+
+        <menuitem id="menu_hr_migration"
+            parent="mw_hr.hr_emp_main_menu" 
+            action="action_hr_migration" 
+            sequence="21"/> 
+
+
+
+    
+
+    <record id="hr_migration_project_view" model="ir.actions.report">
+        <field name="name">Шилжилт хөдөлгөөний хуудас/Салхит/</field>
+        <field name="model">hr.migration</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">syl_hr.hr_migration_project</field>
+        <field name="report_file">syl_hr.hr_migration_project</field>
+        <field name="print_report_name">'Шилжилт хөдөлгөөний хуудас/Салхит/'</field>
+        <field name="binding_model_id" ref="model_hr_migration"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_migration_project">
+        <t t-value="null">
+        </t>
+    </template>
+
+</odoo>

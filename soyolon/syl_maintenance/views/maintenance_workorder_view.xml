@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_maintenance_workorder_form" model="ir.ui.view">
+        <field name="name">maintenance.workorder.inherit</field>
+        <field name="model">maintenance.workorder</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_workorder_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="technic_id"]' position="after">
+                <field name="equipment_id"/>
+                <field name="workorder_category" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_maintenance_workorder_cat_form" model="ir.ui.view">
+        <field name="name">maintenance.workorder.inherit</field>
+        <field name="model">maintenance.workorder</field>
+        <field name="inherit_id" ref="mw_factory_equipment.maintenance_workorder_form_view_factory"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="shift"]' position="after">
+                <field name="workorder_category" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='work_call_tree'>
+        <field name="name">Work.Call.Tree</field>
+        <field name="model">work.call</field>
+        <field name="arch" type="xml">
+            <tree string="Work.Call">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='work_call_form'>
+        <field name="name">Work.Call.form</field>
+        <field name="model">work.call</field>
+        <field name="arch" type="xml">
+                <form string="Work call form">
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="company"/>
+                    </group>
+                </form>
+        </field>
+    </record>
+
+    <record model='ir.actions.act_window' id='action_work_call'>
+        <field name="name">Ажлын хүсэлтийн төрөл</field>
+        <field name="res_model">work.call</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_maintenance_call_form" model="ir.ui.view">
+        <field name="name">maintenance.call.inherit</field>
+        <field name="model">maintenance.call</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_call_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="call_type"]' position="after">
+                <field name="work_call_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem name="Ажлын хүсэлтийн төрөл" parent="mw_technic_maintenance.maintenance_setting_menu"
+				id="work_call_menu" sequence="18" action="action_work_call" />
+
+    <!-- <record id="view_maintenance_employee_timesheet_line_inherit_form" model="ir.ui.view">
+        <field name="name">maintenance.employee.timesheet.line.inherit</field>
+        <field name="model">maintenance.employee.timesheet.line</field>
+        <field name="inherit_id" ref="mw_technic_maintenance.maintenance_employee_timesheet_line_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="emp_partner_id"]' position="replace">
+                <field name="emp_partner_ids"/>
+            </xpath>
+        </field>
+    </record> -->
+</odoo>

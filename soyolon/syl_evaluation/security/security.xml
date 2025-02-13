@@ -1,0 +1,7 @@
+<odoo>
+    <!-- Нэг ажилтан 2 эрхээр орох үед нэгнийхээ хувийн мэдээллийг харж буй учир грүпээр хязгаарлав -->
+    <record id="group_shu_syln" model="res.groups">
+        <field name="name">Үнэлгээ нэгтгэх хэлтсийн удирдлагууд</field>
+        <field name="category_id" ref="mw_hr.module_mw_hr"/>
+    </record>
+</odoo>

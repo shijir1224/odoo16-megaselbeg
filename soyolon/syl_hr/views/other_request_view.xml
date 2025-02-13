@@ -1,0 +1,521 @@
+<odoo>
+ <record id="long_year_from" model="ir.ui.view">
+        <field name="name">long.year.form</field>
+		<field name="model">long.year</field>
+		<field name="arch" type="xml">
+        <form>
+            <header>
+                <button string="Илгээх" name="action_send" type="object" states='draft' class="oe_highlight" />
+                <button string="Хянах" name="action_confirm" type="object" states='sent' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                <button string="Батлах" name="action_done_hr" type="object" states='confirm' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                <button string="Санхүү хүлээж авах" name="action_done" type="object" states='done_hr' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                <button string="Ноороглох" name="action_draft" type="object" states='sent,confirm,done_hr,done' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,done_hr,done"
+                    statusbar_colors='{"draft":"gray","send":"blue"}'/>
+            </header>
+            <sheet>
+            <group>
+                <group>
+                    <field name="name" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                    <field name="company_id" attrs="{'readonly':[('state', '!=', 'draft')]}"
+                    options="{'no_create': True}"/>
+                    <field name="department_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
+                    <field name="job_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
+                </group>
+                <group>
+                    <field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': True}"/>
+                    <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <button string="Ажилчид татах" name="long_year" type="object" states='draft' class="oe_highlight" />
+                     <button string="Хэвлэх" name="action_print" type="object" class="btn-success" />
+                </group>
+                 <group>    
+                    <field name="employee_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                    <field name="h_emp_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                    <field name="confirm_emp_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                </group>
+                <field name='line_ids' attrs="{'readonly':[('state','!=','draft')]}">
+                    <tree editable="bottom">
+                        <field name='identification_id'/>
+                        <field name='employee_id'/>
+                        <field name="job_id"/>
+                        <field name="engagement_in_company"/>
+                        <field name="long_year"/>
+                        <field name="l_year" optional='show'/>
+                        <field name="long_year_month" optional='show'/>
+                        <field name="long_year_day" optional='show'/>
+                    </tree>
+                </field>
+             </group>
+             </sheet>
+             <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" />
+                <field name="message_ids" widget="mail_thread" />
+            </div>
+        </form>
+        </field>
+    </record>
+    <record id="long_year_tree" model="ir.ui.view">
+        <field name="name">long.year.tree</field>
+		<field name="model">long.year</field>
+		<field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="employee_id"/>
+            <field name="department_id"/>
+            <field name="job_id"/>
+        </tree>
+        </field>
+    </record>
+    <record id="long_year_tree_action" model="ir.actions.act_window">
+        <field name="name">Удаан жил</field>
+        <field name="res_model">long.year</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="long_year_tree_action" id="long_year_menu"
+            name="Удаан жил" parent="hr.menu_hr_root" sequence="13"/>
+
+    <record id="view_salary_level_search" model="ir.ui.view">
+        <field name="name">salary.level.search</field>
+		<field name="model">salary.level</field>
+		<field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="amount"/>
+        </search>
+        </field>
+    </record>
+    <record id="view_salary_level_form" model="ir.ui.view">
+        <field name="name">salary.level.form</field>
+		<field name="model">salary.level</field>
+		<field name="arch" type="xml">
+        <form>
+            <group>
+                <group>
+                    <field name="name"/>
+                    <field name="position_level_sal"/>
+                    <field name="eval_salary"/>
+                    <field name="kpi_salary"/>
+                </group>
+                <group>
+                     <field name="amount"/>
+                     <field name="skills_allounce"/>
+                     <field name="sum_wage"/>
+                </group>
+             </group>
+        </form>
+        </field>
+    </record>
+    <record id="view_salary_level_tree" model="ir.ui.view">
+        <field name="name">salary.level.tree</field>
+		<field name="model">salary.level</field>
+		<field name="arch" type="xml">
+        <tree>
+            <field name="position_level_sal"/>
+            <field name="name"/>
+            <field name="amount"/>
+            <field name="skills_allounce"/>
+            <field name="sum_wage"/>
+        </tree>
+        </field>
+    </record>
+    <record id="salary_level_action" model="ir.actions.act_window">
+        <field name="name">Цалингийн код</field>
+        <field name="res_model">salary.level</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+    <menuitem action="salary_level_action" id="salary_level_menu"
+            name="Цалингийн код" parent="mw_salary.menu_finance_salary_configuration" sequence="13"/>
+
+        <!-- salary loan -->
+    <record id="hr_employee_deduction_view" model="ir.ui.view">
+			<field name="name">hr.hr.employee.view.form2.mw</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_partner']" position="after">
+				<button name="action_deduction_plan" type="object" class="oe_stat_button" icon="fa-credit-card">
+					<field string="Цалингийн урьдчилгаа" widget="statinfo" name ='loan_count'/>
+				</button>
+			</xpath>
+		</field>
+	</record>
+    <record model="ir.ui.view" id="salary_loan_form_view">
+        <field name="name">salary.loan.form</field>
+        <field name="model">salary.loan</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+            <header>
+                <button name="action_send" type="object" class="oe_highlight" string=" Илгээх" states='draft'/>
+                <button name="action_done" type="object" class="oe_highlight" string=" Батлах" states='sent'/>
+                <button name="action_draft" type="object" class="oe_highlight" string=" Ноороглох" states='sent,done'/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,done"
+                        statusbar_colors='{"draft":"gray","sent":"blue","done":"blue"}'/>
+            </header>
+            <sheet>
+            <group>
+                <group>
+                    <field name="employee_id"/>
+                    <field name="job_id"/>
+                    <field name="company_id"/>
+                </group>
+                <group>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="description"/>
+                    <field name="reason"/>
+                </group>
+            </group>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" />
+                <field name="message_ids" widget="mail_thread" />
+            </div>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="salary_loan_tree_view">
+        <field name="name">salary.loan.tree</field>
+        <field name="model">salary.loan</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <field name="company_id"/>
+                <field name="date"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="salary_loan_action">
+        <field name="name">Цалингийн урьдчилгаа</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">salary.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="salary_loan_tree_view"/>
+    </record>
+
+    <menuitem id="salary_loan_menu" parent="mw_hr.hr_emp_main_menu" action="salary_loan_action" sequence="16"/>
+
+    <record model="ir.ui.view" id="discipline_document_form_syl_view">
+        <field name="name">discipline.document.form</field>
+        <field name="model">discipline.document</field>
+        <field name="inherit_id" ref="mw_hr_discipline.discipline_document_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position='replace'>
+              <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object" attrs="{'invisible': [('state_type','in',['done','cancel'])]}"/>
+                    <field name="flow_line_id" widget="statusbar"/>
+                    <button string="Буцаах" name="%(mw_timetable.action_back_description)d" type="action" attrs="{'invisible': [('state_type','in',['draft','cancel'])]}"  class="btn-warning" icon="fa-arrow-left"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-secondary" icon="fa-close" type="object" attrs="{'invisible': [('state_type', '=','draft')]}"  groups="mw_timetable.group_timetable_manager"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close" type="object" attrs="{'invisible': [('state_type', '!=','sent')]}"/>
+                </header>
+            </xpath>
+            <xpath expr="//sheet" position='replace'>
+              
+					<sheet>  
+						<field name="active" invisible="1"/>
+                        <group>
+                            <group>
+                                <field name="number" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                                <field name="registered_date" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': [('state_type', '!=','draft')]}"/>
+                                <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1"/>
+                            </group>
+                        </group>
+						<group>
+							<group string="Зөрчил гаргасан ажилтан">
+								<field name="employee_id" options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="department_id"  options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="job_id" options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="company_id" options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+							</group>
+							<group string="СШ хуудас бичсэн" >
+								<field name="discipline_employee_id" options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="discipline_department_id"  options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="discipline_job_id" options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+							</group>
+						</group>
+						<group name='discipline'>
+							<group string="Гарсан зөрчлийн мэдээлэл">
+								<field name="type"  options="{'no_create':True}" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="caption" colspan="2" placeholder="Зөрчил гарсан үндэслэл бичнэ үү!" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="date" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+								<field name="fond" attrs="{'readonly':[('state_type','!=','draft')]}"/>
+                                 
+							</group>
+                            <group string="Хавсаргасан материалууд" name='discipline'>
+                                <field name="document"/>
+                                <field name="director_desc"/>
+                                <field name="other_doc"/>
+                            </group>
+                            <group invisible='1'>
+                                <field name="document_de"/>
+                                <field name="director_desc_de"/>
+                                <field name="other_doc_de"/>
+                            </group>
+						</group>
+                        <notebook>
+                            <page name='histobefore_discipline' string="Өмнө гаргасан зөрчил">
+                                <group>
+                                    <field name="before_discipline_ids" >
+                                        <tree string="discipline document tree">
+                                            <field name="date"/>
+                                            <field name="number"/>
+                                            <field name="type" />
+                                        </tree>
+							        </field>
+                                </group>
+                            </page>
+                            <page name='history_flow' string="Төлөвийн Түүх">
+                                <field name="history_flow_ids" readonly="1" />
+                            </page>
+                            <page  invisible="1">
+                                <group name='group_disc'>
+                                    <field name="state_type"/>
+                                    <field name="back_user_discipline_ids" string='Буцаасан хэрэглэгчид' widget="many2many_tags" />
+                                    <field name="next_state_type"/>
+                                    <field name="flow_line_next_id"/>
+                                    <field name="branch_id"/>
+                                </group>
+                            </page>
+                        </notebook>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+				</sheet>
+            </xpath>
+        </field>
+    </record>
+
+      <record id="hr_discipline_office_view" model="ir.actions.report">
+        <field name="name">Сахилгын зөрчлийн хуудас/Оффис/</field>
+        <field name="model">discipline.document</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">syl_hr.hr_discipline_office</field>
+        <field name="report_file">syl_hr.hr_discipline_office</field>
+        <field name="print_report_name">'Сахилгын зөрчлийн хуудас/Оффис/'</field>
+        <field name="binding_model_id" ref="model_discipline_document"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_discipline_office">
+        <t t-value="null">
+        </t>
+    </template>
+
+      <record id="hr_discipline_project_view" model="ir.actions.report">
+        <field name="name">Сахилгын зөрчлийн хуудас/Салхит/</field>
+        <field name="model">discipline.document</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">syl_hr.hr_discipline_project</field>
+        <field name="report_file">syl_hr.hr_discipline_project</field>
+        <field name="print_report_name">'Сахилгын зөрчлийн хуудас/Салхит/'</field>
+        <field name="binding_model_id" ref="model_discipline_document"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_discipline_project">
+        <t t-value="null">
+        </t>
+    </template>
+
+
+    <record model="ir.ui.view" id="employee_contract_form_syl_view">
+        <field name="name">hr.employee.contract.form</field>
+        <field name="model">hr.employee.contract</field>
+        <field name="inherit_id" ref="mw_hr_employee_contract.employee_contract_form_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='wage_s']" position='replace'>
+            <field name='salary_code' options="{'no_create':True, 'no_open':True}" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', 'in', ('secret','other','asset'))]}"/>
+           <field name="year_ch" invisible='1'/>
+        </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="warning_document_form_syl_view">
+        <field name="name">warning.document.form</field>
+        <field name="model">warning.document</field>
+        <field name="inherit_id" ref="mw_hr_discipline.warning_document_form_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position='replace'>
+            </xpath>
+            <xpath expr="//field[@name='is_warning']" position='replace'>
+            </xpath>
+            <xpath expr="//field[@name='before_warning_ids']" position='replace'>
+            </xpath>
+            <xpath expr="//field[@name='employee_ids']" position='replace'>
+            </xpath>
+            
+        </field>
+    </record>
+    <!-- EMD -->
+    <record model="ir.ui.view" id="health_insurance_hr_form">
+        <field name="name">health.insurance.hr.form</field>
+        <field name="model">health.insurance.hr</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form>
+            <header>
+                <button string="Илгээх" name="action_send" type="object" states='draft' class="oe_highlight"/>
+                <button string="Хянах" name="action_confirm" type="object" states='sent' class="oe_highlight"/>
+                <button string="Батлах" name="action_done_hr" type="object" states='confirm' class="oe_highlight"/>
+                <button string="Санхүү хүлээж авах" name="action_done" type="object" states='done_hr' class="oe_highlight"/>
+                <button string="Буцаах" name="action_draft" type="object" states='sent,done,confirm,done_hr,done' class="oe_highlight"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,done_hr,done" statusbar_colors='{"draft":"gray","sent":"blue","send":"done"}'/> 
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="date"/>
+                        <button string="Ажилчид татах" name="create_line" type="object" states='draft' class="oe_highlight"/>
+                    </group>
+                    <group>
+                        <field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': true}"/>
+                        <field name="job_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': true}"/>
+                        <field name="department_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_create': true}"/>
+                    </group>
+                    <field name='line_ids' attrs="{'readonly':[('state','!=','draft')]}">
+                    <tree editable="bottom">
+                        <field name='identification_id'/>
+                        <field name='employee_id' options="{'no_create': true}"/>
+                        <field name="job_id" options="{'no_create': true}"/>
+                        <field name="health_percent"/>
+                        <field name="health_percent1"/>
+                    </tree>
+                </field>
+                </group>
+               
+
+            </sheet>
+             <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" />
+                <field name="message_ids" widget="mail_thread" />
+            </div>
+        </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="health_insurance_hr_tree">
+        <field name="name">health.insurance.hr.tree</field>
+        <field name="model">health.insurance.hr</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='name'/>
+                <field name='date'/>
+                <field name='employee_id'/>
+                <field name="job_id"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_health_insurance_hr">
+        <field name="name">ЭМД</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">health.insurance.hr</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="health_insurance_hr_tree"/>
+    </record>
+
+    <menuitem id="health_insurance_hr_menu" parent="hr.menu_hr_root" action="action_health_insurance_hr" sequence="17"/>
+
+<!--  Идэвхжүүлэлт бүртгэл хийгдэнэ-->
+
+    <record id="view_well_being_hr" model="ir.ui.view">
+        <field name="name">well.being.hr.form</field>
+        <field name="model">well.being.hr</field>
+        <field name="arch" type="xml">
+            <form string='Идэвхжүүлэлт бүртгэл'>
+                <sheet string='Идэвхжүүлэлт бүртгэл'>
+                    <group >
+                        <field name="year"/>
+                        <field name="quart"/>
+                    </group>
+                    <notebook>
+                        <page>
+                            <field name='line_ids'>
+                                <form >
+                                    <field name="name"/>
+                                    <field name="s_date"/>
+                                    <field name="emp_count"/>
+                                    <field name="count" />
+                                    <field name="procent"/>
+                                    <field name="budget"/>
+                                    <field name="performance"/>
+                                    <field name="description"/>
+                                    <field name="ev"/>
+                                </form>
+                                <tree editable="bottom">
+                                     <field name="name"/>
+                                    <field name="s_date"/>
+                                    <field name="emp_count" sum='sum'/>
+                                    <field name="count" sum='sum'/>
+                                    <field name="procent" sum='sum'/>
+                                    <field name="budget" sum='sum'/>
+                                    <field name="performance" sum='sum'/>
+                                    <field name="budget_procent" sum='sum'/>
+                                    <field name="description"/>
+                                    <field name="ev" sum='sum'/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="well_being_hr_tree">
+        <field name="name">well.being.hr.tree</field>
+        <field name="model">well.being.hr</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="year"/>
+                 <field name="quart"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_well_being_hr">
+        <field name="name">Идэвхжүүлэлт бүртгэл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">well.being.hr</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="well_being_hr_menu_id" parent="hr.menu_hr_root" action="action_well_being_hr" sequence="4" />
+
+
+    <record model="ir.ui.view" id="hr_allowance_form_view">
+        <field name="name">hr.allowance.form</field>
+        <field name="model">hr.allowance</field>
+        <field name="inherit_id" ref="mw_hr_allowance.hr_allowance_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,to_pay,done" statusbar_colors='{"draft":"gray","sent":"blue","done":"blue"}'/>
+            </xpath>
+            <xpath expr="//button[@name='action_done']" position="replace">
+                <button name="action_confirm" type="object" class="oe_highlight" string="Хянах" states='sent'  groups='mw_hr.group_hr_confirm'/>
+                <button name="action_to_pay" type="object" class="oe_highlight" string="ТХ үүссэн" states='confirm'/>
+                <button name="action_done" type="object" class="oe_highlight" string="Олгосон" states='to_pay'/>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="replace">
+                 <button name="action_draft" type="object" class="oe_highlight" string=" Ноороглох" states='sent,done,confirm,to_pay'/>
+            </xpath>
+           
+         </field>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+
+
+<odoo>
+    
+    <record model="ir.ui.view" id="hr_tr_form_view_syl">
+        <field name="name">hr.tr.form</field>
+        <field name="model">hr.tr</field>
+        <field name="inherit_id" ref="mw_hr.hr_tr_form_view"/>
+        <field name="arch" type="xml"> 
+            <xpath expr="//field[@name='to_company']" position="replace">
+                <field name='company'/>
+            </xpath>
+            <xpath expr="//field[@name='wage']" position="replace">
+                <field name='level_id' />
+            </xpath>
+            <xpath expr="//group[2]" position="after">
+                <group  col='4' invisible='1'>
+                     <field name='salary_amount' />
+                    <field name='salary_sum'/>
+                    <field name='salary'/>
+                    <field name='salary_str'/>
+                    <field name='salary_skills_amount'/>
+                    <field name='salary_ch'/>
+                    <field name="year_ch" />
+                    <field name="month_ch" />
+                    <field name="day_ch" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+	<record id="hr_tr_no_salary" model="ir.actions.report">
+        <field name="name">Цалингүй тодорхойлолт</field>
+        <field name="model">hr.tr</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mw_hr.tr_no_salary</field>
+        <field name="report_file">mw_hr.tr_no_salary</field>
+        <field name="print_report_name">'Цалингүй тодорхойлолт'</field>
+        <field name="binding_model_id" ref="model_hr_tr"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="tr_no_salary">
+        <t t-value="null">
+        </t>
+    </template>
+
+</odoo>

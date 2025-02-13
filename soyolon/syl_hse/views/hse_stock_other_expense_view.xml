@@ -1,0 +1,63 @@
+<odoo>
+
+	<record id="view_stock_product_other_expense_line_tree_inherit" model="ir.ui.view">
+		<field name="name">stock_other_expense_line_inherit</field>
+		<field name="model">stock.product.other.expense.line</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree create='false' edit='false' delete='false'>
+				<field name="product_id"/>
+				<field name="product_standard_price"/>
+				<field name="product_total_price" optional="hide"/>
+				<field name="product_sale_price"/>
+				<field name="account_id" optional="hide"/>
+				<field name="res_partner_id"/>
+				<field name="last_date" optional="hide"/>
+				<field name="analytic_distribution" widget="analytic_distribution" optional="hide"/>
+				<field name="uom_id"/>
+				<field name="qty" sum="SUM"/>
+				<field name="available_qty" sum="SUM" optional="hide"/>
+				<field name="available_qty_template" sum="SUM" optional="hide"/>
+				<field name="reserved_qty" sum="SUM" optional="hide"/>
+				<field name="delivered_qty" sum="SUM" optional="hide"/>
+				<field name="sub_total" sum="SUM"/>
+			</tree>
+		</field>
+	</record>
+
+
+	<record id="view_stock_product_other_expense_line_search_inherit" model="ir.ui.view">
+		<field name="name">stock_other_expense_line_search</field>
+		<field name="model">stock.product.other.expense.line</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<search>
+				<group expand="0" string="Бүлэглэх">
+					<filter name="res_partner" string="Ажилтан" context="{'group_by':'res_partner_id'}"/>
+					<filter name="product" string="Бараа" context="{'group_by':'product_id'}"/>
+				</group>
+				<field name="product_id"/>
+				<field name="res_partner_id"/>
+				<field name="analytic_distribution" widget="analytic_distribution"/>
+				<field name="last_date"/>
+				<field name="uom_id"/>
+				<field name="product_standard_price"/>
+				<field name="qty"/>
+			</search>
+		</field>
+	</record>
+	
+
+	<record id="action_product_other_expense_line" model="ir.actions.act_window">
+		<field name="name">Шаардахын тайлан ажилтанаар</field>
+		<field name="res_model">stock.product.other.expense.line</field>
+		<field name="view_mode">tree</field>
+		<field name="search_view_id" ref="view_stock_product_other_expense_line_search_inherit"/>
+		<field name="view_id" ref="view_stock_product_other_expense_line_tree_inherit"/>
+		<field name='domain'>[('product_id.is_registration','=',True),('state_type','=','done')]</field>
+		<field name="context">{'search_default_res_partner':1,'search_default_product':1}</field>
+	</record>
+
+	<menuitem id="menu_product_other_expense_line" name='Шаардахын тайлан/ажилтанаар/' action="action_product_other_expense_line" parent="mw_hse_ppe_registration.ppe_registration_menu" sequence="3"/>
+	
+</odoo>

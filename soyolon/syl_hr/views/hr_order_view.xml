@@ -1,0 +1,285 @@
+<odoo>
+    <record id="view_hr_order_inherit_form_view" model="ir.ui.view">
+		<field name="name">hr.order.extension</field>
+		<field name="model">hr.order</field>
+		<field name="inherit_id" ref="mw_hr_order.view_hr_order_form"/>
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name='wage']" position="replace">
+			</xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+				<field name="state" widget="statusbar" statusbar="draft,send,done,canceled,approve" statusbar_colors='{"draft":"red","send":"red","done":"red","sent":"red","canceled":"orange"}'/>
+			</xpath>
+            <xpath expr="//button[@name='action_draft']" position="replace">
+	            <button string="Ноороглох" name="action_draft"  type="object" class="oe_highlight"  groups='mw_hr.group_hr_confirm' states="send,done,canceled,approve,sent"/>
+			</xpath>
+            <xpath expr="//button[@name='action_done']" position="after">
+				<button string="Ажилтанд илгээх" name="action_send_email"  states="done"  type="object" class="oe_highlight"/>
+			</xpath>
+            <xpath expr="//field[@name='is_wage_change']" position="after">
+                <field name='salary_code' attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('is_wage_change', '!=', True)]}" />
+                <field name= 'insured_type_id' attrs="{'invisible': [('type', 'not in', ('type1','type2'))]}"/>
+				<field name="order_att_ids_done"  widget="many2many_binary"/>
+			</xpath>
+            <xpath expr="//field[@name='new_wage']" position="replace">
+			</xpath>
+			<xpath expr="//field[@name='doc_employee_id']" position="after">
+				 <field name="manager_emp_id" options="{'no_create':True}"/>
+			</xpath>
+            <xpath expr="//field[@name='is_wage_change']" position="before">
+				<field name="remain_date" attrs="{'invisible': [('type', 'not in', ('type13'))]}"/>
+				<field name="remain_end_date" attrs="{'invisible': [('type', 'not in', ('type13'))]}"/>
+			</xpath>
+			<xpath expr="//field[@name='department_id_after']" position="replace">
+				<field name="department_id_after" attrs="{'invisible': [('type','not in',('type4','type1','type2'))]}" options="{'no_create':True}"/> 
+			</xpath>
+			<xpath expr="//field[@name='job_id_after']" position="replace">
+				<field name="job_id_after" attrs="{'invisible': [('type','not in',('type4','type1','type2'))]}" options="{'no_create':True}"/> 
+				<field name="work_location_id"  options="{'no_create':True}"/> 
+			</xpath>
+            <xpath expr="//field[@name='description']" position="after">
+				<field name="is_rest" attrs="{'invisible': [('type', 'not in', ('type14'))]}"/>
+				<field name="reward" attrs="{'invisible': [('type', '!=','type5')]}"/>
+				<field name="train_name" attrs="{'invisible': [('type', '!=','type15')]}"/>
+				<field name="train_cost" attrs="{'invisible': [('type', '!=','type15')]}"/>
+				<field name="train_cost_ch" invisible='1'/>
+				<field name="train_cost_str" invisible='1'/>
+			</xpath>
+            <xpath expr="//field[@name='starttime']" position="after">
+			   <field name="trial" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('type', 'not in', ('type2','type9'))]}"/>
+			</xpath>
+            <xpath expr="//field[@name='endtime']" position="after">
+				<field name="salary_tootsoh_day" attrs="{'invisible': [('type', 'not in', ('type14'))]}"/>
+				<field name="applied_date" attrs="{'invisible': [('type', 'not in', ('type9'))]}"/>
+			</xpath>
+			<xpath expr="//field[@name='start_date']" position="after">
+				<field name="start_date" attrs="{'invisible': [('type', 'not in', ('type10','type7','type8','type6'))]}"/>
+			</xpath>
+			<xpath expr="//field[@name='end_date']" position="after">
+				<field name="end_date" attrs="{'invisible': [('type', 'not in', ('type10','type7','type8','type6'))]}"/>
+			</xpath>
+            <xpath expr="//field[@name='starttime']" position="after">
+				<field name="applied_date" attrs="{'invisible': [('type', '!=','type6')]}"/>
+			</xpath>
+            <xpath expr="//field[@name='end_days']" position="after">
+				<field name="is_salary_day" attrs="{'invisible': [('type', '!=','type13')]}"/>
+			</xpath>
+			 <xpath expr="//field[@name='description']" position="after">
+				<field name="article" attrs="{'invisible': [('type', '!=','type10')]}"/>
+			</xpath>
+        </field>
+    </record>
+
+	<record id="cron_vac_day" model="ir.cron">
+        <field name="name">Ээлжийн амралт олгоход 20 хоног үлдлээ</field>
+        <field name="model_id" ref="model_hr_order"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model.vacation_date_notification()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+
+<!--Тушаалын төрөл -->
+    <record model="ir.ui.view" id="hr_order_type_form_view">
+        <field name="name">hr_order_type_form</field>
+        <field name="model">hr.order.type</field>
+		<field name="inherit_id" ref="mw_hr_order.hr_order_type_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name='type'/>
+			</xpath>
+            <xpath expr="//field[@name='type']" position="replace">
+			</xpath>
+        </field>
+    </record>    
+
+	<record id="maternity_leave_120" model="ir.actions.report">
+			<field name="name">Хүүхэд асрах чөлөө</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_kids</field>
+			<field name="report_file">mw_hr_order.for_kids</field>
+			<field name="print_report_name">'Хүүхэд асрах чөлөө'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_kids">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="punishment_alone" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл ганцаарчилсан</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_punishment_alone</field>
+			<field name="report_file">mw_hr_order.for_punishment_alone</field>
+			<field name="print_report_name">'Сахилгын шийтгэл ганцаарчилсан'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_punishment_alone">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="punishment_all" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл нийтийн</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_all</field>
+			<field name="report_file">mw_hr_order.for_all</field>
+			<field name="print_report_name">'Сахилгын шийтгэл нийтийн'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_all">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="punishment_decr" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл албан тушаал бууруулах</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_decr</field>
+			<field name="report_file">mw_hr_order.for_decr</field>
+			<field name="print_report_name">'Сахилгын шийтгэл албан тушаал бууруулах'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_decr">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="punishment_decr_salary" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл цалин бууруулах</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_decr_salary</field>
+			<field name="report_file">mw_hr_order.for_decr_salary</field>
+			<field name="print_report_name">'Сахилгын шийтгэл цалин бууруулах'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_decr_salary">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="work_online" model="ir.actions.report">
+			<field name="name">Зайнаас ажиллуулах</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_work_online</field>
+			<field name="report_file">mw_hr_order.for_work_online</field>
+			<field name="print_report_name">'Зайнаас ажиллуулах'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_work_online">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="special_condition" model="ir.actions.report">
+			<field name="name">Онцгой нөхцлөөр ажиллуулах</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_special_condition</field>
+			<field name="report_file">mw_hr_order.for_special_condition</field>
+			<field name="print_report_name">'Онцгой нөхцлөөр ажиллуулах'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_special_condition">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="allowance" model="ir.actions.report">
+			<field name="name">Тэтгэмж</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_allowance</field>
+			<field name="report_file">mw_hr_order.for_allowance</field>
+			<field name="print_report_name">'Тэтгэмж'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_allowance">
+			<t t-value="null">
+			</t>
+		</template>
+	<record id="vacation" model="ir.actions.report">
+			<field name="name">Жирэмсний амралт</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.for_vac</field>
+			<field name="report_file">mw_hr_order.for_vac</field>
+			<field name="print_report_name">'Жирэмсний амралт'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_pregnant">
+			<t t-value="null">
+			</t>
+		</template>
+
+	<record id="dec_job" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл ногдуулах/ албан тушаал бууруулах/</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.dec_job</field>
+			<field name="report_file">mw_hr_order.dec_job</field>
+			<field name="print_report_name">'Сахилгын шийтгэл ногдуулах/ албан тушаал бууруулах/'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_dec_job">
+			<t t-value="null">
+			</t>
+		</template>
+
+	<record id="discipline_all" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл ногдуулах/ нээлттэй сануулах /</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.discipline_all</field>
+			<field name="report_file">mw_hr_order.discipline_all</field>
+			<field name="print_report_name">'Сахилгын шийтгэл ногдуулах/ нээлттэй сануулах /'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_discipline_all">
+			<t t-value="null">
+			</t>
+		</template>
+		
+	<record id="discipline_priv" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл ногдуулах/ хаалттай сануулах /</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.discipline_priv</field>
+			<field name="report_file">mw_hr_order.discipline_priv</field>
+			<field name="print_report_name">'Сахилгын шийтгэл ногдуулах/хаалттай сануулах /'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_discipline_priv">
+			<t t-value="null">
+			</t>
+		</template>
+
+	<record id="discipline_perc" model="ir.actions.report">
+			<field name="name">Сахилгын шийтгэл ногдуулах/ хувь бууруулах /</field>
+			<field name="model">hr.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">mw_hr_order.discipline_perc</field>
+			<field name="report_file">mw_hr_order.discipline_perc</field>
+			<field name="print_report_name">'Сахилгын шийтгэл ногдуулах/ хувь бууруулах /'</field>
+			<field name="binding_model_id" ref="model_hr_order"/>
+			<field name="binding_type">report</field>
+	</record>
+		<template id="for_discipline_perc">
+			<t t-value="null">
+			</t>
+		</template>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="other_bank_report_view" model="ir.ui.view">
+            <field name="name">other.bank.report.wizard</field>
+            <field name="model">other.bank.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form>
+                    <group>
+                        <group>
+                            <field name="company_id" />
+                            <field name="date" />
+                        </group>
+                        <group>
+                            <!-- <field name="long_salary_id" /> -->
+                            <field name="bank_id" />
+                           
+                        </group>
+                    </group>
+                    <footer>
+                        <button icon="fa-times" special="cancel" string="Хаах"/>
+                        <button name="export_report" string="Татах" type="object" 
+                            icon="fa-file-excel-o" class="oe_highlight"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_other_bank_report" model="ir.actions.act_window">
+            <field name="name">УЖ банкинд илгээх тайлан </field>
+            <field name="res_model">other.bank.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="other_bank_report_view"/>
+            <field name="target">new</field>
+        </record>
+   
+        <!-- <menuitem id="menu_other_bank_report" action="action_other_bank_report" 
+        parent="mw_salary.menu_finance_salary_report" sequence="4" groups='group_salary_hybo'/> -->
+
+    </data>
+</openerp>

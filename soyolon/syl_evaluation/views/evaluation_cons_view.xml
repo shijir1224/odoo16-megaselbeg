@@ -1,0 +1,218 @@
+
+
+<odoo>
+    <record id="view_hr_evaluation_cons_filter" model="ir.ui.view">
+        <field name="name">hr.evaluation.cons.search</field>
+        <field name="model">hr.evaluation.cons</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <group expand="0" string="Group By..">
+                    <filter name="state" string="Төлөв" icon="terp-personal" context="{'group_by':'state'}"/>
+                    <filter name="year" string="Жил"  context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар"  context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hr_evaluation_cons_form" model="ir.ui.view">
+        <field name="name">hr.evaluation.cons.form</field>
+        <field name="model">hr.evaluation.cons</field>
+        <field name="arch" type="xml">
+            <form string="Үнэлгээ" delete='false'>
+                <header>
+                    <button string="Илгээх" name="action_send" type="object" states='draft' class="oe_highlight" />
+                    <button string="Хянах" name="action_confirm" type="object" states='sent' class="oe_highlight"/>
+                    <button string="Баталсан" name="action_confirm_hr" type="object" states='confirm' class="oe_highlight"/>
+                    <button string="Хүлээж авсан" name="action_done" type="object" states='confirm_hr' class="oe_highlight"/>
+                    <button string="Буцаах" name="action_return" type="object" states='confirm_hr' class="oe_highlight"/>
+                    <button string="Ноороглох" name="action_draft" type="object" states='sent,done,confirm_hr,confirm' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,confirm_hr,done" statusbar_colors='{"draft":"gray","send":"blue"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="year"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="month"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                         <group>
+                            <field name="work_location_id" options='{ "no_create": True}' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="company_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="date_from"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="date_to"  attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                           
+                            <field name="employee_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                            <field name="h_emp_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                             <field name="confirm_emp_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                        </group>
+                        <group>
+                            <button string="Ажилчид татах" name="line_create" type="object" states='draft' class="btn-success"/>
+                            <button string="Үнэлгээ тооцоолох" name="compute_line" type="object" states='draft' icon = "fa-import" class="btn-primary"/>
+                            <button string="Хэвлэх" name="action_print" type="object"  icon = "fa-print" class="btn-info" groups='mw_hr.group_hr_confirm'/>
+                        </group>
+                        <group>
+                            <field name="data"/>
+                            <button string="Импортлох" name="action_import" type="object" class="oe_highlight" icon = "fa-import"/>
+                        </group>
+                        <notebook>
+                            <page string="Үзүүлэлт" name ='hr_evaluation_line'>
+                                
+                                <field name="line_ids" widget="one2many_list">
+                                    <tree editable='bottom'>
+                                        <field name="department_id" class="text-wrap" style="max-width:600px"/>
+                                        <field name="employee_id" sum='SUm'/>
+                                        <field name="job_id"/>
+                                        <field name="daily_score" sum='sum'   attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="plan_score"  sum='SUm'  attrs="{'readonly':[('state','!=','draft')]}" />
+                                        <field name="team_score"  sum='sum'    attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="total_score"  sum='sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="hour_to_work"  sum='sum'  attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                                        <field name="worked_hour"  sum='sum'  attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                                        <field name="leave_day"  sum='sum'  attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                                        <field name="att_procent"  sum='sum'  attrs="{'readonly':[('state','!=','draft')]}" optional='hide'/>
+                                        <field name="descrition"  sum='sum'  attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="state" optional='hide' />
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_evaluation_cons_tree" model="ir.ui.view">
+        <field name="name">hr.evaluation.cons.tree</field>
+        <field name="model">hr.evaluation.cons</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='draft'" decoration-info="state == 'sent'" decoration-warning="state == 'done'" >
+                <field name="year"/>
+                <field name="month"/>
+                <field name="work_location_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_evaluation_cons_action" model="ir.actions.act_window">
+        <field name="name">Гүйцэтгэлийн үнэлгээ нэгтгэл</field>
+        <field name="res_model">hr.evaluation.cons</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_year':1,'search_default_month':1}</field>
+        <field name="search_view_id" ref="view_hr_evaluation_cons_filter"/>
+    </record>
+
+    <menuitem id="hr_evaluation_cons_menu" parent="hr_evaluation_plan_main_menu" action="hr_evaluation_cons_action"  sequence='3' groups='mw_hr_evaluation.group_evaluation_manager'/>
+
+<!-- Ажилтнууд өөрийн гүйцэтгэл нэгтгэл харах -->
+
+     <record id="view_hr_evaluation_cons_line_filter" model="ir.ui.view">
+        <field name="name">hr.evaluation.cons.line.search</field>
+        <field name="model">hr.evaluation.cons.line</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <group expand="0" string="Group By..">
+                    <filter name="state" string="Төлөв" icon="terp-personal" context="{'group_by':'state'}"/>
+                    <filter name="year" string="Жил"  context="{'group_by':'year'}"/>
+                    <filter name="month" string="Сар"  context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hr_evaluationcons_line_form" model="ir.ui.view">
+        <field name="name">hr.evaluation.cons.line.form</field>
+        <field name="model">hr.evaluation.cons.line</field>
+        <field name="arch" type="xml">
+            <form string="Үнэлгээ" delete='false' edit='false' create='false'>
+                 <header>
+                    <button string="Зөвшөөрөх" name="action_emp_done" type="object" states='draft' class="oe_highlight" />
+                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,done,done_emp" statusbar_colors='{"draft":"gray","send":"blue"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="employee_id"  options='{ "no_open": True}'/>
+                            <field name="department_id"  options='{ "no_open": True}'/>
+                            <field name="job_id"  options='{ "no_open": True}'/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="daily_score"/>
+                            <field name="plan_score"/>
+                            <field name="team_score"/>
+                            <field name="total_score"/>
+                            <field name="descrition"/>
+                        </group>
+                     </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_evaluation_cons_line_tree" model="ir.ui.view">
+        <field name="name">hr.evaluation.cons.line.tree</field>
+        <field name="model">hr.evaluation.cons.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='draft'" decoration-info="state == 'sent'" decoration-warning="state == 'done'" delete='false' edit='false' create='false'>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="daily_score"/>
+                <field name="plan_score"/>
+                <field name="team_score"/>
+                <field name="total_score"/>
+                <field name="descrition"/>
+                 <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_evaluationcons_line_action" model="ir.actions.act_window">
+        <field name="name">Үнэлгээ нэгтгэл</field>
+        <field name="res_model">hr.evaluation.cons.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+        <field name="context">{'search_default_year':1,'search_default_month':1}</field>
+        <field name="search_view_id" ref="view_hr_evaluation_cons_line_filter"/>
+    </record>
+
+    <menuitem id="hr_evaluationcons_line_menu" parent="hr_evaluation_plan_main_menu" action="hr_evaluationcons_line_action"  sequence='5' />
+
+    <record id="view_employee_form_syl_ev" model="ir.ui.view">
+		<field name="name">hr.employee.extension</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mw"/>
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name='ttd_number']" position="after">
+                <field name="is_shu"/>
+            </xpath>
+            <xpath expr="//page[@name='employee_info']" position="after">
+                <page string="Үнэлгээ нэгтгэл" name ='hr_evaluation_cons'>   
+                    <field name="ev_cons_ids" widget="one2many_list">
+                        <tree decoration-danger="state=='draft'" decoration-info="state == 'sent'" decoration-warning="state == 'done'" delete='false' edit='false' create='false'>
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="daily_score"/>
+                            <field name="plan_score"/>
+                            <field name="team_score"/>
+                            <field name="total_score"/>
+                            <field name="descrition"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

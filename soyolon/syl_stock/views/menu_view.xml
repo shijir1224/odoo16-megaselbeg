@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="stock.all_picking" name="Transfers" parent="stock.menu_stock_warehouse_mgmt" sequence="1" action="stock.action_picking_tree_all" groups="stock.group_stock_manager,stock.group_stock_user"/>
+	<menuitem id="stock_quality_notification_menu" name="Шаардлага хангаагүй барааны мэдэгдэл хүлээн авах" parent="stock.menu_stock_config_settings" sequence="9" action="action_stock_quality_notification"/>
+	<menuitem id="menu_stock_norm_multi" name="Product Standard" parent="stock.menu_stock_warehouse_mgmt" action="action_stock_norm" sequence="98"/>
+	<menuitem id="menu_product_defective_report" action="action_product_defective_report" parent="stock.menu_warehouse_report" sequence="13"/>
+	<menuitem id="menu_standart_cost_location_report" action="action_standart_cost_location_report" parent="stock.menu_warehouse_report" sequence="14"/>
+	<menuitem id="menu_pr_mail_settings" name='Нөхөн дүүргэлт мэйл хүлээн авах' action="action_pr_mail_settings" parent="stock.menu_stock_config_settings" sequence="100"/>
+</odoo>

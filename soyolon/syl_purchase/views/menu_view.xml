@@ -1,0 +1,110 @@
+<odoo>
+	<!-- Purchase request -->
+	<menuitem id="purchase_request_menu" 
+		name="Хүсэлт" 
+		parent="mw_purchase_request.purchase_request_root_menu" 
+		sequence="1"/>
+
+		<menuitem id="purchase_request_add_new_menu" 
+			name="Миний хүсэлт" 
+			parent="purchase_request_menu" 
+			action="mw_purchase_request.action_purchase_request_view" sequence="1"/>
+
+		<menuitem id="my_purchase_request_line_menu" 
+				name="Миний хүсэлтийн мөр" 
+				parent="purchase_request_menu" 
+				action="action_my_purchase_request_line" sequence="2"/>
+
+		<menuitem id="mw_purchase_request.pr_my_approve_menu" 
+			name="Миний батлах хүсэлт" 
+			parent="purchase_request_menu" 
+			action="mw_purchase_request.action_pr_my_approve" sequence="2"/>
+
+		<menuitem id="pr_po_comparison_my_approve_menu"
+			name="Миний батлах харьцуулалт" 
+			parent="purchase_request_menu" 
+			action="mw_purchase_comparison_dynamic_flow.action_po_comparison_my_approve" 
+			sequence="3"/>
+
+		<menuitem id="purchase_request_add_new_all_menu" 
+			name="Бүх хүсэлт" 
+			parent="purchase_request_menu" 
+			action="mw_purchase_request.action_purchase_request_all_view" 
+			sequence="4" 
+			groups="mw_purchase_request.group_mw_purchase_request_all_view"/>
+
+		<menuitem id="purchase_request_line_menu" 
+			name="Хүсэлтийн мөр" 
+			parent="purchase_request_menu" 
+			sequence="5" 
+			groups="mw_purchase_request.group_mw_purchase_request_manager"/>
+
+			<menuitem id="purchase_request_line_my_menu" 
+				name="Миний хийх" 
+				parent="purchase_request_line_menu" 
+				action="mw_purchase_request.action_purchase_request_line_my_view" sequence="1"/>
+
+			<menuitem id="purchase_request_line_all_menu" 
+				name="Бүх хүсэлтийн мөр" 
+				parent="purchase_request_line_menu" 
+				action="mw_purchase_request.action_purchase_request_line_view" sequence="3" 
+				groups="mw_purchase_request.group_purchase_request_line_all_view"/>
+
+	<menuitem id="product_research_menu" 
+		name="Судалгаа" 
+		parent="mw_purchase_request.purchase_request_root_menu" 
+		sequence="2"/>
+
+		<menuitem id="product_quality_research_menu" 
+			name="Барааны чанарын судалгаа" 
+			parent="product_research_menu" 
+			action='action_product_quality_research' 
+			sequence="1"/>
+
+		<menuitem id="supplier_research_menu" 
+			name="Бэлтгэн нийлүүлэгчийн судалгаа" 
+			parent="product_research_menu" 
+			action='action_supplier_research' 
+			sequence="2"/>
+
+	<menuitem id="soyolon_pr_report_menu" 
+		name="Хүсэлтийн тайлан пивот" 
+		action="action_soyolon_pr_report" sequence="5" 
+		parent="mw_purchase_request.purchase_request_report"/>
+
+	<menuitem id="purchase_request_config_menu" 
+		name="Тохиргоо" 
+		parent="mw_purchase_request.purchase_request_root_menu" 
+		sequence="6"/>
+
+		<menuitem id="purchase_request_priority_menu" 
+			name="Зэрэглэлийн төрөл" 
+			parent="purchase_request_config_menu" 
+			action='action_purchase_request_priority' 
+			sequence="1"/>
+
+		<menuitem id="purchase_request_create_selection_menu" 
+			name="Шийдвэрийн төрөл" 
+			parent="purchase_request_config_menu" 
+			action='action_purchase_request_create_selection' 
+			sequence="2"/>
+
+	<!-- Purchase order -->
+	<menuitem id="account_purchase_payment_term_form" 
+		name="Төлбөрийн нөхцөл" 
+		parent="purchase.menu_purchase_config" 
+		action='account.action_payment_term_form' 
+		sequence="25"/>
+
+	<menuitem id="menu_action_incoterm_open" 
+		name="Худалдааны нөхцөл" 
+		parent="purchase.menu_purchase_config" 
+		action='account.action_incoterms_tree' 
+		sequence="26"/>
+
+	<menuitem id="purchase_order_status_menu" 
+		name="Order status" 
+		parent="purchase.menu_purchase_config" 
+		action='action_purchase_order_status' 
+		sequence="27"/>
+</odoo>

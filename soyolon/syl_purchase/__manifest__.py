@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+
+{
+	'name': 'Soyolon Purchase',
+	'version': '1.0',
+	'sequence': 31,
+	'category': 'Purchase',
+	'author': 'Manlai Managewall LLC',
+	'description': """
+		Соёолон Худалдан авалт, Худалдан авалтын хүсэлт модуль
+		""",
+	'depends': ['product', 
+				'purchase', 
+				'purchase_stock', 
+				'stock', 
+				'account',
+				'product_brand',
+				'mw_purchase', 
+				'mw_purchase_expense',
+				'mw_purchase_expense_custom',
+				'mw_purchase_comparison',
+				'mw_purchase_comparison_dynamic_flow',
+				'mw_purchase_request', 
+				'mw_purchase_pre_payment',
+				'mw_purchase_partner_stock',
+				'mw_stock',
+				'syl_stock',
+				'populating_ms_word_template',
+				'mw_stock_moves'
+	],
+	'data': [
+		'security/security.xml',
+		'security/ir.model.access.csv',
+		'views/purchase_request_view.xml',
+		'views/purchase_order_view.xml',
+		'views/product_product_view.xml',
+		'views/wo_product_view.xml',
+		'reports/purchase_request_report_view.xml',
+		'reports/purchase_order_report_view.xml',
+		'views/menu_view.xml',
+	],
+	'installable': True,
+	'application': False,
+	'qweb': [],
+}

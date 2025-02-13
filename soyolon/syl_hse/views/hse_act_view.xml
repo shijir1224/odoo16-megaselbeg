@@ -1,0 +1,7 @@
+<odoo>
+
+	<record model="ir.ui.menu" id="mw_hse.menu_accident_research_act">
+		<field name="action" eval="False"/>
+	</record>
+
+</odoo>

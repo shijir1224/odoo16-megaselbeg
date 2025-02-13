@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Зогсолтын шалтгаан" 
+        parent="mw_technic_maintenance.maintenance_setting_menu"
+		id="mw_technic_maintenance.maintenance_delay_reason_menu" 
+        sequence="7" 
+        action="mw_technic_maintenance.action_maintenance_delay_reason" />
+
+</odoo>
+

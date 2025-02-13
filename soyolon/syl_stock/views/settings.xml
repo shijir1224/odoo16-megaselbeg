@@ -1,0 +1,89 @@
+<odoo>
+	<record model="ir.actions.act_window" id="action_stock_norm_types">
+		<field name="name">Stock Norm Types</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">stock.norm.types</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	<record id="stock_norm_types_form" model="ir.ui.view">
+		<field name="name">Stock Norm Types</field>
+		<field name="model">stock.norm.types</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name='name' />
+							<field name='active_is' widget='boolean_toggle'/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="stock_norm_types_tree" model="ir.ui.view">
+		<field name="name">Stock Norm Types</field>
+		<field name="model">stock.norm.types</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name='name' widget='badge'/>
+				<field name='active_is' widget='boolean_toggle'/>
+			</tree>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="action_pr_mail_settings">
+		<field name="name">PR Mail settings</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">pr.mail.settings</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	<record id="pr_mail_settings_form" model="ir.ui.view">
+		<field name="name">PR Mail settings form</field>
+		<field name="model">pr.mail.settings</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<field name='state' widget='statusbar'/>
+					<button string='Батлах' name='action_approve' type='object' class='oe_highlight' attrs="{'invisible':[('state','!=','draft')]}" /> 
+					<button string='Цуцлах' name='action_cancel' type='object' class='oe_highlight' attrs="{'invisible':[('state','!=','approved')]}"/> 
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name='name' attrs="{'readonly':[('state','=','approved')]}"/>
+							<field name='user_id' readonly='1' save_force='1' />
+							<field name='date' readonly='1' save_force='1' />
+						</group>
+						<group>
+							<field name="category_ids" widget="many2many_tags"/>
+						</group>
+					</group>
+					<field name='user_ids' attrs="{'readonly':[('state','=','approved')]}">
+						<tree editable='bottom' nolabel='1'>
+							<field name='partner_id'/>
+							<field name='job_position'/>
+							<field name='department_id'/>
+						</tree>
+						<form>
+							<group>
+								<field name='partner_id'/>
+								<field name='job_position'/>
+								<field name='department_id'/>
+							</group>
+						</form>
+					</field>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="pr_mail_settings_tree" model="ir.ui.view">
+		<field name="name">PR Mail settings tree</field>
+		<field name="model">pr.mail.settings</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name='name'/>
+				<field name='state'/>
+			</tree>
+		</field>
+	</record>
+</odoo>

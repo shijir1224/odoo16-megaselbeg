@@ -1,0 +1,48 @@
+<odoo>
+    <!-- Employee Count Report -->
+    <record id="view_age_pivot_report_syl" model="ir.ui.view">
+        <field name="name">hr.age.pivot.report.syl.pivot</field>
+        <field name="model">hr.age.pivot.report.syl</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="age_category" type="col"/>
+                 <!-- <field name="birthday" type="col"/> -->
+            </pivot>
+        </field>
+    </record>
+     <record id="view_age_pivot_report_tree_syl" model="ir.ui.view">
+        <field name="name">hr.age.pivot.report.syl.tree</field>
+        <field name="model">hr.age.pivot.report.syl</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="emp_id"/>
+                <field name="gender"/>
+                <field name="birthday"/>
+                <field name="age_category"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_age_pivot_report_search_syl" model="ir.ui.view">
+        <field name="name">hr.age.pivot.report.syl.search</field>
+        <field name="model">hr.age.pivot.report.syl</field>
+        <field name="arch" type="xml">
+            <search >
+                <field name="age_average"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_age_pivot_report_syl" model="ir.actions.act_window">
+        <field name="name">Насны ангилал/Generation/</field>
+        <field name="res_model">hr.age.pivot.report.syl</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="search_view_id" ref="view_age_pivot_report_search_syl"/>
+        <field name="context">{"search_default_status":1}</field>
+    </record>
+
+
+    <menuitem action="action_age_pivot_report_syl" id="menu_age_pivot_report_syl" parent="mw_hr.menu_human_recource_report" sequence="1"/>
+
+</odoo>

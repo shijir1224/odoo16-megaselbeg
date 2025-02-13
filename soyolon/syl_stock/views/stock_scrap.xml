@@ -1,0 +1,64 @@
+<odoo>
+ 	<record id="inherit_stock_scrap_form_view" model="ir.ui.view">
+  	<field name="name">stock.scrap.form</field>
+  	<field name="model">stock.scrap</field>
+		<field name="inherit_id" ref='stock.stock_scrap_form_view'/>
+  	<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_validate']" position='replace'>
+        <button name="action_validate" states="draft" string="Validate" type="object" class="oe_highlight" context="{'not_unlink_on_discard': True}" data-hotkey="v" invisible='1'/>
+			</xpath>
+			 <xpath expr="//field[@name='date_done']" position='after'>
+        <field name='description'/>
+        <field name='attachment_ids' widget="many2many_binary"/>
+      </xpath>
+		</field>
+	</record>
+	<record id="inherit_stock_scrap_form_view2" model="ir.ui.view">
+    <field name="name">stock.scrap.form2</field>
+    <field name="model">stock.scrap</field>
+		<field name="inherit_id" ref='stock.stock_scrap_form_view2'/>
+    <field name="arch" type="xml">
+			<xpath expr="//button[@name='action_validate']" position='replace'>
+        <button name="action_validate" string="Done" type="object" class="btn-primary" data-hotkey="q" invisible='1'/>
+			</xpath>
+			<xpath expr="//field[@name='location_id']" position='replace'>
+				<field name='location_id' string='Гарах байрлал'/>
+			</xpath>
+		</field>
+	</record>
+	<record id="inherit_stock_scrap_multi_form_view" model="ir.ui.view">
+		<field name="name">stock.scrap.multi.form</field>
+		<field name="model">stock.scrap.multi</field>
+		<field name='inherit_id' ref='mw_stock.stock_scrap_multi_form_view'/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='scrap_lines']/form/header/button[@name='action_validate']" position='replace'>
+				<button name="action_validate" states="draft" string="Validate" type="object" class="oe_highlight" context="{'not_unlink_on_discard': True}" data-hotkey="v" invisible='1'/>
+			</xpath>
+		</field>
+	</record>
+	<record id="inherit_view_picking_withcarrier_out_form" model="ir.ui.view">
+  	<field name="name">delivery.stock.picking_withcarrier.form.view</field>
+  	<field name="model">stock.picking</field>
+  	<field name="inherit_id" ref="mw_stock.view_picking_withcarrier_out_form"/>
+  	<field name="arch" type="xml">
+			<xpath expr="//button[@name='button_scrap']" position="attributes">
+        <attribute name="attrs">{'invisible' : [('picking_type_code','!=','internal')]}</attribute>
+      </xpath>
+		</field>
+	</record>
+
+	<record id="inherit_view_department_form" model="ir.ui.view">
+    <field name="name">hr.department.form</field>
+    <field name="model">hr.department</field>
+		<field name="inherit_id" ref='hr.view_department_form'/>
+    <field name="arch" type="xml">
+			<xpath expr="//field[@name='is_salhit']" position='after'>
+				<field name='is_po'/>
+			</xpath>
+		</field>
+	</record>
+	<record model="mail.channel" id="channel_stock_scrap">
+  	<field name="name">Гологдол</field>
+  	<field name="description">Гологдол мэдээлэл</field>
+	</record>
+</odoo>

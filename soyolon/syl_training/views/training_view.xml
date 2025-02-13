@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="training_req_form_syl">
+        <field name="name">training.request.forms</field>
+        <field name="model">training.request</field>
+        <field name="inherit_id" ref="mw_training.training_request_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='req']" position="after">                                                           
+                <group string=''></group>
+                    <b style="font-size:10.2pt">1. Тухайн сэдвээр мэргэшсэн сургалтын байгууллага, хүн байвал санал болгоно уу.
+                    </b>
+                    <field name="mentor" />                                                                                     
+                    <p></p>
+                    <b style="font-size:10.2pt" attrs="{'invisible': [('req_type', '!=','b')]}">2. Танай нэгжид таны хүссэн гүйцэтгэлд хүрэхгүй байгаа процессыг бичнэ үү.
+                    </b>
+                    <field name="process"  attrs="{'invisible': [('req_type', '!=','b')]}"/>                                                                                      
+                    <p></p>
+                    <b style="font-size:10.2pt" attrs="{'invisible': [('req_type', '!=','b')]}">3. Яагаад сайжруулах шаардлагатай гэж үзэж байгаа вэ?
+                    </b>
+                    <field name="process_def"  attrs="{'invisible': [('req_type', '!=','b')]}"/>                                                                                      
+                    <p></p>
+                    <b style="font-size:10.2pt" attrs="{'invisible': [('req_type', '!=','a')]}">2. Багийн гишүүдийн зан төлөв, багийн дэд соёлд гарч байгаа асуудлууд, сөрөг шинж тэмдгүүд
+                    </b>
+                    <field name="ask_skill"  attrs="{'invisible': [('req_type', '!=','a')]}"/>                                                                                     
+                    <p></p>
+                    <b style="font-size:10.2pt" attrs="{'invisible': [('req_type', '!=','a')]}">3. Тухайн сөрөг шинж тэмдгээс гарч буй үр дагавар
+                    </b>
+                    <field name="ask_skill_two"  attrs="{'invisible': [('req_type', '!=','a')]}"/>                                                                                      
+                    <p></p>
+                <group name='season' col='4' string='Улирал'>
+                    <field name="fi_season" />
+                    <field name="t_season" />   
+                    <field name="s_season" />                    
+                    <field name="fo_season" />                       
+                </group>
+       
+            </xpath>
+
+            <!-- <xpath expr="//group[@name='season']" position="after">
+                    <group col='4' string='Сар'>
+                        <field name="month_o" attrs="{'invisible': [('fi_season', '!=', True)]}"/>
+                        <field name="month_tw" attrs="{'invisible': [('fi_season', '!=', True)]}" />
+                        <field name="month_th" attrs="{'invisible': [('fi_season', '!=', True)]}"/>
+                        <field name="month_fo" attrs="{'invisible': [('s_season', '!=', True)]}"/>
+                        <field name="month_fi" attrs="{'invisible': [('s_season', '!=', True)]}"/>
+                        <field name="month_si" attrs="{'invisible': [('s_season', '!=', True)]}"/>
+                        <field name="month_se" attrs="{'invisible': [('t_season', '!=', True)]}"/>                        
+                        <field name="month_e" attrs="{'invisible': [('t_season', '!=', True)]}"/>                        
+                        <field name="month_n" attrs="{'invisible': [('t_season', '!=', True)]}"/>                        
+                        <field name="month_te" attrs="{'invisible': [('fo_season', '!=', True)]}"/>                          
+                        <field name="month_el" attrs="{'invisible': [('fo_season', '!=', True)]}"/>                          
+                        <field name="month_twl" attrs="{'invisible': [('fo_season', '!=', True)]}"/>                          
+                    </group>
+            </xpath> -->
+            <xpath expr="//field[@name='year']" position="after">
+                <field name="req_type"/>
+                <field name="is_need" />
+                <field name="name_id" attrs="{'invisible': [('is_need', '!=', True)]}" />
+                <field name="tr_date"  />
+            </xpath>
+            <xpath expr="//field[@name='month']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='exigency']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='sum_payment']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='create_date']" position="after">
+                <field name="result" />
+            </xpath>
+            <xpath expr="//field[@name='employee_ids']" position="replace">
+                <field name="employee_ids" editable="bottom" attrs="{'readonly': [('state', '!=','draft')]}"  domain="[('department_id','=',department_id)]">
+                    <tree string="Employees">
+                    <!-- '|',('employee_type','in',('employee','trainee','contractor')), -->
+                        <field name="name"/>
+                        <field name="department_id" options="{'no_create': True}"/>
+                        <field name="job_id" options="{'no_create': True}"/>
+                        <field name="company_id" options="{'no_create': True}"/>
+                    </tree>
+                </field>
+            </xpath>
+
+           
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_plan_form_syl">
+        <field name="name">training.plan.forms</field>
+        <field name="model">training.plan</field>
+        <field name="inherit_id" ref="mw_training.training_plan_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='month']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='name_id']" position="after">
+                <field name="type" optional="show"/>
+                <field name="teacher" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='budget']" position="before">
+                <field name="emp_time" optional="show"/>
+                <field name="each_amount" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='emp_count']" position="replace">
+                <field name="employee_count" optional="show"/>             
+            </xpath>
+            <xpath expr="//field[@name='line_ids']" position="after">
+                <group class="oe_subtotal_footer oe_right">
+                    <field name='tr_count' widget="monetary" force_save='1'/>
+                    <field name='all_employee' widget="monetary" force_save='1'/>
+                    <field name='all_time' widget="monetary" force_save='1'/>
+                    <field name='full_amount' widget="monetary" force_save='1'/>
+                </group>                 
+            </xpath>
+             <xpath expr="//field[@name='create_date']" position="after">
+                <field name='desc' attrs="{'readonly': [('state', '!=','draft')]}"/>
+             </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='name_id']" position="before">
+                <field name='req_type'/>
+             </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='company_id']" position="before">
+                <field name='fi_season' optional="show"/>
+                <field name='s_season' optional="show"/>
+                <field name='t_season' optional="show"/>
+                <field name='fo_season' optional="show"/>
+                <field name='tr_date'/>
+                <field name='employee_ids' widget="many2many_tags" force_save='1'/>
+             </xpath>
+        </field>
+    </record>
+
+
+ <record model="ir.ui.view" id="training_registration_form_syl">
+        <field name="name">training.registration.forms</field>
+        <field name="model">training.registration</field>
+        <field name="inherit_id" ref="mw_training.training_registration_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='organization']" position="replace">
+                <field name="place_id" attrs="{'readonly': [('state', '!=','draft')]}" options="{'no_create': True}"/>
+                <field name="loc_id" attrs="{'readonly': [('state', '!=','draft')]}" options="{'no_create': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='not_employee_count']" position="after">
+                <field name="employee_id" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                <field name="t_type" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                <field name="job_ids"  options="{'no_create':True}" widget='many2many_tags' attrs="{'readonly': [('state', '!=','draft')]}"/>
+                <button string="Ажилчид татах" states="draft" name="create_line" type="object" class="btn btn-success"/>
+                <button string="Үнэлгээ татах" states="done" name="create_rate_line" type="object" class="btn btn-success"/>
+                 <button string="Мэйл илгээх" name="action_send_notification_" type="object" class="btn btn-danger"/>
+            </xpath>
+            <xpath expr="//field[@name='evaluation']" position="replace">
+                 <field name="t_rate" attrs="{'readonly': [('state', '!=','draft')]}"/>
+            </xpath>
+             <xpath expr="//field[@name='not_employee_count']" position="after">
+                 <field name="att_procent" attrs="{'readonly': [('state', '!=','draft')]}"/>
+            </xpath>
+             <xpath expr="//field[@name='name_id']" position="after">
+                <field name="type_id" attrs="{'readonly': [('state', '!=','draft')]}" options="{'no_create': True}"/>
+                <field name="is_plan" attrs="{'readonly': [('state', '!=','draft')]}"/>
+                <field name="plan_line_id" attrs="{'readonly': [('state', '!=','draft')],'invisible': [('is_plan', '!=',True)]}" options="{'no_create': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']" position="replace">
+                <field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly': [('state', '!=','draft')]}">
+                    <form string="Ирц">
+                        <group col="4" colspan="4">
+                            <field name="job_id" options="{'no_create': True}"/>
+                            <field name="t_employee_id" options="{'no_create': True}" />
+                            <field name="score" />
+                            <field name="val_id" force_save='1' />
+                            <field name="attendance"/>
+                            <field name="reason" />
+                        </group>
+                    </form>
+                    <tree string="Ирц" editable="bottom">
+                        <field name="t_employee_id" options="{'no_create': True}" />
+                        <field name="job_id" options="{'no_create': True}"/>
+                        <field name="department_id" options="{'no_create': True}" optional='hide'/>
+                        <field name="score" sum='Sum'/>
+                        <field name="procent" sum='Sum' optional='hide'/>
+                        <field name="attendance"/>
+                        <field name="reason" />
+                        <field name="val_id" force_save='1'/>
+                    </tree>
+                </field>
+            </xpath>
+        </field> 
+    </record>
+
+<!-- Сургалт хөгжил нэгтгэж татах -->
+    <record model="ir.ui.view" id="training_registration_parent_form">
+        <field name="name">training.registration.parent.form</field>
+        <field name="model">training.registration.parent</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                 <header>
+                    <button string="Дуусгах" name="action_done" type="object" states='sent' class="oe_highlight" />
+                    <button string="Ноороглох" name="action_draft" type="object" states='sent,done,cancel' class="oe_highlight" groups='mw_training.group_training_manager'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"
+                        statusbar_colors='{"draft":"gray","send":"blue"}'/>
+                </header>      
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date"/>
+                        <button string="Татах" states="draft" name="create_line" type="object" class="btn btn-success"/>
+                    </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly': [('state', '!=','draft')]}">
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="name_id"/>
+                                                <field name="type"/>
+                                                <field name="t_type"/>
+                                                <field name="start_date" />
+                                                <field name="end_date"/>
+                                            </group>
+                                            <group>
+                                                <field name="plan_employee_count"/>
+                                                <field name="study_employee_count"/>
+                                                <field name="employee_cost"/>
+                                                <field name="cost"/>
+                                                <field name="is_plan"/>
+                                            </group>
+                                        </group>
+                                        <notebook>
+                                            <page string="Ирц">
+                                                <field name="line_ids" colspan="4" nolabel="1">
+                                                    <form string="Ирц">
+                                                        <group col="4" colspan="4">
+                                                            <field name="job_id" options="{'no_create': True}"/>
+                                                            <field name="t_employee_id" options="{'no_create': True}" />
+                                                            <field name="score" />
+                                                            <field name="reason" />
+                                                            <field name="attendance"/>
+                                                        </group>
+                                                    </form>
+                                                    <tree string="Ирц" editable="bottom">
+                                                        <field name="t_employee_id" options="{'no_create': True}" />
+                                                        <field name="job_id" options="{'no_create': True}"/>
+                                                        <field name="score" sum='Sum'/>
+                                                        <field name="reason" />
+                                                        <field name="attendance"/>
+                                                    </tree>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </form>
+                                    <tree string="Lines" >
+                                        <field name="name_id"/>
+                                        <field name="type"/>
+                                         <field name="t_type"/>
+                                        <field name="start_date" />
+                                        <field name="end_date"/>
+                                        <field name="plan_employee_count"/>
+                                        <field name="study_employee_count"/>
+                                        <field name="employee_cost"/>
+                                        <field name="cost"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_registration_parent_tree">
+        <field name="name">training.registration.parent.tree</field>
+        <field name="model">training.registration.parent</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="name"/>
+                <field name="date"/>
+                
+            </tree>
+        </field>
+    </record>
+    <record id="action_training_registration_parent" model="ir.actions.act_window">
+        <field name="name">Сургалт　хөгжил татах</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.registration.parent</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="training_registration_parent_menu" action="action_training_registration_parent"  parent="mw_training.training_parent_menu" sequence="2"/>
+
+<!--  -->
+    
+    <record model="ir.ui.view" id="training_registration_line_tree">
+        <field name="name">training.registration.line.tree</field>
+        <field name="model">training.registration.line</field>
+        <field name="arch" type="xml">
+            <tree string="Training" create='false' edit='false' delete='false' >
+                <field name="name_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="subject"/>
+                <field name="t_employee_id" options="{'no_create': True}" />
+                <field name="score" />
+                <field name="reason" />
+                <field name="attendance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_registration_line_pivot_view">
+        <field name="name">training.registration.line.pivot</field>
+        <field name="model">training.registration.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Received document pivot"  >
+                <field name="name_id" type="row"/>
+                <field name="score" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_registration_line_calendar_view">
+        <field name="name">training.registration.line.calendar</field>
+        <field name="model">training.registration.line</field>
+        <field name="arch" type="xml">
+            <calendar date_start="start_date" mode="month" quick_add="True">
+                <field name="name_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </calendar>
+        </field>
+    </record>
+
+     <record id="action_training_registration_line" model="ir.actions.act_window">
+        <field name="name">Сургалтын хуваарь</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.registration.line</field>
+        <field name="domain">[('t_employee_id.user_id','=',uid)]</field>
+        <field name="view_mode">calendar,tree</field>
+    </record>
+
+    <menuitem id="training_registration_line_menu" action="action_training_registration_line"  parent="mw_training.training_parent_menu" sequence="1"/>
+
+     <record model="ir.ui.view" id="training_plan_line_tree">
+        <field name="name">training.plan.line.tree</field>
+        <field name="model">training.plan.line</field>
+        <field name="arch" type="xml">
+            <tree string="Training" edit='false' >
+                <field name="parent_id"/>
+                <field name="name_id"/>
+                <field name="department_id"  options="{'no_create': True}"/>
+                <field name="emp_count"/>
+                <field name="budget"/>
+                <field name="company_id" options="{'no_create': True}"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="action_training_plan_line" model="ir.actions.act_window">
+        <field name="name">Сургалтын төлөвлөгөө задаргаа</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.plan.line</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="training_plan_line_menu" action="action_training_plan_line"  parent="mw_training.training_conf_menu" sequence="5"/>
+
+<!-- Сургалтын байгууллагууд цэс -->
+    <record model="ir.ui.view" id="training_place_form">
+        <field name="name">training.place.form</field>
+        <field name="model">training.place</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="address"/>
+                        <field name="phone"/>
+                        <field name="cost"/>
+                        <field name="history"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_place_tree">
+        <field name="name">training.place.tree</field>
+        <field name="model">training.place</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="phone"/>
+                <field name="cost"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_training_type" model="ir.actions.act_window">
+        <field name="name">Сургалтын байгууллагууд</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.place</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="training_type_menu" action="action_training_type"  parent="mw_training.training_conf_menu" sequence="3"/>
+
+
+<!--  -->
+    <record model="ir.ui.view" id="training_location_form">
+        <field name="name">training.location.form</field>
+        <field name="model">training.location</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_location_tree">
+        <field name="name">training.location.tree</field>
+        <field name="model">training.location</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_training_location" model="ir.actions.act_window">
+        <field name="name">Сургалтын болох байршил</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.location</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="training_location_menu" action="action_training_location"  parent="mw_training.training_conf_menu" sequence="3"/>
+
+
+<!-- Сургалтын үнэлгээ цэс -->
+
+    <record model="ir.ui.view" id="training_val_form">
+        <field name="name">training.val.form</field>
+        <field name="model">training.val</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="job_id"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group>
+                            <field name="training_reg_id"/>
+                            <field name="create_date"/>
+                              <field name="t_rate" />
+                        </group>
+                        <field name="tr_ask_ids">
+                            <tree editable="bottom">
+                                <field name="parent_id"/>
+                                <field name="answers" data-inputmask-regex="[0-5]" sum='Sum'/>
+                            </tree>
+                        </field>
+                      
+                        <field name="ask_one"/>
+                        <field name="ask_two"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_val_tree">
+        <field name="name">training.val.tree</field>
+        <field name="model">training.val</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="employee_id"/>
+                <field name="train_name" />
+                <field name="name_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_hr_train_view" model="ir.actions.act_window">
+        <field name="name">Сургалтын үнэлгээ</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.val</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_train_menu" action="action_hr_train_view"  parent="mw_hr.hr_emp_main_menu" sequence="8"/>
+
+
+<!-- Сургалтын үнэлгээний асуулт цэс -->
+
+    <record model="ir.ui.view" id="training_ask_form">
+        <field name="name">training.ask.form</field>
+        <field name="model">training.ask</field>
+        <field name="arch" type="xml">
+            <form string="Training">
+                <sheet>
+                    <group col="4">
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="training_ask_tree">
+        <field name="name">training.ask.tree</field>
+        <field name="model">training.ask</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_training_ask" model="ir.actions.act_window">
+        <field name="name">Сургалтын үнэлгээ</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">training.ask</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="training_ask_menu" action="action_training_ask"  parent="mw_training.training_conf_menu" sequence="4"/>
+
+</odoo>

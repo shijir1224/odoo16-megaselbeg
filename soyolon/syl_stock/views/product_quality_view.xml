@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="stock_quality_notification_tree_view" model="ir.ui.view">
+		<field name="name">stock.quality.notification.tree</field>
+		<field name="model">stock.quality.notification</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="user_ids"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="stock_quality_notification_form_view" model="ir.ui.view">
+		<field name="name">stock.quality.notification.form</field>
+		<field name="model">stock.quality.notification</field>
+		<field eval="25" name="priority" />
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="user_ids" widget="many2many_tags" options="{'no_create': True}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id='action_stock_quality_notification' model='ir.actions.act_window'>
+		<field name="name">Мэдэгдэл хүлээн авах</field>
+		<field name="res_model">stock.quality.notification</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

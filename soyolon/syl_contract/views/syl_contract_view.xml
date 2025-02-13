@@ -1,0 +1,305 @@
+ <odoo>
+ 
+    <record model="ir.ui.view" id="contract_type_form_view_erdes">
+        <field name="name">contract.type.form.erdes</field>
+        <field name="model">contract.type</field>
+        <field name="inherit_id" ref="mw_contract.contract_type_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                    <field name="number"/>
+            </xpath>                            
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="contract_payment_type_form_view">
+        <field name="name">contract.payment.type.form</field>
+        <field name="model">contract.payment.type</field>
+        <!-- <field name="inherit_id" ref="mw_contract.contract_type_form_view"/> -->
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name='name'/>
+                    </group>
+                </sheet>
+            </form>                           
+        </field>
+    </record>
+     <record model="ir.ui.view" id="contract_payment_type_tree_view">
+        <field name="name">contract.payment.type.tree</field>
+        <field name="model">contract.payment.type</field>
+        <field name="arch" type="xml">
+            <tree string="contract payment tree">
+               	<field name="name"/>
+            </tree>
+        </field>
+    </record>
+        <record model="ir.actions.act_window" id="action_contract_payment_type_view">
+        <field name="name">Төлбөрийн хэлбэр</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.payment.type</field>
+        <field name="view_mode">tree,form</field>
+     	<field name="view_id" ref="contract_payment_type_tree_view"/>
+     	<!-- <field name="context">{'search_default_years': 1,'search_default_type': 1}</field> -->
+    </record>
+
+    <menuitem id="contract_payment_type_menu" parent="mw_contract.menu_contract_conf" action="action_contract_payment_type_view" sequence="3"/>  
+
+    <record model="ir.ui.view" id="contract_process_type_form_view">
+        <field name="name">contract.process.type.form</field>
+        <field name="model">contract.process.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name='name'/>
+                    </group>
+                </sheet>
+            </form>                           
+        </field>
+    </record>
+     <record model="ir.ui.view" id="contract_process_type_tree_view">
+        <field name="name">contract.process.type.tree</field>
+        <field name="model">contract.process.type</field>
+        <field name="arch" type="xml">
+            <tree string="contract process tree">
+               	<field name="name"/>
+            </tree>
+        </field>
+    </record>
+        <record model="ir.actions.act_window" id="action_contract_process_type_view">
+        <field name="name">Гэрээний явцын төлөв</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.process.type</field>
+        <field name="view_mode">tree,form</field>
+     	<field name="view_id" ref="contract_process_type_tree_view"/>
+    </record>
+
+    <menuitem id="contract_process_type_menu" parent="mw_contract.menu_contract_conf" action="action_contract_process_type_view" sequence="5"/>  
+
+
+
+    <record model="ir.ui.view" id="contract_document_real_form_view_syl">
+        <field name="name">contract.document.real.form.syl</field>
+        <field name="model">contract.document.real</field>
+        <field name="inherit_id" ref="mw_contract.contract_document_real_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_to']" position="replace">
+                <field name="date_to" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='0'/>
+                <field name="no_date" required='0'/>
+            </xpath>           
+            <xpath expr="//field[@name='pay_sel']" position="replace">
+                <field name="part_type_id"/>
+            </xpath>           
+            <!-- <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" readonly='0'/>
+            </xpath>           
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </xpath>            -->
+            <!-- <xpath expr="//field[@name='process_type']" position="attributes">
+                <attribute name="attrs">{'readonly': [('state_type', 'not in', ['draft', 'sent', 'done'])]}</attribute>
+            </xpath>            -->
+            <xpath expr="//field[@name='payment_sum']" position="replace">
+                <field name="payment_sum"/>
+            </xpath>           
+            <xpath expr="//field[@name='date_from']" position="after">
+                <field name="in_deal_sum"/>
+            </xpath>                     
+            <xpath expr="//field[@name='in_deal']" position="replace">
+            </xpath>  
+            <!-- <xpath expr="//field[@name='date_to']" position='after'>
+                <field name='contract_days'/>
+                <field name='date_char'/>
+            </xpath>  -->
+            <!-- <xpath expr="//field[@name='process_type']" position="replace">
+                <field name="attachment_other" widget="many2many_binary"/>
+            </xpath>  -->
+            
+             <xpath expr="//group[1]" position='replace'>
+                <group  string='Ерөнхий мэдээлэл'>
+                <group >
+                    <field name="flow_id" options="{'no_create':True , 'no_create_edit':True, 'no_open': True}" required='1' attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                    <field name="name" readonly="0"/>
+                    <field name="type_id" />
+                    <field name="contract_name" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                    <field name="contract_idea" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                    <field name="in_foreign" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                </group>
+                 <group >
+                    <field name="company_type1" string='Гэрээлэгчийн төрөл' attrs="{'readonly': [('is_not_edit', '=', True)]}" />
+                    <field name="partner_id" string='Гэрээлэгчийн нэр' attrs="{'readonly': [('is_not_edit', '=', True)]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}" required='1'/>
+                    <field name="partner_register" string='Гэрээлэгчийн РД' attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                    <field name="contract_department_id"  attrs="{'readonly': [('is_not_edit', '=', True)]}"   options="{'no_create':True,'no_create_edit':True,'no_open':True}" />
+                    <field name="in_warrenty" attrs="{'readonly': [('is_not_edit', '=', True)]}"  widget='boolean_toggle'/>
+                    <field name="warrenty_date" attrs="{'readonly': [('is_not_edit', '=', True)],'invisible':[('in_warrenty','!=',True)]}"/>
+                    <field name="in_end" attrs="{'readonly': [('is_not_edit', '=', True)]}"  widget='boolean_toggle'/>
+                    <field name="other_desc" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                    <field name="file" attrs="{'readonly': [('is_not_edit', '=', True)]}"  widget="many2many_binary"/>
+                    <field name="connect_desc" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                </group>
+                </group>
+            </xpath>
+
+            <xpath expr="//group[@name='pay_info']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> 
+
+            <xpath expr="//group[3]" position="replace">
+                <group>
+                 
+                    <group string='Гэрээний төлбөр тооцоо' >
+                            <field name="payment_sum" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <!-- <field name="in_deal" attrs="{'readonly': [('is_not_edit', '=', True)]}" /> -->
+                            <field name="res_currency_id" attrs="{'readonly': [('is_not_edit', '=', True)]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="payment_type" attrs="{'readonly': [('is_not_edit', '=', True)]}"  invisible='1'/>
+
+                            <field name="payment_type_id" attrs="{'readonly': [('is_not_edit', '=', True)]}" required='1'/>
+                            <field name="not_date" invisible="1"/>
+                    </group>  
+                    
+                    <group string='Гэрээний хугацаа'>
+                        <field name="date_from" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                        <field name="date_to" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                        <field name="contract_days" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                        <field name="date_char" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                    </group>
+                
+                </group>
+
+            </xpath> 
+            
+            <xpath expr="//page[6]" position="after">
+                <page string='Гэрээний санал'>
+                    <field name='checklist_id' nolabel='1'>
+                        <tree editable='bottom'>
+                            <field name="user_id" options="{'no_create':True,'no_create_edit':True}"/>
+                            <field name="description" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath> 
+            <xpath expr="//field[@name='history_ids']" position="after" >
+                <!-- <button type='object' name ='update_flow_user_line' string='ppp'/> -->
+                <field name='flow_user_id' nolabel='1' >
+                    <tree editable='bottom'>
+                        <field name="user_id" options="{'no_create':True,'no_create_edit':True}"/>
+                        <field name="date" />
+                        <field name="flow_line_id" />
+                    </tree>
+                </field>
+            </xpath> 
+    
+            <xpath expr="//group[4]" position="replace" >
+                <group string="Гэрээ бүртгэлийн мэдээлэл" >
+                        <group>
+                            <field name="employee_id" attrs="{'readonly': [('is_not_edit', '=', True)]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}"  required='1'/>
+                            <field name="job_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="department_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="res_company_id" />
+                        </group>
+                        <group>
+                            <field name="create_date" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="date" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="part_type_id" attrs="{'readonly': [('is_not_edit', '=', True)]}"/>
+                            <field name="process_type" invisible='1'/>
+                            <field name="process_type_id" />
+                            <field name="attachment_other" widget="many2many_binary"/>
+                            <field name="attachment_act" widget="many2many_binary"/>
+
+                        </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_line_ids']/tree/field[@name='paid_amount']" position="after">
+                <button name="auto_contract_payment_request" string="Төлбөрийн хүсэлт үүсгэх" type="object"  class="btn-info"  />
+                <field name="payment_request_id"  readonly='1'/>
+                <field name="flow_line_id"  readonly='1'/>
+             </xpath>
+            <!-- <xpath expr="//page[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[4]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+        </field>
+    </record>
+    <record model="ir.ui.view" id="contract_document_real_tree_syl">
+		<field name="name">contract.document.real.tree.syl</field>
+		<field name="model">contract.document.real</field>
+		<field name="inherit_id" ref="mw_contract.contract_document_real_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//tree" position="replace">
+				<tree string="contract tree" >
+					<field name="flow_id" optional='hide'/>
+					<field name="name"/>
+					<field name="type_id" optional='hide'/>
+					<field name="contract_name"/>
+					<field name="partner_id"/>
+					<field name="contract_department_id"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="payment_sum"/>
+					<field name="res_currency_id"/>
+					<field name="payment_type"/>
+					<field name="employee_id"/>
+					<field name="create_date" optional='hide'/>
+					<field name="part_type_id"/>
+					<field name="process_type_id"/>
+					<field name="file" optional='hide'/>
+					<field name="flow_line_id" optional='hide'/>
+					<!-- <field name="state_type" invisible="1"/> -->
+				</tree>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="action_view_contract_my_check" model="ir.actions.act_window">
+        <field name="name">Миний батлах гэрээ</field>
+        <field name="res_model">contract.document.real</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,pivot,graph,calendar,form</field>
+        <field name="domain">[('confirm_user_ids','in',[uid]),('confirm_count','&gt;',0)]</field>
+        <!-- <field name="context">{'search_default_gr_flow_line_id':True,'search_default_my_confirm':True}</field> -->
+    </record>
+    <menuitem action="action_view_contract_my_check" id="menu_action_view_contract_check" parent="mw_contract.menu_contract_main"  sequence="1" />
+
+
+
+
+<!-- Гэрээнд оролцох хэлбэр -->
+    <record model="ir.ui.view" id="contract_part_type_form_view">
+        <field name="name">contract.part.type.form</field>
+        <field name="model">contract.part.type</field>
+        <field name="arch" type="xml">
+            <form string="contract part type form">
+            <sheet>
+                <group col="6" string='Гэрээнд оролцох хэлбэр'>
+                    <field name="name"/>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="contract_part_type_tree_view">
+        <field name="name">contract.part.type.tree</field>
+        <field name="model">contract.part.type</field>
+        <field name="arch" type="xml">
+            <tree string="contract part type tree">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_contract_part_type_tree_view">
+        <field name="name">Гэрээнд оролцох хэлбэр</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.part.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="contract_part_type_tree_view"/>
+     
+    </record>
+    <menuitem id="contract_type_menu" parent="mw_contract.menu_contract_conf" action="action_contract_part_type_tree_view" sequence='4'/>  
+</odoo>

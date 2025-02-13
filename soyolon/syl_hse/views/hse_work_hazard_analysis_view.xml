@@ -1,0 +1,162 @@
+<odoo>
+	<record id="view_hse_work_hazard_analysis" model="ir.ui.view">
+		<field name="name">hse.work.hazard.analysis.form</field>
+		<field name="model">hse.work.hazard.analysis</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Ноорог" type="object" class="oe_highlight" />
+					<button name="action_to_sent" states="draft" string="Илгээх" type="object" class="oe_highlight" />
+					<button name="action_to_done" states="sent" string="Дуусгах" type="object" class="btn-success" icon="fa-check-square-o"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent,done"/>
+				</header>
+
+				<sheet>
+					<div class="alert alert-success alert-dismissible text-left" role="Санамж">
+						<a href="#" class="close" data-dismiss="Санамж" aria-label="close">Ажлын аюулын шинжилгээ хийх зөвлөмж: БОД-5 хуудсаар тухайн ажил нь өндөр эрсдэлтэй гарсан, ажлын нөхцөл хүлээн зөвшөөрөгдөхүйц бус байгаа тохиолдолд, тухайн ажил нь өндөр эрсдэлтэй болон осол, осол дөхсөн тохиолдлын түүхтэй бол, тогтмол хийгддэг ажил биш тохиолдолд, өмнө нь хийж байгаагүй шинэ ажил бол ААШ-г хийнэ.</a>
+					</div>
+					<group>
+						<field name="name"/>
+						<field name="branch_id" widget="selection" options="{'no_create':True}"/>
+						<field name="date"/>
+						<field name="location_id" options="{'no_create':True}"/>
+						<field name="hse_employee_id" options="{'no_create':True}"/>
+					</group>
+
+					<notebook>
+						<page string='Ажлын багийн гишүүд' name='work_hazard_analysis_line'>
+							<field name="team_status_ids" attrs="{'readonly':[('state', '=', 'done')]}">
+								<tree editable="bottom">
+									<field name="employee_id" options="{'no_create':True}"/>
+									<field name="lname"/>
+									<field name="fname"/>
+									<field name="job_id"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					<group>
+						<group>
+							<field name="equipment_ids" widget="many2many_tags" options="{'no_create': True}" attrs="{'readonly':[('state', '=', 'done')]}"/>
+							<field name="danger_ids" widget="many2many_tags" options="{'no_create': True}" attrs="{'readonly':[('state', '=', 'done')]}"/>
+							<field name="safe_ids" widget="many2many_tags" options="{'no_create': True}" attrs="{'readonly':[('state', '=', 'done')]}"/>
+						</group>
+						<group>
+							<field name="consent_ids" widget="many2many_tags" options="{'no_create': True}" attrs="{'readonly':[('state', '=', 'done')]}"/>
+							<field name="people_ids" widget="many2many_tags" options="{'no_create': True}" attrs="{'readonly':[('state', '=', 'done')]}"/>
+						</group>
+					</group>
+
+					<notebook>
+						<page string='Ажлын дүн шинжилгээ' name='work_hazard_analysis'>
+							<field name="danger_work_ids" attrs="{'readonly':[('state', '=', 'done')]}">
+								<tree editable="bottom">
+									<field name="work_step"/>
+									<field name="work_danger"/>
+									<field name="work_result"/>
+									<field name="work_control"/>
+									<field name="work_tips"/>
+									<field name="danger_work_id" optional="hide"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids"/>
+					<field name="activity_ids"/>
+					<field name="message_ids"/>
+				</div>
+			</form>
+		</field>
+	</record> 
+
+	<record id="view_hse_work_hazard_analysis_tree" model="ir.ui.view">
+		<field name="name">hse.work.hazard.analysis.tree</field>
+		<field name="model">hse.work.hazard.analysis</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="branch_id" options="{'no_create': True}"/>
+				<field name="date"/>
+				<field name="location_id" options="{'no_create': True}"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_view_hse_hazard_analysis" model="ir.actions.act_window">
+		<field name="name">Ажлын аюулын шинжилгээ</field>
+		<field name="res_model">hse.work.hazard.analysis</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_hse_work_hazard_analysis_tree"/>
+	</record>
+
+	<record id="view_work_equipment_form" model="ir.ui.view">
+		<field name="name">work.equipment.form</field>
+		<field name="model">work.equipment</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name"/>
+					<field name="type"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_work_equipment_tree" model="ir.ui.view">
+		<field name="name">work.equipment.tree</field>
+		<field name="model">work.equipment</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="name"/>
+				<field name="type"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_work_equipment_view" model="ir.actions.act_window">
+		<field name="name">Аюулын шинжилгээ бүртгэл</field>
+		<field name="res_model">work.equipment</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_work_equipment_tree"/>
+	</record>
+
+	<record id="view_danger_analysis_form" model="ir.ui.view">
+		<field name="name">danger.analysis.form</field>
+		<field name="model">danger.analysis</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="work_step"/>
+					<field name="work_danger"/>
+					<field name="work_result"/>
+					<field name="work_control"/>
+					<field name="work_tips"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_danger_analysis_tree" model="ir.ui.view">
+		<field name="name">danger.analysis.tree</field>
+		<field name="model">danger.analysis</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="work_step"/>
+				<field name="work_danger"/>
+				<field name="work_result"/>
+				<field name="work_control"/>
+				<field name="work_tips"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_view_danger_analysis" model="ir.actions.act_window">
+		<field name="name">Аюулын дүн шижилгээ</field>
+		<field name="res_model">danger.analysis</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_danger_analysis_tree"/>
+	</record>
+	
+</odoo>

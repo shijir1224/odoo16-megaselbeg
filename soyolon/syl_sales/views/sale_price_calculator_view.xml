@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.sequence" id="sale_price_calcualtor_sequence">
+		<field name="name">Үнэ тооцоолол</field>
+		<field name="code">sale.price.calculator</field>
+		<field name="prefix">SPC-%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+		<field name="company_id" eval='False'/>
+	</record>
+
+	<record id="sale_price_calcualtor_form" model="ir.ui.view">
+		<field name="name">Үнэ тооцоолол</field>
+		<field name="model">sale.price.calculator</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" type="object" attrs="{'invisible': [('flow_line_next_id', '=', False)]}"/>
+                    <button name="action_back_stage" string="Буцах" class="btn-warning" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state', 'in',['done','cancel'])]}"/>
+                    <field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+                    <button name="action_cancel_stage" string="Цуцлах" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'in',['cancel']),('flow_id','=',False)]}"/>
+                    <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state', 'not in', ['cancel','done']),('flow_id','=',False)]}"/>
+					<button string="Үнийн санал үүсгэх" type="object" name="create_sale_order" class="btn-primary" attrs="{'invisible':['|',('sale_id','!=',False),('state','!=','done')]}"/>
+                </header>
+				<group>
+					<field name="flow_id" force_save="1" options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+					<field name="state" invisible="1"/>
+					<field name="flow_line_next_id" invisible="1"/>
+					<field name="flow_line_back_id" invisible="1"/>
+					<field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+					<field name="is_not_edit" invisible="1"/>
+				</group>
+				<group>
+					<field name="name"/>
+					<field name="partner_id" attrs="{'readonly':[('state','=','done')]}"/>
+					<field name="date" attrs="{'readonly':[('state','=','done')]}"/>
+					<field name='sale_id' attrs="{'invisible':[('sale_id','=',False)]}"/>
+					<field name="currency_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'readonly':[('state','=','done')]}"/>
+					<field name="rate_amount"/>
+				</group>
+				<div>
+					<span>
+						<button name="export_excel" string="Экспортлох" type="object" icon="fa-file-excel-o" class="btn-warning"/>
+					</span>
+					<span style="margin-left: 10px">
+						<field name="excel_data" nolabel="1"/>
+					</span>
+					<span style="margin-left: 10px">
+						<button name="import_excel" string="Импортлох" type="object" class="btn btn-success fa fa-download"/>
+					</span>
+				</div>
+				<notebook>
+					<page string="Тооцоолол">
+						<group>
+							<group>
+								<field name="internal_shipping" invisible="1"/>
+								<field name="internal_costing" attrs="{'readonly':[('state','=','done')]}" invisible="1"/>
+								<field name="km" attrs="{'readonly':[('state','=','done')]}"/>
+								<field name="cny_usd_ratio" attrs="{'readonly':[('state','=','done')]}" force_save="1"/>
+								<field name="tn_urtug" attrs="{'readonly':[('state','=','done')]}" force_save="1"/>
+							</group>
+							<group>
+								<field name="margin" attrs="{'readonly':[('state','=','done')]}" force_save="1"/>
+								<field name='transportation_cost' invisible="1"/>
+							</group>
+							<group>
+								<field name="is_foreign_sale" attrs="{'invisible':['|',('sale_id','!=',False),('state','!=','done')]}"/>
+								<field name="is_active" widget="boolean_toggle"/>
+							</group>
+						</group>
+						<field name="sale_price_calculator_line" attrs="{'readonly':[('state','=','done')]}">
+							<tree editable="bottom">
+								<field name='product_id'/>
+								<field name='buyer_id' optional="hide"/>
+								<field name='currency_id'/>
+								<field name='rate'/>
+								<field name='qty'/>
+								<field name='unit_weight'/>
+								<field name='unit_price'/>
+								<field name='transportation_cost' sum="Нийт" force_save="1"/>
+								<field name='total_weight' force_save="1"/>
+								<field name='total_price' force_save="1" sum="Нийт"/>
+								<field name='custom_tax' force_save="1"/>
+								<field name='internal_shipping' force_save="1"/>
+								<field name='internal_costing' force_save="1"/>
+								<field name='total_cost' force_save="1"/>
+								<field name='distribution' force_save="1" sum="Нийт"/>
+								<field name='avail_margin' force_save="1" readonly="0"/>
+								<field name='margin' force_save="1" readonly="1"/>
+								<field name='surcharge' force_save="1"/>
+								<field name='total_price_last' force_save="1"/>
+								<field name='total_price_mnt' force_save="1"/>
+								<field name='unit_price_mnt' force_save="1"/>
+								<field name='is_so_ready' invisible="1"/>
+								<field name='is_so_ready' groups="syl_sales.group_sale_price_calculator_ready_user"/>
+								<field name='so_id' readonly="1"/>
+								<field name='partner_id' readonly="1"/>
+							</tree>
+						</field>
+					</page>
+					<page string="INTERNAL CALCULATION/ЗАРДЛЫН ТООЦООЛОЛ">
+						<group>
+							<div style="display: flex; width:1500px">
+								<div>
+									<group>
+										<field name="total_price_sum_usd"/>
+										<field name="trans_cost_sum_usd"/>
+										<field name="custom_tax_sum_usd"/>
+										<field name="shiffing_sum_usd"/>
+										<field name="extra_sum_usd"/>
+										<field name="total_cost_usd"/>
+										<field name="profit_percent_usd"/>
+										<field name="untax_amount_usd"/>
+										<field name="nuat_amount_usd"/>
+										<field name="total_sum_amount_usd"/>
+									</group>
+								</div>
+								<div style="margin-left: 100px;">
+									<group>
+										<field name="total_price_sum_mnt"/>
+										<field name="trans_cost_sum_mnt"/>
+										<field name="custom_tax_sum_mnt"/>
+										<field name="shiffing_sum_mnt"/>
+										<field name="extra_sum_mnt"/>
+										<field name="total_cost_mnt"/>
+										<field name="profit_percent_mnt"/>
+										<field name="untax_amount_mnt"/>
+										<field name="nuat_amount_mnt"/>
+										<field name="total_sum_amount_mnt"/>
+									</group>
+								</div>
+								<div style="margin-left: 100px;">
+									<group>
+										<field name="total_price_percent"/>
+										<field name="transportation_percent"/>
+										<field name="custom_tax_percent"/>
+										<field name="internal_shipping_percent"/>
+										<field name="extra_cost_percent"/>
+										<field name="total_cost_percent"/>
+										<field name="profit_percent"/>
+										<field name="untax_amount_percent"/>
+									</group>
+								</div>
+							</div>
+						</group>
+					</page>
+					<page string="Түүхүүд">
+						<field name="history_ids"  string="Түүхүүд" readonly="1" nolabel="1" colspan="4" attrs="{'readonly':[('is_not_edit','=',True)]}">
+							<tree>
+								<field name="user_id"/>
+								<field name="date"/>
+								<field name="flow_line_id"/>
+								<field name="spend_time" sum="Нийт цаг" widget="float_time"/>
+							</tree>
+						</field>
+					</page>
+				</notebook>
+				<group class="oe_subtotal_footer oe_right">
+					<field name="is_check_total" readonly="1" force_save="1"/>
+					<field name="total" readonly="1" force_save="1"/>
+					<field name="total_tax" readonly="1" force_save="1"/>
+					<field name="total_amount" readonly="1" force_save="1"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="sale_price_calcualtor_tree" model="ir.ui.view">
+		<field name="name">Үнэ тооцоолол</field>
+		<field name="model">sale.price.calculator</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="partner_id"/>
+				<field name="date" optional="hide"/>
+				<field name="currency_id" optional="hide"/>
+				<field name="rate_amount" optional="hide"/>
+				<field name="state"/>
+				<field name="total_cost_mnt"/>
+				<field name="trans_cost_sum_mnt"/>
+				<field name="shiffing_sum_mnt"/>
+				<field name="total_price_sum_usd"/>
+				<field name="trans_cost_sum_usd" optional="hide"/>
+				<field name="custom_tax_sum_usd" optional="hide"/>
+				<field name="shiffing_sum_usd" optional="hide"/>
+				<field name="extra_sum_usd" optional="hide"/>
+				<field name="total_cost_usd" optional="hide"/>
+				<field name="profit_percent_usd" optional="hide"/>
+				<field name="untax_amount_usd" optional="hide"/>
+				<field name="nuat_amount_usd" optional="hide"/>
+				<field name="total_sum_amount_usd" optional="hide"/>
+				<field name="total_price_sum_mnt" optional="hide"/>
+				<field name="custom_tax_sum_mnt" optional="hide"/>
+				<field name="extra_sum_mnt" optional="hide"/>
+				<field name="profit_percent_mnt" optional="hide"/>
+				<field name="untax_amount_mnt" optional="hide"/>
+				<field name="nuat_amount_mnt" optional="hide"/>
+				<field name="total_sum_amount_mnt" optional="hide"/>
+				<field name="total_price_percent" optional="hide"/>
+				<field name="transportation_percent" optional="hide"/>
+				<field name="custom_tax_percent" optional="hide"/>
+				<field name="internal_shipping_percent" optional="hide"/>
+				<field name="extra_cost_percent" optional="hide"/>
+				<field name="total_cost_percent" optional="hide"/>
+				<field name="profit_percent" optional="hide"/>
+				<field name="untax_amount_percent" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="sale_price_calcualtor_search" model="ir.ui.view">
+		<field name="name">Үнэ тооцоолол</field>
+		<field name="model">sale.price.calculator</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="partner_id"/>
+				<field name="so_one2_id"/>
+				<field name="buyer_one2_id"/>
+				<field name="date"/>
+				<field name="currency_id"/>
+				<field name="rate_amount"/>
+				<field name="state"/>
+				<group expand="0" string="Group By">
+					<filter string="Төлөв" name="state" domain="" context="{'group_by':'state'}"/>
+					<filter string="Харилцагч" name="partner_id" domain="" context="{'group_by':'partner_id'}"/>
+					<filter name="date" string="Огноо" domain="[]" context="{'group_by':'date:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="sale_price_calcualtor_action" model="ir.actions.act_window">
+		<field name="name">Үнэ тооцоолол</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.price.calculator</field>
+		<field name="view_id" ref="sale_price_calcualtor_tree"/>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="sale_price_calcualtor_line_search" model="ir.ui.view">
+		<field name="name">Үнэ тооцоолол мөр</field>
+		<field name="model">sale.price.calculator.line</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name='so_id'/>
+				<field name='partner_id'/>
+				<field name='parent_id'/>
+				<field name='product_id'/>
+				<field name='buyer_id'/>
+				<field name='currency_id'/>
+				<field name='rate'/>
+				<group expand="0" string="Group By">
+					<filter string="Supplier" name="buyer_id" domain="" context="{'group_by':'buyer_id'}"/>
+					<filter string="SO дугаараар" name="so_id" domain="" context="{'group_by':'so_id'}"/>
+					<filter string="Харилцагчаар" name="partner_id" domain="" context="{'group_by':'partner_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="sale_price_calcualtor_line_tree" model="ir.ui.view">
+		<field name="name">Үнэ тооцоолол мөр</field>
+		<field name="model">sale.price.calculator.line</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name='parent_id'/>
+				<field name='product_id'/>
+				<field name='buyer_id'/>
+				<field name='currency_id'/>
+				<field name='rate'/>
+				<field name='qty'/>
+				<field name='unit_weight'/>
+				<field name='unit_price'/>
+				<field name='transportation_cost'/>
+				<field name='total_weight'/>
+				<field name='total_price'/>
+				<field name='custom_tax'/>
+				<field name='internal_shipping'/>
+				<field name='internal_costing'/>
+				<field name='total_cost'/>
+				<field name='distribution'/>
+				<field name='margin'/>
+				<field name='surcharge'/>
+				<field name='total_price_last'/>
+				<field name='total_price_mnt'/>
+				<field name='unit_price_mnt'/>
+				<field name='is_so_ready' groups="syl_sales.group_sale_price_calculator_ready_user"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="sale_price_calcualtor_line_action" model="ir.actions.act_window">
+		<field name="name">Үнэ тооцоолол мөр</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.price.calculator.line</field>
+		<field name="view_id" ref="sale_price_calcualtor_line_tree"/>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem action="sale_price_calcualtor_action" id="sale_price_calcualtor_menu" parent="sale.sale_order_menu" groups="group_sale_price_calculator_user" sequence="10"/>
+	<menuitem action="sale_price_calcualtor_line_action" id="sale_price_calcualtor_line_menu" parent="sale.sale_order_menu" groups="group_sale_price_calculator_user" sequence="10"/>
+</odoo>

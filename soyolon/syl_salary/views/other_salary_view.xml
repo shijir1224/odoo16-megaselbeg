@@ -1,0 +1,754 @@
+<odoo>
+    <!-- sales цалин -->
+    <record id="sales_salary_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">sales.salary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="sales_salary_form" model="ir.ui.view">
+        <field name="name">sales.salary.form</field>
+        <field name="model">sales.salary</field>
+        <field name="arch" type="xml">
+            <form string='kpi'>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="date"/>
+                            <!-- <field name="work_location_id"/> -->
+                            <field name="data"/>
+                            <button name="action_import_line" string="Импортлох" type="object"  class="btn-danger"/>
+
+                        </group>                          
+                        <group>
+                             <field name="is_salary"/>
+                            <field name="end_date"/>                           
+                        </group>
+                    </group>
+                    <button string="Тооцоолох" name="create_sales_line" type="object"  class="btn-success"/>
+                    <button name="print_sales_salary" string="Эксел татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <button name="print_sales_bank" string="Банкны тайлан татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <field name='department_id'/>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="employee_id"/>
+                                    <field name="department_id" optional='hide'/>
+                                    <field name="job_id" optional='hide'/>
+                                    <field name="level_id"/>
+                                    <!-- <field name="uramshuulal" sum='Sum'/>
+                                    <field name="evaluation" sum='Sum'/> -->
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="shi" sum='Sum'/>
+                                    <field name="pit" sum='Sum'/>
+                                    <field name="amount_net" sum='Sum'/>
+                                    <field name="amount_net_round" sum='Sum'/>
+                                </tree>
+                                <form>
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id" />
+                                    <field name="amount"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sales_salary_tree" model="ir.ui.view">
+        <field name="name">sales.salary.tree</field>
+        <field name="model">sales.salary</field>
+        <field name="arch" type="xml">
+            <tree string="kpi">
+                <field name="work_location_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="sales_salary_actions" model="ir.actions.act_window">
+        <field name="name">Борлуулалтын урамшуулал</field>
+        <field name="res_model">sales.salary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="sales_salary_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="sales_salary_menu_id" parent="mw_salary.menu_other_parent_salary" action="sales_salary_actions" sequence="8"/>
+
+
+    <!-- KPI цалин -->
+    <record id="kpi_salary_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">kpi.salary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="kpi_salary_form" model="ir.ui.view">
+        <field name="name">kpi.salary.form</field>
+        <field name="model">kpi.salary</field>
+        <field name="arch" type="xml">
+            <form string='kpi'>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="work_location_id"/>
+                            <field name="is_salary"/>
+                        </group>
+                    </group>
+                    <button string="Тооцоолох" name="create_perpormance_line" type="object"  class="btn-success"/>
+                    <button name="print_kpi" string="Эксел татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <button name="print_kpi_bank" string="Банкны тайлан татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <field name='department_id'/>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="employee_id"/>
+                                    <field name="department_id" optional='hide'/>
+                                    <field name="job_id" optional='hide'/>
+                                    <field name="level_id"/>
+                                    <field name="work_to"/>
+                                    <field name="hour_wage"/>
+                                    <field name="uramshuulal" sum='Sum'/>
+                                    <field name="evaluation" sum='Sum'/>
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="shi" sum='Sum'/>
+                                    <field name="pit" sum='Sum'/>
+                                    <field name="amount_net" sum='Sum'/>
+                                    <field name="amount_net_round" sum='Sum'/>
+                                </tree>
+                                <form>
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id" />
+                                    <field name="amount"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="kpi_salary_tree" model="ir.ui.view">
+        <field name="name">kpi.salary.tree</field>
+        <field name="model">kpi.salary</field>
+        <field name="arch" type="xml">
+            <tree string="kpi">
+                <field name="work_location_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="kpi_salary_actions" model="ir.actions.act_window">
+        <field name="name">KPI урамшуулал</field>
+        <field name="res_model">kpi.salary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="kpi_salary_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="kpi_salary_menu_id" parent="mw_salary.menu_other_parent_salary" action="kpi_salary_actions" sequence="8"/>
+
+        <!-- Эцгийн чөлөөний олговор -->
+    <record id="dad_salary_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">dad.salary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="dad_salary_form" model="ir.ui.view">
+        <field name="name">dad.salary.form</field>
+        <field name="model">dad.salary</field>
+        <field name="arch" type="xml">
+            <form string='Хэрэглэгчийн мэдээлэл'>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="date"/>
+                            <!-- <field name="work_location_id"/> -->
+                        </group>
+                        <group>
+                            <field name="salary_date"/>
+                        </group>
+                    </group>
+                    <button string="Тооцоолох" name="create_dad_line" type="object"  class="btn-success"/>
+                    <button name="print_dad_salary" string="Эксел татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <form >
+                                    <field name="employee_id"/>
+                                    <field name="department_id" />
+                                    <field name="job_id"/>
+                                    <!-- <field name="date"/>
+                                    <field name="worked_year"/>
+                                    <field name="worked_month"/>
+                                    <field name="worked_day"/> -->
+                                    <field name="amount"/>
+                                    <!-- <field name="shi"/>
+                                    <field name="pit"/>
+                                    <field name="amount_net"/>
+                                    <field name="amount_net_round"/> -->
+                                </form>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id" />
+                                    <!-- <field name="date"/> -->
+                                    <!-- <field name="worked_year"/>
+                                    <field name="worked_month"/>
+                                    <field name="worked_day"/> -->
+                                    <field name="amount" sum='Sum'/>
+                                    <!-- <field name="shi" sum='Sum'/>
+                                    <field name="pit" sum='Sum'/>
+                                    <field name="amount_net" sum='Sum'/>
+                                    <field name="amount_net_round" sum='Sum'/> -->
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="dad_salary_tree" model="ir.ui.view">
+        <field name="name">dad.salary.tree</field>
+        <field name="model">dad.salary</field>
+        <field name="arch" type="xml">
+            <tree string="Хэрэглэгчийн мэдээлэл">
+                <field name="work_location_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="dad_salary_actions" model="ir.actions.act_window">
+        <field name="name">Эцгийн чөлөөний олговор</field>
+        <field name="res_model">dad.salary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="dad_salary_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="dad_salary_menu_id" parent="mw_salary.menu_other_parent_salary" action="dad_salary_actions" sequence="8"/>
+
+    <!-- Удаан жилийн нэмэгдэл -->
+    <record id="long_year_salary_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">long.year.salary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="long_year_salary_form" model="ir.ui.view">
+        <field name="name">long.year.salary.form</field>
+        <field name="model">long.year.salary</field>
+        <field name="arch" type="xml">
+            <form string='Хэрэглэгчийн мэдээлэл'>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="date"/>
+                            <field name="work_location_id"/>
+                        </group>
+                        <group>
+                            <field name="salary_date"/>
+                            <field name="is_salary"/>
+                        </group>
+                    </group>
+                    <button string="Тооцоолох" name="create_long_year_line" type="object"  class="btn-success"/>
+                    <button name="print_long_salary" string="Эксел татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <button name="%(action_other_bank_report)d" string="Банкны тайлан татах" type="action"  class="btn-secondary"/>
+
+                    <!-- <button name="print_long_bank" string="Банкны тайлан татах" type="object" icon="fa-sign-out"  class="btn-warning"/> -->
+                    <field name='department_id'/>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <form >
+                                    <field name="employee_id"/>
+                                    <field name="department_id" />
+                                    <field name="job_id"/>
+                                    <field name="date"/>
+                                    <field name="worked_year"/>
+                                    <field name="worked_month"/>
+                                    <field name="worked_day"/>
+                                    <field name="amount"/>
+                                    <field name="shi"/>
+                                    <field name="pit"/>
+                                    <field name="amount_net"/>
+                                    <field name="amount_net_round"/>
+                                </form>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="employee_id"/>
+                                    <field name="department_id" optional='hide'/>
+                                    <field name="job_id" optional='hide'/>
+                                    <field name="date"/>
+                                    <field name="worked_year"/>
+                                    <field name="worked_month"/>
+                                    <field name="worked_day"/>
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="shi" sum='Sum'/>
+                                    <field name="pit" sum='Sum'/>
+                                    <field name="amount_net" sum='Sum'/>
+                                    <field name="amount_net_round" sum='Sum'/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="long_year_salary_tree" model="ir.ui.view">
+        <field name="name">long.year.salary.tree</field>
+        <field name="model">long.year.salary</field>
+        <field name="arch" type="xml">
+            <tree string="Хэрэглэгчийн мэдээлэл">
+                <field name="work_location_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="long_year_salary_actions" model="ir.actions.act_window">
+        <field name="name">Удаан жилийн нэмэгдэл</field>
+        <field name="res_model">long.year.salary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="long_year_salary_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="long_year_salary_menu_id" parent="mw_salary.menu_other_parent_salary" action="long_year_salary_actions" sequence="8"/>
+<!-- Урамшуулал цалин -->
+    <record id="perpormance_salary_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">perpormance.salary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="perpormance_salary_form" model="ir.ui.view">
+        <field name="name">perpormance.salary.form</field>
+        <field name="model">perpormance.salary</field>
+        <field name="arch" type="xml">
+            <form string='Хэрэглэгчийн мэдээлэл'>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="date"/>
+                            <field name="work_location_id"/>
+                            <field name="is_salary"/>
+                        </group>
+
+                    </group>
+                    <button string="Тооцоолох" name="create_perpormance_line" type="object"  class="btn-success"/>
+                    <button name="print_perpormance" string="Эксел татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <button name="print_perpormance_bank" string="Банкны тайлан татах" type="object" icon="fa-sign-out"  class="btn-warning"/>
+                    <field name='department_id'/>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="employee_id"/>
+                                    <field name="department_id" optional='hide'/>
+                                    <field name="job_id" optional='hide'/>
+                                    <field name="level_id"/>
+                                    <field name="uramshuulal" sum='Sum'/>
+                                    <field name="evaluation" sum='Sum'/>
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="shi" sum='Sum'/>
+                                    <field name="pit" sum='Sum'/>
+                                    <field name="amount_net" sum='Sum'/>
+                                    <field name="amount_net_round" sum='Sum'/>
+                                </tree>
+                                <form>
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id" />
+                                    <field name="amount"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="perpormance_salary_tree" model="ir.ui.view">
+        <field name="name">perpormance.salary.tree</field>
+        <field name="model">perpormance.salary</field>
+        <field name="arch" type="xml">
+            <tree string="Хэрэглэгчийн мэдээлэл">
+                <field name="work_location_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="perpormance_salary_actions" model="ir.actions.act_window">
+        <field name="name">Гүйцэтгэлийн урамшуулал</field>
+        <field name="res_model">perpormance.salary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="perpormance_salary_search"/>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="perpormance_salary_menu_id" parent="mw_salary.menu_other_parent_salary" action="perpormance_salary_actions" sequence="8"/>
+
+
+        <!-- ЭМД -->
+    <record id="health_insurance_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">health.insurance</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="health_insurance_form" model="ir.ui.view">
+        <field name="name">health.insurance.form</field>
+        <field name="model">health.insurance</field>
+        <field name="arch" type="xml">
+            <form string='Хэрэглэгчийн мэдээлэл'>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="end_date"/>
+                            <field name="work_location_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="date"/>
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="done_amount" sum='Sum'/>
+                                </tree>
+                                <form>
+                                    <field name="date"/>
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="done_amount" sum='Sum'/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="health_insurance_tree" model="ir.ui.view">
+        <field name="name">health.insurance.tree</field>
+        <field name="model">health.insurance</field>
+        <field name="arch" type="xml">
+            <tree string="Хэрэглэгчийн мэдээлэл">
+                <field name="employee_id"/>
+                <field name="work_location_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="date"/>
+                <field name="end_date"/>
+                
+            </tree>
+        </field>
+    </record>
+        
+    <record id="health_insurance_actions" model="ir.actions.act_window">
+        <field name="name">Сайн дурын ЭМД</field>
+        <field name="res_model">health.insurance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="health_insurance_search"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="health_insurance_menu_id" parent="mw_salary.menu_other_parent_salary" action="health_insurance_actions" sequence="8"/>
+
+<!-- Цалингийн зардал -->
+
+    <!-- <record id="salary_cost_search " model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">salary.cost</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                <field name='name'/>
+                </group>
+            </search>
+        </field>
+    </record> -->
+
+    <record id="salary_cost_form" model="ir.ui.view">
+        <field name="name">salary.cost.form</field>
+        <field name="model">salary.cost</field>
+        <field name="arch" type="xml">
+            <form string='Цалингийн зардлын задаргаа'>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="data"/>
+                            <button string="Импорт"  name="import_line" type="object" class="oe_highlight" />
+
+                        </group>
+                            
+                        <group>
+                            <field name="end_date"/>
+                            <field name="journal_id"/>
+                            <field name="account_payable_id"/>
+                            <field name="account_shi_id"/>
+                        </group>
+                    </group>
+                    <button string="Тооцох"  name="create_line" type="object" class="oe_highlight" />
+                    <button string="Хэвлэх"  name="print_salary_cost" type="object" class="oe_highlight" />
+                    <button string="Цалин, НДШ бичилт"  name="create_expense_invoice_syl" type="object" class="btn btn-outline-warning" />
+
+
+                    <notebook>
+                        <page string='Дэлгэрэнгүй'>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree>
+                                    <field name="employee_id"/>
+                                    <field name="job_id"/>
+                                    <field name="work_location"/>
+                                    <field name="bndsh" sum='Sum'/>
+                                    <field name="sum_tootsson_salary" sum='Sum'/>
+                                    <field name="tootsson_salary" sum='Sum'/>
+                                    <field name="reward_salary" sum='Sum'/>
+                                    <field name="kpi_salary" sum='Sum'/>
+                                    <field name="oshi_tootsson" sum='Sum'/>
+                                    <field name="ndsh_tootsson" sum='Sum'/>
+                                    <field name="pro_ndsh_tootsson" sum='Sum'/>
+                                    <field name="kpi_ndsh_tootsson" sum='Sum'/>
+                                    <!-- <field name="free_salary" sum='Sum'/> -->
+                                    <!-- <field name="huwisah_salary" sum='Sum'/> -->
+                                    <field name="worked_hour" sum='Sum'/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string='Санхүү бичилт'>
+                            <group>
+                                <field name='account_move_id' string='Цалин, НДШ бичилт'/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="salary_cost_tree" model="ir.ui.view">
+        <field name="name">salary.cost.tree</field>
+        <field name="model">salary.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Цалингийн мэдээлэл">
+                <field name="year"/>
+                <field name="month"/>
+                <field name="end_date"/>
+                <field name="journal_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="salary_cost_line_form" model="ir.ui.view">
+        <field name="name">salary.cost.line.form</field>
+        <field name="model">salary.cost.line</field>
+        <field name="arch" type="xml">
+            <form string='Цалингийн зардлын дэлгэрэнгүй'>
+                <sheet>
+                    <field name="name"/>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name='job_id' />
+                        <!-- <button string="Төсөл"  name="project_wage" type="object" class="oe_highlight" /> -->
+
+                    </group>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom'>
+                                    <!-- <field name="work_location"/> -->
+                                    <field name = 'project_id'/>
+                                    <field name="worked_hour" sum='Sum'  optional='hide'/>
+                                    <field name="night_hour" sum='Sum'  optional='hide'/>
+                                    <field name="overtime" sum='Sum' invisible='1' optional='hide'/>
+                                    <field name="busines_trip_hour" sum='Sum'  optional='hide'/>
+                                    <field name="busines_trip_hour2" sum='Sum'  optional='hide'/>
+                                    <field name="sum_time" sum='Sum'/>
+                                    <field name="tusul_salary" sum='Sum'/>
+                                    <field name="project_wage" sum='Sum'/>
+                                    <field name="kpi_wage" sum='Sum'/>
+                                    <field name="ndsh_salary" sum='Sum'/>
+                                    <field name="project_ndsh_salary" sum='Sum'/>
+                                    <field name="kpi_ndsh_salary" sum='Sum'/>
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="salary_cost_line_tree" model="ir.ui.view">
+        <field name="name">salary.cost.line.tree</field>
+        <field name="model">salary.cost.line</field>
+        <field name="arch" type="xml">
+            <tree >
+                 <!-- <field name="work_location"/> -->
+                 <field name="line_ids" force_save='1' widget="one2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    
+
+    <record id="salary_cost_actions" model="ir.actions.act_window">
+        <field name="name">Цалингийн зардлын задаргаа </field>
+        <field name="res_model">salary.cost</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <!-- <field name="search_view_id" ref="salary_cost_search"/> -->
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem id="salary_cost_menu_id" parent="mw_salary.menu_other_parent_salary" action="salary_cost_actions" sequence="9"/>
+
+
+    <record id="receivable_payable_syl_form" model="ir.ui.view">
+        <field name="name">receivable.payable.form</field>
+        <field name="model">receivable.payable</field>
+        <field name="inherit_id" ref="mw_salary.receivable_payable_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='month']" position="after">
+                <field name="date_invoice"/>
+            </xpath>
+            <xpath expr="//field[@name='work_location_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']" position="replace">
+                <field name='line_ids' widget='one2many_search'>
+                    <tree editable='bottom' limit='1000'>
+                        <field name="department_id" optional='hide'/>
+                        <field name="job_id" optional='hide'/>
+                        <field name="employee_id"/>
+                        <field name="receivable_payable" sum='Sum'/>
+                        <field name="mobile_payable" sum='Sum'/>
+                        <field name="clothes_payable" sum='Sum'/>
+                        <field name="payment_payable" sum='Sum'/>
+               
+                    </tree>
+                    <form editable='bottom'>
+                        <field name="department_id"/>
+                        <field name="job_id"/>
+                        <field name="employee_id"/>
+                        <field name="receivable_payable"/>
+                        <field name="mobile_payable" sum='Sum'/>
+                        <field name="clothes_payable" sum='Sum'/>
+                        <field name="payment_payable" sum='Sum'/>
+                       
+                    </form>
+                </field>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

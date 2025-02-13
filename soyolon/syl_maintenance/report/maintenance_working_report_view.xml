@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="maintenance_working_report_view" model="ir.ui.view">
+		<field name="name">maintenance.working.report.form</field>
+		<field name="model">maintenance.working.report</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<group string='Огноо'>
+					<field name="date_start"/>
+					<field name="date_end"/>
+				</group>
+				<group string='Шүүлтүүр'>
+					<field name="branch_ids" widget="many2many_tags" options="{'no_create':True}"/>
+				</group>
+				<footer>
+					<button name="export_report" string="Татах" type="object" colspan="2" class="oe_highlight" icon="fa-file-excel-o"/>
+					<button icon="fa-times" special="cancel" string="Хаах" colspan="2"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_maintenance_working_report_view" model="ir.actions.act_window">
+		<field name="name">Зогсолтын тайлан</field>
+		<field name="res_model">maintenance.working.report</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="maintenance_working_report_view"/>
+		<field name="target">new</field>
+	</record>
+
+	<menuitem name="Зогсолтын тайлан" parent="mw_technic_maintenance.maintenance_report_menu"
+				id="maintenance_working_report_menu" sequence="35" action="action_maintenance_working_report_view" />
+
+</odoo>

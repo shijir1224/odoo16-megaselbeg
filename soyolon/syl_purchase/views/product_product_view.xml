@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Product template inherit -->
+	<record model="ir.ui.view" id="product_template_form_view_inherit">
+		<field name="name">product.template.form</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_tag_ids']" position="after">
+				<field name="product_specification" required="1"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="product_template_tree_view_inherit">
+		<field name="name">product.template.tree</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='default_code']" position="after">
+				<field name="product_specification"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="product_template_search_form_view_stock_inherit">
+		<field name="name">product.template.search</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="stock.product_template_search_form_view_stock"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='warehouse_id']" position="after">
+				<field name="product_specification"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Product product inherit -->
+	<record model="ir.ui.view" id="view_product_supplier_inherit_inherit">
+		<field name="name">product.template.form</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="mw_purchase.view_product_supplier_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='pol_tmpl_ids']" position="after">
+				<!-- <separator string="Худалдан авалтын харьцуулалтын түүх"/>
+				<field name="comp_tmpl_ids" nolabel="1">
+					<tree>
+						<field name="comparison_id"/>
+						<field name="partner_ids" string="Харилцагчид" widget="many2many_tags"/>
+						<field name="create_date"/>
+						<field name="date_order" string="Харьцуулалтын эцсийн огноо"/>
+						<field name="state" string="Төлөв"/>
+					</tree>
+				</field> -->
+				<separator string="Худалдан авалтын харьцуулалтын түүх"/>
+				<field name="comp_po_ids" nolabel="1">
+					<tree>
+						<field name="comparison_id" string="Харьцуулалтын дугаар"/>
+						<field name="partner_id" string="Харилцагч"/>
+						<field name="name"/>
+						<field name="amount_total"/>
+						<field name="amount_total"/>
+						<field name="state"/>
+					</tree>
+				</field>
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="product_product_tree_view_inherit">
+		<field name="name">product.product.tree</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_product_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='default_code']" position="after">
+				<field name="product_specification" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="product_search_form_view_inherit_syl" model="ir.ui.view">
+		<field name="name">product.product.search</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="mw_product.product_search_form_view_inherit"/>
+		<field name="arch" type="xml">
+			<field name="name" position="after">
+				<field name="product_specification"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="inh2_stock_product_other_expense_form_view" model="ir.ui.view">
+		<field name="name">stock.product.other.expense.form</field>
+		<field name="model">stock.product.other.expense</field>
+		<field name='inherit_id' ref='mw_stock_moves.stock_product_other_expense_form_view'/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_expense_line']/tree/field[@name='product_id']" position='after'>
+				<field name='product_specification'/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="stock_inventory_line_tree2w_inherit" model="ir.ui.view">
+		<field name="name">stock.inventory.line.tree</field>
+		<field name="model">stock.inventory.line</field>
+		<field name='inherit_id' ref='mw_stock.stock_inventory_line_tree2'/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_id']" position='after'>
+				<field name="default_code" optional="show"/>
+				<field name="product_brand_id" optional="show"/>
+				<field name="product_specification" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_stock_quant_report_tree_inherit" model="ir.ui.view">
+		<field name="name">stock.quant.report.tree</field>
+		<field name="model">stock.quant.report</field>
+		<field name='inherit_id' ref='mw_stock.view_stock_quant_report_tree'/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_id']" position='after'>
+				<field name="product_specification" optional="show"/>
+				<field name="product_brand_id" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_picking_form_inherit" model="ir.ui.view">
+		<field name="name">stock.picking.form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
+				<field name="product_brand_id" optional="show"/>
+				<field name="product_specification" optional="show"/>
+				<field name="product_template_variant_value_ids" widget="many2many_tags" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_stock_move_line_detailed_operation_tree_inherit" model="ir.ui.view">
+		<field name="name">stock.move.line.operations.tree</field>
+		<field name="model">stock.move.line</field>
+		<field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='product_id']" position="after">
+				<field name="product_brand_id" optional="show"/>
+				<field name="product_specification" optional="show"/>
+				<field name="product_template_variant_value_ids" widget="many2many_tags" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

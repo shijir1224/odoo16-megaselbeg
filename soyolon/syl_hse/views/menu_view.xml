@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="action_hr_training_registration" model="ir.actions.act_window">
+		<field name="name">Хүний нөөцийн сургалт</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.registration</field>
+		<field name="context">{ 'create':False,'delete':False,'edit':False}</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="hse_hazard_import_menu" parent="mw_hse.menu_hse_safety" name="Ажлын байрны үзлэг импорт" action="view_hse_hazard_import_action" sequence="100"/>
+	<menuitem id="hr_training_registration_menu" parent="mw_hse_employee_training.menu_hse_training" name="Хүний нөөцийн сургалтууд" action="action_hr_training_registration" sequence="4"/>
+	<menuitem id="menu_accident_investigation" parent="mw_hse.menu_hse_safety" name="Аюултай тохиолдолын судалгаа" action="action_accident_investigation" sequence="11"/>
+	<menuitem id="menu_views_hse_work_hazard_analysis" parent="mw_hse.menu_hse_safety" name="Ажлын аюулын шинжилгээ" action="action_view_hse_hazard_analysis" sequence="13"/>
+	<!-- <menuitem id="menu_accident_investigation_visible" parent="mw_hse.menu_hse_config" name="Ослын судалгааны тайлан талбарууд" action="action_accident_investigation_visible" sequence="50"/> -->
+
+	<menuitem id="menu_hse_accident" name="Ажлын аюулын шинжилгээ" parent="mw_hse.menu_hse_config" sequence="16"/>
+		<menuitem id="menu_view_work_equipment" name="Ажлын аюулын бүртгэл" parent="menu_hse_accident" action="action_work_equipment_view"  sequence="1"/>
+		<menuitem id="menu_view_danger_analysis" name="Ажлын дүн шинжилгээ" parent="menu_hse_accident" action="action_view_danger_analysis" sequence="2"/>
+	<menuitem id="menu_risk_assessment_config" name="Эрсдлийн үнэлгээ/Ажилбар/" parent="mw_hse.menu_risk_config" action="action_risk_assessment_config"  sequence="4"/>
+
+	<menuitem id="menu_environment_measurement" parent="mw_hse.menu_hse_safety" name="Орчны хэмжилт" action="action_environment_measurement" sequence="17"/>
+
+		
+
+	<!-- Зарим цэс харагдахгүй -->
+	<record model="ir.ui.menu" id="mw_hse.menu_hse_injury_entry">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_hse.menu_hse_risk_assessment">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_hse_dangerous_waste.menu_hse_dangerous_report">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_hse_dangerous_waste.menu_hse_simple_report">
+		<field name="action" eval="False"/>
+	</record>
+
+	<!-- <record model="ir.ui.menu" id="mw_hse_health.menu_type_treatment">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_hse_health.menu_patient_diagnosis">
+		<field name="action" eval="False"/>
+	</record>
+
+	<record model="ir.ui.menu" id="mw_hse_health.menu_disease_category">
+		<field name="action" eval="False"/>
+	</record> -->
+
+	<!-- <record model="ir.ui.menu" id="mw_hse_health.menu_medical_examination_before_work">
+		<field name="action" eval="False"/>
+	</record> -->
+
+</odoo>

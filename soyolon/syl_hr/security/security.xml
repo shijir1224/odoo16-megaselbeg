@@ -1,0 +1,7 @@
+<odoo>
+    <!-- Нэг ажилтан 2 эрхээр орох үед нэгнийхээ хувийн мэдээллийг харж буй учир грүпээр хязгаарлав -->
+    <record id="group_employee_syln" model="res.groups">
+        <field name="name">Өөрийн эрхээр ордог ажилчид</field>
+        <field name="category_id" ref="mw_hr.module_mw_hr"/>
+    </record>
+</odoo>

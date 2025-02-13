@@ -1,0 +1,425 @@
+ <odoo>
+	<menuitem id="hr_orientation_emp_menu" parent="mw_hr.hr_emp_main_menu" name="Дасан зохицох хөтөлбөр" sequence="9" />  
+
+	  <record id="view_employee_orientation_form_syln" model="ir.ui.view">
+			<field name="name">employee.orientation.form.syln</field>
+			<field name="model">employee.orientation</field>
+			<field name="inherit_id" ref="employee_orientation.view_employee_orientation_form"/>
+			<field name="arch" type="xml">
+            <xpath expr="//button[@name='cancel_orientation']" position="replace">
+                 <button name="action_draft" string="Ноороглох" type="object" states="complete,cancel,waiting,confirm"/>
+            </xpath>
+            <xpath expr="//page[@name='checklist_lines']" position="replace">
+            
+                <page name="checklist_lines" string="Шинэ ажилтныг дасан зохицуулах хуудас">
+                    <field name="orientation_request_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree string="lines" editable="bottom" create="true">
+                            <field name="request_name" string='Нэр'/>
+                            <field name="stage"/>
+                            <field name="request_expected_date"/>
+                            <field name="partner_id"/>
+                            <field name="state"/>
+                            <field name="note"/>
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="training" string="Шинэ ажилтныг чиглүүлэх сургалтын хөтөлбөр" >
+                        <label for="training_ids" string="ШИНЭ АЖИЛТНЫГ ЧИГЛҮҮЛЭХ СУРГАЛТЫН ХӨТӨЛБӨР"/>
+                        <field name="training_ids" attrs="{'readonly':[('state','=','complete')]}">
+                            <tree editable="bottom" create="true">
+                                <field name="training_id" options="{'no_create':True, 'no_open':True}" string='Сургалтын сэдэв'/>
+                                 <field name="idea" />
+                                <field name="period" />
+                                <field name="date_from" />
+                                <field name="date_to" />
+                                <field name="type_n" />
+                                <field name="user_id" />
+                                <field name="check" />
+                                <field name="sequence" optional='hide'/>
+                            </tree>
+                        </field>
+                    </page>
+            </xpath>	
+            <xpath expr="//page[@name='rate']" position="replace">
+                <page name="rule" string="Дүрэм,журам" >
+                    <label for="rule_ids" string="ДҮРЭМ, ЖУРМУУД"/>
+                    <field name="rule_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree editable="bottom" create="true">
+                            <field name="rule_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="is_check"/>
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="meet" string="Уулзалтын тэмдэглэл" >
+                    <label for="meet_ids" string="1 Сарын уулзалтын тэмдэглэл"/>
+                    <field name="meet_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree editable="bottom" create="true">
+                            <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="evaluation" />
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="rate" string="Дасан зохицох үнэлгээ" >
+                    <label for="rate_ids" string="ШИНЭ АЖИЛТНЫ УДИРДЛАГЫН ҮНЭЛГЭЭ"/>
+                      <group>
+                        <field name="rate_score3" />
+                    </group>
+              
+                    <field name="rate_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree editable="bottom" create="true">
+                            <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="score" sum='Sum'/>
+                            <field name="get_score" sum='Sum'/>
+                            <!-- <field name="add_offer" /> -->
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                    <field name="shu_purpose"/>
+                </page>
+            
+
+                 <page name="report" string="Тайлан" >
+                    <label for="report_ids" string="ШИНЭ АЖИЛТНЫ АЖЛЫН ТӨЛӨВЛӨГӨӨ, ТАЙЛАН"/>
+                     <group>
+                        <field name="rate_score3" />
+                    </group>
+                    <field name="report_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree editable="bottom" create="true">
+                            <field name="task" />
+                            <field name="period" />
+                            <field name="evaluation" />
+                            <field name="score" sum='Sum'/>
+                            <field name="get_score" sum='Sum'/>
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                    <field name="shu_purpose"/>
+                </page>
+
+                <page name="report" string="Нэгдсэн үнэлгээ" >
+                    <label for="rate_all_ids" string="ШИНЭ АЖИЛТНЫ ТУРШИЛТЫН ХУГАЦААНЫ НЭГДСЭН ҮНЭЛГЭЭ"/>
+                    <group>
+                        <button string="Тооцоолох" name="compute_all_score"  icon="fa-check-square-o" type="object" class="btn-success"/>
+                        <button string="Ажилтны мэдээл рүү татах" name="create_emp_data"  type="object"  class="btn-danger"/>
+                    </group>
+                    <group>
+                        <field name="rate_score2" />
+                    </group>
+                 
+                    <field name="rate_all_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree editable="bottom" create="true">
+                            <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="score" sum='Sum'/>
+                            <field name="get_score" sum='Sum'/>
+                            <field name="sequence" optional='hide'/>
+                            <field name="type" optional='hide'/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="report_hr" string="Дасан зохицох хөтөлбөрийн үнэлгээ" >
+                    <label for="rate_hr_ids" string="ДАСАН ЗОХИЦОХ ХӨТӨЛБӨРИЙН ҮНЭЛГЭЭ"/>
+                    <group>
+                        <field name="desc_hr" attrs="{'readonly':[('state','=','complete')]}"/>
+                        <field name="rate_score6"/>
+                    </group>
+                    <field name="rate_hr_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree editable="bottom" create="true">
+                            <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="get_score" />
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                    <group>
+                        <field name="hr_purpose1"/>
+                        <field name="hr_purpose2"/>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='rate_ids']" position="after">
+                <label for="rate_ids_360" string="ШИНЭ АЖИЛТНЫГ ҮНЭЛЭХ 360-ЫН ҮНЭЛГЭЭ"/>
+                <group>
+                    <field name="desc_360" />
+                    <field name="rate_score5" />
+                </group>
+                <field name="rate_ids_360" attrs="{'readonly':[('state','=','complete')]}">
+                    <tree editable="bottom" create="true">
+                        <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                        <field name="get_score1" sum='Sum'/>
+                        <field name="get_score2" sum='Sum'/>
+                        <field name="get_score3" sum='Sum'/>
+                        <field name="get_score4" sum='Sum'/>
+                        <field name="sum_get_score" sum='Sum'/>
+                        <field name="sequence" optional='hide'/>
+                    </tree>
+                </field>
+                <label for="rate_report_ids" string="ТУРШИЛТЫН ХУГАЦААНЫ АЖЛЫН ТАЙЛАНГИЙН ҮНЭЛГЭЭНИЙ"/>
+                <field name="rate_report_ids" attrs="{'readonly':[('state','=','complete')]}">
+                    <tree editable="bottom" create="true">
+                        <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                        <field name="score" sum='Sum'/>
+				        <field name="get_score" sum='Sum'/>
+                        <field name="sequence" optional='hide'/>
+                    </tree>
+                </field>
+                <group string="ШИНЭ АЖИЛТНЫ ИРЦИЙН МЭДЭЭЛЛИЙН ХУУДАС">
+                    <group >
+                        <group >
+                            <button string="Цаг татах" name="create_hour_data"  icon="fa-check-square-o" type="object" attrs="{'invisible': [('state', '=', 'complete')]}" class="btn-success"/>
+                        </group>
+                        <group>
+                            <field name="ht_worked" />
+                            <field name="worked_hour" />
+                            <field name="rate_score4" />
+                        </group>
+                     </group>
+                    <field name="hour_ids" attrs="{'readonly':[('state','=','complete')]}">
+                        <tree editable="bottom" >
+                            <field name="month"/>
+                            <field name="hour_to_work" sum='sum'/>
+                            <field name="worked_hour" sum='sum'/>
+                            <field name="score" sum='sum'/>
+                            <field name="get_score" sum='sum' force_save='1'/>
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                 </group>
+              
+               
+            </xpath>
+		</field>
+	</record>
+    <record id="view_rate_question_form_syln" model="ir.ui.view">
+            <field name="name">rate.question.form.syln</field>
+            <field name="model">rate.question</field>
+            <field name="inherit_id" ref="employee_orientation.view_rate_question_form"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+				<field name="score" />
+                <field name="type_n"/>
+                <field name="type" attrs="{'invisible':[('type_n','!=','type4')]}"/>
+			</xpath>	
+		</field>
+	</record>
+     <record id="view_employee_training_form_syln" model="ir.ui.view">
+            <field name="name">employee.training.form</field>
+            <field name="model">employee.training</field>
+            <field name="inherit_id" ref="employee_orientation.view_employee_training_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='program_department_id']" position="after">
+                    <field name="idea" />
+                    <field name="type_n"/>
+                </xpath>	
+                <xpath expr="//page[@name='checklist_lines']" position="replace">
+                </xpath>	
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="orientation_rule_form_view">
+		<field name="name">orientation.rule.form</field>
+		<field name="model">orientation.rule</field>
+		<field name="arch" type="xml">
+			<form string="contract part type form">
+			<sheet>
+				<group col="6" >
+					<field name="name"/>
+                    <!-- <field name="type_n"/> -->
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	 <record model="ir.ui.view" id="orientation_rule_tree_view">
+		<field name="name">orientation.rule.tree</field>
+		<field name="model">orientation.rule</field>
+		<field name="arch" type="xml">
+			<tree string="contract part type tree">
+				<field name="name"/>
+                <!-- <field name="type_n"/> -->
+			</tree>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="action_orientation_rule_tree_view">
+		<field name="name">Дүрэм журам</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">orientation.rule</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="orientation_rule_tree_view"/>
+	</record>
+	<menuitem id="contract_type_menu" parent="employee_orientation.menu_employee_orientation_config" action="action_orientation_rule_tree_view" sequence='4'/>  
+
+
+<!-- Хувийн хуудас дээр харагдах -->
+
+    <record id="view_employee_orientation_emp_tree" model="ir.ui.view">
+            <field name="name">employee.orientation.tree</field>
+            <field name="model">employee.orientation</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Orientation" delete='false' create='false'>
+                    <field name="employee_id" />
+                    <field name="department_id" />
+                    <field name="responsible_user_id"/>
+                    <field name="orientation_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_employee_orientation_emp_form" model="ir.ui.view">
+            <field name="name">employee.orientation.form</field>
+            <field name="model">employee.orientation</field>
+            <field name="arch" type="xml">
+                <form string="Шинэ ажилтны дасан зохицох хөтөлбөр">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,complete"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="main">
+                            <group>
+                                <field name="employee_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                                <field name="job_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                                <field name="department_id" options="{'no_create':True, 'no_open':True}"/>
+                                <field name="employee_company_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                                <field name="parent_id"/>
+                            </group>
+                            <group>
+                                <field name="date" readonly='1'/>
+                                <field name="create_date" readonly='1'/>
+                                <field name="responsible_user_id" readonly='1' options="{'no_create':True}"/>
+                                <field name="orientation_id" readonly='1'/>
+                            </group>
+                            <group>
+                                <field name="responsible_employee_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                                <field name="responsible_job_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                                <field name="responsible_department_id" readonly='1' options="{'no_create':True, 'no_open':True}"/>
+                                <field name="purpose" readonly='1'/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="rate" string="Дасан зохицох үнэлгээ" >
+                                <label for="rate_ids" string="ШИНЭ АЖИЛТНЫ УДИРДЛАГЫН ҮНЭЛГЭЭ"/>
+                                <field name="rate_ids" attrs="{'readonly':[('state','=','complete')]}">
+                                    <tree editable="bottom" delete='false' create='false'>
+                                        <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                                        <field name="score" sum='Sum'/>
+                                        <field name="get_score" sum='Sum'/>
+                                        <!-- <field name="add_offer" /> -->
+                                        <field name="sequence" optional='hide'/>
+                                    </tree>
+                                </field>
+                                <field name="shu_purpose"/>
+                                <label for="rate_hr_ids" string="ДАСАН ЗОХИЦОХ ХӨТӨЛБӨРИЙН ҮНЭЛГЭЭ"/>
+                                    <field name="rate_hr_ids" attrs="{'readonly':[('state','=','complete')]}">
+                                        <tree editable="bottom" delete='false' create='false'>
+                                            <field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+                                            <field name="percent" />
+                                            <field name="sequence" optional='hide'/>
+                                        </tree>
+                                    </field>
+                                    <group>
+                                        <group>
+                                            <field name="hr_purpose1" attrs="{'readonly':[('state','=','complete')]}"/>
+                                            <field name="hr_purpose2" attrs="{'readonly':[('state','=','complete')]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="rate_score1" attrs="{'readonly':[('state','=','complete')]}"/>
+                                            <field name="rate_score2" attrs="{'readonly':[('state','=','complete')]}"/>
+                                            <field name="rate_score3" attrs="{'readonly':[('state','=','complete')]}"/>
+                                        </group>
+                                    </group>
+                            </page>
+                            <page name="rule" string="Дүрэм,журам" >
+                                <label for="rule_ids" string="ДҮРЭМ, ЖУРМУУД"/>
+                                <field name="rule_ids" attrs="{'readonly':[('state','=','complete')]}">
+                                    <tree editable="bottom" delete='false' create='false'>
+                                        <field name="rule_id" options="{'no_create':True, 'no_open':True}"/>
+                                        <field name="is_check"/>
+                                        <field name="sequence" optional='hide'/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="report" string="Тайлан" >
+                                <label for="report_ids" string="ШИНЭ АЖИЛТНЫ АЖЛЫН ТӨЛӨВЛӨГӨӨ, ТАЙЛАН"/>
+                                <field name="report_ids" attrs="{'readonly':[('state','=','complete')]}">
+                                    <tree editable="bottom" create="true">
+                                        <field name="task" />
+                                        <field name="period" />
+                                        <field name="evaluation" />
+                                        <field name="score" sum='Sum'/>
+                                        <field name="get_score" sum='Sum'/>
+                                        <field name="sequence" optional='hide'/>
+                                    </tree>
+                                </field>
+                                <field name="shu_purpose" attrs="{'readonly':[('state','=','complete')]}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_employee_orientation_emp_search" model="ir.ui.view">
+            <field name="name">employee.orientation.search</field>
+            <field name="model">employee.orientation</field>
+            <field name="arch" type="xml">
+                <search string="Employee Orientation">
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <newline />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_employee_orientation_emp">
+            <field name="name">Ажилтны дасан зохицох хөтөлбөр</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.orientation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_employee_orientation_emp_search" />
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_employee_orientation_emp_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_employee_orientation_emp_form')})]"/> 
+        </record>
+        <menuitem action="action_employee_orientation_emp" id="menu_employee_orientation_emp" parent="mw_hr.hr_emp_main_menu" sequence="9"/>
+
+    <record id="view_employee_form_syl_orientation" model="ir.ui.view">
+        <field name="name">hr.employee.form.syln</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="syl_hr.view_employee_form_syl"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='trainee_line_ids']/tree/field[@name='name']" position="replace">
+				<field name="question_id" options="{'no_create':True, 'no_open':True}"/>
+			</xpath>	
+        </field>
+    </record>
+
+	 <record id="employee_orientation_view" model="ir.actions.report">
+		<field name="name">Дасан зохицох хуудас</field>
+		<field name="model">employee.orientation</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">syl_hr_orientation.employee_orientation</field>
+		<field name="report_file">syl_hr_orientation.employee_orientation</field>
+		<field name="print_report_name">'Дасан зохицох хуудас'</field>
+		<field name="binding_model_id" ref="model_employee_orientation"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="employee_orientation">
+		<t t-value="null">
+		</t>
+	</template>
+
+
+
+
+</odoo>

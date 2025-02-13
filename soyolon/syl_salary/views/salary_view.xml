@@ -1,0 +1,439 @@
+<odoo>
+
+	<record id="salary_update_syl_form" model="ir.ui.view">
+        <field name="name">salary.update.syl.form</field>
+        <field name="model">salary.update</field>
+        <field name="inherit_id" ref="mw_salary.salary_update_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='line_ids']" position="replace">
+                <field name='line_ids' widget='one2many_search'>
+                    <tree editable='bottom' limit='1000'>
+                        <field name="order_id"/>
+                        <field name="employee_id"/>
+                        <field name="department_id" optional='hide'/>
+                        <field name="job_id" optional='hide'/>
+                        <field name="date" optional='hide'/>
+                        <field name="old_level_id"/>
+                        <field name="new_level_id"/>
+                        <field name="old_wage" sum='Sum'/>
+                        <field name="new_wage" sum='Sum'/>
+                        <field name="old_wage_ur" sum='Sum'/>
+                        <field name="new_wage_ur" sum='Sum'/>
+                    </tree>
+                    <form>
+                        <field name="employee_id"/>
+                        <field name="department_id"/>
+                        <field name="job_id" />
+                        <field name="old_wage"/>
+                        <field name="new_wage"/>
+                    </form>
+                </field>
+            </xpath>
+        </field>
+    </record>
+	<record id="view_vacation_salary_form_syl" model="ir.ui.view">
+        <field name="name">vacation.salary.form</field>
+        <field name="model">vacation.salary</field>
+        <field name="inherit_id" ref="mw_salary.view_vacation_salary_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//tree/field[@name='sum_day']" position="replace">
+                <field name="sum_day" sum='Sum' string='Нийт ажилласан цаг' attrs="{'readonly':[('state','!=','draft')]}"/>    
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="view_department_inherit_soyolon_form" model="ir.ui.view">
+        <field name="name">hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="mw_salary.view_department_inherit_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_shi_expense_id']" position="after">
+                <field name="analytic_shi_account_id"/>
+                
+                <field name="account_advance_id"/>
+                <field name="vacation_id"/>
+                <field name="advance_id"/>
+                <field name="account_health_id"/>
+                <field name="account_phone_id"/>
+                <field name="account_car_id"/>
+                <field name="account_clothes_id"/>
+                <field name="account_employee_rec_id"/>
+				<field name="is_salhit"/>
+                <field name="partner_id"/>
+                <field name="branch_id"/>
+            </xpath>
+			<xpath expr="//field[@name='account_allounce_expense_id']" position="replace">
+			    <field name="analytic_account_id"/>
+			</xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_view_inherit_form" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="mw_salary.hr_contract_view_inherit_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='wage']" position="before">
+                <field name="level_id"/>
+            </xpath>
+            <xpath expr="//field[@name='wage']" position="after">
+                <field name="skills_allounce"/>
+                <field name="sum_wage"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- суутгалын төлөвлөгөө -->
+    <record id="deductioin_plan_search" model="ir.ui.view">
+        <field name="name">Tire search</field>
+        <field name="model">deductioin.plan</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <group string="Filters">
+                    <field name="name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="deductioin_plan_form" model="ir.ui.view">
+        <field name="name">deductioin.plan.form</field>
+        <field name="model">deductioin.plan</field>
+        <field name="arch" type="xml">
+            <form string='Хэрэглэгчийн мэдээлэл'>
+                <sheet>
+                    <div class="oe_title"  style="color:#00A300;">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group col='2'>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="end_date"/>
+                            <field name="work_location_id"/>
+                        </group>
+                    </group>
+                    <group col='3'>
+                        <group>
+                            <field name="zohih"/>
+                        </group>
+                        <group>
+                            <field name="suutgasan"/>
+                        </group>
+                        <group>
+                            <field name="uldegdel"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page>
+                            <field name='line_ids' widget='one2many_search'>
+                                <tree editable='bottom' limit='1000'>
+                                    <field name="date"/>
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="done_amount" sum='Sum'/>
+                                </tree>
+                                <form>
+                                    <field name="date"/>
+                                    <field name="amount" sum='Sum'/>
+                                    <field name="done_amount" sum='Sum'/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="deductioin_plan_tree" model="ir.ui.view">
+        <field name="name">deductioin.plan.tree</field>
+        <field name="model">deductioin.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Хэрэглэгчийн мэдээлэл">
+                <field name="employee_id"/>
+                <field name="work_location_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="date"/>
+                <field name="end_date"/>
+                
+            </tree>
+        </field>
+    </record>
+        
+    <record id="deductioin_plan_actions" model="ir.actions.act_window">
+        <field name="name">Цалингийн урьдчилгаа</field>
+        <field name="res_model">deductioin.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" ref="deductioin_plan_search"/>
+        <field name="context">{}</field>
+    </record>    
+    <menuitem id="deductioin_plan_menu_id" parent="mw_salary.menu_other_parent_salary" action="deductioin_plan_actions" sequence="8"/>
+
+
+
+	<record id="salary_order_syl_inherit_form" model="ir.ui.view">
+		<field name="name">salary.order.form</field>
+		<field name="model">salary.order</field>
+		<field name="priority">2</field>
+		<field name="inherit_id" ref="mw_salary.salary_order_form"/>
+		<field name="arch" type="xml">
+		<xpath expr="//header" position="replace">
+                <header>
+                    <button name="compute_create" states="draft" string="Тооцоолох" type="object" class="btn-danger"/>
+					<!-- <button name="action_send_mail_geely"  string="Имэйл илгээх"
+							type="object"  class="btn btn-warning" group="mw_salary.group_salary_hybo"/> -->
+					<button name="action_salary_email_data"  string="Имэйл дата бэлдэх"
+							type="object"  class="btn btn-warning" group="mw_salary.group_salary_hybo"/>
+					<button name="action_send_mail"  string="Имэйл илгээх"
+							type="object"  class="btn btn-warning" group="mw_salary.group_salary_hybo"/>
+					<button name="send_action" string="Илгээх" states="draft" type="object" class="btn-success" />
+					<button name="nybo_action" string="Батлах" states="send" type="object" class="btn-success" />
+					<button name="done_action" string="Батлах" states="nybo" type="object" class="btn-success" />
+					<button name="draft_action" string="Ноороглох" states="done" type="object" class="btn-success" />
+
+					<field name="state" widget="statusbar" statusbar_visible="draft,send,nybo,done"  attrs="{'invisible': [('type', '=', 'advance')]}" />              
+                </header>
+		</xpath>
+			<!-- <xpath expr="//button[@name='action_send_mail']" position="before">
+				<button name="action_salary_email_data" states="draft" string="Имэйл дата бэлдэх"
+							type="object" attrs="{'invisible':[('type','!=','final')]}" class="btn btn-warning"/> -->
+				<!-- <button name="action_tree_month_sum" string="3 sarin data beldeh"
+							type="object" class="btn btn-warning"/> -->
+			<!-- </xpath> -->
+			<xpath expr="//field[@name='work_location_id']" position="replace">
+            </xpath>
+			<!-- <xpath expr="//button[@name='print_salary']" position="after">
+				<button name="create_expense_invoice_syl"  string="Санхүү бичилт" type="object" class="btn-info"/>
+				<button name="create_expense_invoice_clothes_syl"  string="Ажилчидын хувцас хэрэгсэл бичилт" type="object" class="btn btn-outline-dark"/>
+				<button name="create_expense_invoice_health_syl"  string="	Сайн дурын-ЭМД бичилт" type="object" class="btn btn-outline-warning"/>
+            </xpath> -->
+			  <xpath expr="//page[4]" position='replace' >
+                <page string="Санхүү бичилтүүд" attrs="{'invisible': [('type', '=', 'advance')]}">
+							<button name="create_expense_invoice_syl"  string="Санхүү бичилт" type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_ndsh_syl"  string="НДШ бичилт" type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_advance_suut_syl"  string="Цалингийн урьдчилгаа " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_advance_syl"  string="Суутгал-цалингийн урьдчилгаа " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_hhoat_syl"  string="ХХОАТ " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_car_syl"  string="Суутгал-Ажилчидын-Торгууль  " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_clothes_syl"  string="Суутгал-Ажилчидын хувцас хэрэгсэл " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_health_syl"  string="Суутгал-Сайн дурын-ЭМД  " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_phone_syl"  string="Суутгал-Утасны " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_avlaga_syl"  string="Суутгал-Ажилчдын авлага " type="object" class="btn btn-outline-secondary"/>
+							<button name="create_expense_invoice_vacation_syl"  string="Суутгал-ЭА тооцоо хаав" type="object" class="btn btn-outline-secondary"/>
+
+						<group>
+							<!-- <field name="or_move_id"/> -->
+							<field name="move_id"/>
+							<!-- <field name="bndsh_move_id"/> -->
+							<field name="ndsh_move_id"/>
+							<field name='advance_move_id'/>
+							<field name='account_advance_move_id'/>
+							<field name='account_hhoat_move_id'/>
+							<field name='car_move_id'/>
+							<field name='clothes_move_id'/>
+							<field name='health_move_id'/>
+							<field name='phone_move_id'/>
+							<field name='account_emp_move_id'/>
+							<field name='account_vacation_move_id'/>
+						</group>
+                    
+                </page>
+            </xpath>
+			<xpath expr="//field[@name='pit_partner_id']" position="after">
+				<field name='account_salary_cost_id' options="{'no_create':True,'no_create_edit':True,'no_open':True}" attrs="{'invisible': [('type', '=', 'advance')]}"/>
+				<field name='account_shi_cost_id' options="{'no_create':True,'no_create_edit':True,'no_open':True}"  attrs="{'invisible': [('type', '=', 'advance')]}"/>
+				<field name='account_advance_cost_id' options="{'no_create':True,'no_create_edit':True,'no_open':True}"  attrs="{'invisible': [('type', '=', 'advance')]}"/>
+				
+            </xpath>
+			<xpath expr="//field[@name='order_line']" position="replace">
+				<field name="order_line" widget="one2many_search">
+					<tree string="Order lines" limit="1000" >
+						<field name="number"/>
+						<field name="is_new_employee"  optional="hide"/>
+						<field name="is_update_salary"  optional="hide"/>
+						<field name="ident_id" />
+						<field name="last_name" />
+						<field name="name" />
+						<field name="levelname" />
+						<field name="basic" sum="Үндсэн"/>
+						<field name="tree_month_average_wage" sum="Үндсэн"/>
+						<field name="amount_allounce" sum="Нэмэгдэл"/>
+						<field name="amount_deduction" sum="Нийт суутгал"/>
+						<field name="amount_tootsson" sum="Олговол тооцох"/>
+						<field name="amount_net" sum="Гарт олгох"/>
+						<field name="is_advance_check"/>
+						<field name="email_address"/>
+						<field name="employee_id" optional="hide"/>
+						<button name="action_send_mail_erdes_emp" string="Имэйл илгээх/хувь хүн/"
+							type="object" class="btn btn-warning"/>	
+						<field name="so_line_line" widget="many2many_tags" optional='hide'/>
+						<field name="so_line_line1" widget="many2many_tags" optional='hide'/>
+					</tree>
+					<form>
+						<group>
+							<group>
+								<field name="ident_id" />
+								<field name="last_name" />
+								<field name="employee_id" />
+								<field name="contract_id" />
+								<field name="levelname" />
+								<field name="is_advance_check"/>
+								<field name="name" />
+								<field name="basic" />
+								<field name="order_id" />
+								<field name="pit_procent"/>
+								<field name="grade_procent"/>
+								<field name="insured_type_id"/>
+							</group>
+							<group>
+								<field name="email_address"/>
+								<field name="is_pit"/>
+								<field name="pit_id"/>
+								<field name="one_hour_tarif"/>
+								<field name="total_day"/>
+								<field name="total_hr"/>
+								<field name="wage_two"/>
+								<field name="fond_overtime"/>
+								<field name="oz_advance"/>
+								<field name="tootsoh_hour"/>
+								<field name="hour_to_work_all"/>
+								<field name="hour_to_work"/>
+								<field name="day_to_work"/>
+							</group>
+						</group>
+						<group col="6">
+							<field name="tree_month_average_wage"/>
+							<field name="tree_month_sum_hour"/>
+							<field name="tree_month_sum_wage"/>
+						</group>
+						<!--<group col="6">
+							<field name="tree_month_average_wage_cr"/>
+							<field name="tree_month_sum_hour_cr"/>
+							<field name="tree_month_sum_wage_cr"/>
+						</group> -->
+						<notebook>
+							<page string="Setup lines">
+								<field name="so_line_line">
+									<tree string="Setup lines" editable="bottom">
+										<field name="category_id"/>
+										<field name="type" readonly="1" />
+										<field name="every_month" />
+										<field name="is_tree" />
+										<field name="amount" />
+									</tree>
+								</field>
+							</page>	
+							<page string="Setup lines">
+											<field name="so_line_line1">
+												<form string="Setup lines" editable="bottom">
+													<field name="name"/>
+												</form>
+											</field>
+										</page>
+						</notebook>
+						<notebook> 
+							<page string="Setup lines">
+								<group col='4' string='Үндсэн мэдээлэл'>
+									<field name="email_char_basic" />
+									<field name="email_char_discipline" />
+									<field name="email_char_wage2" />
+									<field name="email_char_skill_per" />
+									<field name="email_char_one" />
+								</group>
+								<group col='4' string='Цаг'>
+									<field name="email_char_day_to_work" />
+									<field name="email_char_hour_to_work" />
+									<field name="email_char_worked_day" />
+									<field name="email_char_worked_hour" />
+									<field name="email_char_count_worked_hour" />
+									<field name="email_char_over" />
+									<field name="email_char_nigth_hour" />
+									<field name="email_char_celebrate_work_hour" />
+									<field name="email_char_no_work_hr" />
+								</group>
+								<group col='4' string='Нэмэгдлүүд'>
+									<field name="email_char_pay" />
+									<field name="email_char_kpi" />
+									<field name="email_char_over_nemegdel" />
+									<field name="email_char_nigth" />
+									<field name="email_char_celebrate_work_pay" />
+									<field name="email_char_no_work_pay" />
+									<field name="email_char_long" />
+									<field name="email_char_reward" />
+									<field name="email_char_other_pay" />
+									<field name="email_char_skill_pay" />
+									<field name="email_char_project_pay" />
+									<field name="email_char_sales_pay" />
+									<field name="email_char_rest_pay" />
+									<field name="email_char_dad" />
+									<field name="email_char_other" />
+								</group>
+								<group col ='4' string='Суутгалууд'>
+									<field name="email_char_shi" />
+									<field name="email_char_pit" />
+									<field name="email_char_pitt" />
+									<field name="email_char_advance" />
+									<field name="email_char_deudaan" />
+									<field name="email_char_deskill" />
+									<field name="email_char_deproject" />
+									<field name="email_char_desales" />
+									<field name="email_char_derest" />
+									<field name="email_char_dedad" />
+									<field name="email_char_deother" />
+									<field name="email_char_deuridsuu" />
+									<field name="email_char_deearly" />
+
+									<field name="email_char_dehi" />
+									<field name="email_char_decel" />
+									<field name="email_char_decar" />
+									<field name="email_char_detor" />
+									<field name="email_char_decloth" />
+									<field name="email_char_othususu" />
+								</group>
+							</page>
+						</notebook>
+						<group col='4'>
+							<field name="amount_allounce" />	
+							<field name="amount_deduction" />
+							<field name="amount_tootsson" />
+							<field name="amount_net" />
+							<!-- <field name="email_char_csal" /> -->
+							<!-- <field name="vacation_amount" sum="ЭА бодох дүн" />
+							<field name="vac_day" sum="ЭА хоног" /> -->
+							<field name="bndsh" />
+							<!-- <field name="pit_amount" /> -->
+							<!-- <field name="vacation_day" sum="Ажилласан хоног"/> -->
+							<!-- <field name="pit_discount" /> -->
+							<!-- <button name="print_salary_order" colspan="1" type="object" string="Print" icon="gtk-print"/> -->
+						</group>
+					</form>
+				</field>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- config -->
+	<record id="view_salary_account_conf_form_syl" model="ir.ui.view">
+        <field name="name">salary.account.conf.haak.form</field>
+        <field name="model">salary.account.conf</field>
+        <field name="inherit_id" ref="mw_salary.salary_account_conf_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='pit_partner_id']" position="after">
+				<field name="account_salary_cost_id" />
+                <field name="account_shi_cost_id" />
+                <field name="account_advance_cost_id" />
+            </xpath>
+        </field>
+    </record>
+	
+
+</odoo>

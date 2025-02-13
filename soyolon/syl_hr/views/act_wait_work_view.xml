@@ -1,0 +1,111 @@
+<odoo>
+    <record model="ir.ui.view" id="act_waiting_work_form">
+        <field name="name">act.waiting.work.form</field>
+        <field name="model">act.waiting.work</field>
+        <field name="arch" type="xml">
+            <form string='Ажил хүлээлцэх акт'>  
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object" attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцаах" class="btn-warning" icon="fa-arrow-left" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close"  type="object" attrs="{'invisible': ['|',('state_type', 'in',['cancel','draft']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'not in', ['done']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+                </header>
+
+                <sheet>    
+                    <group>
+                        <group string='Ажил хүлээлгэн өгсөн ажилтан'>
+                            <field name="employee_id" options="{'no_create':True}"/>
+                            <field name="department_id" options="{'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="job_id" options="{'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="date"/>
+                        </group>
+                        <group string='Ажил хүлээн авсан ажилтан'>
+                            <field name="accept_employee_id"/>
+                            <field name="acc_department_id" options="{'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="acc_job_id" options="{'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="date_two"/>
+                        </group>
+                        <group string='Ажил хүлээлцүүлсэн шууд удирдлага'>
+                            <field name="doc_employee_id"/>
+                            <field name="doc_department_id" options="{'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="doc_job_id" options="{'no_create':True}" readonly="1" force_save="1"/>
+                            <field name="date_thr"/>
+                        </group>
+                    </group>                    
+                    <notebook>
+                        <page string='Бичиг баримт 1'>
+                            <field name='line_ids'  widget='one2many_search' >
+                                <tree editable='bottom' >
+                                    <field name="folder_name"/>
+                                    <field name="data"/>
+                                    <field name = "desc"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string='Бичиг баримт 2'>
+                            <field name='line_id2'  widget='one2many_search'>
+                                <tree editable='bottom' >
+                                    <field name="doc_meaning"/>
+                                    <field name="desc"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string='Ажил хүлээлцсэн комиссын гишүүд'>
+                            <field name='line_id3'  widget='one2many_search'>
+                                <tree editable='bottom' >
+                                    <field name="employee_id" options="{'no_create':True}"/>
+                                    <field name="department_id" options="{'no_create':True}" readonly='1'/>
+                                    <field name="job_id" options="{'no_create':True}" readonly='1'/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>   
+                    <group> 
+                        <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit','=',True)]}" required="1"/>
+                    </group>
+                    <group>
+                        <field name="confirm_user_ids" readonly="1" widget="many2many_tags" force_save="1" />
+                    </group>
+                    <group>
+                        <field name="state_type" invisible="1"/>
+                        <field name="flow_line_next_id" invisible="1"/>
+                        <field name="flow_line_back_id" invisible="1"/>
+                        <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="state" invisible="1"/>
+                        <field name="is_not_edit" invisible="1"/>
+                    </group>                   
+                </sheet>    
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="act_waiting_work_tree">
+        <field name="name">act.waiting.work.tree</field>
+        <field name="model">act.waiting.work</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string='Ажил хүлээлцэх акт' >
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_act_waiting_work">
+        <field name="name"> Ажил хүлээлцэх акт</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">act.waiting.work</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+
+        <menuitem id="menu_act_waiting_work"
+            parent="hr.menu_hr_root" 
+            action="action_act_waiting_work" 
+            sequence="21"/> 
+
+</odoo>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="leaves_portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'list_leave'" class="breadcrumb-item">Амралт, чөлөө</li>
+            <li t-if="page_name == 'new_leave'" class="breadcrumb-item"><a href="/my/leavelist">Амралт, чөлөөний хүсэлтүүд</a> / Амралт, чөлөө</li>
+            <li t-if="page_name == 'lew_leave'" class="breadcrumb-item">Амралт, чөлөөний хүсэлт- ЗАСАХ</li>
+        </xpath>
+    </template>
+    <template id="portal_my_leaves" name="Leaves List" customize_show="True" inherit_id="portal.portal_my_home" priority="50">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="url" t-value="'/my/newleave/0'"/>
+                <t t-set="title">Амралт, чөлөөний хүсэлт-Шинэ</t>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="url" t-value="'/my/newleave/#{leave.id}'"/>
+                <t t-set="title">Амралт, чөлөөний хүсэлт-Засах</t>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="url" t-value="'/my/leavelist'"/>
+                <t t-set="title">Амралт чөлөөний хүсэлт</t>
+                <t t-set="placeholder_count">leave_counts</t>
+            </t>
+
+        </xpath>
+    </template>
+
+    <template id="leaves_list_view_portal">
+        <t t-call="portal.portal_layout">
+            <t t-if="leaves" t-call="portal.portal_table">
+                <thead>
+                    <tr>
+                        <td colspan="9">
+                            <a t-attf-href="newleave/0" class="btn btn-primary">Шинэ хүсэлт үүсгэх</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Ажилтан</th>
+                        <th>Эхлэх</th>
+                        <th>Дуусах</th>
+                        <th class="text-center">Амралт/Чөлөөний төрөл</th>
+                        <th class="text-center">Хугацаа /Өдөр/</th>
+                        <th class="text-center">Хугацаа /Цаг/</th>
+                        <th class="text-center">Тайлбар</th>
+                        <th class="text-center">Төлөв</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="leaves" t-as="leave">
+                        <tr>
+                            <td class="text-right">
+                                <t t-out="leave.employee_id.name"/>
+                                <t t-out="leave.employee_id.last_name"/>
+                            </td>
+                            <td class="text-right">
+                                <t t-out="leave.date_from" t-options='{"widget": "date","format": "yyyy-MM-dd"}'/>
+                                <t t-out="leave.time_from" t-options="{'widget': 'float_time'}"/>
+                                <br/>
+                            </td>
+                            <td class="text-right">
+                                <t t-out="leave.date_to" t-options='{"widget": "date","format": "yyyy-MM-dd"}'/>
+                                <t t-out="leave.time_to" t-options="{'widget': 'float_time'}"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="leave.shift_plan_id.name"/>
+                            </td>
+                            <td align="right">
+                                <t t-out="leave.days"/>
+                            </td>
+                            <td align="right">
+                                <t t-out="leave.total_hour"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="leave.description"/>
+                            </td>
+                            <td class="text-center">
+                                <!-- <td> -->
+                                <t t-if="leave.state_type=='draft'">
+                                    <span>Ноорог</span>
+                                </t>
+                                <t t-elif="leave.state_type=='sent'">
+                                    <span>Илгээсэн</span>
+                                </t>
+                                <t t-elif="leave.state_type=='master'">
+                                    <span>Хэсгийн удирдлага баталсан</span>
+                                </t>
+                                <t t-elif="leave.state_type=='done'">
+                                    <span>Захирал баталсан</span>
+                                </t>
+                                <t t-elif="leave.state_type=='cancel'">
+                                    <span>Цуцлагдсан</span>
+                                </t>
+                                <!-- <t t-out="leave.state_type"/> -->
+                            </td>
+                            <td class="text-center">
+                                <t t-if="leave.state_type in ('draft', 'sent')">
+                                    <a t-attf-href="newleave/#{leave.id}">Засах
+                                    </a>
+                                </t>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+            <t t-else="" t-call="portal.portal_table">
+                <thead>
+                    <tr>
+                        <td colspan="2">
+                            <a t-attf-href="newleave/0" class="btn btn-primary">Шинэ хүсэлт үүсгэх</a>
+                        </td>
+                    </tr>
+                </thead>
+            </t>
+        </t>
+    </template>
+    <template id="new_leave_form_portal">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_table">
+                <form method="post">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-light table-success">
+                            <tbody>
+                                <t t-if="current_state=='draft'">
+                                    <tr>
+                                        <style> 
+                                            .button_type {color:black;text-align:left;font-size:24px;cursor:not-allowed; }
+                                        </style>
+                                        <td colspan="3">
+                                            <input type="hidden" name="record_id" id="record_id" t-att-value="current_leave_id"/>
+                                            <button colspan="2" type="submit" onblur="selectTypeInputLeave(this)" class="btn btn-primary">Хадгалах</button>
+                                            <![CDATA[&nbsp;]]>
+                                            <a id="send_leave" t-attf-href="editLeaveType/#{current_leave_id}" class="btn btn-primary">Илгээх</a>
+                                            <script>
+                                                function selectTypeInputLeave(input) {
+                                                    if (document.getElementById("shift_plan").selectedIndex === 0) {
+                                                        alert("Хүсэлтийн төрлөө сонгоно уу");
+                                                    }
+                                                }
+                                            </script>
+                                        </td>
+                                        <!-- <td>Төлөв </td> -->
+                                        <td class="button_type" > Төлөв
+                                            <t t-if="current_state=='draft'">
+                                                <h5>Ноорог</h5>
+                                            </t>
+                                            <t t-elif="current_state=='sent'">
+                                                <h5>Илгээсэн</h5>
+                                            </t>
+                                            <t t-elif="current_state=='master'">
+                                                <h5>Хэсгийн удирдлага баталсан</h5>
+                                            </t>
+                                            <t t-elif="current_state=='done'">
+                                                <h5>Захирал баталсан</h5>
+                                            </t>
+                                            <t t-elif="current_state=='cancel'">
+                                                <h5>Цуцлагдсан</h5>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="current_state=='sent'">
+                                    <tr>
+                                        <td colspan="9">
+                                            <a id="draft_leave" t-attf-href="editLeaveType/#{current_leave_id}" class="btn btn-primary">Ноорог болгох</a>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Ажилтан</td>
+                                    <td>
+                                        <select class="form-select" name="employee" id="employee">
+                                            <t t-foreach="employees" t-as="emp">
+                                                <option t-att-value="emp.id">
+                                                    <t t-out="emp.name"/>
+                                                    <t t-out="emp.last_name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </td>
+                                    <td>Албан тушаал</td>
+                                    <td>
+                                        <select class="form-select" name="job" id="job">
+                                            <t t-foreach="jobs" t-as="job">
+                                                <option t-att-value="job.id">
+                                                    <t t-out="job.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Хэлтэс</td>
+                                    <td>
+                                        <select class="form-select" name="department" id="department">
+                                            <t t-foreach="departments" t-as="dep">
+                                                <option t-att-value="dep.id">
+                                                    <t t-out="dep.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </td>
+<!--                                     <td>Сектор</td>
+                                    <td>
+                                        <select class="form-select" name="sector" id="sector">
+                                            <t t-foreach="sectors" t-as="sector">
+                                                <option t-att-value="sector.id">
+                                                    <t t-out="sector.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </td> -->
+                                </tr>
+                                <tr>
+                                    <td>Эхлэх Огноо</td>
+                                    <td>
+                                        <input class="form-control" type="date" name="date_from" id="date_from" t-att-value="current_date_from" required="1" />
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    </td>
+                                    <td>Дуусах Огноо</td>
+                                    <td>
+                                        <input class="form-control" type="date" name="date_to" id="date_to" data-date-format="YYYY-MM-DD" t-att-value="current_date_to" required="1" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Эхлэх цаг</td>
+                                    <!-- <td>
+                                        <input class="form-control" type="char" name="time_from" id="time_from" placeholder="00:00" value="00:00" t-att-value="current_time_from" t-options="{'widget': 'float_time'}"/>
+                                    </td> -->
+                                    <td>
+                                        <input type="char" class="form-control" id="time_from" name="time_from" 
+                                                placeholder="00:00" onblur="validateTimeInput(this)" t-att-value="current_time_from" required="1" />
+                                    </td>
+                                    <td>Дуусах цаг</td>
+                                    <!-- <td>
+                                        <input class="form-control" type="char" name="time_to" id="time_to" placeholder="00:00" value="00:00" t-att-value="current_time_to" t-options="{'widget': 'float_time'}"/>
+                                    </td> -->
+                                    <td>
+                                        <input type="char" class="form-control" id="time_to" name="time_to" 
+                                                placeholder="00:00" onblur="validateTimeInput(this)" t-att-value="current_time_to" required="1" />
+                                    </td>
+                                    <script>
+                                        function validateTimeInput(input) {
+                                            var regex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+                                            if (!regex.test(input.value)) {
+                                                alert("HH:MM/цаг:минут/ форматын дагуу цагаа оруулна уу!");
+                                            }
+                                        }
+                                    </script>
+                                </tr>
+                                <tr>
+                                    <td>Хүсэлтийн төрөл</td>
+                                    <td>
+                                        <select class="form-select" name="shift_plan" id="shift_plan" required="1" >
+                                            <option>Сонгоно уу</option>
+                                            <t t-foreach="shift_times" t-as="shift">
+                                                <t t-if="shift.id == current_shift_plan">
+                                                    <option t-att-value="shift.id" selected="True">
+                                                        <t t-out="shift.name"/>
+                                                    </option>
+                                                </t>
+                                                <t t-else="">
+                                                    <option t-att-value="shift.id">
+                                                        <t t-out="shift.name"/>
+                                                    </option>
+                                                </t>
+                                            </t>
+                                        </select>
+                                    </td>
+                                    <td>Тайлбар</td>
+                                    <td>
+                                        <input class="form-control" type="char" name="description" id="description" t-att-value="current_description" required="1" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Компани</td>
+                                    <td>
+                                        <select class="form-select" name="company" id="company">
+                                            <t t-foreach="companies" t-as="company">
+                                                <option t-att-value="company.id">
+                                                    <t t-out="company.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </td>
+                                    <td>Буцаасан тайлбар</td>
+                                    <td>
+                                        <t id="return_desciption" t-esc="return_desc" />
+                                    </td>
+                                </tr>
+                                <t t-if="current_state=='draft'">
+                                    <tr>
+                                        <td colspan="4" class="text-left">
+                                            <br/>
+                                            <span style="font-size: 16px; height: 90px; color: #FF7F00">
+                                                <strong>Анхааруулга/ Заавал унш! /:  </strong>
+                                            </span>
+                                            <br/>
+                                            <span style="font-size: 13px; height: 90px;"> 1. Бүх талбаруудыг утгыг заавал бөглөх.</span>
+                                            <br/>
+                                            <span style="font-size: 13px; height: 90px;"> 2. Талбаруудын утгыг өөрчилсөн тохиолдолд эхлээд заавал хадгалах.</span>
+                                            <br/>
+                                            <span style="font-size: 13px; height: 90px;"> 3. Утгыг зөв эсэхийг шалгаад хадгалсны дараа илгээх товчийг дарна уу.</span>
+                                            <br/>
+                                            <span style="font-size: 13px; height: 90px;"> 4. Эхлэх болон дуусах цагийг харагдаж буй форматын дагуу бичнэ үү.</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="current_state=='sent'">
+                                    <tr>
+                                        <td colspan="4" class="text-left">
+                                            <br/>
+                                            <span style="font-size: 16px; height: 90px; color: #FF7F00">
+                                                <strong>Анхааруулга/ Заавал унш! /:  </strong>
+                                            </span>
+                                            <br/>
+                                            <span style="font-size: 13px; height: 90px;"> 1. Илгээсэн хүсэлтийг засахын тулд эхлээд ноорогло.</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </t>
+        </t>
+    </template>
+</odoo>

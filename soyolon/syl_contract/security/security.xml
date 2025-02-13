@@ -1,0 +1,7 @@
+<odoo>
+        <record id="group_contract_my_confirm" model="res.groups">
+            <field name="name">Миний батлах гэрээ</field>
+            <field name="category_id" ref="mw_contract.module_contract"/>
+        </record>
+ 
+</odoo>

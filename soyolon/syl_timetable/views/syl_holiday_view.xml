@@ -1,0 +1,66 @@
+
+<odoo>
+	<record id="view_hr_leave_mw_form_syl" model="ir.ui.view">
+		<field name="name">hr.leave.mw.inherit</field>
+		<field name="model">hr.leave.mw</field>
+		<field name="inherit_id" ref="mw_timetable.view_hr_leave_mw_form"/>
+		<field name="arch" type="xml">
+		<xpath expr="//field[@name='flow_id']" position="after">  
+				<field name="project_id" attrs="{'readonly': [('state_type', '!=','draft')],'invisible': [('is_work', '!=','business_trip')]}"/>
+			</xpath>
+			<xpath expr="//field[@name='shift_plan_id']" position="after">  
+				<field name="paid_leave_type" attrs="{'readonly': [('state_type', '!=','draft')],'invisible': [('is_work', '!=','pay_leave')]}"/> 
+				<!-- <field name="overtime_type" attrs="{'readonly': [('state_type', '!=','sent')],'invisible': [('is_work', '!=','overtime_hour')]}"/> -->
+				<field name="accumlated_hour" readonly='1' attrs="{'invisible': [('is_work', '!=','accumlated')]}" force_save='1' widget='float_time'/>
+			</xpath>
+			<xpath expr="//field[@name='create_date']" position="after">   
+				<field name="vac_days" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+                <field name="work_year" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+                <field name="work_year_bef" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+			</xpath>
+			<xpath expr="//field[@name='is_many']" position="after">   
+				<field name="is_rest" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+				<field name="is_get_salary" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+				<field name="flow_desc" invisible='1'/>
+			</xpath>
+			<xpath expr="//field[@name='days']" position="after">   
+                <field name="remain_days" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+				<field name="is_half" attrs="{'invisible': [('is_work', '!=', 'vacation')]}"/>
+				<field name="startdate" attrs="{'invisible': [('is_half', '!=', True)]}"/>
+				<field name="enddate" attrs="{'invisible': [('is_half', '!=', True)]}"/>
+				<field name="is_half_rest" attrs="{'invisible': [('is_half', '!=', True)]}"/>
+				<field name="l_startdate" attrs="{'invisible': [('is_half_rest', '!=', True)]}"/>
+				<field name="l_enddate" attrs="{'invisible': [('is_half_rest', '!=', True)]}"/>
+			</xpath>
+			
+			<xpath expr="//field[@name='hr_time_ids']/tree/field[@name='employee_id']" position="after">   
+				<field name="project_id" optional='hide'/>
+				<!-- <field name="overtime_type" optional='hide'/> -->
+			</xpath>
+			<xpath expr="//page[@name='history_flow']" position="after">   
+				<page  string="Ээлжийн амралтын түүх">
+                        <field name="history_line_ids" >
+                                <tree string="History" >
+                                   <field name="create_date"/>
+                                   <field name="date_from"/>
+                                   <field name="date_to"/>
+                                   <field name="days"/>
+                                </tree>
+                        </field>
+                 </page>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="hr_shift_vacation_view" model="ir.ui.view">
+			<field name="name">hr.hr.employee.view.form2.mw</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="mw_hr.hr_employee_view_form2_mw"/>
+			<field name="arch" type="xml">
+			<xpath expr="//button[@name='create_partner']" position="after">
+				<button name="action_shift_vacation" string="ЭА" type="object" class="oe_inline oe_right oe_stat_button" icon="fa-sign-out">
+				</button>
+			</xpath>
+		</field>
+	</record>
+</odoo>

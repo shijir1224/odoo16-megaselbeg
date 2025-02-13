@@ -1,0 +1,410 @@
+<odoo>
+    <record id="seq_identification_id" model="ir.sequence"> 
+        <field name="name">Ажилтны код</field>
+        <field name="code">hr.employee</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="view_employee_form_syl" model="ir.ui.view">
+		<field name="name">hr.employee.extension</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="mw_hr.view_employee_form_mw"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='before_year']" position="replace">
+				<field name="before_year" invisible='1'/>
+			</xpath>
+			<xpath expr="//field[@name='sum_uls_work_year']" position="replace">
+				<field name="sum_uls_work_year_syl"/>
+			</xpath>
+			<xpath expr="//field[@name='natural_uls_work_year']" position="replace">
+				<field name="natural_uls_work_year_syl"/>
+				
+			</xpath>
+			
+			<xpath expr="//field[@name='before_worked_year']" position="replace">
+				<field name="before_worked_year" invisible='1'/>
+			</xpath>
+			<xpath expr="//field[@name='education_level']" position="after">
+				<field name="jname_id" options="{'no_create': True}" />
+				<field name="is_doctor"/>
+			</xpath>
+			<xpath expr="//field[@name='is_to_thole']" position="replace">
+				<field name="emp_type"/>
+			</xpath>
+			<!-- <xpath expr="//field[@name='is_director']" position="after">
+				<field name="jname_id" options="{'no_create': True}" />
+				<field name="is_doctor"/>
+			</xpath> -->
+            <xpath expr="//page[@name='employee_info']/group[@name='main']" position="inside">
+				<group>
+                    <field name='clothes_size'/>
+                    <field name='boots_size'/>
+                    <field name='work_year_bef'/>
+                </group>
+                <group>
+                    <field name='shift'/>
+					<field name='shift_g'/>
+					<field name="hr_p_id" options="{'no_create': True,'no_open': True}" />
+                    <field name='health_percent' force_save='1'/>
+                    <field name='health_percent1'/>
+                    <field name='insuranse'/>
+                    <field name='is_health'/>
+                    <field name='health_sdate' attrs="{'invisible':[('is_health','=',False)]}"/>
+                    <field name='health_edate' attrs="{'invisible':[('is_health','=',False)]}"/>
+					 <field name='emp_melen' invisible='1'/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='days_of_annualleave']" position="after">
+                <field name='long_year_date'/>
+                <field name='total_long_year'/>
+                <field name='long_year'/>
+                <field name='long_year_month'/>
+                <field name='long_year_day'/>
+                <!-- <button name='passport_change' type='object' string='dar'/> -->
+            </xpath>
+            <xpath expr="//field[@name='company_history_ids']" position="after">
+                <field name='long_year_ids'>
+                    <form >
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="total"/>
+                        <field name="plus_year" />
+                        <field name="deduct_year"/>
+                    </form>
+                    <tree editable="bottom">
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="total"/>
+                        <field name="plus_year" />
+                        <field name="deduct_year"/>
+                    </tree>
+                </field>
+
+            </xpath>
+            <xpath expr="//page[@name='employee_info']" position="after">
+                <page  string='Ажлаас гарах үеийн ярилцлага' attrs="{'invisible':[('employee_type','!=','resigned')]}" >  
+                        <!-- <button name='line_item' type='object' string='Нэмэх' class='btn-success'/>  -->
+                                        
+                        <label for="line_ids" string='Ажлаас гарах болсон шалтгаан (Дараах утгуудаас сонгож тэмдэглэнэ үү)'/>
+                            <field name='line_ids'>
+                                <tree editable='bottom'>
+                                    <field name='item_id' domain="[('type', '=', 'type1')]" options="{'no_create': True,'no_open': True}"/>
+                                    <field name="check"/>
+									 <field name="type"/>
+                                </tree>
+                            
+                            </field>
+                        
+                        <group>
+                            <group>
+                                <field name ='satisfaction'/>
+                                <field name ='used_skill'/>
+                            </group>
+                            <group>
+                                <field name ='emp_offer'/>
+                                <field name ='social_support'/>
+                            </group>
+                        </group>
+                        <group>
+							<group>
+								<field name='reason_id1' domain="[('type', '=', 'type2')]" options="{'no_create': True,'no_open': True}"/>
+								<field name='reason_id2' domain="[('type', '=', 'type3')]" options="{'no_create': True,'no_open': True}"/>
+							 </group>
+							<group>
+								<field name="reason_id3" domain="[('type', '=', 'type4')]" options="{'no_create': True,'no_open': True}"/>
+								<field name="reason_id4" domain="[('type', '=', 'type5')]" options="{'no_create': True,'no_open': True}"/>
+							</group>
+
+                         </group>
+                </page>
+				<page  string='Туршилтын үнэлгээний хуудас'  >  
+					<label for="trainee_line_ids" string="Туршилтын үнэлгээний хуудас"/>
+					<group>
+						<field name='rate_score2' readonly='1'/>
+					</group>
+					<field name="trainee_line_ids" readonly='1'>
+						<tree string="Trainee Status" editable="bottom" create='false'>
+							<field name="name"  />
+							<field name="score" sum='Sum' />
+							<field name="get_score" sum='Sum' />
+							<!-- <field name="type"  /> -->
+						</tree>
+					</field>
+				</page>
+            </xpath>
+        </field>
+    </record>
+
+    <!--  -->
+    <record id="view_employee_form_mine_mw_syl" model="ir.ui.view">
+		<field name="name">hr.employee.extension.mine</field>
+		<field name="model">hr.employee</field>
+		<field name="arch" type="xml">
+			<form string="Order" create='false' delete='false'>
+				<sheet>
+					<group>
+						<group>
+							<field name="last_name" readonly='1'/>
+							<field name="name" string='Нэр' readonly='1'/>
+						</group>
+                        <group>
+                            <field name="work_email" readonly='1'/>
+                            <field name="work_phone" readonly='1'/>
+							<field name="mobile_phone" readonly='1'/>
+                        </group>
+					</group>
+					<group groups="syl_hr.group_employee_syln" >
+                        <field name="identification_id" string='Ажилтны код' readonly='1' groups="syl_hr.group_employee_syln"/>
+						<field name="employee_type" readonly='1' />
+						<field name="department_id" options="{'no_create': True,'no_open': True}" readonly='1' />
+						<field name="work_end_date" attrs="{'invisible':[('employee_type','!=','resigned')]}" readonly='1'/>
+						<field name="work_end_date" attrs="{'invisible':[('employee_type','!=','resigned')]}"  readonly='1'/>
+						<field name="job_id" options="{'no_create': True,'no_open': True}" readonly='1'/>
+						<field name="parent_id" options="{'no_create': True,'no_open': True}" readonly='1'/>
+						<field name="company_id" options="{'no_create': True,'no_open': True}"  readonly='1'/>
+						<field name="work_location_id" options="{'no_create': True,'no_open': True}"  context="{'default_address_id': False}" readonly='1'/>
+						<field name="hr_p_id" options="{'no_create': True,'no_open': True}" readonly='1'/>
+						<field name="address_id" context="{'show_address': 0}" options='{"always_reload": True, "highlight_first_line": True}' invisible='1'/>
+					</group>
+
+						<notebook groups="syl_hr.group_employee_syln">
+							<page name="employee_info" string="Үндсэн мэдээлэл">
+								<group string='Үндсэн мэдээлэл'>
+									<group>
+										<field name="family_name"/>
+										<field name="passport_id" string='Регистр' readonly='1'/>
+										<field name="gender" readonly='1'/>
+										<field name="birthday" readonly='1'/>
+										<field name="age" readonly='1'/>
+										<field name="bank_id" readonly='1'/>
+										<field name="account_number" readonly='1'/>
+									</group>
+									<group>
+										<!-- <field name="is_married"/> -->
+										<field name="is_army" readonly='1'/>
+										<field name="is_foreign_employee" readonly='1'/>
+										<field name="is_to_thole" readonly='1'/>
+									</group>
+								</group>
+								<group string='Харьяалал'>
+									<field name="country_id" options='{"no_open": True, "no_create": True}' readonly='1'/>
+									<field name="place_of_birth" groups="hr.group_hr_user" readonly='1'/>
+									<field name="country_of_birth" groups="hr.group_hr_user" readonly='1'/>
+									<field name="live_address" readonly='1'/>
+								</group>
+								<group string='Оршин суугаа хаяг'>
+									<group>
+										<field name="emp_loc_id" options='{ "no_create": True}' readonly='1'/>
+										<field name="emp_loc_sub_id" options='{ "no_create": True}' readonly='1'/>
+										<field name="ward" options='{ "no_create": True}' readonly='1'/>
+										<field name="district" readonly='1'/>
+										<field name="road" readonly='1'/>
+									</group>
+									<group>
+										<field name="apart" readonly='1'/>
+										<field name="street" readonly='1'/>
+										<field name="apart_type" readonly='1'/>
+										<field name="owner" readonly='1'/>
+									</group>
+								</group>
+							</page>
+
+							<page name="work" string="Ажлын туршлага">
+								<group string="Ажилд орсон мэдээлэл">
+									<field name="engagement_in_company" readonly='1'/>
+									<field name="before_shift_vac_date" readonly='1'/>
+									<field name="before_year_shipt_leave_date" readonly='1'/>
+									<field name="is_minikin" readonly='1'/>
+								</group>
+								<group string="Ажилласан жилийн мэдээлэл">
+									<group string="Хэвийн нөхцөл" readonly='1'>
+										<field name="natural_compa_work_year" readonly='1'/>
+										<field name="natural_uls_work_year_syl" readonly='1'/>
+									</group>
+									<group string="Хэвийн бус нөхцөл">
+										<field name="minikin_compa_work_year" readonly='1'/>
+										<field name="minikin_uls_work_year" readonly='1'/>
+									</group>
+								</group>
+								<group  >
+									<field name="sum_uls_year_syl"  readonly='1'/>
+									<field name="days_of_annualleave" readonly='1'/>
+									<field name="company_history_ids" readonly='1'>
+										<tree editable="bottom">
+											<field name="type"/>
+											<field name="pre_value"/>
+											<field name="new_value" />
+											<field name="date"/>
+										</tree>
+									</field>
+									<field name="group_history_ids" readonly='1'>
+										<tree editable="bottom">
+											<field name="organization"/>
+											<field name="job_title"/>
+											<field name="entered_date" />
+											<field name="resigned_date"/>
+											<field name="is_minikin"/>
+										</tree>
+									</field>
+									<field name="employment_ids" readonly='1'>
+										<tree editable="bottom">
+											<field name="organization"/>
+											<field name="job_title"/>
+											<field name="entered_date" />
+											<field name="resigned_date"/>
+											<field name="is_ndsh"/>
+											<field name="is_minikin"/>
+											<field name="added_exp"/>
+											<field name="resigned_reason"/>
+										</tree>
+									</field>
+								</group>
+								<group>
+									<field name="hr_file" widget="many2many_binary"/>
+								</group>
+							</page>
+							<page name="family" string="Гэр бүлийн байдал">
+								<group name='family_count'>
+									<field name="family_count" readonly='1'/>
+									<field name="children" readonly='1'/>
+								</group>
+								<label for="family_line_ids" string="Гэр бүлийн байдал/Эхнэр, нөхөр хүүхэд/"/>
+								<field name="family_line_ids" readonly='1'>
+									<tree string="Family Status" editable="bottom">
+										<field name="name" required="1" />
+										<field name="family_member_id" required="1" options="{'no_create':True}"/>
+										<field name="current_job" />
+										<field name="birth_year" />
+										<field name="age" />
+										<field name="contact" />
+									</tree>
+								</field>
+								<label for="family_rel_line_ids" string="Ураг төрлийн байдал/Төрсөн эцэг эх,Төрсөн ах эгч дүү/"/>
+								<field name="family_rel_line_ids" readonly='1'>
+									<!-- <form string="Family Status">
+										<field name="name" colspan="2" required="1" />
+										<field name="family_member_id" colspan="2" required="1" />
+										<field name="name" colspan="2" required="1" />
+										<field name="birth_year" colspan="4" />
+									</form> -->
+									<tree string="Family Status" editable="bottom">
+										<field name="name" required="1" />
+										<field name="family_member_id" required="1" options="{'no_create':True}"/>
+										<field name="current_job" />
+										<field name="birth_year" />
+										<field name="age" />
+										<field name="contact" />
+									</tree>
+								</field>
+							</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	 <record id="hr_employee_mine_view_kanban_syl" model="ir.ui.view">
+           <field name="name">hr.employee.kanban</field>
+           <field name="model">hr.employee</field>
+           <field name="priority">10</field>
+           <field name="arch" type="xml">
+               <kanban class="o_hr_employee_kanban" js_class="hr_employee_kanban" sample="1">
+                   <field name="image_128" />
+                   <templates>
+                       <t t-name="kanban-box">
+                       <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                           <field name="avatar_128" widget="image" class="o_kanban_image_fill_left" options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}"/>
+
+                            <div class="oe_kanban_details">
+                               <div class="o_kanban_record_top">
+                                   <div class="o_kanban_record_headings">
+                                       <strong class="o_kanban_record_title">
+                                            <span><field name="last_name" placeholder="Employee's Last Name"/> </span>
+											<field name="name" placeholder="Employee's Name"/>
+                                       </strong>
+                                       <span t-if="record.job_id.raw_value" class="o_kanban_record_subtitle"><field name="job_id"/></span>
+                                   </div>
+                               </div>
+                               <ul>
+                                   <li t-if="record.work_email.raw_value" class="o_text_overflow"><field name="work_email" /></li>
+                                   <li t-if="record.work_phone.raw_value" class="o_force_ltr"><field name="work_phone" /></li>
+                               </ul>
+                           </div>
+                       </div>
+                       </t>
+                   </templates>
+               </kanban>
+            </field>
+        </record>
+
+	<record id="mw_hr.action_hr_employee_mine_mw_view" model="ir.actions.act_window">
+		<field name="name">Миний мэдээлэл</field>
+		<field name="res_model">hr.employee</field>
+		<field name="view_mode">kanban,form</field>
+		<field name="domain">[('user_id', '=', uid)]</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'kanban', 'view_id': ref('hr_employee_mine_view_kanban_syl')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_employee_form_mine_mw_syl')})]"/>
+	</record>
+
+    <!-- Төслийн бүртгэл -->
+    <record id="view_hr_project" model="ir.ui.view">
+        <field name="name">hr.project.form</field>
+        <field name="model">hr.project</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group >
+                        <field name="name"/>
+                        <field name="company_id"/>
+                        <field name="account_expense_id"/>
+						<field name="analytic_account_id"/>
+
+                        <field name="account_shi_expense_id"/>
+                        <field name="analytic_shi_account_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="hr_project_tree">
+        <field name="name">hr.project.tree</field>
+        <field name="model">hr.project</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_hr_project">
+        <field name="name">Төсөл</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.project</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="hr_project_menu_id" parent="hr.menu_human_resources_configuration" action="action_hr_project" sequence="4" />
+
+
+
+	<record id="cron_hr_work_year" model="ir.cron">
+        <field name="name">Ажлын жил</field>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="code">model.cron_work_year_notification()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+	
+
+
+</odoo>

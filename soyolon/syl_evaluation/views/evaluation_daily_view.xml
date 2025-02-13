@@ -1,0 +1,179 @@
+
+<odoo>
+
+    <menuitem id="hr_evaluation_daily_menu" parent="mw_hr_evaluation.hr_evaluation_parent_menu" sequence='2'  name ='Өдөр тутмын ажил'/>
+
+    <menuitem id="mw_hr_evaluation.hr_evaluation_menu" parent="hr_evaluation_daily_menu" action="mw_hr_evaluation.hr_evaluation_action" name ='ӨТ ажил татах'/>
+    <menuitem id="mw_hr_evaluation.hr_evaluation_line_menu" parent="hr_evaluation_daily_menu" action="mw_hr_evaluation.hr_evaluation_line_action" name ='ӨТ ажил үнэлэх'/>
+     <menuitem id="mw_hr_evaluation.hr_performance_menu" parent="mw_hr_evaluation.hr_evaluation_conf_menu" action="mw_hr_evaluation.hr_performance_action" name ='ӨТ ажлын таск'/>
+
+
+    <record model="ir.ui.view" id="hr_performance_search_view_syl">
+        <field name="name">hr.performance.search</field>
+        <field name="model">hr.performance</field>
+        <field name="inherit_id" ref="mw_hr_evaluation.hr_performance_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <filter name="department_id" string="Хэлтэс" icon="terp-personal" context="{'group_by':'department_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_performance_form_syl" model="ir.ui.view">
+        <field name="name">hr.performance.form</field>
+        <field name="model">hr.performance</field>
+        <field name="inherit_id" ref="mw_hr_evaluation.view_hr_performance_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='score']" position="before">
+                <field name="goal"/>
+                <field name="desc"/>
+                <field name="department_id" options='{ "no_create": True}'/>
+            </xpath>
+        </field>
+    </record>
+     <record id="mw_hr_evaluation.hr_performance_action" model="ir.actions.act_window">
+        <field name="name">ӨТ ажил таскууд</field>
+        <field name="res_model">hr.performance</field>
+        <field name="context">{'search_default_department_id':1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="mw_hr_evaluation.hr_performance_search_view"/>
+    </record>
+     <menuitem id="hr_performance_menu" parent="mw_hr_evaluation.hr_evaluation_conf_menu" action="mw_hr_evaluation.hr_performance_action" sequence='1' />
+
+    <record id="view_hr_evaluation_line_form_syl" model="ir.ui.view">
+        <field name="name">hr.evaluation.line.form</field>
+        <field name="model">hr.evaluation.line</field>
+        <field name="inherit_id" ref="mw_hr_evaluation.view_hr_evaluation_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_send']" position="after">
+                <button string="Үнэлсэн" name="action_confirm" type="object" states='sent' class="oe_highlight"/>
+                <button string="Зөвшөөрсөн" name="action_done" type="object" states='confirm' class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="replace">
+                <button string="Буцаах" name="action_draft" type="object" states='sent' class="oe_highlight" groups='syl_evaluation.group_shu_syln'/>
+              </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <button string="Хэвлэх" name="action_print" type="object" class="btn-info"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,done" statusbar_colors='{"draft":"gray","send":"blue"}'/>
+            </xpath>
+            <xpath expr="//field[@name='count']" position="replace">
+            </xpath>
+           
+            <xpath expr="//field[@name='line_line_ids']" position="replace">
+                <field name="line_line_ids" widget="one2many_list" >
+                    <tree editable='bottom'>
+                        <field name="conf_id"  class="text-wrap" style="max-width:600px" attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="task" attrs="{'readonly':[('state','!=','draft')]}"  optional='hide'/>
+                        <field name="goal" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="desc" attrs="{'readonly':[('state','!=','draft')]}"/>                        
+                        <field name="score" sum='SUm' attrs="{'readonly':[('state','!=','draft')]}" invisible='1'/>
+                        <field name="own_score" sum='SUm' attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="description" class="text-wrap" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="get_score"  sum='SUm' attrs="{'readonly':[('state','!=','sent')]}"/>
+                        <field name="get_desc" class="text-wrap" attrs="{'readonly':[('state','!=','sent')]}"/>
+                        <field name="file"  optional='show'  widget="many2many_binary" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="state"  optional='hide' readonly='1'/>
+                    </tree>
+                </field>
+			</xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_ot_filter" model="ir.ui.view">
+		<field name="name">hr.employee.search</field>
+		<field name="model">hr.employee</field>
+		<field name="arch" type="xml">
+            <search string="copy document search">
+                <field name="name" readonly='1'/>
+                <field name="last_name" readonly='1'/>
+                <field name="identification_id" readonly='1'/>
+                <filter name="status" string="Идэвхтэй ажилчид" domain="[('employee_type','in',('employee','trainee','student','double','longleave','maternity','pregnant_leave'))]"/>
+                <filter name="group_status" string="Төлөв" domain="[]" context="{'group_by':'employee_type'}"/>
+                <filter name="parent_id" string="Шууд удирдалага" domain="[]" context="{'group_by':'parent_id'}"/>
+                <filter name="department_id" string="Хэлтэс" domain="[]" context="{'group_by':'department_id'}"/>
+            </search>
+		</field>
+	</record>
+
+    <record id="view_hr_employee_ot_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <form string="KPI" delete='false' create='false'>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="last_name" readonly='1'/>
+                            <field name="name" readonly='1'/>
+                            <field name="identification_id" readonly='1'/>
+                            <field name="employee_type" readonly='1'/>
+                        </group>
+                        <group>
+                            <field name="job_id" readonly='1'/>
+                            <field name="department_id" readonly='1'/>
+                            <field name="is_evaluation"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Үзүүлэлт тохируулах" attrs="{'invisible':[('is_evaluation','!=',True)]}" name ='emp_evaluation'>
+                            <group>
+                                <field name="conf_emp_ids" >
+                                    <form>
+                                        <group col='4'>
+                                            <field name="conf_id" options="{'no_create': True}"  />
+                                            <field name="score"/>
+                                        </group>
+                                    </form>
+                                    <tree string="Lines" editable='bottom'>
+                                        <field name="conf_id" options="{'no_create': True}" domain="[('department_id','=',department_id)]"/>
+                                        <field name="score" sum='Sum' readonly='0'/>
+                                        <field name="department_id" optional='hide'/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+     <record id="view_hr_employee_ot_tree" model="ir.ui.view">
+        <field name="name">hr.employee.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <tree string="KPI" delete='false' create='false'>
+                <field name="identification_id" />
+                <field name="last_name"/>
+                 <field name="name"/>
+                <field name="employee_type"/>
+                <field name="job_id"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_employee_ot_action" model="ir.actions.act_window">
+        <field name="name">ӨТ ажил тохиргоо</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|',('department_id.manager_ids', '=', uid),('user_id', '=', uid)]</field>
+        <field name="context">{'search_default_status':1,'search_default_department_id':1,}</field>
+        <field name="search_view_id" ref="view_hr_employee_ot_filter"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_hr_employee_ot_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_hr_employee_ot_form')})]"/> 
+    </record>
+
+    <menuitem id="hr_employee_ot_menu" parent="hr_evaluation_daily_menu" action="hr_employee_ot_action"  sequence='2'/>
+</odoo>
+ 
+     
+
+
+     

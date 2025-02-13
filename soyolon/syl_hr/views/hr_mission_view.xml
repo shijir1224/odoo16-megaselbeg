@@ -1,0 +1,122 @@
+<odoo>
+    <record id="seq_set_mission_number" model="ir.sequence">
+		<field name="name">Hr mission number</field>
+		<field name="code">hr.mission</field>
+		<field name="padding">3</field>
+	</record>
+    
+    <record id ="view_hr_mission_syl_form" model = "ir.ui.view">
+        <field name="name">hr.mission.form</field>
+	    <field name="model">hr.mission</field>
+        <field name='inherit_id' ref='mw_hr.view_hr_mission_form'/>
+        <field name="type">form</field>
+		<field name="arch" type="xml">
+        <xpath expr="//field[@name='type']" position='before'>
+            <field name='sequence' readonly='1'/>
+        </xpath>
+        <xpath expr="//field[@name='job_id']" position='after'>
+            <field name='technic_id' options="{'no_create':True}"/>
+        </xpath>
+         <xpath expr="//field[@name='flow_id']" position='after'>
+            <field name="partner_ids"  widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
+            <field name='hr_employee_id' options="{'no_create': True,'no_open': True}"/>
+            <field name="pr_attach"  widget="many2many_binary"/>
+            <field name='hr_melen' invisible='1'/>
+            <field name='emp_melen' invisible='1'/>
+            <field name="confirm_all_user_ids" readonly="1" widget="many2many_tags" force_save="1" invisible='1'/>
+        </xpath>
+
+        <xpath expr="//field[@name='cost_ids']/tree/field[@name='amount']" position='after'>
+            <field name='norm' />
+             <field name='sequence' invisible='1'/>
+        </xpath>
+        <xpath expr="//field[@name='mission_ids']/tree/field[@name='job_id']" position='after'>
+            <field name='melen' optional='hide'/>
+             <field name='sequence'  optional='hide'/>
+        </xpath>
+        <xpath expr="//button[@name='action_draft_stage']" position='replace'>
+            <button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': [('state_type', '=', 'draft')]}" groups="hr.group_hr_manager"/>
+        </xpath>
+        <xpath expr="//page[@name='mission']" position='after'>
+            <page string='Гүйцэтгэх ажлын чиглэл'>
+                <field name="line_ids" nolabel="1">
+                    <tree editable="bottom">
+                        <field name='mission'/>
+                        <field name='employee_id' options="{'no_create': True,'no_open': True}"/>
+                        <field name='employee_ids' options="{'no_create': True,'no_open': True}" widget="many2many_tags"/>
+                        <field name='period'/>
+                        <field name='sequence'  optional='hide'/>
+                    </tree>
+                </field>
+            </page>
+            <page string='Томилолтын тайлан'>
+                <group>
+                    <field name='done_work' />
+                    <field name='result' />
+                    <field name='done_desc' />
+                    <field name='attach_file' widget="binary" height="64"/>
+                    <field name='cost_desc' />
+                </group>
+            </page>
+        </xpath>
+        </field>
+    </record>
+     <record id="view_cost_name_form_syl" model="ir.ui.view">
+        <field name="name">cost.name.form</field>
+        <field name="model">cost.name</field>
+        <field name='inherit_id' ref='mw_hr.view_cost_name_form'/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position='after'>
+                <field name='is_norm'/>
+            </xpath>
+        </field>
+    </record>
+   
+    <record id="hr_mission_view" model="ir.actions.report">
+        <field name="name">Томилолт удирдамж</field>
+        <field name="model">hr.mission</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">syl_hr.hr_mission</field>
+        <field name="report_file">syl_hr.hr_mission</field>
+        <field name="print_report_name">'Томилолт'</field>
+        <field name="binding_model_id" ref="model_hr_mission"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_mission">
+        <t t-value="null">
+        </t>
+    </template>
+
+    <record id="hr_mission_done_view" model="ir.actions.report">
+        <field name="name">Томилолтын тайлан</field>
+        <field name="model">hr.mission</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">syl_hr.hr_mission_done</field>
+        <field name="report_file">syl_hr.hr_mission_done</field>
+        <field name="print_report_name">'Томилолтын тайлан'</field>
+        <field name="binding_model_id" ref="model_hr_mission"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_mission_done">
+        <t t-value="null">
+        </t>
+    </template>
+
+     <record id="hr_mission_cost_view" model="ir.actions.report">
+        <field name="name">Томилолтын төсөв</field>
+        <field name="model">hr.mission</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">syl_hr.hr_mission_cost</field>
+        <field name="report_file">syl_hr.hr_mission_cost</field>
+        <field name="print_report_name">'Томилолтын төсөв'</field>
+        <field name="binding_model_id" ref="model_hr_mission"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_mission_cost">
+        <t t-value="null">
+        </t>
+    </template>
+</odoo>

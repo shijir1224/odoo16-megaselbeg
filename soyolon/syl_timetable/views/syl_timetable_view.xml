@@ -1,0 +1,131 @@
+ 
+ <odoo>
+    <record id="view_hr_timetable_syl_form" model="ir.ui.view">
+        <field name="name">hr.timetable.form</field>
+        <field name="model">hr.timetable</field>
+        <field name="inherit_id" ref="mw_timetable.view_hr_timetable_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='department_id']" position="after">
+            <field name="shift"/>
+        </xpath>
+        <xpath expr="//button[@name='set_hr_attendance']" position="replace">
+            <button name="set_hr_attendance" invisible='1'/>
+        </xpath>
+        
+        </field>
+    </record>
+
+    <record id="view_employee_form_syl" model="ir.ui.view">
+		<field name="name">hr.employee.syl</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='hr_settings']" position="before">
+                <page string='Хуримтлагдсан цаг' invisible='1'>
+                    <group>
+                        <field name="sum_accumlate_hour"/>
+                        <field name="sum_overtime_hour"/>
+                    </group>
+                    <group>
+                        <field name='accumlated_hour_ids' string='Нөхөн амрах'>
+                            <tree editable="bottom">
+                                <field name="date"/>
+                                <field name="hour" readonly='1'/>
+                                <field name="balance_id" readonly='1'/>
+                                <field name="is_active" readonly='1'/>
+                            </tree>
+                        </field>
+                        </group>
+                        <group>
+                        <field name='overtime_hour_ids' string='Илүү цаг'>
+                            <tree editable="bottom">
+                                <field name="date"/>
+                                <field name="hour" readonly='1'/>
+                                <field name="balance_id" readonly='1'/>
+                                 <field name="is_active" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+			</xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_timetable_line_form_syl" model="ir.ui.view">
+        <field name="name">hr.timetable.line.form.syl</field>
+        <field name="model">hr.timetable.line</field>
+        <field name="inherit_id" ref="mw_timetable.view_hr_timetable_line_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='description']" position="after">   
+                <field name="overtime"/>
+                <field name="z_hour"/>
+                 <field name="busines_trip_hour"/>
+                 <field name="busines_trip_hour2"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='overtime_hour']" position="after">   
+                <field name="accumlated_ot" sum='SUm'  optional='hide'/>
+                <field name="overtime_all" sum='SUm' groups="base.group_no_one" optional='hide'/>
+                <field name="hour_to_work_n" sum='SUm' groups="base.group_no_one" optional='hide'/>
+                <field name="weekend_night" sum='Sum' optional='hide'/>
+                <field name="bt_hour" sum='Sum' optional='hide'/>
+                <field name="worked_day_hour" sum='Sum' optional='hide'/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='is_request']" position="after">   
+                <field name="is_weekend"/>
+                <field name="project_id"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='late_s']" position="after">   
+                <field name="late_limit_date"  groups="base.group_no_one" optional='hide'/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hour_balance_dynamic_form_syl" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.form.syl</field>
+        <field name="model">hour.balance.dynamic</field>
+        <field name="inherit_id" ref="mw_timetable.view_hour_balance_dynamic_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='hour_to_work_month']" position="after">   
+                <field name="hour_to_work" attrs="{'invisible': [('type', '!=', 'advance')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="after">   
+                <field name="shift_g" attrs="{'readonly': [('state', '!=','draft')]}"/>
+            </xpath>
+             <xpath expr="//field[@name='confirm_emp_id']" position="before" >   
+                <field name="h_emp_id" attrs="{'readonly': [('state', '!=','draft')]}" options="{'no_create':True}" required='1'/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">   
+                <field name="state" widget="statusbar" statusbar_visible="draft,send,confirm,confirm_ahlah,done,refuse"
+                        statusbar_colors='{"draft":"gray","send":"blue","confirm_ahlah":"blue","done":"blue","refuse":"red"}'/>
+             </xpath>
+            <xpath expr="//button[@name='action_draft']" position="replace">   
+                <button string="Ноороглох" name="action_draft" type="object" icon="fa-arrow-left" attrs="{'invisible': [('state', 'not in', ('send','confirm_ahlah','confirm'))]}" class="btn-warning" groups ='mw_timetable.group_timetable_manager'/>
+             </xpath>
+             <xpath expr="//button[@name='action_cancel']" position="replace">   
+              <button string="Буцаах" name="action_cancel" type="object" class="btn-warning" icon="fa-arrow-left" attrs="{'invisible': [('state', '!=', 'done')]}"   groups="mw_salary.group_salary_hybo"/>
+            </xpath>
+           
+            <xpath expr="//button[@name='action_confirm_ahlah']" position="replace">   
+                <button string="Батлах" name="action_confirm_ahlah"  icon="fa-check-square-o" type="object" attrs="{'invisible': [('state', '!=', 'confirm')]}" class="btn-success"/>
+                <button string="Хянах" name="action_confirm"  icon="fa-check-square-o" type="object" attrs="{'invisible': [('state', '!=', 'send')]}" class="btn-success"/>
+            </xpath>
+            <xpath expr="//page/field[@name='balance_line_ids']/form/group/group/field[@name='hour_to_work_month']" position="after">   
+                <field name="hour_to_work"/>
+                 <field name="total_worked_hour" />
+                <field name="name" optional='hide'/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hour_balance_dynamic_line_form_syl" model="ir.ui.view">
+        <field name="name">hour.balance.dynamic.line.form.syl</field>
+        <field name="model">hour.balance.dynamic.line</field>
+        <field name="inherit_id" ref="mw_timetable.view_hour_balance_dynamic_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='hour_to_work_month']" position="after">   
+                <field name="hour_to_work" />
+                <field name="total_worked_hour" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

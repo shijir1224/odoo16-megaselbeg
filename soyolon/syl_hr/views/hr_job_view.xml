@@ -1,0 +1,68 @@
+<odoo>
+    <record id="view_hr_job_syl_form" model="ir.ui.view">
+        <field name="name">hr.job.form</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='job_description_page']" position='after'>
+                <page string='АБТ'>
+                <group>
+                    <group string='Үндсэн мэдээлэл'>
+                        <field name="direct_dep" options="{'no_create': true}"/>
+                        <field name="direct_job" options="{'no_create': true}"/>
+                        <field name="direct_emp" options="{'no_create': true}"/>
+                        <field name="location"/>
+                        <field name="goal" options="{'no_create': true}"/>
+                        <field name="behaviour"/>                                        
+                        <field name="role" options="{'no_create': true}"/>
+                    </group>
+                    <group string='Ажлын байрны шаардлага ба  ур чадвар'>
+                        <field name="education_new"/>
+                        <field name="exprience_new"/>
+                        <field name="certificate"/>
+                         <field name="knowledge"/>
+                        <field name="base_skills"/>                        
+                    </group>
+                </group>
+                <group>
+                    <group string='Ажлын байрны эрх мэдэл, цар хүрээ'>
+                        <field name="finance"/>                   
+                        <field name="budget"/> 
+                    </group>
+                    <group string='Бусад'>
+                        <field name="needs" options="{'no_create': true}"/>
+                        <field name="ability" options="{'no_create': true}"/>
+                        <field name="work_condition_ch" invisible='1'/>
+                        
+                    </group>
+                </group>
+                <group>
+                    <field name="line_ids" >
+                        <tree string="Lines" editable='bottom'>
+                            <field name="abt_id"/>
+                            <field name="sequence" optional='hide'/>
+                        </tree>
+                    </field>
+                </group>
+            </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_job_disc_print" model="ir.actions.report">
+        <field name="name">АБТ</field>
+        <field name="model">hr.job</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr.job_disc_print</field>
+        <field name="report_file">hr.hr_job_disc_print</field>
+        <field name="print_report_name">'АБТ'</field>
+        <field name="binding_model_id" ref="model_hr_job"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="job_disc_print">
+        <t t-value="null">
+        </t>
+    </template>
+
+</odoo>

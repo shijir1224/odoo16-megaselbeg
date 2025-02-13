@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_hse_hazard_import_form" model="ir.ui.view">
+        <field name="name">hse.hazard.import.form</field>
+        <field name="model">hse.hazard.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <div>
+                    <span>
+                        <button name="hazart_export_template" string="Темплати Экспортлох" type="object" class="btn-success"/>
+                    </span>
+                    <span style="margin-left: 10px">
+                        <field name="excel_data"/>
+                    </span>
+                    <span style="margin-left: 10px">
+                        <button name="hazard_from_import" string="Импортлох" type="object" class="btn-warning" icon="fa-download"/>
+                    </span>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hse_hazard_import_action" model="ir.actions.act_window">
+        <field name="name"> Ажлын байрны үзлэг импорт</field>
+        <field name="res_model">hse.hazard.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_hse_hazard_import_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

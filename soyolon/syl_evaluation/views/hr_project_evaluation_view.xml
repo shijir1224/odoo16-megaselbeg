@@ -1,0 +1,115 @@
+
+<odoo>
+    <record id="view_hr_project_evaluation_filter_mns" model="ir.ui.view">
+        <field name="name">hr.project.evaluation.search</field>
+        <field name="model">hr.project.evaluation</field>
+        <field name="arch" type="xml">
+            <search string="copy document search">
+                <group>
+                    <field name="date_from"/>
+                </group>
+                <group expand="0" string="Group By..">
+                    <filter name="company_id" string="Компани" icon="terp-personal" context="{'group_by':'company_id'}"/>
+                    <filter name="date_from" string="Огноо" domain="[]" context="{'group_by':'date_from'}"/>
+                    <filter name="state" string="Төлөв" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hr_project_evaluation_form" model="ir.ui.view">
+        <field name="name">hr.project.evaluation.form</field>
+        <field name="model">hr.project.evaluation</field>
+        <field name="arch" type="xml">   
+            <form string="Үнэлгээ" delete='false'>    
+                <header>
+                    <button string="Илгээх" name="action_send" type="object" states='draft' class="oe_highlight" />
+                    <button string="Хянах" name="action_confirm" type="object" states='sent' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                    <button string="Батлах" name="action_done_hr" type="object" states='confirm' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                    <button string="Нябо хүлээж авах" name="action_done" type="object" states='done_hr' class="oe_highlight" />
+                    <button string="Ноороглох" name="action_draft" type="object" states='sent,confirm,done_hr,done' class="oe_highlight" groups='mw_hr.group_hr_confirm'/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,done_hr,done" statusbar_colors='{"draft":"gray","sent":"blue","send":"done"}'/>
+                </header>
+                <sheet>
+                <group>
+                    <group>
+                        <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name ='year' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="month" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="date_from" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="date_to" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                       
+                    </group>
+                    <group>
+                        <field name="employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}"  domain="[('employee_type','!=','resigned')]"/>
+                        <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="huder" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="score" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <button string="Ажилчид татах" name="line_create" type="object" states='draft' class="btn-info" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button string="Хэвлэх" name="action_print" type="object"  icon = "fa-print" class="btn-success"/>
+                        <field name='attachment_ids' widget="many2many_binary" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </group>
+                    <group>
+                        <field name="employee_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                        <field name="h_emp_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                        <field name="confirm_emp_id"  attrs="{'readonly':[('state','!=','draft')]}"  options='{ "no_create": True}'/>
+                    </group>
+                    <group>
+                        <field name="data" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                        <button string="Импортлох" name="action_import" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}" icon = "fa-import"/>
+                    </group>
+                    <notebook>
+                        <page string="Гүйцэтгэл">
+                            <field name="line_ids" widget="one2many_list" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable='bottom' decoration-danger="employee_type=='trainee'" decoration-info="employee_type == 'employee'" decoration-warning="employee_type == 'resigned'">
+                                    <field name="employee_id"/>
+                                    <field name="employee_type"/>
+                                     <field name="job_id"/>
+                                    <field name="attendance" sum='sum'/>
+                                    <field name="discipline" sum='SUm'/>
+                                    <field name="hab" sum='SUm' readonly='0'/>
+                                    <field name="accident" sum='SUm'/>
+                                    <field name="description" sum='SUm'/>
+                                    <field name="huder"/>
+                                    <field name="score"/>
+                                    <field name="stop"/>
+                                    <field name="amount_score" sum='SUm'/>
+                                    <field name="disc_type" optional ='hide'/>
+                                    <field name="injury_reason" optional ='hide'/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>  
+            </form>
+        </field>
+    </record>
+    <record id="hr_project_evaluation_tree" model="ir.ui.view">
+        <field name="name">hr.project.evaluation.tree</field>
+        <field name="model">hr.project.evaluation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_from"/>
+                <field name="month"/>
+                <field name="company_id"/>
+                <field name="employee_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_project_evaluation_action" model="ir.actions.act_window">
+        <field name="name">Төслийн гүйцэтгэл</field>
+        <field name="res_model">hr.project.evaluation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_hr_project_evaluation_filter_mns"/>
+    </record>
+
+    <menuitem id="hr_project_evaluation_menu" parent="hr_evaluation_plan_main_menu" action="hr_project_evaluation_action"  sequence='1'  groups='mw_hr_evaluation.group_evaluation_manager'/> 
+</odoo>

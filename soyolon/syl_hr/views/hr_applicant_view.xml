@@ -1,0 +1,165 @@
+<odoo> 
+    <record id="view_department_syl_tree" model="ir.ui.view">    
+        <field name="name">hr.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="mw_hr_org_structure.view_department_mw_tree"/>
+        <field name="arch" type="xml">
+        <xpath expr="//tree[@name='tree']" position='replace'>
+            <tree>
+                <field name="name"/>
+                <field name="planned_employees"/>
+                <field name="working_employee_count"/>
+                <field name="free_position"/>
+                <field name="over_employee"/>
+                <field name="vacancies"/>
+                <field name="total_employee" string='Бүртгэлтэй ажилтны тоо' optional='hide'/>
+                <field name="basic_employees" optional='hide'/>
+                <field name="trial_employees" optional='hide'/>
+                <field name="trainee_employees" optional='hide'/>
+                <field name="maternity_employees" optional='hide'/>
+                <field name="annual_leave_employees" optional='hide'/>
+                <field name="contract_workers" optional='hide'/>
+            </tree>
+        </xpath>
+        </field>
+    </record>
+    <record id="view_hr_applicant_inherit_form" model="ir.ui.view">
+        <field name="name">hr.applicant.form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='department_id']" position='after'>
+            <field name='is_test'/>
+            <field name='test_amount' attrs="{'invisible': [('is_test','=',False)]}"/>
+        </xpath>
+        </field>
+    </record>
+     <record model="ir.ui.view" id="hr_applicant_view_form_syl">
+        <field name="name">Jobs - Recruitment Form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='linkedin_profile']" position='replace'>
+                <field name='gender'/>
+                <field name='age'/>
+            </xpath>
+             <xpath expr="//field[@name='medium_id']" position='replace'>
+                <field name='emergency_contact'/>
+                <field name='emergency_phone'/>
+            </xpath>
+            <xpath expr="//notebook/page[1]" position='after'>
+                <page string="Боловсрол">
+                    <label for="school_app_line_ids" string="Төгссөн сургуууль"/>
+                    <field name="school_app_line_ids">
+                        <form >
+                            <field name="country_id"/>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="job"/>
+                            <field name="education_level"/>
+                            <field name="honest"/>
+                        </form>
+                        <tree  editable="bottom">
+                            <field name="country_id" options="{'no_create': True}"/>
+                            <field name="name" options="{'no_create': True}"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="job" options="{'no_create': True}"/>
+                            <field name="education_level"/>
+                            <field name="honest"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Ажлын туршлага">
+                	<label for="employment_app_ids" string='Ажлын туршлага'/>
+					<field name="employment_app_ids" >
+						<tree editable="bottom">
+							<field name="organization"/>
+                            <field name="desc"/>
+							<field name="job_title"/>
+							<field name="entered_date" />
+							<field name="resigned_date"/>
+                            <field name="wage"/>
+							<field name="resigned_reason"/>
+						</tree>
+					</field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+        
+    <record id="utm_source_view_syl_form" model="ir.ui.view">
+        <field name="name">utm.source.view.form</field>
+        <field name="model">utm.source</field>
+        <field name="inherit_id" ref="utm.utm_source_view_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position='after'>
+            <field name='address'/>
+            <field name='phone' widget="phone"/>
+        </xpath>
+        </field>
+    </record>
+    <record id="utm_source_view_syl_tree" model="ir.ui.view">
+        <field name="name">utm.source.view.tree</field>
+        <field name="model">utm.source</field>
+        <field name="inherit_id" ref="utm.utm_source_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position='after'>
+                <field name='address'/>
+                <field name='phone'/>
+        </xpath>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="hr_open_job_form_syl">
+        <field name="name">hr.open.job.form</field>
+        <field name="model">hr.open.job</field>
+        <field name="inherit_id" ref="mw_hr_applicant.hr_open_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position='replace'>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="department_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="job_id" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="res_company_id" attrs="{'readonly':[('state','!=','draft')]}" />
+                        </group>
+                        <group>
+                            <field name="no_of_recruitment" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="stage_one" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="stage_two" options="{'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="stage_three" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="no_of_employee" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name='done_date'/>
+                            <field name="period" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+                     <field name='line_ids'>
+                        <tree editable="bottom">
+                            <field name='emp_id' options="{'no_create':True}"/>
+                            <field name='done_date'/>
+                        </tree>
+                    </field>
+                </sheet>
+            </xpath>
+        </field>
+    </record>
+     <record model="ir.ui.view" id="hr_open_job_tree_syl">
+        <field name="name">hr.open.job.tree</field>
+        <field name="model">hr.open.job</field>
+         <field name="inherit_id" ref="mw_hr_applicant.hr_open_job_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='no_of_employee']" position='after'>
+                <field name="stage_one" />
+                <field name="stage_two" />
+                <field name="stage_three"/>
+                <field name='done_date'/>
+                <field name="period"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

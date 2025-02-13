@@ -1,0 +1,17 @@
+<odoo>
+	<record id="seq_hse_workplace_inspection" model="ir.sequence">
+			<field name="name">hse workplace inspection sequence</field>
+			<field name="code">hse.workplace.inspection</field>
+			<field name="prefix">%(y)s%(month)s%(day)s-</field>
+			<field name="padding">3</field>
+			<field name="company_id" eval='False'/>
+	</record>
+
+	<record id="seq_hse_work_hazard_analysis" model="ir.sequence">
+			<field name="name">hse work hazard analysis sequence</field>
+			<field name="code">hse.work.hazard.analysis</field>
+			<field name="prefix">ААШ%(y)s%(month)s%(day)s-</field>
+			<field name="padding">4</field>
+			<field name="company_id" eval='False'/>
+	</record>
+</odoo>

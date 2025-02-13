@@ -1,0 +1,16 @@
+<odoo>
+
+	<record id="inherit_view_account_asset_syl_view" model="ir.ui.view">
+		<field name="name">account.asset.view.form.inherit.syl</field>
+		<field name="model">account.asset</field>
+		<field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+		<field name="arch" type="xml">
+			<xpath expr='//field[@name="branch_id"]' position="before">
+				<field name="is_project" />
+			</xpath>
+            <xpath expr="//button[@name='set_to_cancelled']" position="after">
+				<button name="onchange_is_project" states="open" string="Элэгдлийн харилцагч шинэчлэх" type="object" data-hotkey="e" class="oe_highlight"/>
+            </xpath>
+		</field>
+	</record>
+</odoo>

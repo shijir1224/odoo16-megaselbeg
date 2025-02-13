@@ -1,0 +1,99 @@
+<odoo>
+  <record id="report_stock_product_other_types_expense_tree" model="ir.ui.view">
+    <field name="name">tock product other expense tree</field>
+    <field name="model">stock.product.other.expense.line</field>
+    <field name="arch" type="xml">
+      <tree create='false' edit='false' delete='false'>
+        <field optional='show' name='branch_id'/>
+        <field optional='show' name='department_id'/>
+        <field optional='show' name='product_code'/>
+        <field optional='show' name='product_name'/>
+        <field optional='show' name='uom_id'/>
+        <field optional='show' name='unit_cost' sum='Total'/>
+        <field optional='show' name='no_qty' sum='Total'/>
+        <field optional='show' name='no_cost' sum='Total'/>
+        <field optional='show' name='spe_qty' sum='Total'/>
+        <field optional='show' name='spe_cost' sum='Total'/>
+        <field optional='show' name='ext_qty' sum='Total'/>
+        <field optional='show' name='ext_cost' sum='Total'/>
+        <field optional='show' name='reason'/>
+      </tree>
+    </field>
+  </record>
+  <record id="report_stock_product_other_expense_tree" model="ir.ui.view">
+    <field name="name">Stock product other expense tree</field>
+    <field name="model">stock.product.other.expense.line</field>
+    <field name="arch" type="xml">
+      <tree create='false' edit='false' delete='false'>
+        <field name='job_position' optional='show'/>
+        <field name='partner_id' optional='show'/>
+        <field name='product_code' optional='show'/>
+        <field name='product_name' optional='show'/>
+        <field name='uom_id' optional='show'/>
+        <field name='unit_cost' sum='total' optional='show'/>
+        <field name='no_qty' sum='total' optional='show'/>
+        <field name='no_cost' sum='total' optional='show'/>
+        <field name='spe_qty' sum='total' optional='show'/>
+        <field name='spe_cost' sum='total' optional='show'/>
+        <field name='ext_qty' sum='total' optional='show'/>
+        <field name='ext_cost' sum='total' optional='show'/>
+        <field name='reason' sum='total' optional='show'/>
+      </tree>
+    </field>
+  </record>
+  <record id="action_stock_product_other_expense_types" model="ir.actions.act_window">
+    <field name="name">Stock product other expense type report</field>
+    <field name="res_model">stock.product.other.expense.line</field>
+    <field name="view_mode">tree</field>
+    <field name='domain'>[('check_types','=',True)]</field>
+    <field name="view_id" ref="report_stock_product_other_expense_tree"/>
+  </record>
+  <record id="action_stock_product_other_expense" model="ir.actions.act_window">
+    <field name="name">Stock product other expense type report</field>
+    <field name="res_model">stock.product.other.expense.line</field>
+    <field name="view_mode">tree</field>
+    <field name='domain'>[('check_location','=',True)]</field>
+    <field name="view_id" ref="report_stock_product_other_types_expense_tree"/>
+  </record>
+  <record id="standart_cost_location_report_form" model="ir.ui.view">
+    <field name="name">Standart and cost form</field>
+    <field name="model">standart.cost.location.report</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+       <form>
+        <sheet>
+          <group>
+            <group string='General Info'>
+              <field name='company_id' readonly='1' force_save='1'/>
+              <field name='types'/>
+              <field name='job_ids' options="{'no_create': True}" widget='many2many_tags' attrs="{'invisible':[('types','=','location')],'required':[('types','!=','location')]}"/>
+              <field name='location_ids' options="{'no_create': True}" widget='many2many_tags' attrs="{'invisible':[('types','!=','location')],'required':[('types','=','location')]}"/>
+              <field name='department_ids' options="{'no_create': True}" widget='many2many_tags' attrs="{'invisible':[('types','!=','location')]}"/>
+            </group>
+            <group string='Report Date'>
+              <field name='sdate'/>
+              <field name='edate'/>
+            </group>
+            <group invisible='1'>
+              <field name='user_id' readonly='1' force_save='1'/>
+              <field name='date' readonly='1' force_save='1'/>
+            </group>
+          </group>
+        </sheet>
+        <footer>
+            <button icon="fa-times" special="cancel" string="CLose" class="btn-danger"/>
+            <button name="%(action_stock_product_other_expense_types)d" string="View" type="action" icon="fa-eye" class="btn-success" attrs="{'invisible':[('types','=','location')]}"/>
+            <button name="%(action_stock_product_other_expense)d" string="View" type="action" icon="fa-eye" class="btn-success" attrs="{'invisible':[('types','!=','location')]}"/>
+            <button name="get_standart_cost_location_reports" string="Export" type="object"  icon="fa-file-excel-o" class="btn-success"/>
+        </footer>
+       </form>
+    </field>
+  </record>
+  <record id="action_standart_cost_location_report" model="ir.actions.act_window">
+    <field name="name">Standart and cost</field>
+    <field name="res_model">standart.cost.location.report</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="standart_cost_location_report_form"/>
+    <field name="target">new</field>
+  </record>
+</odoo>

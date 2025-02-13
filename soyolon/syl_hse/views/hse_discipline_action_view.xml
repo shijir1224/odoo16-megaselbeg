@@ -1,0 +1,31 @@
+<odoo>
+	<record id="view_hse_discipline_action_form_inherit" model="ir.ui.view">
+		<field name="name">hse.discipline.action.form.inherit</field>
+		<field name="model">hse.discipline.action</field>
+		<field name="inherit_id" ref="mw_hse.view_hse_discipline_action_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='now_discipline_date']" position="replace">
+                <field name="now_discipline_date" required="1" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+            </xpath>
+			<xpath expr="//field[@name='discipline_location']" position="replace">
+                <field name="discipline_location" required="1" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+            </xpath>
+			<xpath expr="//field[@name='discipline_type']" position="replace">
+                <field name="discipline_type" widget="many2many_tags" options="{'no_create':True}" required="1" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+            </xpath>
+			<xpath expr="//field[@name='discipline_level']" position="replace">
+                <field name="discipline_level" widget="selection" required="1" attrs="{'readonly':[('is_not_edit','=',True)]}"/>
+            </xpath>
+			<xpath expr="//field[@name='prev_discipline_check']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='punishment_type']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='punishment_time']" position='attributes'>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

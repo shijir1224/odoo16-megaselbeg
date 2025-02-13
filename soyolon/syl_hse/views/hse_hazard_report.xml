@@ -1,0 +1,14 @@
+<odoo>
+	<record id="view_hse_workplace_inspection_form_id" model="ir.ui.view">
+		<field name="name">hse.hazard.report.form</field>
+		<field name="model">hse.hazard.report</field>
+		<field name="inherit_id" ref="mw_hse.view_hse_hazard_report_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_to_done']" position='after'>
+				<button name="action_to_back" type="object" class="btn-warning" states="repaired" string="Буцаах"/>
+			<!-- attrs="{'invisible': [('state','=','draft')]}" -->
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

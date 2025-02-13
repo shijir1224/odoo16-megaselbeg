@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_work_call_user,work.call,model_work_call,mw_technic_maintenance.group_maintenance_master,1,1,1,0
+access_work_call_admin,work.call,model_work_call,mw_technic_maintenance.group_maintenance_planner,1,1,1,1
+
+access_maintenance_working_report_user,maintenance.working.report,model_maintenance_working_report,mw_technic_maintenance.group_maintenance_master,1,1,1,0
+access_maintenance_working_report_admin,maintenance.working.report,model_maintenance_working_report,mw_technic_maintenance.group_maintenance_planner,1,1,1,1

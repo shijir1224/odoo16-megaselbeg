@@ -1,0 +1,103 @@
+<odoo>
+<!-- Санал хүсэлт -->
+		<record model="ir.ui.view" id="hr_offer_search_view">
+            <field name="name">hr.offer.search</field>
+            <field name="model">hr.offer</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="hr offer search">
+					<group expand="0" string="Group By...">
+						<field name="offer_idea"/>
+					</group>
+					<group expand="0" string="Group By...">
+	                    <filter name="date" string="Хүсэлтийн огноо"  domain="[]" context="{'group_by':'offer_date'}"/>
+	                </group>
+                </search>
+            </field>
+        </record>
+    
+    	<record model="ir.ui.view" id="hr_offer_form_view">
+	        <field name="name">hr.offer.form</field>
+	        <field name="model">hr.offer</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Copy document form" version="7.0">
+                <header>
+                    <button name="action_next_stage" string="Батлах" class="btn-success" icon="fa-check-square-o" type="object" attrs="{'invisible': ['|',('state_type','=','done'),('flow_line_next_id', '=', False)]}"/>
+					<button name="action_back_stage" string="Буцаах" class="btn-warning" icon="fa-arrow-left" type="object" attrs="{'invisible': ['|',('flow_line_back_id', '=', False),('state_type', 'in',['done','cancel'])]}"/>
+					<field name="flow_line_id" widget="statusbar" domain="[('id','in',visible_flow_line_ids)]"/>
+					<button name="action_cancel_stage" string="Цуцлах" class="btn-danger" icon="fa-close"  type="object" attrs="{'invisible': ['|',('state_type', 'in',['cancel','draft']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+					<button name="action_draft_stage" string="Буцааж ноороглох" class="btn-danger" type="object" attrs="{'invisible': ['|',('state_type', 'not in', ['done']),('flow_id','=',False)]}" groups="hr.group_hr_manager"/>
+                </header>
+	            <sheet string = 'Санал хүсэлтийн хуудас'>
+                    <group>
+                        <group string = 'Санал хүсэлт өгсөн ажилтны  мэдээлэл'>
+                            <field name="offer_employee_id" />
+                            <field name="offer_job_id" />
+                            <field name="offer_department_id" />
+                            <field name="offer_date"  />
+                            <field name="offer_idea" />
+                            <field name="file_att_ids"  widget="many2many_binary"/>
+                        </group>
+                        <group  string = 'Санал хүсэлт бүртгэсэн ажилтны  мэдээлэл' > 
+                            <field name="employee_id" />
+                            <field name="job_id" />
+                            <field name="department_id" />
+                            <field name="date" />
+                        </group>
+                    </group>
+                    <group col="4" colspan="4"> 
+                        <field name="flow_id" options="{'no_create':True}" attrs="{'readonly': ['|',('state_type', 'in',['done','cancel']),('is_not_edit','=',True)]}" required="1"/>
+                        <field name="state_type" invisible="1"/>
+                        <field name="flow_line_next_id" invisible="1"/>
+                        <field name="flow_line_back_id" invisible="1"/>
+                        <field name="visible_flow_line_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="is_not_edit" invisible="1"/>
+                    </group>
+	            </sheet>
+				<div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="hr_offer_tree_view">
+	        <field name="name">hr.offer.tree</field>
+	        <field name="model">hr.offer</field>
+	        <field name="type">tree</field>
+	        <field name="arch" type="xml">
+	            <tree >
+                    <field name="offer_employee_id" />
+                    <field name="offer_job_id" />
+                    <field name="offer_department_id" />
+                    <field name="offer_date"  />
+	            </tree>
+	        </field>
+	    </record>
+	    
+
+		<record id="cron_update_hr_offer_change" model="ir.cron">
+			<field name="name">Санал хүсэлт</field>
+			<field name="model_id" ref="model_hr_offer"/>
+			<field name="state">code</field>
+			<field name="user_id" ref="base.user_root" />
+			<field name="code">model._end_doc_change()</field>
+			<field name="interval_number">2</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+        </record>
+
+	    <record model="ir.actions.act_window" id="action_hr_offer_tree_view">
+	        <field name="name">Санал хүсэлт</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">hr.offer</field>
+	        <field name="view_mode">tree,form,pivot</field>
+	     	<field name="view_id" ref="hr_offer_tree_view"/>
+	     	<field name="context">{'search_default_date': 1}</field>
+	        <field name="search_view_id" ref="hr_offer_search_view"/>
+	    </record>
+	    
+	    <menuitem id="hr_offer_menu" parent="mw_hr.hr_emp_main_menu" action="action_hr_offer_tree_view" sequence="9" />  
+</odoo>

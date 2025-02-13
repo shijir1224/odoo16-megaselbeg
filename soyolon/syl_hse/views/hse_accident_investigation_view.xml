@@ -1,0 +1,299 @@
+<odoo>
+
+	<!-- Sequences for  -->
+	<record id="sequence_accident_investigation" model="ir.sequence">
+		<field name="name">HSE Accident Investigation</field>
+		<field name="code">accident.investigation</field>
+		<field name="prefix">ОСТ%(y)s%(month)s%(day)s-</field>
+		<field name="padding">4</field>
+	</record>
+
+	<!-- Accident Investigation -->
+	<record id="view_accident_investigation_form" model="ir.ui.view">
+		<field name="name">accident.investigation.form</field>
+		<field name="model">accident.investigation</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_to_draft" states="done" string="Буцааж ноороглох" type="object" class="btn-danger" groups="mw_hse.group_hse_manager"/>
+					<button name="action_to_sent" states="draft" string="Илгээх" type="object" class="oe_highlight"/>
+					<button name="action_to_repaired" states="sent" string="Батлах" type="object" class="btn-success"/>
+					<button name="action_to_done" states="repaired" string="Дуусгах" type="object" class="btn-success"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent,repaired,done"/>
+				</header>
+				<sheet>
+					<separator string="ХЭСЭГ 1: ОСЛЫН ЕРӨНХИЙ МЭДЭЭЛЭЛ:" colspan="2"/>
+					<group>
+						<field name="name"/>
+					</group>
+					<group col="2">
+						<group>
+							<field name="date"/>
+							<field name="branch_id" options="{'no_create':True}"/>
+							<field name="location_id" options="{'no_create':True}"/>
+							<field name="user_id" options="{'no_create':True}"/>
+						</group>
+						<group>  
+							<field name="reporter_type"/>
+							<field name="employee_id" options="{'no_create':True}" attrs="{'invisible':[('reporter_type', '=', 'partner')]}"/>
+							<field name="partner_id" options="{'no_create':True}" attrs="{'invisible':[('reporter_type', '=', 'employee')]}"/>
+							<field name="reporter_date" options="{'no_create':True}"/>
+						</group>
+					</group>
+					<group>
+						<field name="is_injured_witness" widget="boolean_toggle"/>
+					</group>
+					<field name="injured_witness_lines" nolabel="1" string='Гэрчийн мэдээлэл' attrs="{'invisible':[('is_injured_witness','=',False)]}">
+						<tree editable="bottom">
+							<field name="name"/>
+							<field name="job_name"/>
+							<field name="employee_status"/>
+							<field name="parent_id" optional="hide"/>
+						</tree>  
+					</field>
+					<group colspan="2">
+						<group>
+							<field name="happened" widget="many2many_tags"/>
+						</group>
+						<group>
+							<field name="received_employee_id" options="{'no_create':True}"/>
+							<field name="received_job_id"/>
+						</group>
+					</group>
+					<separator string="ХЭСЭГ 2: ОСЛЫН СУДАЛГААНЫ БАГ"/>
+					<group>
+						<field name="research_create_date"/>
+					</group>
+					<field name="research_team_lines" nolabel="1">  
+						<tree editable="bottom">
+							<field name="employee_id" options="{'no_create':True}"/>
+							<field name="job_id"/>
+							<field name="department_id"/>
+							<field name="research_team_status"/>
+							<field name="parent_id" optional="hide"/>
+						</tree>  
+					</field>
+					<separator string="ХЭСЭГ 3: ОСЛЫН ТАЛААР НАРИЙВЧИЛСАН МЭДЭЭЛЭЛ"/>
+					<field name="accident_employee_lines" nolabel="1">  
+						<tree editable="bottom">
+							<field name="employee_id" options="{'no_create':True}"/>
+							<field name="job_id"/>
+							<field name="work_year"/>
+							<field name="that_time"/>
+							<field name="stop_work"/>
+							<field name="off_work"/>
+							<field name="is_day_instruction"/>
+							<field name="hr_training"/>
+							<field name="hse_training"/>
+							<field name="parent_id" optional="hide"/>
+						</tree>  
+					</field>
+					<field name="accident_partner_lines" nolabel="1">  
+						<tree editable="bottom">
+							<field name="partner_id" options="{'no_create':True}"/>
+							<field name="employee_status"/>
+							<field name="parent_id" optional="hide"/>
+						</tree>  
+					</field>
+					<group>
+						<group>
+							<field name="injury_consequences"/>
+							<field name="work_assigned"/>
+							<field name="injury_ids" widget="many2many_tags" options="{'no_create': True}"/>
+							<field name="injury_action_ids" widget="many2many_tags" options="{'no_create': True}"/>
+							<field name="injury_reason_ids" widget="many2many_tags" options="{'no_create': True}"/>
+						</group>
+						<group>
+							<field name="injury_object"/>
+							<field name="on_site_method"/>
+							<field name="first_responder"/>
+							<field name="first_respond_date"/>
+							<field name="first_respond_type"/>
+							<field name="first_respond_after" widget='selection'/>
+						</group>
+					</group>
+					<notebook>
+						<page name="person" string="Хүмүүс">
+							<div class="alert alert-success alert-dismissible text-left" 
+								role="Санамж" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Санамж" 
+									aria-label="close">Хүмүүс: Хүмүүсийн тэмдэглэлүүдийг (ажлын дэвтэр,сургалтын болон цагийн хуудас, эмнэлэгийн дүгнэлт гэх мэт) зохих ёсоор хянана. Ослыг харсан гэрч, мэдээлэлтэй байж болох бүх хүнийг тодорхойлж тэднээс аль болох хурдан, бичгээр тодорхойлолт авна. Хүмүүстэй ганцаарчлан тайван, чимээ аниргүй газар уулзаж ярилцаарай. Боломжтой бол осол гарсан газар тэдэнтэй ярилцаж хэргийн газрын бодит мэдээллийг баталгаажуулж ав.</a>
+							</div>
+							<div class="alert alert-danger alert-dismissible text-top"
+								role="Асуулга" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Асуулга" 
+									aria-label="close">"Зайлшгүй тодорхойлох шаардлагатай:
+									• Осолд өртсөн хүмүүс тухайн ажлыг гүйцэтгэх ур чадвартай байсан эсэх?
+									• Тэд зохих ёсоор сургагдсан байсан уу?
+									• Тэд биеийн хувьд ажил гүйцэтгэх чадвартай байсан уу?
+									• Тэдний эрүүл мэнд ямар байсан бэ?
+									• Ядарч сульдсанаас болсон уу?
+									• Тэд ямар нэг дарамттай, цаг хугацаа шахуу байсан уу?"</a>
+							</div>
+							<field name="person_attachment_ids" widget="many2many_binary"/>
+						</page>
+						<page name="environment" string="Орчин">
+							<div class="alert alert-success alert-dismissible text-left"
+								role="Санамж" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Санамж" 
+									aria-label="close">Орчин: Осол болсон газрын орчны нөхцөл байдлыг тодорхойлж бичих. Осол гарахад нөлөөлсөн байж болзошгүй орчны нөхцөл байдлын гэнэтийн өөрчлөлт, хүчин зүйлүүдийг тодруулна. Осол болох үед “ердийн” үеийнхээс өөр, хэвийн бус нөхцөл байдалтай байсан эсэх нь их чухал.</a>
+							</div>
+							<div class="alert alert-danger alert-dismissible text-top"
+								role="Асуулга" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Асуулга" 
+									aria-label="close">"Зайлшгүй тодорхойлох шаардлагатай: 
+									• Цаг агаарын нөхцөл байдал ямар байсан?
+									• Ажлын байрны эмх цэгц ямар байсан?
+									• Хэт халуун эсвэл хэт хүйтэн байсан эсэх?
+									• Дуу чимээ ямар байсан?
+									• Гэрэлтүүлэг хэвийн байсан эсэх?
+									• Хортой бодис, хий, уур, утаа, тоосжилттой байсан эсэх?"</a>
+							</div>
+							<field name="environment_attachment_ids" widget="many2many_binary"/>
+						</page>
+						<page name="equipment" string="Тоног Төхөрөмж">
+							<div class="alert alert-success alert-dismissible text-left"
+								role="Санамж" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Санамж" 
+									aria-label="close">Тоног Төхөөрөмж: Осолд холбогдолтой тоног төхөөрөмжийн нөхцөл байдал, ямар нэг зүйл өөрчлөгдсөн байсан эсэх, хэвийн бус байсан, эвдэрч гэмтсэн байсан эсэхийг тодруулах. Төхөөрөмжийн хийцэд ямар нэг ан цав, цууралт үүссэн, тохиромжгүй эд анги угсарсан эсвэл буруу шошго, тэмдэг зүүсэн байсан эсэхийг тодорхойлох хэрэгтэй. Тоног төхөөрөмж нь тухайн ажлыг гүйцэтгэхэд тохирч байсан эсэхийг магадлана уу.</a>
+							</div>
+							<div class="alert alert-danger alert-dismissible text-top" 
+								role="Асуулга" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Асуулга" 
+									aria-label="close">"Зайлшгүй тодорхойлох шаардлагатай:
+									• Тоног төхөөрөмж гэмтэлтэй байсан уу?
+									• Гэмтэлтэй болоход нөлөөлсөн хүчин зүйлс?
+									• Муу хийц, дизайнтай байсан уу?
+									• Химийн аюултай бодис байсан уу?
+									• Химийн бодис мэдэгдэж, харагдаж байсан уу?
+									• Бага аюултай орлуулах химийн бодис байгаа юу?
+									• НБХХ хэрэглэж байсан уу?
+									• Нэмж хэрэглэх шаардлагатай НБХХ байгаа юу?"</a>	
+							</div>
+							<field name="equipment_attachment_ids" widget="many2many_binary"/>
+						</page>
+						<page name="methodology" string="Аргачлал">
+							<div class="alert alert-success alert-dismissible text-left"
+								role="Санамж" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Санамж" 
+									aria-label="close">Аргачлал: Мэдээлэлийн нарийвчлал. Гүйцэтгэж байсан үүрэг даалгаварыг авч хэлэлцэнэ. Ажлыг гүйцэтгэх аргачлал, хуваарилалт нь осол хэрэг гарахад нөлөөлсөн байж болзошгүй эсэхийг магдлан шалгана. Аюулгүй Ажиллах Журмууд, ажил гүйцэтгэх зааварчилгааны боломж, тохиромж, хяналт шаардлагуудыг нарийн тодруулах.</a>
+							</div>
+							<div class="alert alert-danger alert-dismissible text-top" 
+								role="Асуулга" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Асуулга" 
+									aria-label="close">" Зайлшгүй тодорхойлох шаардлагатай:
+									• Аюулгүй Ажиллах Журмыг мөрдсөн эсэх?
+									• Бичгээр гаргасан журам байсан эсэх?
+									• Ажил гүйцэтгэхдээ Эрсдлийн Үнэлгээ хийсэн эсэх?
+									• Хэвийн ажиллах нөхцөл нь Аюултай болж өөрчлөгдсөн эсэх?
+									• Тохирох багаж, материал байсан эсэх?
+									• Тэдгээрийгээ ашигласан эсэх?
+									• Шаардалагатай нөхцөлд Цоож/Пайз ашигласан эсэх?
+									• Хамгаалах хэрэгслүүд зохих ёсоор ажиллаж байсан эсэх?"</a>
+							</div>
+							<field name="methodology_attachment_ids" widget="many2many_binary"/>
+						</page>
+						<page name="organization" string="Зохион байгуулалт">
+							<div class="alert alert-success alert-dismissible text-left"
+								role="Санамж" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Санамж" 
+									aria-label="close">Зохион байгуулалт: Удирдлага нь ажиллах хүч, ажлын байрыг аюулгүй байлгах үүрэг хуулийн дагуу үүрэг хүлээнэ. Ахлах ажилтан, удирдлагууд нь Осол Хэргийн судалгаанд анхаарч ажиллана.</a>
+							</div>
+							<div class="alert alert-danger alert-dismissible text-top" 
+								role="Асуулга" 
+								readonly="1">
+								<a href="#" class="close" data-dismiss="Асуулга" 
+									aria-label="close">"Зайлшгүй тодорхойлох шаардлагатай:
+									• Аюулгүй Ажиллагааны дүрэм журмуудтай ажилчид танилцаж ойлгосон эсэх?
+									• Албан хүчээр ажилласан эсэх?
+									• Зохих хяналт тавьж байсан эсэх?
+									• Ажилчид ажил гүйцэтгэхэд сургагдсан эсэх? Хэзээ? Хүчинтэй эсэх
+									• Аюулыг урьд нь илрүүлж байсан эсэх?
+									• Журмуудыг гарсан үр дүнд тулгуурлан сайжруулж байсан эсэх?
+									• Аюултай нөхцөл байдлыг залруулсан эсэх?
+									• Тоног төхөөрөмжид тогтмол засвар үйлчилгээ хийж байсан эсэх?
+									• Аюулгүй Ажиллагааны үзлэг тогтмол хийж байсан эсэх?
+									• Тоног төхөөрөмж, орчин, хүмүүс болон журамд өөрчлөлт орсон эсэх?"</a>
+							</div>
+							<field name="organization_attachment_ids" widget="many2many_binary"/>
+						</page>
+						<page name="influeced" string="Нөлөөлсөн хүчин зүйлийн дүн шинжилгээ">
+							<field name="influeced_attachment_ids" widget="many2many_binary"/>
+						</page>
+					</notebook>
+					<field name="corrective_action_lines" nolabel="1" string='Залруулах арга хэмжээ'>
+						<tree editable="bottom">
+							<field name="measures"/>
+							<field name="employee_id" options="{'no_create':True}"/>
+							<field name="corrected_date"/>
+							<field name="corrective_action"/>
+							<field name="completed_date"/>
+						</tree>
+					</field>
+=				</sheet>
+				<div class="oe_chatter">
+				<field name="message_follower_ids" widget="mail_followers"/>
+				<field name="activity_ids" widget="mail_activity"/>
+				<field name="message_ids" widget="mail_thread"/>
+			</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_accident_investigation_tree" model="ir.ui.view">
+		<field name="name">accident.investigation.tree</field>
+		<field name="model">accident.investigation</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="date"/>
+				<field name="name"/>
+				<field name="branch_id"/>
+				<field name="location_id"/>
+				<field name="state" optional="hide"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_accident_investigation_filter" model="ir.ui.view">
+		<field name="name">accident.investigation.filter</field>
+		<field name="model">accident.investigation</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<filter name="is_draft" string="Ноорог" domain="[('state','=',('draft'))]"/>
+				<filter name="is_sent" string="Илгээсэн" domain="[('state','in',['sent'])]"/>
+				<filter name="is_repaired" string="Засагдсан" domain="[('state','in',['repaired'])]"/>
+				<filter name="is_done" string="Дууссан" domain="[('state','in',['done'])]"/>
+				<separator/>
+				<group expand="0">
+					<filter string="Төсөл" name="group_branch_id" domain="[]" context="{'group_by':'branch_id'}"/>
+					<filter string="Салбар" name="group_location_id" domain="[]" context="{'group_by':'location_id'}"/>
+					<filter string="Жилээр" name='group_year' domain="[]" context="{'group_by':'date:year'}"/>
+					<filter string="Сараар" name='group_month' domain="[]" context="{'group_by':'date:month'}"/>
+					<filter string="Өдөрөөр" name='group_day' domain="[]" context="{'group_by':'date:day'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_accident_investigation" model="ir.actions.act_window">
+		<field name="name">Аюултай тохиолдолын судалгаа</field>
+		<field name="res_model">accident.investigation</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="view_accident_investigation_filter"/>
+		<field name="view_id" ref="view_accident_investigation_tree"/>
+		<field name="context">{}</field>
+		<field name="context">{'search_default_group_branch_id': 1, 'search_default_group_location_id': 1, 'search_default_group_year': 1,'search_default_group_month': 1}</field>
+	</record>
+
+</odoo>

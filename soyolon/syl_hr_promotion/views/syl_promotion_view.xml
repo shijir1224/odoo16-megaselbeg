@@ -1,0 +1,26 @@
+ <odoo>
+ 
+    <record model="ir.ui.view" id="promotion_request_form_syl">
+        <field name="name">promotion.request.form.syl</field>
+        <field name="model">promotion.request</field>
+        <field name="inherit_id" ref="mw_hr_promotion.promotion_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cause']" position="after">
+                <field name="start_date" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+                <field name="emp_type" attrs="{'readonly': [('state_type', '!=', 'draft')]}"/>
+                <field name="pro_type" attrs="{'readonly': [('state_type', '!=', 'draft')]}" />
+                <field name="level_id" attrs="{'readonly': [('state_type', '!=', 'draft')]}" options="{'no_create':True}"/>
+            </xpath>   
+            <xpath expr="//field[@name='history_ids']" position="replace">      
+                <field name="history_ids"  >
+                    <tree delete='false' create='false' editable='bottom'>
+                        <field name="user_id" readonly="1" />
+                        <field name="date" readonly="1" />
+                         <field name="desc" />
+                        <field name="flow_line_id" readonly="1" />
+                    </tree>
+                </field>
+            </xpath>                     
+        </field>
+    </record>
+</odoo>
