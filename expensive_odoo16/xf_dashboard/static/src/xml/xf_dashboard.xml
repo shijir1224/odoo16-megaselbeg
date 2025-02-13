@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+
+    <t t-name="XFDashboardMain">
+        <div class="o_action o_cannot_create o_view_controller">
+            <div class="o_content">
+                <div class="o_xf_dashboard">
+                    <div class="o_xf_dashboard_widgets"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="XFDashboardWidget">
+        <div t-attf-id="o_xf_dashboard_widget_{{widget_value['id']}}"
+             t-attf-class="o_xf_dashboard_widget col-xl-{{widget_value['col_xl']}} col-lg-{{widget_value['col_lg']}} col-md-{{widget_value['col_md']}} col-sm-{{widget_value['col_sm']}}"
+             t-att-data-content-min_height="widget_value['min_height']"
+             t-att-data-content-max_height="widget_value['max_height']">
+            <div t-attf-class="o_xf_dashboard_widget_container #{widget_value['custom_class'] or ''}"/>
+        </div>
+    </t>
+
+    <t t-name="XFDashboardColumn">
+        <div t-attf-id="o_xf_dashboard_column_{{column_value['id']}}"
+             t-attf-class="o_xf_dashboard_column
+             col-xl-{{column_value['col_xl']}}
+             col-lg-{{column_value['col_lg']}}
+             col-md-{{column_value['col_md']}}
+             col-sm-{{column_value['col_sm']}}">
+            <t t-raw="0"/>
+        </div>
+    </t>
+
+    <t t-name="XFDashboardWidgets">
+        <div class="o_xf_dashboard_widgets">
+            <div class="container-fluid">
+                <div class="row" t-foreach="widget_rows" t-as="row">
+                    <t t-if="row_value['columns']">
+                        <t t-foreach="row_value['columns']" t-as="column">
+                            <t t-call="XFDashboardColumn">
+                                <t t-foreach="column_value['widgets']" t-as="widget">
+                                    <t t-call="XFDashboardWidget"/>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                    <t t-if="row_value['widgets']">
+                        <t t-foreach="row_value['widgets']" t-as="widget">
+                            <t t-call="XFDashboardWidget"/>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

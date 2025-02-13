@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Default Widget Container -->
+        <template id="default_widget_container" name="Default Widget Container"
+                  groups="base.group_user,base.group_portal">
+            <div t-attf-class="o_xf_dashboard_widget_container #{widget['widget_record']['custom_class'] or ''}">
+                <h1 t-if="widget['widget_record']['show_title']" class="o_xf_dashboard_widget_title">
+                    <a t-if="widget['widget_record']['view_more_action']" class="o_view_more" href="#">
+                        <t t-esc="widget['widget_record']['display_name']"/>
+                    </a>
+                    <t t-else="">
+                        <t t-esc="widget['widget_record']['display_name']"/>
+                    </t>
+                </h1>
+                <div class="o_xf_dashboard_widget_content"/>
+                <div t-if="widget['widget_record']['show_view_more'] and widget['widget_record']['view_more_action']"
+                     class="o_xf_dashboard_view_more">
+                    <a class="o_view_more" href="#">View More</a>
+                </div>
+            </div>
+        </template>
+
+        <template id="default_widget_content" name="Default Widget Content"
+                  groups="base.group_user,base.group_portal">
+            <div t-if="data.length" t-foreach="data" t-as="record" class="xf_dashboard_item">
+                <div>
+                    <t t-esc="record['name']"/>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

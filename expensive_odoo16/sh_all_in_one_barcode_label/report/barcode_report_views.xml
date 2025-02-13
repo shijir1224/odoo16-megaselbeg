@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Dynamic Barcode Label Data template -->
+    <template id="sh_barcode_report_doc">
+		
+            <t t-call="web.basic_layout">
+				<style>tr,td,table,th,tbody,thead { border:0;}</style>
+                <t t-foreach="data_list" t-as="data">
+                    <div class="page">
+						<t t-if="sh_company_logo">
+							<t t-set="logo_style" t-value="'text-align:'+sh_company_logo_align"/>
+							<div t-att-style="logo_style">
+								<img alt="Logo" t-att-src="'/logo?company=%d' % (request.env.company)" t-att-alt="'%s' % (request.env.company.name)" t-att-width="sh_company_logo_width" t-att-height="sh_company_logo_height"/>
+							</div>
+						</t>
+                        <t t-foreach="data.keys()" t-as="k">
+                            <table width="100%">
+                                <t t-if="k != 'barcode_url'">
+                                    <t t-if="len(data.get(k)) == 4">
+                                		<tr>
+                                        	<td t-att-style="data.get(k)[3]">
+                                        		<img t-att-src="image_data_uri(data.get(k)[0])" t-att-style="data.get(k)[1]"/>
+                                        	</td>
+                                    	</tr>
+                                	</t>
+                                    <t t-else="">
+                                    	<t t-if="k == 'sample_text'">
+	                                		<tr>
+	                                        	<td t-att-style="data.get(k)[1]"><t t-esc="data.get(k)[0]" /></td>
+	                                    	</tr>
+	                                   	</t>
+	                                   	<t t-if="k != 'sample_text'">
+	                                   		<t t-if="len(data.get(k)) == 3">
+	                                   			<tr>
+	                                        		<td t-att-style="data.get(k)[1]"><span style="color:black;text-decoration:line-through" t-esc="data.get(k)[2]" /></td>
+	                                    		</tr>
+	                                    		<tr>
+	                                        		<td t-att-style="data.get(k)[1]"><span t-esc="data.get(k)[0]" /></td>
+	                                    		</tr>
+	                                   		</t>
+	                                   		<t t-else="">
+	                                   			<tr>
+	                                        		<td t-att-style="data.get(k)[1]"><span t-esc="data.get(k)[0]" /></td>
+	                                    		</tr>
+	                                   		</t>
+	                                    	
+	                                   	</t>
+                                	</t>
+                                </t>
+                                <t t-if="k == 'barcode_url'">
+                                    <t t-if="len(data.get('barcode_url'))==1">
+                                    	<t t-if="'_qr' in data.get('barcode_url')[0]">
+                                    		<t t-set="product_id" t-value="data.get('barcode_url')[0].split('_')[0]"/>
+	                                    	<t t-set="product" t-value="request.env['product.product'].sudo().search([('id','=',int(product_id))])"/>
+	                                        <tr>
+	                                            <td t-att-style="align_style">
+	                                            	<img t-att-style="barcode_style" alt="Barcode" t-att-src="image_data_uri(product.sh_qr_code_generate(data.get('sh_qr_code_image')[0]))" />
+	                                            </td>
+	                                        </tr>
+	                                    </t>
+	                                    <t t-else="">
+	                                    	<tr>
+												<td t-att-style="align_style">
+													<img t-att-style="barcode_style" alt="Barcode" t-att-src="data.get('barcode_url')[0]"/>
+												</td>
+											</tr>
+	                                    </t>
+                                    </t>
+                                    <t t-if="len(data.get('barcode_url'))>1">
+                                    	<t t-if="'_qr' in data.get('barcode_url')[0]">
+                                    		<t t-set="product_id" t-value="data.get('barcode_url')[0].split('_')[0]"/>
+                                    		<t t-set="product" t-value="request.env['product.product'].sudo().search([('id','=',int(product_id))])"/>
+                                    		<tr>
+	                                            <td t-att-style="align_style">
+	                                            	<img t-att-style="barcode_style" alt="Barcode" t-att-src="image_data_uri(product.sh_qr_code_generate(data.get('sh_qr_code_image')[0]))" />
+	                                            </td>
+	                                        </tr>
+                                    	</t>
+                                    	<t t-else="">
+                                    		<tr>
+                                            	<td t-att-style="align_style"><img t-att-style="barcode_style" alt="Barcode" t-att-src="data.get('barcode_url')[0]" /></td>
+                                        	</tr>
+                                    	</t>
+                                        <tr>
+                                            <td t-att-style="data.get('barcode_url')[2]"><span t-esc="data.get('barcode_url')[1]" /></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+                        </t>
+                    </div>
+                    <p style="page-break-after: always;"></p>
+                </t>
+        </t>
+    </template>
+    <!-- Dynamic Barcode Label Data Print Report Action -->
+    <record id="sh_barcode_report_action" model="ir.actions.report">
+        <field name="name">Product Dynamic Barcode Label</field>
+        <field name="model">report.sh_all_in_one_barcode_label.sh_barcode_report_doc</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sh_all_in_one_barcode_label.sh_barcode_report_doc</field>
+        <field name="print_report_name">'Product Dynamic Barcode Label'</field>
+    </record>
+</odoo>

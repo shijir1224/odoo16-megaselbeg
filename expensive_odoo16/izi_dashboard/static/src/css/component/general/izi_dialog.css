@@ -1,0 +1,33 @@
+.izi_dialog {
+    /* display: none; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-family: 'Roboto';
+    z-index: 10;
+}
+.izi_dialog_bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: black;
+    opacity: 0.25;
+    z-index: 9;
+}
+.izi_dialog_content {
+    position: fixed;
+    z-index: 10;
+    width: 70%;
+    left: 15%;
+    height: 500px;
+    top: 50%;
+    margin-top: -250px;
+    border-radius: 8px;
+    background: white;
+    padding: 15px;
+    overflow-y: scroll;
+}

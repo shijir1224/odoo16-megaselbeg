@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Demo Tiles -->
+
+        <record id="calculator_link" model="xf.dashboard.bookmark">
+            <field name="name">Online Calculator</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">tile</field>
+            <field name="icon_id" ref="xf_dashboard.calc_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="news_link" model="xf.dashboard.bookmark">
+            <field name="name">Corporate News</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">tile</field>
+            <field name="icon_id" ref="xf_dashboard.news_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="qa_link" model="xf.dashboard.bookmark">
+            <field name="name">QA Section</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">tile</field>
+            <field name="icon_id" ref="xf_dashboard.qa_faq_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="feature_link" model="xf.dashboard.bookmark">
+            <field name="name">Feature Voting</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">tile</field>
+            <field name="icon_id" ref="xf_dashboard.feature_voting_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="meeting_link" model="xf.dashboard.bookmark">
+            <field name="name">Meeting Rooms</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">tile</field>
+            <field name="icon_id" ref="xf_dashboard.meeting_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="stat_link" model="xf.dashboard.bookmark">
+            <field name="name">Statistics</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">tile</field>
+            <field name="icon_id" ref="xf_dashboard.stat_dashboard_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <!-- Demo Bookmarks -->
+
+        <record id="checklist_link" model="xf.dashboard.bookmark">
+            <field name="name">Quality Checklists</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">link</field>
+            <field name="icon_id" ref="xf_dashboard.checklist_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="chat_link" model="xf.dashboard.bookmark">
+            <field name="name">Presentations</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">link</field>
+            <field name="icon_id" ref="xf_dashboard.presentation_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="document_link" model="xf.dashboard.bookmark">
+            <field name="name">Templates and Forms</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">link</field>
+            <field name="icon_id" ref="xf_dashboard.signed_document_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="webinar_link" model="xf.dashboard.bookmark">
+            <field name="name">Webinars</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">link</field>
+            <field name="icon_id" ref="xf_dashboard.webinar_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="knowledge_sharing_link" model="xf.dashboard.bookmark">
+            <field name="name">Knowledge Sharing Sessions</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">link</field>
+            <field name="icon_id" ref="xf_dashboard.knowledge_sharing_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+        <record id="internet_link" model="xf.dashboard.bookmark">
+            <field name="name">Corporate Network</field>
+            <field name="external_url">https://xfanis.dev</field>
+            <field name="target">_blank</field>
+            <field name="type">link</field>
+            <field name="icon_id" ref="xf_dashboard.internet_icon"/>
+            <field name="visibility">public</field>
+        </record>
+
+    </data>
+</odoo>

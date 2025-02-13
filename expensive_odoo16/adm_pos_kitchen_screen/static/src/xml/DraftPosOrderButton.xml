@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="DraftPosOrderButton" owl="1">
+        <div class="draft_pos_order_btn control-button">
+            <i class="fa fa-cutlery"/>
+            <span>Send Order To Kitchen</span>
+        </div>
+    </t>
+
+</templates>

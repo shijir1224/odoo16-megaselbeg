@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="xf_dashboard_widget_template_wizard" model="ir.ui.view">
+            <field name="name">xf_dashboard_widget_template_wizard</field>
+            <field name="model">xf.dashboard.widget.template</field>
+            <field name="arch" type="xml">
+                <form string="DashBoard Widget Template">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="xml_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="arch_content" widget="ace" options="{'mode': 'xml'}"/>
+                            <field name="widget_id" invisible="True"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="create_template" string="Create Template" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

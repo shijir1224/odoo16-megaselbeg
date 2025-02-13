@@ -1,0 +1,9 @@
+<template>
+    <div t-name="IZISelectDashboard" class="izi_dialog">
+        <div class="izi_dialog_bg"></div>
+        <div class="izi_dialog_content">
+            <div class="izi_select_dashboard_item_container"/>
+            <div style="clear:both;"/>
+        </div>
+    </div>
+</template>

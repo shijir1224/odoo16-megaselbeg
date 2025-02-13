@@ -1,0 +1,209 @@
+/* variables */
+$bg-dashboard-col: #FFF;
+$dashboard-indent-size: 16px;
+$dashboard-icon-size: 64px;
+/* styles */
+
+@mixin dashboard_more_link {
+  text-align: right;
+  font-weight: bolder;
+
+  a::after {
+    content: "";
+    display: inline-block;
+    margin-left: $dashboard-indent-size/2;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4.5px 0 4.5px 5px;
+    border-color: transparent transparent transparent darken($o-brand-primary, 5%);
+  }
+}
+
+.o_xf_dashboard {
+  h1, .h1, h2, .h2, h3, .h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 1;
+  }
+
+  .o_xf_dashboard_column {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .o_xf_dashboard_widget {
+    margin-bottom: $dashboard-indent-size;
+
+    .o_xf_dashboard_widget_container {
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .14);
+      background: $bg-dashboard-col;
+      border-radius: 2px;
+      padding: $dashboard-indent-size;
+
+      .o_xf_dashboard_widget_content {
+        padding: $dashboard-indent-size 0;
+        display: flex;
+        -ms-flex-flow: row wrap;
+        -moz-flex-flow: row wrap;
+        -webkit-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -moz-justify-content: flex-start;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+        align-content: flex-start;
+
+        .xf_dashboard_item {
+          -ms-flex: 1 1 300px;
+          -moz-flex: 1 1 300px;
+          -webkit-box-flex: 1;
+          -webkit-flex: 1 1 300px;
+          flex: 1 1 300px;
+        }
+      }
+
+      a.xf_dashboard_link {
+        display: block;
+        margin-bottom: $dashboard-indent-size/2;
+        height: $dashboard-icon-size;
+        line-height: $dashboard-icon-size;
+        overflow: hidden;
+        width: 100%;
+
+        img {
+          width: $dashboard-icon-size;
+          height: $dashboard-icon-size;
+          margin-right: $dashboard-indent-size;
+          float: left;
+        }
+      }
+    }
+
+    .o_xf_dashboard_widget_container.o_xf_dashboard_tiles_widget {
+      .xf_dashboard_item {
+        -ms-flex: 1 1 200px;
+        -moz-flex: 1 1 200px;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 200px;
+        flex: 1 1 200px;
+
+        a.xf_dashboard_link {
+          margin-bottom: 0;
+          height: auto;
+          text-align: center;
+          line-height: inherit;
+
+          img {
+            width: 128px;
+            height: 128px;
+            margin-right: 0;
+            margin-bottom: $dashboard-indent-size/2;
+            float: none;
+          }
+
+          span {
+            display: block;
+          }
+        }
+      }
+    }
+
+
+    .o_show_on_hover {
+      display: none;
+    }
+
+    .o_web_user_card {
+      .o_web_user_avatar {
+        width: $dashboard-icon-size;
+
+        .avatar {
+          width: $dashboard-icon-size;
+          border-radius: 50%;
+          border: 1px solid $o-brand-secondary;
+        }
+      }
+
+      .o_web_user_name {
+        font-size: 26px;
+        font-weight: 600;
+        padding-left: $dashboard-indent-size;
+      }
+    }
+
+    .o_xf_dashboard_view_more,
+    .o_xf_dashboard_read_more {
+      @include dashboard_more_link();
+    }
+
+    .o_xf_dashboard_read_more {
+      padding: $dashboard-indent-size 0 0;
+    }
+
+    .o_xf_dashboard_logo_widget {
+      .o_xf_dashboard_logo {
+        text-align: center;
+
+        img {
+          height: $dashboard-icon-size;
+        }
+      }
+    }
+
+
+    .o_xf_dashboard_tiles_widget {
+      ul {
+        width: 100%;
+        height: 200px;
+        margin: 0;
+
+        li {
+          display: block;
+          width: 200px;
+          height: 200px;
+          text-align: center;
+          padding: $dashboard-indent-size;
+          float: left;
+
+          a {
+            font-size: 20px;
+
+            img {
+              width: 140px;
+              height: 140px;
+            }
+
+            span {
+              margin: 0;
+            }
+          }
+        }
+
+        li:not(:first-child) {
+          margin-left: $dashboard-indent-size;
+        }
+      }
+    }
+  }
+
+  .o_title_button {
+    text-align: right;
+    width: 40px;
+  }
+
+  .o_xf_dashboard_widget:hover {
+    .o_show_on_hover {
+      display: inline-block;
+    }
+  }
+}
+
+.o_sub_menu_widgets {
+  padding: $dashboard-indent-size 0;
+  border-top: 1px solid $o-brand-secondary;
+
+  h1 {
+    padding: 0 $dashboard-indent-size;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    lv 0-->
+    <menuitem id="menu_it9_oauth2_server" name="OAuth" web_icon="it9_oauth2_server,static/description/icon.png" groups="base.group_system"/>
+
+<!--    lv 1-->
+<!--    <menuitem id="menu_it9_oauth2_server" name="OAuth" parent="base.menu_administration"/>-->
+    <menuitem id="menu_action_oauth2_client" name="OAuth 2.0" parent="menu_it9_oauth2_server" action="action_oauth2_client"/>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="dashboard_row_top" model="xf.dashboard.row">
+            <field name="name">Top</field>
+            <field name="sequence">0</field>
+        </record>
+
+        <record id="dashboard_row_1" model="xf.dashboard.row">
+            <field name="name">Row 1</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="dashboard_row_2" model="xf.dashboard.row">
+            <field name="name">Row 2</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="dashboard_row_3" model="xf.dashboard.row">
+            <field name="name">Row 3</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="dashboard_row_4" model="xf.dashboard.row">
+            <field name="name">Row 4</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="dashboard_row_5" model="xf.dashboard.row">
+            <field name="name">Row 5</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="dashboard_row_bottom" model="xf.dashboard.row">
+            <field name="name">Bottom</field>
+            <field name="sequence">100</field>
+        </record>
+    </data>
+</odoo>

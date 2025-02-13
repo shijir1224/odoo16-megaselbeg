@@ -1,0 +1,480 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_all_in_one_barcode_label
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-10 07:02+0000\n"
+"PO-Revision-Date: 2020-12-10 07:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.actions.report,print_report_name:sh_all_in_one_barcode_label.sh_barcode_report_action
+msgid "'Product Dynamic Barcode Label'"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template_line__sh_currency_position__after
+msgid "After"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_print_barcode_or_qr__barcode
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_barcode_report_doc
+msgid "Barcode"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_barcode_field_id
+msgid "Barcode Field"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_barcode_height
+msgid "Barcode Height"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__quantity
+msgid "Barcode Quantity"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model,name:sh_all_in_one_barcode_label.model_report_sh_all_in_one_barcode_label_sh_barcode_report_doc
+msgid "Barcode Report"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_barcode_width
+msgid "Barcode Width"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_print_barcode_or_qr
+msgid "Barcode/QR Type"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template_line__sh_currency_position__before
+msgid "Before"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_dynamic_lable_print_wizard_view
+msgid "Cancel"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template_line__sh_position__center
+msgid "Center"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__code128
+msgid "Code 128"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__code11
+msgid "Code11"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__company_id
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__company_id
+msgid "Company"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__create_uid
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__create_uid
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__create_uid
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__create_date
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__create_date
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__create_date
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_currency_position
+msgid "Currency Symbol Position"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_report_sh_all_in_one_barcode_label_sh_barcode_report_doc__display_name
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__display_name
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__display_name
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__display_name
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_product_template_dynamic_view
+msgid "Dynamic Barcode Label"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_product_template_dynamic_view
+msgid "Dynamic Barcode Label Line"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__lable_id
+msgid "Dynamic Label"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model,name:sh_all_in_one_barcode_label.model_sh_dynamic_template
+msgid "Dynamic Label Template"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__sh_lable_print_line_ids
+msgid "Dynamic Lable Line"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model,name:sh_all_in_one_barcode_label.model_sh_dynamic_lable_print
+msgid "Dynamic Lable Print"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model,name:sh_all_in_one_barcode_label.model_sh_dynamic_lable_print_line
+msgid "Dynamic Lable Print Line"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.account_move_action
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.product_product_action
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.product_template_action
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.purchase_order_action
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.sale_order_action
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.sh_action_product_label_wizard
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.stock_picking_action
+msgid "Dynamic Product Label"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.actions.act_window,name:sh_all_in_one_barcode_label.sh_product_lable_template_action
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_product_lable_template_tree_view
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_product_template_dynamic_view
+msgid "Dynamic Product Label Template"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__ean13
+msgid "EAN-13"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__ean8
+msgid "EAN-8"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__extended39
+msgid "Extended39"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__extended93
+msgid "Extended93"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__fim
+msgid "FIM"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_field_id
+msgid "Field"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__ttype
+msgid "Field Type"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_font_bold
+msgid "Font Bold"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_font_color
+msgid "Font Color"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_font_italic
+msgid "Font Italic"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_font_size
+msgid "Font Size"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_font_underline
+msgid "Font Underline"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__i2of5
+msgid "I2of5"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_report_sh_all_in_one_barcode_label_sh_barcode_report_doc__id
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__id
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__id
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__id
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__id
+msgid "ID"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_label_display
+msgid "Is Label Display ?"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_is_price_field
+msgid "Is Price Field ?"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__is_valid
+msgid "Is Valid ?"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__sh_lable_template_id
+msgid "Label Print Template"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_page_orientation__landscape
+msgid "Landscape"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_report_sh_all_in_one_barcode_label_sh_barcode_report_doc____last_update
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print____last_update
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line____last_update
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template____last_update
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__write_uid
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__write_uid
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__write_uid
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print__write_date
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__write_date
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__write_date
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template_line__sh_position__left
+msgid "Left"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__msi
+msgid "MSI"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_margin
+msgid "Margin"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__name
+msgid "Name"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_product_template_dynamic_view
+msgid "PDF Page Configuration"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_page_height
+msgid "PDF Page Height"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_page_width
+msgid "PDF Page Width"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__postnet
+msgid "POSTNET"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_page_orientation
+msgid "Page Orientation"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__paperformat_id
+msgid "Paper Format"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: code:addons/sh_all_in_one_barcode_label/models/sh_product_label_dynamic_template.py:0
+#: code:addons/sh_all_in_one_barcode_label/models/sh_product_label_dynamic_template.py:0
+#: code:addons/sh_all_in_one_barcode_label/models/sh_product_label_dynamic_template.py:0
+#: code:addons/sh_all_in_one_barcode_label/models/sh_product_label_dynamic_template.py:0
+#, python-format
+msgid ""
+"Please select fields which you have defined in dynamic barcode lines, If you"
+" have not added pls add field first in dynamic barcode label lines."
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_page_orientation__portrait
+msgid "Portrait"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sh_position
+msgid "Position"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_dynamic_lable_print_wizard_view
+msgid "Print"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_lable_print_line__product_id
+msgid "Product"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_dynamic_lable_print_wizard_view
+msgid "Product & Barcode Quantity"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.ui.menu,name:sh_all_in_one_barcode_label.sh_product_label_template_main
+#: model:ir.ui.menu,name:sh_all_in_one_barcode_label.sh_product_label_template_sub
+msgid "Product Barcode Label"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.ui.menu,name:sh_all_in_one_barcode_label.sh_product_label_template
+#: model:res.groups,name:sh_all_in_one_barcode_label.group_product_barcode_label_template
+msgid "Product Barcode Label Template"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.actions.report,name:sh_all_in_one_barcode_label.sh_barcode_report_action
+msgid "Product Dynamic Barcode Label"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model_terms:ir.ui.view,arch_db:sh_all_in_one_barcode_label.sh_dynamic_lable_print_wizard_view
+msgid "Product Dynamic Label Print"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_print_barcode_or_qr__qr
+msgid "QR"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template_line__sh_position__right
+msgid "Right"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__standard39
+msgid "Standard39"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__standard93
+msgid "Standard93"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__template_id
+msgid "Template"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_template_line_ids
+msgid "Template Line"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model,name:sh_all_in_one_barcode_label.model_sh_dynamic_template_line
+msgid "Template Lines"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,field_description:sh_all_in_one_barcode_label.field_sh_dynamic_template__sh_barcode_type
+msgid "Type of Barcode"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__upca
+msgid "UPCA"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields.selection,name:sh_all_in_one_barcode_label.selection__sh_dynamic_template__sh_barcode_type__usps_4state
+msgid "USPS_4State"
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: model:ir.model.fields,help:sh_all_in_one_barcode_label.field_sh_dynamic_template_line__sequence
+msgid "Used to handle lines."
+msgstr ""
+
+#. module: sh_all_in_one_barcode_label
+#: code:addons/sh_all_in_one_barcode_label/models/sh_product_label_dynamic_template.py:0
+#: code:addons/sh_all_in_one_barcode_label/models/sh_product_label_dynamic_template.py:0
+#, python-format
+msgid "You can not Add Duplicate Fields"
+msgstr ""

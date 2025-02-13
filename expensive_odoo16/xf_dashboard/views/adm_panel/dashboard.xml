@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Root Menu -->
+        <menuitem id="menu_xf_dashboard" name="Home DashBoard" parent="base.menu_custom"
+                  groups="base.group_no_one" sequence="15"/>
+
+        <!-- Dashboard Row -->
+        <record id="xf_dashboard_row_form" model="ir.ui.view">
+            <field name="name">xf_dashboard_row_form</field>
+            <field name="model">xf.dashboard.row</field>
+            <field name="arch" type="xml">
+                <form string="Home DashBoard Row">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="columns" string="Columns">
+                                <field name="columns" nolabel="1"/>
+                            </page>
+                            <page name="widgets" string="Widgets">
+                                <field name="widgets" nolabel="1"/>
+                            </page>
+                            <page name="groups" string="Groups">
+                                <field name="groups" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="xf_dashboard_row_tree" model="ir.ui.view">
+            <field name="name">xf_dashboard_row_tree</field>
+            <field name="model">xf.dashboard.row</field>
+            <field name="arch" type="xml">
+                <tree string="Home DashBoard Rows">
+                    <field name="sequence" widget="handle"/>
+                    <field name="active" invisible="True"/>
+                    <field name="name"/>
+                    <field name="widgets"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_xf_dashboard_rows" model="ir.actions.act_window">
+            <field name="name">Home DashBoard Rows</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">xf.dashboard.row</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_xf_dashboard_rows" name="Rows" parent="menu_xf_dashboard"
+                  groups="base.group_no_one" sequence="10" action="action_xf_dashboard_rows"/>
+
+        <!-- Dashboard Column -->
+        <record id="xf_dashboard_column_form" model="ir.ui.view">
+            <field name="name">xf_dashboard_column_form</field>
+            <field name="model">xf.dashboard.column</field>
+            <field name="arch" type="xml">
+                <form string="Home DashBoard Column">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="row_id"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                        <group name="layout" string="Layout">
+                            <group>
+                                <field name="col_sm"/>
+                                <field name="col_md"/>
+                            </group>
+                            <group>
+                                <field name="col_lg"/>
+                                <field name="col_xl"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="widgets" string="Widgets">
+                                <field name="widgets" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="xf_dashboard_column_tree" model="ir.ui.view">
+            <field name="name">xf_dashboard_column_tree</field>
+            <field name="model">xf.dashboard.column</field>
+            <field name="arch" type="xml">
+                <tree string="Home DashBoard Columns">
+                    <field name="sequence" widget="handle"/>
+                    <field name="active" invisible="True"/>
+                    <field name="name"/>
+                    <field name="row_id"/>
+                    <field name="col_sm"/>
+                    <field name="col_md"/>
+                    <field name="col_lg"/>
+                    <field name="col_xl"/>
+                    <field name="widgets" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_xf_dashboard_columns" model="ir.actions.act_window">
+            <field name="name">Home DashBoard Columns</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">xf.dashboard.column</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_xf_dashboard_columns" name="Columns" parent="menu_xf_dashboard"
+                  groups="base.group_no_one" sequence="15" action="action_xf_dashboard_columns"/>
+
+        <!-- Dashboard Widget -->
+        <record id="xf_dashboard_widget_form" model="ir.ui.view">
+            <field name="name">xf_dashboard_widget_form</field>
+            <field name="model">xf.dashboard.widget</field>
+            <field name="arch" type="xml">
+                <form string="Home DashBoard Widgets">
+                    <sheet>
+                        <group string="Main">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                        <group string="Getting Data">
+                            <group>
+                                <field name="res_model"/>
+                                <field name="function"/>
+                            </group>
+                            <group>
+                                <field name="kwargs"/>
+                                <field name="allowed_keywords"/>
+                            </group>
+                        </group>
+                        <group string="Actions">
+                            <group>
+                                <field name="view_more_action_id"/>
+                            </group>
+                            <group>
+                                <field name="read_more_action_id"/>
+                            </group>
+                        </group>
+                        <group string="Template">
+                            <group>
+                                <field name="container_template_id"/>
+                                <button name="action_open_new_template_wizard" type="object" string="Create Template"
+                                        context="{'template_field':'container_template_id'}"/>
+                            </group>
+                            <group>
+                                <field name="content_template_id"/>
+                                <button name="action_open_new_template_wizard" type="object" string="Create Template"
+                                        context="{'template_field':'content_template_id'}"/>
+                            </group>
+                        </group>
+                        <group string="Layout">
+                            <group>
+                                <field name="custom_class"/>
+                                <field name="min_height"/>
+                                <field name="max_height"/>
+                                <field name="hide_no_content"/>
+                                <field name="show_title"/>
+                                <field name="show_view_more"/>
+                            </group>
+                            <group>
+                                <field name="row_id"/>
+                                <field name="column_id"/>
+                                <field name="col_sm"/>
+                                <field name="col_md"/>
+                                <field name="col_lg"/>
+                                <field name="col_xl"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="xf_dashboard_widget_tree" model="ir.ui.view">
+            <field name="name">xf_dashboard_widget_tree</field>
+            <field name="model">xf.dashboard.widget</field>
+            <field name="arch" type="xml">
+                <tree string="Home DashBoard Widgets">
+                    <field name="sequence" widget="handle"/>
+                    <field name="active" invisible="True"/>
+                    <field name="row_id"/>
+                    <field name="column_id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_xf_dashboard_widgets" model="ir.actions.act_window">
+            <field name="name">Home DashBoard Widgets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">xf.dashboard.widget</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_xf_dashboard_widgets" name="Widgets" parent="menu_xf_dashboard"
+                  groups="base.group_no_one" sequence="20" action="action_xf_dashboard_widgets"/>
+    </data>
+</odoo>

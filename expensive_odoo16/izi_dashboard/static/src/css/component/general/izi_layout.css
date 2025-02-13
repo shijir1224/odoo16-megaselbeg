@@ -1,0 +1,147 @@
+/* ------------- amCharts - override labelling(tspan) svg agar tampil-- */
+svg [aria-hidden="true"], [aria-hidden="1"] {
+    display: block !important;
+  }
+
+/* ------------- Global - flex ------------ */
+.izi_view .flex-body {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+}
+.izi_view .flex-row {
+    flex-direction: row;
+    display: flex !important;
+}
+.izi_view .flex-column {
+    flex-direction: column;
+    display: flex !important;
+}
+.izi_view .flex-1 {
+    flex: 1;
+}
+.izi_view .flex-2 {
+    flex: 2;
+}
+.izi_view .flex-3 {
+    flex: 3;
+}
+
+/* ------------- Global - Margin Padding Size ------------ */
+.izi_view .my-0{
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+.izi_view .mr-03{
+    margin-right : 0.3em;
+}
+.izi_view .ml-03{
+    margin-left : 0.3em;
+}
+
+.izi_view .h-100{
+    height: 100% !important;
+}
+
+/* --- ScoreCard style --- */
+.scorecard {
+    font-family: 'Roboto' !important;
+    padding: 10px;
+}
+.scorecard .circle-ring{
+    max-height: 100%;
+}
+.scorecard .circle-ring .percentage{
+    font-size: 0.15em !important;
+    font-weight: bold;
+}
+/* .scorecard-sm .flex-column {
+    margin: 0 5px 0 15px;
+    min-width: 0;
+} */
+.scorecard-sm{
+    padding: 0 25px 0 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+    border-left : 3px solid #2B9EFF;
+}
+.scorecard .flex-column .flex-row{
+    align-items: baseline;
+}
+.scorecard-chart {
+    height: inherit;
+    padding: 5px 0px;
+    text-align: center;
+}
+.scorecard-img {
+    width: 72px;
+    padding: 0 10px 0 10px;
+}
+.scorecard-img-container {
+    /* text-align: center; */ 
+    text-align: right;
+    /* padding-right: 20px; */
+}
+.scorecard-img-container .scorecard-img {
+    /* display: block; */
+    height: 45px;
+    width: auto;
+    margin: auto;
+    padding: 0;
+}
+.scorecard-title-img {
+    width: 100px;
+}
+.scorecard-title {
+    font-size: 14px;
+}
+.scorecard-value {
+    font-size: 18px;
+    font-weight: bold;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.scorecard-target {
+    font-size: 10px;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.scorecard-particle {
+    margin: 0 0.5em 0 0.5em;
+    font-size: 12px;
+}
+
+.scorecard-status {
+    margin: 0 0 0 0.5em;
+    /* font-weight: bold; */
+    font-size: 11px;
+}
+
+.scorecard-status.label {
+    border: 1px solid;
+    border-radius: 30px;
+    padding: 0 6px 0 0;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    background-color: #2B9EFF;
+    color: white;
+}
+.scorecard-status.label .material-icons{
+    float: left;
+    font-size: 14px;
+    line-height: 18px;
+    margin-right: 0px;
+}
+
+.scorecard-status.label.label-danger {
+    background-color: #cc2e2e;
+}
+.scorecard-status.label.label-success {
+    background-color: #2B9EFF;
+}
+

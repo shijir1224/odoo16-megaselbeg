@@ -1,0 +1,4 @@
+id,name
+oauth2_response_type_code,code
+oauth2_response_type_json,json
+oauth2_response_type_token,token

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web_view_google_map.GoogleMapView" owl="1">
+        <div t-att-class="className" t-ref="root">
+            <Layout className="model.useSampleModel ? 'o_view_sample_data' : ''" display="props.display">
+                <t t-set-slot="layout-buttons">
+                    <t t-call="{{ props.buttonTemplate }}"/>
+                </t>
+                <t t-component="props.Renderer" list="model.root" archInfo="props.archInfo" readonly="true" openRecord.bind="openRecord" onAdd.bind="createRecord" showRecord.bind="showRecord"/>
+            </Layout>
+        </div>
+    </t>
+
+    <t t-name="web_view_google_map.GoogleMapView.Buttons" owl="1">
+        <div t-if="props.showButtons" class="o_cp_buttons d-flex align-items-baseline" role="toolbar" aria-label="Main actions">
+            <t t-if="canCreate">
+                <button type="button" class="btn btn-primary o-google_map-button-new" accesskey="c" t-on-click="() => this.createRecord()">
+                    New
+                </button>
+            </t>
+            <button type="button" class="btn btn-link btn-secondary o-google_map-button-center-map" t-on-click.prevent="() => this.centerMap()">
+                Center Map
+            </button>
+        </div>
+    </t>
+
+</templates>

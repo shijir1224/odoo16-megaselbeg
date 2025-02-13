@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Popular Odoo Links -->
+        <template id="popular_links_widget_content" name="Popular Menus Content"
+                  groups="base.group_user,base.group_portal">
+            <div t-if="data.length" t-foreach="data" t-as="record" class="xf_dashboard_item">
+                <a class="xf_dashboard_link" t-attf-href="/web#menu_id={{record['menu_id'][0]}}">
+                    <img t-attf-src="/web/image?model=ir.ui.menu&amp;field=menu_icon_data&amp;id={{record['menu_id'][0]}}"/>
+                    <span class="menu">
+                        <t t-esc="record['name']"/>
+                    </span>
+                    <span class="app">
+                        [<t t-esc="record['app_menu_id'][1]"/>]
+                    </span>
+                </a>
+            </div>
+        </template>
+
+        <record id="popular_links_tree" model="ir.ui.view">
+            <field name="name">popular_links_tree</field>
+            <field name="model">xf.dashboard.popular.menu</field>
+            <field name="arch" type="xml">
+                <tree string="Popular Links" editable="top" create="0" decoration-muted="visible == False">
+                    <field name="visible" invisible="True"/>
+                    <button type="object" name="action_open_app_menu" icon="fa-external-link" string="Open App"/>
+                    <field name="app_menu_id" string="App"/>
+                    <button type="object" name="action_open_menu" icon="fa-link" string="Open Menu"/>
+                    <field name="name"/>
+                    <field name="number"/>
+                    <button type="object" name="action_toggle_visibility" icon="fa-eye-slash"
+                            string="Hide/Show in the Featured Apps Widget"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="open_popular_links_tree" model="ir.actions.act_window">
+            <field name="name">Popular Links</field>
+            <field name="res_model">xf.dashboard.popular.menu</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>
+                    <b>No link found!</b>
+                </p>
+                <p>You should try other search criteria.</p>
+            </field>
+        </record>
+    </data>
+    <!-- Widget -->
+    <data noupdate="1">
+        <record id="popular_links_widget" model="xf.dashboard.widget">
+            <field name="name">Popular Odoo Links</field>
+            <field name="res_model">xf.dashboard.popular.menu</field>
+            <field name="function">search_read</field>
+            <field name="kwargs">
+                {
+                'domain':[('visible', '=', True)],
+                'fields':['name', 'app_menu_id', 'menu_id', 'number'],
+                'limit':6
+                }
+            </field>
+            <field name="container_template_id" ref="default_widget_container"/>
+            <field name="content_template_id" ref="popular_links_widget_content"/>
+            <field name="view_more_action_id" ref="open_popular_links_tree"/>
+            <field name="row_id" ref="dashboard_row_3"/>
+            <field name="sequence">3</field>
+            <field name="col_sm">12</field>
+            <field name="col_md">12</field>
+            <field name="col_lg">6</field>
+            <field name="col_xl">6</field>
+        </record>
+    </data>
+</odoo>

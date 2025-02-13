@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data noupdate="1">
+		<!-- Test Data load while install module -->
+	    <record id="template_1" model="sh.dynamic.template">
+	        <field name="name">Template 1</field>
+	        <field name="sh_print_barcode_or_qr">barcode</field>
+	        <field name="sh_barcode_type">Code128</field>
+	        <field name="sh_page_height">35</field>
+	        <field name="sh_page_width">70</field>
+	        <field name="sh_page_orientation">Portrait</field>
+	        <field name="sh_barcode_height">50px</field>
+	        <field name="sh_barcode_width">150px</field>
+	        <field name="sh_label_display">True</field>
+	    </record>
+	    <record id="template_1_line_1" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_1" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__barcode" />
+	        <field name="sh_margin">10px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_1" model="sh.dynamic.template">
+	        <field name="sh_barcode_field_id" ref="product.field_product_product__barcode" />
+	    </record>
+	    <record id="template_2" model="sh.dynamic.template">
+	        <field name="name">Template 2</field>
+	        <field name="sh_print_barcode_or_qr">barcode</field>
+	        <field name="sh_barcode_type">Code128</field>
+	        <field name="sh_page_height">70</field>
+	        <field name="sh_page_width">100</field>
+	        <field name="sh_page_orientation">Portrait</field>
+	        <field name="sh_barcode_height">50px</field>
+	        <field name="sh_barcode_width">200px</field>
+	        <field name="sh_label_display">True</field>
+	    </record>
+	    <record id="template_2_line_1" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_2" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__company_id" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">20px</field>
+	        <field name="sh_position">center</field>
+	        <field name="sh_font_bold">True</field>
+	    </record>
+	    <record id="template_2_line_2" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_2" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__name" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_2_line_3" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_2" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__barcode" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_2_line_4" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_2" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__description_sale" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_2_line_5" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_2" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__list_price" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	        <field name="sh_is_price_field">True</field>
+	        <field name="currency_id" ref="base.USD" />
+	        <field name="sh_currency_position">before</field>
+	    </record>
+	    <record id="template_2" model="sh.dynamic.template">
+	        <field name="sh_barcode_field_id" ref="product.field_product_product__barcode" />
+	    </record>
+	    <record id="template_3" model="sh.dynamic.template">
+	        <field name="name">Template 3</field>
+	        <field name="sh_print_barcode_or_qr">qr</field>
+	        <field name="sh_page_height">70</field>
+	        <field name="sh_page_width">100</field>
+	        <field name="sh_page_orientation">Portrait</field>
+	        <field name="sh_barcode_height">100px</field>
+	        <field name="sh_barcode_width">100px</field>
+	        <field name="sh_label_display">False</field>
+	    </record>
+	    <record id="template_3_line_1" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_3" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__company_id" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">20px</field>
+	        <field name="sh_position">center</field>
+	        <field name="sh_font_bold">True</field>
+	    </record>
+	    <record id="template_3_line_2" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_3" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__barcode" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_3_line_3" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_3" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__name" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_3_line_4" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_3" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__default_code" />
+	        <field name="sh_margin">5px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_3_line_5" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_3" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__description_sale" />
+	        <field name="sh_margin">4px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	    </record>
+	    <record id="template_3_line_6" model="sh.dynamic.template.line">
+	        <field name="template_id" ref="template_3" />
+	        <field name="sequence">1</field>
+	        <field name="sh_field_id" ref="product.field_product_product__list_price" />
+	        <field name="sh_margin">4px</field>
+	        <field name="sh_font_size">15px</field>
+	        <field name="sh_position">center</field>
+	        <field name="sh_is_price_field">True</field>
+	        <field name="currency_id" ref="base.USD" />
+	        <field name="sh_currency_position">before</field>
+	    </record>
+	    <record id="template_3" model="sh.dynamic.template">
+	        <field name="sh_barcode_field_id" ref="product.field_product_product__barcode" />
+	    </record>
+	 </data>
+</odoo>

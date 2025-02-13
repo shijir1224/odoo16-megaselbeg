@@ -1,0 +1,8 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"izi_dashboard.access_izi_dashboard_crud_group_user","IZI Dashboard Access for Group User: CRUD","izi_dashboard.model_izi_dashboard",,1,1,1,1
+"izi_dashboard.access_izi_dashboard_block_crud_group_user","IZI Dashboard Block Access for Group User: CRUD","izi_dashboard.model_izi_dashboard_block",,1,1,1,1
+"izi_dashboard.access_izi_dashboard_theme_crud_group_user","IZI Dashboard Theme Access for Group User: CRUD","izi_dashboard.model_izi_dashboard_theme",,1,1,1,1
+"izi_dashboard.access_izi_visual_type_crud_group_user","IZI Visual Type Access for Group User: CRUD","izi_dashboard.model_izi_visual_type",,1,1,1,1
+"izi_dashboard.access_izi_visual_config_crud_group_user","IZI Visual Config Access for Group User: CRUD","izi_dashboard.model_izi_visual_config",,1,1,1,1
+"izi_dashboard.access_izi_visual_config_value_crud_group_user","IZI Visual Config Value Access for Group User: CRUD","izi_dashboard.model_izi_visual_config_value",,1,1,1,1
+"izi_dashboard.access_izi_analysis_visual_config_crud_group_user","IZI Analysis Visual Config Access for Group User: CRUD","izi_dashboard.model_izi_analysis_visual_config",,1,1,1,1

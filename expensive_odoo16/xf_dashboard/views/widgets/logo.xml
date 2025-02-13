@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="logo_widget_content" name="Logo Widget Content" groups="base.group_user,base.group_portal">
+            <div class="o_xf_dashboard_logo">
+                <a href="/">
+                    <img t-att-src="data['logo_src']"/>
+                </a>
+            </div>
+        </template>
+    </data>
+    <!-- Widget -->
+    <data noupdate="1">
+        <record id="logo_widget" model="xf.dashboard.widget">
+            <field name="name">Logo Widget</field>
+            <field name="res_model">xf.dashboard.widget</field>
+            <field name="function">get_logo_widget_data</field>
+            <field name="container_template_id" ref="default_widget_container"/>
+            <field name="content_template_id" ref="logo_widget_content"/>
+            <field name="custom_class">o_xf_dashboard_logo_widget</field>
+            <field name="show_title" eval="False"/>
+            <field name="row_id" ref="dashboard_row_top"/>
+            <field name="sequence">1</field>
+            <field name="col_sm">12</field>
+            <field name="col_md">12</field>
+            <field name="col_lg">4</field>
+            <field name="col_xl">4</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Icons -->
+        <record id="xf_dashboard_icon_form" model="ir.ui.view">
+            <field name="name">xf_dashboard_icon_form</field>
+            <field name="model">xf.dashboard.icon</field>
+            <field name="arch" type="xml">
+                <form string="Icon">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="icon" widget="image" class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="xf_dashboard_icon_tree" model="ir.ui.view">
+            <field name="name">xf_dashboard_icon_tree</field>
+            <field name="model">xf.dashboard.icon</field>
+            <field name="arch" type="xml">
+                <tree string="Icon">
+                    <field name="active" invisible="True"/>
+                    <field name="icon" widget="image" options='{"size": [48, 48]}'/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_xf_dashboard_icon" model="ir.actions.act_window">
+            <field name="name">Home DashBoard Icons</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">xf.dashboard.icon</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_xf_dashboard_icon"
+                  name="Icons Library"
+                  action="action_xf_dashboard_icon"
+                  parent="xf_dashboard.menu_xf_dashboard"
+                  groups="base.group_system" sequence="25"/>
+
+        <!-- Bookmarks - Administrator -->
+
+        <record id="xf_dashboard_bookmark_tree" model="ir.ui.view">
+            <field name="name">xf_dashboard_bookmark_tree</field>
+            <field name="model">xf.dashboard.bookmark</field>
+            <field name="arch" type="xml">
+                <tree string="Bookmarks">
+                    <field name="name"/>
+                    <field name="menu_id" groups="base.group_system"/>
+                    <field name="external_url"/>
+                    <field name="type"/>
+                    <field name="visibility"/>
+                    <field name="create_uid"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="xf_dashboard_bookmark_form" model="ir.ui.view">
+            <field name="name">xf_dashboard_bookmark_form</field>
+            <field name="model">xf.dashboard.bookmark</field>
+            <field name="arch" type="xml">
+                <form string="Bookmark">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="target"/>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                                <field name="icon_image" widget="image" class="oe_avatar"/>
+                                <field name="icon_id" context="{'default_view':'kanban'}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="menu_id"/>
+                            <field name="external_url"/>
+                        </group>
+                        <group string="Access">
+                            <group>
+                                <field name="visibility"/>
+                            </group>
+                            <group>
+                                <field name="groups" widget="many2many_tags"
+                                       attrs="{'invisible':[('visibility', '!=', 'group')]}"/>
+                            </group>
+                        </group>
+                        <group string="User Settings">
+                            <field name="private_bookmarks_ids" nolabel="True">
+                                <tree>
+                                    <field name="create_uid"/>
+                                    <field name="active"/>
+                                    <field name="visible"/>
+                                    <field name="sequence"/>
+                                    <field name="pinned"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_xf_dashboard_bookmarks" model="ir.actions.act_window">
+            <field name="name">Home DashBoard Bookmarks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">xf.dashboard.bookmark</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_xf_dashboard_bookmarks"
+                  name="Bookmarks"
+                  action="action_xf_dashboard_bookmarks"
+                  parent="xf_dashboard.menu_xf_dashboard"
+                  groups="base.group_system" sequence="20"/>
+    </data>
+</odoo>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Bookmarks - User -->
+
+        <record id="xf_dashboard_bookmark_private_tree" model="ir.ui.view">
+            <field name="name">xf_dashboard_bookmark_private_tree</field>
+            <field name="model">xf.dashboard.bookmark.private</field>
+            <field name="arch" type="xml">
+                <tree string="Bookmarks" decoration-muted="visible == False">
+                    <field name="sequence" widget="handle"/>
+                    <field name="active" invisible="True"/>
+                    <field name="visible" invisible="True"/>
+                    <field name="pinned"/>
+                    <button type="object" name="action_open_link" icon="fa-link" string="Open Link"/>
+                    <field name="name"/>
+                    <field name="menu_id" groups="base.group_system"/>
+                    <field name="external_url"/>
+                    <button type="object" name="action_toggle_visibility" icon="fa-eye-slash"
+                            string="Hide/Show in the Bookmarks Widget"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="xf_dashboard_bookmark_private_form" model="ir.ui.view">
+            <field name="name">xf_dashboard_bookmark_private_form</field>
+            <field name="model">xf.dashboard.bookmark.private</field>
+            <field name="arch" type="xml">
+                <form string="Bookmark">
+                    <sheet>
+                        <field name="visibility" invisible="True"/>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('visibility', '=', 'public')]}"/>
+                                <field name="target" attrs="{'readonly':[('visibility', '=', 'public')]}"/>
+                            </group>
+                            <group>
+                                <field name="icon_image" widget="image" class="oe_avatar" readonly="True"/>
+                                <field name="icon_id" attrs="{'readonly':[('visibility', '=', 'public')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="external_url" attrs="{'readonly':[('visibility', '=', 'public')]}"
+                                   placeholder="https://odoo.com"/>
+                        </group>
+                        <group string="Visibility">
+                            <group>
+                                <field name="active"/>
+                                <field name="visible"/>
+                            </group>
+                            <group>
+                                <field name="pinned"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="xf_dashboard_bookmark_private_tree_action" model="ir.actions.act_window">
+            <field name="name">Bookmarks</field>
+            <field name="res_model">xf.dashboard.bookmark.private</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('xf_dashboard_bookmark_private_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('xf_dashboard_bookmark_private_form')})]"/>
+            <field name="help" type="html">
+                <p>
+                    <b>No bookmark found!</b>
+                </p>
+                <p>You should try other search criteria.</p>
+            </field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
+
+        <record id="xf_dashboard_bookmark_private_form_action" model="ir.actions.act_window">
+            <field name="name">Bookmark</field>
+            <field name="res_model">xf.dashboard.bookmark.private</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="xf_dashboard.xf_dashboard_bookmark_private_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Templates -->
+        <template id="bookmarks_widget_container" name="Bookmarks Container" groups="base.group_user,base.group_portal">
+            <div t-attf-class="o_xf_dashboard_widget_container #{widget['widget_record']['custom_class'] or ''}">
+                <h1 class="o_xf_dashboard_widget_title">
+                    <a class="o_view_more" href="#">
+                        <t t-esc="widget['widget_record']['display_name']"/>
+                    </a>
+                    <a data-action="xf_dashboard.xf_dashboard_bookmark_private_form_action"
+                       class="o_show_on_hover pull-right o_title_button o_add_new" href="#" title="Add a bookmark">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </h1>
+                <div class="o_xf_dashboard_widget_content"/>
+                <div t-if="widget['widget_record']['show_view_more']" class="o_xf_dashboard_view_more">
+                    <a class="o_view_more" href="#">View More</a>
+                </div>
+            </div>
+        </template>
+        <template id="bookmarks_widget_content" name="Bookmarks Content" groups="base.group_user,base.group_portal">
+            <div t-if="data.length" t-foreach="data" t-as="record" class="xf_dashboard_item">
+                <a class="xf_dashboard_link" t-attf-href="{{record['url']}}" t-attf-target="{{record['target']}}">
+                    <img t-attf-src="/web/image?model=xf.dashboard.bookmark.private&amp;field=icon_image&amp;id={{record['id']}}"/>
+                    <span>
+                        <t t-esc="record['name']"/>
+                    </span>
+                </a>
+            </div>
+        </template>
+    </data>
+    <!-- Widget -->
+    <data noupdate="1">
+        <record id="bookmarks_widget" model="xf.dashboard.widget">
+            <field name="name">Bookmarks</field>
+            <field name="res_model">xf.dashboard.bookmark.private</field>
+            <field name="function">get_bookmarks</field>
+            <field name="kwargs">
+                {
+                'limit':6
+                }
+            </field>
+            <field name="container_template_id" ref="bookmarks_widget_container"/>
+            <field name="content_template_id" ref="bookmarks_widget_content"/>
+            <field name="view_more_action_id" ref="xf_dashboard_bookmark_private_tree_action"/>
+            <field name="custom_class">o_xf_dashboard_bookmarks_widget</field>
+            <field name="row_id" ref="dashboard_row_3"/>
+            <field name="sequence">3</field>
+            <field name="col_sm">12</field>
+            <field name="col_md">12</field>
+            <field name="col_lg">6</field>
+            <field name="col_xl">6</field>
+        </record>
+    </data>
+</odoo>

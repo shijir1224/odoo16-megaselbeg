@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Templates -->
+        <template id="tiles_widget_content" name="Tiles Content" groups="base.group_user,base.group_portal">
+            <div t-if="data.length" t-foreach="data" t-as="record" class="xf_dashboard_item">
+                <a class="xf_dashboard_link" t-attf-href="{{record['url']}}" t-attf-target="{{record['target']}}">
+                    <img t-attf-src="/web/image?model=xf.dashboard.bookmark.private&amp;field=icon_image&amp;id={{record['id']}}"/>
+                    <span>
+                        <t t-esc="record['name']"/>
+                    </span>
+                </a>
+            </div>
+        </template>
+    </data>
+    <!-- Widget -->
+    <data noupdate="1">
+        <record id="tiles_widget" model="xf.dashboard.widget">
+            <field name="name">Tiles</field>
+            <field name="res_model">xf.dashboard.bookmark.private</field>
+            <field name="function">get_tiles</field>
+            <field name="container_template_id" ref="default_widget_container"/>
+            <field name="content_template_id" ref="tiles_widget_content"/>
+            <field name="custom_class">o_xf_dashboard_tiles_widget</field>
+            <field name="show_title" eval="False"/>
+            <field name="hide_no_content" eval="True"/>
+            <field name="row_id" ref="dashboard_row_bottom"/>
+            <field name="sequence">100</field>
+            <field name="col_sm">12</field>
+            <field name="col_md">12</field>
+            <field name="col_lg">12</field>
+            <field name="col_xl">12</field>
+        </record>
+    </data>
+</odoo>

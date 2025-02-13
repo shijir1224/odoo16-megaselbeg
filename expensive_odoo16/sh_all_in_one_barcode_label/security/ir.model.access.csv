@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dynamic_product_label_template,access_dynamic_product_label_template,model_sh_dynamic_template,base.group_user,1,1,1,1
+access_dynamic_product_label_template_line,access_dynamic_product_label_template_line,model_sh_dynamic_template_line,base.group_user,1,1,1,1
+access_sh_dynamic_lable_print,access_sh_dynamic_lable_print,model_sh_dynamic_lable_print,base.group_user,1,1,1,1
+access_sh_dynamic_lable_print_line,access_sh_dynamic_lable_print_line,model_sh_dynamic_lable_print_line,base.group_user,1,1,1,1

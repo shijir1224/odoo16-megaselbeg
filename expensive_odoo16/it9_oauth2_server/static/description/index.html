@@ -1,0 +1,72 @@
+<section class="container">
+    <h2 class="text-muted">Standard OAuth2 Server</h2>
+    <small>by IT9@2022</small>
+    <hr>
+
+    <p class="lead">Let your Odoo ERP be an authentication server. Other applications that
+        supported OAuth2 can connect with your Odoo account.
+        <ul>
+            <li>Users can sign in multiple apps with just a single account.</li>
+            <li>Administrators can control all connected applications in one site.</li>
+            <li>Developers can restrict what can be accessed by the collab applications.</li>
+        </ul></p>
+<!--    <img src="main_0.png" class="img-fluid d-block mx-auto"/>-->
+    <hr>
+
+    <h2 class="text-muted">How It Works</h2>
+    <p>Please refer (https://oauth.net/2/) for more details about OAuth 2.0.</p>
+    <hr>
+
+    <h3 class="text-muted">User Guide</h3>
+    <p>This section will show you how to set up the OAuth2 server to let other sites/apps to
+        access.</p>
+    <img src="main_0.png" class="img-fluid d-block mx-auto" style="width: 80%;"/>
+    <ul>
+        <li>Client Name: The name that can identify which application is it</li>
+        <li>Logo: The URL of image that can identify the application</li>
+        <li>Client Website: The URL of application</li>
+        <li>Grant Types: Which type of authentication methods can be used by this application</li>
+        <li>Redirect Uris: Which pages can be redirected to while processing grant type = "Authorization Code"</li>
+        <li>Response Types: The result format of token response</li>
+        <li>Scopes: This application can only access the Odoo resources which has this scope</li>
+        <li>Token Expires in: The default expire period of token. The unit is seconds.</li>
+        <li>Expired at: This application will not able to access after this date</li>
+    </ul>
+    <b>Cautions</b>
+    <p>
+        The client ID and secret will not display while creating the record. You can find the
+        ID after saved the record and get the secret by clicking the refresh button.
+    </p>
+
+    <h4 class="text-muted">How to apply</h4>
+    <p>Please read (https://oauth.net/2/) to realize which parameters need to be passed.</p>
+    <ul>
+        <li>Authorization Page</li>
+        <ul>
+            <li>GET {Your Odoo Server}/oauth/authorize</li>
+            <li>e.g. http://localhost:8069/oauth/authorize</li>
+        </ul>
+        <li>Access Token</li>
+        <ul>
+            <li>POST {Your Odoo Server}/oauth/token</li>
+            <li>e.g. http://localhost:8069/oauth/token</li>
+        </ul>
+        <li>Basic User Profile</li>
+        <ul>
+            <li>GET {Your Odoo Server}/oauth/profile</li>
+            <li>e.g. http://localhost:8069/oauth/profile</li>
+        </ul>
+    </ul>
+    <hr>
+    <h3 class="text-muted">Developer Guide</h3>
+    <p>Please take a look for a reference at "/controllers/profile.py"</p>
+    <img src="main_3.png" class="img-fluid d-block mx-auto" style="width: 80%;"/>
+    <p>When building the interface for other applications, you can set the "auth" to "it9_oauth2_server" and define a new scope
+        in the "@http.route". This addon will automatically verify the token and the permission.
+    </p>
+    <b>Cautions</b>
+    <p>If you defined a new scope, please create a correlation record at model "oauth2.scope". After that, the administrators can
+        assign the new scope to applications.
+    </p>
+    <hr>
+</section>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+	<t t-name="kitchen_template">
+		<div class="o_action o_view_controller">
+			<div class="o_content kitchen">
+				<div class="setup_container" style="display: none;">You dont have any POS or category configured to show. Please, contact your administrator to configure it in your user profile.</div>
+				<div class="recipie_container" style="display: none;">
+					
+				</div>
+				<div class="note_container" style="display:none;">
+					
+				</div>
+				<div class="options_container">
+					<div class="options_header">
+						<i class="fa fa-cogs"></i>
+						<strong>Options</strong>
+						<div class="chevron-icons">
+							<i class="fa fa-chevron-circle-down"></i>
+							<i style="display: none;" class="fa fa-chevron-circle-up"></i>
+						</div>
+					</div>
+					<div class="options_body" style="display: none;">
+						<button class="pending-orders-filter active">Pending Orders</button>
+						<button class="in-progress-orders-filter active">In Progress Orders</button>
+						<button class="done-orders-filter active">Done Orders</button>
+						<button class="pause-play-refresh"><i class="fa fa-pause-circle"></i> Disable auto refresh</button>
+						<button class="pause-play-refresh active" style="display:none;"><i class="fa fa-play-circle"></i> Enable auto refresh</button>
+					</div>
+				</div>
+				<div>
+					<div class="kanban_view"></div>
+				</div>
+			</div>
+		</div>
+	</t>
+
+	<t t-name="kitchen_kanban">
+			<div class="kitchen_container">
+					<div class="kitchen_grid pending">
+							<h3 class="title">Pending</h3>
+							<div class="content"></div>
+					</div>
+					<div class="kitchen_grid in_progress">
+							<h3 class="title">In progress</h3>
+							<div class="content"></div>
+					</div>
+					<div class="kitchen_grid done">
+							<h3 class="title">Done</h3>
+							<div class="content"></div>
+					</div>
+					<hr/>
+			</div>
+	</t>
+
+	<t t-name="kitchen_orders">
+		<div class="row">
+			<t t-foreach="orders" t-as="order">
+				<div class="col kitchen_order">
+					<div class="title_wrapper">
+						<div class="row">
+							<div class="waiter col">
+								<div><t t-esc="order.user_id" /></div>
+								<div><t t-esc="order.create_date" /></div>
+							</div>
+							<div class="title col">
+								<t t-esc="order.name" /> <span>(<t t-esc="order.table_id" />)</span>
+							</div>
+							<div class="pos-reference col">
+								<div>Guests: <t t-esc="order.customer_count" /></div>
+								<div><t t-esc="order.pos_reference" /></div>
+							</div>
+						</div>
+					</div>
+					<div class="content">
+						<table>
+							<thead>
+								<tr>
+									<td class="name-column">Name</td>
+									<td class="qty-column">Qty</td>
+									<td>State</td>
+									<td>Avg Time</td>
+									<td>Action</td>
+								</tr>
+							</thead>
+								<tbody>
+									<t t-foreach="order.lines" t-as="line">
+										<tr> 
+											<td class="name-column">
+												<div>
+													<span title="Recipie" t-att-data-product="line.product_id" class="show_receipie"><i class="fa fa-cutlery"></i></span>
+													<span class="text"><t t-esc="line.full_product_name" /></span>
+												</div>
+												<div>
+													<t t-if="line.customer_note" t-raw="line.customer_note" />
+												</div>
+											</td>
+											<td class="qty-column"><t t-esc="line.qty" /></td>
+											<td>
+												<span class="badge badge-success" t-if="line.kitchen_state == 'done'">Done</span>
+												<span class="badge badge-warning" t-if="line.kitchen_state == 'in_progress'">In progress</span>
+												<span class="badge badge-danger" t-if="line.kitchen_state == 'pending'">Pending</span>
+											</td>
+											<td><span t-esc="line.avg_completion_time" /></td>
+											<td t-att-data-id="line.id" >
+												<button data-type="start" class="start_order_line btn btn-info" t-if="line.kitchen_state == 'pending'">Start <i class="fa fa-arrow-circle-right fa-lg"></i></button>
+												<button data-type="end" class="end_order_line btn btn-success" t-if="line.kitchen_state == 'in_progress'">Done <i class="fa fa-check-square-o"></i></button>
+											</td>
+										</tr>
+									</t>
+								</tbody>
+						</table>
+					</div>
+					<div class="footer">
+					</div>
+				</div>
+			</t>
+		</div>
+	</t>
+
+
+</templates>

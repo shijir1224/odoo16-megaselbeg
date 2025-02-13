@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oauth2_scope__system,OAuth 2.0 Scope,model_oauth2_scope,base.group_system,1,0,0,0
+access_oauth2_scope__user,OAuth 2.0 Scope,model_oauth2_scope,base.group_user,1,0,0,0
+access_oauth2_uri__system,OAuth 2.0 URI,model_oauth2_uri,base.group_system,1,1,1,1
+access_oauth2_uri__user,OAuth 2.0 URI,model_oauth2_uri,base.group_user,1,0,0,0
+access_oauth2_response_type,OAuth 2.0 Response Type,model_oauth2_response_type,base.group_system,1,0,0,0
+access_oauth2_grant_type,OAuth 2.0 Grant Type,model_oauth2_grant_type,base.group_system,1,0,0,0
+access_oauth2_client,OAuth 2.0 Client,model_oauth2_client,base.group_system,1,1,1,1
+access_oauth2_client__user,OAuth 2.0 Client,model_oauth2_client,base.group_user,1,0,0,0
+access_oauth2_token,OAuth 2.0 Token,model_oauth2_token,base.group_user,1,1,1,0
+access_oauth2_code,OAuth 2.0 Code,model_oauth2_code,base.group_user,1,1,1,1
+access_oauth2_dialog,OAuth 2.0 Dialog,model_oauth2_dialog,base.group_user,1,1,1,1

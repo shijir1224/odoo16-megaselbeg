@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="oauth2_dialog_form" model="ir.ui.view">
+        <field name="name">Reset Secrets</field>
+        <field name="model">oauth2.dialog</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <sheet>
+                    <field name="message" nolabel="1" readonly="1"/>
+                </sheet>
+                <footer>
+                    <button string="OK" class="btn btn-primary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

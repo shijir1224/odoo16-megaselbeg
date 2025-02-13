@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-inherit="web.Many2ManyBinaryField.attachment_preview" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='o_attachment_wrap']" position="attributes">
+            <attribute name="t-on-click">onClickAttachmentPreview</attribute>
+            <attribute name="t-att-title">file.name</attribute>
+        </xpath>
+        <xpath expr="//div[@class='o_image_box float-start']" position="attributes">
+            <attribute name="t-att-data-id">file.id</attribute>
+        </xpath>
+    </t>
+    <t t-inherit="mail.AttachmentViewer" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_AttachmentViewer_buttonNavigationPrevious')]" position="attributes">
+            <attribute name="style">background-color: rgba(0, 0, 0, 0.4);color:white;</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_AttachmentViewer_buttonNavigationNext')]" position="attributes">
+            <attribute name="style">background-color: rgba(0, 0, 0, 0.4);color:white;</attribute>
+        </xpath>
+    </t>
+    <t t-inherit="mail.Dialog" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-if='dialog']" position="before">
+            <style>
+                .z-index-dialog {
+                    z-index: 1080;
+                }
+            </style>
+        </xpath>
+        <xpath expr="//div[hasclass('o_Dialog')]" position="attributes">
+            <attribute name="class">o_Dialog modal fixed-top bottom-0 d-flex justify-content-center z-index-dialog</attribute>
+        </xpath>
+    </t>
+</templates>

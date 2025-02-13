@@ -1,0 +1,186 @@
+.o_content.kitchen {
+    background: rgb(62,146,255);
+    background: linear-gradient(90deg, rgba(62,146,255,1) 0%, rgba(28,127,255,1) 100%);
+}
+
+.o_content.kitchen .btn {
+    border-radius: 5px;
+}
+
+.o_content.kitchen .recipie_container, .o_content.kitchen .note_container, .o_content.kitchen .setup_container {
+    background: #fff;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 5px;
+}
+
+.o_content.kitchen .setup_container {
+    background: #990b0b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.o_content.kitchen .recipie_container .icon-close, .o_content.kitchen .note_container .icon-close {
+    position: relative;
+    text-align: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.o_content.kitchen .recipie_container .icon-close-container, .o_content.kitchen .note_container .icon-close-container {
+    position: relative;
+    text-align: right;
+    margin-bottom: -15px;
+}
+.o_content.kitchen .show_receipie, .o_content.kitchen .show_note {
+    cursor: pointer;
+    color: #1d80ff;
+}
+
+.o_content.kitchen .show_note_disabled {
+    cursor: pointer;
+    color: #ccc;
+}
+
+.o_content.kitchen .recipie_container .recipie_wrapper, .o_content.kitchen .note_container .note_wrapper {
+    display: flex;
+    place-content: row;
+}
+
+.o_content.kitchen .recipie_container .recipie_wrapper .product_image img {
+    max-width: 400px;
+}
+
+.o_content.kitchen .recipie_container .recipie_wrapper .product_image {
+    margin-right: 15px;
+}
+
+.i_content.kitchen .badge {
+    margin: 1px 2px 1px 0;
+    border-radius: 4px;
+    padding: 4px 7px;
+    padding-bottom: 6px;
+    font-weight: bold;
+}
+
+.o_content.kitchen h3 {
+    color: #fff;
+    border-bottom: 1px solid #eee;
+    margin-top: 15px;
+    padding-bottom: 5px;
+}
+.kitchen_order {
+    padding: 10px 15px;
+    margin: 10px;
+    min-width: 400px;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #666;
+}
+.kitchen_grid table thead td {
+    font-weight: bold;
+}
+
+.kitchen_grid table tbody td {
+    color: #888;
+    font-size: 15px;
+}
+
+.kitchen_grid table thead td.qty-column,
+.kitchen_grid table tbody td.qty-column {
+    max-width: 80px;
+}
+
+.kitchen_grid table tr td {
+    text-align: center;
+}
+
+.kitchen_grid table tr td.name-column {
+    text-align: left;
+}
+
+.kitchen_grid table tr td.name-column .text {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.kitchen_order .title_wrapper {
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.kitchen_order .title_wrapper .col {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.kitchen_order .title {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.kitchen_order .pos-reference {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.kitchen_order .waiter {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.kitchen_order .content {
+    margin-top: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.kitchen_order .footer {
+    position: relative;
+    right: 0;
+    bottom: 0px;
+    left: 0;
+    z-index: 1030;
+    padding-top: 15px;
+}
+
+.kitchen_grid {
+    padding: 0px 15px;
+}
+
+.kitchen_grid table {
+    width:100%;
+   table-layout: auto;
+   overflow-wrap: break-word;
+}
+
+.o_content.kitchen .options_container {
+    margin: 5px 15px;
+    background: #fff;
+    padding: 5px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.o_content.kitchen .options_container .options_body {
+    padding: 15px 0px;
+}
+
+.o_content.kitchen .options_container .chevron-icons {
+    float: right;
+}
+
+.o_content.kitchen .options_container .options_body button {
+    background: #ccc;
+    color: #000;
+    border: none;
+    border-radius: 2px;
+    padding: 5px 10px;
+}
+
+.o_content.kitchen .options_container .options_body button.active {
+    background: #2484ff;
+    color: #fff;
+}

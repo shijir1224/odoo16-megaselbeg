@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_dynamic_lable_print_wizard_view" model="ir.ui.view">
+        <field name="name">sh.dynamic.lable.print</field>
+        <field name="model">sh.dynamic.lable.print</field>
+        <field name="arch" type="xml">
+            <form string="Product Dynamic Label Print">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sh_lable_template_id" />
+                            <field name="sh_display_strike_price" />
+                            <field name="sh_company_logo"/>
+                            <field name="sh_company_logo_height" attrs="{'invisible':[('sh_company_logo','=',False)],'required':[('sh_company_logo','=',True)]}"/>
+                            <field name="sh_company_logo_width" attrs="{'invisible':[('sh_company_logo','=',False)],'required':[('sh_company_logo','=',True)]}"/>
+                            <field name="sh_company_logo_align" attrs="{'invisible':[('sh_company_logo','=',False)],'required':[('sh_company_logo','=',True)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product &amp; Barcode Quantity">
+                            <field name="sh_lable_print_line_ids">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="product_id" />
+                                            <field name="partner_id"/>
+                                            <field name="quantity" />
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree editable="bottom">
+                                    <field name="product_id" />
+                                    <field name="partner_id"/>
+                                    <field name="sh_lot_related_fields_visible" invisible="1"/>
+                                    <field name="sh_lot_number" force_save="1" attrs="{'invisible':[('sh_lot_related_fields_visible','=',False)]}"/>
+                                    <field name="sh_lot_print" attrs="{'readonly':[('sh_lot_tracking','=',False)],'invisible':[('sh_lot_related_fields_visible','=',False)]}"/>
+                                    <field name="sh_lot_tracking" invisible="1"/>
+                                    <field name="quantity" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Print" name="print_dynamic_label" type="object" class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="sh_action_product_label_wizard" model="ir.actions.act_window">
+        <field name="name">Dynamic Product Label</field>
+        <field name="res_model">sh.dynamic.lable.print</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sh_dynamic_lable_print_wizard_view" />
+        <field name="target">new</field>
+    </record>
+    <record id="product_template_action" model="ir.actions.act_window">
+        <field name="name">Dynamic Product Label</field>
+        <field name="res_model">sh.dynamic.lable.print</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_template" />
+        <field name="groups_id" eval="[(4, ref('sh_all_in_one_barcode_label.group_product_barcode_label_template'))]" />
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="product_product_action" model="ir.actions.act_window">
+        <field name="name">Dynamic Product Label</field>
+        <field name="res_model">sh.dynamic.lable.print</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_product" />
+        <field name="groups_id" eval="[(4, ref('sh_all_in_one_barcode_label.group_product_barcode_label_template'))]" />
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="sale_order_action" model="ir.actions.act_window">
+        <field name="name">Dynamic Product Label</field>
+        <field name="res_model">sh.dynamic.lable.print</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order" />
+        <field name="groups_id" eval="[(4, ref('sh_all_in_one_barcode_label.group_product_barcode_label_template'))]" />
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="purchase_order_action" model="ir.actions.act_window">
+        <field name="name">Dynamic Product Label</field>
+        <field name="res_model">sh.dynamic.lable.print</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order" />
+        <field name="groups_id" eval="[(4, ref('sh_all_in_one_barcode_label.group_product_barcode_label_template'))]" />
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="stock_picking_action" model="ir.actions.act_window">
+        <field name="name">Dynamic Product Label</field>
+        <field name="res_model">sh.dynamic.lable.print</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="groups_id" eval="[(4, ref('sh_all_in_one_barcode_label.group_product_barcode_label_template'))]" />
+        <field name="binding_view_types">list,form</field>
+    </record>
+    <record id="account_move_action" model="ir.actions.act_window">
+        <field name="name">Dynamic Product Label</field>
+        <field name="res_model">sh.dynamic.lable.print</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="groups_id" eval="[(4, ref('sh_all_in_one_barcode_label.group_product_barcode_label_template'))]" />
+        <field name="binding_view_types">list,form</field>
+    </record>
+</odoo>

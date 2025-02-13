@@ -1,0 +1,246 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* adm_pos_kitchen_screen
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20211206\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-15 07:58+0000\n"
+"PO-Revision-Date: 2022-04-15 07:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Action"
+msgstr "الفعل"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Avg Time"
+msgstr "وسطي الوقت"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line__avg_completion_time
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_product__avg_completion_time
+msgid "Avg completion time"
+msgstr "وسطي وقت الإكمال"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line__completion_time
+msgid "Completion time"
+msgstr "وقت الإكمال"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Disable auto refresh"
+msgstr "تعطيل التحديث التلقائي"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order__display_name
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line__display_name
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_product__display_name
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_template__display_name
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_res_users__display_name
+msgid "Display Name"
+msgstr "عرض الاسم"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#: model:ir.model.fields.selection,name:adm_pos_kitchen_screen.selection__pos_order_line__kitchen_state__done
+#, python-format
+msgid "Done"
+msgstr "تم"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Done Orders"
+msgstr "الطلبات المنتهية"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Enable auto refresh"
+msgstr "تمكين التحديث التلقائي"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order__end_date
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line__end_date
+msgid "End date"
+msgstr "تاريخ النهاية"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order__id
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line__id
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_product__id
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_template__id
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_res_users__id
+msgid "ID"
+msgstr "الرقم التعريفي"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "In Progress Orders"
+msgstr "الطلبات قيد العمل"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields.selection,name:adm_pos_kitchen_screen.selection__pos_order_line__kitchen_state__in_progress
+msgid "In progres"
+msgstr "قيد المل"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "In progress"
+msgstr "قيد العمل"
+
+#. module: adm_pos_kitchen_screen
+#: model_terms:ir.ui.view,arch_db:adm_pos_kitchen_screen.view_users_form
+msgid "Kitchen Screen"
+msgstr "شاشة المطبخ"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order__kitchen_state
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line__kitchen_state
+msgid "Kitchen State"
+msgstr "وضع المطبخ"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.actions.client,name:adm_pos_kitchen_screen.action_kitchen_custom
+#: model:ir.ui.menu,name:adm_pos_kitchen_screen.menu_kitchen_custom
+msgid "Kitchen Screen"
+msgstr "شاشة المطبخ"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_res_users__kitchen_category_ids
+msgid "Kitchen categories"
+msgstr "مجموعات المطبخ"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order____last_update
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line____last_update
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_product____last_update
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_template____last_update
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_res_users____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Name"
+msgstr "الاسم"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Options"
+msgstr "الخيارات"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#: model:ir.model.fields.selection,name:adm_pos_kitchen_screen.selection__pos_order_line__kitchen_state__pending
+#, python-format
+msgid "Pending"
+msgstr "العالقة"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Pending Orders"
+msgstr "الطلبات العالقة"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model,name:adm_pos_kitchen_screen.model_pos_order_line
+msgid "Point of Sale Order Lines"
+msgstr "أسطر طلبات نقطة البيع"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model,name:adm_pos_kitchen_screen.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "طلبات نقطة البيع"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model,name:adm_pos_kitchen_screen.model_product_product
+msgid "Product"
+msgstr "المنتج"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model,name:adm_pos_kitchen_screen.model_product_template
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Qty"
+msgstr "الكمية"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_product__recipie
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_product_template__recipie
+#: model_terms:ir.ui.view,arch_db:adm_pos_kitchen_screen.product_template_form_view
+#, python-format
+msgid "المحتفظ به"
+msgstr "Receta"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "Start"
+msgstr "البدء"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order__start_date
+#: model:ir.model.fields,field_description:adm_pos_kitchen_screen.field_pos_order_line__start_date
+msgid "Start date"
+msgstr "تاريخ البدء"
+
+#. module: adm_pos_kitchen_screen
+#. openerp-web
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "State"
+msgstr "الحالة"
+
+#. module: adm_pos_kitchen_screen
+#: model:ir.model,name:adm_pos_kitchen_screen.model_res_users
+msgid "Users"
+msgstr "المستخدمون"
+
+#. module: adm_pos_kitchen_screen
+#. odoo-javascript
+#: code:addons/adm_pos_kitchen_screen/static/src/xml/kitchen.xml:0
+#, python-format
+msgid "You dont have any POS or category configured to show. Please, contact your administrator to configure it in your user profile."
+msgstr "ليس لديك أي نقطة بيع أو فئة مهيأة للعرض. من فضلك ، اتصل بالمسؤول لتكوينه في ملف تعريف المستخدم الخاص بك."

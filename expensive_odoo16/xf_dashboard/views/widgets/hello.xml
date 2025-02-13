@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <template id="hello_widget_content" name="Hello Widget Content" groups="base.group_user,base.group_portal">
+            <table class="o_web_user_card">
+                <tr>
+                    <td class="o_web_user_avatar">
+                        <img class="avatar"
+                             t-attf-src="/web/image?model=res.users&amp;field=image_128&amp;id={{data['id']}}"/>
+                    </td>
+                    <td class="o_web_user_name">
+                        Hello,
+                        <t t-esc="data['name']"/>
+                    </td>
+                </tr>
+            </table>
+        </template>
+    </data>
+    <!-- Widget -->
+    <data noupdate="1">
+        <record id="hello_widget" model="xf.dashboard.widget">
+            <field name="name">Hello Widget</field>
+            <field name="res_model">xf.dashboard.widget</field>
+            <field name="function">get_hello_widget_data</field>
+            <field name="container_template_id" ref="default_widget_container"/>
+            <field name="content_template_id" ref="hello_widget_content"/>
+            <field name="custom_class">o_xf_dashboard_hello_widget</field>
+            <field name="show_title" eval="False"/>
+            <field name="row_id" ref="dashboard_row_top"/>
+            <field name="sequence">2</field>
+            <field name="col_sm">12</field>
+            <field name="col_md">12</field>
+            <field name="col_lg">8</field>
+            <field name="col_xl">8</field>
+        </record>
+    </data>
+</odoo>

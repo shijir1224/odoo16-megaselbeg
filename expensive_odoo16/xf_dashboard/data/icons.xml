@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="link_icon" model="xf.dashboard.icon">
+            <field name="name">External Link</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/link.png"/>
+        </record>
+        <record id="announcement_icon" model="xf.dashboard.icon">
+            <field name="name">Announcement</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/announcement.png"/>
+        </record>
+        <record id="approved_icon" model="xf.dashboard.icon">
+            <field name="name">Approved</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/approved.png"/>
+        </record>
+        <record id="calc_icon" model="xf.dashboard.icon">
+            <field name="name">Calculator</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/calc.png"/>
+        </record>
+        <record id="calendar_icon" model="xf.dashboard.icon">
+            <field name="name">Calendar</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/calendar.png"/>
+        </record>
+        <record id="call_center_icon" model="xf.dashboard.icon">
+            <field name="name">Call Center</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/call_center.png"/>
+        </record>
+        <record id="checklist_icon" model="xf.dashboard.icon">
+            <field name="name">Checklist</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/checklist.png"/>
+        </record>
+        <record id="delivery_icon" model="xf.dashboard.icon">
+            <field name="name">Delivery</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/delivery.png"/>
+        </record>
+        <record id="feature_voting_icon" model="xf.dashboard.icon">
+            <field name="name">Feature Voting</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/feature_voting.png"/>
+        </record>
+        <record id="info_icon" model="xf.dashboard.icon">
+            <field name="name">Info</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/info.png"/>
+        </record>
+        <record id="internet_icon" model="xf.dashboard.icon">
+            <field name="name">Internet</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/internet.png"/>
+        </record>
+        <record id="interview_icon" model="xf.dashboard.icon">
+            <field name="name">Interview</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/interview.png"/>
+        </record>
+        <record id="job_icon" model="xf.dashboard.icon">
+            <field name="name">Job</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/job.png"/>
+        </record>
+        <record id="knowledge_sharing_icon" model="xf.dashboard.icon">
+            <field name="name">Knowledge Sharing</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/knowledge_sharing.png"/>
+        </record>
+        <record id="meeting_icon" model="xf.dashboard.icon">
+            <field name="name">Meeting</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/meeting.png"/>
+        </record>
+        <record id="news_icon" model="xf.dashboard.icon">
+            <field name="name">News</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/news.png"/>
+        </record>
+        <record id="online_conference_icon" model="xf.dashboard.icon">
+            <field name="name">Online Conference</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/online_conference.png"/>
+        </record>
+        <record id="presentation_icon" model="xf.dashboard.icon">
+            <field name="name">Presentation</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/presentation.png"/>
+        </record>
+        <record id="protect_doc_sign_icon" model="xf.dashboard.icon">
+            <field name="name">Protected Doc Signing</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/protect_doc_sign.png"/>
+        </record>
+        <record id="qa_faq_icon" model="xf.dashboard.icon">
+            <field name="name">QA FAQ</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/qa_faq.png"/>
+        </record>
+        <record id="seal_icon" model="xf.dashboard.icon">
+            <field name="name">Seal</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/seal.png"/>
+        </record>
+        <record id="secure_payment_icon" model="xf.dashboard.icon">
+            <field name="name">Secure Payment</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/secure_payment.png"/>
+        </record>
+        <record id="settings_icon" model="xf.dashboard.icon">
+            <field name="name">Settings</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/settings.png"/>
+        </record>
+        <record id="signed_document_icon" model="xf.dashboard.icon">
+            <field name="name">Signed Document</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/signed_document.png"/>
+        </record>
+        <record id="speaker_icon" model="xf.dashboard.icon">
+            <field name="name">Speaker</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/speaker.png"/>
+        </record>
+        <record id="stat_dashboard_icon" model="xf.dashboard.icon">
+            <field name="name">Stat Dashboard</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/stat_dashboard.png"/>
+        </record>
+        <record id="stopwatch_icon" model="xf.dashboard.icon">
+            <field name="name">Stopwatch</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/stopwatch.png"/>
+        </record>
+        <record id="strategy_icon" model="xf.dashboard.icon">
+            <field name="name">Strategy</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/strategy.png"/>
+        </record>
+        <record id="tasks_icon" model="xf.dashboard.icon">
+            <field name="name">Tasks</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/tasks.png"/>
+        </record>
+        <record id="webinar_icon" model="xf.dashboard.icon">
+            <field name="name">Webinar</field>
+            <field name="icon" type="base64" file="xf_dashboard/static/src/img/webinar.png"/>
+        </record>
+    </data>
+</odoo>

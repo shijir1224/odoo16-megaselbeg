@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="avisasr_oc_email" model="mail.template">
+            <field name="name">Aviso a JUMOTech</field>
+            <field name="model_id" ref="model_ask_email_jumotech"/>
+            <field name="email_from">{{object.email}}</field>
+            <field name="email_to">jojeda@jumotech.com</field>
+            <field name="subject"><![CDATA[Pedido Subscripción  a Odoo GPT by JUMO]]></field>
+            <field name="body_html">
+                <![CDATA[<p>Hola JUMO, tiene un nuevo pedido de subscripción de Odoo GPT by JUMO</p>]]>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

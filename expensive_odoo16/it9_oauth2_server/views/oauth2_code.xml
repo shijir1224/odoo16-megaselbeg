@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="oauth2_code_authorize_form" model="ir.ui.view">
+        <field name="name">Application want to access your information</field>
+        <field name="model">oauth2.code</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <sheet>
+                    <field name="client_logo_url_image" widget="image_url" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1 class="font-weight-normal">An application would like to connect to your account</h1>
+                        <p> The app <field name="client_name" class="font-weight-bold"/> would like to access the below resources by your identify. </p>
+                    </div>
+                    <field name="scope" type="xml" nolabel="1">
+                        <tree create="0" edit="0" delete="0">
+                            <field name="name" string="Resources"/>
+                        </tree>
+                    </field>
+                    <p> Allow <field name="client_name" class="font-weight-bolder"/> Access? </p>
+                    <div class="o_row">
+                        <button name="action_deny" string="Deny" class="btn-danger" type="object"/>
+                        <button name="action_authorize" string="Allow" class="btn-primary" type="object"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_oauth2_code_authorize" model="ir.actions.act_window">
+        <field name="name">Authorization</field>
+        <field name="res_model">oauth2.code</field>
+        <field name="target">inline</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="oauth2_code_authorize_form"/>
+    </record>
+</odoo>

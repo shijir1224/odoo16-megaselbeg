@@ -1,0 +1,315 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:olive;"><strong>Account Asset Management Bundle App</strong></h2>
+        <p class="oe_mt32" style="color:olive;">
+            This module contains bundle of Odoo Account Asset apps by Probuse Consulting Service Pvt. Ltd.
+        <br> You can purchase this bundle or you can purchase individual apps as well. Contact us if you have any questions.
+        <p style="color:crimson;"> <b>SUPPORTING ODOO COMMUNITY EDITION AS WELL AS ODOO ENTERPRISE EDITION.</b>
+            <p style="color:crimson;"><b>Available Features (Make sure you purchase all depends apps): </b></p>
+            <ul style="color:olive;">
+                <li>
+                    <a target='new' href="http://www.odoo.com/apps/modules/11.0/odoo_account_asset_extend">Account Asset Extension
+                    </a>
+                </li>
+                <li>
+                    <a target='new' href="https://apps.odoo.com/apps/modules/11.0/odoo_disposal_extend/">Account Asset Disposal
+                    </a>
+                </li>
+                <li>
+                    <a target='new' href="http://www.odoo.com/apps/modules/11.0/odoo_asset_maintenance">Account Asset Maintenance
+                    </a>
+                </li>
+                <li>
+                    <a target='new' href="http://www.odoo.com/apps/modules/11.0/odoo_asset_transfer">Account Asset Transfer
+                    </a>
+                </li>
+                <!--<li>
+                    <a target='new' href="http://www.odoo.com/apps/modules/11.0/account_asset_disposal">Account Asset Disposal
+                    </a>
+                </li>-->
+                <li>
+                    <a target='new' href="http://www.odoo.com/apps/modules/11.0/material_purchase_requisitions">Material Purchase Requisitions
+                    </a>
+                </li>
+            </ul>
+        </p>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan" style="color:crimson;"><b>Account Asset Extension</b></h2>
+       <div class="oe_demo oe_picture oe_screenshot">
+           <a target='new' href="http:/www.odoo.com/apps/modules/11.0/odoo_account_asset_extend/">
+               <img src="asset_extend.png">
+           </a>
+       </div>
+       <p>
+           <h2>
+           <a href="http://www.odoo.com/apps/modules/11.0/odoo_account_asset_extend/" target="new">
+                    Odoo Account Asset Extend
+           </a>
+           </h2>
+       </p>
+       <p class="oe_mt32" style="color:CRIMSON;">
+                Odoo Account Asset Extend
+       </p>
+       <p style="color:blue;">
+               <strong>For More Details:
+                   <a href="https://www.odoo.com/apps/modules/11.0/odoo_account_asset_extend" target="new">
+                        https://www.odoo.com/apps/modules/11.0/odoo_account_asset_extend
+                   </a>
+               </strong>
+       </p>
+       <p style="color:blue;">
+               <strong>For Video:
+                   <a href="https://www.youtube.com/watch?v=cFrlw7ccpuU" target="new">
+                        https://www.youtube.com/watch?v=cFrlw7ccpuU
+                   </a>
+               </strong>
+       </p>
+       <p>
+           <hr style="border-top:1px solid #5f656d;height:1px;margin:16px 0;"></hr>
+       </p>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan" style="color:crimson;"><b>Account Asset Disposal</b></h2>
+       <div class="oe_demo oe_picture oe_screenshot">
+           <a  target='new' href="http:/www.odoo.com/apps/modules/11.0/odoo_disposal_extend/">
+               <img src="disposal_method.png">
+           </a>
+       </div>
+       <p>
+       <h2>
+            <a href="http://www.odoo.com/apps/modules/11.0/odoo_disposal_extend/" target="new">
+                Odoo Disposal Extend
+            </a>
+       </h2>
+       </p>
+       <p class="oe_mt32" style="color:CRIMSON;">
+            Odoo Disposal Extend
+       </p>
+       <p style="color:blue;">
+               <strong>For More Details:
+                   <a href="https://www.odoo.com/apps/modules/11.0/odoo_disposal_extend" target="new">
+                        https://www.odoo.com/apps/modules/11.0/odoo_disposal_extend
+                   </a>
+               </strong>
+       </p>
+       <p style="color:blue;">
+           <strong>For Video:
+                <a href="https://www.youtube.com/watch?v=cFrlw7ccpuU&feature=youtu.be" target="new">
+                        https://www.youtube.com/watch?v=cFrlw7ccpuU&feature=youtu.be
+                </a>
+           </strong>
+       </p>
+       <p>
+           <hr style="border-top:1px solid #5f656d;height:1px;margin:16px 0;"></hr>
+       </p>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan" style="color:crimson;"><b>Account Asset Maintenance</b></h2>
+       <div class="oe_demo oe_picture oe_screenshot">
+           <a target='new' href="http:/www.odoo.com/apps/modules/11.0/odoo_asset_maintenance/">
+               <img src="odoo_asset_maintenance.png">
+           </a>
+       </div>
+       <p>
+           <h2>
+           <a href="http://www.odoo.com/apps/modules/11.0/odoo_asset_maintenance/" target="new">
+                    Odoo Asset Maintenance
+           </a>
+           </h2>
+       </p>
+        <p class="oe_mt32" style="color:CRIMSON;">
+                Odoo Account Asset Maintenance
+        </p>
+       <p style="color:blue;">
+               <strong>For More Details:
+                   <a href="https://www.odoo.com/apps/modules/11.0/odoo_asset_maintenance" target="new">
+                        https://www.odoo.com/apps/modules/11.0/odoo_asset_maintenance
+                   </a>
+               </strong>
+       </p>
+       <p style="color:blue;">
+               <strong>For Video:
+                   <a href="https://www.youtube.com/watch?v=DvGCBI3feqI&feature=youtu.be" target="new">
+                        https://www.youtube.com/watch?v=DvGCBI3feqI&feature=youtu.be
+                   </a>
+               </strong>
+       </p>
+       <p>
+           <hr style="border-top:1px solid #5f656d;height:1px;margin:16px 0;"></hr>
+       </p>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan" style="color:crimson;"><b>Product/Material Purchase Requisitions by Employees/Users</b></h2>
+       <div class="oe_demo oe_picture oe_screenshot">
+           <a target='new' href="http:/www.odoo.com/apps/modules/11.0/material_purchase_requisitions/">
+               <img src="material_purchase_req.png">
+           </a>
+       </div>
+       <p>
+           <h2>
+           <a href="http://www.odoo.com/apps/modules/11.0/material_purchase_requisitions/" target="new">
+                    Product/Material Purchase Requisitions by Employees/Users
+           </a>
+           </h2>
+       </p>
+        <p class="oe_mt32" style="color:CRIMSON;">
+                Product/Material Purchase Requisitions by Employees/Users
+        </p>
+           <p style="color:blue;">
+               <strong>For More Details:
+                   <a href="https://www.odoo.com/apps/modules/11.0/material_purchase_requisitions" target="new">
+                        https://www.odoo.com/apps/modules/11.0/material_purchase_requisitions
+                   </a>
+               </strong>
+            </p>
+            <p style="color:blue;">
+               <strong>For Video:
+                   <a href="https://www.youtube.com/watch?v=1AgKs7gfe4M&feature=youtu.be" target="new">
+                        https://www.youtube.com/watch?v=1AgKs7gfe4M&feature=youtu.be
+                   </a>
+               </strong>
+            </p>
+            <p>
+               <hr style="border-top:1px solid #5f656d;height:1px;margin:16px 0;"></hr>
+            </p>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan" style="color:crimson;"><b>Odoo Asset Transfer</b></h2>
+       <div class="oe_demo oe_picture oe_screenshot">
+           <a target='new' href="http:/www.odoo.com/apps/modules/11.0/odoo_asset_transfer/">
+               <img src="asset_transfer.png">
+           </a>
+       </div>
+       <p>
+           <h2>
+           <a href="http://www.odoo.com/apps/modules/11.0/odoo_asset_transfer/" target="new">
+                Odoo Asset Transfer
+           </a>
+           </h2>
+       </p>
+        <p class="oe_mt32" style="color:CRIMSON;">
+                Odoo Asset Transfer
+        </p>
+       <p style="color:blue;">
+               <strong>For More Details:
+                   <a href="https://www.odoo.com/apps/modules/11.0/odoo_asset_transfer" target="new">
+                        https://www.odoo.com/apps/modules/11.0/odoo_asset_transfer
+                   </a>
+               </strong>
+       </p>
+       <p style="color:blue;">
+           <strong>For Video:
+               <a href="https://www.youtube.com/watch?v=izA9ppjflKk&feature=youtu.be" target="new">
+                    https://www.youtube.com/watch?v=izA9ppjflKk&feature=youtu.be
+               </a>
+           </strong>
+       </p>
+       <p>
+           <hr style="border-top:1px solid #5f656d;height:1px;margin:16px 0;"></hr>
+       </p>
+</section>
+<!--
+<section class="oe_container">
+   <div class="oe_row oe_spaced">
+       <h2 class="oe_slogan" style="color:CRIMSON;"><b>Account Asset Disposal</h2>
+       <div class="oe_demo oe_screenshot">
+           <a target='new' href="http:/www.odoo.com/apps/modules/11.0/account_asset_disposal/">
+                <img src="odoo_account_disposal.png" >
+           </a>
+       </div>
+       <a href="http://www.odoo.com/apps/modules/11.0/account_asset_disposal/" target="new">
+            Odoo Account Asset Disposal
+       </a>
+        <p class="oe_mt32" style="color:CRIMSON;">
+            This module enables the feature to dispose the asset. User can use two below methods to dispose any asset.<br/>
+        </p>
+        <p style="color:blue;">
+           <strong>For More Details:
+               <a href="http://www.odoo.com/apps/modules/11.0/account_asset_disposal" target="new">
+                    http://www.odoo.com/apps/modules/11.0/account_asset_disposal
+               </a>
+           </strong>
+        </p>
+        <p style="color:blue;">
+           <strong>Video:
+               <a href="https://www.youtube.com/watch?v=TDPhPz_n83g&feature=youtu.be" target="new">
+                    https://www.youtube.com/watch?v=TDPhPz_n83g&feature=youtu.be 
+               </a>
+           </strong>
+        </p>
+         <p>
+            <hr style="border-top:1px solid #5f656d;height:1px;margin:16px 0;"></hr>
+         </p>
+   </div>
+</section>
+-->
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">
+            <strong><font style="color:#2dd280;" class="text-epsilon">Contact / Support<br/></font></strong>
+            <strong>
+                <font style="color:crimson;" class="text-epsilon">Introducing</font>
+                <font style="color:crimson;" class="text-epsilon">Probuse Consulting Services Pvt. Ltd.</font>
+            </strong>
+        </h2>
+        <div class="oe_span6">
+           <div class="mt32 col-md-10">
+               <div class="oe_picture" style="margin: 25px 10%;">
+                   <a href="http://www.probuse.com/" target='new'>
+                       <img src="logo.png">
+                   </a>
+               </div>
+               <p class="oe_mt32">
+                   <font style="color:crimson;">If you need any help or want more additional features, you may contact us through:</font><br/>
+                   <font style="color:crimson;">Email: <a href="contact@probuse.com">contact@probuse.com</a> <br/>
+                   <font style="color:crimson;">Website: </font><a href="http://www.probuse.com/" target='new'><u>www.probuse.com</u></a> <br/>
+                   <font style="color:crimson;">Skype: mustufa_probuse</font><br/>
+               </p>
+               <p>
+                    <h2>
+                        <a href="https://www.facebook.com/probusecs" target="new">
+                          <i class="fa fa-facebook-square" style="font-size:38px;"></i>
+                        </a>
+                        <a href="https://twitter.com/mustufa_odoo" target="new">
+                          <i class="fa fa-twitter" style="font-size:38px;"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mustufa-rangwala-odoo-openerp-0a46777/" target="new">
+                          <i class="fa fa-linkedin" style="font-size:38px;"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCHlyoC4khP44M1cOCJXo2FQ" target="new">
+                          <i class="fa fa-youtube-play" style="font-size:38px;"></i>
+                        </a>
+                        <a href="https://plus.google.com/u/0/113284573788891837715/posts" target="new" rel="publisher">
+                          <i class="fa fa-google-plus-square" style="font-size:38px;"></i>
+                        </a>
+                  </h2>
+                </p>
+           </div>
+        </div>
+        <div class="mt32 col-md-5">
+              <p style="text-align: justify;">
+                    <font class="text-epsilon" style="color:crimson;">Probuse Consulting Service Pvt Ltd is an Software and Web development specialist which offers complete business application together. We are well experienced to provide a face for your business on the software and Internet level.</font>
+              </p>
+              <p style="text-align: justify;">
+                <font class="text-epsilon" style="color:crimson">Probuse Consulting Service Pvt Ltd is a specialist in Odoo/OpenERP services and could give your business open source hand to drive.</font>
+              </p>
+              <h3 class="o_animate o_anim_bounce_in" style="text-align: left; animation-play-state: paused;">
+                    <font style="font-size: 18px;color:#ff8000;" class="text-epsilon"><strong>Our Services</strong></font>
+              </h3>
+              <ul style="list-style-type:square">
+                    <a href="http://www.probuse.com/page/odoo-implementation" target="new"><li list-style-type: "*";><p style="text-align: left; color:crimson;">Odoo Implementation</p></li></a>
+                    <a href="http://www.probuse.com/page/odoo-support" target="new"><li><p style="text-align: left; color:crimson;">Odoo Support</p></li></a>
+                    <a href="http://www.probuse.com/page/odoo-customization" target="new"><li><p style="text-align: left; color:crimson;">Odoo Customization</p></li></a>
+                    <a href="http://www.probuse.com/page/odoo-migration" target="new"><li><p style="text-align: left; color:crimson;">Odoo Migration</p></li></a>
+                    <a href="http://www.probuse.com/page/odoo-training" target="new"><li><p style="text-align: left; color:crimson;">Odoo Training</p></li></a>
+              </ul>
+        </div>
+    </div>
+</section>
